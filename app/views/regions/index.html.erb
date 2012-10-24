@@ -1,0 +1,29 @@
+<h1>Listing regions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Center address</th>
+    <th>Center lat</th>
+    <th>Center lng</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @regions.each do |region| %>
+  <tr>
+    <td><%= region.name %></td>
+    <td><%= region.center_address %></td>
+    <td><%= region.center_lat %></td>
+    <td><%= region.center_lng %></td>
+    <td><%= link_to 'Show', region %></td>
+    <td><%= link_to 'Edit', edit_region_path(region) %></td>
+    <td><%= link_to 'Destroy', region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Region', new_region_path %>

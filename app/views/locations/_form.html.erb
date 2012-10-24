@@ -1,0 +1,57 @@
+<%= form_for(@location) do |f| %>
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+      <ul>
+      <% @location.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :lat %><br />
+    <%= f.text_field :lat %>
+  </div>
+  <div class="field">
+    <%= f.label :lng %><br />
+    <%= f.text_field :lng %>
+  </div>
+  <div class="field">
+    <%= f.label :author %><br />
+    <%= f.text_field :author %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :season_start %><br />
+    <%= f.date_select :season_start %>
+  </div>
+  <div class="field">
+    <%= f.label :season_stop %><br />
+    <%= f.date_select :season_stop %>
+  </div>
+  <div class="field">
+    <%= f.label :region %><br />
+    <%= f.text_field :region %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_area :address %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

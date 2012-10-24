@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Lat:</b>
+  <%= @location.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @location.lng %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @location.author %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @location.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @location.description %>
+</p>
+
+<p>
+  <b>Season start:</b>
+  <%= @location.season_start %>
+</p>
+
+<p>
+  <b>Season stop:</b>
+  <%= @location.season_stop %>
+</p>
+
+<p>
+  <b>Region:</b>
+  <%= @location.region %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @location.type %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @location.address %>
+</p>
+
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>

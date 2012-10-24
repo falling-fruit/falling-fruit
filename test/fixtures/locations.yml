@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  lat: 1.5
+  lng: 1.5
+  author: MyString
+  title: MyString
+  description: MyText
+  season_start: 2012-10-24
+  season_stop: 2012-10-24
+  region: 
+  type: 
+  address: MyText
+
+two:
+  lat: 1.5
+  lng: 1.5
+  author: MyString
+  title: MyString
+  description: MyText
+  season_start: 2012-10-24
+  season_stop: 2012-10-24
+  region: 
+  type: 
+  address: MyText
