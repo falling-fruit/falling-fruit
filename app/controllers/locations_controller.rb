@@ -43,7 +43,7 @@ class LocationsController < ApplicationController
     @location = Location.new(params[:location])
 
     respond_to do |format|
-      if @location.save
+      if verify_recaptcha(:model => @location, :message => "ReCAPCHA error!") and @location.save
         format.html { redirect_to @location, notice: 'Location was successfully created.' }
         format.json { render json: @location, status: :created, location: @location }
       else

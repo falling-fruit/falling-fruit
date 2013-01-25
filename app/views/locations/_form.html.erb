@@ -12,14 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :lat %><br />
-    <%= f.text_field :lat %>
-  </div>
-  <div class="field">
-    <%= f.label :lng %><br />
-    <%= f.text_field :lng %>
-  </div>
-  <div class="field">
     <%= f.label :author %><br />
     <%= f.text_field :author %>
   </div>
@@ -33,24 +25,33 @@
   </div>
   <div class="field">
     <%= f.label :season_start %><br />
-    <%= f.date_select :season_start %>
+    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>
   </div>
   <div class="field">
     <%= f.label :season_stop %><br />
-    <%= f.date_select :season_stop %>
+    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>
+  </div>
+  <div class="field">
+    <%= f.label :no_season %><br />
+    <%= f.check_box(:no_season) %>
+  </div>
+  <div class="field">
+    <%= f.label :inaccessible %><br />
+    <%= f.check_box(:inaccessible) %>
   </div>
   <div class="field">
     <%= f.label :region %><br />
-    <%= f.text_field :region %>
+    <%= f.select(:region,Region.all.collect{ |r| [r.name,r.id] }) %>
   </div>
   <div class="field">
     <%= f.label :type %><br />
-    <%= f.text_field :type %>
+    <%= f.select(:type,Type.all.collect{ |t| [t.name,t.id] }) %>
   </div>
   <div class="field">
     <%= f.label :address %><br />
     <%= f.text_area :address %>
   </div>
+  <%= recaptcha_tags %>
   <div class="actions">
     <%= f.submit %>
   </div>

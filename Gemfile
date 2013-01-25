@@ -50,4 +50,4 @@ gem 'yaml_db'
 gem 'paperclip', '~> 3.1'
 #gem 'prawn'
 gem 'gmaps4rails'
-
+gem 'recaptcha', :require => "recaptcha/rails"

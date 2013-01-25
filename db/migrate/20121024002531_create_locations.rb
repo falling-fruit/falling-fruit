@@ -6,8 +6,10 @@ class CreateLocations < ActiveRecord::Migration
       t.string :author
       t.string :title
       t.text :description
-      t.date :season_start
-      t.date :season_stop
+      t.integer :season_start
+      t.integer :season_stop
+      t.boolean :no_season
+      t.boolean :inaccessible
       t.references :region
       t.references :type
       t.text :address
