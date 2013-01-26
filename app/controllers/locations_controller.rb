@@ -74,8 +74,14 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
-        format.html { redirect_to @location, notice: 'Location was successfully created.' }
-        format.json { render json: @location, status: :created, location: @location }
+        unless params[:create_another].nil?
+          flash[:notice] = 'Location was successfully created.'
+          format.html { render action: "new" }
+          format.json { render json: @location, status: :created, location: @location }
+        else
+          format.html { redirect_to @location, notice: 'Location was successfully created.' }
+          format.json { render json: @location, status: :created, location: @location }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @location.errors, status: :unprocessable_entity }

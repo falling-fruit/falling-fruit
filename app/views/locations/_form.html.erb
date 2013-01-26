@@ -63,6 +63,10 @@
     <span class="subtext">Check here if it is not, or is no longer accessible :(</span>
   </div>
   <div class="field">
+    <%= f.check_box(:unverified) %> Unverified<br>
+    <span class="subtext">Check here if you haven't actually seen/verified this source.</span>
+  </div>
+  <div class="field">
     <%= f.label :rating %><br />
     <span class="subtext">Rate the tastiness and productivity of this source.</span><br>
     <%= f.select(:rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
@@ -73,5 +77,6 @@
   <br>
   <div class="actions">
     <%= f.submit %>
+    <%= check_box_tag(:create_another, '1', :checked => true) %> Create Another<br>
   </div>
 <% end %>

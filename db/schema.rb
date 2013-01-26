@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130126194149) do
+ActiveRecord::Schema.define(:version => 20130126195410) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -45,10 +45,11 @@ ActiveRecord::Schema.define(:version => 20130126194149) do
     t.integer  "region_id"
     t.integer  "type_id"
     t.text     "address"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "type_other"
     t.integer  "rating"
+    t.boolean  "unverified",   :default => false
   end
 
   add_index "locations", ["region_id"], :name => "index_locations_on_region_id"
