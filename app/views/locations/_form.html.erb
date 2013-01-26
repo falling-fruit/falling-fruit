@@ -10,7 +10,6 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :author %><br />
     <%= f.text_field :author %>
@@ -20,24 +19,18 @@
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :address %><br />
+    <%= f.text_area :address, :size => "20x3" %>
   </div>
   <div class="field">
-    <%= f.label :season_start %><br />
-    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>
+    <%= f.label :description_and_notes %><br />
+    <%= f.text_area :description, :size => "30x10" %>
   </div>
   <div class="field">
-    <%= f.label :season_stop %><br />
-    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>
-  </div>
-  <div class="field">
-    <%= f.label :no_season %><br />
-    <%= f.check_box(:no_season) %>
-  </div>
-  <div class="field">
-    <%= f.label :inaccessible %><br />
-    <%= f.check_box(:inaccessible) %>
+    <%= f.label :season %><br />
+    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %> to 
+    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>, or
+    <%= f.check_box(:no_season) %> No Season
   </div>
   <div class="field">
     <%= f.label :region %><br />
@@ -48,10 +41,12 @@
     <%= f.select(:type_id,Type.all.collect{ |t| [t.name,t.id] }) %>
   </div>
   <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_area :address %>
+    Inaccessible :(<br>
+    <%= f.check_box(:inaccessible) %>
   </div>
+  <br>
   <%= recaptcha_tags if current_admin.nil? %>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

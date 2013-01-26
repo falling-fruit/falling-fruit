@@ -109,6 +109,17 @@ span.subtext{
 
 div#menu{
  margin-top: 2em;
+ width: 100%;
+ padding: 0.5em;
+ background: lightgrey;
+ border: 1px solid grey;
+}
+
+h1 {
+  color: #888888;
+  padding: 2px 0px;
+  margin: 0;
+  font: bold 130% arial, sans-serif;
 }
 
 h2 {

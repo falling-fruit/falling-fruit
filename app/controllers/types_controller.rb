@@ -12,17 +12,6 @@ class TypesController < ApplicationController
     end
   end
 
-  # GET /types/1
-  # GET /types/1.json
-  def show
-    @type = Type.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @type }
-    end
-  end
-
   # GET /types/new
   # GET /types/new.json
   def new

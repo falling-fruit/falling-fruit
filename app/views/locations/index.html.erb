@@ -1,3 +1,5 @@
+<h1>Falling Fruit Map</h1>
+<br>
 Regions: 
 <% @regions.collect{ |region| %>
   <% if @type.nil? %>
@@ -39,7 +41,9 @@ Types:
     <th>Address</th>
     <th></th>
     <th></th>
-    <th></th>
+    <% unless current_admin.nil? %>
+      <th></th>
+    <% end %>
   </tr>
 
 <% @locations.each do |location| %>
@@ -54,11 +58,9 @@ Types:
     <td><%= location.address %></td>
     <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>
-    <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% unless current_admin.nil? %>
+      <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Location', new_location_path %>

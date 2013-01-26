@@ -1,15 +1,20 @@
-<h1>Listing admins</h1>
+<h1>Admins</h1>
 
 <table>
   <tr>
     <th>Email</th>
+    <th>Created At</th>
     <th></th>
     <th></th>
   </tr>
 
-<% @admins.each do |admin| %>
-  <tr>
+<% unapproved = 0 
+   @admins.each do |admin| 
+     unapproved += 1 unless admin.approved
+%>
+  <tr style="<%= !admin.approved ? "background: lightblue;" : "" %>">
     <td><%= admin.email %></td>
+    <td><%= admin.created_at %></td>
     <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <td><%= link_to 'Approve', "/admins/#{admin.id}/approve" %></td>
   </tr>
@@ -18,4 +23,4 @@
 
 <br />
 
-<%= link_to "Admins awaiting approval", :action => "index", :approved => "false" %>
+<%= link_to "Admins awaiting approval", :action => "index", :approved => "false" %>: <%= unapproved %>
