@@ -1,3 +1,16 @@
 <h1>New location</h1>
 
 <%= render 'form' %>
+
+<% content_for :scripts do %>
+<script type="text/javascript" charset="utf-8">
+navigator.geolocation.getCurrentPosition(function(position){
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    if($('location_lat').value == "") $('location_lat').value = lat;
+    if($('location_lng').value == "") $('location_lng').value = lon;
+},function(error){
+    //use error.code to determine what went wrong
+});
+</script>
+<% end %>
