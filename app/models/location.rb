@@ -1,6 +1,11 @@
 class Location < ActiveRecord::Base
   belongs_to :region
   belongs_to :type
+
+  validates :title, :author, :presence => true
+  validates :lat, :lng, :numericality => true, :allow_nil => true
+  validates :region_id, :type_id, :numericality => { :only_integer => true }, :allow_nil => true
+
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :title, :no_season, :inaccessible, :region_id, :type_id
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   acts_as_gmappable :process_geocoding => false, :lat => "lat", :lng => "lng", :address => "address"
@@ -20,7 +25,7 @@ class Location < ActiveRecord::Base
     unless self.type.nil?
       ret += "Type: #{self.type.name}<br>"
     end
-    unless self.no_season
+    unless self.no_season or self.season_start.nil? or self.season_stop.nil?
       ret += "Fruiting from #{Months[season_start]} to #{Months[season_stop]}<br>"
     end
     ret += "<a href=\"/locations/#{self.id}/edit\">Edit</a><br>"

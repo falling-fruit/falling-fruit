@@ -2,6 +2,10 @@ body{
   font-family: 'Droid Sans', sans-serif;
 }
 
+div.field {
+  margin-top: 1em;
+}
+
 html, body {
         height: 100%;
 }

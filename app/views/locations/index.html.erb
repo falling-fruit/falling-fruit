@@ -64,3 +64,56 @@ Types:
   </tr>
 <% end %>
 </table>
+
+ <% content_for :scripts do %>
+    <script type="text/javascript" charset="utf-8">
+        var markersArray = [];
+        // On click, clear markers, place a new one, update coordinates in the form
+        Gmaps.map.callback = function() {
+            google.maps.event.addListener(Gmaps.map.serviceObject, 'click', function(event) {
+              clearOverlays();
+              placeMarker(event.latLng);
+              //updateFormLocation(event.latLng);
+            });
+        };
+        // Update form attributes with given coordinates
+        //function updateFormLocation(latLng) {
+        //    $('#location_attributes_latitude').val(latLng.lat());
+        //    $('#location_attributes_longitude').val(latLng.lng());
+        //    $('#location_attributes_gmaps_zoom').val(Gmaps.map.serviceObject.getZoom());
+        //}
+        // Add a marker with an open infowindow
+        function placeMarker(latLng) {
+            var marker = new google.maps.Marker({
+                position: latLng, 
+                map: Gmaps.map.serviceObject,
+                draggable: true
+            });
+            markersArray.push(marker);
+            // Set and open infowindow
+            var infowindow = new google.maps.InfoWindow({
+                content: '<a href="/locations/new?lat=' + latLng.lat() + '&lng=' + latLng.lng() + 
+                         '">Click to add a source here</a><br>(You can drag this thing too)'
+            });
+            infowindow.open(Gmaps.map.serviceObject,marker);
+            // Listen to drag & drop
+            google.maps.event.addListener(marker, 'dragend', function() {
+                //updateFormLocation(this.getPosition());
+                var infowindow = new google.maps.InfoWindow({
+                  content: '<a href="/locations/new?lat=' + this.getPosition().lat() +
+                           '&lng=' + this.getPosition().lng() + '">Click to add a source here</a><br>(You can drag this thing too)'
+                });
+                infowindow.open(Gmaps.map.serviceObject,marker);
+            });
+        }
+        // Removes the overlays from the map
+        function clearOverlays() {
+          if (markersArray) {
+            for (var i = 0; i < markersArray.length; i++ ) {
+              markersArray[i].setMap(null);
+            }
+          }
+          markersArray.length = 0;
+        }
+    </script>
+<% end %>

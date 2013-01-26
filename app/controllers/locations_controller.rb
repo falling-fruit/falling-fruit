@@ -9,22 +9,22 @@ class LocationsController < ApplicationController
       if params[:type_id].nil?
         @type = nil
         @locations = Location.all
-        @types = @locations.collect{ |l| l.type }.uniq
+        @types = @locations.collect{ |l| l.type }.compact.uniq
       else
         @type = Type.find(params[:type_id])
         @locations = Location.find_all_by_type_id(params[:type_id])
-        @types = Location.all.collect{ |l| l.type }.uniq
+        @types = Location.all.collect{ |l| l.type }.compact.uniq
       end
     else
       @region = Region.find(params[:region_id])
       if params[:type_id].nil?
         @type = nil
         @locations = Location.find_all_by_region_id(params[:region_id])
-        @types = @locations.collect{ |l| l.type }.uniq
+        @types = @locations.collect{ |l| l.type }.compact.uniq
       else
         @type = Type.find(params[:type_id])
         @locations = Location.find_all_by_type_id_and_region_id(params[:type_id],params[:region_id])
-        @types = Location.find_all_by_region_id(params[:region_id]).collect{ |l| l.type }.uniq
+        @types = Location.find_all_by_region_id(params[:region_id]).collect{ |l| l.type }.compact.uniq
       end
     end
     @regions = Region.all
@@ -50,7 +50,12 @@ class LocationsController < ApplicationController
   # GET /locations/new.json
   def new
     @location = Location.new
-
+    @lat = nil
+    @lng = nil
+    unless params[:lat].nil? or params[:lng].nil?
+      @lat = params[:lat].to_f
+      @lng = params[:lng].to_f
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @location }

@@ -12,37 +12,54 @@
   <% end %>
   <div class="field">
     <%= f.label :author %><br />
+    <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
     <%= f.text_field :author %>
+    <span>
   </div>
   <div class="field">
     <%= f.label :title %><br />
+    <span class="subtext">A short description of what it is, e.g., "Big old apple tree"</span><br>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_area :address, :size => "20x3" %>
+    <%= f.label :region %><br />
+    <%= f.select(:region_id,Region.all.collect{ |r| [r.name,r.id] },:include_blank => true) %>
   </div>
   <div class="field">
+    <%= f.label :type %><br />
+    <%= f.select(:type_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank => true) %>
+  </div>
+  <% if @lat.nil? %>
+    <div class="field">
+      <%= f.label :address %><br />
+      <span class="subtext">This get's automatically turned into coordinates, so a real address is better...</span><br>
+      <%= f.text_area :address, :size => "20x3" %>
+    </div>
+  <% else %>
+    <div class="field">
+      <%= f.label :latitude %><br />
+      <%= f.text_field :lat, :value => @lat %>
+    </div>
+    <div class="field">
+      <%= f.label :longitude %><br />
+      <%= f.text_field :lng, :value => @lng %>
+    </div>
+  <% end %>
+  <div class="field">
     <%= f.label :description_and_notes %><br />
+    <span class="subtext">Any access issues? Problems? Things to note?</span><br>
     <%= f.text_area :description, :size => "30x10" %>
   </div>
   <div class="field">
     <%= f.label :season %><br />
-    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %> to 
-    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>, or
+    <span class="subtext">When is it fruiting (approximately), leave blank if you don't know</span><br>
+    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
+    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
     <%= f.check_box(:no_season) %> No Season
   </div>
   <div class="field">
-    <%= f.label :region %><br />
-    <%= f.select(:region_id,Region.all.collect{ |r| [r.name,r.id] }) %>
-  </div>
-  <div class="field">
-    <%= f.label :type %><br />
-    <%= f.select(:type_id,Type.all.collect{ |t| [t.name,t.id] }) %>
-  </div>
-  <div class="field">
-    Inaccessible :(<br>
-    <%= f.check_box(:inaccessible) %>
+    <%= f.check_box(:inaccessible) %> Inaccessible<br>
+    <span class="subtext">Check here if it is not, or is no longer accessible :(</span>
   </div>
   <br>
   <%= recaptcha_tags if current_admin.nil? %>
