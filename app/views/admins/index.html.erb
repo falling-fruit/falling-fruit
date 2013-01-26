@@ -1,0 +1,21 @@
+<h1>Listing admins</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @admins.each do |admin| %>
+  <tr>
+    <td><%= admin.email %></td>
+    <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Approve', "/admins/#{admin.id}/approve" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to "Admins awaiting approval", :action => "index", :approved => "false" %>

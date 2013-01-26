@@ -41,17 +41,17 @@
   </div>
   <div class="field">
     <%= f.label :region %><br />
-    <%= f.select(:region,Region.all.collect{ |r| [r.name,r.id] }) %>
+    <%= f.select(:region_id,Region.all.collect{ |r| [r.name,r.id] }) %>
   </div>
   <div class="field">
     <%= f.label :type %><br />
-    <%= f.select(:type,Type.all.collect{ |t| [t.name,t.id] }) %>
+    <%= f.select(:type_id,Type.all.collect{ |t| [t.name,t.id] }) %>
   </div>
   <div class="field">
     <%= f.label :address %><br />
     <%= f.text_area :address %>
   </div>
-  <%= recaptcha_tags %>
+  <%= recaptcha_tags if current_admin.nil? %>
   <div class="actions">
     <%= f.submit %>
   </div>

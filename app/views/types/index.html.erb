@@ -10,6 +10,10 @@
 
 <% @types.each do |type| %>
   <tr>
+    <td><% unless type.marker_file_name.nil? %>
+         <%= image_tag type.marker.url %>
+        <% end %>
+    </td>
     <td><%= type.name %></td>
     <td><%= link_to 'Show', type %></td>
     <td><%= link_to 'Edit', edit_type_path(type) %></td>

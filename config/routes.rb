@@ -1,9 +1,17 @@
 FallingfruitWebapp::Application.routes.draw do
+
   resources :locations
 
   resources :types
 
   resources :regions
+
+  devise_for :admins
+  resources :admins do
+    member do
+      get 'approve'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

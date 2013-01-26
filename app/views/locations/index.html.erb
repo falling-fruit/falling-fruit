@@ -1,11 +1,34 @@
-<h1>Listing locations</h1>
+Regions: 
+<% @regions.collect{ |region| %>
+  <% if @type.nil? %>
+    <a href="/locations?region_id=<%= region.id %>"><%= region.name %></a> |
+  <% else %>
+    <a href="/locations?type_id=<%= @type.id %>&region_id=<%= region.id %>"><%= region.name %></a> |
+  <% end %>
+<% } %>
+<a href="/locations/">All</a>
+<% unless @region.nil? %>
+(Current Filter: <%= @region.name %>)
+<% end %>
+<br>
+Types:
+<% @types.collect{ |type| %>
+  <% if @region.nil? %>
+    <a href="/locations?type_id=<%= type.id %>"><%= type.name %></a> |
+  <% else %>
+    <a href="/locations?region_id=<%= @region.id %>&type_id=<%= type.id %>"><%= type.name %></a> |
+  <% end %>
+<% } %>
+<a href="/locations/">All</a>
+<% unless @type.nil? %>
+(Current Filter: <%= @type.name %>)
+<% end %>
 
+<br><br>
 <%= gmaps4rails(@locations.to_gmaps4rails) %>
 <br>
 <table>
   <tr>
-    <th>Lat</th>
-    <th>Lng</th>
     <th>Author</th>
     <th>Title</th>
     <th>Description</th>
@@ -21,15 +44,13 @@
 
 <% @locations.each do |location| %>
   <tr>
-    <td><%= location.lat %></td>
-    <td><%= location.lng %></td>
     <td><%= location.author %></td>
     <td><%= location.title %></td>
     <td><%= location.description %></td>
     <td><%= location.season_start %></td>
     <td><%= location.season_stop %></td>
-    <td><%= location.region %></td>
-    <td><%= location.type %></td>
+    <td><%= location.region.nil? ? "?" : location.region.name %></td>
+    <td><%= location.type.nil? ? "?" : location.type.name %></td>
     <td><%= location.address %></td>
     <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>

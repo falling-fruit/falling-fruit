@@ -4,8 +4,6 @@
   <tr>
     <th>Name</th>
     <th>Center address</th>
-    <th>Center lat</th>
-    <th>Center lng</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,9 +13,7 @@
   <tr>
     <td><%= region.name %></td>
     <td><%= region.center_address %></td>
-    <td><%= region.center_lat %></td>
-    <td><%= region.center_lng %></td>
-    <td><%= link_to 'Show', region %></td>
+    <td><%= link_to 'Map', "/locations?region_id=#{region.id}" %></td>
     <td><%= link_to 'Edit', edit_region_path(region) %></td>
     <td><%= link_to 'Destroy', region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

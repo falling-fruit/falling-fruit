@@ -2,7 +2,30 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all
+    if params[:region_id].nil?
+      @region = nil
+      if params[:type_id].nil?
+        @type = nil
+        @locations = Location.all
+        @types = @locations.collect{ |l| l.type }.uniq
+      else
+        @type = Type.find(params[:type_id])
+        @locations = Location.find_all_by_type_id(params[:type_id])
+        @types = Location.all.collect{ |l| l.type }.uniq
+      end
+    else
+      @region = Region.find(params[:region_id])
+      if params[:type_id].nil?
+        @type = nil
+        @locations = Location.find_all_by_region_id(params[:region_id])
+        @types = @locations.collect{ |l| l.type }.uniq
+      else
+        @type = Type.find(params[:type_id])
+        @locations = Location.find_all_by_type_id_and_region_id(params[:type_id],params[:region_id])
+        @types = Location.find_all_by_region_id(params[:region_id]).collect{ |l| l.type }.uniq
+      end
+    end
+    @regions = Region.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,7 +66,7 @@ class LocationsController < ApplicationController
     @location = Location.new(params[:location])
 
     respond_to do |format|
-      if verify_recaptcha(:model => @location, :message => "ReCAPCHA error!") and @location.save
+      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
         format.html { redirect_to @location, notice: 'Location was successfully created.' }
         format.json { render json: @location, status: :created, location: @location }
       else
@@ -59,7 +82,7 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
 
     respond_to do |format|
-      if @location.update_attributes(params[:location])
+      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.update_attributes(params[:location])
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { head :no_content }
       else

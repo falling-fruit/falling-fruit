@@ -1,4 +1,4 @@
-<%= form_for(@type) do |f| %>
+<%= form_for @type, :html => { :multipart => true }  do |f| %>
   <% if @type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@type.errors.count, "error") %> prohibited this type from being saved:</h2>
@@ -14,6 +14,10 @@
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :marker %><br />
+    <%= f.file_field :marker %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -39,7 +39,7 @@ gem 'jquery-rails'
 
 #gem 'active_scaffold'
 gem 'geocoder'
-#gem 'devise'
+gem 'devise'
 gem 'thin'
 gem 'pg'
 #gem 'twitter'
