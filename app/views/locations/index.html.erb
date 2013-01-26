@@ -27,7 +27,12 @@ Types:
 <% end %>
 
 <br><br>
+<div>
+<div id="recenter_button" style="text-align: right; width: 817px;">
+<button onclick="recenter_map()">Zoom Map to My Location</button>
+</div>
 <%= gmaps4rails(@locations.to_gmaps4rails) %>
+</div>
 <br>
 <table>
   <tr>
@@ -67,21 +72,31 @@ Types:
 
  <% content_for :scripts do %>
     <script type="text/javascript" charset="utf-8">
+        function recenter_map(){
+          navigator.geolocation.getCurrentPosition(function(position){
+              var lat = position.coords.latitude;
+              var lon = position.coords.longitude;
+              loc = new google.maps.LatLng(lat,lon);
+              Gmaps.map.serviceObject.panTo(loc);
+              Gmaps.map.serviceObject.setZoom(14);
+          },function(error){
+            //use error.code to determine what went wrong
+          });
+        }
+        if(!navigator.geolocation){
+          $('recenter_button').hide();
+        }
+        navigator.geolocation.getCurrentPosition(function(position){},function(error){
+          $('recenter_button').hide();
+        });
         var markersArray = [];
         // On click, clear markers, place a new one, update coordinates in the form
         Gmaps.map.callback = function() {
             google.maps.event.addListener(Gmaps.map.serviceObject, 'click', function(event) {
               clearOverlays();
               placeMarker(event.latLng);
-              //updateFormLocation(event.latLng);
             });
         };
-        // Update form attributes with given coordinates
-        //function updateFormLocation(latLng) {
-        //    $('#location_attributes_latitude').val(latLng.lat());
-        //    $('#location_attributes_longitude').val(latLng.lng());
-        //    $('#location_attributes_gmaps_zoom').val(Gmaps.map.serviceObject.getZoom());
-        //}
         // Add a marker with an open infowindow
         function placeMarker(latLng) {
             var marker = new google.maps.Marker({
@@ -98,7 +113,6 @@ Types:
             infowindow.open(Gmaps.map.serviceObject,marker);
             // Listen to drag & drop
             google.maps.event.addListener(marker, 'dragend', function() {
-                //updateFormLocation(this.getPosition());
                 var infowindow = new google.maps.InfoWindow({
                   content: '<a href="/locations/new?lat=' + this.getPosition().lat() +
                            '&lng=' + this.getPosition().lng() + '">Click to add a source here</a><br>(You can drag this thing too)'
