@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<div id="everything">
 <% if notice %>
 <div class="notice"><%= notice %></div>
 <% end %>
@@ -28,7 +29,6 @@ Logged in as <%= current_admin.email %>:
 <%= link_to('Admin Login', admins_path) %>
 <% end %>
 </div> 
-More stuff: 
 <%= link_to('Home', root_path) %> |
 <%= link_to('Add Source', new_location_path) %>
 <% if admin_signed_in? %>
@@ -37,7 +37,7 @@ More stuff:
 <%= link_to('Types', types_path) %>
 <% end %>
 </div>
-
+</div>
 <%= yield :scripts %> 
 
 </body>

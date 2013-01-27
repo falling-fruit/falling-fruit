@@ -1,5 +1,23 @@
 body{
+  font-size: 11pt;
   font-family: 'Droid Sans', sans-serif;
+  background: #003366;
+}
+
+div#banner{
+  text-align: center;
+  font-size: 300%;
+  font-weight: bold;
+  color: #EEEEEE;
+  margin-bottom: 0.2em;
+}
+
+div#everything{
+  width: 815px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  background: #eeeeee;
 }
 
 div.field {
@@ -72,17 +90,17 @@ span.subtext{
 
 div#menu{
  margin-top: 2em;
- width: 100%;
  padding: 0.5em;
  background: lightgrey;
  border: 1px solid grey;
 }
 
 h1 {
-  color: #888888;
+  color: #555555;
   padding: 2px 0px;
   margin: 0;
-  font: bold 130% arial, sans-serif;
+  font: bold 200% arial, sans-serif;
+  font-variant: small-caps;
 }
 
 h2 {
