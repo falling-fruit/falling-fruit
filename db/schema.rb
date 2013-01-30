@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130126195410) do
+ActiveRecord::Schema.define(:version => 20130130011504) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -36,24 +36,35 @@ ActiveRecord::Schema.define(:version => 20130126195410) do
     t.float    "lat"
     t.float    "lng"
     t.string   "author"
-    t.string   "title"
     t.text     "description"
     t.integer  "season_start"
     t.integer  "season_stop"
     t.boolean  "no_season"
-    t.boolean  "inaccessible"
     t.integer  "region_id"
     t.integer  "type_id"
     t.text     "address"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "type_other"
-    t.integer  "rating"
-    t.boolean  "unverified",   :default => false
+    t.boolean  "unverified",     :default => false
+    t.integer  "quality_rating"
+    t.integer  "yield_rating"
+    t.integer  "access"
   end
 
   add_index "locations", ["region_id"], :name => "index_locations_on_region_id"
   add_index "locations", ["type_id"], :name => "index_locations_on_type_id"
+
+  create_table "observations", :force => true do |t|
+    t.integer  "location_id"
+    t.boolean  "is_fruiting"
+    t.text     "comment"
+    t.date     "observed_on"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
 
   create_table "regions", :force => true do |t|
     t.string   "name"

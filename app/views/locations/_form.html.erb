@@ -10,21 +10,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    *<%= f.label :title %><br />
-    <span class="subtext">A short description of what it is, e.g., "Big old apple tree"</span><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    *<%= f.label :author %><br />
-    <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
-    <%= f.text_field :author %>
-    <span>
-  </div>
-  <div class="field">
-    <%= f.label :region %><br />
-    <%= f.select(:region_id,Region.all.collect{ |r| [r.name,r.id] },:include_blank => true) %>
-  </div>
+
   <div class="field">
     <%= f.label :type %><br />
     <span class="subtext">What'd you find?</span><br>
@@ -52,17 +38,30 @@
     <%= f.check_box(:no_season) %> No Season
   </div>
   <div class="field">
-    <%= f.check_box(:inaccessible) %> Inaccessible<br>
-    <span class="subtext">Check here if it is not, or is no longer accessible :(</span>
-  </div>
-  <div class="field">
     <%= f.check_box(:unverified) %> Unverified<br>
     <span class="subtext">Check here if you haven't actually seen/verified this source.</span>
   </div>
   <div class="field">
-    <%= f.label :rating %><br />
-    <span class="subtext">Rate the tastiness and productivity of this source.</span><br>
-    <%= f.select(:rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+    <%= f.label :quality_rating %><br />
+    <span class="subtext">Rate the tastiness of this source.</span><br>
+    <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+  </div>
+  <div class="field">
+    <%= f.label :yield_rating %><br />
+    <span class="subtext">Rate the productivity of this source.</span><br>
+    <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+  </div>
+  <div class="field">
+    <%= f.label :access %><br />
+    <span class="subtext">Comment on the accessibility of this source. Leave blank if the status is unknown.</span><br>
+    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
+  </div>
+
+  <div class="field">
+    *<%= f.label :author %><br />
+    <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
+    <%= f.text_field :author %>
+    <span>
   </div>
 
   <br>
