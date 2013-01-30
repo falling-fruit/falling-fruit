@@ -39,12 +39,10 @@ Types:
 <br>
 <table>
   <tr>
-    <th>Author</th>
-    <th>Title</th>
+    <th>Type</th>
     <th>Description</th>
     <th>Season start</th>
     <th>Season stop</th>
-    <th>Region</th>
     <th>Type</th>
     <th>Address</th>
     <th></th>
@@ -56,13 +54,10 @@ Types:
 
 <% @locations.each do |location| %>
   <tr>
-    <td><%= location.author %></td>
     <td><%= location.title %></td>
     <td><%= location.description %></td>
     <td><%= location.season_start %></td>
     <td><%= location.season_stop %></td>
-    <td><%= location.region.nil? ? "?" : location.region.name %></td>
-    <td><%= location.type.nil? ? "?" : location.type.name %></td>
     <td><%= location.address %></td>
     <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>
