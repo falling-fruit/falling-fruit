@@ -44,10 +44,10 @@ class Location < ActiveRecord::Base
 
   def gmaps4rails_marker_picture
     {
-      "picture" => (self.type.nil? or self.type.marker_file_name.nil?) ? "http://maps.gstatic.com/intl/en_ALL/mapfiles/dd-end.png" : self.type.marker.url,
-      "width" => 30,
-      "height" => 30,
-      "marker_anchor" => [5, 10],
+      #"picture" => "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
+      #"width" => 20,
+      #"height" => 20,
+      #"marker_anchor" => [5, 10],
       #"shadow_picture" => "/images/morgan.png" ,
       #"shadow_width" => "110",
       #"shadow_height" => "110",

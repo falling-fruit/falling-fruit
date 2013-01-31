@@ -17,4 +17,4 @@
 //= require effects
 //= require dragdrop
 //= require controls
-//= require_tree .
+//= require_directory ./gmaps4rails

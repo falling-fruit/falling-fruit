@@ -1,34 +1,31 @@
+html{ height: 100%; }
 body{
   font-size: 11pt;
   font-family: 'Droid Sans', sans-serif;
-  background: #003366;
+  padding: 0;
+  margin: 0;
+  height: 100%;
 }
 
-div#banner{
-  text-align: center;
-  font-size: 300%;
-  font-weight: bold;
-  color: #EEEEEE;
-  margin-bottom: 0.2em;
+div#content{
+  padding: 0.5em;
 }
 
 div#everything{
-  width: 815px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1em;
-  background: #eeeeee;
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  padding: 0;
 }
+
+a { color: #333333; }
 
 div.field {
   margin-top: 1em;
 }
 
-html, body {
-        height: 100%;
-}
-
 table{
+  width: 100%;
 }
 
 table tbody{
@@ -88,11 +85,12 @@ span.subtext{
   color: grey;
 }
 
-div#menu{
- margin-top: 2em;
+div#menu, div#filter{
  padding: 0.5em;
  background: lightgrey;
- border: 1px solid grey;
+ font-size: 10pt;
+ font-weight: bold;
+ color: #222222;
 }
 
 h1 {

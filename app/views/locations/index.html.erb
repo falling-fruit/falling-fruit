@@ -1,72 +1,42 @@
-<div style="background: darkgrey;padding:0.5em;">
-<div style="float: right;"><img src="/logo.png" height="40"></div>
-<h1>The Falling Fruit Map</h1>
+<div style="clear: both;">
+<style>
+.map_container{
+   width:99.8%;
+   height: 100%;
+   padding: 0;
+   margin: 0;
+   position: relative;
+}
+.gmaps4rails_map{
+   height: 600px;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   position: relative;
+}
+</style>
+<%= gmaps4rails(@locations.to_gmaps4rails) %>
+
+<div id="recenter_button" style="float: right;">
+<button onclick="recenter_map()">Zoom Map to My Location</button>
 </div>
-<br>
-Regions: 
-<% @regions.collect{ |region| %>
-  <% if @type.nil? %>
-    <a href="/locations?region_id=<%= region.id %>"><%= region.name %></a> |
-  <% else %>
-    <a href="/locations?type_id=<%= @type.id %>&region_id=<%= region.id %>"><%= region.name %></a> |
-  <% end %>
-<% } %>
-<a href="/locations/">All</a>
-<% unless @region.nil? %>
-(Current Filter: <%= @region.name %>)
-<% end %>
-<br>
-Types:
+<div id="recenter_button" style="float: right;">
+<input id="address" name="address" value="Any address" onclick="this.value = '';">
+<button onclick="recenter_map_to_address()">Zoom</button>
+</div>
+
+
+
+<div id="filter">
+Filter by Type:
 <% @types.collect{ |type| %>
-  <% if @region.nil? %>
-    <a href="/locations?type_id=<%= type.id %>"><%= type.name %></a> |
-  <% else %>
-    <a href="/locations?region_id=<%= @region.id %>&type_id=<%= type.id %>"><%= type.name %></a> |
-  <% end %>
+  <a href="/locations?type_id=<%= type.id %>"><%= type.name %></a> |
 <% } %>
 <a href="/locations/">All</a>
 <% unless @type.nil? %>
 (Current Filter: <%= @type.name %>)
 <% end %>
-
-<br><br>
-<div>
-<div id="recenter_button" style="text-align: right; width: 817px;">
-<button onclick="recenter_map()">Zoom Map to My Location</button>
 </div>
-<%= gmaps4rails(@locations.to_gmaps4rails) %>
-</div>
-<br>
-<table>
-  <tr>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Season start</th>
-    <th>Season stop</th>
-    <th>Type</th>
-    <th>Address</th>
-    <th></th>
-    <th></th>
-    <% unless current_admin.nil? %>
-      <th></th>
-    <% end %>
-  </tr>
-
-<% @locations.each do |location| %>
-  <tr>
-    <td><%= location.title %></td>
-    <td><%= location.description %></td>
-    <td><%= location.season_start %></td>
-    <td><%= location.season_stop %></td>
-    <td><%= location.address %></td>
-    <td><%= link_to 'Show', location %></td>
-    <td><%= link_to 'Edit', edit_location_path(location) %></td>
-    <% unless current_admin.nil? %>
-      <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
 
  <% content_for :scripts do %>
     <script type="text/javascript" charset="utf-8">
@@ -77,16 +47,33 @@ Types:
               loc = new google.maps.LatLng(lat,lon);
               Gmaps.map.serviceObject.panTo(loc);
               Gmaps.map.serviceObject.setZoom(14);
+              labelize_markers();
           },function(error){
             //use error.code to determine what went wrong
           });
         }
+
         if(!navigator.geolocation){
           $('recenter_button').hide();
         }
         navigator.geolocation.getCurrentPosition(function(position){},function(error){
           $('recenter_button').hide();
         });
+
+        // see: https://developers.google.com/maps/documentation/javascript/geocoding 
+        geocoder = new google.maps.Geocoder();
+        function recenter_map_to_address() {
+          geocoder.geocode( { 'address': $("address").value }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              Gmaps.map.serviceObject.panTo(results[0].geometry.location);
+              Gmaps.map.serviceObject.setZoom(14);
+              labelize_markers();
+            } else {
+              alert("Geocode was not successful for the following reason: " + status);
+            }
+          });
+        }
+
         var markersArray = [];
         // On click, clear markers, place a new one, update coordinates in the form
         Gmaps.map.callback = function() {
@@ -94,7 +81,30 @@ Types:
               clearOverlays();
               placeMarker(event.latLng);
             });
+            google.maps.event.addListener(Gmaps.map.serviceObject, 'center_changed', function() {
+              if(Gmaps.map.serviceObject.getZoom() > 10){
+                labelize_markers();
+              }
+            });
         };
+
+        function labelize_markers() {
+              var len = Gmaps.map.markers.length;
+              for(var i = 0; i < len; i++){
+                marker = Gmaps.map.markers[i].serviceObject;
+                var mapLabel = new MapLabel({
+                  text: marker.getTitle(),
+                  position: marker.getPosition(),
+                  map: Gmaps.map.serviceObject,
+                  fontSize: 10,
+                  align: 'right'
+                });
+                mapLabel.set('position', marker.getPosition());
+                marker.bindTo('map', mapLabel);
+                marker.bindTo('position', mapLabel);
+              } 
+        }
+
         // Add a marker with an open infowindow
         function placeMarker(latLng) {
             var marker = new google.maps.Marker({
@@ -116,6 +126,9 @@ Types:
                            '&lng=' + this.getPosition().lng() + '">Click to add a source here</a><br>(You can drag this thing too)'
                 });
                 infowindow.open(Gmaps.map.serviceObject,marker);
+            });
+            google.maps.event.addListener(infowindow,'closeclick',function(){
+              clearOverlays();    
             });
         }
         // Removes the overlays from the map
