@@ -1,0 +1,41 @@
+<h2>Import Locations from CSV</h2>
+
+<% unless @errors.nil? %>
+Errors:
+<ul style="color: red;">
+<% @errors.each{ |e| %>
+<li><%= e.collect{|field,err| "#{field}: #{err}" }.join(";") %><br>
+<% } %>
+</ul>
+<% end %>
+
+
+This is an admin-only function for doing bulk imports of locations. This assumes the CSV has a particular format: the first row should be a header line like this:
+<pre>
+<%= Location.csv_header.join(", ") %>
+</pre>
+The rows contain the values you'd expect (same format as data export on the map page). In particular:
+<ul>
+<li><strong>Type:</strong> should be a real type in the database (i.e., "Orange Tree"), or it will be ignored
+<li><strong>Address:</strong> will be geocoded, so don't provide it if you are also providing a lat/lng
+<li><strong>Season Start/Stop:</strong> are numeric, with 0 corresponding to January and 11 corresponding to December
+<li><strong>No Season/Unverified:</strong> can be any of 'true', 't', or 'x' to show affirmation, and blank for negation
+<li><strong>Yield/Quality Rating:</strong> numeric, 0 to 4
+<li><strong>Access:</strong> should be a number, 0-3 corresponding to one of the access modes given below
+<ul>
+<% Location::AccessModes.each_index{ |i| %>
+<li><%= i %>: <%= Location::AccessModes[i] %>
+<% } %>
+</ul>
+</ul>
+
+<%= form_for :import, :html => {:multipart => true} do |f| %>
+  <div class="field">
+  <%= f.file_field :csv %>
+  </div>
+  <div class="field">
+  <%= f.check_box :error_csv, :checked => true, :value => 1 %>
+  Return Errors as CSV
+  </div>
+  <%= f.submit "Upload" %>
+<% end %>

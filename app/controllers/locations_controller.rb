@@ -1,37 +1,74 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
 
+  def import
+    if request.post? && params[:import][:csv].present?
+      infile = params[:import][:csv].read
+      n = 0
+      errs = []
+      text_errs = []
+      ok_count = 0
+      CSV.parse(infile) do |row| 
+        n += 1
+        next if n == 1 or row.join.blank?
+        location = Location.build_from_csv(row)
+        if location.valid?
+          ok_count += 1
+          location.save
+        else
+          text_errs << location.errors
+          errs << row
+        end
+      end
+      if errs.any?
+        if params["import"]["error_csv"].present? and params["import"]["error_csv"].to_i == 1
+          errFile ="errors_#{Date.today.strftime('%d%b%y')}.csv"
+          errs.insert(0,Location.csv_header)
+          errCSV = CSV.generate do |csv|
+            errs.each {|row| csv << row}
+          end
+          send_data errCSV,
+            :type => 'text/csv; charset=iso-8859-1; header=present',
+            :disposition => "attachment; filename=#{errFile}.csv"
+        else
+          flash[:notice] = "#{errs.length} rows generated errors, #{ok_count} worked"
+          @errors = text_errs
+        end
+      else
+        flash[:notice] = "Import total success"
+        redirect_to import_url #GET
+      end
+    end
+  end
+
   # GET /locations
   # GET /locations.json
   def index
-    if params[:region_id].nil?
-      @region = nil
-      if params[:type_id].nil?
-        @type = nil
-        @locations = Location.all
-        @types = @locations.collect{ |l| l.type }.compact.uniq
-      else
-        @type = Type.find(params[:type_id])
-        @locations = Location.find_all_by_type_id(params[:type_id])
-        @types = Location.all.collect{ |l| l.type }.compact.uniq
-      end
-    else
-      @region = Region.find(params[:region_id])
-      if params[:type_id].nil?
-        @type = nil
-        @locations = Location.find_all_by_region_id(params[:region_id])
-        @types = @locations.collect{ |l| l.type }.compact.uniq
-      else
-        @type = Type.find(params[:type_id])
-        @locations = Location.find_all_by_type_id_and_region_id(params[:type_id],params[:region_id])
-        @types = Location.find_all_by_region_id(params[:region_id]).collect{ |l| l.type }.compact.uniq
-      end
+    @center_lat = nil
+    @center_lng = nil
+    unless params[:center_lat].nil? or params[:center_lng].nil?
+      @center_lat = params[:center_lat].to_f
+      @center_lng = params[:center_lng].to_f
     end
-    @regions = Region.all
-
+    if params[:type_id].nil?
+      @type = nil
+      @locations = Location.all
+      @types = @locations.collect{ |l| l.type }.compact.uniq
+    else
+      @type = Type.find(params[:type_id])
+      @locations = Location.find_all_by_type_id(params[:type_id])
+      @types = Location.all.collect{ |l| l.type }.compact.uniq
+    end
+    unless params[:search].nil?
+      @search = params[:search].tr('^a-zA-Z0-9 ','')
+      @locations.collect!{ |l|
+        [l.description,l.author,l.title].join(" ").downcase.include?(@search) ? l : nil
+      }.compact!
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @locations }
+      format.csv { render :csv => @locations }
     end
   end
 

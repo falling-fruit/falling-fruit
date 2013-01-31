@@ -93,6 +93,8 @@ div#menu, div#filter{
  color: #222222;
 }
 
+div#zoom{ float: right; font-size: 10pt; font-weight: bold; color: #222222; padding-right: 0.5em; }
+
 h1 {
   color: #555555;
   padding: 2px 0px;

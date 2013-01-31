@@ -1,10 +1,17 @@
 FallingfruitWebapp::Application.routes.draw do
 
-  resources :locations
+  resources :locations do
+    collection do
+      get 'import'
+      post 'import'
+    end
+  end
 
   resources :types
 
   resources :regions
+
+  match 'pages/about' => 'pages#about'
 
   devise_for :admins
   resources :admins do
@@ -65,7 +72,6 @@ FallingfruitWebapp::Application.routes.draw do
   root :to => 'locations#index'
 
   # See how all your routes lay out with "rake routes"
-
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'

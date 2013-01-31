@@ -27,10 +27,12 @@
  <% end %>
  </div>
 <%= link_to('Home', root_path) %> |
-<%= link_to('Add Source', new_location_path) %>
+<%= link_to('About', '/pages/about') %> |
+<%= link_to('Add Something', new_location_path) %>
+
 <% if admin_signed_in? %>
 | <%= link_to('Admins', admins_path) %> |
-<%= link_to('Regions', regions_path) %> |
+<%= link_to('Import', import_locations_path) %> |
 <%= link_to('Types', types_path) %>
 <% end %>
 </div>

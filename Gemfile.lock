@@ -39,6 +39,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    comma (3.0.4)
     daemons (1.1.8)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
@@ -136,6 +137,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  comma (~> 3.0)
   devise
   geocoder
   gmaps4rails

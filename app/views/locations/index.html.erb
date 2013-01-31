@@ -8,34 +8,46 @@
    position: relative;
 }
 .gmaps4rails_map{
-   height: 600px;
+   height: 560px;
    width: 100%;
    margin: 0;
    padding: 0;
    position: relative;
 }
+button{ margin: 0; padding: 0; }
+select{ margin: 0; padding: 0; }
+form{ margin: 0; padding: 0; }
 </style>
+
 <%= gmaps4rails(@locations.to_gmaps4rails) %>
 
-<div id="recenter_button" style="float: right;">
-<button onclick="recenter_map()">Zoom Map to My Location</button>
-</div>
-<div id="recenter_button" style="float: right;">
+<% if request.fullpath.include? "?"
+     given_params = request.fullpath.split(/\?/)[1]
+     clean_fullpath = locations_path + "?" + given_params.strip.split(/&/).collect{ |p| p =~/^center\_(lat|lng)/ ? nil : p }.compact.join("&") + "&"
+   else
+     clean_fullpath = locations_path + "?"
+   end
+%>
+
+<div id="zoom">
 <input id="address" name="address" value="Any address" onclick="this.value = '';">
 <button onclick="recenter_map_to_address()">Zoom</button>
+<span id="recenter_button">
+or <button onclick="recenter_map()">Zoom to Me</button>
+</span> | <a id="permalink" href="<%= raw clean_fullpath %>">Permalink</a> | <a href="<%=raw clean_fullpath %>format=csv">Data</a>
 </div>
 
-
-
 <div id="filter">
-Filter by Type:
+Filter: <select name="filter_select" id="filter_select" onchange="parent.location=$('filter_select').options[$('filter_select').selectedIndex].value;">
+  <option value="<%= locations_path %>"></option>
 <% @types.collect{ |type| %>
-  <a href="/locations?type_id=<%= type.id %>"><%= type.name %></a> |
+  <option <%= !@type.nil? and @type.id == type.id ? "selected" : "" %> value="/locations?type_id=<%= type.id %>"><%= type.name %></option>
 <% } %>
-<a href="/locations/">All</a>
-<% unless @type.nil? %>
-(Current Filter: <%= @type.name %>)
-<% end %>
+</select> or
+<form style="display:inline;">
+<input name="search" id="search" value="<%= @search.nil? ? "Search" : @search %>" onclick="this.value = '';">
+</form>
+<% unless @search.nil? %>(<%= @locations.length %> results)<% end %>
 </div>
 
  <% content_for :scripts do %>
@@ -85,7 +97,13 @@ Filter by Type:
               if(Gmaps.map.serviceObject.getZoom() > 10){
                 labelize_markers();
               }
+              var center = Gmaps.map.serviceObject.getCenter();
+              $("permalink").href = '<%= raw clean_fullpath %>' + 'center_lat=' + center.lat() + '&center_lng=' + center.lng();
             });
+            <% unless @center_lat.nil? or @center_lng.nil? %>
+            var loc = new google.maps.LatLng(<%= @center_lat %>,<%= @center_lng %>);
+            Gmaps.map.serviceObject.panTo(loc);
+            <% end %>
         };
 
         function labelize_markers() {
