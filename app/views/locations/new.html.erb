@@ -2,13 +2,40 @@
 
 <% content_for :scripts do %>
 <script type="text/javascript" charset="utf-8">
-navigator.geolocation.getCurrentPosition(function(position){
-    var lat = position.coords.latitude;
-    var lon = position.coords.longitude;
-    if($('location_lat').value == "") $('location_lat').value = lat;
-    if($('location_lng').value == "") $('location_lng').value = lon;
-},function(error){
-    //use error.code to determine what went wrong
-});
+// If we weren't given a lat/lng, try to pull it from the geolocation library
+// and then place a point on the map at that location that's dragable
+var marker = null;
+Gmaps.map.callback = function() {
+  if($('location_lat').value == "" && $('location_lng').value == ""){
+    navigator.geolocation.getCurrentPosition(function(position){
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      $('location_lat').value = lat;
+      $('location_lng').value = lon;
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat,lon), 
+        map: Gmaps.map.serviceObject,
+        draggable: true
+      });
+      google.maps.event.addListener(marker, 'dragend', function() {
+        $("location_lat").value = this.getPosition().lat();
+        $("location_lng").value = this.getPosition().lng();
+      });
+      Gmaps.map.serviceObject.panTo(marker.getPosition());
+      Gmaps.map.serviceObject.setZoom(14);      
+    },function(error){
+      //use error.code to determine what went wrong
+    });
+    var watchID = navigator.geolocation.watchPosition(function(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      $('location_lat').value = lat;
+      $('location_lng').value = lon;
+      marker.setPosition(new google.maps.LatLng(lat,lon));
+    },function(error){
+      //...
+    },{enableHighAccuracy:true, maximumAge:30000, timeout:30000});
+  }
+};
 </script>
 <% end %>

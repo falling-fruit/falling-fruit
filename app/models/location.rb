@@ -25,6 +25,7 @@ class Location < ActiveRecord::Base
   comma do
     title
     type_other
+    description
     lat
     lng
     address
@@ -39,11 +40,11 @@ class Location < ActiveRecord::Base
   end
   
   def self.csv_header
-    ["Type","Type Other","Lat","Lng","Address","Season Start","Season Stop","No Season","Access","Unverified","Yield Rating","Quality Rating","Author"]
+    ["Type","Type Other","Description","Lat","Lng","Address","Season Start","Season Stop","No Season","Access","Unverified","Yield Rating","Quality Rating","Author"]
   end
 
   def self.build_from_csv(row)
-    type,type_other,lat,lng,address,season_start,season_stop,no_season,access,unverified,yield_rating,quality_rating,author = row
+    type,type_other,desc,lat,lng,address,season_start,season_stop,no_season,access,unverified,yield_rating,quality_rating,author = row
     loc = Location.new
     unless type.nil? or type.strip.length == 0
       safer_type = type.tr('^A-Za-z- ','')
@@ -62,11 +63,12 @@ class Location < ActiveRecord::Base
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
+    loc.description = desc
     loc.address = address
     loc.season_start = season_start.to_i unless season_start.nil? or season_start.strip == ""
     loc.season_stop = season_stop.to_i unless season_stop.nil? or season_stop.strip == ""
-    no_season = no_season.strip.downcase.tr('^a-z','')
-    unverified = unverified.strip.downcase.tr('^a-z','')
+    no_season = no_season.nil? ? "" : no_season.strip.downcase.tr('^a-z','')
+    unverified = unverified.nil? ? "" : unverified.strip.downcase.tr('^a-z','')
     loc.no_season = true if no_season == 't' or no_season == "true" or no_season == "x"
     loc.unverified = true if unverified == 't'or unverified == "true" or unverified == "x"
     loc.yield_rating = yield_rating.to_i unless yield_rating.nil? or yield_rating.strip == ""

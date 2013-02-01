@@ -36,7 +36,6 @@ class LocationsController < ApplicationController
         end
       else
         flash[:notice] = "Import total success"
-        redirect_to import_url #GET
       end
     end
   end
@@ -92,6 +91,8 @@ class LocationsController < ApplicationController
     unless params[:lat].nil? or params[:lng].nil?
       @lat = params[:lat].to_f
       @lng = params[:lng].to_f
+      @location.lat = @lat
+      @location.lng = @lng
     end
     respond_to do |format|
       format.html # new.html.erb

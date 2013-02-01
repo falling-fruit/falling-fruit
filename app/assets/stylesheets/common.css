@@ -1,11 +1,20 @@
-html{ height: 100%; }
+html{ 
+  height: 100%; 
+  margin: 0; padding: 0;
+}
+
 body{
   font-size: 11pt;
   font-family: 'Droid Sans', sans-serif;
-  padding: 0;
-  margin: 0;
   height: 100%;
+  margin: 0; padding: 0;
 }
+
+img{margin:0;padding:0;border:none;}
+
+div.InfoWindow{font-family:Arial;font-size:90%;}
+div.InfoWindow div.Address{font-size:80%;font-style:italic;margin-bottom:.9em;}
+div.InfoWindow div.Title{font-weight:bold;}
 
 div#content{
   padding: 0.5em;
@@ -13,9 +22,8 @@ div#content{
 
 div#everything{
   width: 100%;
-  margin: 0;
-  position: absolute;
-  padding: 0;
+  height: auto;
+  min-height: 100%;
 }
 
 a { color: #333333; }
@@ -26,6 +34,7 @@ div.field {
 
 table{
   width: 100%;
+  margin: 0; padding: 0;
 }
 
 table tbody{
@@ -85,7 +94,7 @@ span.subtext{
   color: grey;
 }
 
-div#menu, div#filter{
+div#menu{
  padding: 0.5em;
  background: lightgrey;
  font-size: 10pt;
@@ -93,7 +102,22 @@ div#menu, div#filter{
  color: #222222;
 }
 
-div#zoom{ float: right; font-size: 10pt; font-weight: bold; color: #222222; padding-right: 0.5em; }
+div#filter{
+ border-top: 1px solid black;
+ padding: 0.5em;
+ background: lightblue;
+ font-size: 10pt;
+ font-weight: bold;
+ color: #222222;
+}
+
+div#zoom{ 
+  float: right; 
+  font-size: 10pt; 
+  font-weight: bold; 
+  color: #222222; 
+  padding: 0.5em; 
+}
 
 h1 {
   color: #555555;
