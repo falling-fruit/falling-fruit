@@ -1,0 +1,7 @@
+<div class="type">
+<%= pf.fields_for :locations_types, lt, :index => "new_42" do |f2| %>
+ <%= f2.select(:type_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
+ <%= f2.text_field :type_other %>
+ <%= link_to_function "remove", "$(this).up('.type').remove()" %><br>
+<% end %>
+</div>

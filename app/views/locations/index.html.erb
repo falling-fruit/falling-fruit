@@ -37,8 +37,11 @@ or <button onclick="recenter_map()">Zoom to Me</button>
 <div id="filter">
 Filter: <select name="filter_select" id="filter_select" onchange="parent.location=$('filter_select').options[$('filter_select').selectedIndex].value;">
   <option value="<%= locations_path %>"></option>
-<% @types.collect{ |type| %>
-  <option <%= !@type.nil? and @type.id == type.id ? "selected" : "" %> value="/locations?type_id=<%= type.id %>"><%= type.name %></option>
+<% @types.collect{ |type| 
+     n = LocationsType.where("type_id=#{type.id}").count
+     next if n == 0
+%>
+  <option <%= !@type.nil? and @type.id == type.id ? "selected" : "" %> value="/locations?type_id=<%= type.id %>"><%= type.name %> (<%= n %>)</option>
 <% } %>
 </select> or
 <form style="display:inline;">
@@ -57,7 +60,7 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
               var lon = position.coords.longitude;
               loc = new google.maps.LatLng(lat,lon);
               Gmaps.map.serviceObject.panTo(loc);
-              Gmaps.map.serviceObject.setZoom(14);
+              Gmaps.map.serviceObject.setZoom(15);
               labelize_markers();
           },function(error){
             //use error.code to determine what went wrong
@@ -77,7 +80,7 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
           geocoder.geocode( { 'address': $("address").value }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               Gmaps.map.serviceObject.panTo(results[0].geometry.location);
-              Gmaps.map.serviceObject.setZoom(14);
+              Gmaps.map.serviceObject.setZoom(15);
               labelize_markers();
             } else {
               alert("Geocode was not successful for the following reason: " + status);
@@ -93,7 +96,8 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
               placeMarker(event.latLng);
             });
             google.maps.event.addListener(Gmaps.map.serviceObject, 'center_changed', function() {
-              if(Gmaps.map.serviceObject.getZoom() > 10){
+              //alert(Gmaps.map.serviceObject.getZoom());
+              if(Gmaps.map.serviceObject.getZoom() >= 14){
                 labelize_markers();
               }
               var center = Gmaps.map.serviceObject.getCenter();

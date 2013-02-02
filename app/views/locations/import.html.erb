@@ -16,7 +16,8 @@ This is an admin-only function for doing bulk imports of locations. This assumes
 </pre>
 The rows contain the values you'd expect (same format as data export on the map page). In particular:
 <ul>
-<li><strong>Type:</strong> should be a real type in the database (i.e., "Orange Tree"), or it will be ignored
+<li><strong>Type:</strong> should be a real type in the database (i.e., "Orange"), or it will be ignored. This field can be a semicolon-separated list (i.e., "Orange;Potato;Grape")
+<li><strong>Type Other:</strong> if it isn't a real type in the database, you can put it here (one offs, add laters, and whatnot). This field can also be a semicolon-separated list
 <li><strong>Address:</strong> will be geocoded, so don't provide it if you are also providing a lat/lng
 <li><strong>Season Start/Stop:</strong> are numeric, with 0 corresponding to January and 11 corresponding to December
 <li><strong>No Season/Unverified:</strong> can be any of 'true', 't', or 'x' to show affirmation, and blank for negation
@@ -30,6 +31,21 @@ The rows contain the values you'd expect (same format as data export on the map 
 </ul>
 
 <%= form_for :import, :html => {:multipart => true} do |f| %>
+  <%= fields_for :import do |f2| %>
+    <div class="field">
+      Import Name<br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      Import URL<br>
+      <%= f.text_field :url %>
+    </div>
+    <div class="field">
+      Import Comments<br>
+      <%= f.text_area :comments, :size => "30x5" %>
+    </div>
+  <% end %>
+
   <div class="field">
   <%= f.file_field :csv %>
   </div>

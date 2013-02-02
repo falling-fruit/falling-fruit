@@ -33,12 +33,22 @@ form{ margin: 0; padding: 0; }
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" id="types">
     <%= f.label :type %><br />
     <span class="subtext">What'd you find?</span><br>
-    <%= f.select(:type_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
-    <%= f.text_field :type_other %>
+      <% @location.locations_types.each{ |lt|  %>
+      <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
+        <%= f2.select(:type_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
+        <%= f2.text_field :type_other %><br>
+      <% end %>
+    <% } %>
+    <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
+      <%= f2.select(:type_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
+      <%= f2.text_field :type_other %><br>
+    <% end %>
   </div>
+  <%= add_locations_type_link "+More", f %>
+
   <div class="field">
     *<%= f.label :address %><br />
     <span class="subtext">Address is automagically geocoded by the google hiveborg.<br>The lat/lon are determined based on your current location (when possible), or a marker you placed.<br>The address will <em>overwrite</em> this lat/lon, so don't provide one if you want to use the lat/lon.</span><br>
@@ -79,18 +89,20 @@ form{ margin: 0; padding: 0; }
     <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
   </div>
 
+  <% if @current_action == "new" or (@current_action == "edit" and !current_admin.nil?) %>
   <div class="field">
-    *<%= f.label :author %><br />
+    *<%= f.label :Author %><br />
     <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
     <%= f.text_field :author %>
     <span>
   </div>
+  <% end %>
 
   <br>
   <%= recaptcha_tags if current_admin.nil? %>
   <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit" %>
     <%= check_box_tag(:create_another, '1', :checked => true) %> Create Another<br>
   </div>
 <% end %>

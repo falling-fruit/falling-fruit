@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130011504) do
+ActiveRecord::Schema.define(:version => 20130202204513) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(:version => 20130130011504) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
+  create_table "imports", :force => true do |t|
+    t.string "url"
+    t.string "name"
+    t.text   "comments"
+  end
+
   create_table "locations", :force => true do |t|
     t.float    "lat"
     t.float    "lng"
@@ -40,20 +46,21 @@ ActiveRecord::Schema.define(:version => 20130130011504) do
     t.integer  "season_start"
     t.integer  "season_stop"
     t.boolean  "no_season"
-    t.integer  "region_id"
-    t.integer  "type_id"
     t.text     "address"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
-    t.string   "type_other"
     t.boolean  "unverified",     :default => false
     t.integer  "quality_rating"
     t.integer  "yield_rating"
     t.integer  "access"
+    t.integer  "import_id"
   end
 
-  add_index "locations", ["region_id"], :name => "index_locations_on_region_id"
-  add_index "locations", ["type_id"], :name => "index_locations_on_type_id"
+  create_table "locations_types", :force => true do |t|
+    t.integer "location_id"
+    t.integer "type_id"
+    t.string  "type_other"
+  end
 
   create_table "observations", :force => true do |t|
     t.integer  "location_id"
@@ -64,15 +71,6 @@ ActiveRecord::Schema.define(:version => 20130130011504) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-  end
-
-  create_table "regions", :force => true do |t|
-    t.string   "name"
-    t.text     "center_address"
-    t.float    "center_lat"
-    t.float    "center_lng"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
   end
 
   create_table "types", :force => true do |t|

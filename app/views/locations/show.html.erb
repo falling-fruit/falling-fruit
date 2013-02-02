@@ -34,13 +34,8 @@
 </p>
 
 <p>
-  <b>Region:</b>
-  <%= @location.region.nil? ? "?" : @location.region.name %>
-</p>
-
-<p>
   <b>Type:</b>
-  <%= @location.type.nil? ? "?" : @location.type.name %>
+  <%= @location.types.empty? ? "?" : @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(",") %>
 </p>
 
 <p>

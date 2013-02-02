@@ -8,10 +8,16 @@ class LocationsController < ApplicationController
       errs = []
       text_errs = []
       ok_count = 0
+      import = Import.new
+      import.name = params[:import][:name]
+      import.url = params[:import][:url]
+      import.comments = params[:import][:comments]
+      import.save
       CSV.parse(infile) do |row| 
         n += 1
         next if n == 1 or row.join.blank?
         location = Location.build_from_csv(row)
+        location.import = import
         if location.valid?
           ok_count += 1
           location.save
@@ -52,16 +58,16 @@ class LocationsController < ApplicationController
     if params[:type_id].nil?
       @type = nil
       @locations = Location.all
-      @types = @locations.collect{ |l| l.type }.compact.uniq
+      @types = LocationsType.all.collect{ |l| l.type }.compact.uniq
     else
       @type = Type.find(params[:type_id])
-      @locations = Location.find_all_by_type_id(params[:type_id])
-      @types = Location.all.collect{ |l| l.type }.compact.uniq
+      @locations = LocationsType.find_all_by_type_id(params[:type_id]).collect{ |lt| lt.location }
+      @types = LocationsType.all.collect{ |l| l.type }.compact.uniq
     end
     unless params[:search].nil?
-      @search = params[:search].tr('^a-zA-Z0-9 ','')
+      @search = params[:search].tr('^a-zA-Z0-9 ','').downcase
       @locations.collect!{ |l|
-        [l.description,l.author,l.title].join(" ").downcase.include?(@search) ? l : nil
+        [l.description,l.author,l.title,l.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name}.join(" ")].join(" ").downcase.include?(@search) ? l : nil
       }.compact!
     end
     respond_to do |format|
@@ -103,21 +109,30 @@ class LocationsController < ApplicationController
   # GET /locations/1/edit
   def edit
     @location = Location.find(params[:id])
+    @lat = @location.lat
+    @lng = @location.lng
   end
 
   # POST /locations
   # POST /locations.json
   def create
+    unless params[:location].nil? or params[:location][:locations_types].nil?
+      lts = params[:location][:locations_types].collect{ |dc,data| 
+        lt = LocationsType.new
+        lt.type_id = data[:type_id] unless data[:type_id] == ""
+        lt.type_other = data[:type_other] unless data[:type_other] == ""
+        (lt.type_id == nil and lt.type_other.nil?) ? nil : lt 
+      }.compact
+      params[:location].delete(:locations_types)
+    end
     @location = Location.new(params[:location])
-
+    @location.locations_types += lts unless lts.nil?
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
-        unless params[:create_another].nil?
-          flash[:notice] = 'Location was successfully created.'
-          format.html { render action: "new" }
-          format.json { render json: @location, status: :created, location: @location }
+        if params[:create_another].present? and params[:create_another].to_i == 1
+          format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
         else
-          format.html { redirect_to @location, notice: 'Location was successfully created.' }
+          format.html { redirect_to root_path, notice: 'Location was successfully created.' }
           format.json { render json: @location, status: :created, location: @location }
         end
       else
@@ -132,8 +147,35 @@ class LocationsController < ApplicationController
   def update
     @location = Location.find(params[:id])
 
+    # prevent normal users from changing author
+    params[:location][:author] = @location.author unless admin_signed_in?
+
+    # manually update location types :/
+    unless params[:location].nil? or params[:location][:locations_types].nil?
+      params[:location][:locations_types].each{ |dc,data|
+        if dc =~ /^new/
+          lt = LocationsType.new
+          lt.type_id = data[:type_id] unless data[:type_id] == ""
+          lt.type_other = data[:type_other] unless data[:type_other] == ""
+          lt.location_id = @location.id   
+          lt.save unless lt.type_id.nil? and lt.type_other.nil?
+        elsif dc =~ /^update_(\d+)/
+          lt = LocationsType.find($1.to_i)
+          lt.type_id = data[:type_id] unless data[:type_id] == ""
+          lt.type_other = data[:type_other] unless data[:type_other] == ""
+          unless lt.type_id.nil? and lt.type_other.nil?
+            lt.save
+          else
+            LocationsType.delete(lt.id)
+          end
+        end
+      }
+      params[:location].delete(:locations_types)
+    end
+
     respond_to do |format|
-      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.update_attributes(params[:location])
+      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
+         @location.update_attributes(params[:location])
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { head :no_content }
       else

@@ -10,7 +10,7 @@ class AdminsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @regions }
+      format.json { render json: @admins }
     end
   end
 
