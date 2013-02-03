@@ -4,9 +4,15 @@ require 'nokogiri'
 require 'cgi'
 require 'csv'
 
-if ARGV.length < 2
+if ARGV.length < 1
   $stderr.puts "Usage: kml_to_csv.rb <in.kml> <out.csv>"
   exit 1
+end
+
+if ARGV.length < 2
+	csvfile = ARGV[0].sub(/\.kml/,'.csv')
+else
+	csvfile = ARGV[1]
 end
 
 csv = CSV.open(ARGV[1],"wb")
