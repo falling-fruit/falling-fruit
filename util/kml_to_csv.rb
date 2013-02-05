@@ -4,9 +4,15 @@ require 'nokogiri'
 require 'cgi'
 require 'csv'
 
-if ARGV.length < 2
+if ARGV.length < 1
   $stderr.puts "Usage: kml_to_csv.rb <in.kml> <out.csv>"
   exit 1
+end
+
+if ARGV.length < 2
+	csvfile = ARGV[0].sub(/\.kml/,'.csv')
+else
+	csvfile = ARGV[1]
 end
 
 csv = CSV.open(ARGV[1],"wb")
@@ -16,14 +22,15 @@ csv << ["Type","Type Other","Description","Lat","Lng","Address","Season Start",
 
 @doc.css('Placemark').each do |placemark|
   title = CGI.unescapeHTML(placemark.css('name').text)
-  description = CGI.unescapeHTML(placemark.css('description').text).gsub!(/(<[^>]*>)|\n|\t/s) {""}
+  description = CGI.unescapeHTML(placemark.css('description').text).gsub!(/(<[^>]*>)|\t/s) {""}
+  description.gsub!(/\n/s) {". "} unless description.nil?
   coordinates = placemark.at_css('coordinates')
   lat = nil
   lng = nil
   coordinates.text.split(' ').each do |coordinate|
     (lng,lat,elevation) = coordinate.split(',').collect{ |e| e.to_f }
   end if coordinates
-  csv << [nil,nil,[title,description].join(";"),lat,lng,nil,nil,nil,nil,nil,nil,nil,nil,nil]
+  csv << [title,nil,description,lat,lng,nil,nil,nil,nil,nil,nil,nil,nil,nil]
 end
 
 csv.close
