@@ -115,12 +115,18 @@ class Location < ActiveRecord::Base
     ret += "#{word_wrap(self.description,:line_width => 30).gsub("\n","<br>")}<br><br>" unless self.description.nil?
     ret += "Fruiting from #{Months[season_start]} to #{Months[season_stop]}<br>" unless self.no_season or 
       self.season_start.nil? or self.season_stop.nil? 
-    usda_links = self.locations_types.collect{ |lt| lt.type.nil? or lt.type.usda_profile_url.nil? ? nil : "<a target=\"_blank\" href=\"#{lt.type.usda_profile_url}\">#{lt.type.name}</a>" }.compact
+    usda_links = self.locations_types.collect{ |lt| 
+      lt.type.nil? or lt.type.usda_profile_url.nil? ? nil : "<a target=\"_blank\" href=\"#{lt.type.usda_profile_url}\">#{lt.type.name}</a>" 
+    }.compact
     ret += "USDA Profiles: " + usda_links.join(" | ") + "<br>" unless usda_links.length == 0
-    wp_links = self.locations_types.collect{ |lt| lt.type.nil? ? nil : "<a target=\"_blank\" href=\"#{lt.type.wikipedia_url}\">#{lt.type.name}</a>" }.compact
+    wp_links = self.locations_types.collect{ |lt| lt.type.nil? ? nil : "<a target=\"_blank\" 
+               href=\"#{lt.type.wikipedia_url}\">#{lt.type.name}</a>" }.compact
     ret += "Wikipedia: " + wp_links.join(" | ") + "<br>" unless wp_links.length == 0
     ret += "<span style=\"text-decoration: italic;color: grey;\">Added by #{self.author}</span><br>"
-    ret += "<div style=\"float: right;\"><a href=\"/locations/#{self.id}/edit\">Edit</a></div>"
+    ret += "<div style=\"float: right;\"><a href=\"/locations/#{self.id}/edit\">Edit</a>"
+    ret += " | <a data-confirm=\"Are you sure?\" data-method=\"delete\" rel=\"nofollow\" 
+                  href=\"/locations/#{self.id}\">Delete</a></div>" unless Admin.current_admin.nil?
+    ret += "</div>"
     ret
   end
 

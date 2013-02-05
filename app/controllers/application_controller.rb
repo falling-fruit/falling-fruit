@@ -9,4 +9,10 @@ class ApplicationController < ActionController::Base
       @current_action = action_name
       @current_controller = controller_name
   end
+
+  before_filter :set_current_admin
+
+  def set_current_admin
+    Admin.current_admin = current_admin
+  end
 end

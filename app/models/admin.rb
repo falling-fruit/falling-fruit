@@ -19,4 +19,14 @@ class Admin < ActiveRecord::Base
        super # Use whatever other message 
     end 
   end
+
+  class << self
+    def current_admin=(admin)
+      Thread.current[:current_admin] = admin
+    end
+
+    def current_admin
+      Thread.current[:current_admin]
+    end
+  end
 end
