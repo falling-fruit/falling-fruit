@@ -55,14 +55,13 @@ class LocationsController < ApplicationController
       @center_lat = params[:center_lat].to_f
       @center_lng = params[:center_lng].to_f
     end
+    @types = LocationsType.all.collect{ |l| l.type }.compact.uniq.sort{ |x,y| x.name <=> y.name }
     if params[:type_id].nil?
       @type = nil
-      @locations = Location.all
-      @types = LocationsType.all.collect{ |l| l.type }.compact.uniq
+      @locations = Location.where("lat is not null and lng is not null")
     else
       @type = Type.find(params[:type_id])
-      @locations = LocationsType.find_all_by_type_id(params[:type_id]).collect{ |lt| lt.location }
-      @types = LocationsType.all.collect{ |l| l.type }.compact.uniq
+      @locations = LocationsType.find_all_by_type_id(params[:type_id]).collect{ |lt| lt.location }.compact
     end
     unless params[:search].nil?
       @search = params[:search].tr('^a-zA-Z0-9 ','').downcase

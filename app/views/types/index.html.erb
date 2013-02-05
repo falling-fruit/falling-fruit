@@ -2,7 +2,10 @@
 
 <table>
   <tr>
+    <th>Custom Marker<br>(Currently Unused)</th>
     <th>Name</th>
+    <th>Scientific Name</th>
+    <th>USDA Symbol</th>
     <th></th>
     <th></th>
   </tr>
@@ -16,6 +19,9 @@
         <% end %>
     </td>
     <td><%= type.name %></td>
+    <td><em><%= type.scientific_name %></em></td>
+    <td><%= raw !type.usda_symbol.nil? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "?"%></em></td>
+
     <td><%= link_to 'Edit', edit_type_path(type) %></td>
     <td><%= link_to 'Destroy', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

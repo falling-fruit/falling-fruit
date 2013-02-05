@@ -1,34 +1,112 @@
 html{ 
   height: 100%; 
-  margin: 0; padding: 0;
+  margin: 0; 
+  padding: 0;
 }
 
 body{
   font-size: 11pt;
   font-family: 'Droid Sans', sans-serif;
   height: 100%;
-  margin: 0; padding: 0;
+  width: 100%;
+  margin: 0; 
+  padding: 0;
 }
 
-img{margin:0;padding:0;border:none;}
+div{
+  margin: 0;
+  padding: 0;
+}
+
+img{
+  margin:0;
+  padding:0;
+  border:none;
+}
 
 div.InfoWindow{font-family:Arial;font-size:90%;}
 div.InfoWindow div.Address{font-size:80%;font-style:italic;margin-bottom:.9em;}
 div.InfoWindow div.Title{font-weight:bold;}
 
-div#content{
+div#header{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 4em;
+  background-color: #ccc;
+}
+
+div#header div#menu{
+ padding: 0.5em;
+ background: lightgrey;
+ font-size: 10pt;
+ font-weight: bold;
+ color: #222222;
+}
+
+div#header div#logo{
+  background: #003366;
+}
+
+div#searchbar{
+  position: absolute;
+  top: 4.5em;
+  left: 0px;
+  right: 0px;
+  height: 4em;
+  background-color: lightblue;
+}
+
+div#searchbar div#filter{
+ border-top: 1px solid black;
+ padding: 0.5em;
+ font-size: 10pt;
+ font-weight: bold;
+ color: #222222;
+}
+
+div#searchbar div#zoom{
+  float: right;
+  font-size: 10pt;
+  font-weight: bold;
+  color: #222222;
   padding: 0.5em;
 }
 
-div#everything{
-  width: 100%;
-  height: auto;
-  min-height: 100%;
+div#content{ 
+  margin: 0;
+  position: absolute;
+  top: 4.5em;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: auto;
+  padding: 0.5em; 
 }
 
-a { color: #333333; }
+div.map_container{
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 7em;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: auto;
+}
+div.map_container div#map{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-div.field {
+a{ 
+  color: #333333; 
+}
+
+div.field{
   margin-top: 1em;
 }
 
@@ -92,31 +170,6 @@ table tbody tr.odd td.special_col, table tbody tr.even td.special_col{
 span.subtext{
   font-size: 8pt;
   color: grey;
-}
-
-div#menu{
- padding: 0.5em;
- background: lightgrey;
- font-size: 10pt;
- font-weight: bold;
- color: #222222;
-}
-
-div#filter{
- border-top: 1px solid black;
- padding: 0.5em;
- background: lightblue;
- font-size: 10pt;
- font-weight: bold;
- color: #222222;
-}
-
-div#zoom{ 
-  float: right; 
-  font-size: 10pt; 
-  font-weight: bold; 
-  color: #222222; 
-  padding: 0.5em; 
 }
 
 h1 {
@@ -184,3 +237,6 @@ input[type=text]{
   padding: 4px;
 }
 
+button{ margin: 0; padding: 0; }
+select{ margin: 0; padding: 0; }
+form{ margin: 0; padding: 0; }

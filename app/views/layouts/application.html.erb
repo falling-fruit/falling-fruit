@@ -9,9 +9,11 @@
 </head>
 <body>
 
-<div id="everything">
+<% @is_index = [root_path,locations_path].include? request.fullpath.split(/\?/)[0] %>
 
-<div style="background: #003366;">
+<div id="header">
+
+<div id="logo">
  <div style="float: right;"><img src="/logo.png" height="40"></div>
  <h1 style="color: white;">The Falling Fruit Map</h1>
 </div>
@@ -23,19 +25,24 @@
  <%= link_to('Account', edit_admin_registration_path) %> |
  <%= link_to('Logout', destroy_admin_session_path, :method => :delete) %><br>
  <% else %>
- <%= link_to('Admin Login', admins_path) %>
+ <%= link_to('Admin', admins_path) %>
  <% end %>
  </div>
 <%= link_to('Home', root_path) %> |
 <%= link_to('About', '/pages/about') %> |
-<%= link_to('Add Something', new_location_path) %>
+<%= link_to('Add Source', new_location_path) %>
+<% if !admin_signed_in? and @is_index %>
+(or right click on map)
+<% end %>
 
 <% if admin_signed_in? %>
 | <%= link_to('Admins', admins_path) %> |
 <%= link_to('Import', import_locations_path) %> |
 <%= link_to('Types', types_path) %>
 <% end %>
-</div>
+</div> <!-- menu -->
+
+</div> <!-- header -->
 
 <% if notice %>
 <div class="notice"><%= notice %></div>
@@ -44,14 +51,13 @@
 <div class="alert"><%= alert %></div>
 <% end %>
 
-<% path = request.fullpath.split(/\?/)[0] %>
-<% unless [root_path,locations_path].include? path %><div id="content"><% end %>
-
+<% unless @is_index %>
+<div id="content">
 <%= yield %>
-
-<% if [root_path,locations_path].include? path %></div><% end %>
-
-</div> <!-- everything -->
+</div>
+<% else %>
+<%= yield %>
+<% end %>
 
 <%= yield :scripts %> 
 <%= javascript_include_tag "maplabel" %>

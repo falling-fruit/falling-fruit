@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202204513) do
+ActiveRecord::Schema.define(:version => 20130205200822) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130202204513) do
     t.integer  "yield_rating"
     t.integer  "access"
     t.integer  "import_id"
+    t.string   "cultivar"
   end
 
   create_table "locations_types", :force => true do |t|
@@ -81,6 +82,8 @@ ActiveRecord::Schema.define(:version => 20130202204513) do
     t.string   "marker_content_type"
     t.integer  "marker_file_size"
     t.datetime "marker_updated_at"
+    t.string   "scientific_name"
+    t.string   "usda_symbol"
   end
 
 end

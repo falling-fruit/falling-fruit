@@ -16,6 +16,16 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :scientific_name %><br />
+    <%= f.text_field :scientific_name %>
+  </div>
+  <div class="field">
+    <%= f.label "USDA symbol" %><br />
+    <%= f.text_field :usda_symbol %><br>
+    <span class="subtext">See <a href="http://plants.usda.gov/classification.html">here</a>.</span>
+  </div>
+
+  <div class="field">
     <%= f.label :marker %><br />
     <%= f.file_field :marker %>
   </div>

@@ -1,25 +1,24 @@
 <style>
-.map_container{
-   width:100%;
-   height:300px;
-   position: relative;
-   margin: 0;
-   padding: 0;
+div.map_container{
+  width: 400px;
+  height: 100%;
+  position: relative;
+  float: right;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-.gmaps4rails_map{
-   height: 300px;
-   width: 100%;
-   position: relative;
-   margin: 0;
-   padding: 0;
+div.map_container div#map{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
-button{ margin: 0; padding: 0; }
-select{ margin: 0; padding: 0; }
-form{ margin: 0; padding: 0; }
 </style>
 
 <%= gmaps4rails([@location].to_gmaps4rails) %>
-
+<h2><%= @current_action.capitalize %> Source</h2>
 <%= form_for(@location) do |f| %>
   <% if @location.errors.any? %>
     <div id="error_explanation">
@@ -50,11 +49,18 @@ form{ margin: 0; padding: 0; }
   <%= add_locations_type_link "+More", f %>
 
   <div class="field">
+    <%= f.label :Cultivar %><br />
+    <span class="subtext">A specific name (cultivar, subspecies, hybrid, grex, etc.) for this source, e.g., "Granny Smith"</span><br>
+    <%= f.text_field :cultivar %>
+    <span>
+  </div>
+
+  <div class="field">
     *<%= f.label :address %><br />
     <span class="subtext">Address is automagically geocoded by the google hiveborg.<br>The lat/lon are determined based on your current location (when possible), or a marker you placed.<br>The address will <em>overwrite</em> this lat/lon, so don't provide one if you want to use the lat/lon.</span><br>
-    <table><tr><td><%= f.text_area :address, :size => "20x3" %>
-               <td>or<td>lon:<%= f.text_field :lng, :size => 10, :value => @lng %>, 
-                         lat:<%= f.text_field :lat, :size => 10, :value => @lat %></table>
+    <%= f.text_area :address, :size => "30x3" %><br>
+    lon:<%= f.text_field :lng, :size => 10, :value => @lng %> 
+    lat:<%= f.text_field :lat, :size => 10, :value => @lat %><br>
     <span class="subtext">Lat/lon are assumed to be in the WGS84 (SRID 4326) projection :)</span>
   </div>
   <div class="field">
