@@ -189,6 +189,9 @@ class LocationsController < ApplicationController
   def destroy
     @location = Location.find(params[:id])
     @location.destroy
+    LocationsType.where("location_id=#{params[:id]}").each{ |lt|
+      lt.destroy
+    }
 
     respond_to do |format|
       format.html { redirect_to locations_url }
