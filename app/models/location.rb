@@ -19,11 +19,11 @@ class Location < ActiveRecord::Base
 
   Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
   Ratings = ["Crummy","Not Great","Decent","Solid","Epic"]
-  AccessModes = ["I own this source and want to include it in the public database",
-                 "The owner of this source gave me permission to include it in the public database",
-                 "This source is on public property",
-                 "This source is on private property but an abundance of fruit is on the ground or overhangs public walkway",
-                 "This source is on private property (ask before you pick)"]
+  AccessModes = ["I own this source",
+                 "I have permission from the owner to add this source",
+                 "Source is on public land",
+                 "Source is on private property but overhangs public land",
+                 "Source is on private property (ask before you pick)"]
 
   # csv support
   comma do
@@ -105,11 +105,22 @@ class Location < ActiveRecord::Base
   end
 
   def title
-    self.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(",")
+    self.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(", ")
+  end
+
+  def short_title
+    t = self.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }
+    if t.length == 2
+      "#{t[0]} and #{t[1]}"
+    elsif t.length > 2
+      "#{t[0]} & Others"
+    else
+      t[0]
+    end
   end
 
   def gmaps4rails_title
-    self.title
+    self.short_title
   end
 
   def gmaps4rails_infowindow
@@ -135,9 +146,9 @@ class Location < ActiveRecord::Base
   def gmaps4rails_marker_picture
     {
       #"picture" => "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
-      "picture" => self.unverified ? "/smdot_grey.png" : "/smdot_red.png",
-      "width" => 7,
-      "height" => 7,
+      "picture" => self.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",
+      "width" => 17,
+      "height" => 17,
       #"marker_anchor" => [5, 10],
       #"shadow_picture" => "/images/morgan.png" ,
       #"shadow_width" => "110",

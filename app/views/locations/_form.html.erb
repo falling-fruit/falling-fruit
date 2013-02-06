@@ -1,12 +1,10 @@
 <style>
 div.map_container{
-  width: 50%;
   height: 100%;
-  position: relative;
-  float: right;
-  top: 0;
+  position: absolute;
+  top: 0em;
   bottom: 0;
-  left: 0;
+  left: 500px;
   right: 0;
 }
 div.map_container div#map{
@@ -15,10 +13,20 @@ div.map_container div#map{
   padding: 0;
   height: 100%;
 }
+div#form{
+  padding: 0.5em;
+  position: absolute;
+  width: 500px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 </style>
 
 <%= gmaps("markers" => {"data" => @locations.to_gmaps4rails, "options" => { "do_clustering" => false }}) %>
 
+<div id="form">
 <h2><%= @current_action.capitalize %> Source</h2>
 <%= form_for(@location) do |f| %>
   <% if @location.errors.any? %>
@@ -47,29 +55,47 @@ div.map_container div#map{
       <%= f2.text_field :type_other %><br>
     <% end %>
   </div>
-  <%= add_locations_type_link "+More", f %>
+  <%= add_locations_type_link "+ Add Another", f %>
 
   <div class="field">
     <%= f.label :Cultivar %><br />
-    <span class="subtext">A specific name (cultivar, subspecies, hybrid, grex, etc.) for this source, e.g., "Granny Smith"</span><br>
+    <span class="subtext">Optionally, a more specific name (cultivar, subspecies, hybrid, grex, etc.) for this source, e.g., "Granny Smith"</span><br>
     <%= f.text_field :cultivar %>
     <span>
   </div>
 
   <div class="field">
     *<%= f.label :address %><br />
-    <span class="subtext">Address is automagically geocoded by the google hiveborg.<br>The lat/lon are determined based on your current location (when possible), or a marker you placed.<br>The address will <em>overwrite</em> this lat/lon, so don't provide one if you want to use the lat/lon.</span><br>
+    <span class="subtext">Address is automagically geocoded by the google hiveborg.<br>
+    The lat/lon are determined based on your current location (when possible), or a marker you placed.<br>
+    The address will <em>overwrite</em> this lat/lon, so don't provide one if you want to use the lat/lon.</span><br>
+    <table style="width: 30em;">
+    <tr><td>
     <%= f.text_area :address, :size => "30x3" %><br>
+    lat:<%= f.text_field :lat, :size => 10, :value => @lat %>
+    lon:<%= f.text_field :lng, :size => 10, :value => @lng %><br> 
+    <td>
     <% if @current_action == "new" %>
-    <a href="#" onclick="update_marker();">Click to Update Map From Address</a> (will overwrite lat/lng)<br>
+    <div style="text-align: center;">
+    <a href="#" onclick="update_marker();">Click here to Update Map From Address</a><br><em>(will overwrite lat/lon)</em><br>
+    </div>
     <% end %>
-    lon:<%= f.text_field :lng, :size => 10, :value => @lng %> 
-    lat:<%= f.text_field :lat, :size => 10, :value => @lat %><br>
+    </table>
   </div>
+
+  <% if @current_action == "new" or (@current_action == "edit" and !current_admin.nil?) %>
+  <div class="field">
+    *<%= f.label :Author %><br />
+    <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
+    <%= f.text_field :author %>
+    <span>
+  </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :description_and_notes %><br />
     <span class="subtext">Any access issues? Problems? Things to note?</span><br>
-    <%= f.text_area :description, :size => "30x10" %>
+    <%= f.text_area :description, :size => "50x10" %>
   </div>
   <div class="field">
     <%= f.label :season %><br />
@@ -98,15 +124,6 @@ div.map_container div#map{
     <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
   </div>
 
-  <% if @current_action == "new" or (@current_action == "edit" and !current_admin.nil?) %>
-  <div class="field">
-    *<%= f.label :Author %><br />
-    <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
-    <%= f.text_field :author %>
-    <span>
-  </div>
-  <% end %>
-
   <br>
   <%= recaptcha_tags if current_admin.nil? %>
   <br>
@@ -115,3 +132,4 @@ div.map_container div#map{
     <%= check_box_tag(:create_another, '1', :checked => true) %> Create Another<br>
   </div>
 <% end %>
+</form>

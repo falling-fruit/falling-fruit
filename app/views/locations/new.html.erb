@@ -54,14 +54,19 @@ Gmaps.map.callback = function() {
     },{enableHighAccuracy:true, maximumAge:30000, timeout:30000});
   }else{
     // Case #1
-    marker = Gmaps.map.markers[len-1].serviceObject;
+    var lat = $("location_lat").value;
+    var lng = $("location_lng").value;
+    marker = new google.maps.Marker({
+      icon: '',
+      position: new google.maps.LatLng(lat,lng), 
+      map: Gmaps.map.serviceObject,
+      draggable: true,
+    });
     var nag = new google.maps.InfoWindow({
       content: '<div style="text-align: center;font-size: 10pt;"><strong>Please adjust the marker to<br>the position of ' +
                'the source.</strong><br><br><em>Pro tip: Check the satellite view - your<br>tree might be visible from space!</em></span>'
     });
     nag.open(Gmaps.map.serviceObject,marker);  
-    marker.setDraggable(true);
-    marker.setIcon("");
     google.maps.event.addListener(marker, 'dragend', function() {
       $("location_lat").value = this.getPosition().lat();
       $("location_lng").value = this.getPosition().lng();
