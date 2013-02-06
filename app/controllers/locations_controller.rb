@@ -99,6 +99,7 @@ class LocationsController < ApplicationController
       @location.lat = @lat
       @location.lng = @lng
     end
+    @locations = Location.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @location }
@@ -108,6 +109,8 @@ class LocationsController < ApplicationController
   # GET /locations/1/edit
   def edit
     @location = Location.find(params[:id])
+    @locations = Location.where("id != #{@location.id}")
+    @locations << @location
     @lat = @location.lat
     @lng = @location.lng
   end

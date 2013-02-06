@@ -43,6 +43,12 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
               loc = new google.maps.LatLng(lat,lon);
               Gmaps.map.serviceObject.panTo(loc);
               Gmaps.map.serviceObject.setZoom(15);
+              var cross = new google.maps.Marker({
+                icon: '/cross.png',
+                position: new google.maps.LatLng(lat,lon), 
+                map: Gmaps.map.serviceObject,
+                draggable: false,
+              });
               labelize_markers();
           },function(error){
             //use error.code to determine what went wrong
@@ -63,6 +69,12 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
             if (status == google.maps.GeocoderStatus.OK) {
               Gmaps.map.serviceObject.panTo(results[0].geometry.location);
               Gmaps.map.serviceObject.setZoom(15);
+              var cross = new google.maps.Marker({
+                icon: '/cross.png',
+                position: results[0].geometry.location, 
+                map: Gmaps.map.serviceObject,
+                draggable: false,
+              });
               labelize_markers();
             } else {
               alert("Geocode was not successful for the following reason: " + status);

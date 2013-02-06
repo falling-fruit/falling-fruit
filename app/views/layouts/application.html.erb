@@ -44,15 +44,14 @@
 
 </div> <!-- header -->
 
+<% unless @is_index %>
+<div id="content">
 <% if notice %>
 <div class="notice"><%= notice %></div>
 <% end %>
 <% if alert %>
 <div class="alert"><%= alert %></div>
 <% end %>
-
-<% unless @is_index %>
-<div id="content">
 <%= yield %>
 </div>
 <% else %>

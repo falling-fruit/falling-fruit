@@ -10,7 +10,7 @@ class Location < ActiveRecord::Base
   validates :quality_rating, :yield_rating, :access, :numericality => { :only_integer => true }, :allow_nil => true
 
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, 
-                  :no_season, :quality_rating, :yield_rating, :unverified, :access, :locations_types, :import_id, :cultivar
+                  :no_season, :quality_rating, :yield_rating, :unverified, :access, :locations_types, :import_id, :cultivar, :photo_url
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   acts_as_gmappable :process_geocoding => false, :lat => "lat", :lng => "lng", :address => "address"
   after_validation :geocode
@@ -41,6 +41,7 @@ class Location < ActiveRecord::Base
     yield_rating
     quality_rating
     author
+    photo_url
   end
 
   def scsv_types
@@ -53,11 +54,11 @@ class Location < ActiveRecord::Base
   
   def self.csv_header
     ["Type","Type Other","Description","Lat","Lng","Address","Season Start","Season Stop",
-     "No Season","Access","Unverified","Yield Rating","Quality Rating","Author"]
+     "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
   end
 
   def self.build_from_csv(row)
-    type,type_other,desc,lat,lng,address,season_start,season_stop,no_season,access,unverified,yield_rating,quality_rating,author = row
+    type,type_other,desc,lat,lng,address,season_start,season_stop,no_season,access,unverified,yield_rating,quality_rating,author,photo_url = row
     loc = Location.new
     unless type.nil? or type.strip.length == 0
       type.split(/[;,:]/).each{ |t|
@@ -90,6 +91,7 @@ class Location < ActiveRecord::Base
     end
     loc.description = desc
     loc.address = address
+    loc.photo_url = photo_url
     loc.season_start = season_start.to_i unless season_start.nil? or season_start.strip == ""
     loc.season_stop = season_stop.to_i unless season_stop.nil? or season_stop.strip == ""
     no_season = no_season.nil? ? "" : no_season.strip.downcase.tr('^a-z','')

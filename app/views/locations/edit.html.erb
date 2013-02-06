@@ -1,1 +1,31 @@
 <%= render 'form' %>
+
+<a href="#" onclick="doit();">Foo</a>
+
+<% content_for :scripts do %>
+<script type="text/javascript" charset="utf-8">
+var marker = null;
+Gmaps.map.callback = function() {
+  // make some modifications to the last-added marker
+  var len = Gmaps.map.markers.length;
+  marker = Gmaps.map.markers[len-1].serviceObject;
+  marker.setDraggable(true);
+  google.maps.event.addListener(marker, 'dragend', function() {
+    $("location_lat").value = this.getPosition().lat();
+    $("location_lng").value = this.getPosition().lng();
+  });
+  nag = new google.maps.InfoWindow({
+    content: '<div style="text-align: center;font-size: 10pt;"><strong>Please adjust the marker to<br>correct the position of ' +
+             'the source.</strong><br><br><em>Pro tip: Check the satellite view - your<br>tree might be visible from space!</em></span>'
+  });
+  nag.open(Gmaps.map.serviceObject,marker);  
+  marker.setIcon("");
+  // after all else is done, do this (async loading means this has to happen very last)
+  google.maps.event.addListener(Gmaps.map.serviceObject,'idle',function doit(){  
+    Gmaps.map.serviceObject.setZoom(15);
+    Gmaps.map.serviceObject.panTo(marker.getPosition());
+    google.maps.clearListeners(Gmaps.map.serviceObject,'idle');
+  });
+}
+</script>
+<% end %>
