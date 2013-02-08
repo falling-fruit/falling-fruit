@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
+  caches_page :index
 
   def import
     if request.post? && params[:import][:csv].present?
@@ -26,6 +27,7 @@ class LocationsController < ApplicationController
           errs << row
         end
       end
+      expire_page :action => :index
       if errs.any?
         if params["import"]["error_csv"].present? and params["import"]["error_csv"].to_i == 1
           errFile ="errors_#{Date.today.strftime('%d%b%y')}.csv"
@@ -129,6 +131,7 @@ class LocationsController < ApplicationController
     end
     @location = Location.new(params[:location])
     @location.locations_types += lts unless lts.nil?
+    expire_page :action => :index
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
         if params[:create_another].present? and params[:create_another].to_i == 1
@@ -178,6 +181,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
          @location.update_attributes(params[:location])
+        expire_page :action => :index
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { head :no_content }
       else
@@ -195,7 +199,7 @@ class LocationsController < ApplicationController
     LocationsType.where("location_id=#{params[:id]}").each{ |lt|
       lt.destroy
     }
-
+    expire_page :action => :index
     respond_to do |format|
       format.html { redirect_to locations_url }
       format.json { head :no_content }
