@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
+  # fixme: need to cache maps on new and edit pages
   caches_page :index
 
   def import
@@ -28,6 +29,7 @@ class LocationsController < ApplicationController
         end
       end
       expire_page :action => :index
+      expire_fragment('locations_form_side_map')
       if errs.any?
         if params["import"]["error_csv"].present? and params["import"]["error_csv"].to_i == 1
           errFile ="errors_#{Date.today.strftime('%d%b%y')}.csv"
@@ -51,25 +53,30 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @center_lat = nil
-    @center_lng = nil
-    unless params[:center_lat].nil? or params[:center_lng].nil?
-      @center_lat = params[:center_lat].to_f
-      @center_lng = params[:center_lng].to_f
-    end
-    @types = LocationsType.all.collect{ |l| l.type }.compact.uniq.sort{ |x,y| x.name <=> y.name }
-    if params[:type_id].nil?
-      @type = nil
-      @locations = Location.where("lat is not null and lng is not null")
-    else
-      @type = Type.find(params[:type_id])
-      @locations = LocationsType.find_all_by_type_id(params[:type_id]).collect{ |lt| lt.location }.compact
-    end
-    unless params[:search].nil?
-      @search = params[:search].tr('^a-zA-Z0-9 ','').downcase
-      @locations.collect!{ |l|
-        [l.description,l.author,l.title,l.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name}.join(" ")].join(" ").downcase.include?(@search) ? l : nil
-      }.compact!
+    @locations = Location.all
+    @lt_cache = {}
+    LocationsType.all.each{ |lt|
+      @lt_cache[lt.location_id] = [] if @lt_cache[lt.location_id].nil?
+      @lt_cache[lt.location_id] << {:name => lt.type.nil? ? lt.type_other : lt.type.name,
+                                    :usda => lt.type.nil? ? nil : lt.type.usda_profile_url,
+                                    :wiki => lt.type.nil? ? nil : lt.type.wikipedia_url}
+    }
+    @json = @locations.to_gmaps4rails do |loc, marker|
+      t = @lt_cache[loc.id].collect{ |d| d[:name] }
+      if t.length == 2
+        short_title = "#{t[0]} and #{t[1]}"
+      elsif t.length > 2
+        short_title = "#{t[0]} & Others"
+      else
+        short_title = t[0]
+      end
+      marker.infowindow render_to_string(:partial => "/locations/infowindow", 
+        :locals => {:location => loc,:lt_cache => @lt_cache[loc.id],:title => short_title})
+      marker.title short_title
+      #marker.json({ :population => city.population})
+      marker.picture({:picture => loc.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",
+                    :width => 32,
+                    :height => 32})
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -101,7 +108,6 @@ class LocationsController < ApplicationController
       @location.lat = @lat
       @location.lng = @lng
     end
-    @locations = Location.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @location }
@@ -111,10 +117,12 @@ class LocationsController < ApplicationController
   # GET /locations/1/edit
   def edit
     @location = Location.find(params[:id])
-    @locations = Location.where("id != #{@location.id}")
-    @locations << @location
     @lat = @location.lat
     @lng = @location.lng
+    respond_to do |format|
+      format.html
+      format.json { render json: @location }
+    end
   end
 
   # POST /locations
@@ -132,6 +140,7 @@ class LocationsController < ApplicationController
     @location = Location.new(params[:location])
     @location.locations_types += lts unless lts.nil?
     expire_page :action => :index
+    expire_fragment('locations_form_side_map')
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
         if params[:create_another].present? and params[:create_another].to_i == 1
@@ -182,6 +191,7 @@ class LocationsController < ApplicationController
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
          @location.update_attributes(params[:location])
         expire_page :action => :index
+        expire_fragment('locations_form_side_map')
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { head :no_content }
       else
@@ -200,6 +210,7 @@ class LocationsController < ApplicationController
       lt.destroy
     }
     expire_page :action => :index
+    expire_fragment('locations_form_side_map')
     respond_to do |format|
       format.html { redirect_to locations_url }
       format.json { head :no_content }

@@ -1,0 +1,27 @@
+<div style="background: #003366;font-weight:bold;color:white;padding:0.2em;font-size: 10pt;"><%= title %></div>
+<div style="font-size: 10pt;margin-top: 1em;">
+<% unless location.description.nil? or location.description.strip == "" %>
+<%= raw word_wrap(location.description,:line_width => 30).gsub("\n","<br>") %><br><br>
+<% end %>
+<% unless location.no_season or location.season_start.nil? or location.season_stop.nil? %>
+Fruiting from <%= Location::Months[location.season_start] %> to <%= Location::Months[location.season_stop] %><br>
+<% end %>
+<div style="color:#333333; font-weight: bold;">
+<% if lt_cache.collect{ |d| d[:wiki] }.compact.length != 0 %>
+Wikipedia:
+<% lt_cache.each{ |d| %>
+<% next if d[:wiki].nil? %>
+<a href="<%= d[:wiki] %>" target="_blank"><%= d[:name] %></a>
+<% } %><br>
+<% end %>
+<% if lt_cache.collect{ |d| d[:usda] }.compact.length != 0 %>
+USDA:
+<% lt_cache.each{ |d| %>
+<% next if d[:usda].nil? %>
+<a href="<%= d[:usda] %>" target="_blank"><%= d[:name] %></a>
+<% } %><br>
+<% end %>
+</div>
+<span style="text-decoration: italic;color: grey;">Added by <%= location.author %></span><br>
+<div style="text-align: right;"><a href="/locations/<%= location.id %>/edit">Edit</a></div>
+</div>

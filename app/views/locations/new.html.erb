@@ -1,4 +1,59 @@
-<%= render 'form' %>
+<% cache('new_side_map') do %>
+
+<style>
+div.map_container{
+  height: 100%;
+  position: absolute;
+  top: 0em;
+  bottom: 0;
+  left: 500px;
+  right: 0;
+}
+div.map_container div#map{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+div#form{
+  padding: 0.5em;
+  position: absolute;
+  width: 500px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+</style>
+
+<% 
+      lt_cache = {}
+      LocationsType.all.each{ |lt|
+        lt_cache[lt.location_id] = [] if lt_cache[lt.location_id].nil?
+        lt_cache[lt.location_id] << {:name => lt.type.nil? ? lt.type_other : lt.type.name,
+                                     :usda => lt.type.nil? ? nil : lt.type.usda_profile_url,
+                                     :wiki => lt.type.nil? ? nil : lt.type.wikipedia_url}
+      }
+      @json = Location.all.to_gmaps4rails do |loc, marker|
+        t = lt_cache[loc.id].collect{ |d| d[:name] }
+        if t.length == 2
+          short_title = "#{t[0]} and #{t[1]}"
+        elsif t.length > 2
+          short_title = "#{t[0]} & Others"
+        else
+          short_title = t[0]
+        end
+        marker.infowindow render(:partial => "/locations/infowindow",
+          :locals => {:location => loc,:lt_cache => lt_cache[loc.id],:title => short_title})
+        marker.title short_title
+        #marker.json({ :population => city.population})
+        marker.picture({:picture => loc.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",
+                        :width => 32,
+                        :height => 32})
+      end
+%>
+
+<%= gmaps("markers" => {"data" => @json, "options" => { "do_clustering" => false }}) %>
 
 <% content_for :scripts do %>
 <script type="text/javascript" charset="utf-8">
@@ -14,6 +69,7 @@
 var marker = null;
 geocoder = new google.maps.Geocoder();
 Gmaps.map.callback = function() {
+  Gmaps.map.serviceObject.setTilt(0); 
   var len = Gmaps.map.markers.length;
   var marker = null;
   if($('location_lat').value == "" && $('location_lng').value == ""){
@@ -77,7 +133,7 @@ Gmaps.map.callback = function() {
     google.maps.event.addListener(Gmaps.map.serviceObject,'idle',function doit(){  
       Gmaps.map.serviceObject.setZoom(15);
       Gmaps.map.serviceObject.panTo(marker.getPosition());
-      google.maps.clearListeners(Gmaps.map.serviceObject,'idle');
+      google.maps.event.clearListeners(Gmaps.map.serviceObject,'idle');
     });
   }
 };
@@ -113,3 +169,10 @@ function update_marker(){
 }
 </script>
 <% end %>
+
+<%= yield :scripts %>
+<%= javascript_include_tag "maplabel" %>
+
+<% end %>
+
+<%= render 'form' %>

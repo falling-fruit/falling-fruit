@@ -1,31 +1,3 @@
-<style>
-div.map_container{
-  height: 100%;
-  position: absolute;
-  top: 0em;
-  bottom: 0;
-  left: 500px;
-  right: 0;
-}
-div.map_container div#map{
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-div#form{
-  padding: 0.5em;
-  position: absolute;
-  width: 500px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-</style>
-
-<%= gmaps("markers" => {"data" => @locations.to_gmaps4rails, "options" => { "do_clustering" => false }}) %>
-
 <div id="form">
 <h2><%= @current_action.capitalize %> Source</h2>
 <%= form_for(@location) do |f| %>

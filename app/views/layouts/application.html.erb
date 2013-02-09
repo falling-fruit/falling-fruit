@@ -20,7 +20,7 @@
 
 <div id="menu">
  <div style="float: right;">
- <% if admin_signed_in? %>
+ <% if admin_signed_in? and !@is_index %>
  Logged in as <%= current_admin.email %>:
  <%= link_to('Account', edit_admin_registration_path) %> |
  <%= link_to('Logout', destroy_admin_session_path, :method => :delete) %><br>
@@ -31,11 +31,11 @@
 <%= link_to('Home', root_path) %> |
 <%= link_to('About', '/pages/about') %> |
 <%= link_to('Add Source', new_location_path) %>
-<% if !admin_signed_in? and @is_index %>
+<% if @is_index %>
 (or right click on map)
 <% end %>
 
-<% if admin_signed_in? %>
+<% if admin_signed_in? and !@is_index %>
 | <%= link_to('Admins', admins_path) %> |
 <%= link_to('Import', import_locations_path) %> |
 <%= link_to('Types', types_path) %>
@@ -57,9 +57,6 @@
 <% else %>
 <%= yield %>
 <% end %>
-
-<%= yield :scripts %> 
-<%= javascript_include_tag "maplabel" %>
 
 </body>
 </html>

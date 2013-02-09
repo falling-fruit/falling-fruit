@@ -1,31 +1,102 @@
-<%= render 'form' %>
+<% cache('edit_side_map') do %>
 
-<a href="#" onclick="doit();">Foo</a>
+<style>
+div.map_container{
+  height: 100%;
+  position: absolute;
+  top: 0em;
+  bottom: 0;
+  left: 500px;
+  right: 0;
+}
+div.map_container div#map{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+div#form{
+  padding: 0.5em;
+  position: absolute;
+  width: 500px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+</style>
+
+<%
+      lt_cache = {}
+      LocationsType.all.each{ |lt|
+        lt_cache[lt.location_id] = [] if lt_cache[lt.location_id].nil?
+        lt_cache[lt.location_id] << {:name => lt.type.nil? ? lt.type_other : lt.type.name,
+                                     :usda => lt.type.nil? ? nil : lt.type.usda_profile_url,
+                                     :wiki => lt.type.nil? ? nil : lt.type.wikipedia_url}
+      }
+      @json = Location.all.to_gmaps4rails do |loc, marker|
+        t = lt_cache[loc.id].collect{ |d| d[:name] }
+        if t.length == 2
+          short_title = "#{t[0]} and #{t[1]}"
+        elsif t.length > 2
+          short_title = "#{t[0]} & Others"
+        else
+          short_title = t[0]
+        end
+        marker.infowindow render(:partial => "/locations/infowindow",
+          :locals => {:location => loc,:lt_cache => lt_cache[loc.id],:title => short_title})
+        marker.title short_title
+        marker.picture({:picture => loc.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",
+                        :width => 32,
+                        :height => 32})
+      end
+%>
+
+<%= gmaps("markers" => {"data" => @json, "options" => { "do_clustering" => false }}) %>
 
 <% content_for :scripts do %>
 <script type="text/javascript" charset="utf-8">
 var marker = null;
 Gmaps.map.callback = function() {
-  // make some modifications to the last-added marker
-  var len = Gmaps.map.markers.length;
-  marker = Gmaps.map.markers[len-1].serviceObject;
-  marker.setDraggable(true);
+  var lat = $("location_lat").value;
+  var lng = $("location_lng").value;
+  marker = new google.maps.Marker({
+    icon: '',
+    position: new google.maps.LatLng(lat,lng), 
+    map: Gmaps.map.serviceObject,
+    draggable: true,
+  });
+  var nag = new google.maps.InfoWindow({
+    content: '<div style="text-align: center;font-size: 10pt;"><strong>Please adjust the marker to<br>the position of ' +
+             'the source.</strong><br><br><em>Pro tip: Check the satellite view - your<br>tree might be visible from space!</em></span>'
+  });
+  nag.open(Gmaps.map.serviceObject,marker);  
   google.maps.event.addListener(marker, 'dragend', function() {
     $("location_lat").value = this.getPosition().lat();
     $("location_lng").value = this.getPosition().lng();
   });
-  nag = new google.maps.InfoWindow({
-    content: '<div style="text-align: center;font-size: 10pt;"><strong>Please adjust the marker to<br>correct the position of ' +
-             'the source.</strong><br><br><em>Pro tip: Check the satellite view - your<br>tree might be visible from space!</em></span>'
-  });
-  nag.open(Gmaps.map.serviceObject,marker);  
-  marker.setIcon("");
+  // Hide any markers with the same lat/lng as the selected marker
+  var len = Gmaps.map.markers.length;
+  for(var i = 0; i < len; i++){
+    var m = Gmaps.map.markers[i];
+    if(m.serviceObject.getPosition().equals(marker.getPosition())){
+      Gmaps.map.hideMarker(m);
+    }
+  }
   // after all else is done, do this (async loading means this has to happen very last)
   google.maps.event.addListener(Gmaps.map.serviceObject,'idle',function doit(){  
     Gmaps.map.serviceObject.setZoom(15);
     Gmaps.map.serviceObject.panTo(marker.getPosition());
-    google.maps.clearListeners(Gmaps.map.serviceObject,'idle');
+    google.maps.event.clearListeners(Gmaps.map.serviceObject,'idle');
   });
+  Gmaps.map.serviceObject.setTilt(0); 
 }
 </script>
 <% end %>
+
+<%= yield :scripts %>
+<%= javascript_include_tag "maplabel" %>
+
+<% end %>
+
+<%= render 'form' %>

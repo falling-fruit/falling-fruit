@@ -51,27 +51,23 @@ div#header div#logo{
 
 div#searchbar{
   position: absolute;
-  top: 4.5em;
+  top: 5em;
   left: 0px;
   right: 0px;
   height: 4em;
   background-color: lightblue;
-}
-
-div#searchbar div#filter{
- border-top: 1px solid black;
- padding: 0.5em;
- font-size: 10pt;
- font-weight: bold;
- color: #222222;
-}
-
-div#searchbar div#zoom{
-  float: right;
+  border-top: 1px solid black;
+  padding: 0.5em;
   font-size: 10pt;
   font-weight: bold;
   color: #222222;
-  padding: 0.5em;
+}
+
+div#searchbar button{
+  font-size: 10pt;
+}
+div#searchbar input[type=text]{
+  font-size: 10pt;
 }
 
 div#content{ 

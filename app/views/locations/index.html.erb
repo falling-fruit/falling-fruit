@@ -7,32 +7,20 @@
 %>
 
 <div id="searchbar">
-<div id="zoom">
-<input id="address" name="address" value="Any address" onclick="this.value = '';" size="35">
-<button onclick="recenter_map_to_address()">Zoom</button>
+Controls:
+<input id="address" name="address" value="Zoom to Address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="35">
+<button onclick="recenter_map_to_address();">Go</button>
 <span id="recenter_button">
 or <button onclick="recenter_map()">Zoom to Me</button>
-</span> | <a id="permalink" href="<%= raw clean_fullpath %>">Permalink</a> | <a href="<%=raw clean_fullpath %>format=csv">Data</a>
+::
+</span>
+<input name="search" id="search" value="Filter (e.g., Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }">
+<button onclick="search_filter();">Go</button>
+:: Labels
+<button onclick="labelize_markers()">On</button> | <button onclick="delabelize_markers()">Off</button>
 </div>
 
-<div id="filter">
-Filter: <select name="filter_select" id="filter_select" onchange="parent.location=$('filter_select').options[$('filter_select').selectedIndex].value;">
-  <option value="<%= locations_path %>"></option>
-<% @types.collect{ |type| 
-     n = LocationsType.where("type_id=#{type.id}").count
-     next if n == 0
-%>
-  <option <%= !@type.nil? and @type.id == type.id ? "selected" : "" %> value="/locations?type_id=<%= type.id %>"><%= type.name %> (<%= n %>)</option>
-<% } %>
-</select> or
-<form style="display:inline;">
-<input name="search" id="search" value="<%= @search.nil? ? "Search" : @search %>" onclick="this.value = '';">
-</form>
-<% unless @search.nil? %>(<%= @locations.length %> results)<% end %>
-</div>
-</div>
-
-<%= gmaps4rails(@locations.to_gmaps4rails) %>
+<%= gmaps("markers" => {"data" => @json, "options" => {"do_clustering" => true, "clusterer_maxZoom" => 11, "clusterer_gridSize" => 75}}) %>
 
  <% content_for :scripts do %>
     <script type="text/javascript" charset="utf-8">
@@ -49,7 +37,6 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
                 map: Gmaps.map.serviceObject,
                 draggable: false,
               });
-              labelize_markers();
           },function(error){
             //use error.code to determine what went wrong
           });
@@ -75,7 +62,6 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
                 map: Gmaps.map.serviceObject,
                 draggable: false,
               });
-              labelize_markers();
             } else {
               alert("Geocode was not successful for the following reason: " + status);
             }
@@ -83,31 +69,33 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
         }
 
         var markersArray = [];
-        // On click, clear markers, place a new one, update coordinates in the form
+        var labelsArray = [];
+	var boundMarkersArray = [];
+        
         Gmaps.map.callback = function() {
             google.maps.event.addListener(Gmaps.map.serviceObject, 'rightclick', function(event) {
               clearOverlays();
               placeMarker(event.latLng);
             });
-            google.maps.event.addListener(Gmaps.map.serviceObject, 'center_changed', function() {
-              //alert(Gmaps.map.serviceObject.getZoom());
-              if(Gmaps.map.serviceObject.getZoom() >= 14){
-                labelize_markers();
-              }
-              var center = Gmaps.map.serviceObject.getCenter();
-              $("permalink").href = '<%= raw clean_fullpath %>' + 'center_lat=' + center.lat() + '&center_lng=' + center.lng();
-            });
-            <% unless @center_lat.nil? or @center_lng.nil? %>
-            var loc = new google.maps.LatLng(<%= @center_lat %>,<%= @center_lng %>);
-            Gmaps.map.serviceObject.panTo(loc);
-            <% end %>
+            //google.maps.event.addListener(Gmaps.map.serviceObject, 'center_changed', function() {
+            //  var center = Gmaps.map.serviceObject.getCenter();
+            //  $("permalink").href = '<%= raw clean_fullpath %>' + 'center_lat=' + center.lat() + '&center_lng=' + center.lng();
+            //});
+            //<% unless @center_lat.nil? or @center_lng.nil? %>
+            //var loc = new google.maps.LatLng(<%= @center_lat %>,<%= @center_lng %>);
+            //Gmaps.map.serviceObject.panTo(loc);
+            //<% end %>
             Gmaps.map.serviceObject.setTilt(0); 
         };
 
         function labelize_markers() {
+              // if we're still in clustered mode, don't label
+              if(Gmaps.map.serviceObject.getZoom() <= 11) return;
               var len = Gmaps.map.markers.length;
               for(var i = 0; i < len; i++){
                 marker = Gmaps.map.markers[i].serviceObject;
+                // only label visible markers
+                if(!Gmaps.map.serviceObject.getBounds().contains(marker.getPosition())) continue;
                 var mapLabel = new MapLabel({
                   text: marker.getTitle(),
                   position: marker.getPosition(),
@@ -115,12 +103,46 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
                   fontSize: 10,
                   align: 'right'
                 });
+                labelsArray.push(mapLabel);
                 mapLabel.set('position', marker.getPosition());
+		boundMarkersArray.push(marker);
+                // only necessary if we want them to drag or something
                 marker.bindTo('map', mapLabel);
                 marker.bindTo('position', mapLabel);
               } 
         }
-
+        function delabelize_markers() {
+	      var len = boundMarkersArray.length;
+              for(var i = 0; i < len; i++){
+                var marker = boundMarkersArray[i]
+                marker.unbind('map');
+                marker.unbind('position');
+                boundMarkersArray[i] = null;
+              }
+              boundMarkersArray = [];
+              len = labelsArray.length;
+              for(var i = 0; i < len; i++){
+                var lab = labelsArray[i];
+                lab.set('text','');
+                lab.set('map',null);
+                labelsArray[i] = null;
+              }
+              labelsArray = [];
+        }
+	function search_filter(){
+	  var search = $('search').value;
+          var len = Gmaps.map.markers.length;
+          for(var i = 0; i < len; i++){
+            var marker = Gmaps.map.markers[i];
+            if(search == ""){
+              Gmaps.map.showMarker(marker);
+            }else if(marker.infowindow.getContent().search(new RegExp(search,"i")) >= 0){
+              Gmaps.map.showMarker(marker);
+            }else{
+              Gmaps.map.hideMarker(marker);
+            }
+          }
+	}
         // Add a marker with an open infowindow
         function placeMarker(latLng) {
             var marker = new google.maps.Marker({
@@ -160,3 +182,6 @@ Filter: <select name="filter_select" id="filter_select" onchange="parent.locatio
         }
     </script>
 <% end %>
+
+<%= yield :scripts %>
+<%= javascript_include_tag "maplabel" %>
