@@ -47,7 +47,7 @@
     lat:<%= f.text_field :lat, :size => 10, :value => @lat %>
     lon:<%= f.text_field :lng, :size => 10, :value => @lng %><br> 
     <td>
-    <% if @current_action == "new" %>
+    <% if @current_action == "new" or @current_action == "create" %>
     <div style="text-align: center;">
     <a href="#" onclick="update_marker();">Click here to Update Map From Address</a><br><em>(will overwrite lat/lon)</em><br>
     </div>
@@ -55,7 +55,7 @@
     </table>
   </div>
 
-  <% if @current_action == "new" or (@current_action == "edit" and !current_admin.nil?) %>
+  <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and !current_admin.nil?) %>
   <div class="field">
     *<%= f.label :Author %><br />
     <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>

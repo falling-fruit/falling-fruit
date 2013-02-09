@@ -3,6 +3,13 @@ class LocationsController < ApplicationController
   # fixme: need to cache maps on new and edit pages
   caches_page :index
 
+  def expire_things
+    expire_page '/index.html'
+    expire_page '/locations.html'
+    expire_fragment('new_side_map')
+    expire_fragment('edit_side_map')
+  end
+
   def import
     if request.post? && params[:import][:csv].present?
       infile = params[:import][:csv].read
@@ -28,8 +35,6 @@ class LocationsController < ApplicationController
           errs << row
         end
       end
-      expire_page :action => :index
-      expire_fragment('locations_form_side_map')
       if errs.any?
         if params["import"]["error_csv"].present? and params["import"]["error_csv"].to_i == 1
           errFile ="errors_#{Date.today.strftime('%d%b%y')}.csv"
@@ -139,10 +144,9 @@ class LocationsController < ApplicationController
     end
     @location = Location.new(params[:location])
     @location.locations_types += lts unless lts.nil?
-    expire_page :action => :index
-    expire_fragment('locations_form_side_map')
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
+        expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
         else
@@ -190,8 +194,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
          @location.update_attributes(params[:location])
-        expire_page :action => :index
-        expire_fragment('locations_form_side_map')
+        expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { head :no_content }
       else
@@ -209,8 +212,7 @@ class LocationsController < ApplicationController
     LocationsType.where("location_id=#{params[:id]}").each{ |lt|
       lt.destroy
     }
-    expire_page :action => :index
-    expire_fragment('locations_form_side_map')
+    expire_things
     respond_to do |format|
       format.html { redirect_to locations_url }
       format.json { head :no_content }
