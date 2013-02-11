@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
   # fixme: need to cache maps on new and edit pages
-  caches_page :index
+  #caches_page :index
 
   def expire_things
     expire_page '/index.html'
@@ -27,6 +27,9 @@ class LocationsController < ApplicationController
         next if n == 1 or row.join.blank?
         location = Location.build_from_csv(row)
         location.import = import
+        if params["import"]["geocode"].present? and params["import"]["geocode"].to_i == 1
+          location.geocode
+        end
         if location.valid?
           ok_count += 1
           location.save
@@ -55,16 +58,32 @@ class LocationsController < ApplicationController
     end
   end
 
+  def infobox
+    @location = Location.find(params[:id])
+    render(:partial => "/locations/infowindow", 
+      :locals => {:location => @location}
+    )
+  end
+
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all
+    @locations = Location.where("import_id is NULL")
     @lt_cache = {}
+    @type_cache = {}
     LocationsType.all.each{ |lt|
       @lt_cache[lt.location_id] = [] if @lt_cache[lt.location_id].nil?
-      @lt_cache[lt.location_id] << {:name => lt.type.nil? ? lt.type_other : lt.type.name,
-                                    :usda => lt.type.nil? ? nil : lt.type.usda_profile_url,
-                                    :wiki => lt.type.nil? ? nil : lt.type.wikipedia_url}
+      if lt.type_id.nil?
+        @lt_cache[lt.location_id] << {:name => lt.type_other, :usda => nil, :wiki => nil }
+      elsif @type_cache[lt.type_id].nil?
+        t = lt.type
+        @type_cache[lt.type_id] = {:name => t.name,
+                                   :usda => t.usda_profile_url,
+                                   :wiki => t.wikipedia_url}
+        @lt_cache[lt.location_id] << @type_cache[lt.type_id]
+      else
+        @lt_cache[lt.location_id] << @type_cache[lt.type_id]
+      end
     }
     @json = @locations.to_gmaps4rails do |loc, marker|
       t = @lt_cache[loc.id].collect{ |d| d[:name] }
@@ -75,13 +94,12 @@ class LocationsController < ApplicationController
       else
         short_title = t[0]
       end
-      marker.infowindow render_to_string(:partial => "/locations/infowindow", 
-        :locals => {:location => loc,:lt_cache => @lt_cache[loc.id],:title => short_title})
       marker.title short_title
-      #marker.json({ :population => city.population})
+      marker.json({ :location_id => loc.id })
       marker.picture({:picture => loc.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",
                     :width => 32,
-                    :height => 32})
+                    :height => 32,
+                    :marker_anchor => [0,0]})
     end
     respond_to do |format|
       format.html # index.html.erb

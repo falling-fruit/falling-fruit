@@ -77,6 +77,22 @@ or <button onclick="recenter_map()">Zoom to Me</button>
               clearOverlays();
               placeMarker(event.latLng);
             });
+            for (var i = 0; i <  Gmaps.map.markers.length; ++i) {
+                var addListener = function(i){ 
+                  var marker = Gmaps.map.markers[i];
+                  google.maps.event.addListener(marker.serviceObject, 'click', function(){
+                    new Ajax.Request('/locations/' + marker.location_id + '/infobox', {
+                      onSuccess: function(response) {
+                        var infowindow = new google.maps.InfoWindow({content: response.responseText });
+                        if (Gmaps.map.visibleInfoWindow !== null){ Gmaps.map.visibleInfoWindow.close(); }
+                        infowindow.open(Gmaps.map.serviceObject, marker.serviceObject)
+                        Gmaps.map.visibleInfoWindow = infowindow;
+                      }
+                    });
+                  });
+                }
+                addListener(i);
+            }
             //google.maps.event.addListener(Gmaps.map.serviceObject, 'center_changed', function() {
             //  var center = Gmaps.map.serviceObject.getCenter();
             //  $("permalink").href = '<%= raw clean_fullpath %>' + 'center_lat=' + center.lat() + '&center_lng=' + center.lng();

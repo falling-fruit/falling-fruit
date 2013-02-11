@@ -20,6 +20,8 @@ FallingfruitWebapp::Application.routes.draw do
     end
   end
 
+  match 'locations/:id/infobox' => 'locations#infobox'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

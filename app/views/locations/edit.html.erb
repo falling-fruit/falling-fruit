@@ -43,12 +43,12 @@ div#form{
         else
           short_title = t[0]
         end
-        marker.infowindow render(:partial => "/locations/infowindow",
-          :locals => {:location => loc,:lt_cache => lt_cache[loc.id],:title => short_title})
+        marker.json({ :location_id => loc.id })
         marker.title short_title
         marker.picture({:picture => loc.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",
                         :width => 32,
-                        :height => 32})
+                        :height => 32,
+                        :marker_anchor => [0,0]})
       end
 %>
 
@@ -58,6 +58,23 @@ div#form{
 <script type="text/javascript" charset="utf-8">
 var marker = null;
 Gmaps.map.callback = function() {
+  for (var i = 0; i <  Gmaps.map.markers.length; ++i) {
+    var addListener = function(i){ 
+      var marker = Gmaps.map.markers[i];
+      google.maps.event.addListener(marker.serviceObject, 'click', function(){
+        new Ajax.Request('/locations/' + marker.location_id + '/infobox', {
+          onSuccess: function(response) {
+            var infowindow = new google.maps.InfoWindow({content: response.responseText });
+            if (Gmaps.map.visibleInfoWindow !== null){ Gmaps.map.visibleInfoWindow.close(); }
+            infowindow.open(Gmaps.map.serviceObject, marker.serviceObject)
+            Gmaps.map.visibleInfoWindow = infowindow;
+          }
+        });
+      });
+    }
+    addListener(i);
+  }
+
   var lat = $("location_lat").value;
   var lng = $("location_lng").value;
   marker = new google.maps.Marker({
