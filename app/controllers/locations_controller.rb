@@ -1,13 +1,26 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
   # fixme: need to cache maps on new and edit pages
-  #caches_page :index
+  caches_page :index
 
   def expire_things
     expire_page '/index.html'
     expire_page '/locations.html'
     expire_fragment('new_side_map')
     expire_fragment('edit_side_map')
+  end
+
+  def cluster
+    n = params[:n].nil? ? 10 : params[:n].to_i
+    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
+      "AND ST_INTERSECTS(location,ST_GeomFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))')"
+    @clusters = ActiveRecord::Base.connection.execute("SELECT kmeans, count, ST_X(center) as lng, ST_Y(center) as lat
+      FROM (SELECT kmeans, count(*), ST_Centroid(ST_MinimumBoundingCircle(ST_Collect(location::geometry))) AS center 
+      FROM (SELECT kmeans(ARRAY[lng,lat],#{n}) OVER (), location FROM locations where lng is not null and lat is not null #{bound}) AS ksub 
+      GROUP by kmeans ORDER BY kmeans) AS csub")
+    respond_to do |format|
+      format.json { render json: @clusters }
+    end
   end
 
   def import
@@ -68,7 +81,7 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.where("import_id is NULL")
+    @locations = Location.where("import_id IN (#{Import.where("autoload").collect{ |i| i.id }.join(",")})")
     @lt_cache = {}
     @type_cache = {}
     LocationsType.all.each{ |lt|

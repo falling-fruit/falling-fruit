@@ -1,0 +1,34 @@
+<%= form_for @import do |f| %>
+  <% if @import.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@type.errors.count, "error") %> prohibited this type from being saved:</h2>
+
+      <ul>
+      <% @import.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :autoload %><br />
+    <%= f.check_box :autoload %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

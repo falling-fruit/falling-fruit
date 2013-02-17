@@ -34,7 +34,7 @@ div#form{
                                      :usda => lt.type.nil? ? nil : lt.type.usda_profile_url,
                                      :wiki => lt.type.nil? ? nil : lt.type.wikipedia_url}
       }
-      @json = Location.all.to_gmaps4rails do |loc, marker|
+      @json = Location.where("import_id IN (#{Import.where("autoload").collect{ |i| i.id }.join(",")})").to_gmaps4rails do |loc,marker|
         t = lt_cache[loc.id].collect{ |d| d[:name] }
         if t.length == 2
           short_title = "#{t[0]} and #{t[1]}"

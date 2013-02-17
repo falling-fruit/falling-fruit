@@ -22,6 +22,8 @@ GEM
       activesupport (= 3.2.8)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-postgis-adapter (0.5.1)
+      rgeo-activerecord (~> 0.4.6)
     activeresource (3.2.8)
       activemodel (= 3.2.8)
       activesupport (= 3.2.8)
@@ -103,6 +105,11 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     recaptcha (0.3.4)
+    rgeo (0.3.20)
+    rgeo-activerecord (0.4.6)
+      activerecord (>= 3.0.3)
+      arel (>= 2.0.6)
+      rgeo (>= 0.3.20)
     sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -136,6 +143,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-postgis-adapter
   coffee-rails (~> 3.2.1)
   comma (~> 3.0)
   devise
@@ -147,6 +155,7 @@ DEPENDENCIES
   prototype-rails
   rails (= 3.2.8)
   recaptcha
+  rgeo
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer

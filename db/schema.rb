@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205232437) do
+ActiveRecord::Schema.define(:version => 20130217163837) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -33,9 +33,12 @@ ActiveRecord::Schema.define(:version => 20130205232437) do
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
   create_table "imports", :force => true do |t|
-    t.string "url"
-    t.string "name"
-    t.text   "comments"
+    t.string   "url"
+    t.string   "name"
+    t.text     "comments"
+    t.datetime "created_at", :default => '2013-02-14 21:34:21', :null => false
+    t.datetime "updated_at", :default => '2013-02-14 21:34:21', :null => false
+    t.boolean  "autoload",   :default => true,                  :null => false
   end
 
   create_table "locations", :force => true do |t|
@@ -47,16 +50,19 @@ ActiveRecord::Schema.define(:version => 20130205232437) do
     t.integer  "season_stop"
     t.boolean  "no_season"
     t.text     "address"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.boolean  "unverified",     :default => false
+    t.datetime "created_at",                                                                                    :null => false
+    t.datetime "updated_at",                                                                                    :null => false
+    t.boolean  "unverified",                                                                 :default => false
     t.integer  "quality_rating"
     t.integer  "yield_rating"
     t.integer  "access"
     t.integer  "import_id"
     t.string   "cultivar"
     t.string   "photo_url"
+    t.spatial  "location",       :limit => {:srid=>4326, :type=>"point", :geographic=>true}
   end
+
+  add_index "locations", ["location"], :name => "index_locations_on_location", :spatial => true
 
   create_table "locations_types", :force => true do |t|
     t.integer "location_id"

@@ -14,6 +14,8 @@ class Location < ActiveRecord::Base
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   acts_as_gmappable :process_geocoding => false, :lat => "lat", :lng => "lng", :address => "address"
   after_validation :geocode
+  # manually update postgis location object
+  after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
 
   public 
 

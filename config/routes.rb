@@ -4,6 +4,7 @@ FallingfruitWebapp::Application.routes.draw do
     collection do
       get 'import'
       post 'import'
+      get 'cluster'
     end
   end
 
@@ -19,6 +20,8 @@ FallingfruitWebapp::Application.routes.draw do
       get 'approve'
     end
   end
+
+  resources :imports
 
   match 'locations/:id/infobox' => 'locations#infobox'
 

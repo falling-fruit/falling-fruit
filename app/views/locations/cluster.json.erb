@@ -1,0 +1,3 @@
+<% @clusters.each_hash{ |c| %>
+{"title":"<%= c["count"] %>","lat":"<%= c["lat"] %>","lng":"<%= c["lng"] %>","picture":"http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/images/m1.png"}
+<% } %>

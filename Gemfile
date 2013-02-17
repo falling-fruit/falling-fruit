@@ -23,33 +23,14 @@ end
 gem 'jquery-rails'
 gem 'prototype-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
-
-#gem 'active_scaffold'
 gem 'geocoder'
 gem 'devise'
 gem 'thin'
 gem 'pg'
-#gem 'twitter'
-# This gem is for moving data easily between databases
-# use rake db:data:dump to dump the data in your current db into a db/data.yaml
-# use rake db:data:load to load the data in that file into your current db
 gem 'yaml_db'
 gem 'paperclip', '~> 3.1'
-#gem 'prawn'
 gem 'gmaps4rails'
 gem 'recaptcha', :require => "recaptcha/rails"
-gem "comma", "~> 3.0"
+gem 'comma', '~> 3.0'
+gem 'rgeo'
+gem 'activerecord-postgis-adapter'

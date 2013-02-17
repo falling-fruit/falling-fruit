@@ -37,7 +37,7 @@
 
 <% if admin_signed_in? and !@is_index %>
 | <%= link_to('Admins', admins_path) %> |
-<%= link_to('Import', import_locations_path) %> |
+<%= link_to('Import', import_locations_path) %>/<%= link_to('Imports', imports_path) %> |
 <%= link_to('Types', types_path) %>
 <% end %>
 </div> <!-- menu -->

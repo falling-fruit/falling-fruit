@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'active_record/connection_adapters/postgis_adapter/railtie'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
