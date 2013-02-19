@@ -193,7 +193,6 @@ or <button onclick="recenter_map()">Zoom to Me</button>
         else
           gstr = 'method=kmeans&n=5';
       }
-      alert(gstr);
       new Ajax.Request('/locations/cluster.json?' + gstr + '&' + bstr, {
                 method: 'get',
                 onSuccess: function(response) {
