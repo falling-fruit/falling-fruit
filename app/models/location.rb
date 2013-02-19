@@ -46,6 +46,17 @@ class Location < ActiveRecord::Base
     photo_url
   end
 
+  def title
+    lt = self.locations_types
+    if lt.length == 2
+      "#{lt[0].name} and #{lt[1].name}"
+    elsif lt.length > 2
+      "#{lt[0].name} & Others"
+    else
+      lt[0].name
+    end
+  end
+
   def scsv_types
     self.locations_types.collect{ |lt| lt.type.nil? ? nil : lt.type.name }.compact.join(";")
   end

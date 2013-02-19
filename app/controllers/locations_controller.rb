@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
   # fixme: need to cache maps on new and edit pages
-  caches_page :index
+  #caches_page :index
 
   def expire_things
     expire_page '/index.html'
@@ -12,14 +12,44 @@ class LocationsController < ApplicationController
 
   def cluster
     n = params[:n].nil? ? 10 : params[:n].to_i
+    g = params[:grid].present? ? params[:grid].to_i : 22.25
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
-      "AND ST_INTERSECTS(location,ST_GeomFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))')"
-    @clusters = ActiveRecord::Base.connection.execute("SELECT kmeans, count, ST_X(center) as lng, ST_Y(center) as lat
-      FROM (SELECT kmeans, count(*), ST_Centroid(ST_MinimumBoundingCircle(ST_Collect(location::geometry))) AS center 
-      FROM (SELECT kmeans(ARRAY[lng,lat],#{n}) OVER (), location FROM locations where lng is not null and lat is not null #{bound}) AS ksub 
-      GROUP by kmeans ORDER BY kmeans) AS csub")
+      "AND ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
+    ifilter = "AND (import_id IS NULL OR import_id IN (#{Import.where("autoload").collect{ |i| i.id }.join(",")}))"
+    @clusters = []
+    if params[:method].present? and params[:method] == "kmeans"
+      r = ActiveRecord::Base.connection.execute("SELECT kmeans, count, ST_X(center) as lng, ST_Y(center) as lat
+        FROM (SELECT kmeans, count(*), ST_Centroid(ST_MinimumBoundingCircle(ST_Collect(location::geometry))) AS center 
+        FROM (SELECT kmeans(ARRAY[lng,lat],#{n}) OVER (), location FROM locations where lng is not null and lat is not null #{ifilter} #{bound}) 
+        AS ksub GROUP by kmeans ORDER BY kmeans) AS csub")
+    else
+      r = ActiveRecord::Base.connection.execute("SELECT count, st_x(center) as lng, st_y(center) as lat 
+       FROM (SELECT count(location) as count, ST_Centroid(ST_Collect(location::geometry)) AS center 
+       FROM locations WHERE lng IS NOT NULL and lat IS NOT NULL #{ifilter} #{bound} 
+       GROUP BY ST_SnapToGrid(location::geometry,#{g},#{g})) AS csub")
+    end
+    r.each{ |row|
+        @clusters.push({:title => row["count"],:lat => row["lat"],:lng => row["lng"],
+          :picture => "http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/images/m3.png",
+          :width => 66, :height => 65, :marker_anchor => [0,0]})
+    } unless r.nil?
     respond_to do |format|
       format.json { render json: @clusters }
+    end
+  end
+
+  def markers
+    max_n = 1000
+    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
+      "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
+    ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload").collect{ |i| i.id }.join(",")}))"
+    @markers = Location.where([bound,ifilter].compact.join(" AND ")).limit(max_n).collect{ |l|
+      {:title => l.title, :location_id => l.id, :lat => l.lat, :lng => l.lng, 
+       :picture => l.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",:width => 32, :height => 32,
+       :marker_anchor => [0,0]}
+    }
+    respond_to do |format|
+      format.json { render json: @markers }
     end
   end
 
@@ -81,39 +111,6 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.where("import_id IN (#{Import.where("autoload").collect{ |i| i.id }.join(",")})")
-    @lt_cache = {}
-    @type_cache = {}
-    LocationsType.all.each{ |lt|
-      @lt_cache[lt.location_id] = [] if @lt_cache[lt.location_id].nil?
-      if lt.type_id.nil?
-        @lt_cache[lt.location_id] << {:name => lt.type_other, :usda => nil, :wiki => nil }
-      elsif @type_cache[lt.type_id].nil?
-        t = lt.type
-        @type_cache[lt.type_id] = {:name => t.name,
-                                   :usda => t.usda_profile_url,
-                                   :wiki => t.wikipedia_url}
-        @lt_cache[lt.location_id] << @type_cache[lt.type_id]
-      else
-        @lt_cache[lt.location_id] << @type_cache[lt.type_id]
-      end
-    }
-    @json = @locations.to_gmaps4rails do |loc, marker|
-      t = @lt_cache[loc.id].collect{ |d| d[:name] }
-      if t.length == 2
-        short_title = "#{t[0]} and #{t[1]}"
-      elsif t.length > 2
-        short_title = "#{t[0]} & Others"
-      else
-        short_title = t[0]
-      end
-      marker.title short_title
-      marker.json({ :location_id => loc.id })
-      marker.picture({:picture => loc.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",
-                    :width => 32,
-                    :height => 32,
-                    :marker_anchor => [0,0]})
-    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @locations }
