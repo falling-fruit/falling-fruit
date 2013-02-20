@@ -20,7 +20,7 @@
 
 <div id="menu">
  <div style="float: right;">
- <% if admin_signed_in? and !@is_index %>
+ <% if admin_signed_in? %>
  Logged in as <%= current_admin.email %>:
  <%= link_to('Account', edit_admin_registration_path) %> |
  <%= link_to('Logout', destroy_admin_session_path, :method => :delete) %><br>
@@ -31,11 +31,11 @@
 <%= link_to('Home', root_path) %> |
 <%= link_to('About', '/pages/about') %> |
 <%= link_to('Add Source', new_location_path) %>
-<% if @is_index %>
+<% if @is_index and !admin_signed_in? %>
 (or right click on map)
 <% end %>
 
-<% if admin_signed_in? and !@is_index %>
+<% if admin_signed_in? %>
 | <%= link_to('Admins', admins_path) %> |
 <%= link_to('Import', import_locations_path) %>/<%= link_to('Imports', imports_path) %> |
 <%= link_to('Types', types_path) %>

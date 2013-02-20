@@ -23,7 +23,7 @@ div#title{ font-size: 10pt; background: #003366;font-weight:bold;color:white;pad
 Fruiting from <%= Location::Months[location.season_start] %> to <%= Location::Months[location.season_stop] %><br>
 <% end %>
 <div style="color:#333333; font-weight: bold;">
-<% t = location.locations_types.collect{ |d| d.type.nil? or d.type.usda_profile_url.nil? ? nil : d.type }.compact %>
+<% t = location.locations_types.collect{ |d| (d.type.nil? or d.type.usda_profile_url.nil?) ? nil : d.type }.compact %>
 <% if t.length > 0 %>
 USDA:
 <% t.each{ |d| %>
@@ -32,5 +32,9 @@ USDA:
 <% end %>
 </div>
 <span style="text-decoration: italic;color: grey;">Added by <%= location.author %></span><br>
-<div style="text-align: right;"><a href="/locations/<%= location.id %>/edit">Edit</a></div>
+<div style="text-align: right;"><a href="/locations/<%= location.id %>/edit">Edit</a>
+<% if admin_signed_in? %>
+ | <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+</div>
 </div>

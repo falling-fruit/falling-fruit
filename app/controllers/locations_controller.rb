@@ -1,21 +1,20 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
-  # fixme: need to cache maps on new and edit pages
-  #caches_page :index
+  caches_action :cluster, :cache_path => Proc.new { |c| c.params }
 
   def expire_things
-    expire_page '/index.html'
-    expire_page '/locations.html'
-    expire_fragment('new_side_map')
-    expire_fragment('edit_side_map')
+    expire_fragment /locations\/cluster\.json/
   end
 
   def cluster
+    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     n = params[:n].nil? ? 10 : params[:n].to_i
-    g = params[:grid].present? ? params[:grid].to_i : 22.25
+    g = params[:grid].present? ? params[:grid].to_i : 1
+    g = 15 if g > 15
+    gsize = 360.0/(16.0*(2.0**(g-3)))
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
       "AND ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
-    ifilter = "AND (import_id IS NULL OR import_id IN (#{Import.where("autoload").collect{ |i| i.id }.join(",")}))"
+    ifilter = "AND (import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     @clusters = []
     if params[:method].present? and params[:method] == "kmeans"
       r = ActiveRecord::Base.connection.execute("SELECT kmeans, count, ST_X(center) as lng, ST_Y(center) as lat
@@ -26,7 +25,7 @@ class LocationsController < ApplicationController
       r = ActiveRecord::Base.connection.execute("SELECT count, st_x(center) as lng, st_y(center) as lat 
        FROM (SELECT count(location) as count, ST_Centroid(ST_Collect(location::geometry)) AS center 
        FROM locations WHERE lng IS NOT NULL and lat IS NOT NULL #{ifilter} #{bound} 
-       GROUP BY ST_SnapToGrid(location::geometry,#{g},#{g})) AS csub")
+       GROUP BY ST_SnapToGrid(location::geometry,#{gsize},#{gsize})) AS csub")
     end
     r.each{ |row|
         @clusters.push({:title => row["count"],:lat => row["lat"],:lng => row["lng"],
@@ -39,15 +38,28 @@ class LocationsController < ApplicationController
   end
 
   def markers
-    max_n = 1000
+    max_n = 500
+    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
       "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
-    ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload").collect{ |i| i.id }.join(",")}))"
-    @markers = Location.where([bound,ifilter].compact.join(" AND ")).limit(max_n).collect{ |l|
-      {:title => l.title, :location_id => l.id, :lat => l.lat, :lng => l.lng, 
-       :picture => l.unverified ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",:width => 32, :height => 32,
+    ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
+      string_agg(coalesce(lt.type_other,t.name),',') as name from locations l, 
+      locations_types lt, types t WHERE lt.location_id=l.id AND (lt.type_id IS NULL OR lt.type_id=t.id) AND #{[bound,ifilter].compact.join(" AND ")} 
+      GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
+    @markers = r.collect{ |row|
+      t = row["name"].split(/,/)
+      if t.length == 2
+        name = "#{t[0]} and #{t[1]}"
+      elsif t.length > 2
+        name = "#{t[0]} & Others"
+      else
+        name = t[0]
+      end
+      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
+       :picture => (row["unverified"] == 't') ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",:width => 32, :height => 32,
        :marker_anchor => [0,0]}
-    }
+    } unless r.nil?
     respond_to do |format|
       format.json { render json: @markers }
     end

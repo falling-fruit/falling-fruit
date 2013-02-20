@@ -17,3 +17,4 @@
 db/data.yml
 config/database.yml
 db/backups/*.sql
+public/*.csv*

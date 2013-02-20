@@ -17,10 +17,9 @@
   // will avoid adding duplicate markers (using location id)
   function add_markers_from_json(mdata,rich,skip_id){
     var len = mdata.length;
-    alert(skip_id);
     for(var i = 0; i < len; i++){
       var lid = mdata[i]["location_id"];
-      if((skip_id != undefined) && (skip_id == parseInt(lid)) continue;
+      if((skip_id != undefined) && (skip_id == parseInt(lid))) continue;
       if((lid != undefined) && (markerIdArray.indexOf(lid) >= 0)) continue;
       if(!rich){
         var m = new google.maps.Marker({
@@ -71,22 +70,21 @@
     makerIdArray = [];
   }
 
-  function do_clusters(bounds){
+  function do_clusters(bounds,zoom,muni){
       if(allow_refresh == false) return;
       allow_refresh = false;
       var bstr = '';
-      var gstr = 'method=grid&grid=40.0';
+      var gstr = 'method=grid&grid=' + zoom;
       if(bounds != undefined){
         var ne = bounds.getNorthEast();
         var sw = bounds.getSouthWest();
         bstr = 'nelat=' + ne.lat() + '&nelng=' + ne.lng() + 
                '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
-        if(map.getZoom() < 9)
-          gstr = 'method=grid&grid=' + Math.abs((sw.lng()-ne.lng())/10.0);
-        else
-          gstr = 'method=kmeans&n=5';
       }
-      new Ajax.Request('/locations/cluster.json?' + gstr + '&' + bstr, {
+      mstr = 0;
+      if(muni) mstr = 1;
+      if(pb != null) pb.start(200);
+      new Ajax.Request('/locations/cluster.json?muni=' + mstr + '&' + gstr + '&' + bstr, {
                 method: 'get',
                 onSuccess: function(response) {
                   json = jQuery.parseJSON(response.responseText);
@@ -94,11 +92,15 @@
                     clear_markers();
                     add_markers_from_json(json,true);
                   }
+                  if(pb != null) pb.hide();
                   google.maps.event.addListenerOnce(map, 'idle', function(){
                     allow_refresh = true;
                   }); 
                 },
-                onFailure: function() { allow_refresh = true; }
+                onFailure: function() {  
+                  allow_refresh = true; 
+                  if(pb != null) pb.hide();
+                }
               });
   }
 
@@ -116,7 +118,7 @@
   }
 
   // FIXME: possible optimization---only grab markers for (bounds-prior_bounds) area
-  function do_markers(bounds,skip_id){
+  function do_markers(bounds,skip_id,muni){
     if(allow_refresh == false) return;
     allow_refresh = false;
     var bstr = '';
@@ -124,11 +126,14 @@
       bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() + 
              '&swlat=' + bounds.getSouthWest().lat() + '&swlng=' + bounds.getSouthWest().lng();
     }
+    mstr = 0;
+    if(muni) mstr = 1;
     if(pb != null) pb.start(200);
-    new Ajax.Request('/locations/markers.json?' + bstr, {
+    new Ajax.Request('/locations/markers.json?muni=' + mstr + '&' + bstr, {
               method: 'get',
               onSuccess: function(response) {
                 json = jQuery.parseJSON(response.responseText);
+                if(pb != null) pb.setTotal(json.length);
                 // remove any cluster-type markers 
                 var i = markerIdArray.indexOf(undefined);
                 while(i >= 0){
@@ -149,7 +154,10 @@
                 allow_refresh = true;
                 if(pb != null) pb.hide();
               },
-              onFailure: function() { allow_refresh = true; }
+              onFailure: function() { 
+                if(pb != null) pb.hide();
+                allow_refresh = true; 
+              }
     });
   }
 
@@ -160,9 +168,10 @@
         loc = new google.maps.LatLng(lat,lon);
         map.panTo(loc);
         map.setZoom(15);
+        $('searchbar2').show();
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
-          do_markers(map.getBounds());
+          do_markers(map.getBounds(),null,$('muni').checked);
         });
         var cross = new google.maps.Marker({
           icon: '/cross.png',
@@ -221,6 +230,7 @@
        var len = markersArray.length;
        for(var i = 0; i < len; i++){
          var marker = markersArray[i];
+         if(!marker.getVisible()) continue;
          var mapLabel = new MapLabel({
            text: marker.getTitle(),
            position: marker.getPosition(),
@@ -267,13 +277,13 @@
       if(marker == undefined) continue;
       if(search == ""){
         marker.setVisible(true);
-        label.set('map',map);
+        if(label != undefined) label.set('map',map);
       }else if(marker.getTitle().search(new RegExp(search,"i")) >= 0){
         marker.setVisible(true);
-        label.set('map',map);
+        if(label != undefined) label.set('map',map);
       }else{
         marker.setVisible(false);
-        label.set('map',null);
+        if(label != undefined) label.set('map',null);
       }
     }
   }
@@ -284,9 +294,10 @@
       if (status == google.maps.GeocoderStatus.OK) {
         map.panTo(results[0].geometry.location);
         map.setZoom(15);
+        $('searchbar2').show();
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
-          do_markers(map.getBounds());
+          do_markers(map.getBounds(),null,$('muni').checked);
         });
         var cross = new google.maps.Marker({
           icon: '/cross.png',

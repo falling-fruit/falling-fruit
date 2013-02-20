@@ -7,17 +7,21 @@
 %>
 
 <div id="searchbar">
-Controls:
-<input id="address" name="address" value="Zoom to Address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="35">
-<button onclick="recenter_map_to_address();">Go</button>
-<span id="recenter_button">
-or <button onclick="recenter_map()">Zoom to Me</button>
-::
-</span>
-<input name="search" id="search" value="Filter (e.g., Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }">
-<button onclick="search_filter();">Go</button>
-:: Labels
-<button onclick="labelize_markers()">On</button> | <button onclick="delabelize_markers()">Off</button>
+  Controls:
+  <input id="address" name="address" value="Zoom to Address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="35">
+  <button onclick="recenter_map_to_address();">Go</button>
+  <span id="recenter_button">
+  or <button onclick="recenter_map()">Zoom to Me</button>
+  </span>
+  <span id="searchbar2" style="display:inline;">
+    ::
+    <input name="search" id="search" value="Filter (e.g., Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }">
+    <button onclick="search_filter();">Go</button>
+    :: Labels
+    <button onclick="labelize_markers()">On</button> | <button onclick="delabelize_markers()">Off</button>
+  </span>
+  ::
+  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);"> Show Muni Data
 </div>
 
 <div class="map_container"><div id="map"></div></div>
@@ -30,7 +34,7 @@ or <button onclick="recenter_map()">Zoom to Me</button>
 
   function initialize() {
     var mapOptions = {
-      zoom: 1,
+      zoom: 2,
       center: new google.maps.LatLng(37.269174,-119.306607),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -46,43 +50,41 @@ or <button onclick="recenter_map()">Zoom to Me</button>
     });
 
     // load initial cluster display for the whole world
-    do_clusters(undefined);
+    update_display(true);
            
     google.maps.event.addListener(map, 'bounds_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
-        var zoom = map.getZoom();
-        var bounds = map.getBounds();
-        if(prior_bounds == null && prior_zoom == null){
-          prior_zoom = zoom;
-          prior_bounds = bounds;
-          return;
-        }
-        if(zoom > 11 && prior_bounds != bounds){
-          do_markers(bounds);
-        }
-        prior_zoom = zoom;
-        prior_bounds = bounds;
+        update_display(false);
       });
     });
     google.maps.event.addListener(map, 'zoom_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
-        var zoom = map.getZoom();
-        var bounds = map.getBounds();
-        if(prior_bounds == null && prior_zoom == null){
-          prior_zoom = zoom;
-          prior_bounds = bounds;
-          return;
-        }
-        if(zoom <= 11){
-          if((zoom != prior_zoom) && (zoom == 4 || zoom == 5 || zoom == 7 || zoom == 9 || zoom == 10 || zoom == 11)){
-            do_clusters(bounds);
-          }
-        }
-        prior_zoom = zoom;
-        prior_bounds = bounds;
+        update_display(false);
       });
     });
     map.setTilt(0); 
+  }
+
+  function update_display(force){
+    var zoom = map.getZoom();
+    var bounds = map.getBounds();
+    if(prior_bounds == null && prior_zoom == null){
+      $('searchbar2').hide();
+      do_clusters(undefined,zoom,$('muni').checked);
+      prior_zoom = zoom;
+      prior_bounds = bounds;
+    }
+    if(zoom <= 12){
+      if((zoom != prior_zoom) || force){
+        $('searchbar2').hide();
+        do_clusters(undefined,zoom,$('muni').checked);
+      }
+    }else if(zoom >= 13){
+      $('searchbar2').show();
+      do_markers(bounds,null,$('muni').checked);
+    }
+    prior_zoom = zoom;
+    prior_bounds = bounds;
   }
 
   // ================== main-level code ===================

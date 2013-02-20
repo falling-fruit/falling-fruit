@@ -13,4 +13,12 @@ class Type < ActiveRecord::Base
     "http://en.wikipedia.org/wiki/#{self.name}"
   end
 
+  # csv support
+  comma do
+    id
+    name
+    scientific_name
+    usda_symbol
+  end
+
 end

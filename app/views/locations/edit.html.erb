@@ -58,7 +58,7 @@ div#form{
           return;
         }
         if(zoom > 11 && prior_bounds != bounds){
-          do_markers(bounds);
+          do_markers(bounds,null,true);
         }
         prior_zoom = zoom;
         prior_bounds = bounds;
@@ -86,7 +86,7 @@ div#form{
     });
     // update markers once we're done panning and zooming
     google.maps.event.addListenerOnce(map, 'idle', function(){
-      do_markers(map.getBounds(),$("location_id").value);
+      do_markers(map.getBounds(),$("location_id").value,true);
     });
   }
 

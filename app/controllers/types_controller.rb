@@ -9,6 +9,7 @@ class TypesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @types }
+      format.csv { render csv: @types }
     end
   end
 
