@@ -5,7 +5,7 @@ class Location < ActiveRecord::Base
   has_many :types, :through => :locations_types
   belongs_to :import
 
-  validates :author, :presence => true
+  #validates :author, :presence => true
   validates :lat, :lng, :numericality => true, :allow_nil => true
   validates :quality_rating, :yield_rating, :access, :numericality => { :only_integer => true }, :allow_nil => true
 

@@ -18,12 +18,12 @@
     <span class="subtext">What'd you find?</span><br>
       <% @location.locations_types.each{ |lt|  %>
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
-        <%= f2.select(:type_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
+        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
         <%= f2.text_field :type_other %><br>
       <% end %>
     <% } %>
     <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
-      <%= f2.select(:type_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
+      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
       <%= f2.text_field :type_other %><br>
     <% end %>
   </div>
@@ -57,7 +57,7 @@
 
   <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and !current_admin.nil?) %>
   <div class="field">
-    *<%= f.label :Author %><br />
+    <%= f.label :Author %><br />
     <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
     <%= f.text_field :author %>
     <span>

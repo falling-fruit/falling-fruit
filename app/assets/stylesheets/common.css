@@ -45,6 +45,10 @@ div#header div#menu{
  color: #222222;
 }
 
+div#menu a{
+  text-decoration: none;
+}
+
 div#header div#logo{
   background: #003366;
 }
@@ -71,7 +75,6 @@ div#searchbar input[type=text]{
 }
 
 div#content{ 
-  margin: 0;
   position: absolute;
   top: 4.5em;
   bottom: 0px;
@@ -79,6 +82,18 @@ div#content{
   right: 0px;
   width: auto;
   padding: 0.5em; 
+  margin-bottom: 1em;
+}
+
+div#content div#footer{
+  margin-top: 2em;
+  text-align: center;
+  padding: 0.3em;
+  font-size: 9pt;
+  color: #444444;
+}
+div#footer a{ 
+  text-decoration: none;
 }
 
 div.map_container{

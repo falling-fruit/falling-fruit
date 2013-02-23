@@ -9,3 +9,24 @@ FallingfruitWebapp::Application.load_tasks
 task(:clear_cache => :environment) do
   LocationsController.new.expire_things
 end
+
+task(:geocode => :environment) do
+  Geocoder.configure({:always_raise => :all})	
+  n = Location.where("lat is null and lng is null").count
+  Location.where("lat is null and lng is null").each{ |l|
+    begin
+      puts n
+      l.geocode
+      unless [l.lng,l.lat].any? { |e| e.nil? }
+        l.location = "POINT(#{l.lng} #{l.lat})"
+        l.save
+        n -= 1
+      end
+      sleep 1
+    rescue Geocoder::OverQueryLimitError => e
+      puts e
+      break
+    end
+  }
+  
+end

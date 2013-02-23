@@ -52,7 +52,7 @@ GEM
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    geocoder (1.1.2)
+    geocoder (1.1.6)
     gmaps4rails (1.5.5)
     hike (1.2.1)
     i18n (0.6.1)

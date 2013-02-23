@@ -53,6 +53,9 @@
 <div class="alert"><%= alert %></div>
 <% end %>
 <%= yield %>
+<div id="footer">
+<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Copyleft</a> (c) <%= Time.now.year %> Falling Fruit  
+</div>
 </div>
 <% else %>
 <%= yield %>

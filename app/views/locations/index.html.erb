@@ -19,9 +19,10 @@
     <button onclick="search_filter();">Go</button>
     :: Labels
     <button onclick="labelize_markers()">On</button> | <button onclick="delabelize_markers()">Off</button>
+    :: <a href="#" id="get_data_link">Data</a>
   </span>
   ::
-  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);"> Show Muni Data
+  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);"> Muni
 </div>
 
 <div class="map_container"><div id="map"></div></div>
@@ -65,6 +66,16 @@
     map.setTilt(0); 
   }
 
+  function data_link(){
+    var muni = $('muni').checked; 
+    var bounds = map.getBounds();
+    var bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() +
+           '&swlat=' + bounds.getSouthWest().lat() + '&swlng=' + bounds.getSouthWest().lng();
+    var mstr = 0;
+    if(muni) mstr = 1;
+    return '/locations/data.csv?muni=' + mstr + '&' + bstr;
+  }
+
   function update_display(force){
     var zoom = map.getZoom();
     var bounds = map.getBounds();
@@ -80,6 +91,7 @@
         do_clusters(undefined,zoom,$('muni').checked);
       }
     }else if(zoom >= 13){
+      $('get_data_link').href = data_link();
       $('searchbar2').show();
       do_markers(bounds,null,$('muni').checked);
     }

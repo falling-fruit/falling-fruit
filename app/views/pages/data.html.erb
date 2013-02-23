@@ -1,0 +1,17 @@
+<h1>Download</h1>
+
+One of the principles of this project is openness, both in terms of the code,
+and the data. We want as many people to learn about urban food sources as possible. Hence,
+you can download the entire, compressed, database with one click:
+<blockquote>
+<a href="/data.csv.bz2">Download everything: data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
+Last updated: <%= File.mtime(Rails.root.join("public","data.csv.bz2")) %>
+</blockquote>
+But, beware: when uncompressed, this will be a huge file which will cause most spreadsheet software to implode. As such,
+we recommend that only those interested in programmatically using the data in it's entirety go this route. For most
+folks, a better option is to download only those points they're interested in, using the download tool integrated
+into the <a href="/">main map</a>.
+<br><br>
+It should go without saying, but just to be clear: we take no responsibility for the accuracy of the data---it is provided as is, <em>caveat emptor</em>.
+<br><br>
+And, by all means, if you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!

@@ -65,6 +65,35 @@ class LocationsController < ApplicationController
     end
   end
 
+  def data
+    max_n = 500
+    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
+    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
+      "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
+    ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    @locations = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
+      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name as import_name, i.url as import_url,
+      string_agg(coalesce(lt.type_other,t.name),',') as name from locations l, imports i,
+      locations_types lt, types t WHERE l.import_id=i.id AND lt.location_id=l.id AND (lt.type_id IS NULL OR lt.type_id=t.id) AND 
+      #{[bound,ifilter].compact.join(" AND ")} 
+      GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
+      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name, i.url LIMIT #{max_n}")
+    respond_to do |format|
+      format.json { render json: @locations }
+      format.csv { 
+        csv_data = CSV.generate do |csv|
+          cols = ["id","lat","lng","unverified","description","season_start","season_stop","no_season","author","address","created_at","updated_at",
+                  "quality_rating","yield_rating","access","import_name","import_url","name"]
+          csv << cols
+          @locations.each{ |l|
+            csv << cols.collect{ |e| l[e] }
+          }
+        end
+        send_data(csv_data,:type => 'text/csv; charset=utf-8; header=present', :filename => 'data.csv')
+      }
+    end
+  end
+
   def import
     if request.post? && params[:import][:csv].present?
       infile = params[:import][:csv].read
