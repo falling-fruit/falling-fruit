@@ -235,8 +235,11 @@
            text: marker.getTitle(),
            position: marker.getPosition(),
            map: map,
-           fontSize: 10,
-           align: 'right'
+           fontSize: 13,
+           fontColor: '#990000',
+           strokeColor: '#efe8de',
+           strokeWeight: 5,
+           align: 'center'
          });
          labelsArray.push(mapLabel);
          mapLabel.set('position', marker.getPosition());

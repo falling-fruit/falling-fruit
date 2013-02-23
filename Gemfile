@@ -21,7 +21,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'prototype-rails'
+gem 'select2-rails'
 
 gem 'geocoder'
 gem 'devise'

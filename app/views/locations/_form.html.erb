@@ -1,29 +1,36 @@
+<script>
+jQuery(document).ready(function(){
+  jQuery('.select2').select2({width:'element'});
+});
+</script>
+
 <div id="form">
 <h2><%= @current_action.capitalize %> Source</h2>
-<%= form_for(@location) do |f| %>
-  <% if @location.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
-
+<% if @location.errors.any? %>
+  <div id="error_explanation">
+    <strong><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</strong>
       <ul>
-      <% @location.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% @location.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_for(@location) do |f| %>
   <%= f.hidden_field :id %>
   <div class="field" id="types">
     <%= f.label :type %><br />
     <span class="subtext">What'd you find?</span><br>
       <% @location.locations_types.each{ |lt|  %>
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
-        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
+        <div class="ui-widget">
+        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %>, or
         <%= f2.text_field :type_other %><br>
+        </div>
       <% end %>
     <% } %>
     <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
-      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },:include_blank => true) %>, or
+      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %>, or
       <%= f2.text_field :type_other %><br>
     <% end %>
   </div>

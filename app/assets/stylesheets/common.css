@@ -67,6 +67,10 @@ div#searchbar{
   color: #222222;
 }
 
+div#searchbar a{
+  text-decoration: none;
+}
+
 div#searchbar button{
   font-size: 10pt;
 }
@@ -205,14 +209,22 @@ h3 {
   font: 100% arial, sans-serif;
 }
 
-.notice {
+div#warnings{
+  position: absolute;
+  width: 50%;
+  left: 25%;
+  right: 25%;
+  top: 0;
+}
+
+div#warnings div.notice {
   background: lightblue;
   padding: 0.2em;
   border: 1px solid grey;
 }
 
 
-.alert {
+div#warnings div.alert {
   background: orange;
   padding: 0.2em;
   border: 1px solid grey;

@@ -2,20 +2,30 @@
 <html>
 <head>
   <title>Falling Fruit</title>
-  <%= stylesheet_link_tag "common", :media => "all" %>
-  <%= stylesheet_link_tag "gmaps4rails" %>
+  <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<% @is_index = [root_path,locations_path].include? request.fullpath.split(/\?/)[0] %>
+<% @is_index = (@current_controller == "locations") and (@current_action == "index") %>
 
 <div id="header">
 
 <div id="logo">
  <div style="float: right;"><img src="/logo.png" height="40"></div>
  <h1 style="color: white;">The Falling Fruit Map</h1>
+ <% if notice or alert %>
+ <div id="warnings">
+ <div style="float: right; padding: 0.3em;"><a href="#" onclick="$('warnings').hide();">[x]</a></div>
+  <% if notice %>
+  <div class="notice"><%= notice %></div>
+  <% end %>
+  <% if alert %>
+  <div class="alert"><%= alert %></div>
+  <% end %>
+ </div>
+ <% end %>
 </div>
 
 <div id="menu">
@@ -46,16 +56,10 @@
 
 <% unless @is_index %>
 <div id="content">
-<% if notice %>
-<div class="notice"><%= notice %></div>
-<% end %>
-<% if alert %>
-<div class="alert"><%= alert %></div>
-<% end %>
-<%= yield %>
-<div id="footer">
-<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Copyleft</a> (c) <%= Time.now.year %> Falling Fruit  
-</div>
+ <%= yield %>
+ <div id="footer">
+  <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Copyleft</a> (c) <%= Time.now.year %> Falling Fruit  
+ </div>
 </div>
 <% else %>
 <%= yield %>

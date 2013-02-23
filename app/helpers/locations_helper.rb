@@ -5,6 +5,7 @@ module LocationsHelper
       page << %{
         var new_locations_type_id = "new_" + new Date().getTime();
         $('types').insert({ bottom: "#{ escape_javascript task }".replace(/new_\\d+/g, new_locations_type_id) });
+        jQuery('#location_locations_types_'+new_locations_type_id+'_type_id').select2({width:'element'});
       }
     end
   end
