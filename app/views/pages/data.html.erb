@@ -1,17 +1,12 @@
 <h1>Download</h1>
 
-One of the principles of this project is openness, both in terms of the code,
-and the data. We want as many people to learn about urban food sources as possible. Hence,
-you can download the entire, compressed, database with one click:
+Falling Fruit is built on public data, and on the generosity of urban foragers to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. Therefore, the entire database will always be just one click away:
 <blockquote>
-<a href="/data.csv.bz2">Download everything: data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-Last updated: <%= File.mtime(Rails.root.join("public","data.csv.bz2")) %>
+Download everything: <a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
+<i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")) %></i>
 </blockquote>
-But, beware: when uncompressed, this will be a huge file which will cause most spreadsheet software to implode. As such,
-we recommend that only those interested in programmatically using the data in it's entirety go this route. For most
-folks, a better option is to download only those points they're interested in, using the download tool integrated
-into the <a href="/">main map</a>.
+But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need go this route. For most, the better alternative is to selectively download points of interest using the download tool integrated into the <a href="/">map</a>.
 <br><br>
-It should go without saying, but just to be clear: we take no responsibility for the accuracy of the data---it is provided as is, <em>caveat emptor</em>.
+It should go without saying that we take no responsibility for the accuracy of the data -- it is provided as is, <em>caveat emptor</em>.
 <br><br>
-And, by all means, if you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
+Finally, if you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
