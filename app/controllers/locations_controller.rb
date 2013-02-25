@@ -45,7 +45,8 @@ class LocationsController < ApplicationController
     ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
       string_agg(coalesce(lt.type_other,t.name),',') as name from locations l, 
-      locations_types lt, types t WHERE lt.location_id=l.id AND (lt.type_id IS NULL OR lt.type_id=t.id) AND #{[bound,ifilter].compact.join(" AND ")} 
+      locations_types lt left outer join types t on lt.type_id=t.id 
+      WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
     @markers = r.collect{ |row|
       t = row["name"].split(/,/)
@@ -74,7 +75,8 @@ class LocationsController < ApplicationController
     @locations = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
       l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name as import_name, i.url as import_url,
       string_agg(coalesce(lt.type_other,t.name),',') as name from locations l, imports i,
-      locations_types lt, types t WHERE l.import_id=i.id AND lt.location_id=l.id AND (lt.type_id IS NULL OR lt.type_id=t.id) AND 
+      locations_types lt left outer join types t on lt.type_id=t.id 
+      WHERE l.import_id=i.id AND lt.location_id=l.id AND 
       #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
       l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name, i.url LIMIT #{max_n}")
