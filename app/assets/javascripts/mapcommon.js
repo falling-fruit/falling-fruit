@@ -4,7 +4,6 @@
   var geocoder;
   var prior_bounds = null;
   var prior_zoom = null;
-  var allow_refresh = true;
   var markersArray = [];
   var labelsArray = [];
   var openMarkers = [];
@@ -72,8 +71,6 @@
   }
 
   function do_clusters(bounds,zoom,muni){
-      if(allow_refresh == false) return;
-      allow_refresh = false;
       var bstr = '';
       var gstr = 'method=grid&grid=' + zoom;
       if(bounds != undefined){
@@ -94,12 +91,8 @@
                     add_markers_from_json(json,true);
                   }
                   if(pb != null) pb.hide();
-                  google.maps.event.addListenerOnce(map, 'idle', function(){
-                    allow_refresh = true;
-                  }); 
                 },
                 onFailure: function() {  
-                  allow_refresh = true; 
                   if(pb != null) pb.hide();
                 }
               });
@@ -122,8 +115,6 @@
 
   // FIXME: possible optimization---only grab markers for (bounds-prior_bounds) area
   function do_markers(bounds,skip_id,muni){
-    if(allow_refresh == false) return;
-    allow_refresh = false;
     var bstr = '';
     if(bounds != undefined){
       bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() + 
@@ -154,12 +145,10 @@
                   add_marker_infobox(i);
                 }
                 if(labelsOn) labelize_markers();
-                allow_refresh = true;
                 if(pb != null) pb.hide();
               },
               onFailure: function() { 
                 if(pb != null) pb.hide();
-                allow_refresh = true; 
               }
     });
   }

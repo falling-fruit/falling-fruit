@@ -22,7 +22,7 @@
     :: <a href="#" id="get_data_link">Export Data</a>
   </span>
   ::
-  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if !@perma.nil? and @perma[:muni] %>> Municipal
+  <input type="checkbox" id="muni" value="1" onclick="update_display(true);" <%= "checked" if !@perma.nil? and @perma[:muni] %>> Municipal
   <div style="display:inline;float:right;margin-top:0.5em;"><a href="/" id="permalink">Permalink</a></div>
 </div>
 
