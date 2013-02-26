@@ -153,6 +153,10 @@ div#form{
         var lng = results[0].geometry.location.lng();
         $("location_lat").value = lat;
         $("location_lng").value = lng;
+        if(marker != null){
+          marker.setMap(null);
+          marker = null;
+        }
         marker = new google.maps.Marker({
           icon: '',
           position: new google.maps.LatLng(lat,lng), 

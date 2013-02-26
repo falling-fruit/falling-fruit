@@ -7,6 +7,7 @@
   var allow_refresh = true;
   var markersArray = [];
   var labelsArray = [];
+  var openMarkers = [];
   var markerIdArray = [];
   var boundMarkersArray = [];
   var labelsOn = false;
@@ -108,12 +109,14 @@
     var marker = markersArray[i];
     var id = markerIdArray[i];
     google.maps.event.addListener(marker, 'click', function(){
+      if(openMarkers.indexOf(id) >= 0) return;
       new Ajax.Request('/locations/' + id + '/infobox', {
         onSuccess: function(response) {
           var infowindow = new google.maps.InfoWindow({content: response.responseText });
           infowindow.open(map, marker)
         }
       });
+      openMarkers.push(id);
     });
   }
 
@@ -189,9 +192,12 @@
     var i = markerIdArray.indexOf(-1);
     if(i < 0) return;
     var marker = markersArray[i];
+    var id = markerIdArray[i];
     marker.setMap(null);
     markerIdArray.splice(i,1);
     markersArray.splice(i,1);
+    var t = openMarkers.indexOf(id);
+    if(t >= 0) openMarkers.splice(t,1);
   }
 
   // Add a marker with an open infowindow
