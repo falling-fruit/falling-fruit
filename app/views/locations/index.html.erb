@@ -22,7 +22,9 @@
     :: <a href="#" id="get_data_link">Export Data</a>
   </span>
   ::
-  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);"> Municipal
+  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if @perma[:muni] %>> Municipal
+  ::
+  <a href="/" id="permalink">Permalink</a>
 </div>
 
 <div class="map_container"><div id="map"></div></div>
@@ -34,9 +36,18 @@
   // ================= functions =================
 
   function initialize() {
+    var ini_zoom = 4;
+    // Kearney, Nebraska :P
+    var ini_lat = 40.713956;
+    var ini_lng = -99.09668;
+<% unless @perma.nil? %>
+    ini_lat = <%= @perma[:lat] %>;
+    ini_lng = <%= @perma[:lng] %>;
+    ini_zoom = <%= @perma[:zoom] %>;
+<% end %>
     var mapOptions = {
-      zoom: 2,
-      center: new google.maps.LatLng(37.269174,-119.306607),
+      zoom: ini_zoom,
+      center: new google.maps.LatLng(ini_lat,ini_lng), // Kearney, Nebraska ;)
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
@@ -79,6 +90,9 @@
   function update_display(force){
     var zoom = map.getZoom();
     var bounds = map.getBounds();
+    var center = map.getCenter();
+    $('permalink').href = '/?perma_zoom=' + zoom + '&perma_lat=' + center.lat() + 
+      '&perma_lng=' + center.lng() + '&perma_muni=' + $('muni').checked;
     if(prior_bounds == null && prior_zoom == null){
       $('searchbar2').hide();
       do_clusters(undefined,zoom,$('muni').checked);

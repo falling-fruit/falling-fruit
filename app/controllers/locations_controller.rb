@@ -156,6 +156,11 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
+    @perma = nil
+    if params[:perma_zoom].present? and params[:perma_lat].present? and params[:perma_lng].present? and params[:perma_muni].present?
+      @perma = {:zoom => params[:perma_zoom].to_i, :lat => params[:perma_lat].to_f, :lng => params[:perma_lng].to_f,
+                :muni => params[:perma_muni] == "true"}
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @locations }
