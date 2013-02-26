@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220005519) do
+ActiveRecord::Schema.define(:version => 20130226175338) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(:version => 20130220005519) do
     t.integer  "yield_rating"
     t.integer  "access"
     t.integer  "import_id"
-    t.string   "cultivar"
     t.string   "photo_url"
     t.spatial  "location",       :limit => {:srid=>4326, :type=>"point", :geographic=>true}
   end
@@ -92,6 +91,11 @@ ActiveRecord::Schema.define(:version => 20130220005519) do
     t.datetime "marker_updated_at"
     t.string   "scientific_name"
     t.string   "usda_symbol"
+    t.string   "wikipedia_url"
+    t.string   "edability"
+    t.text     "notes"
+    t.string   "synonyms"
+    t.string   "scientific_synonyms"
   end
 
 end

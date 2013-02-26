@@ -1,6 +1,18 @@
 <h1>Data</h1>
 
-<h2>Summary</h2>
+Falling Fruit is built on public data, and on the generosity of urban foragers to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. Therefore, the entire database will always be just one click away.
+<blockquote>
+Download everything as <a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
+<i>Last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")) %></i>
+</blockquote>
+But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need go this route. For most, the better alternative is to selectively download points of interest using the download tool integrated into the <a href="/">map</a>.
+<br><br>
+It should go without saying that we take no responsibility for the accuracy of the data -- it is provided as is, <em>caveat emptor</em>.
+<br><br>
+Finally, if you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
+
+<br><br>
+<h2>Summary of Sources</h2>
 
 <table id="type_summary">
 <thead>
@@ -33,16 +45,4 @@ jQuery(document).ready(function(){
 });
 </script>
 
-<br><br>
-<h2>Download</h2>
 
-Falling Fruit is built on public data, and on the generosity of urban foragers to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. Therefore, the entire database will always be just one click away.
-<blockquote>
-Download everything as <a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-<i>Last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")) %></i>
-</blockquote>
-But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need go this route. For most, the better alternative is to selectively download points of interest using the download tool integrated into the <a href="/">map</a>.
-<br><br>
-It should go without saying that we take no responsibility for the accuracy of the data -- it is provided as is, <em>caveat emptor</em>.
-<br><br>
-Finally, if you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!

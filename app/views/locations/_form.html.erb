@@ -20,7 +20,7 @@ jQuery(document).ready(function(){
   <%= f.hidden_field :id %>
   <div class="field" id="types">
     <%= f.label :type %><br />
-    <span class="subtext">What'd you find?</span><br>
+    <span class="subtext">What'd you find? If a more specific name for this source is not already listed (e.g., "Italian Plum", "Prunus cocomilia", "Granny Smith Apple"), suggest it in the text box.</span><br>
       <% @location.locations_types.each{ |lt|  %>
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
         <div class="ui-widget">
@@ -35,13 +35,6 @@ jQuery(document).ready(function(){
     <% end %>
   </div>
   <%= add_locations_type_link "+ Add Another", f %>
-
-  <div class="field">
-    <%= f.label :Cultivar %><br />
-    <span class="subtext">Optionally, a more specific name (cultivar, subspecies, hybrid, grex, etc.) for this source, e.g., "Granny Smith"</span><br>
-    <%= f.text_field :cultivar %>
-    <span>
-  </div>
 
   <div class="field">
     *<%= f.label :address %><br />

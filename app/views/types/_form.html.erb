@@ -16,17 +16,34 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :synonyms %><br />
+    <span class="subtext">comma-separated list, e.g., Foo, Bar, Baz</span><br>
+    <%= f.text_field :synonyms %>
+  </div>
+  <div class="field">
     <%= f.label :scientific_name %><br />
     <%= f.text_field :scientific_name %>
+  </div>
+  <div class="field">
+    <%= f.label :scientific_synonyms %><br />
+    <%= f.text_field :scientific_synonyms %>
   </div>
   <div class="field">
     <%= f.label "USDA symbol" %><br />
     <%= f.text_field :usda_symbol %><br>
     <span class="subtext">See <a href="http://plants.usda.gov/classification.html">here</a>.</span>
   </div>
-
   <div class="field">
-    <%= f.label :marker %><br />
+    <%= f.label :wikipedia_url %><br />
+    <%= f.text_field :wikipedia_url %>
+  </div>
+  <div class="field">
+    <%= f.label :edability %><br />
+    <%= f.select(:edability,Type::Edabilities.collect{ |k,v| [v,k] },:include_blank => true) %>
+  </div>
+  <div class="field">
+    <%= f.label :custom_marker %><br />
+    <span class="subtext">Currently unused...</span><br>
     <%= f.file_field :marker %>
   </div>
   <div class="actions">
