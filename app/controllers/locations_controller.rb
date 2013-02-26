@@ -50,6 +50,7 @@ class LocationsController < ApplicationController
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
     @markers = r.collect{ |row|
+      next if row["name"].nil? or row["name"].strip == ""
       t = row["name"].split(/,/)
       if t.length == 2
         name = "#{t[0]} and #{t[1]}"
