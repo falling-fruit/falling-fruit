@@ -40,9 +40,10 @@
  </div>
 <%= link_to('Home', root_path) %> |
 <%= link_to('About', '/pages/about') %> |
+<%= link_to('Data', '/pages/data') %> |
 <%= link_to('Add Source', new_location_path) %>
 <% if @is_index and !admin_signed_in? %>
-(or right click on map)
+<span style="font-weight: normal;">(or right click on map)</span>
 <% end %>
 
 <% if admin_signed_in? %>

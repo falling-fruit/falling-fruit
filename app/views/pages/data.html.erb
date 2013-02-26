@@ -14,30 +14,36 @@ Finally, if you do something cool with the data, please <a href="mailto:feedback
 <br><br>
 <h2>Summary of Sources</h2>
 
-<table id="type_summary">
-<thead>
-<tr>
-<th>Name</th>
-<th>Scientific Name</th>
-<th>Count</th>
-</tr>
-</thead>
-<tbody>
-<% @types.each{ |t| %>
-<tr>
-<td><%= t["name"] %>
-<td>
-<% unless t["scientific_name"].nil? %>
- <% if t["usda_symbol"].nil? %>
-  <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><em><%= t["scientific_name"] %></em></a>
- <% else %>
-  <em><%= t["scientific_name"] %></em>
+<% cache 'pages_data_type_summary_table' do
+  @types = ActiveRecord::Base.connection.execute("SELECT t.id, t.scientific_name, t.usda_symbol, 
+    t.name, count(*) FROM types t, locations_types lt WHERE lt.type_id=t.id 
+    GROUP BY t.id, t.scientific_name, t.usda_symbol, t.name ORDER BY t.name")
+%>
+ <table id="type_summary">
+ <thead>
+ <tr>
+ <th>Name</th>
+ <th>Scientific Name</th>
+ <th>Count</th>
+ </tr>
+ </thead>
+ <tbody>
+ <% @types.each{ |t| %>
+ <tr>
+ <td><%= t["name"] %>
+ <td>
+ <% unless t["scientific_name"].nil? %>
+  <% if t["usda_symbol"].nil? %>
+   <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><em><%= t["scientific_name"] %></em></a>
+  <% else %>
+   <em><%= t["scientific_name"] %></em>
+  <% end %>
  <% end %>
+ <td><%= t["count"] %>
+ <% } %>
+ </tbody>
+ </table>
 <% end %>
-<td><%= t["count"] %>
-<% } %>
-</tbody>
-</table>
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){

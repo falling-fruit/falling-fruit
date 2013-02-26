@@ -4,6 +4,7 @@ class LocationsController < ApplicationController
 
   def expire_things
     expire_fragment /locations\/cluster\.json/
+    expire_fragment "pages_data_type_summary_table"
   end
 
   def cluster
