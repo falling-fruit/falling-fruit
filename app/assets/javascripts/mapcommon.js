@@ -22,8 +22,13 @@
       if((skip_id != undefined) && (skip_id == parseInt(lid))) continue;
       if((lid != undefined) && (markerIdArray.indexOf(lid) >= 0)) continue;
       if(!rich){
+        var w = mdata[i]["width"];
+        var h = mdata[i]["height"];
+        var wo = parseInt(w/2,10);
+        var ho = parseInt(h/2,10);
+        var image = new google.maps.MarkerImage(mdata[i]["picture"],null,new google.maps.Point(0,0),new google.maps.Point(0,-1*ho));
         var m = new google.maps.Marker({
-            icon: mdata[i]["picture"],
+            icon: image,
             position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
             map: map,
             title: mdata[i]["title"],
@@ -48,6 +53,7 @@
             height: h,
             shadow: false,
             flat: true,
+            title: mdata[i]["title"],
             anchor: RichMarkerPosition.MIDDLE,
           });
           add_clicky_cluster(m);
