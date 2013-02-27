@@ -1,30 +1,4 @@
-<style>
-div.map_container{
-  height: 100%;
-  position: absolute;
-  top: 4.5em;
-  bottom: 0;
-  left: 510px;
-  right: 0;
-}
-div.map_container div#map{
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-div#form{
-  padding: 0.5em;
-  position: absolute;
-  width: 500px;
-  top: 4.5em;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-</style>
-
-<div class="map_container"><div id="map"></div></div>
+<div id="editmap_container"><div id="map"></div></div>
 
 <% content_for :scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
@@ -76,8 +50,7 @@ div#form{
     map.setZoom(15);
     map.panTo(marker.getPosition());
     var nag = new google.maps.InfoWindow({
-      content: '<div style="text-align: center;font-size: 10pt;"><strong>Please adjust the marker to<br>the position of ' +
-               'the source.</strong><br><br><em>Pro tip: Check the satellite view - your<br>tree might be visible from space!</em></span>'
+      content: '<div id="editmarker"><b>Please adjust the marker to<br>the position of the source.</b><br><br><i>Check the satellite view - your<br>plant may be visible from space!</i></div>'
     });
     nag.open(map,marker);  
     google.maps.event.addListener(marker, 'dragend', function() {

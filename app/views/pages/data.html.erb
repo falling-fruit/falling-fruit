@@ -8,7 +8,7 @@ Falling Fruit is built on public data, and on the generosity of urban foragers t
 </blockquote>
 
 <p>
-But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">main map</a>.
+But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.
 </p>
 
 <p>
@@ -16,8 +16,6 @@ It should go without saying that we take no responsibility for the accuracy of t
 </p>
 
 <h2>Summary of Sources</h2>
-
-<!-- Add "show all". Initialize sorted by count, descending. Add links to new columns USDA symbol and Wikipedia article (url stripped to name of article, replacing _ with ' ') -->
 
 <% cache 'pages_data_type_summary_table' do
   @types = ActiveRecord::Base.connection.execute("SELECT t.id, t.scientific_name, t.usda_symbol, t.wikipedia_url
@@ -28,6 +26,7 @@ It should go without saying that we take no responsibility for the accuracy of t
 <table id="type_summary">
 <thead>
 <tr>
+ <th colspan="2">Pages</th>
  <th>Common name</th>
  <th>Scientific name</th>
  <th>Count</th>
@@ -37,21 +36,23 @@ It should go without saying that we take no responsibility for the accuracy of t
 <% @types.each{ |t| %>
 <tr>
 <td>
+<% unless t["wikipedia_url"].nil? %>
+ <a href="<%= t["wikipedia_url"] %>"><img class="pageicon" src="/wikipedia_icon.png"></a>
+<% end %>
+</td>
+<td>
+<% unless t["usda_symbol"].nil? %>
+ <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><img class="pageicon" src="/usda_icon.png"></a>
+<% end %>
+</td>
+<td>
 <% unless t["name"].nil? %>
- <% unless t["wikipedia_url"].nil? %>
-  <a href="<%= t["wikipedia_url"] %>"><i><%= t["name"] %></i></a>
- <% else %>
-  <i><%= t["name"] %></i>
- <% end %>
+ <i><%= t["name"] %></i>
 <% end %>
 </td>
 <td>
 <% unless t["scientific_name"].nil? %>
- <% unless t["usda_symbol"].nil? %>
-  <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><i><%= t["scientific_name"] %></i></a>
- <% else %>
-  <i><%= t["scientific_name"] %></i>
- <% end %>
+ <i><%= t["scientific_name"] %></i>
 <% end %>
 </td>
 <td><%= t["count"] %></td>
@@ -63,7 +64,6 @@ It should go without saying that we take no responsibility for the accuracy of t
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-    var typeTable = jQuery('#type_summary').dataTable();
-    typeTable.fnSort
+    jQuery('#type_summary').dataTable();
 });
 </script>

@@ -4,8 +4,13 @@ jQuery(document).ready(function(){
 });
 </script>
 
-<div id="form">
-<h2><%= @current_action.capitalize %> Source</h2>
+<div id="formbar">
+
+<!-- Title -->
+<h1><%= @current_action.capitalize %> Source</h1>
+<span style="position: relative; top: -1em;">* <span style="position: relative; top: -0.4em;" class="subtext">required field</span></span>
+
+<!-- Errors -->
 <% if @location.errors.any? %>
   <div id="error_explanation">
     <strong><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</strong>
@@ -16,16 +21,20 @@ jQuery(document).ready(function(){
     </ul>
   </div>
 <% end %>
+
+<!-- Source Form -->
 <%= form_for(@location) do |f| %>
   <%= f.hidden_field :id %>
+  
+  <!-- Type -->
   <div class="field" id="types">
-    <%= f.label :type %><br />
-    <span class="subtext">What'd you find? If a more specific name for this source is not already listed (e.g., "Italian Plum", "Prunus cocomilia", "Granny Smith Apple"), suggest it in the text box.</span><br>
+    *<%= f.label :type %><br />
+    <span class="subtext">What'd you find? Suggest a new type if you can't find yours in the list.</span><br>
       <% @location.locations_types.each{ |lt|  %>
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
         <div class="ui-widget">
-        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %>, or
-        <%= f2.text_field :type_other %><br>
+        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
+        <%= f2.text_field :type_other, :size => 24 %><br>
         </div>
       <% end %>
     <% } %>
@@ -34,74 +43,89 @@ jQuery(document).ready(function(){
       <%= f2.text_field :type_other %><br>
     <% end %>
   </div>
-  <%= add_locations_type_link "+ Add Another", f %>
-
+  <%= add_locations_type_link "+ another", f %>
+  
+  <!-- Location -->
   <div class="field">
-    *<%= f.label :address %><br />
-    <span class="subtext">Address is automagically geocoded by the google hiveborg.<br>
-    The lat/lon are determined based on your current location (when possible), or a marker you placed.<br>
-    The address will <em>overwrite</em> this lat/lon, so don't provide one if you want to use the lat/lon.</span><br>
-    <table style="width: 30em;">
-    <tr><td>
-    <%= f.text_area :address, :size => "30x3" %><br>
-    lat:<%= f.text_field :lat, :size => 10, :value => @lat %>
-    lon:<%= f.text_field :lng, :size => 10, :value => @lng %><br> 
-    <td>
+    <!--*<%= f.label :address %><br />-->
+    *<label for="location_address">Location</label><br>
+    <span class="subtext">Determined from you current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br>
+    Lat-Lon <%= f.text_field :lat, :size => 12, :value => @lat %>, <%= f.text_field :lng, :size => 12, :value => @lng %><br>
+    
+    <!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
-    <div style="text-align: center;">
-    <a href="#" onclick="update_marker();">Click here to Update Map From Address</a><br><em>(will overwrite lat/lon)</em><br>
-    </div>
+      <div style="margin-top: 0.25em;">Address <span class="subtext-inline">will <i>overwrite</i> the displayed location, so don't provide one if you want to use Lat/Lon.</span></div>
+      <%= f.text_area :address, :size => "40x2" %><br>
+      <a href="#" onclick="update_marker();">>> update map from address</a>
     <% end %>
-    </table>
   </div>
-
+  
+  <!-- Author (if new or admin) -->
   <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and !current_admin.nil?) %>
   <div class="field">
     <%= f.label :Author %><br />
-    <span class="subtext">That's your name, pseudonym, or "Anonymous" if you prefer</span><br>
-    <%= f.text_field :author %>
+    <span class="subtext">Leave blank if you prefer to remain anonymous.</span><br>
+    <%= f.text_field :author, :size => 40 %>
     <span>
   </div>
   <% end %>
 
+  <!-- Description -->
   <div class="field">
-    <%= f.label :description_and_notes %><br />
-    <span class="subtext">Any access issues? Problems? Things to note?</span><br>
+    <!--<%= f.label :description_and_notes %><br />-->
+    <label for="location_description_and_notes">Description</label><br>
+    <span class="subtext">Location details, access issues, plant health...</span><br>
     <%= f.text_area :description, :size => "50x10" %>
   </div>
+  
+  <!-- Season -->
   <div class="field">
     <%= f.label :season %><br />
-    <span class="subtext">When is it fruiting (approximately), leave blank if you don't know</span><br>
+    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br>
     <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
     <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
     <%= f.check_box(:no_season) %> No Season
   </div>
+  
+  <!-- Unverified -->
   <div class="field">
-    <%= f.check_box(:unverified) %> Unverified<br>
-    <span class="subtext">Check here if you haven't actually seen/verified this source.</span>
+    Unverified <%= f.check_box(:unverified) %><br>
+    <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
   </div>
+  
+  <!-- Quality Rating -->
   <div class="field">
     <%= f.label :quality_rating %><br />
     <span class="subtext">Rate the tastiness of this source.</span><br>
     <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
   </div>
+  
+  <!-- Yield Rating -->
   <div class="field">
     <%= f.label :yield_rating %><br />
     <span class="subtext">Rate the productivity of this source.</span><br>
     <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
   </div>
+  
+  <!-- Access -->
   <div class="field">
     <%= f.label :access %><br />
-    <span class="subtext">Comment on the accessibility of this source. Leave blank if the status is unknown.</span><br>
+    <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br>
     <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
   </div>
 
   <br>
+  <!-- Captcha -->
   <%= recaptcha_tags if current_admin.nil? %>
+  
   <br>
+  <!-- Submit -->
   <div class="actions">
     <%= f.submit "Submit" %>
-    <%= check_box_tag(:create_another, '1', :checked => true) %> Create Another<br>
+    <%= check_box_tag(:create_another, '1', :checked => true) %> Create another<br>
   </div>
+  
 <% end %>
 </form>
+</div>
+

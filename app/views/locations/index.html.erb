@@ -7,28 +7,30 @@
 %>
 
 <div id="searchbar">
-  Controls:
-  <input id="address" name="address" value="Zoom to Address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="35">
-  <button onclick="recenter_map_to_address();">Go</button>
-  <span id="recenter_button">
-  or <button onclick="recenter_map()">Zoom to Me</button>
-  </span>
-  <span id="searchbar2" style="display:inline;">
-    ::
-    <input name="search" id="search" value="Filter (e.g., Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }">
-    <button onclick="search_filter();">Go</button>
-    :: Labels
-    <button onclick="labelize_markers()">On</button> | <button onclick="delabelize_markers()">Off</button>
-    :: <a href="#" id="get_data_link">Export Data</a>
-  </span>
-  ::
-  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if !@perma.nil? and @perma[:muni] %>> Municipal
-  <div style="display:inline;float:right;margin-top:0.5em;"><a href="/" id="permalink">Permalink</a></div>
+ <div id="searchcontrols">
+  <a href="/" id="permalink">Permalink</a>
+  <b>Location</b> 
+  <input id="address" name="address" value="Zoom to address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30">
+   <button onclick="recenter_map_to_address();">Go</button>
+   <span id="recenter_button">
+   or <button onclick="recenter_map()">Zoom to Me</button>
+   </span>
+   <span id="searchbar2" style="display:inline;">
+     &middot; <b>Filter</b> 
+     <input name="search" id="search" value="Search term (e.g. Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }" size="25">
+     <button onclick="search_filter();">Apply</button>
+     &middot; <b>Labels</b> 
+     <button onclick="labelize_markers()">On</button> / <button onclick="delabelize_markers()">Off</button>
+     &middot <a href="#" id="get_data_link">Export Data</a>
+   </span>
+   &middot;
+   <b>Municipal</b> <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);">
+ </div>
 </div>
 
-<div class="map_container"><div id="map"></div></div>
+<div class="mainmap_container"><div id="map"></div></div>
 
- <% content_for :scripts do %>
+<% content_for :scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8">
 

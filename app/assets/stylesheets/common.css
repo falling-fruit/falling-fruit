@@ -1,215 +1,473 @@
-html{ 
-  height: 100%; 
-  margin: 0; 
-  padding: 0;
-}
+/*** Formatting ***/
 
-body{
-  font-size: 11pt;
-  font-family: 'Droid Sans', sans-serif;
-  height: 100%;
-  width: 100%;
-  margin: 0; 
-  padding: 0;
-}
-
-div{
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 0.85em;
+  color: #666;
   margin: 0;
   padding: 0;
 }
 
-img{
-  margin:0;
-  padding:0;
-  border:none;
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-div.InfoWindow{font-family:Arial;font-size:90%;}
-div.InfoWindow div.Address{font-size:80%;font-style:italic;margin-bottom:.9em;}
-div.InfoWindow div.Title{font-weight:bold;}
-
-div#header{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  height: 4em;
-  background-color: #ccc;
-}
-
-div#header div#menu{
- padding: 0.5em;
- background: lightgrey;
- font-size: 10pt;
- font-weight: bold;
- color: #222222;
-}
-
-div#menu a{
+a {
   text-decoration: none;
+  color: #0476D4;
 }
 
-div#header div#logo{
-  background: #003366;
+a:hover {
+  color: #E35809;
 }
 
-div#searchbar{
-  position: absolute;
-  top: 5em;
-  left: 0px;
-  right: 0px;
-  height: 4em;
-  background-color: lightblue;
-  border-top: 1px solid black;
-  padding: 0.5em;
-  font-size: 10pt;
+h1 {
+  margin-top: 0;
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #EF6517;
+}
+
+h2 {
+  margin-top: 1em;
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #EF6517;
+}
+
+.subtext {
+  font-size: 0.75em;
+  color: #888;
+}
+
+.announcement {
+  font-style: italic;
+  font-weight: bold;	
+}
+
+div#map {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+div#content {
+  padding: 15px 1.5em 10px 1.5em;
+  text-align: justify;
+  max-width: 1400px;
+  margin: 0 auto;  /* Page is centered on wider screen. */
+  margin: 0;  /* Page is left-aligned on wider screen. */
+}
+
+div#content p {
+  line-height: 1.5em;  /* For better legibility on wider screens */
+}
+
+div#footer {
+  margin-top: 2.5em;
+  text-align: center;
+  font-size: 0.85em;
+}
+
+
+/************************************************/
+/*** HEADER ***/
+
+
+/*** Logo ***/
+
+div#logobar {
+  background-color: #2C4D75;
+  padding: 0 5px;
+  height: 2.5em;
+}
+
+div#logobar a {
+  font-size: 2.2em;
+  font-family: helvetica, arial, verdana, sans-serif;
+  font-variant: small-caps;
   font-weight: bold;
-  color: #222222;
+  color: #FFF;
 }
 
-div#searchbar a{
-  text-decoration: none;
+div#logobar img {
+  float: right;
+  height: 100%;
 }
 
-div#searchbar button{
-  font-size: 10pt;
-}
-div#searchbar input[type=text]{
-  font-size: 10pt;
+
+/*** Menu ***/
+
+div#menubar {
+  background-color: lightgrey;
+  #height: 2em;  /* Leaving blank allows menubar to grow for narrow displays*/
 }
 
-div#content{ 
+div#menubar a {
+  color: #666;
+  height: 100%; /* needed to ensure edge reaches bottom of bar */
+  line-height: 2em;
+  padding: 0em 8px;
+  display: inline-block;
+}
+
+div#menubar a#maplink {
+  padding-left: 12px;
+}
+
+div#menubar div#rightcontrols {
+  float: right;
+}
+
+/* CURRENTLY UNUSED */
+div#menubar a.currentpage {
+  background-color: #FFF;
+}
+
+div#menubar a:hover:not(.currentpage) {
+  color: #FFF;
+}
+
+div#menubar span#admin_email {
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+div#menubar span#clickmap {
+  font-size: 0.85em;
+  #font-style: italic;
+}
+
+
+/************************************************/
+/*** MAP ***/
+
+
+/*** Searchbar ***/
+
+div#searchbar {
+ #height: 3em; /* Leaving blank allows menubar to grow for narrow displays*/
+	line-height: 3em;
+	background-color: #FFF;
+	border-bottom: 2px solid #CCC;
+	width: 100%;
+	vertical-align: middle;
+}
+
+div#searchbar div#searchcontrols {
+  padding: 0 9px 0 15px;  /* Adding padding here keeps searchbar width at 100% */
+}
+
+div#searchbar button {
+	border: 1px solid #DDD;
+	border-radius: 4px;
+	background-color: #EEE;
+	font-size: 0.8em;
+	font-family: inherit;
+	cursor: pointer;
+	position: relative;  /* Fixes vertical alignment issue */
+	top: -.1em;
+	color: inherit;
+}
+
+div#searchbar button:hover {
+	background-color: #C6E1F7;
+}
+
+div#searchbar input {
+	border: 1px solid #DDD;
+	padding: 2px 3px;
+	font-family: inherit;
+	color: inherit;
+	font-size: .85em;
+}
+
+div#searchbar input[type=checkbox] {
+  position: relative;  /* Fixes vertical alignment issue */
+  top: -.1em;
+}
+
+div#searchbar a#permalink {
+  float: right;
+}
+
+
+/*** Map ***/
+
+div#mainmap_container {
+  position: absolute;
+  top: 7.5em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;  /* So that if search bar controls wrap, they display above map. */
+}
+
+div#newmarker {
+  text-align: center;
+  font-size: 1em;
+  padding-top: 0.7em;
+  line-height: 1.3em;
+}
+
+
+/************************************************/
+/*** ADD SOURCE ***/
+
+
+/*** Form ***/
+
+form#editsource {
+  padding: 20px 1.5em 10px 1.5em;
+  width: 28em;
   position: absolute;
   top: 4.5em;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  width: auto;
-  padding: 0.5em; 
-  margin-bottom: 1em;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  line-height: 1em;
 }
 
-div#content div#footer{
-  margin-top: 2em;
-  text-align: center;
-  padding: 0.3em;
-  font-size: 9pt;
-  color: #444444;
-}
-div#footer a{ 
-  text-decoration: none;
-}
-
-div.map_container{
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 7em;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  width: auto;
-}
-div.map_container div#map{
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-a{ 
-  color: #333333; 
-}
-
-div.field{
+form#editsource div.field {
   margin-top: 1em;
 }
 
-table{
+form#editsource label {
+  line-height: 1.25em;
+  font-weight: bold;
+}
+
+form#editsource span.subtext {
+  font-size: 0.75em;
+  color: #888;
+  position: relative;  /* Keeps subtext away from text input edges. */
+  top: -.15em;
+}
+
+form#editsource span.subtext-inline {  /* Regular behavior, shorthand. */
+  font-size: 0.75em;
+  color: #888;
+}
+
+form#editsource a {
+  font-size: 0.85em;
+}
+
+form#editsource input, select, textarea {
+	font-family: inherit;
+	color: inherit;
+	font-size: .85em;
+	border: 1px solid #CCC;
+	padding: 2px 3px;
+	margin: 0;
+}
+
+form#editsource input#location_lat {
+  text-align: right;
+}
+
+form#editsource input[type=checkbox] {
+  position: relative;  /* Fixes suble vertical align issue. */
+  top: -.1em;
+}
+
+form#editsource div#captcha {
+  position: relative;  /* Widget has slight left margin */
+  left: -2px;
+}
+
+form#editsource input[type=submit] {
+  background-color: #4B8CF5;
+  border-radius: 3px;
+  border: 1px solid #3278F0;
+  display: inline-block;
+  color: #FFF;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 6px 20px;
+  margin-right: 10px;
+}
+
+form#editsource input[type=submit]:hover {
+  background-color: #3278E6;
+  cursor: pointer;
+}
+
+
+/*** Map ***/
+
+div#editmap_container {
+  position: absolute;
+  top: 4.5em;
+  bottom: 0;
+  left: 31em;
+  right: 0;
+  border-left: 2px solid #DDD;
+}
+
+div#editmarker {
+  text-align: center;
+  font-size: 0.85em;
+  width: 18em;
+  padding: 0.5em;
+}
+
+
+/************************************************/
+/*** ABOUT ***/
+
+div.rightphoto {
+		float: right;
+		position: relative;
+		top: 1em;  /* Make images flush with top of text */
+		margin: 0 0 1.5em 1.5em;  /* To keep text away while wrapping */
+		text-align: right;  /* In case image dimensions are not as expected */
+		line-height: 0;  /* Fixes unresolved white space bug */
+		width: 412px;  /* Multiple of image width + 2 * border + a little */
+}
+
+div.rightphoto img {
+  width: 200px;
+}
+
+div#content img {
+	 border: 1px solid #EEE;
+}
+
+
+/*** Data List ***/
+
+/* OPTIONAL - Put all countries on same line. */
+div.country {
+	display: inline-block;
+}
+
+div.country b {
+	line-height: 3em;
+}
+
+div.datalist {
+  margin-left: 25px;
+  padding: 0px 5px;
+  border-left: 1px solid #EEE;
+  display: inline-block;
+  vertical-align: top;
+}
+
+div.datalist ul {
+  margin-left: 3px;
+}
+
+div.datalist ul li {
+  margin-left: 10px;
+}
+
+div.datalist li {
+  margin-left: 13px;
+}
+
+
+/*** Profiles ***/
+
+div.profile {
+  margin-top: 1.5em;
+}
+
+div.profile:after {  /* Clears float instead of a div inside html */
+  content: ".";
+  display: block;
+  height: 0;
+  clear: left;
+  visibility: hidden;
+}
+
+img.avatar {
+		float: left;
+		width: 200px;
+}
+
+div.bio {
+		margin-left: 216px;
+}
+
+
+/************************************************/
+/*** DATA ***/
+
+table#type_summary img.pageicon {
+  height: 1em;
+}
+
+
+/************************************************/
+/*** LEGACY ***/
+
+
+div.InfoWindow {
+  font-size: 90%;
+}
+
+div.InfoWindow div.Address {
+  font-size: 80%;
+  font-style: italic;
+  margin-bottom: .9em;
+}
+
+div.InfoWindow div.Title {
+  font-weight: bold;
+}
+
+table {
   width: 100%;
   margin: 0; padding: 0;
 }
 
-table tbody{
+table tbody {
   font-size: 10pt;
 }
 
-
-.dataTables_wrapper{
+div.dataTables_wrapper {
   padding-top: 10px;
 }
 
-div.dataTables_wrapper input{
+div.dataTables_wrapper input {
   padding: 0px;
 }
 
-
-th, td{
+th, td {
   padding: 5px;
 }
 
-table a{
-  text-decoration: none;
-}
-
-table a:hover{
-  text-decoration: underline;
-}
-
-thead{
+thead {
   border-bottom: 2px solid #B5B5B5;
   font-size: 10pt;
   font-weight: bold;
 }
 
-table tr.even{
+table tr.even {
   background-color: #F0F0F0;
 }
 
-table tr.odd{
+table tr.odd {
   background: #FFFFFF;
 }
 
-table tr.even td.sorting_1{
+table tr.even td.sorting_1 {
   background-color: #E0E0E0;
 }
 
-table tr.odd td.sorting_1{
+table tr.odd td.sorting_1 {
   background: #EDEDED;
 }
 
-table tbody tr.odd td.special_col, table tbody tr.even td.special_col{
+table tbody tr.odd td.special_col, table tbody tr.even td.special_col {
   background: #F57A7A;
 }
 
-span.subtext{
-  font-size: 8pt;
-  color: grey;
-}
-
-h1 {
-  color: #555555;
-  padding: 2px 0px;
-  margin: 0;
-  font: bold 200% arial, sans-serif;
-  font-variant: small-caps;
-}
-
-h2 {
-  color: #DB5432;
-  padding: 2px 0px;
-  margin: 0;
-  font: bold 120% arial, sans-serif;
-}
-
-h3 {
-  color: #444444
-  padding: 2px 0px;
-  margin: 0;
-  font: 100% arial, sans-serif;
-}
-
-div#warnings{
+div#warnings {
   position: absolute;
   width: 50%;
   left: 25%;
@@ -217,49 +475,20 @@ div#warnings{
   top: 0;
 }
 
-div#warnings div.notice {
+div#warnings div.notice  {
   background: lightblue;
   padding: 0.2em;
   border: 1px solid grey;
 }
 
-
-div#warnings div.alert {
+div#warnings div.alert  {
   background: orange;
   padding: 0.2em;
   border: 1px solid grey;
 }
 
-
-/* Button */
-input[type=submit] {
-        background-color: #4B8CF5;
-        border-radius:3px;
-        border:1px solid #3278F0;
-        display:inline-block;
-        color:#ffffff;
-        font-family:arial;
-        font-size:15px;
-        font-weight:bold;
-        padding:6px 24px;
-        text-decoration:none;
-}
-
-input[type=submit]:hover {
-        background-color: #3278E6;
-}
-
-input[type=submit]:active {
-        position:relative;
-        top:1px;
-}
-
 input[type=email],
 input[type=password],
-input[type=text]{
+input[type=text] {
   padding: 4px;
 }
-
-button{ margin: 0; padding: 0; }
-select{ margin: 0; padding: 0; }
-form{ margin: 0; padding: 0; }

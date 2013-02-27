@@ -217,7 +217,7 @@
     markerIdArray.push(-1);
     // Set and open infowindow
     var infowindow = new google.maps.InfoWindow({
-        content: '<div style="text-align: center;margin-top:1em;font-size:10pt;padding:0;font-weight:bold;">' +
+        content: '<div id="newmarker">' +
                  '<a href="/locations/new?lat=' + latLng.lat() + '&lng=' + latLng.lng() + 
                  '">Click to add a source here</a><br><span class="subtext">(You can drag this thing too)</span></div>'
     });
@@ -225,7 +225,7 @@
     // Listen to drag & drop
     google.maps.event.addListener(marker, 'dragend', function() {
         var infowindow = new google.maps.InfoWindow({
-          content: '<div style="text-align: center;margin-top:1em;font-size:10pt;padding:0;font-weight:bold;">' +
+          content: '<div id="newmarker">' +
                  '<a href="/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng() + 
                  '">Click to add a source here</a><br><span class="subtext">(You can drag this thing too)</span></div>'
         });
