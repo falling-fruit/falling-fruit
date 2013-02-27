@@ -22,7 +22,7 @@
     :: <a href="#" id="get_data_link">Export Data</a>
   </span>
   ::
-  <input type="checkbox" id="muni" value="1" onclick="update_display(true);" <%= "checked" if !@perma.nil? and @perma[:muni] %>> Municipal
+  <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if !@perma.nil? and @perma[:muni] %>> Municipal
   <div style="display:inline;float:right;margin-top:0.5em;"><a href="/" id="permalink">Permalink</a></div>
 </div>
 
@@ -60,8 +60,10 @@
       place_add_marker(event.latLng);
     });
 
-    // load initial cluster display for the whole world
-    update_display(true);
+    // load initial display
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
+      update_display(true);
+    });
            
     google.maps.event.addListener(map, 'bounds_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -92,13 +94,10 @@
     var center = map.getCenter();
     $('permalink').href = '/?perma_zoom=' + zoom + '&perma_lat=' + center.lat() + 
       '&perma_lng=' + center.lng() + '&perma_muni=' + $('muni').checked;
-    if(prior_bounds == null && prior_zoom == null){
-      $('searchbar2').hide();
-      do_clusters(undefined,zoom,$('muni').checked);
-      prior_zoom = zoom;
-      prior_bounds = bounds;
-    }
+    if(prior_zoom == null) prior_zoom = zoom;
+    if(prior_bounds == null) prior_bounds = bounds;
     if(zoom <= 12){
+      $('searchbar2').hide();
       if((zoom != prior_zoom) || force){
         $('searchbar2').hide();
         do_clusters(undefined,zoom,$('muni').checked);

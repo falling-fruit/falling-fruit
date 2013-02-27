@@ -45,19 +45,22 @@ class LocationsController < ApplicationController
       "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
     ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
-      string_agg(coalesce(lt.type_other,t.name),',') as name from locations l, 
+      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
       locations_types lt left outer join types t on lt.type_id=t.id 
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
     @markers = r.collect{ |row|
-      next if row["name"].nil? or row["name"].strip == ""
-      t = row["name"].split(/,/)
-      if t.length == 2
-        name = "#{t[0]} and #{t[1]}"
-      elsif t.length > 2
-        name = "#{t[0]} & Others"
+      if row["name"].nil? or row["name"].strip == ""
+        name = "Unknown"
       else
-        name = t[0]
+        t = row["name"].split(/,/)
+        if t.length == 2
+          name = "#{t[0]} and #{t[1]}"
+        elsif t.length > 2
+          name = "#{t[0]} & Others"
+        else
+          name = t[0]
+        end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
        :picture => (row["unverified"] == 't') ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",:width => 32, :height => 32,
@@ -76,7 +79,7 @@ class LocationsController < ApplicationController
     ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     @locations = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
       l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name as import_name, i.url as import_url,
-      string_agg(coalesce(lt.type_other,t.name),',') as name from locations l, imports i,
+      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, imports i,
       locations_types lt left outer join types t on lt.type_id=t.id 
       WHERE l.import_id=i.id AND lt.location_id=l.id AND 
       #{[bound,ifilter].compact.join(" AND ")} 

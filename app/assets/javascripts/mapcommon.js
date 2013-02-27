@@ -28,7 +28,9 @@
             map: map,
             title: mdata[i]["title"],
             draggable: false
-          });
+        });
+        markersArray.push(m);
+        markerIdArray.push(mdata[i]["location_id"]);
       }else{
         var w = mdata[i]["width"];
         var h = mdata[i]["height"];
@@ -48,10 +50,10 @@
             flat: true,
             anchor: RichMarkerPosition.MIDDLE,
           });
-
+          add_clicky_cluster(m);
+          markersArray.push(m);
+          markerIdArray.push(undefined);
       }
-      markersArray.push(m);
-      markerIdArray.push(mdata[i]["location_id"]);
     }
   }
 
@@ -113,7 +115,16 @@
     });
   }
 
-  // FIXME: possible optimization---only grab markers for (bounds-prior_bounds) area
+  function add_clicky_cluster(marker){
+    google.maps.event.addListener(marker, 'click', function(){      
+      var z = map.getZoom();
+      if(z >= 10) z = 13;
+      else z += 2;
+      map.panTo(marker.getPosition());
+      map.setZoom(z);
+    });
+  }
+
   function do_markers(bounds,skip_id,muni){
     var bstr = '';
     if(bounds != undefined){
