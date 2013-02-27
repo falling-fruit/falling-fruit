@@ -4,12 +4,6 @@ jQuery(document).ready(function(){
 });
 </script>
 
-<div id="formbar">
-
-<!-- Title -->
-<h1><%= @current_action.capitalize %> Source</h1>
-<span style="position: relative; top: -1em;">* <span style="position: relative; top: -0.4em;" class="subtext">required field</span></span>
-
 <!-- Errors -->
 <% if @location.errors.any? %>
   <div id="error_explanation">
@@ -23,7 +17,19 @@ jQuery(document).ready(function(){
 <% end %>
 
 <!-- Source Form -->
-<%= form_for(@location) do |f| %>
+<%= form_for(@location,:html => {:id=>"editsource"}) do |f| %>
+  <!-- Errors -->
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <strong><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</strong>
+        <ul>
+      <% @location.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= f.hidden_field :id %>
   
   <!-- Type -->
@@ -127,5 +133,3 @@ jQuery(document).ready(function(){
   
 <% end %>
 </form>
-</div>
-

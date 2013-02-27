@@ -42,7 +42,7 @@
         var wo = parseInt(w/2,10);
         var ho = parseInt(h/2,10);
         var m = new RichMarker({
-            content: '<div style="background:url(' + mdata[i]["picture"] + ');height:'+h+
+            content: '<div style="color:black;background:url(' + mdata[i]["picture"] + ');height:'+h+
                      'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
                      'text-align: center;position:absolute;'+
                      'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+mdata[i]["title"]+'</div>',

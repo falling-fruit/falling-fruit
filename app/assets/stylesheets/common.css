@@ -1,6 +1,6 @@
 /*** Formatting ***/
 
-body {
+html,body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 0.85em;
   color: #666;
