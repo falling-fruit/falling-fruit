@@ -15,16 +15,18 @@
    <span id="recenter_button">
    or <button onclick="recenter_map()">Zoom to Me</button>
    </span>
-   <span id="searchbar2" style="display:inline;">
+   <span id="hidden_controls" style="display:none;">
      &middot; <b>Filter</b> 
      <input name="search" id="search" value="Search term (e.g. Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }" size="25">
      <button onclick="search_filter();">Apply</button>
      &middot; <b>Labels</b> 
      <button onclick="labelize_markers()">On</button> / <button onclick="delabelize_markers()">Off</button>
-     &middot <a href="#" id="get_data_link">Export Data</a>
-   </span>
+     </span>
    &middot;
    <b>Municipal</b> <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);">
+   <span id="export_data" style="display: none;">
+    &middot; <a href="#" id="get_data_link">Export Data</a>
+    </span>
  </div>
 </div>
 
@@ -90,23 +92,26 @@
     return '/locations/data.csv?muni=' + mstr + '&' + bstr;
   }
 
-  function update_display(force){
+ function update_display(force){
     var zoom = map.getZoom();
     var bounds = map.getBounds();
-    var center = map.getCenter();
-    $('permalink').href = '/?perma_zoom=' + zoom + '&perma_lat=' + center.lat() + 
-      '&perma_lng=' + center.lng() + '&perma_muni=' + $('muni').checked;
-    if(prior_zoom == null) prior_zoom = zoom;
-    if(prior_bounds == null) prior_bounds = bounds;
+    if(prior_bounds == null && prior_zoom == null){
+      $('hidden_controls').hide();
+      $('export_data').hide();
+      do_clusters(undefined,zoom,$('muni').checked);
+      prior_zoom = zoom;
+      prior_bounds = bounds;
+    }
     if(zoom <= 12){
-      $('searchbar2').hide();
       if((zoom != prior_zoom) || force){
-        $('searchbar2').hide();
+        $('hidden_controls').hide();
+        $('export_data').hide();
         do_clusters(undefined,zoom,$('muni').checked);
       }
     }else if(zoom >= 13){
       $('get_data_link').href = data_link();
-      $('searchbar2').show();
+      $('hidden_controls').show();
+      $('export_data').show();
       do_markers(bounds,null,$('muni').checked);
     }
     prior_zoom = zoom;
