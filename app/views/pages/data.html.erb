@@ -1,54 +1,69 @@
-<h1>Data</h1>
+<p>
+Falling Fruit is built on public data, and on the generosity of urban foragers to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. In the spirit of open data, behold! The entire database:
+</p>
 
-Falling Fruit is built on public data, and on the generosity of urban foragers to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. Therefore, the entire database will always be just one click away.
 <blockquote>
-Download everything as <a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-<i>Last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")) %></i>
+<a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
+<i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")).strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 </blockquote>
-But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need go this route. For most, the better alternative is to selectively download points of interest using the download tool integrated into the <a href="/">map</a>.
-<br><br>
-It should go without saying that we take no responsibility for the accuracy of the data -- it is provided as is, <em>caveat emptor</em>.
-<br><br>
-Finally, if you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
 
-<br><br>
+<p>
+But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">main map</a>.
+</p>
+
+<p>
+It should go without saying that we take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
+</p>
+
 <h2>Summary of Sources</h2>
 
+<!-- Add "show all". Initialize sorted by count, descending. Add links to new columns USDA symbol and Wikipedia article (url stripped to name of article, replacing _ with ' ') -->
+
 <% cache 'pages_data_type_summary_table' do
-  @types = ActiveRecord::Base.connection.execute("SELECT t.id, t.scientific_name, t.usda_symbol, 
+  @types = ActiveRecord::Base.connection.execute("SELECT t.id, t.scientific_name, t.usda_symbol, t.wikipedia_url
     t.name, count(*) FROM types t, locations_types lt WHERE lt.type_id=t.id 
     GROUP BY t.id, t.scientific_name, t.usda_symbol, t.name ORDER BY t.name")
 %>
- <table id="type_summary">
- <thead>
- <tr>
- <th>Name</th>
- <th>Scientific Name</th>
+
+<table id="type_summary">
+<thead>
+<tr>
+ <th>Common name</th>
+ <th>Scientific name</th>
  <th>Count</th>
- </tr>
- </thead>
- <tbody>
- <% @types.each{ |t| %>
- <tr>
- <td><%= t["name"] %>
- <td>
- <% unless t["scientific_name"].nil? %>
-  <% if t["usda_symbol"].nil? %>
-   <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><em><%= t["scientific_name"] %></em></a>
-  <% else %>
-   <em><%= t["scientific_name"] %></em>
-  <% end %>
+</tr>
+</thead>
+<tbody>
+<% @types.each{ |t| %>
+<tr>
+<td>
+<% unless t["name"].nil? %>
+ <% unless t["wikipedia_url"].nil? %>
+  <a href="<%= t["wikipedia_url"] %>"><i><%= t["name"] %></i></a>
+ <% else %>
+  <i><%= t["name"] %></i>
  <% end %>
- <td><%= t["count"] %>
- <% } %>
- </tbody>
- </table>
+<% end %>
+</td>
+<td>
+<% unless t["scientific_name"].nil? %>
+ <% unless t["usda_symbol"].nil? %>
+  <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><i><%= t["scientific_name"] %></i></a>
+ <% else %>
+  <i><%= t["scientific_name"] %></i>
+ <% end %>
+<% end %>
+</td>
+<td><%= t["count"] %></td>
+</tr>
+<% } %>
+</tbody>
+</table>
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-    jQuery('#type_summary').dataTable();
+    var typeTable = jQuery('#type_summary').dataTable();
+    typeTable.fnSort
 });
 </script>
-
-
