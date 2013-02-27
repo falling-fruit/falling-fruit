@@ -12,7 +12,7 @@ class LocationsController < ApplicationController
     n = params[:n].nil? ? 10 : params[:n].to_i
     g = params[:grid].present? ? params[:grid].to_i : 1
     g = 15 if g > 15
-    gsize = 360.0/(16.0*(2.0**(g-3)))
+    gsize = 360.0/(12.0*(2.0**(g-3)))
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
       "AND ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
     ifilter = "AND (import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
