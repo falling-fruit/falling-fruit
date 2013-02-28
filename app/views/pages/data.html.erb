@@ -18,17 +18,17 @@ It should go without saying that we take no responsibility for the accuracy of t
 <h2>Summary of Sources</h2>
 
 <% cache 'pages_data_type_summary_table' do
-  @types = ActiveRecord::Base.connection.execute("SELECT t.id, t.scientific_name, t.usda_symbol, t.wikipedia_url
-    t.name, count(*) FROM types t, locations_types lt WHERE lt.type_id=t.id 
+  @types = ActiveRecord::Base.connection.execute("SELECT t.id, t.scientific_name, t.scientific_synonyms, t.usda_symbol, t.wikipedia_url,
+    t.name, t.synonyms, count(*) FROM types t, locations_types lt WHERE lt.type_id=t.id 
     GROUP BY t.id, t.scientific_name, t.usda_symbol, t.name ORDER BY t.name")
 %>
 
 <table id="type_summary">
 <thead>
 <tr>
- <th colspan="2">Pages</th>
  <th>Common name</th>
  <th>Scientific name</th>
+ <th>Links</th>
  <th>Count</th>
 </tr>
 </thead>
@@ -36,23 +36,20 @@ It should go without saying that we take no responsibility for the accuracy of t
 <% @types.each{ |t| %>
 <tr>
 <td>
+<%= t["name"] unless t["name"].nil? %>
+<%= "(aka #{t["synonyms"]})" unless t["synonyms"].nil? or t["synonyms"].strip == "" %>
+</td>
+<td>
+<i><%= t["scientific_name"] unless t["scientific_name"].nil? %>
+<%= "(aka #{t["scientific_synonyms"]})" unless t["scientific_synonyms"].nil? or t["scientific_synonyms"].strip == "" %>
+</i>
+</td>
+<td>
 <% unless t["wikipedia_url"].nil? %>
  <a href="<%= t["wikipedia_url"] %>"><img class="pageicon" src="/wikipedia_icon.png"></a>
 <% end %>
-</td>
-<td>
 <% unless t["usda_symbol"].nil? %>
  <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><img class="pageicon" src="/usda_icon.png"></a>
-<% end %>
-</td>
-<td>
-<% unless t["name"].nil? %>
- <i><%= t["name"] %></i>
-<% end %>
-</td>
-<td>
-<% unless t["scientific_name"].nil? %>
- <i><%= t["scientific_name"] %></i>
 <% end %>
 </td>
 <td><%= t["count"] %></td>

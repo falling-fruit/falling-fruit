@@ -6,7 +6,8 @@
   var prior_zoom = null;
   var markersArray = [];
   var labelsArray = [];
-  var openMarkers = [];
+  var openMarker = null;
+  var openInfoWindow = null;
   var markerIdArray = [];
   var boundMarkersArray = [];
   var labelsOn = false;
@@ -110,14 +111,16 @@
     var marker = markersArray[i];
     var id = markerIdArray[i];
     google.maps.event.addListener(marker, 'click', function(){
-      if(openMarkers.indexOf(id) >= 0) return;
+      if(openMarker === marker) return;
+      if(openInfoWindow != null) openInfoWindow.close()
       new Ajax.Request('/locations/' + id + '/infobox', {
         onSuccess: function(response) {
           var infowindow = new google.maps.InfoWindow({content: response.responseText });
-          infowindow.open(map, marker)
+          infowindow.open(map, marker);
+          openInfoWindow = infowindow;
         }
       });
-      openMarkers.push(id);
+      openMarker = marker;
     });
   }
 
@@ -177,7 +180,7 @@
         loc = new google.maps.LatLng(lat,lon);
         map.panTo(loc);
         map.setZoom(15);
-        $('searchbar2').show();
+        $('hidden_controls').show();
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
           do_markers(map.getBounds(),null,$('muni').checked);
@@ -202,8 +205,6 @@
     marker.setMap(null);
     markerIdArray.splice(i,1);
     markersArray.splice(i,1);
-    var t = openMarkers.indexOf(id);
-    if(t >= 0) openMarkers.splice(t,1);
   }
 
   // Add a marker with an open infowindow
@@ -309,7 +310,7 @@
       if (status == google.maps.GeocoderStatus.OK) {
         map.panTo(results[0].geometry.location);
         map.setZoom(15);
-        $('searchbar2').show();
+        $('hidden_controls').show();
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
           do_markers(map.getBounds(),null,$('muni').checked);

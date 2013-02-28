@@ -19,6 +19,11 @@
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
 
+    google.maps.event.addListener(map, 'rightclick', function(event) {
+      remove_add_marker();
+      place_add_marker(event.latLng);
+    });
+
     pb = progressBar();
     map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
 

@@ -36,17 +36,17 @@
   <%= link_to('Admin', admins_path) %>
  <% end %>
  </div>
-<%= link_to('Map', root_path, :id => "maplink") %>
-<%= link_to('About', '/pages/about') %>
-<%= link_to('Data', '/pages/data') %>
-<%= link_to('Add Source', new_location_path) %>
+<%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath == root_path) ? "currentpage" : "notcurrentpage") %>
+<%= link_to('About', '/pages/about', :class => (request.fullpath == '/pages/about') ? "currentpage" : "notcurrentpage") %>
+<%= link_to('Data', '/pages/data', :class => (request.fullpath == '/pages/data') ? "currentpage" : "notcurrentpage") %>
+<%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %>
 <% if @is_index and !admin_signed_in? %>
  <span id="clickmap">(or right-click on map)</span>
 <% end %>
 <% if admin_signed_in? %>
- <%= link_to('Types', types_path) %>
- <%= link_to('Import', import_locations_path) %>/<%= link_to('Imports', imports_path) %>
- <%= link_to('Admins', admins_path) %>
+ <%= link_to('Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
+ <%= link_to('Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %>/<%= link_to('Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %>
+ <%= link_to('Admins', admins_path, :class => (request.fullpath == admins_path) ? "currentpage" : "notcurrentpage") %>
 <% end %>
 </div>
 
