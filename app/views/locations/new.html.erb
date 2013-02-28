@@ -34,6 +34,14 @@
       place_add_marker(event.latLng);
     });
 
+    google.maps.event.addListener(map, 'click', function(event) {
+      if(openMarker != null && openInfoWindow != null){
+        openInfoWindow.close();
+        openMarker = null;
+        openInfoWindow = null;
+      }
+    });
+
     pb = progressBar();
     map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
 

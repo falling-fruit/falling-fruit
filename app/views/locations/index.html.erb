@@ -64,11 +64,18 @@
       place_add_marker(event.latLng);
     });
 
-    // load initial display
-    google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
-      update_display(true);
+    google.maps.event.addListener(map, 'click', function(event) {
+      if(openMarker != null && openInfoWindow != null){
+        openInfoWindow.close();
+        openMarker = null;
+        openInfoWindow = null;
+      }
     });
-           
+
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+      update_display(true,ini_zoom);
+    });
+             
     google.maps.event.addListener(map, 'bounds_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
         update_display(false);
@@ -92,9 +99,13 @@
     return '/locations/data.csv?muni=' + mstr + '&' + bstr;
   }
 
- function update_display(force){
+ function update_display(force,force_zoom){
     var zoom = map.getZoom();
+    if(force_zoom != undefined) zoom = force_zoom;
     var bounds = map.getBounds();
+    var center = map.getCenter();
+    $('permalink').href = '/?perma_zoom=' + zoom + '&perma_lat=' + center.lat() + 
+      '&perma_lng=' + center.lng() + '&perma_muni=' + $('muni').checked;
     if(prior_bounds == null && prior_zoom == null){
       $('hidden_controls').hide();
       $('export_data').hide();
