@@ -52,7 +52,7 @@ It should go without saying that we take no responsibility for the accuracy of t
  <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><img class="pageicon" src="/usda_icon.png"></a>
 <% end %>
 </td>
-<td><%= t["count"] %></td>
+<td style="test-align: right;"><%= t["count"] %></td>
 </tr>
 <% } %>
 </tbody>
@@ -61,6 +61,8 @@ It should go without saying that we take no responsibility for the accuracy of t
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-    jQuery('#type_summary').dataTable();
+    jQuery('#type_summary').dataTable({
+      "aaSorting": [[3,"desc"]]
+    });
 });
 </script>
