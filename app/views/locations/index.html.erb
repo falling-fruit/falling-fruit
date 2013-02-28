@@ -23,7 +23,7 @@
      <button onclick="labelize_markers()">On</button> / <button onclick="delabelize_markers()">Off</button>
      </span>
    &middot;
-   <b>Municipal</b> <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);">
+   <b>Municipal</b> <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if !@perma.nil? and !@perma[:muni].nil? and @perma[:muni] %>>
    <span id="export_data" style="display: none;">
     &middot; <a href="#" id="get_data_link">Export Data</a>
     </span>
