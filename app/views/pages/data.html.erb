@@ -23,6 +23,9 @@ It should go without saying that we take no responsibility for the accuracy of t
     GROUP BY t.id, t.scientific_name, t.usda_symbol, t.name ORDER BY t.name")
 %>
 
+The database currently contains <%= LocationsType.count %> distinct sources and <%= Type.count %> cataloged, edible source types. The following table gives a list of plant types present in the database along with their scientific name(s), prevalence, and links to more information.
+<br><br>
+
 <table id="type_summary">
 <thead>
 <tr>
