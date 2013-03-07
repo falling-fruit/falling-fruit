@@ -1,40 +1,185 @@
 <style>
-a.title{ color: white; font-weight: bold; text-decoration: none; }
-div#title{ font-size: 10pt; background: #003366;font-weight:bold;color:white;padding:0.2em; }
-</style>
-<div id="title">
-<%= tn = location.locations_types.collect{ |d| d.type.nil? ? d.type_other : 
-  "<a class=\"title\" href=\"#{d.type.wikipedia_url}\">#{d.type.name}</a>" } 
 
-   if tn.length == 2
-     raw "#{tn[0]} and #{tn[1]}"
-   elsif tn.length > 2
-     raw "#{tn[0]} & Others"
-   else
-     raw tn[0]
-   end
-%>
+/* Info Window */
+div#location_popup {
+  max-width: 35em;
+  border: 2px solid #EEE;
+  color: #333;
+  padding: 1.5em 1em 0.5em 1.5em;
+  font-size: 0.75em;
+  font-family: verdana, arial, helvetica, sans-serif;  /* if not already inherited */
+}
+
+div#location_popup a {
+    text-decoration: none;  /* if not already inherited */
+    color: #333;
+}
+
+/* Types */
+div#type_list li {
+  list-style: none;
+  margin: 0 0 .3em 0;
+  display: inline-block;
+  background-color: #EEE;
+  padding: 0.25em;
+  font-size: 1.25em;
+}
+
+div#type_list img.type_icon {
+  margin-left: 0.25em;
+  height: 0.85em;
+}
+
+/* Description */
+label {
+  color: #000;
+  font-size: 1.05em;
+  padding-right: 0.1em;
+  line-height: 1.75em;
+}
+
+img.star {
+  position: relative; 
+  top: 0.25em;  /* fix vertical alignment */
+  height: 1.5em;
+}
+
+span.in_season {
+  color: green;
+}
+
+span.out_season {
+  color: brown;
+}
+
+div#description p {
+  margin: 1.5em 1em 1.5em 1em;
+  line-height: 1.5em;
+  text-align: justify;
+}
+
+/* Footer */
+span#controls #xclose {
+  font-size: 1.5em;    
+  position: relative;
+  top: 0.1em;  /* fix vertical alignment */
+}
+
+span#controls {
+  color: #999;
+  width: 8em;
+  padding-right: 1.5em;
+}
+
+span#controls a {
+  color: #999;
+  vertical-align: bottom;
+  display: inline-block;
+}
+
+span#controls a:hover {
+  color: #333;
+}
+
+span#added_by {
+  color: #AAA;
+  width: 22em;
+  display: inline-block;
+  text-align: left;
+  vertical-align: bottom;
+  padding-left: 1em;
+  border-left: 1px solid #DDD;
+}
+</style>
+
+
+<!-- Wrapper -->
+<div id="location_popup">
+
+<!-- Types -->
+<div id="type_list">
+ <% @location.locations_types.each{ |d| %>
+ <li>
+ <%= #{d.type.name} %>
+ <% unless d.type.wikipedia.nil? or d.type.wikipedia.strip == "" %>
+  <a href="<%= #{d.type.wikipedia_url} %>"><img class="type_icon" src="/wikipedia_icon.png"></a>
+ <% end %>
+ <% unless d.type.usda_symbol.nil? or d.type.usda_symbol.strip == "" %>
+  <a href="http://plants.usda.gov/java/profile?symbol=<%= #{d.type.usda_symbol} %>"><img class="type_icon" src="/usda_icon.png"></a>
+ <% end %>
+ </li>
+ <% } %>
 </div>
-<div style="font-size: 10pt; margin-top: 1em;">
-<% unless location.description.nil? or location.description.strip == "" %>
-<%= raw word_wrap(location.description,:line_width => 30).gsub("\n","<br>") %><br><br>
+
+<!-- Description wrapper -->
+<div id="description">
+
+<!-- Quality -->
+<% unless location.quality_rating.nil? or location.quality_rating.strip == "" %>
+ <label>Quality</label> <%= "<img class=\"star\" src=\"/star_icon.png\"/>" * (location.quality_rating + 1) %>
 <% end %>
-<% unless location.no_season or location.season_start.nil? or location.season_stop.nil? %>
-Fruiting from <%= Location::Months[location.season_start] %> to <%= Location::Months[location.season_stop] %><br>
+
+<!-- Yield -->
+<% unless location.yield_rating.nil? or location.yield_rating.strip == "" %>
+ <label>Yield</label> <%= "<img class=\"star\" src=\"/star_icon.png\"/>" * (location.yield_rating + 1) %>
 <% end %>
-<div style="color:#333333; font-weight: bold;">
-<% t = location.locations_types.collect{ |d| (d.type.nil? or d.type.usda_profile_url.nil?) ? nil : d.type }.compact %>
-<% if t.length > 0 %>
-USDA:
-<% t.each{ |d| %>
-<a href="<%= d.usda_profile_url %>" target="_blank"><%= d.name %></a>
-<% } %><br>
+<br/>
+
+<!-- Season -->
+<!-- (use ? to denote nil, brown out of season, green in season) -->
+<% unless location.no_season or (location.season_start.nil? && location.season_stop.nil?) %>
+ <label>Season</label>
+ <% current = Date.today.strftime("%-m").to_i - 1 %>
+ <% if not(location.season_start.nil? || location.season_stop.nil?) %>
+  <% if current.between?(location.season_start,location.season_stop) %>
+   <span class="in_season">
+  <% else %>
+   <span class="out_season">
+  <% end %>
+  <%= Location::Months[location.season_start] %> - <%= Location::Months[location.season_stop] %>
+ <% elsif location.season_stop.nil? %>
+  <% if current == location.season_start %>
+   <span class="in_season">
+  <% else %>
+   <span class="out_season">
+  <% end %>
+  <%= Location::Months[location.season_start] %> - ?
+ <% elsif location.season_start.nil? %>
+  <% if current == location.season_stop %>
+   <span class="in_season">
+  <% else %>
+   <span class="out_season">
+  <% end %>
+  ? - <%= Location::Months[location.season_stop] %>
+ <% end %>
+ </span><br/>
 <% end %>
+ 
+<!-- Text Description -->
+<!-- (keep <p> markup even if empty) -->
+<p>
+<% unless location.description.nil? %>
+ <%= location.description.gsub("\n","<br>") %>
+<% end %>
+</p>
+
+</div>  <!-- Description wrapper -->
+
+<!-- Footer -->
+<div id="footer">
+ 
+ <!-- Controls -->
+ <span id="controls"><a id="xclose" href="">x</a> &nbsp; <a href="/locations/<%= location.id %>/edit">edit</a>
+ <% if admin_signed_in? %>
+  &nbsp; <%= link_to 'delete', location, method: :delete, data: { confirm: 'Are you sure?' } %>
+ <% end %>
+ </span>
+ 
+ <!-- Author -->
+ <span id="added_by">by <i><%= location.author %></i>
+ </span>
 </div>
-<span style="text-decoration: italic;color: grey;">Added by <%= location.author %></span><br>
-<div style="text-align: right;"><a href="/locations/<%= location.id %>/edit">Edit</a>
-<% if admin_signed_in? %>
- | <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
-</div>
-</div>
+
+</div>  <!-- Footer -->
+
+</div>  <!-- Wrapper -->
