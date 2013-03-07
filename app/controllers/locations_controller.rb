@@ -7,6 +7,16 @@ class LocationsController < ApplicationController
     expire_fragment "pages_data_type_summary_table"
   end
 
+  def number_to_human(n)
+    if n > 999 and n <= 999999
+      (n/1000.0).round.to_s + "K"
+    elsif n > 999999
+      (n/1000000.0).round.to_s + "M"
+    else
+      n.to_s
+    end
+  end
+
   def cluster
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     n = params[:n].nil? ? 10 : params[:n].to_i
@@ -29,7 +39,8 @@ class LocationsController < ApplicationController
        GROUP BY ST_SnapToGrid(location::geometry,#{gsize},#{gsize})) AS csub")
     end
     r.each{ |row|
-        @clusters.push({:title => row["count"],:lat => row["lat"],:lng => row["lng"],
+        @clusters.push({:title => number_to_human(row["count"].to_i),
+          :n => row["count"].to_i,:lat => row["lat"],:lng => row["lng"],
           :picture => "http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/images/m3.png",
           :width => 66, :height => 65, :marker_anchor => [0,0]})
     } unless r.nil?
