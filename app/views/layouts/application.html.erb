@@ -12,11 +12,29 @@
 
 <!-- Logo Bar -->
 <div id="logobar">
+
+ <!-- Logo -->
  <img src="/logo.png">
- <a href="/">The Falling Fruit Map</a>
+ 
+ <!-- AddThis Buttons -->
+ <div id="share_controls" class="addthis_toolbox addthis_default_style">
+ <a class="addthis_button_preferred_1"></a>
+ <a class="addthis_button_preferred_2"></a>
+ <a class="addthis_button_preferred_3"></a>
+ <a class="addthis_button_preferred_4"></a>
+ <a class="addthis_button_compact"></a>
+ <a class="addthis_counter addthis_bubble_style"></a>
+ </div>
+ <!-- URL tracking <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>-->
+ <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
+ 
+ <!-- Title -->
+ <a id="falling_fruit" href="/">The Falling Fruit Map</a>
+ 
+ <!-- Alerts -->
  <% if notice or alert %>
  <div id="warnings">
-  <div style="float: right; padding: 0.3em;"><a href="#" onclick="$('warnings').hide();">[x]</a></div>
+  <a id="warnings_close" href="#" onclick="$('warnings').hide();">[x]</a></div>
   <% if notice %>
   <div class="notice"><%= notice %></div>
   <% end %>

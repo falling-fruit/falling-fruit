@@ -58,7 +58,7 @@ div#content {
   padding: 15px 1.5em 10px 1.5em;
   text-align: justify;
   max-width: 1400px;
-  margin: 0 auto;  /* Page is centered on wider screen. */
+  #margin: 0 auto;  /* Page is centered on wider screen. */
   margin: 0;  /* Page is left-aligned on wider screen. */
 }
 
@@ -85,7 +85,7 @@ div#logobar {
   height: 2.5em;
 }
 
-div#logobar a {
+div#logobar a#falling_fruit {
   font-size: 2.2em;
   font-family: helvetica, arial, verdana, sans-serif;
   font-variant: small-caps;
@@ -98,17 +98,52 @@ div#logobar img {
   height: 100%;
 }
 
+div#share_controls {
+  float: right;
+  padding: 0.65em 0.5em 0 1em;
+  width: 10.3em;  /* For some reason, auto width forces icons onto two lines */
+}
+
+div#warnings {
+  position: absolute;
+  width: 50%;
+  left: 25%;
+  right: 25%;
+  top: -1px;  /* to hide top border */
+  z-index: 9999;  /* so always on top */
+}
+
+div#warnings a#warnings_close {
+  float: right;
+  padding: 0.3em;
+  color: #666;
+}
+
+div#warnings a#warnings_close:hover {
+  color: #000;
+}
+
+div#warnings div.notice  {
+  background: lightblue;
+  padding: 0.35em 0.5em;
+}
+
+div#warnings div.alert  {
+  background: orange;
+  padding: 0.35em 0.5em;
+}
+
 
 /*** Menu ***/
 
 div#menubar {
   background-color: lightgrey;
-  #height: 2em;  /* Leaving blank allows menubar to grow for narrow displays*/
+  #height: 2em;  /* Leaving blank allows menubar to grow in height in narrow displays*/
 }
 
 div#menubar a {
   color: #666;
-  height: 100%; /* needed to ensure edge reaches bottom of bar */
+  height: 100%; /* need to ensure edge reaches bottom of bar */
   line-height: 2em;
   padding: 0em 8px;
   display: inline-block;
@@ -122,7 +157,6 @@ div#menubar div#rightcontrols {
   float: right;
 }
 
-/* CURRENTLY UNUSED */
 div#menubar a.currentpage {
   background-color: #FFF;
 }
@@ -406,6 +440,8 @@ table#type_summary img.pageicon {
 /*** LEGACY ***/
 
 
+/* Unused? */
+
 div.InfoWindow {
   font-size: 90%;
 }
@@ -419,6 +455,9 @@ div.InfoWindow div.Address {
 div.InfoWindow div.Title {
   font-weight: bold;
 }
+
+
+/* Tables */
 
 table {
   width: 100%;
@@ -467,26 +506,7 @@ table tbody tr.odd td.special_col, table tbody tr.even td.special_col {
   background: #F57A7A;
 }
 
-div#warnings {
-  position: absolute;
-  width: 50%;
-  left: 25%;
-  right: 25%;
-  top: 0;
-}
-
-div#warnings div.notice  {
-  background: lightblue;
-  padding: 0.2em;
-  border: 1px solid grey;
-}
-
-div#warnings div.alert  {
-  background: orange;
-  padding: 0.2em;
-  border: 1px solid grey;
-}
-
+/* Admin Login? */
 input[type=email],
 input[type=password],
 input[type=text] {
