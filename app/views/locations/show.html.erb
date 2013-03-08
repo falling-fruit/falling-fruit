@@ -1,0 +1,144 @@
+<div id="searchbar">
+ <div id="searchcontrols">
+  <a href="/" id="permalink">Permalink</a>
+  <b>Location</b> 
+  <input id="address" name="address" value="Zoom to address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30">
+   <button onclick="recenter_map_to_address();">Go</button>
+   <span id="recenter_button">
+   or <button onclick="recenter_map()">Zoom to Me</button>
+   </span>
+   <span id="hidden_controls" style="display:none;">
+     &middot; <b>Filter</b> 
+     <input name="search" id="search" value="Search term (e.g. Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }" size="25">
+     <button onclick="search_filter();">Apply</button>
+     &middot; <b>Labels</b> 
+     <button onclick="labelize_markers()">On</button> / <button onclick="delabelize_markers()">Off</button>
+     </span>
+   &middot;
+   <b>Municipal</b> <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if !@perma.nil? and !@perma[:muni].nil? and @perma[:muni] %>>
+   <span id="export_data" style="display: none;">
+    &middot; <a href="#" id="get_data_link">Export Data</a>
+    </span>
+ </div>
+</div>
+
+<div id="mainmap_container"><div id="map"></div></div>
+
+<% content_for :page_scripts do %>
+<script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+
+  // set to true once we open the initial infobox
+  var opened_once = false;
+
+  // ================= functions =================
+
+  function initialize() {
+    var ini_zoom = 15;
+    // Kearney, Nebraska :P
+    var ini_lat = <%= @location.lat %>;
+    var ini_lng = <%= @location.lng %>;
+
+    var mapOptions = {
+      zoom: ini_zoom,
+      center: new google.maps.LatLng(ini_lat,ini_lng),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    geocoder = new google.maps.Geocoder();
+
+    pb = progressBar();
+    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
+
+    google.maps.event.addListener(map, 'rightclick', function(event) {
+      remove_add_marker();
+      place_add_marker(event.latLng);
+    });
+
+    google.maps.event.addListener(map, 'click', function(event) {
+      if(openMarker != null && openInfoWindow != null){
+        openInfoWindow.close();
+        openMarker = null;
+        openInfoWindow = null;
+      }
+    });
+
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+      update_display(true,ini_zoom);
+      document.addEventListener("markersloaded",function(event){
+        if(!opened_once){
+          opened_once = open_marker_by_id(<%= @location.id %>);
+        }
+      },false);
+    });
+             
+    google.maps.event.addListener(map, 'bounds_changed', function() {
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+        update_display(false);
+      });
+    });
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+        update_display(false);
+      });
+    });
+    map.setTilt(0); 
+  }
+
+  function data_link(){
+    var muni = $('muni').checked; 
+    var bounds = map.getBounds();
+    var bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() +
+           '&swlat=' + bounds.getSouthWest().lat() + '&swlng=' + bounds.getSouthWest().lng();
+    var mstr = 0;
+    if(muni) mstr = 1;
+    return '/locations/data.csv?muni=' + mstr + '&' + bstr;
+  }
+
+  function update_display(force,force_zoom){
+    var zoom = map.getZoom();
+    if(force_zoom != undefined) zoom = force_zoom;
+    var bounds = map.getBounds();
+    var center = map.getCenter();
+    $('permalink').href = '/?perma_zoom=' + zoom + '&perma_lat=' + center.lat() + 
+      '&perma_lng=' + center.lng() + '&perma_muni=' + $('muni').checked;
+    if(prior_bounds == null && prior_zoom == null){
+      $('hidden_controls').hide();
+      $('export_data').hide();
+      do_clusters(undefined,zoom,$('muni').checked);
+      prior_zoom = zoom;
+      prior_bounds = bounds;
+    }
+    if(zoom <= 12){
+      if((zoom != prior_zoom) || force){
+        $('hidden_controls').hide();
+        $('export_data').hide();
+        do_clusters(undefined,zoom,$('muni').checked);
+      }
+    }else if(zoom >= 13){
+      $('get_data_link').href = data_link();
+      $('hidden_controls').show();
+      $('export_data').show();
+      do_markers(bounds,null,$('muni').checked);
+    }
+    prior_zoom = zoom;
+    prior_bounds = bounds;
+  }
+
+  // ================== main-level code ===================
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+  // hide the 'zoom to me' button if browser isn't supporting geolocation
+  if(!navigator.geolocation){
+    $('recenter_button').hide();
+  }
+  navigator.geolocation.getCurrentPosition(function(position){},function(error){
+    $('recenter_button').hide();
+  });
+</script>
+<%= javascript_include_tag "maplabel" %>
+<%= javascript_include_tag "progressBar" %>
+<%= javascript_include_tag "richmarker" %>
+<%= javascript_include_tag "mapcommon" %>
+<% end %>

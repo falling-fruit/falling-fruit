@@ -118,7 +118,9 @@ jQuery(document).ready(function(){
   <!-- Submit -->
   <div class="actions">
     <%= f.submit "Submit" %>
-    <%= check_box_tag(:create_another, '1', :checked => false) %> Create another<br>
+    <% if @current_action == "new" %>
+    <%= check_box_tag(:create_another, '1', false) %> Create another<br>
+    <% end %>
   </div>
   
 <% end %>

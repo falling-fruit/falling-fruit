@@ -12,6 +12,8 @@
   var boundMarkersArray = [];
   var labelsOn = false;
   var pb = null;
+  var markersLoadedEvent = document.createEvent("Event");
+  markersLoadedEvent.initEvent("markersloaded",true,true);
 
   // ================= functions =================
 
@@ -62,6 +64,7 @@
           markerIdArray.push(undefined);
       }
     }
+    document.dispatchEvent(markersLoadedEvent);
   }
 
   // Removes the overlays from the map
@@ -105,6 +108,23 @@
                   if(pb != null) pb.hide();
                 }
               });
+  }
+
+  function open_marker_by_id(id){
+    for (var i = 0; i < markersArray.length; i++ ) {
+      if(markerIdArray[i] == id){
+        new Ajax.Request('/locations/' + id + '/infobox', {
+          onSuccess: function(response) {
+            var infowindow = new google.maps.InfoWindow({content: response.responseText });
+            infowindow.open(map, markersArray[i]);
+            openInfoWindow = infowindow;
+          }
+        });
+        openMarker = markersArray[i];
+        return true;
+      }
+    }
+    return false;
   }
 
   function add_marker_infobox(i){ 
