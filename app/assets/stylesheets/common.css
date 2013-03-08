@@ -72,8 +72,6 @@ div#footer {
   font-size: 0.85em;
 }
 
-
-/************************************************/
 /*** HEADER ***/
 
 
@@ -176,9 +174,9 @@ div#menubar span#clickmap {
 }
 
 
-/************************************************/
-/*** MAP ***/
-
+/**********************************************************/
+/******************* /locations/index *********************/
+/**********************************************************/
 
 /*** Searchbar ***/
 
@@ -247,10 +245,9 @@ div#newmarker {
   line-height: 1.3em;
 }
 
-
-/************************************************/
-/*** ADD SOURCE ***/
-
+/**********************************************************/
+/******************* /locations/{edit,new} ****************/
+/**********************************************************/
 
 /*** Form ***/
 
@@ -349,9 +346,9 @@ div#editmarker {
   padding: 0.5em;
 }
 
-
-/************************************************/
-/*** ABOUT ***/
+/**********************************************************/
+/******************* /pages/about *************************/
+/**********************************************************/
 
 div.rightphoto {
 		float: right;
@@ -427,88 +424,105 @@ div.bio {
 		margin-left: 216px;
 }
 
-
-/************************************************/
-/*** DATA ***/
+/**********************************************************/
+/******************* /pages/data **************************/
+/**********************************************************/
 
 table#type_summary img.pageicon {
   height: 1em;
 }
 
+/**********************************************************/
+/******************* /locations/infobox *******************/
+/**********************************************************/
 
-/************************************************/
-/*** LEGACY ***/
-
-
-/* Unused? */
-
-div.InfoWindow {
-  font-size: 90%;
+/* Info Window */
+div#location_popup {
+  max-width: 35em;
+  border: 2px solid #EEE;
+  color: #333;
+  padding: 1.5em 1em 0.5em 1.5em;
+  font-size: 0.75em;
+  font-family: verdana, arial, helvetica, sans-serif;  /* if not already inherited */
 }
 
-div.InfoWindow div.Address {
-  font-size: 80%;
-  font-style: italic;
-  margin-bottom: .9em;
+div#location_popup a {
+    text-decoration: none;  /* if not already inherited */
+    color: #333;
 }
 
-div.InfoWindow div.Title {
-  font-weight: bold;
+/* Types */
+div#type_list li {
+  list-style: none;
+  margin: 0 0 .3em 0;
+  display: inline-block;
+  background-color: #EEE;
+  padding: 0.25em;
+  font-size: 1.25em;
 }
 
-
-/* Tables */
-
-table {
-  width: 100%;
-  margin: 0; padding: 0;
+div#type_list img.type_icon {
+  margin-left: 0.25em;
+  height: 0.85em;
 }
 
-table tbody {
-  font-size: 10pt;
+/* Description */
+label {
+  color: #000;
+  font-size: 1.05em;
+  padding-right: 0.1em;
+  line-height: 1.75em;
 }
 
-div.dataTables_wrapper {
-  padding-top: 10px;
+img.star {
+  position: relative; 
+  top: 0.25em;  /* fix vertical alignment */
+  height: 1.5em;
 }
 
-div.dataTables_wrapper input {
-  padding: 0px;
+span.in_season {
+  color: green;
 }
 
-th, td {
-  padding: 5px;
+span.out_season {
+  color: brown;
 }
 
-thead {
-  border-bottom: 2px solid #B5B5B5;
-  font-size: 10pt;
-  font-weight: bold;
+div#description p {
+  margin: 1.5em 1em 1.5em 1em;
+  line-height: 1.5em;
+  text-align: justify;
 }
 
-table tr.even {
-  background-color: #F0F0F0;
+/* Footer */
+span#controls #xclose {
+  font-size: 1.5em;    
+  position: relative;
+  top: 0.1em;  /* fix vertical alignment */
 }
 
-table tr.odd {
-  background: #FFFFFF;
+span#controls {
+  color: #999;
+  width: 8em;
+  padding-right: 1.5em;
 }
 
-table tr.even td.sorting_1 {
-  background-color: #E0E0E0;
+span#controls a {
+  color: #999;
+  vertical-align: bottom;
+  display: inline-block;
 }
 
-table tr.odd td.sorting_1 {
-  background: #EDEDED;
+span#controls a:hover {
+  color: #333;
 }
 
-table tbody tr.odd td.special_col, table tbody tr.even td.special_col {
-  background: #F57A7A;
-}
-
-/* Admin Login? */
-input[type=email],
-input[type=password],
-input[type=text] {
-  padding: 4px;
+span#added_by {
+  color: #AAA;
+  width: 22em;
+  display: inline-block;
+  text-align: left;
+  vertical-align: bottom;
+  padding-left: 1em;
+  border-left: 1px solid #DDD;
 }
