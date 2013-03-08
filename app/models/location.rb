@@ -6,6 +6,7 @@ class Location < ActiveRecord::Base
   belongs_to :import
 
   validates_associated :locations_types
+  validates :locations_types, :presence => true
   validates :lat, :lng, :numericality => true, :allow_nil => false
   validates :quality_rating, :yield_rating, :access, :numericality => { :only_integer => true }, :allow_nil => true
 

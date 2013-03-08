@@ -6,18 +6,6 @@ jQuery(document).ready(function(){
 </script>
 <% end %>
 
-<!-- Errors -->
-<% if @location.errors.any? %>
-  <div id="error_explanation">
-    <strong><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</strong>
-      <ul>
-    <% @location.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <!-- Source Form -->
 <%= form_for(@location,:html => {:id=>"editsource"}) do |f| %>
   <!-- Errors -->
