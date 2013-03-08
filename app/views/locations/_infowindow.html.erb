@@ -116,19 +116,19 @@ span#added_by {
 
 <!-- Quality -->
 <% unless location.quality_rating.nil? or location.quality_rating.strip == "" %>
- <label>Quality</label> <%= "<img class=\"star\" src=\"/star_icon.png\"/>" * (location.quality_rating + 1) %>
+ <label>Quality</label> "<%= Location::Rating[location.quality_rating] %>" &nbsp; 
 <% end %>
 
 <!-- Yield -->
 <% unless location.yield_rating.nil? or location.yield_rating.strip == "" %>
- <label>Yield</label> <%= "<img class=\"star\" src=\"/star_icon.png\"/>" * (location.yield_rating + 1) %>
+ <label>Yield</label> "<%= Location::Rating[location.yield_rating] %>"
 <% end %>
 <br/>
 
 <!-- Season -->
 <!-- (use ? to denote nil, brown out of season, green in season) -->
 <% unless location.no_season or (location.season_start.nil? && location.season_stop.nil?) %>
- <label>Season</label>
+ <label>Season</label>&nbsp;  <!-- to account for " of ratings -->
  <% current = Date.today.strftime("%-m").to_i - 1 %>
  <% if not(location.season_start.nil? || location.season_stop.nil?) %>
   <% if current.between?(location.season_start,location.season_stop) %>
