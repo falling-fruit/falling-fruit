@@ -182,17 +182,6 @@ class LocationsController < ApplicationController
     end
   end
 
-  # GET /locations/1
-  # GET /locations/1.json
-  def show
-    @location = Location.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @location }
-    end
-  end
-
   # GET /locations/new
   # GET /locations/new.json
   def new

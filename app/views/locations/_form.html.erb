@@ -1,8 +1,10 @@
-<script>
+<% content_for :form_scripts do %>
+<script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
   jQuery('.select2').select2({width:'element'});
 });
 </script>
+<% end %>
 
 <!-- Errors -->
 <% if @location.errors.any? %>

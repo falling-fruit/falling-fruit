@@ -32,7 +32,7 @@
 
 <div id="mainmap_container"><div id="map"></div></div>
 
-<% content_for :scripts do %>
+<% content_for :page_scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8">
 
@@ -141,11 +141,8 @@
     $('recenter_button').hide();
   });
 </script>
-<% end %>
-
-<%= yield :scripts %>
-
 <%= javascript_include_tag "maplabel" %>
 <%= javascript_include_tag "progressBar" %>
 <%= javascript_include_tag "richmarker" %>
 <%= javascript_include_tag "mapcommon" %>
+<% end %>

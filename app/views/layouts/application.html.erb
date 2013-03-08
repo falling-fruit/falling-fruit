@@ -82,6 +82,12 @@
 <%= yield %>
 <% end %>
 
+<!-- Per Page Javascripts -->
+<%= yield :page_scripts %>
+
+<!-- Form Partial Javascripts -->
+<%= yield :form_scripts %>
+
 <!-- Google Analytics -->
 <script type="text/javascript">
 
