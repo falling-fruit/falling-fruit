@@ -38,7 +38,7 @@
     <%= f.text_field :wikipedia_url %>
   </div>
   <div class="field">
-    <%= f.label :edability %><br />
+    <%= f.label :edibility %><br />
     <%= f.select(:edability,Type::Edabilities.collect{ |k,v| [v,k] },:include_blank => true) %>
   </div>
   <div class="field">
