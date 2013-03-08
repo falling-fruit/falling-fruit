@@ -18,23 +18,22 @@ require 'spec_helper'
 #    t.string   "photo_url"
 #    t.spatial  "location",       :limit => {:srid=>4326, :type=>"point", :geographic=>true}
 
-
 describe Location do
   before(:each) do
     @attr = {
       :lat => 180.0*rand,
       :lng => 180.0*rand,
       :author => Faker.name,
-      :address => Faker.address,
-      :locations_types = [{:type => Type.new({:name => Faker.name},{:type_other => Faker.name}],
+      :address => [Faker::Address.street_address,Faker::Address.city,Faker::Address.state,Faker::Address.zip_code].join(", "),
+      :locations_types => [LocationsType.new({:type => Type.new({:name => Faker.name}),:type_other => Faker.name})],
     }
   end
-  it "should geocode an address"
-    l = Location.new(@attr.merge{:lat => nil,:lng => nil})
+  it "should geocode an address" do
+    l = Location.new(@attr.merge({:lat => nil,:lng => nil,:address => "2995 Aurora Ave., Boulder, CO, 80303"}))
     l.should be_valid
   end
-  it "shouldn't require an address if lat/lng are provided"
-    l = Location.new(@attr.merge{:address => :nil})
+  it "shouldn't require an address if lat/lng are provided" do
+    l = Location.new(@attr.merge({:address => :nil}))
     l.should be_valid
   end
 end
