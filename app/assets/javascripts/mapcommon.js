@@ -29,9 +29,9 @@
         var h = mdata[i]["height"];
         var wo = parseInt(w/2,10);
         var ho = parseInt(h/2,10);
-        var image = new google.maps.MarkerImage(mdata[i]["picture"],null,new google.maps.Point(0,0),new google.maps.Point(0,-1*ho));
+        //var image = new google.maps.MarkerImage(mdata[i]["picture"],null,new google.maps.Point(0,0),new google.maps.Point(0,0));
         var m = new google.maps.Marker({
-            icon: image,
+            icon: mdata[i]["picture"],
             position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
             map: map,
             title: mdata[i]["title"],
