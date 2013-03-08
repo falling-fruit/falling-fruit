@@ -48,10 +48,13 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    diff-lcs (1.2.1)
     erubis (2.7.0)
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faker (1.1.2)
+      i18n (~> 0.5)
     geocoder (1.1.6)
     gmaps4rails (1.5.5)
     hike (1.2.1)
@@ -115,6 +118,17 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.20)
+    rspec-core (2.13.0)
+    rspec-expectations (2.13.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.13.0)
+    rspec-rails (2.13.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
     sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -155,6 +169,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   comma (~> 3.0)
   devise
+  faker
   geocoder
   gmaps4rails
   jquery-datatables-rails
@@ -166,6 +181,7 @@ DEPENDENCIES
   rails (= 3.2.8)
   recaptcha
   rgeo
+  rspec-rails (~> 2.0)
   sass-rails (~> 3.2.3)
   select2-rails
   sqlite3

@@ -5,15 +5,15 @@ class Location < ActiveRecord::Base
   has_many :types, :through => :locations_types
   belongs_to :import
 
-  #validates :author, :presence => true
-  validates :lat, :lng, :numericality => true, :allow_nil => true
+  validates_associated :locations_types
+  validates :lat, :lng, :numericality => true, :allow_nil => false
   validates :quality_rating, :yield_rating, :access, :numericality => { :only_integer => true }, :allow_nil => true
 
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, 
                   :no_season, :quality_rating, :yield_rating, :unverified, :access, :locations_types, :import_id, :photo_url
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   acts_as_gmappable :process_geocoding => false, :lat => "lat", :lng => "lng", :address => "address"
-  after_validation :geocode
+  before_validation :geocode
   # manually update postgis location object
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
 
