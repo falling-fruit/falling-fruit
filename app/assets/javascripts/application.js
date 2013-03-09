@@ -19,5 +19,5 @@
 //= require dragdrop
 //= require controls
 //= require select2
+//= require sprintf
 //= require dataTables/jquery.dataTables
-//= require_directory ./gmaps4rails

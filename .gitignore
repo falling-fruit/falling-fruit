@@ -16,5 +16,9 @@
 /tmp
 db/data.yml
 config/database.yml
+
+# Other stuff
 db/backups/*.sql
 public/*.csv*
+db/data.yml.bz2
+public/data.yml.bz2

@@ -171,9 +171,9 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
     @perma = nil
-    if params[:perma_zoom].present? and params[:perma_lat].present? and params[:perma_lng].present? and params[:perma_muni].present?
-      @perma = {:zoom => params[:perma_zoom].to_i, :lat => params[:perma_lat].to_f, :lng => params[:perma_lng].to_f,
-                :muni => params[:perma_muni] == "true"}
+    if params[:z].present? and params[:y].present? and params[:x].present? and params[:m].present?
+      @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
+                :muni => params[:m] == "true"}
     end
     respond_to do |format|
       format.html # index.html.erb
