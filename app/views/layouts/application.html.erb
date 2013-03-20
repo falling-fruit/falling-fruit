@@ -23,13 +23,13 @@
  <a class="addthis_button_preferred_3"></a>
  <a class="addthis_button_preferred_4"></a>
  <a class="addthis_button_compact"></a>
- <!-- <a class="addthis_counter addthis_bubble_style"></a> -->
+<a class="addthis_counter addthis_bubble_style"></a>
  </div>
  <!-- URL tracking <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>-->
  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
  
  <!-- Title -->
- <a id="falling_fruit" href="/">The Falling Fruit Map</a>
+ <a id="falling_fruit" href="/">FallingFruit.org</a><span id="subtitle">Mapping the urban harvest</span>
  
  <!-- Alerts -->
  <% if notice or alert %>
@@ -54,11 +54,11 @@
   <%= link_to('Admin', admins_path) %>
  <% end %>
  </div>
-<%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath == root_path) ? "currentpage" : "notcurrentpage") %>
+<%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/').nil?) ? "currentpage" : "notcurrentpage") %>
 <%= link_to('About', '/pages/about', :class => (request.fullpath == '/pages/about') ? "currentpage" : "notcurrentpage") %>
 <%= link_to('Data', '/pages/data', :class => (request.fullpath == '/pages/data') ? "currentpage" : "notcurrentpage") %>
 <%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %>
-<% if @is_index and !admin_signed_in? %>
+<% if (request.fullpath.split('?')[0] == root_path) and !admin_signed_in? %>
  <span id="clickmap">(or right-click on map)</span>
 <% end %>
 <% if admin_signed_in? %>

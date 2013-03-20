@@ -1,8 +1,8 @@
 /*** Formatting ***/
 
-html,body {
+html, body {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 10pt;
+  font-size: 0.925em;
   color: #666;
   margin: 0;
   padding: 0;
@@ -58,8 +58,8 @@ div#content {
   padding: 15px 1.5em 10px 1.5em;
   text-align: justify;
   max-width: 1400px;
-  #margin: 0 auto;  /* Page is centered on wider screen. */
-  margin: 0;  /* Page is left-aligned on wider screen. */
+  margin: 0 auto;  /* Page is centered on wider screen. */
+  #margin: 0;  /* Page is left-aligned on wider screen. */
 }
 
 div#content p {
@@ -91,6 +91,13 @@ div#logobar a#falling_fruit {
   color: #FFF;
 }
 
+div#logobar span#subtitle {
+	color: #FFF;
+	font-style: italic;
+	font-size: 1.25em;
+	margin-left: 1em;
+}
+
 div#logobar img {
   float: right;
   height: 100%;
@@ -98,8 +105,8 @@ div#logobar img {
 
 div#share_controls {
   float: right;
-  padding: 0.65em 0.5em 0 1em;
-  width: 10.3em;  /* For some reason, auto width forces icons onto two lines */
+  padding: 0.65em 10px 0 20px;
+  width: 140px;  /* For some reason, auto width forces icons onto two lines */
 }
 
 div#warnings {
@@ -181,7 +188,7 @@ div#menubar span#clickmap {
 /*** Searchbar ***/
 
 div#searchbar {
- #height: 3em; /* Leaving blank allows menubar to grow for narrow displays*/
+ 	#height: 3em; /* Leaving blank allows menubar to grow for narrow displays*/
 	line-height: 3em;
 	background-color: #FFF;
 	border-bottom: 2px solid #CCC;
@@ -269,13 +276,14 @@ form#editsource div.field {
 form#editsource label {
   line-height: 1.25em;
   font-weight: bold;
+  padding-left: 0;  /* Needed to left-align */
 }
 
 form#editsource span.subtext {
   font-size: 0.75em;
   color: #888;
   position: relative;  /* Keeps subtext away from text input edges. */
-  top: -.15em;
+  top: -.1em;
 }
 
 form#editsource span.subtext-inline {  /* Regular behavior, shorthand. */
@@ -362,6 +370,7 @@ div.rightphoto {
 
 div.rightphoto img {
   width: 200px;
+  border: none;
 }
 
 div#content img {
@@ -428,49 +437,47 @@ div.bio {
 /******************* /pages/data **************************/
 /**********************************************************/
 
-table#type_summary img.pageicon {
+table#type_summary img.link_icon {
   height: 1em;
+  border: none;
 }
 
 /**********************************************************/
 /******************* /locations/infobox *******************/
 /**********************************************************/
 
-/* Info Window */
 div#location_popup {
   max-width: 35em;
-  border: 2px solid #EEE;
   color: #333;
-  padding: 1.5em 1em 0.5em 1.5em;
-  font-size: 0.75em;
-  font-family: verdana, arial, helvetica, sans-serif;  /* if not already inherited */
+  font-size: 0.9em;
 }
 
 div#location_popup a {
-    text-decoration: none;  /* if not already inherited */
-    color: #333;
+  color: #333;
 }
 
 /* Types */
+
 div#type_list li {
   list-style: none;
-  margin: 0 0 .3em 0;
+  margin: 0 0 .3em 0; /* for appropriate "line height" if list longer than one line */
   display: inline-block;
   background-color: #EEE;
   padding: 0.25em;
-  font-size: 1.25em;
+  font-size: 1.15em;
 }
 
 div#type_list img.type_icon {
-  margin-left: 0.25em;
-  height: 0.85em;
+  height: 0.9em;
 }
 
 /* Description */
+
 label {
   color: #000;
   font-size: 1.05em;
   padding-right: 0.1em;
+  padding-left: 0.25em; /* to line up with start of type labels */
   line-height: 1.75em;
 }
 
@@ -491,38 +498,37 @@ span.out_season {
 div#description p {
   margin: 1.5em 1em 1.5em 1em;
   line-height: 1.5em;
-  text-align: justify;
-}
-
-/* Footer */
-span#controls #xclose {
-  font-size: 1.5em;    
-  position: relative;
-  top: 0.1em;  /* fix vertical alignment */
-}
-
-span#controls {
-  color: #999;
-  width: 8em;
-  padding-right: 1.5em;
-}
-
-span#controls a {
-  color: #999;
-  vertical-align: bottom;
-  display: inline-block;
-}
-
-span#controls a:hover {
-  color: #333;
-}
-
-span#added_by {
-  color: #AAA;
-  width: 22em;
-  display: inline-block;
   text-align: left;
-  vertical-align: bottom;
-  padding-left: 1em;
-  border-left: 1px solid #DDD;
+}
+
+/* Controls & Author */
+
+table#footer {
+  border-collapse: collapse;
+	border-spacing: 0;
+	padding-left: 0.25em; /* to line up with start of type labels */
+}
+
+table#footer td {
+	padding: 0;
+	margin: 0;
+}
+
+table#footer td#controls {
+	vertical-align: bottom;
+}
+
+table#footer td#controls a {
+	color: #999;
+	padding-right: 1em;
+}
+
+table#footer td#controls a:hover {
+	color: #333;
+}
+
+table#footer td#added_by {
+	color: #AAA;
+	padding-left: 1em;
+	border-left: 1px solid #DDD;
 }

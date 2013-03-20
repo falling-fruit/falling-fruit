@@ -5,12 +5,14 @@
 <div id="type_list">
  <% @location.locations_types.each{ |d| %>
  <li>
- <%= d.type.name %>
- <% unless d.type.wikipedia_url.nil? or d.type.wikipedia_url.strip == "" %>
-  <a href="<%= d.type.wikipedia_url %>"><img class="type_icon" src="/wikipedia_icon.png"></a>
- <% end %>
- <% unless d.type.usda_symbol.nil? or d.type.usda_symbol.strip == "" %>
-  <a href="http://plants.usda.gov/java/profile?symbol=<%= d.type.usda_symbol %>"><img class="type_icon" src="/usda_icon.png"></a>
+ <%= d.name %>
+ <% unless d.type.nil? %>
+	 <% unless d.type.wikipedia_url.nil? or d.type.wikipedia_url.strip == "" %>
+		<a href="<%= d.type.wikipedia_url %>" target="_blank"><img class="type_icon" src="/wikipedia_icon.png"></a>
+	 <% end %>
+	 <% unless d.type.usda_symbol.nil? or d.type.usda_symbol.strip == "" %>
+		<a href="http://plants.usda.gov/java/profile?symbol=<%= d.type.usda_symbol %>" target="_blank"><img class="type_icon" src="/usda_icon.png"></a>
+	 <% end %>
  <% end %>
  </li>
  <% } %>
@@ -20,15 +22,19 @@
 <div id="description">
 
 <!-- Quality -->
-<% unless location.quality_rating.nil? or location.quality_rating.strip == "" %>
- <label>Quality</label> "<%= Location::Rating[location.quality_rating] %>" &nbsp; 
+<% unless location.quality_rating.nil? %>
+	<% ratings = "true" %>
+ <label>Quality</label> "<%= Location::Ratings[location.quality_rating] %>"
 <% end %>
 
 <!-- Yield -->
-<% unless location.yield_rating.nil? or location.yield_rating.strip == "" %>
- <label>Yield</label> "<%= Location::Rating[location.yield_rating] %>"
+<% unless location.yield_rating.nil? %>
+	<% ratings = "true" %>
+ <label>Yield</label> "<%= Location::Ratings[location.yield_rating] %>"
 <% end %>
-<br/>
+<% unless ratings.nil? %>
+	<br/>
+<% end %>
 
 <!-- Season -->
 <!-- (use ? to denote nil, brown out of season, green in season) -->
@@ -43,7 +49,11 @@
     pretty_start = location.season_start.nil? ? "?" : Location::Months[location.season_start]
   %>
   <span class="<%= season_class %>">
-  <%= pretty_start %> - <%= pretty_stop %>
+  <% unless pretty_start == pretty_stop %>
+  	<%= pretty_start %> - <%= pretty_stop %>
+  <% else %>
+  	<%= pretty_start %>
+	<% end %>
   </span><br/>
 <% end %>
  
@@ -57,22 +67,18 @@
 
 </div>  <!-- Description wrapper -->
 
-<!-- Footer -->
-<div id="footer">
- 
- <!-- Controls -->
- <span id="controls"><a href="/locations/<%= location.id %>/edit">edit</a>
- <% if admin_signed_in? %>
-  &nbsp; <%= link_to 'delete', location, method: :delete, data: { confirm: 'Are you sure?' } %>
- <% end %>
- &nbsp; <a href="/locations/<%= location.id %>">permalink</a>
- </span>
- 
- <!-- Author -->
- <span id="added_by">by <i><%= location.author %></i>
- </span>
-</div>
-
-</div>  <!-- Footer -->
+<!-- Controls & Author -->
+<!-- (using table instead of display: table-cell for compatibility with IE <= 7) -->
+<table id="footer">
+	<tr>
+ 		<td id="controls">
+ 		<a href="/locations/<%= location.id %>">permalink</a><a href="/locations/<%= location.id %>/edit">edit</a>
+ 		<% if admin_signed_in? %>
+  		<%= link_to 'delete', location, method: :delete, data: { confirm: 'Are you sure?' } %>
+ 		<% end %>
+ 		</td>
+  	<td id="added_by">by <i><%= location.author %></i></td>
+ 	</tr>
+</table>
 
 </div>  <!-- Wrapper -->

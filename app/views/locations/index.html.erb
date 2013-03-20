@@ -25,7 +25,7 @@
    &middot;
    <b>Municipal</b> <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if !@perma.nil? and !@perma[:muni].nil? and @perma[:muni] %>>
    <span id="export_data" style="display: none;">
-    &middot; <a href="#" id="get_data_link">Export Data</a>
+    &middot; <a href="#" id="get_data_link">Export data</a>
     </span>
  </div>
 </div>
@@ -38,20 +38,40 @@
 
   // ================= functions =================
 
+  function ControlSpacer(spacerDiv, map) {
+    spacerDiv.style.height = '3em';
+  }
+    
   function initialize() {
     var ini_zoom = 4;
     // Kearney, Nebraska :P
     var ini_lat = 40.713956;
     var ini_lng = -99.09668;
-<% unless @perma.nil? %>
-    ini_lat = <%= @perma[:lat] %>;
-    ini_lng = <%= @perma[:lng] %>;
-    ini_zoom = <%= @perma[:zoom] %>;
-<% end %>
+    <% unless @perma.nil? %>
+      ini_lat = <%= @perma[:lat] %>;
+      ini_lng = <%= @perma[:lng] %>;
+      ini_zoom = <%= @perma[:zoom] %>;
+    <% end %>
     var mapOptions = {
       zoom: ini_zoom,
-      center: new google.maps.LatLng(ini_lat,ini_lng), // Kearney, Nebraska ;)
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      center: new google.maps.LatLng(ini_lat,ini_lng),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_TOP
+      },
+      panControl: true,
+      panControlOptions: {
+          position: google.maps.ControlPosition.LEFT_TOP
+      },
+      zoomControl: true,
+      zoomControlOptions: {
+          position: google.maps.ControlPosition.LEFT_TOP
+      },
+      streetViewControl: true,
+      streetViewControlOptions: {
+          position: google.maps.ControlPosition.LEFT_TOP
+      }
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
@@ -71,7 +91,7 @@
         openInfoWindow = null;
       }
     });
-
+    
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display(true,ini_zoom);
     });
@@ -87,12 +107,23 @@
       });
     });
     map.setTilt(0); 
+    
+  // Add spacerDivs to force controls down
+  var spacerDivLeft = document.createElement('div');
+  var ControlSpacerLeft = new ControlSpacer(spacerDivLeft, map);
+  spacerDivLeft.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(spacerDivLeft);
+  var spacerDivRight = document.createElement('div');
+  var ControlSpacerRight = new ControlSpacer(spacerDivRight, map);
+  spacerDivRight.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(spacerDivRight);
+  
   }
 
   // ================== main-level code ===================
 
   google.maps.event.addDomListener(window, 'load', initialize);
-
+  
   // hide the 'zoom to me' button if browser isn't supporting geolocation
   if(!navigator.geolocation){
     $('recenter_button').hide();

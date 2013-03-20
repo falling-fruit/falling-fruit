@@ -1,5 +1,5 @@
 <p>
-Falling Fruit is built on public data, and on the generosity of urban foragers to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. In the spirit of open data, behold! The entire database:
+Falling Fruit is built on public data, and on the generosity of urban foragers willing to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. In the spirit of open data, behold! The entire database:
 </p>
 
 <blockquote>
@@ -23,7 +23,7 @@ It should go without saying that we take no responsibility for the accuracy of t
     GROUP BY t.id, t.scientific_name, t.usda_symbol, t.name ORDER BY t.name")
 %>
 
-The database currently contains <%= LocationsType.count %> distinct sources and <%= Type.count %> cataloged, edible source types. The following table gives a list of plant types present in the database along with their scientific name(s), prevalence, and links to more information.
+The database currently contains <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> edible source types (most, but not all, are plant species) distributed over <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> distinct locations. For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the US Department of Agriculture.
 <br><br>
 
 <table id="type_summary">
@@ -40,19 +40,19 @@ The database currently contains <%= LocationsType.count %> distinct sources and 
 <tr>
 <td>
 <%= t["name"] unless t["name"].nil? %>
-<%= "(aka #{t["synonyms"]})" unless t["synonyms"].nil? or t["synonyms"].strip == "" %>
+<%= "(#{t["synonyms"]})" unless t["synonyms"].nil? or t["synonyms"].strip == "" %>
 </td>
 <td>
 <i><%= t["scientific_name"] unless t["scientific_name"].nil? %>
-<%= "(aka #{t["scientific_synonyms"]})" unless t["scientific_synonyms"].nil? or t["scientific_synonyms"].strip == "" %>
+<%= "(#{t["scientific_synonyms"]})" unless t["scientific_synonyms"].nil? or t["scientific_synonyms"].strip == "" %>
 </i>
 </td>
 <td>
 <% unless t["wikipedia_url"].nil? %>
- <a href="<%= t["wikipedia_url"] %>"><img class="pageicon" src="/wikipedia_icon.png"></a>
+ <a href="<%= t["wikipedia_url"] %>"><img class="link_icon" src="/wikipedia_icon.png"></a>
 <% end %>
 <% unless t["usda_symbol"].nil? %>
- <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><img class="pageicon" src="/usda_icon.png"></a>
+ <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><img class="link_icon" src="/usda_icon.png"></a>
 <% end %>
 </td>
 <td style="test-align: right;"><%= t["count"] %></td>
