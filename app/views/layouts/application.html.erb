@@ -54,7 +54,7 @@
   <%= link_to('Admin', admins_path) %>
  <% end %>
  </div>
-<%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/').nil?) ? "currentpage" : "notcurrentpage") %>
+<%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) ? "currentpage" : "notcurrentpage") %>
 <%= link_to('About', '/pages/about', :class => (request.fullpath == '/pages/about') ? "currentpage" : "notcurrentpage") %>
 <%= link_to('Data', '/pages/data', :class => (request.fullpath == '/pages/data') ? "currentpage" : "notcurrentpage") %>
 <%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %>
