@@ -100,7 +100,8 @@ class LocationsController < ApplicationController
       format.json { render json: @locations }
       format.csv { 
         csv_data = CSV.generate do |csv|
-          cols = ["id","lat","lng","unverified","description","season_start","season_stop","no_season","author","address","created_at","updated_at",
+          cols = ["id","lat","lng","unverified","description","season_start","season_stop",
+                  "no_season","author","address","created_at","updated_at",
                   "quality_rating","yield_rating","access","import_name","import_url","name"]
           csv << cols
           @locations.each{ |l|
@@ -220,11 +221,20 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     unless params[:location].nil? or params[:location][:locations_types].nil?
+      lt_seen = {}
       lts = params[:location][:locations_types].collect{ |dc,data| 
         lt = LocationsType.new
         lt.type_id = data[:type_id] unless data[:type_id].nil? or (data[:type_id].strip == "")
         lt.type_other = data[:type_other] unless data[:type_id].nil? or (data[:type_other].strip == "")
-        (lt.type_id.nil? and lt.type_other.nil?) ? nil : lt 
+        k = lt.type_id.nil? ? lt.type_other : lt.type_id
+        if lt.type_id.nil? and lt.type_other.nil?
+          lt = nil
+        elsif !lt_seen[k].nil?
+          lt = nil
+        else
+          lt_seen[k] = true
+        end
+        lt
       }.compact
       params[:location].delete(:locations_types)
     end
@@ -261,12 +271,17 @@ class LocationsController < ApplicationController
       # delete existing types before adding new stuff
       @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
       # add/update types
+      lt_seen = {}
       params[:location][:locations_types].each{ |dc,data|
         lt = LocationsType.new
         lt.type_id = data[:type_id] unless data[:type_id].nil? or (data[:type_id].strip == "")
         lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
+        next if lt.type_id.nil? and lt.type_other.nil?
+        k = lt.type_id.nil? ? lt.type_other : lt.type_id
+        next unless lt_seen[k].nil?
+        lt_seen[k] = true
         lt.location_id = @location.id   
-        lt.save unless lt.type_id.nil? and lt.type_other.nil?
+        lt.save
       }
       params[:location].delete(:locations_types)
     end
