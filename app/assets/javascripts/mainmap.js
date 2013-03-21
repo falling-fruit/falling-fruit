@@ -15,7 +15,7 @@ function update_display(force,force_zoom){
   var center = map.getCenter();
   $('permalink').href = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) + 
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('muni').checked;
-  if(prior_bounds == null && prior_zoom == null){
+  if(prior_bounds == null && prior_zoom == null && zoom <= 12){
     $('hidden_controls').hide();
     $('export_data').hide();
     do_clusters(undefined,zoom,$('muni').checked);

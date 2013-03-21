@@ -11,6 +11,7 @@
   var markerIdArray = [];
   var boundMarkersArray = [];
   var labelsOn = false;
+  var last_search = null;
   var pb = null;
   var markersLoadedEvent = document.createEvent("Event");
   markersLoadedEvent.initEvent("markersloaded",true,true);
@@ -29,9 +30,14 @@
         var h = mdata[i]["height"];
         var wo = parseInt(w/2,10);
         var ho = parseInt(h/2,10);
-        //var image = new google.maps.MarkerImage(mdata[i]["picture"],null,new google.maps.Point(0,0),new google.maps.Point(0,0));
         var m = new google.maps.Marker({
-            icon: mdata[i]["picture"],
+            icon: {
+              url: mdata[i]["picture"],
+              size: new google.maps.Size(w,h),
+              origin: new google.maps.Point(0,0),
+              // by convention, icon center is at 6.5/17ths
+              anchor: new google.maps.Point(w*0.382,h*0.382)
+            },
             position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
             map: map,
             title: mdata[i]["title"],
@@ -186,6 +192,7 @@
                 }
                 if(labelsOn) labelize_markers();
                 if(pb != null) pb.hide();
+                search_filter(last_search);
               },
               onFailure: function() { 
                 if(pb != null) pb.hide();
@@ -264,9 +271,11 @@
        for(var i = 0; i < len; i++){
          var marker = markersArray[i];
          if(!marker.getVisible()) continue;
+         var pos = marker.getPosition();
          var mapLabel = new MapLabel({
            text: marker.getTitle(),
-           position: marker.getPosition(),
+           // bad hack to prevent marker from overlapping with label
+           position: new google.maps.LatLng(pos.lat()-0.00003,pos.lng()),
            map: map,
            fontSize: 13,
            fontColor: '#990000',
@@ -275,11 +284,8 @@
            align: 'center'
          });
          labelsArray.push(mapLabel);
-         mapLabel.set('position', marker.getPosition());
          boundMarkersArray.push(marker);
-         // only necessary if we want them to drag or something
          marker.bindTo('map', mapLabel);
-         marker.bindTo('position', mapLabel);
        } 
        labelsOn = true;
   }
@@ -304,8 +310,9 @@
         labelsOn = false;
   }
 
-  function search_filter(){
-    var search = $('search').value;
+  function search_filter(search){
+    if(search == null) return;
+    last_search = search;
     var len = markersArray.length;
     for(var i = 0; i < len; i++){
       var marker = markersArray[i];

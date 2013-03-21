@@ -1,26 +1,4 @@
-<div id="searchbar">
- <div id="searchcontrols">
-  <a href="/" id="permalink">Permalink</a>
-  <b>Location</b> 
-  <input id="address" name="address" value="Zoom to address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30">
-   <button onclick="recenter_map_to_address();">Go</button>
-   <span id="recenter_button">
-   or <button onclick="recenter_map()">Zoom to Me</button>
-   </span>
-   <span id="hidden_controls" style="display:none;">
-     &middot; <b>Filter</b> 
-     <input name="search" id="search" value="Search term (e.g. Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }" size="25">
-     <button onclick="search_filter();">Apply</button>
-     &middot; <b>Labels</b> 
-     <button onclick="labelize_markers()">On</button> / <button onclick="delabelize_markers()">Off</button>
-     </span>
-   &middot;
-   <b>Municipal</b> <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" if !@perma.nil? and !@perma[:muni].nil? and @perma[:muni] %>>
-   <span id="export_data" style="display: none;">
-    &middot; <a href="#" id="get_data_link">Export Data</a>
-    </span>
- </div>
-</div>
+<%= render 'searchbar' %>
 
 <div id="mainmap_container"><div id="map"></div></div>
 

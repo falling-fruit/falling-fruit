@@ -1,7 +1,7 @@
 <div class="type">
 <%= pf.fields_for :locations_types, lt, :index => "new_42" do |f2| %>
  <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
- <%= f2.text_field :type_other, :size => 17 %>
+ <%= f2.text_field :type_other, :size => 15 %>
  <%= link_to_function "[X]", "$(this).up('.type').remove()" %><br>
 <% end %>
 </div>

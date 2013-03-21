@@ -30,7 +30,7 @@ jQuery(document).ready(function(){
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
         <div class="type">
         <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-        <%= f2.text_field :type_other, :size => 17 %>
+        <%= f2.text_field :type_other, :size => 15 %>
         <%= link_to_function "[X]", "$(this).up('.type').remove()" %><br>
         </div>
       <% end %>
@@ -39,7 +39,7 @@ jQuery(document).ready(function(){
     <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
       <div class="type">
       <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-      <%= f2.text_field :type_other, :size => 17 %>
+      <%= f2.text_field :type_other, :size => 15 %>
       <%= link_to_function "[X]", "$(this).up('.type').remove()" %><br>
       </div>
     <% end %>

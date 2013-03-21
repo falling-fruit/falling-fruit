@@ -57,7 +57,7 @@ class LocationsController < ApplicationController
     ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
       string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
-      locations_types lt left outer join types t on lt.type_id=t.id 
+      locations_types lt left outer join types t on lt.type_id=t.id
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
     @markers = r.collect{ |row|
@@ -74,7 +74,7 @@ class LocationsController < ApplicationController
         end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => (row["unverified"] == 't') ? "/smdot_grey_shd.png" : "/smdot_red_shd.png",:width => 32, :height => 32,
+       :picture => (row["unverified"] == 't') ? "/icons/smdot_t1_gray_light.png" : "/icons/smdot_t1_red.png",:width => 17, :height => 17,
        :marker_anchor => [0,0]}
     } unless r.nil?
     respond_to do |format|
