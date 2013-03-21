@@ -28,15 +28,21 @@ jQuery(document).ready(function(){
     <span class="subtext">What'd you find? Be as specific as possible. Suggest a new plant name if you can't find yours in the list.</span><br>
       <% @location.locations_types.each{ |lt|  %>
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
-        <div class="ui-widget">
+        <div class="type">
         <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-        <%= f2.text_field :type_other, :size => 18 %><br>
+        <%= f2.text_field :type_other, :size => 17 %>
+        <%= link_to_function "[X]", "$(this).up('.type').remove()" %><br>
         </div>
       <% end %>
     <% } %>
+    <% if @current_action == "new" or @current_action == "create" %>
     <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
+      <div class="type">
       <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-      <%= f2.text_field :type_other, :size => 18 %><br>
+      <%= f2.text_field :type_other, :size => 17 %>
+      <%= link_to_function "[X]", "$(this).up('.type').remove()" %><br>
+      </div>
+    <% end %>
     <% end %>
   </div>
   <%= add_locations_type_link "+ Add another", f %>
