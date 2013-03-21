@@ -222,13 +222,15 @@ class LocationsController < ApplicationController
     unless params[:location].nil? or params[:location][:locations_types].nil?
       lts = params[:location][:locations_types].collect{ |dc,data| 
         lt = LocationsType.new
-        lt.type_id = data[:type_id] unless data[:type_id] == ""
-        lt.type_other = data[:type_other] unless data[:type_other] == ""
-        (lt.type_id == nil and lt.type_other.nil?) ? nil : lt 
+        lt.type_id = data[:type_id] unless data[:type_id].nil? or (data[:type_id].strip == "")
+        lt.type_other = data[:type_other] unless data[:type_id].nil? or (data[:type_other].strip == "")
+        (lt.type_id.nil? and lt.type_other.nil?) ? nil : lt 
       }.compact
       params[:location].delete(:locations_types)
     end
     @location = Location.new(params[:location])
+    @lat = @location.lat
+    @lng = @location.lng
     @location.locations_types += lts unless lts.nil?
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
@@ -248,29 +250,23 @@ class LocationsController < ApplicationController
   # PUT /locations/1.json
   def update
     @location = Location.find(params[:id])
+    @lat = @location.lat
+    @lng = @location.lng
 
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless admin_signed_in?
 
     # manually update location types :/
     unless params[:location].nil? or params[:location][:locations_types].nil?
+      # delete existing types before adding new stuff
+      @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
+      # add/update types
       params[:location][:locations_types].each{ |dc,data|
-        if dc =~ /^new/
-          lt = LocationsType.new
-          lt.type_id = data[:type_id] unless data[:type_id] == ""
-          lt.type_other = data[:type_other] unless data[:type_other] == ""
-          lt.location_id = @location.id   
-          lt.save unless lt.type_id.nil? and lt.type_other.nil?
-        elsif dc =~ /^update_(\d+)/
-          lt = LocationsType.find($1.to_i)
-          lt.type_id = data[:type_id] unless data[:type_id] == ""
-          lt.type_other = data[:type_other] unless data[:type_other] == ""
-          unless lt.type_id.nil? and lt.type_other.nil?
-            lt.save
-          else
-            LocationsType.delete(lt.id)
-          end
-        end
+        lt = LocationsType.new
+        lt.type_id = data[:type_id] unless data[:type_id].nil? or (data[:type_id].strip == "")
+        lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
+        lt.location_id = @location.id   
+        lt.save unless lt.type_id.nil? and lt.type_other.nil?
       }
       params[:location].delete(:locations_types)
     end
