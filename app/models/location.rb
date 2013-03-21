@@ -89,7 +89,10 @@ class Location < ActiveRecord::Base
 
           loc.locations_types.push lt
         else
-          loc.types.push types.shift
+          lt = LocationsType.new
+          lt.type = types.shift
+          lt.save
+          loc.locations_types.push lt
         end
       }
     end
