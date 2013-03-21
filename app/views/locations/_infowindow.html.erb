@@ -77,7 +77,7 @@
   		<%= link_to 'delete', location, method: :delete, data: { confirm: 'Are you sure?' } %>
  		<% end %>
  		</td>
-  	<td id="added_by">by <i><%= location.author %></i></td>
+  	<td id="added_by">by <i><%= (location.author.nil? or (location.author.strip.length == 0)) ? "Anonymous" : location.author %></i></td>
  	</tr>
 </table>
 
