@@ -14,8 +14,8 @@ FallingfruitWebapp::Application.routes.draw do
 
   resources :regions
 
-  match 'pages/about' => 'pages#about'
-  match 'pages/data' => 'pages#data'
+  match 'about' => 'pages#about'
+  match 'data' => 'pages#data'
 
   devise_for :admins
   resources :admins do

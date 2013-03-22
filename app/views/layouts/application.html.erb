@@ -55,8 +55,8 @@
  <% end %>
  </div>
 <%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) ? "currentpage" : "notcurrentpage") %>
-<%= link_to('About', '/pages/about', :class => (request.fullpath == '/pages/about') ? "currentpage" : "notcurrentpage") %>
-<%= link_to('Data', '/pages/data', :class => (request.fullpath == '/pages/data') ? "currentpage" : "notcurrentpage") %>
+<%= link_to('About', '/about', :class => (request.fullpath == '/about') ? "currentpage" : "notcurrentpage") %>
+<%= link_to('Data', '/data', :class => (request.fullpath == '/data') ? "currentpage" : "notcurrentpage") %>
 <%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %>
 <% if (request.fullpath.split('?')[0] == root_path) and !admin_signed_in? %>
  <span id="clickmap">(or right-click on map)</span>

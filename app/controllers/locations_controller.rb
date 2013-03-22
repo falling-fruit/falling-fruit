@@ -55,6 +55,9 @@ class LocationsController < ApplicationController
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
       "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
     ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l
+      WHERE #{[bound,ifilter].compact.join(" AND ")}");
+    found_n = r["count"].to_i unless r.nil? 
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
       string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
       locations_types lt left outer join types t on lt.type_id=t.id
@@ -75,7 +78,7 @@ class LocationsController < ApplicationController
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
        :picture => (row["unverified"] == 't') ? "/icons/smdot_t1_gray_light.png" : "/icons/smdot_t1_red.png",:width => 17, :height => 17,
-       :marker_anchor => [0,0]}
+       :marker_anchor => [0,0], :n => found_n }
     } unless r.nil?
     respond_to do |format|
       format.json { render json: @markers }

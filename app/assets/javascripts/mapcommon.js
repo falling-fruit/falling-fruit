@@ -187,11 +187,23 @@
                 add_markers_from_json(json,false,skip_id);
                 // make markers clickable
                 for (var i = 0; i < markersArray.length; ++i) {
-                  if(pb != null) pb.updateBar(1);
                   add_marker_infobox(i);
                 }
+
                 if(labelsOn) labelize_markers();
-                if(pb != null) pb.hide();
+
+                n = json.length;
+                if(n > 0){
+                  nt = json[0]["n"];
+                  if(n < nt){
+                    $("pg_text").innerHTML = n + " of " + nt + " visible";
+                  }else{
+                    pb.hide();
+                  }
+                }else{
+                  pb.hide();
+                }
+
                 search_filter(last_search);
               },
               onFailure: function() { 
@@ -335,8 +347,8 @@
   function recenter_map_to_address() {
     geocoder.geocode( { 'address': $("address").value }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
+        map.setZoom(15)
         map.panTo(results[0].geometry.location);
-        map.setZoom(15);
         $('hidden_controls').show();
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
