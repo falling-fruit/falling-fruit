@@ -8,13 +8,20 @@ function data_link(){
   return '/locations/data.csv?muni=' + mstr + '&' + bstr;
 }
 
+function update_permalink(){
+  var center = map.getCenter();
+  var typeid = map.getMapTypeId();
+  var zoom = map.getZoom();
+  $('permalink').href = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('muni').checked + "&t=" + typeid;
+}
+
 function update_display(force,force_zoom){
   var zoom = map.getZoom();
   if(force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
   var center = map.getCenter();
-  $('permalink').href = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) + 
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('muni').checked;
+  update_permalink();
   if(prior_bounds == null && prior_zoom == null && zoom <= 12){
     $('hidden_controls').hide();
     $('export_data').hide();

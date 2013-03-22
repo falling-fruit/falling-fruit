@@ -25,15 +25,17 @@
     // Kearney, Nebraska :P
     var ini_lat = 40.713956;
     var ini_lng = -99.09668;
+    var ini_type = google.maps.MapTypeId.ROADMAP;
     <% unless @perma.nil? %>
       ini_lat = <%= @perma[:lat] %>;
       ini_lng = <%= @perma[:lng] %>;
       ini_zoom = <%= @perma[:zoom] %>;
+      ini_type = '<%= @perma[:type] %>';
     <% end %>
     var mapOptions = {
       zoom: ini_zoom,
       center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeId: ini_type,
       mapTypeControl: true,
       mapTypeControlOptions: {
           position: google.maps.ControlPosition.RIGHT_TOP
@@ -56,6 +58,10 @@
 
     pb = progressBar();
     map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
+
+    google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
+      update_permalink();
+    });
 
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();

@@ -177,7 +177,7 @@ class LocationsController < ApplicationController
     @perma = nil
     if params[:z].present? and params[:y].present? and params[:x].present? and params[:m].present?
       @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
-                :muni => params[:m] == "true"}
+                :muni => params[:m] == "true", :type => params[:t]}
     end
     respond_to do |format|
       format.html # index.html.erb

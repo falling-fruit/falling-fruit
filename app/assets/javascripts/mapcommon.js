@@ -195,7 +195,7 @@
                 n = json.length;
                 if(n > 0){
                   nt = json[0]["n"];
-                  if(n < nt){
+                  if((n < nt) && (nt >= 500)){
                     $("pg_text").innerHTML = n + " of " + nt + " visible";
                   }else{
                     pb.hide();
