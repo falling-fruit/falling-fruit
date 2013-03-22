@@ -105,8 +105,8 @@ div#logobar img {
 
 div#share_controls {
   float: right;
-  padding: 0.65em 10px 0 20px;
-  width: 140px;  /* For some reason, auto width forces icons onto two lines */
+  width: 180px;  /* For some reason, auto width forces icons onto two lines */
+  padding-top: 0.5em;
 }
 
 div#warnings {
