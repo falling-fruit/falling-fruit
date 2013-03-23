@@ -27,6 +27,11 @@ class Location < ActiveRecord::Base
                  "Source is on public land",
                  "Source is on private property but overhangs public land",
                  "Source is on private property (ask before you pick)"]
+  AccessStatements = ["This source was added by the property owner.",
+                      "The owner of this source asked that it be added.",
+                      "This source is on public land.",
+                      "This source is on private property but may overhang public land. Please pick with discretion.",
+                      "This source is on private property. Please ask for permission before you pick."]
 
   # csv support
   comma do

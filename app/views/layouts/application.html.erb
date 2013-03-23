@@ -47,7 +47,7 @@
  <% if admin_signed_in? %>
   <span id="admin_email"><%= current_admin.email %></span> <%= link_to('Account', edit_admin_registration_path) %><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>
  <% else %>
-  <%= link_to('Admin', admins_path) %>
+  <!-- <%= link_to('Admin', admins_path) %> -->
  <% end %>
  </div>
 <%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) ? "currentpage" : "notcurrentpage") %>

@@ -63,6 +63,10 @@
 <% unless location.description.nil? %>
  <%= location.description.gsub("\n","<br>") %>
 <% end %>
+
+<% unless location.access.nil? %>
+<span style="font-style: italic; color: #a9a9a9;"><br><br><%= Location::AccessStatements[location.access] %></span>
+<% end %>
 </p>
 
 </div>  <!-- Description wrapper -->
