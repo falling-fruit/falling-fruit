@@ -18,9 +18,9 @@
     <% else %>
      <%= type.name %>
     <% end %>
-    <%= "(aka #{type.synonyms})" unless type.synonyms.nil? %>
+    <%= "(#{type.synonyms})" unless type.synonyms.nil? or type.synonyms == ""%>
     </td>
-    <td><em><%= type.scientific_name %> <%= "(aka #{type.scientific_synonyms})" unless type.scientific_synonyms.nil? %></em></td>
+    <td><em><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.nil? or type.scientific_synonyms == "" %></em></td>
     <td><%= Type::Edabilities[type.edability] unless type.edability.nil? %>
     <td><%= raw !type.usda_symbol.nil? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "?"%></em></td>
 
