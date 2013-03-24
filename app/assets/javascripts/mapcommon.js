@@ -122,6 +122,10 @@
         new Ajax.Request('/locations/' + id + '/infobox', {
           onSuccess: function(response) {
             var infowindow = new google.maps.InfoWindow({content: response.responseText });
+            google.maps.event.addListener(infowindow,'closeclick',function(){
+              openInfoWindow = null;
+              openMarker = null;
+            });
             infowindow.open(map, markersArray[i]);
             openInfoWindow = infowindow;
           }
@@ -142,6 +146,10 @@
       new Ajax.Request('/locations/' + id + '/infobox', {
         onSuccess: function(response) {
           var infowindow = new google.maps.InfoWindow({content: response.responseText });
+          google.maps.event.addListener(infowindow,'closeclick',function(){
+            openInfoWindow = null;
+            openMarker = null;
+          });
           infowindow.open(map, marker);
           openInfoWindow = infowindow;
         }
