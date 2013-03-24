@@ -36,22 +36,6 @@
       zoom: ini_zoom,
       center: new google.maps.LatLng(ini_lat,ini_lng),
       mapTypeId: ini_type,
-      mapTypeControl: true,
-      mapTypeControlOptions: {
-          position: google.maps.ControlPosition.RIGHT_TOP
-      },
-      panControl: true,
-      panControlOptions: {
-          position: google.maps.ControlPosition.LEFT_TOP
-      },
-      zoomControl: true,
-      zoomControlOptions: {
-          position: google.maps.ControlPosition.LEFT_TOP
-      },
-      streetViewControl: true,
-      streetViewControlOptions: {
-          position: google.maps.ControlPosition.LEFT_TOP
-      }
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
@@ -90,18 +74,7 @@
         update_display(false);
       });
     });
-    map.setTilt(0); 
-    
-  // Add spacerDivs to force controls down
-  var spacerDivLeft = document.createElement('div');
-  var ControlSpacerLeft = new ControlSpacer(spacerDivLeft, map);
-  spacerDivLeft.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(spacerDivLeft);
-  var spacerDivRight = document.createElement('div');
-  var ControlSpacerRight = new ControlSpacer(spacerDivRight, map);
-  spacerDivRight.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(spacerDivRight);
-  
+    map.setTilt(0);    
   }
 
   // ================== main-level code ===================
