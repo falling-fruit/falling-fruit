@@ -111,6 +111,7 @@ class Location < ActiveRecord::Base
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
+    loc.access = access
     loc.description = desc
     loc.address = address
     loc.photo_url = photo_url
