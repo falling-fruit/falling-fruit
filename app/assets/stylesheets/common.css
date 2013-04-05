@@ -463,7 +463,8 @@ div#type_list li {
   margin: 0 0 .3em 0; /* for appropriate "line height" if list longer than one line */
   display: inline-block;
   background-color: #EEE;
-  padding: 0.25em;
+  border: 0.25em solid #EEE; /* Instead of padding, solves y-scrollbar bug. But can sometimes crowd [x] button */
+  #padding: 0.25em;
   font-size: 1.15em;
 }
 
@@ -479,12 +480,6 @@ label {
   padding-right: 0.1em;
   padding-left: 0.25em; /* to line up with start of type labels */
   line-height: 1.75em;
-}
-
-img.star {
-  position: relative; 
-  top: 0.25em;  /* fix vertical alignment */
-  height: 1.5em;
 }
 
 span.in_season {
