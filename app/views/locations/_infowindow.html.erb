@@ -61,7 +61,7 @@
 <!-- (keep <p> markup even if empty) -->
 <p>
 <% unless location.description.nil? %>
- <%= location.description.gsub("\n","<br>") %>
+ <%= raw location.description.gsub("\n","<br>") %>
 <% end %>
 
 <% unless location.access.nil? %>
