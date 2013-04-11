@@ -381,6 +381,17 @@ div#content img {
 /*** Data List ***/
 
 /* OPTIONAL - Put all countries on same line. */
+
+div.country_column {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+}
+
+div.country_column div.country {
+		display: block;
+}
+
 div.country {
 	display: inline-block;
 }
@@ -408,7 +419,6 @@ div.datalist ul li {
 div.datalist li {
   margin-left: 13px;
 }
-
 
 /*** Profiles ***/
 

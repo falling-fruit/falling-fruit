@@ -11,7 +11,7 @@ Falling Fruit is a celebration of the overlooked culinary bounty of our city str
 </p>
 
 <p>
-Our map of urban edibles is not the first of its kind, but we aspire to be the most comprehensive, bringing together the <a href="#foragemaps">maps of foragers</a> from all across the internet. We are also including <a href="#munimaps">municipal tree inventories</a> - encyclopedic maps of street (and sometimes private) trees that some cities release to the public. This already amounts to <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> different types of edibles (most, but not all, plant species) distributed across <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
+Our map of urban edibles is not the first of its kind, but we aspire to be the most comprehensive, bringing together the <a href="#foragemaps">maps of foragers</a> from all across the internet. We are also including <a href="#munimaps">municipal tree inventories</a> - encyclopedic maps of street (and sometimes private) trees that some cities release to the public. This already amounts to <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> different types of edibles (most, but not all, are plant species) distributed across <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
 </p>
 
 <p>
@@ -22,7 +22,7 @@ Join us in celebrating the local and edible! The <a href="/">map</a> is free for
 Finally, if you've picked more than you can use or are overwhelmed by the bumper crop from your private trees, we encourage you to donate the surplus produce to charity with the help of your local <a href="#sharing">food redistribution programs</a>.
 </p>
 
-<a name="foragemaps"></a><h2>Foraging Maps</h2>
+<a name="#foragemaps"></a><h2>Foraging Maps</h2>
 
 <p>
 Below are the maps we have migrated to Falling Fruit. If you would like your data added to the database, <a href="mailto:info@fallingfruit.org">contact us</a>!
@@ -47,6 +47,8 @@ Below are the maps we have migrated to Falling Fruit. If you would like your dat
  <li><a href="https://maps.google.com/maps/ms?oe=UTF8&ie=UTF8&msa=0&msid=100770360687284815776.00046891bcd22ce6279ed">Stanford Gleaning Project</a></li>
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=116514689426938830006.00046232063b0efd2163e">Fallen Fruit Map</a></li>
  <li><a href="https://maps.google.com/maps/ms?msid=200567405131236265852.0004b97c688e0054b42c8&msa=0">Sacramento Fruit Trees</a>
+ <li><a href="https://maps.google.com/maps/ms?ie=UTF8&source=embed&oe=UTF8&msa=0&msid=109338938940832962512.000461084a94885ed0229">Redondo Beach Public Fruit Trees</a>
+ <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=109078515754362040339.00000112fcccd0c2aa9c0">Fruit Trees of Rancho</a>
 </ul>
 <ul>Colorado
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=115850861822287793115.0004370bda3d883369a58">Boulder Fallen Fruit</a></li>
@@ -81,11 +83,14 @@ Below are the maps we have migrated to Falling Fruit. If you would like your dat
 <ul>Massachussetts
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&t=h&oe=UTF8&msa=0&msid=105278886975650663496.000486f14b466a13c07c3">Edible Plants Walk with David Craft</a></li>
 </ul>
-</div><div class="datalist">  <!-- Colum Break -->
 <ul>Michigan
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=100202272727965376729.0004546d1cee653ade7d1">Feral Fruit Map</a></li>
  <li><a href="https://maps.google.com/maps/ms?msa=0&msid=113671126396994443887.000459533acab461da4d9">Edible Detroit</a></li>
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=111933058185628214783.0004630f401727ad5cb67">Ypsilanti Fertile Ground</a></li>
+</ul>
+</div><div class="datalist">  <!-- Colum Break -->
+<ul> Minnesota
+	<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=217431326775794327842.0004a0ce337700db4a455">Landmark Trees of Saint Paul</a>
 </ul>
 <ul>Missouri
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=110553147706589094710.0004710e0aad1e0f3495b">St. Louis Fruit & Nut Trees</a></li>
@@ -95,6 +100,7 @@ Below are the maps we have migrated to Falling Fruit. If you would like your dat
 </ul>
 <ul>New York
  <li><a href="https://maps.google.com/maps/ms?msa=0&msid=204185305595273021812.0004897c5fcfdb7b46d7b">Fruit Trees in Brooklyn</a></li>
+ <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=108580112659152620340.00045100f7313a5abb8a4">Ithaca Foodshed</a>
 </ul>
 <ul>North Carolina
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=106413179953069400450.00047ae4f4b59c7f09442">Edible Durham Foraging Sites</a></li>
@@ -112,6 +118,7 @@ Below are the maps we have migrated to Falling Fruit. If you would like your dat
  <li><a href="http://urbanedibles.org/">Urban Edibles</a></li>
  <li><a href="https://maps.google.com/maps/ms?msa=0&msid=209765103648809252246.0004c9daae581ccad5bca&mid=1356073184&showlabs=1">Fruit Plants of Salem OR</a></li>
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF-8&hl=en&om=1&msa=0&msid=108691363552245449332.000434ae6888b5759337a">Food Harvest</a></li>
+ <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=114070272471045344828.000472b89e9198bd59e2a">Eugene Harvest Map</a>
 </ul>
 <ul>South Carolina
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=207389823727260966995.00048b35ee2f3cb3106cc">USC Outdoor Recreation Plantings</a></li>
@@ -122,9 +129,11 @@ Below are the maps we have migrated to Falling Fruit. If you would like your dat
 </ul>
 <ul>Texas
  <li><a href="https://maps.google.com/maps/ms?msid=214242698099343470591.0004cb5629e319e41386a&msa=0">Foraging Austin</a></li>
+ <li><a href="https://maps.google.com/maps/ms?ie=UTF8&t=h&oe=UTF8&msa=0&msid=105460404783107599056.00048c56f4043cdb50367">Bryan/College Station Fruit Trees</a>
 </ul>
 <ul>Utah
  <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=200337105706280029972.0004be86fe7133dded04b">Utah State University Tree Tour</a></li>
+ <li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=200337105706280029972.0004a8fd0384da0b2ed3b">University of Utah Tree Tour</a>
 </ul>
 <ul>Washington
 		<li><a href="http://neverbuyrosemary.blogspot.com/p/seattle-foraging-map.html">Never Buy Rosemary</a></li>
@@ -154,30 +163,70 @@ Below are the maps we have migrated to Falling Fruit. If you would like your dat
 <em>Falling Fruit is going global!</em>
 </p>
 
+<div class="country_column">  <!-- Start multicountry columns -->
+
 <div class="country">
 <b>Australia</b><br>
 <div class="datalist">  <!-- Start Multicolumn -->
-		<li><a href="http://www.thenovocastrianfiles.com/edible-newcastle-food-tree-map/#.UVvGxVt4ZfQ">Edible Newcastle</a>
-		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=204681332244326712933.00049ac7550c90f9786f6">Falling Fruit Bendigo</a>
-		<li><a href="http://www.urbangatherer.com.au/hunters.html">Hunter Gatherer</a>
-		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=202218896905620754112.00047fff295ddda73bd86">Public Fruit Melbourne</a>
-		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=206354188419166343422.00049b37e6cc15ff4446f">Public Fruit Trees in Perth</a>
+		<li><a href="http://www.thenovocastrianfiles.com/edible-newcastle-food-tree-map/#.UVvGxVt4ZfQ">Edible Newcastle</a></li>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=204681332244326712933.00049ac7550c90f9786f6">Falling Fruit Bendigo</a></li>
+		<li><a href="http://www.urbangatherer.com.au/hunters.html">Hunter Gatherer</a></li>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=202218896905620754112.00047fff295ddda73bd86">Public Fruit Melbourne</a></li>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=206354188419166343422.00049b37e6cc15ff4446f">Public Fruit Trees in Perth</a></li>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=202249368976421990651.0004aa0dd74918976a9ab">Public Lemon (and other fruit) Trees</a></li>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=104312384259659515313.00047d942cb70bc90fa1d">Fruit trees for pickin'</a></li>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=215007761634892321996.0004d1473b267308b61f0">Scrumping in Ballarat</a></li>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=103974522836870913504.0004854168c0c2707bd5f">Urban Food Maps</a></li>
 </div>  <!-- Close Multicolumn -->
 </div>  <!-- Close Country -->
+
+</div><div class="country_column">  <!-- Multicountry column break -->
 
 <div class="country">
 <b>India</b><br>
 <div class="datalist">  <!-- Start Multicolumn -->
-		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&source=embed&oe=UTF8&msa=0&msid=107514965441361761196.000456abbc03aab6bf790">Delhi Public Fruit</a>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&source=embed&oe=UTF8&msa=0&msid=107514965441361761196.000456abbc03aab6bf790">Delhi Public Fruit</a></li>
 </div>  <!-- Close Multicolumn -->
 </div>  <!-- Close Country -->
 
 <div class="country">
 <b>Israel</b><br>
 <div class="datalist">  <!-- Start Multicolumn -->
-		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=208817263493393414650.0004805448628c824724f">Israel Food</a>
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=208817263493393414650.0004805448628c824724f">Israel Food</a></li>
 </div>  <!-- Close Multicolumn -->
 </div>  <!-- Close Country -->
+
+<div class="country">
+<b>Italy</b><br>
+<div class="datalist">  <!-- Start Multicolumn -->
+		<li><a href="https://maps.google.com/maps/ms?source=hp&ie=UTF8&hq=&hnear=Milan,+Italy&oe=UTF8&msa=0&msid=100486762933620746354.00047df0406aad502bec7">Milano Fruit Trees</a></li>
+</div>  <!-- Close Multicolumn -->
+</div>  <!-- Close Country -->
+
+</div><div class="country_column">  <!-- Multicountry column break -->
+
+<div class="country">
+<b>Mauritius</b><br>
+<div class="datalist">  <!-- Start Multicolumn -->
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=207282987982853986847.0004b6caa61be03d56fce">Breadfruit Trees in Mauritius</a></li>
+</div>  <!-- Close Multicolumn -->
+</div>  <!-- Close Country -->
+
+<div class="country">
+<b>Netherlands</b><br>
+<div class="datalist">  <!-- Start Multicolumn -->
+		<li><a href="http://maps.google.nl/maps/ms?hl=nl&ie=UTF8&t=h&msa=0&msid=117889007389820522179.00045cc416710da996793">Amsterdam Urban Edibles</a></li>
+</div>  <!-- Close Multicolumn -->
+</div>  <!-- Close Country -->
+
+<div class="country">
+<b>Poland</b><br>
+<div class="datalist">  <!-- Start Multicolumn -->
+		<li><a href="https://maps.google.com/maps/ms?ie=UTF8&t=m&vpsrc=6&oe=UTF8&msa=0&msid=207777003027380609947.0004be7d96d766f7422a7">Wild Edibles in Warsaw</a></li>
+</div>  <!-- Close Multicolumn -->
+</div>  <!-- Close Country -->
+
+</div>  <!-- End multicountry columns -->
 
 
 <a name="munimaps"></a><h2>Municipal Tree Inventories</h2>

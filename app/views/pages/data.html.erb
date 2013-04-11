@@ -23,7 +23,7 @@ It should go without saying that we take no responsibility for the accuracy of t
     GROUP BY t.id, t.scientific_name, t.usda_symbol, t.name ORDER BY t.name")
 %>
 
-The database currently contains <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> edible source types (most, but not all, are plant species) distributed over <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> distinct locations. For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the US Department of Agriculture.
+The database currently contains <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> different types of edibles (most, but not all, are plant species) distributed across <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> locations. For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the US Department of Agriculture.
 <br><br>
 
 <table id="type_summary">
