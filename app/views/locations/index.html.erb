@@ -21,10 +21,12 @@
   }
     
   function initialize() {
-    var ini_zoom = 4;
+    var ini_zoom = 2;
     // Kearney, Nebraska :P
-    var ini_lat = 40.713956;
-    var ini_lng = -99.09668;
+    //var ini_lat = 40.713956;
+    //var ini_lng = -99.09668;
+    var ini_lat = 17.30868;
+    var ini_lng = -95.27343;
     var ini_type = google.maps.MapTypeId.ROADMAP;
     <% unless @perma.nil? %>
       ini_lat = <%= @perma[:lat] %>;
