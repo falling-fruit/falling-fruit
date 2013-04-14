@@ -385,7 +385,7 @@ div#content img {
 div.country_column {
 	display: inline-block;
 	vertical-align: top;
-	margin-left: 20px;
+	margin-right: 20px;
 }
 
 div.country_column div.country {
@@ -509,9 +509,9 @@ div#description p {
 /* Controls & Author */
 
 table#footer {
-  border-collapse: collapse;
+ border-collapse: collapse;
 	border-spacing: 0;
-	padding-left: 0.25em; /* to line up with start of type labels */
+	margin-left: 0.25em; /* to line up with start of type labels */
 }
 
 table#footer td {
@@ -521,6 +521,7 @@ table#footer td {
 
 table#footer td#controls {
 	vertical-align: bottom;
+	white-space: nowrap;
 }
 
 table#footer td#controls a {
