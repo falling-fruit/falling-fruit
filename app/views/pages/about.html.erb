@@ -11,12 +11,24 @@ Falling Fruit is a celebration of the overlooked culinary bounty of our city str
 </p>
 
 <p>
-Our map of urban edibles is not the first of its kind, but we aspire to be the most comprehensive, bringing together the <a href="#foragemaps">maps of foragers</a> from all across the internet. We are also including <a href="#munimaps">municipal tree inventories</a> - databases of street (and sometimes private) trees that some cities and universities have chosen to share with the public. This already amounts to <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> different types of edibles (most, but not all, are plant species) distributed across <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
+Our map of urban edibles is not the first of its kind, but we aspire to be the most comprehensive, bringing together the <a href="#foragemaps">maps of foragers</a> from all across the internet. We are also including edible species found in <a href="#munimaps">municipal tree inventories</a> - databases of street (and sometimes private) trees that many cities, universities, and other institutions use to manage the urban forest. This already amounts to <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> different types of edibles (most, but not all, are plant species) distributed across <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
 </p>
 
 <p>
-Join us in celebrating the local and edible! The <a href="/">map</a> is free for anyone to use and edit, the entire database can be <a href="/pages/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">our code</a> is open-source. We created Falling Fruit driven by our passion for food and the environment. If you think it's cool and want to say thanks, you can always <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=cphillips@smallwhitecube.com&lc=US&item_name=Falling Fruit Donation&no_note=0&currency_code=USD">buy us a beer</a>.
+Join us in celebrating the local and edible! The <a href="/">map</a> is open for anyone to edit, the entire database can be <a href="/pages/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">our code</a> is open-source. We created Falling Fruit driven by our passion for food and the environment. If you think it's cool and want to say thanks, you can always buy us a beer (and help cover the costs of the server):
 </p>
+
+<blockquote>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="POST">
+	<input type="hidden" name="cmd" value="_donations">
+	<input type="hidden" name="business" value="cphillips@smallwhitecube.com">
+	<input type="hidden" name="return" value="http://fallingfruit.org/about">
+	<input type="hidden" name="item_name" value="Falling Fruit Donation">
+	<input type="hidden" name="no_shipping" value="1">
+	$<input name="amount" value="0.00" size="6">
+	<input style="font-size:1.15em;" type="submit" value="Donate via PayPal">
+</form>
+</blockquote>
 
 <p>
 Finally, if you've picked more than you can use or are overwhelmed by the bumper crop from your private trees, we encourage you to donate the surplus produce to charity with the help of your local <a href="#sharing">food redistribution programs</a>.
@@ -303,6 +315,7 @@ Foragers and private tree owners overwhelmed by their harvest are encouraged to 
 		<li><a href="http://yardharvest.org/">Denver Yard Harvest</a></li>
 		<li><a href="http://www.boulderfoodrescue.org/index.php/gah/">Garden Against Hunger</a></li>		
 		<li><a href="https://www.facebook.com/produceforpantries">Produce for Pantries</a></li>
+		<li><a href="http://www.urbiculturecommunityfarms.org/programs.html">Urbiculture Community Farms</a></li>
 	</ul>
 	<ul>Idaho
 		<li><a href="http://www.backyardharvest.org/">Backyard Harvest</a></li>
@@ -338,6 +351,7 @@ Foragers and private tree owners overwhelmed by their harvest are encouraged to 
 <div class="datalist">  <!-- Start Multicolumn -->
 	<ul>Alberta</ul>
 		<li><a href="http://operationfruitrescue.org/">Operation Fruit Rescue Edmonton</a></li>
+		<li><a href="http://www.calgaryharvest.com/">The Calgary Urban Harvest Project</a></li>
 	</ul>
  <ul>British Columbia
 		<li><a href="http://earthmatters.ca/youth/harvest-rescue-project.html">Harvest Rescue Project</a></li>
@@ -345,9 +359,15 @@ Foragers and private tree owners overwhelmed by their harvest are encouraged to 
 		<li><a href="http://www.richmondfoodsecurity.org/2012/surplus-fruit/">Richmond Food Security Society</a></li>
 		<li><a href="http://scfruittree.org/">Sunshine Coast Fruit Tree Project</a></li>
 		<li><a href="https://vancouverfruittree.com/">Vancouver Fruit Tree Project</a></li>
+		<li><a href="http://www.northshorefruittreeproject.ca/">North Shore Fruit Tree Project</a></li>
+		<li><a href="http://squamishcan.net/projects/current-projects/fruit-tree-project/">Squamish Fruit Tree Project</a></li>
+		<li><a href="http://sookefoodchi.ca/events/2012-sooke-region-fruit-tree-project/">Sooke Region Fruit Tree Project</a></li>
+		<li><a href="http://www.lushvalley.org/">Let Us Share The Harvest</a></li>
  </ul>
+</div><div class="datalist">  <!-- Column Break --> 
  <ul>Quebec
  	<li><a href="http://lesfruitsdefendus.wordpress.com/">Les Fruits D&eacute;fendus</a></li>
+ 	<li><a href="http://vergersdecheznous.wordpress.com/">Vergers de Chez Nous</a></li>
  </ul>
  <ul>Manitoba
  	<li><a href="http://www.fruitshare.ca/">Fruit Share Manitoba</a></li>
@@ -359,6 +379,7 @@ Foragers and private tree owners overwhelmed by their harvest are encouraged to 
 		<li><a href="http://ottawa.hiddenharvest.ca/">Hidden Harvest Ottowa</a></li>
 		<li><a href="http://www.notfarfromthetree.org/">Not Far From The Tree</a></li>
 		<li><a href="http://www.thegardenofeating-niagara.com/">The Garden of Eating - Niagara</a></li>
+		<li><a href="http://www.mississaugafruittree.org/">Mississauga Fruit Tree Organization</a></li>
  </ul>
 </div>  <!-- Close Multicolumn -->
 </div>  <!-- Close Country -->
