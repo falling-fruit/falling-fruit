@@ -511,7 +511,7 @@ div#description p {
 table#footer {
  border-collapse: collapse;
 	border-spacing: 0;
-	margin-left: 0.25em; /* to line up with start of type labels */
+	margin-left: 0.25em;  /* to line up with start of type labels */
 }
 
 table#footer td {
