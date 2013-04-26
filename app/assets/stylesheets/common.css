@@ -511,7 +511,6 @@ div#description p {
 table#footer {
  border-collapse: collapse;
 	border-spacing: 0;
-	margin-left: 0.25em;  /* to line up with start of type labels */
 }
 
 table#footer td {
@@ -522,6 +521,7 @@ table#footer td {
 table#footer td#controls {
 	vertical-align: bottom;
 	white-space: nowrap;
+	padding-left: 0.25em;  /* to line up with start of type labels */
 }
 
 table#footer td#controls a {

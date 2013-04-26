@@ -56,9 +56,9 @@ jQuery(document).ready(function(){
     
     <!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
-      <div style="margin-top: 0.25em;">Address <span class="subtext-inline">will <i>overwrite</i> the displayed location, so don't provide one if you want to use Lat-Lon.</span></div>
+      <div style="margin-top: 0.25em;">Address <span class="subtext-inline">can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span></div>
       <%= f.text_area :address, :size => "40x2" %><br>
-      <a href="#" onclick="update_marker();">>> Update map from address</a>
+      <a href="#" onclick="update_marker();">>> Move marker to address</a>
     <% end %>
   </div>
   
