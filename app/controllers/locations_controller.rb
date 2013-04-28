@@ -174,6 +174,7 @@ class LocationsController < ApplicationController
       import.name = params[:import][:name]
       import.url = params[:import][:url]
       import.comments = params[:import][:comments]
+      import.license = params[:import][:license]
       import.save
       CSV.parse(infile) do |row| 
         n += 1

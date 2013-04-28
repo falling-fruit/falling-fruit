@@ -6,6 +6,7 @@
     <th>Locations</th>
     <th>Autoload</th>
     <th>Muni</th>
+    <th>License</th>
     <th>Created At</th>
     <th></th>
     <th></th>
@@ -17,6 +18,7 @@
     <td><%= import.locations.count %></td>
     <td><%= import.autoload ? "X" : "" %></td>
     <td><%= import.muni ? "X" : "" %></td>
+    <td><%= import.license %></td>
     <td><%= import.created_at %></td>
     <td><%= link_to 'Edit', edit_import_path(import) %></td>
     <td><%= link_to 'Destroy', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
