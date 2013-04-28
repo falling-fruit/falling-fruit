@@ -85,6 +85,35 @@ class LocationsController < ApplicationController
     end
   end
 
+  def marker
+     id = params[:id].to_i
+     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
+      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
+      locations_types lt left outer join types t on lt.type_id=t.id
+      WHERE lt.location_id=l.id AND l.id=#{id}
+      GROUP BY l.id, l.lat, l.lng, l.unverified");
+    @markers = r.collect{ |row|
+      if row["name"].nil? or row["name"].strip == ""
+        name = "Unknown"
+      else
+        t = row["name"].split(/,/)
+        if t.length == 2
+          name = "#{t[0]} and #{t[1]}"
+        elsif t.length > 2
+          name = "#{t[0]} & Others"
+        else
+          name = t[0]
+        end
+      end
+      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
+       :picture => (row["unverified"] == 't') ? "/icons/smdot_t1_gray_light.png" : "/icons/smdot_t1_red.png",:width => 17, :height => 17,
+       :marker_anchor => [0,0], :n => 1 }
+    } unless r.nil?
+    respond_to do |format|
+      format.json { render json: @markers }
+    end
+  end
+
   def data
     max_n = 500
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"

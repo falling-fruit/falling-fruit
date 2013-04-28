@@ -116,7 +116,7 @@
               });
   }
 
-  function open_marker_by_id(id){
+  function open_marker_by_id(id,lat,lng){
     for (var i = 0; i < markersArray.length; i++ ) {
       if(markerIdArray[i] == id){
         new Ajax.Request('/locations/' + id + '/infobox', {
@@ -134,7 +134,34 @@
         return true;
       }
     }
-    return false;
+    // didn't find it, manually fetch & add it
+    new Ajax.Request('/locations/marker.json?id=' + id + '&', {
+              method: 'get',
+              onSuccess: function(response) {
+                json = jQuery.parseJSON(response.responseText);
+                add_markers_from_json(json,false);
+                // make marker clickable
+                add_marker_infobox(markersArray.length-1);
+                // filter and labels
+                if(labelsOn) labelize_markers();
+                search_filter(last_search);
+                // open infobox
+                new Ajax.Request('/locations/' + id + '/infobox', {
+                  onSuccess: function(response) {
+                    var infowindow = new google.maps.InfoWindow({content: response.responseText });
+                    google.maps.event.addListener(infowindow,'closeclick',function(){
+                      openInfoWindow = null;
+                      openMarker = null;
+                    });
+                    infowindow.open(map, markersArray[markersArray.length-1]);
+                    openInfoWindow = infowindow;
+                  }
+               });
+               openMarker = markersArray[markersArray.length-1];
+             },
+             onFailure: function() {}
+    });
+    return true;
   }
 
   function add_marker_infobox(i){ 

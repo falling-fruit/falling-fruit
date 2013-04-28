@@ -6,6 +6,7 @@ FallingfruitWebapp::Application.routes.draw do
       post 'import'
       get 'cluster'
       get 'markers'
+      get 'marker'
       get 'data'
     end
   end

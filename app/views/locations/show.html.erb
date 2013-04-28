@@ -13,7 +13,6 @@
   
   function initialize() {
     var ini_zoom = 15;
-    // Kearney, Nebraska :P
     var ini_lat = <%= @location.lat %>;
     var ini_lng = <%= @location.lng %>;
 
@@ -45,7 +44,7 @@
       update_display(true,ini_zoom);
       document.addEventListener("markersloaded",function(event){
         if(!opened_once){
-          opened_once = open_marker_by_id(<%= @location.id %>);
+          opened_once = open_marker_by_id(<%= @location.id %>,<%= @location.lat %>,<%= @location.lng %>);
         }
       },false);
     });
