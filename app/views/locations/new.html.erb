@@ -27,7 +27,8 @@
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
-
+    map.setTilt(0);
+    
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);
@@ -77,7 +78,7 @@
         map.setZoom(15);
         map.panTo(marker.getPosition());
         var nag = new google.maps.InfoWindow({
-          content: '<div id="editmarker"><b>Please adjust the marker to<br>the position of the source.</b><br><br><i>Check the satellite view - your<br>plant may be visible from space!</i></div>'
+          content: '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br><br><i>Check the satellite view - the source may be visible from space!</i></div>'
         });
         nag.open(map,marker);  
         google.maps.event.addListener(marker, 'dragend', function() {
@@ -113,7 +114,7 @@
       map.setZoom(15);
       map.panTo(marker.getPosition());
       var nag = new google.maps.InfoWindow({
-        content: '<div id="editmarker"><b>Please adjust the marker to<br>the position of the source.</b><br><br><i>Check the satellite view - your<br>plant may be visible from space!</i></div>'
+        content: '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br><br><i>Check the satellite view - the source may be visible from space!</i></div>'
       });
       nag.open(map,marker);  
       google.maps.event.addListener(marker, 'dragend', function() {
@@ -148,7 +149,7 @@
           draggable: true,
         });
         var nag = new google.maps.InfoWindow({
-          content: '<div id="editmarker"><b>Please adjust the marker to<br>the position of the source.</b><br><br><i>Check the satellite view - your<br>plant may be visible from space!</i></div>'
+          content: '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br><br><i>Check the satellite view - the source may be visible from space!</i></div>'
         });
         nag.open(map,marker);  
         google.maps.event.addListener(marker, 'dragend', function() {

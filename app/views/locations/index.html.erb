@@ -41,7 +41,8 @@
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
-
+    map.setTilt(0);
+    
     pb = progressBar();
     map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
 
@@ -75,8 +76,7 @@
       google.maps.event.addListenerOnce(map, 'idle', function(){
         update_display(false);
       });
-    });
-    map.setTilt(0);    
+    });    
   }
 
   // ================== main-level code ===================

@@ -73,6 +73,8 @@
 
 <!-- Controls & Author -->
 <!-- (using table instead of display: table-cell for compatibility with IE <= 7) -->
+<!-- div wrapper needed to fix width of footer to window size so that wrapping does not introduce scroll bar -->
+<div style="width:100%;">
 <table id="footer">
 	<tr>
  		<td id="controls">
@@ -84,5 +86,6 @@
   	<td id="added_by">by <i><%= (location.author.nil? or (location.author.strip.length == 0)) ? "Anonymous" : location.author %></i></td>
  	</tr>
 </table>
+</div>
 
 </div>  <!-- Wrapper -->
