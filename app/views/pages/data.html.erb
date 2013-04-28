@@ -2,10 +2,14 @@
 Falling Fruit is built on public data, and on the generosity of urban foragers willing to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. In the spirit of open data, behold! The entire database:
 </p>
 
+<% if File.exists?(Rails.root.join("public","data.csv.bz2")) %>
 <blockquote>
 <a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
 <i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")).strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 </blockquote>
+<% else %>
+<blockquote><em>Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a> :/.</em></blockquote>
+<% end %>
 
 <p>
 But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.

@@ -13,6 +13,20 @@ class TypesController < ApplicationController
     end
   end
 
+  def merge
+    from = Type.find(params[:id].to_i)
+    to = Type.find(params[:into_id].to_i)
+    LocationsType.where("type_id = ?",from.id).each{ |lt|
+      lt.type = to
+      lt.save
+    }
+    from.destroy
+    respond_to do |format|
+      format.html { redirect_to types_url, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
+      format.json { head :no_content }
+    end
+  end
+
   # GET /types/new
   # GET /types/new.json
   def new

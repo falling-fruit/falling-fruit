@@ -50,7 +50,7 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.2.1)
     erubis (2.7.0)
-    eventmachine (0.12.10)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faker (1.1.2)

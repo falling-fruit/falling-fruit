@@ -10,7 +10,11 @@ FallingfruitWebapp::Application.routes.draw do
     end
   end
 
-  resources :types
+  resources :types do
+    member do
+      get 'merge'
+    end
+  end
 
   resources :regions
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226175338) do
+ActiveRecord::Schema.define(:version => 20130428192429) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(:version => 20130226175338) do
     t.string   "url"
     t.string   "name"
     t.text     "comments"
-    t.datetime "created_at", :default => '2013-02-14 21:34:21', :null => false
-    t.datetime "updated_at", :default => '2013-02-14 21:34:21', :null => false
-    t.boolean  "autoload",   :default => true,                  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "autoload",   :default => true,  :null => false
     t.boolean  "muni",       :default => false
   end
 
