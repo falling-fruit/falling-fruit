@@ -98,7 +98,16 @@ class LocationsController < ApplicationController
       WHERE l.import_id=i.id AND lt.location_id=l.id AND 
       #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name, i.url LIMIT #{max_n}")
+      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name, i.url 
+      UNION
+      SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
+      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, NULL as import_name, NULL as import_url,
+      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, imports i,
+      locations_types lt left outer join types t on lt.type_id=t.id 
+      WHERE l.import_id IS NULL AND lt.location_id=l.id AND 
+      #{[bound,ifilter].compact.join(" AND ")} 
+      GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
+      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access LIMIT #{max_n}")
     respond_to do |format|
       format.json { render json: @locations }
       format.csv { 
