@@ -30,6 +30,7 @@ FallingfruitWebapp::Application.routes.draw do
   end
 
   resources :imports
+  resources :changes
 
   match 'locations/:id/infobox' => 'locations#infobox'
 

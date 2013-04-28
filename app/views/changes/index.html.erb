@@ -1,0 +1,16 @@
+<ul>
+<% @changes.each do |c| %>
+  <li><%= c.created_at.strftime("At %H:%M on %Y-%m-%d") %>:
+  <% unless c.location.nil? %>
+    <a href="/locations/<%= c.location.id %>">Location <%= c.location.id %></a> (<%= c.location.title %>) was <%= c.description %>.
+  <% else %>
+    <%= c.description %>.
+  <% end %>
+  <span style="font-style: italic; color: lightgrey;">
+  <% if c.admin.nil? %>
+  (remote IP: <%= c.remote_ip %>)
+  <% else %>
+  (admin)
+  <% end %>
+<% end %>
+</ul>

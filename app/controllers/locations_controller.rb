@@ -7,6 +7,15 @@ class LocationsController < ApplicationController
     expire_fragment "pages_data_type_summary_table"
   end
 
+  def log_changes(location,description)
+    c = Change.new
+    c.location = location
+    c.description = description
+    c.remote_ip = request.remote_ip
+    c.admin = current_admin if admin_signed_in?
+    c.save
+  end
+
   def number_to_human(n)
     if n > 999 and n <= 999999
       (n/1000.0).round.to_s + "K"
@@ -182,6 +191,7 @@ class LocationsController < ApplicationController
           errs << row
         end
       end
+      log_changes(nil,"#{okay_count} new locations imported from #{import.name} (#{import.import_url})")
       if errs.any?
         if params["import"]["error_csv"].present? and params["import"]["error_csv"].to_i == 1
           errFile ="errors_#{Date.today.strftime('%d%b%y')}.csv"
@@ -285,6 +295,7 @@ class LocationsController < ApplicationController
     @location.locations_types += lts unless lts.nil?
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
+        log_changes(@location,"created")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
@@ -330,6 +341,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
          @location.update_attributes(params[:location])
+        log_changes(@location,"edited")
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
       else
@@ -347,6 +359,7 @@ class LocationsController < ApplicationController
       lt.destroy
     }
     expire_things
+    log_changes(nil,"1 location deleted")
     respond_to do |format|
       format.html { redirect_to locations_url }
     end
