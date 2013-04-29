@@ -61,13 +61,12 @@
 <!-- (keep <p> markup even if empty) -->
 <p>
 <% unless location.description.nil? %>
- <%= raw location.description.gsub("\n","<br>") %>
-<% end %>
-
-<% unless location.access.nil? %>
-<span style="font-style: italic; color: #a9a9a9;"><br><br><%= Location::AccessStatements[location.access] %></span>
+ <%= raw location.description.strip.gsub("\n","<br>") %>
 <% end %>
 </p>
+<% unless location.access.nil? %>
+<p><span style="font-style: italic; color: #a9a9a9;"><%= Location::AccessStatements[location.access] %></span></p>
+<% end %>
 
 </div>  <!-- Description wrapper -->
 
@@ -78,7 +77,7 @@
 <table id="footer">
 	<tr>
  		<td id="controls">
- 		<a href="/locations/<%= location.id %>">permalink</a><a href="/locations/<%= location.id %>/edit">edit</a>
+ 		<a href="/locations/<%= location.id %>">link</a><a href="/locations/<%= location.id %>/edit">edit</a>
  		<% if admin_signed_in? %>
   		<%= link_to 'delete', location, method: :delete, data: { confirm: 'Are you sure?' } %>
  		<% end %>
