@@ -130,16 +130,16 @@ class LocationsController < ApplicationController
       "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
     ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     @locations = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name as import_name, i.url as import_url,
+      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name as import_name, i.url as import_url, i.license as import_license,
       string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, imports i,
       locations_types lt left outer join types t on lt.type_id=t.id 
       WHERE l.import_id=i.id AND lt.location_id=l.id AND 
       #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name, i.url 
+      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name, i.url, i.license 
       UNION
       SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, NULL as import_name, NULL as import_url,
+      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, NULL as import_name, NULL as import_url, NULL as import_license,
       string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, imports i,
       locations_types lt left outer join types t on lt.type_id=t.id 
       WHERE l.import_id IS NULL AND lt.location_id=l.id AND 
@@ -152,7 +152,7 @@ class LocationsController < ApplicationController
         csv_data = CSV.generate do |csv|
           cols = ["id","lat","lng","unverified","description","season_start","season_stop",
                   "no_season","author","address","created_at","updated_at",
-                  "quality_rating","yield_rating","access","import_name","import_url","name"]
+                  "quality_rating","yield_rating","access","import_name","import_url","import_license","name"]
           csv << cols
           @locations.each{ |l|
             csv << cols.collect{ |e| l[e] }
