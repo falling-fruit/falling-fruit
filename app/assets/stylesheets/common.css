@@ -59,7 +59,6 @@ div#content {
   text-align: justify;
   max-width: 1400px;
   margin: 0 auto;  /* Page is centered on wider screen. */
-  #margin: 0;  /* Page is left-aligned on wider screen. */
 }
 
 div#content p {
@@ -143,15 +142,63 @@ div#warnings div.alert  {
 
 div#menubar {
   background-color: lightgrey;
-  #height: 2em;  /* Leaving blank allows menubar to grow in height in narrow displays*/
 }
 
-div#menubar a {
+div#menu {
+  overflow: auto;
+}
+
+div#menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+div#menu ul li {
+  float: left;
+}
+
+div#menu li a, div#menubar a {
   color: #666;
   height: 100%; /* need to ensure edge reaches bottom of bar */
   line-height: 2em;
   padding: 0em 8px;
   display: inline-block;
+}
+
+div#menu li ul{
+  display:none;
+  height:auto;
+  position:absolute;
+  width:225px;
+  z-index:200;
+}
+div#menu li:hover ul{
+  display:block;
+  background: lightblue;
+  border: 1px solid lightgrey;
+}
+
+div#menu li li {
+  display:block;
+  float:none;
+  margin:0px;
+  padding:0px;
+  width:225px;
+}
+div#menu li:hover li a{
+  background:none;
+}
+div#menu li ul a{
+  display:block;
+  font-style:normal;
+  margin:0px;
+  text-align:left;
+}
+div#menu li ul a:hover, div#menu li ul li:hover a{
+  border:0px;
+  background: grey;
+  text-decoration:none;
 }
 
 div#menubar a#maplink {
@@ -177,7 +224,6 @@ div#menubar span#admin_email {
 
 div#menubar span#clickmap {
   font-size: 0.85em;
-  #font-style: italic;
 }
 
 
