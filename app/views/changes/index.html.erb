@@ -13,15 +13,15 @@
   <% matches.each do |match| %>
     <% c = @changes[match[1]] %>
     <% unless c.location.nil? %>
-      <a href="/locations/<%= c.location.id %>"><%= c.location.title %></a> (#<%= c.location.id %>) was <%= c.description.sub("created","added") %>
+      <a href="/locations/<%= c.location.id %>"><%= c.location.title %></a> (#<%= c.location.id %>) was <%= c.description.sub("created","added") %>.
     <% else %>
-      <%= c.description %>
+      <%= c.description %>.
     <% end %>
-    <span style="font-style: italic; color: grey;">
+    <span style="font-style: italic; color: lightgrey;">
     <% if c.admin.nil? %>
-      by <%= c.remote_ip %>
+      [<%= c.remote_ip %>]
     <% else %>
-      by Admins
+      [admins]
     <% end %>
     </span>
     <br />
