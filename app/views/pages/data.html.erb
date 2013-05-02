@@ -1,14 +1,14 @@
 <p>
-Falling Fruit is built on public data, and on the generosity of urban foragers willing to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the collective fruit of our labors. In the spirit of open data, behold! The entire database:
+Falling Fruit is built on public data and the generosity of urban foragers willing to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database:
 </p>
 
 <% if File.exists?(Rails.root.join("public","data.csv.bz2")) %>
 <blockquote>
 <a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-<i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")).strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+<i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 </blockquote>
 <% else %>
-<blockquote><em>Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a> :/.</em></blockquote>
+<blockquote><em>Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.</em></blockquote>
 <% end %>
 
 <p>
@@ -16,7 +16,7 @@ But beware. Once uncompressed, the data becomes a huge file that causes most spr
 </p>
 
 <p>
-If you are interested in using the data in your own project, especially for commercial applications, we suggest you contact the original source of the data (provided as the import name and URL in the data). When not otherwise specified, it should be assumed that the data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. This means that you can use and share the data so long as you maintain the original author/source attribution and do not use it (without permission) for commercial applications.
+If you are interested in using the data in your own project, especially for commercial applications, we suggest you contact the original sources (provided as the import name and URL in the data). When not otherwise specified, data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons (Attribution, Noncommercial, Share alike)</a> license. This means that you are free to use and distribute the data so long as you preserve the original author/source attribution and do not use it (without permission) for commercial applications.
 </p>
 
 <p>
@@ -73,7 +73,9 @@ The database currently contains <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
     jQuery('#type_summary').dataTable({
-      "aaSorting": [[3,"desc"]]
+      "aaSorting": [[3,"desc"]],
+      "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+						"iDisplayLength" : -1
     });
 });
 </script>

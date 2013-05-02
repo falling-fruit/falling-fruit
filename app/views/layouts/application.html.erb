@@ -75,13 +75,13 @@
 <% if admin_signed_in? %>
     <li><a href="#">Types</a>
     <ul>
+    		<li><%= link_to('List Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
       <li><%= link_to('New Type', new_type_path, :class => (request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage") %>
-      <li><%= link_to('List Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
     </ul>
     <li><a href="#">Imports</a>
     <ul>
-      <li><%= link_to('Do Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %>
-      <li><%= link_to('List Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %>
+						<li><%= link_to('List Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %>
+      <li><%= link_to('New Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %>
     </ul>
     <li><%= link_to('Admins', admins_path, :class => (request.fullpath == admins_path) ? "currentpage" : "notcurrentpage") %>
 <% end %>

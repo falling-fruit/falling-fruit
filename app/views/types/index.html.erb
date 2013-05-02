@@ -1,46 +1,46 @@
-<% content_for :form_scripts do %>
-<script type="text/javascript" charset="utf-8">
-jQuery(document).ready(function(){
-  jQuery('.select2').select2({width:'element'});
-});
-</script>
-<% end %>
-
 <h1>Source Types</h1>
 
-<%= link_to 'New Type', new_type_path %>
+<%= link_to '[+] Add type', new_type_path %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Scientific Name</th>
-    <th>Edibility</th>
-    <th>USDA Symbol</th>
-    <th>Merge Into</th>
-    <th>Edit</th>
-    <th>Destroy</th>
-  </tr>
-
+<table id="type_list">
+<thead>
+<tr>
+ <th>ID</th>
+ <th>Common name</th>
+ <th>Scientific name</th>
+ <th>W</th>
+ <th>USDA</th>
+ <th>Edit</th>
+ <th>Delete</th>
+</tr>
+</thead>
+<tbody>
 <% @types.each do |type| %>
-  <tr>
-    <td>
-    <% unless type.wikipedia_url.nil? %>
-     <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= type.name %></a>
-    <% else %>
-     <%= type.name %>
-    <% end %>
-    <%= "(#{type.synonyms})" unless type.synonyms.nil? or type.synonyms == ""%>
-    </td>
-    <td><em><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.nil? or type.scientific_synonyms == "" %></em></td>
-    <td><%= Type::Edabilities[type.edability] unless type.edability.nil? %>
-    <td><%= raw !type.usda_symbol.nil? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "?"%></em></td>
-    <td>
-    <form action="/types/<%= type.id %>/merge">
-    <%= select_tag(:into_id,options_for_select(@types.collect{ |t| [t.name,t.id] }),:class => "select2") %>
-    <%= submit_tag "Merge" %>
-    </form>
-    <td><%= link_to 'Edit', edit_type_path(type) %></td>
-    <td><%= link_to 'Destroy', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<tr>
+<td style="text-align:right"><%= type.id %></td>
+<td>
+ <% unless type.wikipedia_url.nil? %>
+  <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= type.name %></a>
+ <% else %>
+  <%= type.name %>
+ <% end %>
+ <%= "(#{type.synonyms})" unless type.synonyms.nil? or type.synonyms == "" %>
+</td>
+<td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.nil? or type.scientific_synonyms == "" %></td>
+<td style="text-align:center;"><% unless not type.wikipedia_url.nil? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><%= raw !type.usda_symbol.nil? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "" %></td>
+<td><%= link_to 'Edit', edit_type_path(type) %></td>
+<td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
 <% end %>
+</tbody>
 </table>
+
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+    jQuery('#type_list').dataTable({
+      "aaSorting": [[2,"asc"], [1,"asc"]],
+      "bPaginate": false
+    });
+});
+</script>
