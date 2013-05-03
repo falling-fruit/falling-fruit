@@ -1,10 +1,64 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
-  caches_action :cluster, :cache_path => Proc.new { |c| c.params }
 
   def expire_things
-    expire_fragment /locations\/cluster\.json/
     expire_fragment "pages_data_type_summary_table"
+  end
+
+  def cluster_increment(location)
+    muni = (!location.import.nil? and location.import.muni) ? true : false
+    mq = muni ? "AND muni" : "AND NOT MUNI"
+    found = []
+    Cluster.where("ST_INTERSECTS(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),polygon) #{mq}").each{ |clust|
+      clust.count += 1
+      # since the center lat is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
+      clust.center_lat = ((clust.count-1).to_f/clust.count.to_f)*clust.center_lat + (1.0/clust.count.to_f)*location.lat
+      clust.center_lng = ((clust.count-1).to_f/clust.count.to_f)*clust.center_lng + (1.0/clust.count.to_f)*location.lng
+      clust.save
+      found << clust.zoom
+    }
+    cluster_seed(location,(1..15).to_a - found,muni) unless found.length == 15
+  end
+
+  def cluster_decrement(location)
+    mq = (!location.import.nil? and location.import.muni) ? "AND muni" : "AND NOT muni"
+    Cluster.where("ST_INTERSECTS(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),polygon) #{mq}").each{ |clust|
+      clust.count -= 1
+      if(clust.count <= 0)
+        clust.destroy
+      else
+        # since the center lat is the arithmetic mean of the bag of points, simply remove this points' location proportionally
+        clust.center_lat = (clust.count.to_f/clust.count.to_f)*clust.center_lat - (1.0/clust.count.to_f)*location.lat
+        clust.center_lng = (clust.count.to_f/clust.count.to_f)*clust.center_lng - (1.0/clust.count.to_f)*location.lng
+        clust.save
+      end
+    }
+  end
+
+  def cluster_seed(location,zooms,muni)
+    zooms.each{ |z| 
+      c = Cluster.new
+      c.grid_size = 360/(12.0*(2.0**(z-3))) 
+      r = ActiveRecord::Base.connection.execute <<-SQL
+        SELECT ST_AsText(ST_MakeBox2d(ST_Translate(grid_point,#{c.grid_size/-2.0},#{c.grid_size/-2.0}),
+                                      ST_translate(grid_point,#{c.grid_size/2.0},#{c.grid_size/2.0}))) AS poly_wkt, 
+               ST_AsText(grid_point) as grid_point_wkt 
+        FROM (
+          SELECT ST_SnapToGrid(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),#{c.grid_size},#{c.grid_size}) AS grid_point
+        ) AS gsub
+      SQL
+      r.each{ |row|
+      c.grid_point = row["grid_point_wkt"]
+      c.polygon = row["poly_wkt"]
+      c.count = 1
+      c.center_lat = location.lat
+      c.center_lng = location.lng
+      c.zoom = z
+      c.method = "grid"
+      c.muni = muni
+      c.save
+      } unless r.nil?
+    }
   end
 
   def log_changes(location,description)
@@ -27,32 +81,23 @@ class LocationsController < ApplicationController
   end
 
   def cluster
-    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
-    n = params[:n].nil? ? 10 : params[:n].to_i
+    mfilter = ""
+    if params[:muni].present? and params[:muni].to_i == 1
+      mfilter = "AND muni"
+    elsif params[:muni].present? and params[:muni].to_i == 0
+      mfilter = "AND NOT muni"
+    end
     g = params[:grid].present? ? params[:grid].to_i : 1
     g = 15 if g > 15
-    gsize = 360.0/(12.0*(2.0**(g-3)))
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
-      "AND ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
-    ifilter = "AND (import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+      "AND ST_INTERSECTS(grid_point,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
     @clusters = []
-    if params[:method].present? and params[:method] == "kmeans"
-      r = ActiveRecord::Base.connection.execute("SELECT kmeans, count, ST_X(center) as lng, ST_Y(center) as lat
-        FROM (SELECT kmeans, count(*), ST_Centroid(ST_MinimumBoundingCircle(ST_Collect(location::geometry))) AS center 
-        FROM (SELECT kmeans(ARRAY[lng,lat],#{n}) OVER (), location FROM locations where lng is not null and lat is not null #{ifilter} #{bound}) 
-        AS ksub GROUP by kmeans ORDER BY kmeans) AS csub")
-    else
-      r = ActiveRecord::Base.connection.execute("SELECT count, st_x(center) as lng, st_y(center) as lat 
-       FROM (SELECT count(location) as count, ST_Centroid(ST_Collect(location::geometry)) AS center 
-       FROM locations WHERE lng IS NOT NULL and lat IS NOT NULL #{ifilter} #{bound} 
-       GROUP BY ST_SnapToGrid(location::geometry,#{gsize},#{gsize})) AS csub")
-    end
-    r.each{ |row|
-        @clusters.push({:title => number_to_human(row["count"].to_i),
-          :n => row["count"].to_i,:lat => row["lat"],:lng => row["lng"],
+    Cluster.select("sum(count) as count, center_lat, center_lng").where("zoom = #{g} #{mfilter} #{bound}").group(:grid_point,:center_lat,:center_lng).each{ |c|
+        @clusters.push({:title => number_to_human(c.count),
+          :n => c.count,:lat => c.center_lat,:lng => c.center_lng,
           :picture => "http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/images/m3.png",
           :width => 66, :height => 65, :marker_anchor => [0,0]})
-    } unless r.nil?
+    }
     respond_to do |format|
       format.json { render json: @clusters }
     end
@@ -175,6 +220,7 @@ class LocationsController < ApplicationController
       import.url = params[:import][:url]
       import.comments = params[:import][:comments]
       import.license = params[:import][:license]
+      import.muni = params[:import][:muni].present? and params[:import][:muni].to_i == 1
       import.save
       CSV.parse(infile) do |row| 
         n += 1
@@ -187,6 +233,7 @@ class LocationsController < ApplicationController
         if location.valid?
           ok_count += 1
           location.save
+          cluster_increment(location)
         else
           text_errs << location.errors
           errs << row
@@ -296,6 +343,7 @@ class LocationsController < ApplicationController
     @location.locations_types += lts unless lts.nil?
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
+        cluster_increment(@location)
         log_changes(@location,"created")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
@@ -339,10 +387,12 @@ class LocationsController < ApplicationController
       params[:location].delete(:locations_types)
     end
 
+    cluster_decrement(@location)
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
          @location.update_attributes(params[:location])
         log_changes(@location,"edited")
+        cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
       else
@@ -355,6 +405,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
+    cluster_decrement(@location)
     @location.destroy
     LocationsType.where("location_id=#{params[:id]}").each{ |lt|
       lt.destroy

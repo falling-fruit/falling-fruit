@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428234854) do
+ActiveRecord::Schema.define(:version => 20130503191902) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -39,6 +39,20 @@ ActiveRecord::Schema.define(:version => 20130428234854) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "clusters", :force => true do |t|
+    t.string   "method"
+    t.boolean  "muni"
+    t.float    "grid_size"
+    t.integer  "count"
+    t.integer  "zoom"
+    t.float    "center_lat"
+    t.float    "center_lng"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
+    t.spatial  "grid_point", :limit => {:srid=>4326, :type=>"point"}
+    t.spatial  "polygon",    :limit => {:srid=>4326, :type=>"polygon"}
   end
 
   create_table "imports", :force => true do |t|
