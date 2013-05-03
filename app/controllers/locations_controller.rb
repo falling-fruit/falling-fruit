@@ -91,12 +91,31 @@ class LocationsController < ApplicationController
     g = 15 if g > 15
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
       "AND ST_INTERSECTS(grid_point,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
-    @clusters = []
-    Cluster.select("sum(count) as count, center_lat, center_lng").where("zoom = #{g} #{mfilter} #{bound}").group(:grid_point,:center_lat,:center_lng).each{ |c|
-        @clusters.push({:title => number_to_human(c.count),
-          :n => c.count,:lat => c.center_lat,:lng => c.center_lng,
-          :picture => "http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/images/m3.png",
-          :width => 66, :height => 65, :marker_anchor => [0,0]})
+    total = 0
+    @clusters = {}
+    Cluster.where("zoom = #{g} #{mfilter} #{bound}").each{ |c|
+        if @clusters[c.grid_point].nil?
+          @clusters[c.grid_point] = { :n => [c.count],:lat => [c.center_lat],:lng => [c.center_lng] }
+        elsif
+          @clusters[c.grid_point][:n] << c.count
+          @clusters[c.grid_point][:lat] << c.center_lat
+          @clusters[c.grid_point][:lng] << c.center_lng 
+        end
+        total += c.count
+    }
+    @clusters = @clusters.collect{ |k,v|
+      v[:lat] = (0..v[:lat].length-1).collect{ |i| v[:lat][i]*(v[:n][i].to_f/v[:n].sum.to_f) }.sum
+      v[:lng] = (0..v[:lng].length-1).collect{ |i| v[:lng][i]*(v[:n][i].to_f/v[:n].sum.to_f) }.sum
+      v[:merged] = v[:n].length
+      v[:n] = v[:n].sum
+      v[:title] = number_to_human(v[:n])
+      v[:marker_anchor] = [0,0]
+      pct = ((100.0*v[:n].to_f/total)/10.0).round * 10
+      pct = 30 if pct < 30
+      v[:picture] = "/icons/bluedot#{pct}.png"
+      v[:width] = pct
+      v[:height] = pct
+      v
     }
     respond_to do |format|
       format.json { render json: @clusters }
