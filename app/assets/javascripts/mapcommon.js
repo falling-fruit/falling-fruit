@@ -97,10 +97,10 @@
         bstr = 'nelat=' + ne.lat() + '&nelng=' + ne.lng() + 
                '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
       }
-      mstr = 0;
-      if(muni) mstr = 1;
+      if(muni) mstr = '';
+      else mstr = 'muni=0&';
       if(pb != null) pb.start(200);
-      new Ajax.Request('/locations/cluster.json?muni=' + mstr + '&' + gstr + '&' + bstr, {
+      new Ajax.Request('/locations/cluster.json?' + mstr + gstr + '&' + bstr, {
                 method: 'get',
                 onSuccess: function(response) {
                   json = jQuery.parseJSON(response.responseText);
