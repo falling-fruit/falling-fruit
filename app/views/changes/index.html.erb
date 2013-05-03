@@ -2,29 +2,26 @@
 <b>Recent changes</b> <span style="font-style: italic; color: grey;">(since April 28, 2013)</span>
 </p>
 
-<% timeago = Array.new %> 
-<% @changes.each do |c| %>
-<% timeago << time_ago_in_words(c.created_at, include_seconds = false) %>
-<% end %>
-<% sets = timeago.each_with_index.group_by(&:first) %>
-<% sets.each do |(time, matches)| %>
+<% @changes.collect{ |c| faster_time_ago_in_words(c.created_at) }.each_with_index.group_by(&:first).each{ |(time, matches)| %>
   <%= time %> ago
   <blockquote>
   <% matches.each do |match| %>
     <% c = @changes[match[1]] %>
     <% unless c.location.nil? %>
-      <a href="/locations/<%= c.location.id %>"><%= c.location.title %></a> (#<%= c.location.id %>) was <%= c.description.sub("created","added") %>.
+      <a href="/locations/<%= c.location.id %>"><%= c.location.title %></a> (#<%= c.location.id %>) was <%= c.description %>.
     <% else %>
       <%= c.description %>.
     <% end %>
-    <span style="font-style: italic; color: lightgrey;">
+   <% if admin_signed_in? %>
+    <span style="color: grey;">
     <% if c.admin.nil? %>
       [<%= c.remote_ip %>]
     <% else %>
-      [admins]
+      [A]
     <% end %>
     </span>
+    <% end %>
     <br />
   <% end %>
   </blockquote>
-<% end %>
+<% } %>

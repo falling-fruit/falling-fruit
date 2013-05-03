@@ -344,7 +344,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
         cluster_increment(@location)
-        log_changes(@location,"created")
+        log_changes(@location,"added")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
