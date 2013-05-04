@@ -18,4 +18,4 @@ WHERE l.import_id IS NULL AND lt.location_id=l.id
 GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop,
 l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating,
 l.yield_rating, l.access
-) TO '/tmp/ff.csv' CSV HEADER;
+) TO stdout CSV HEADER;
