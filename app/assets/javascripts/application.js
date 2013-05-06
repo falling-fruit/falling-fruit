@@ -13,11 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require prototype
-//= require prototype_ujs
-//= require effects
-//= require dragdrop
-//= require controls
 //= require select2
 //= require sprintf
 //= require dataTables/jquery.dataTables

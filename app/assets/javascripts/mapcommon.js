@@ -100,66 +100,73 @@
       if(muni) mstr = '';
       else mstr = 'muni=0&';
       if(pb != null) pb.start(200);
-      new Ajax.Request('/locations/cluster.json?' + mstr + gstr + '&' + bstr, {
-                method: 'get',
-                onSuccess: function(response) {
-                  json = jQuery.parseJSON(response.responseText);
-                  if(json.length > 0){
-                    clear_markers();
-                    add_markers_from_json(json,true);
-                  }
-                  if(pb != null) pb.hide();
-                },
-                onFailure: function() {  
-                  if(pb != null) pb.hide();
-                }
-              });
+      var request = $.ajax({
+        type: 'GET',
+        url: '/locations/cluster.json?' + mstr + gstr + '&' + bstr,
+        dataType: 'json'
+      });
+      request.done(function(json){
+        if(json.length > 0){
+          clear_markers();
+          add_markers_from_json(json,true);
+        }
+        if(pb != null) pb.hide();
+      });
+      request.fail(function() {  
+        if(pb != null) pb.hide();
+      });
   }
 
   function open_marker_by_id(id,lat,lng){
     for (var i = 0; i < markersArray.length; i++ ) {
       if(markerIdArray[i] == id){
-        new Ajax.Request('/locations/' + id + '/infobox', {
-          onSuccess: function(response) {
-            var infowindow = new google.maps.InfoWindow({content: response.responseText });
-            google.maps.event.addListener(infowindow,'closeclick',function(){
-              openInfoWindow = null;
-              openMarker = null;
-            });
-            infowindow.open(map, markersArray[i]);
-            openInfoWindow = infowindow;
-          }
+        var request = $.ajax({
+          type: 'GET',
+          url: '/locations/' + id + '/infobox',
+          dataType: 'html'
+        });
+        request.done(function(html){
+          var infowindow = new google.maps.InfoWindow({content: html });
+          google.maps.event.addListener(infowindow,'closeclick',function(){
+            openInfoWindow = null;
+            openMarker = null;
+          });
+          infowindow.open(map, markersArray[i]);
+          openInfoWindow = infowindow;
         });
         openMarker = markersArray[i];
         return true;
       }
     }
     // didn't find it, manually fetch & add it
-    new Ajax.Request('/locations/marker.json?id=' + id + '&', {
-              method: 'get',
-              onSuccess: function(response) {
-                json = jQuery.parseJSON(response.responseText);
-                add_markers_from_json(json,false);
-                // make marker clickable
-                add_marker_infobox(markersArray.length-1);
-                // filter and labels
-                if(labelsOn) labelize_markers();
-                search_filter(last_search);
-                // open infobox
-                new Ajax.Request('/locations/' + id + '/infobox', {
-                  onSuccess: function(response) {
-                    var infowindow = new google.maps.InfoWindow({content: response.responseText });
-                    google.maps.event.addListener(infowindow,'closeclick',function(){
-                      openInfoWindow = null;
-                      openMarker = null;
-                    });
-                    infowindow.open(map, markersArray[markersArray.length-1]);
-                    openInfoWindow = infowindow;
-                  }
-               });
-               openMarker = markersArray[markersArray.length-1];
-             },
-             onFailure: function() {}
+    var request = $.ajax({
+      type: 'GET',
+      url: '/locations/marker.json?id=' + id,
+      dataType: 'json'
+    });
+    request.done(function(json){
+      add_markers_from_json(json,false);
+      // make marker clickable
+      add_marker_infobox(markersArray.length-1);
+      // filter and labels
+      if(labelsOn) labelize_markers();
+      search_filter(last_search);
+      // open infobox
+      var request2 = $.ajax({
+        type: 'GET',
+        url: '/locations/' + id + '/infobox',
+        dataType: 'html'
+      });
+      request2.done(function(html){
+        var infowindow = new google.maps.InfoWindow({content: html });
+        google.maps.event.addListener(infowindow,'closeclick',function(){
+          openInfoWindow = null;
+          openMarker = null;
+        });
+        infowindow.open(map, markersArray[markersArray.length-1]);
+        openInfoWindow = infowindow;
+      });
+      openMarker = markersArray[markersArray.length-1];
     });
     return true;
   }
@@ -170,16 +177,19 @@
     google.maps.event.addListener(marker, 'click', function(){
       if(openMarker === marker) return;
       if(openInfoWindow != null) openInfoWindow.close()
-      new Ajax.Request('/locations/' + id + '/infobox', {
-        onSuccess: function(response) {
-          var infowindow = new google.maps.InfoWindow({content: response.responseText });
-          google.maps.event.addListener(infowindow,'closeclick',function(){
-            openInfoWindow = null;
-            openMarker = null;
-          });
-          infowindow.open(map, marker);
-          openInfoWindow = infowindow;
-        }
+      var request = $.ajax({
+        type: 'GET',
+        url: '/locations/' + id + '/infobox',
+        dataType: 'html'
+      });
+      request.done(function(html){
+        var infowindow = new google.maps.InfoWindow({content: html });
+        google.maps.event.addListener(infowindow,'closeclick',function(){
+          openInfoWindow = null;
+          openMarker = null;
+        });
+        infowindow.open(map, marker);
+        openInfoWindow = infowindow;
       });
       openMarker = marker;
     });
@@ -204,46 +214,46 @@
     mstr = 0;
     if(muni) mstr = 1;
     if(pb != null) pb.start(200);
-    new Ajax.Request('/locations/markers.json?muni=' + mstr + '&' + bstr, {
-              method: 'get',
-              onSuccess: function(response) {
-                json = jQuery.parseJSON(response.responseText);
-                if(pb != null) pb.setTotal(json.length);
-                // remove any cluster-type markers 
-                var i = markerIdArray.indexOf(undefined);
-                while(i >= 0){
-                  markersArray[i].setMap(null);
-                  markersArray[i] = null;
-                  markerIdArray[i] = null;
-                  markersArray.splice(i,1);
-                  markerIdArray.splice(i,1);
-                  i = markerIdArray.indexOf(undefined);
-                }
-                add_markers_from_json(json,false,skip_id);
-                // make markers clickable
-                for (var i = 0; i < markersArray.length; ++i) {
-                  add_marker_infobox(i);
-                }
+    var request = $.ajax({
+      type: 'GET',
+      url: '/locations/markers.json?muni=' + mstr + '&' + bstr,
+      dataType: 'json'
+    });
+    request.done(function(json){
+      if(pb != null) pb.setTotal(json.length);
+      // remove any cluster-type markers 
+      var i = markerIdArray.indexOf(undefined);
+      while(i >= 0){
+        markersArray[i].setMap(null);
+        markersArray[i] = null;
+        markerIdArray[i] = null;
+        markersArray.splice(i,1);
+        markerIdArray.splice(i,1);
+        i = markerIdArray.indexOf(undefined);
+      }
+      add_markers_from_json(json,false,skip_id);
+      // make markers clickable
+      for (var i = 0; i < markersArray.length; ++i) {
+        add_marker_infobox(i);
+      }
 
-                if(labelsOn) labelize_markers();
+      if(labelsOn) labelize_markers();
 
-                n = json.length;
-                if(n > 0){
-                  nt = json[0]["n"];
-                  if((n < nt) && (nt >= 500)){
-                    $("pg_text").innerHTML = n + " of " + nt + " visible";
-                  }else{
-                    pb.hide();
-                  }
-                }else{
-                  pb.hide();
-                }
-
-                search_filter(last_search);
-              },
-              onFailure: function() { 
-                if(pb != null) pb.hide();
-              }
+      n = json.length;
+      if(n > 0){
+        nt = json[0]["n"];
+        if((n < nt) && (nt >= 500)){
+          $("#pg_text").html(n + " of " + nt + " visible");
+        }else{
+          pb.hide();
+        }
+      }else{
+        pb.hide();
+      }
+      search_filter(last_search);
+    });
+    request.fail(function(){
+      if(pb != null) pb.hide();
     });
   }
 
@@ -254,10 +264,10 @@
         loc = new google.maps.LatLng(lat,lon);
         map.panTo(loc);
         map.setZoom(15);
-        $('hidden_controls').show();
+        $('#hidden_controls').show();
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
-          do_markers(map.getBounds(),null,$('muni').checked);
+          do_markers(map.getBounds(),null,$('#muni').is(':checked'));
         });
         var cross = new google.maps.Marker({
           icon: '/cross.png',
@@ -364,11 +374,12 @@
     for(var i = 0; i < len; i++){
       var marker = markersArray[i];
       var label = labelsArray[i];
-      if(marker == undefined) continue;
+      var title = marker.getTitle();
+      if(marker == undefined || title == undefined) continue;
       if(search == ""){
         marker.setVisible(true);
         if(label != undefined) label.set('map',map);
-      }else if(marker.getTitle().search(new RegExp(search,"i")) >= 0){
+      }else if(title.search(new RegExp(search,"i")) >= 0){
         marker.setVisible(true);
         if(label != undefined) label.set('map',map);
       }else{
@@ -380,14 +391,14 @@
 
   // see: https://developers.google.com/maps/documentation/javascript/geocoding 
   function recenter_map_to_address() {
-    geocoder.geocode( { 'address': $("address").value }, function(results, status) {
+    geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setZoom(15)
         map.panTo(results[0].geometry.location);
-        $('hidden_controls').show();
+        $('#hidden_controls').show();
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
-          do_markers(map.getBounds(),null,$('muni').checked);
+          do_markers(map.getBounds(),null,$('#muni').is(':checked'));
         });
         var cross = new google.maps.Marker({
           icon: '/cross.png',

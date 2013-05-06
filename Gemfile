@@ -27,7 +27,8 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'prototype-rails'
+gem 'jquery_mobile_rails'
+#gem 'prototype-rails'
 gem 'select2-rails'
 gem 'jquery-datatables-rails'
 

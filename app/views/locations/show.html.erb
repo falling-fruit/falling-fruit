@@ -68,10 +68,10 @@
 
   // hide the 'zoom to me' button if browser isn't supporting geolocation
   if(!navigator.geolocation){
-    $('recenter_button').hide();
+    $('#recenter_button').hide();
   }
   navigator.geolocation.getCurrentPosition(function(position){},function(error){
-    $('recenter_button').hide();
+    $('#recenter_button').hide();
   });
 </script>
 <%= javascript_include_tag "maplabel" %>

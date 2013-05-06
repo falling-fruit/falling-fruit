@@ -62,13 +62,13 @@
       });
     });
 
-    if($('location_lat').value == "" && $('location_lng').value == ""){
+    if($('#location_lat').val() == "" && $('#location_lng').val() == ""){
       navigator.geolocation.getCurrentPosition(function(position){
         // Case #2
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
-        $('location_lat').value = lat;
-        $('location_lng').value = lon;
+        $('#location_lat').val(lat);
+        $('#location_lng').val(lon);
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(lat,lon), 
           map: map,
@@ -82,8 +82,8 @@
         });
         nag.open(map,marker);  
         google.maps.event.addListener(marker, 'dragend', function() {
-          $("location_lat").value = this.getPosition().lat();
-          $("location_lng").value = this.getPosition().lng();
+          $("#location_lat").val(this.getPosition().lat());
+          $("#location_lng").val(this.getPosition().lng());
         });
         // update markers once we're done panning and zooming
         google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -95,16 +95,16 @@
       var watchID = navigator.geolocation.watchPosition(function(position) {
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
-        $('location_lat').value = lat;
-        $('location_lng').value = lon;
+        $('#location_lat').val(lat);
+        $('#location_lng').val(lon);
         marker.setPosition(new google.maps.LatLng(lat,lon));
       },function(error){
         //...
       },{enableHighAccuracy:true, maximumAge:30000, timeout:30000});
     }else{
       // Case #1
-      var lat = $("location_lat").value;
-      var lng = $("location_lng").value;
+      var lat = $("#location_lat").val();
+      var lng = $("#location_lng").val();
       marker = new google.maps.Marker({
         icon: '',
         position: new google.maps.LatLng(lat,lng), 
@@ -118,8 +118,8 @@
       });
       nag.open(map,marker);  
       google.maps.event.addListener(marker, 'dragend', function() {
-        $("location_lat").value = this.getPosition().lat();
-        $("location_lng").value = this.getPosition().lng();
+        $("#location_lat").val(this.getPosition().lat());
+        $("#location_lng").val(this.getPosition().lng());
       });
       // update markers once we're done panning and zooming
       google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -129,15 +129,15 @@
   }
 
   function update_marker(){
-    if($("location_address").value == "") return;
-    geocoder.geocode( { 'address': $("location_address").value }, function(results, status) {
+    if($("#location_address").val() == "") return;
+    geocoder.geocode( { 'address': $("#location_address").val() }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.panTo(results[0].geometry.location);
         map.setZoom(15);
         var lat = results[0].geometry.location.lat();
         var lng = results[0].geometry.location.lng();
-        $("location_lat").value = lat;
-        $("location_lng").value = lng;
+        $("#location_lat").val(lat);
+        $("#location_lng").val(lng);
         if(marker != null){
           marker.setMap(null);
           marker = null;
@@ -153,8 +153,8 @@
         });
         nag.open(map,marker);  
         google.maps.event.addListener(marker, 'dragend', function() {
-          $("location_lat").value = this.getPosition().lat();
-          $("location_lng").value = this.getPosition().lng();
+          $("#location_lat").val(this.getPosition().lat());
+          $("#location_lng").val(this.getPosition().lng());
         });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
