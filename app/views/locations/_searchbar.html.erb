@@ -19,5 +19,8 @@
    <span id="export_data" style="display: none;">
     &middot; <a href="#" id="get_data_link">Export Data</a>
     </span>
+    <% if mobile_device? %>
+    &modot;<%= link_to "Mobile Site", :mobile => 1 %>
+    <% end %>
  </div>
 </div>

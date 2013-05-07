@@ -304,7 +304,7 @@
     var infowindow = new google.maps.InfoWindow({
         content: '<div id="newmarker">' +
                  '<a href="/locations/new?lat=' + latLng.lat() + '&lng=' + latLng.lng() + 
-                 '">Click to add a source here</a><br><span class="subtext">(You can drag this thing too)</span></div>'
+                 '" data-ajax="false">Click to add a source here</a><br><span class="subtext">(You can drag this thing too)</span></div>'
     });
     infowindow.open(map,marker);
     // Listen to drag & drop

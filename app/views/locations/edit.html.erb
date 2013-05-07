@@ -52,8 +52,8 @@
       });
     });
   
-    var lat = $("location_lat").value;
-    var lng = $("location_lng").value;
+    var lat = $("#location_lat").val();
+    var lng = $("#location_lng").val();
     marker = new google.maps.Marker({
       icon: '',
       position: new google.maps.LatLng(lat,lng), 
@@ -67,12 +67,12 @@
     });
     nag.open(map,marker);  
     google.maps.event.addListener(marker, 'dragend', function() {
-      $("location_lat").value = this.getPosition().lat();
-      $("location_lng").value = this.getPosition().lng();
+      $("#location_lat").val(this.getPosition().lat());
+      $("#location_lng").val(this.getPosition().lng());
     });
     // update markers once we're done panning and zooming
     google.maps.event.addListenerOnce(map, 'idle', function(){
-      do_markers(map.getBounds(),$("location_id").value,true);
+      do_markers(map.getBounds(),$("#location_id").val(),true);
     });
   }
 
