@@ -1,0 +1,149 @@
+<div id="mobile-form">
+
+<% if @location.errors.any? %>
+<ul data-role="listview" data-theme="e">
+<% @location.errors.full_messages.each do |msg| %>
+ <li>Error: <%= msg %>
+<% end %>
+</ul>
+<% end %>
+
+<!-- Source Form -->
+<%= form_for(@location,{:html => {'data-ajax' => 'false'}}) do |f| %>
+  <%= f.hidden_field :id %>
+  <%= hidden_field_tag(:create_another, '1') %>
+
+<div data-role="fieldcontain">
+  <!-- Type -->
+  <fieldset data-role="controlgroup">
+    <legend>Type<br>
+    <span class="subtext">What'd you find? Be as specific as possible. Suggest a new plant name if you can't find yours in the list.</span><br>
+    </legend>
+    <% @location.locations_types.each do |lt|  %>
+      <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
+        <fieldset data-role="controlgroup">
+        <div class="type">
+        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{}) %><br>
+        <%= f2.text_field :type_other, :size => 15 %>
+        <%= link_to_function "Remove", "$(this).parent().remove()" %><br>
+        </div>
+        </fieldset>
+      <% end %>
+    <% end %>
+    <% if @current_action == "new" or @current_action == "create" %>
+    <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
+      <div class="type">
+      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{}) %><br>
+      <%= f2.text_field :type_other, :size => 15, :value => 'Or, something not in the list...', :onclick => 'this.value="";' %>
+      </div>
+    <% end %>
+    <% end %>
+  <br>
+  <fieldset data-role="controlgroup">
+  <%= 
+    task = render(:partial => 'locations_type', :formats => [:mobile], :locals => { :pf => f, :lt => LocationsType.new })
+    func_str = <<EOF
+      var new_locations_type_id = "new_" + new Date().getTime();
+      $('#{ escape_javascript task }'.replace(/new_\\d+/g, new_locations_type_id)).insertAfter($('.type').last());
+      $('#location_locations_types_' + new_locations_type_id + '_type_id').selectmenu();
+      $('#location_locations_types_' + new_locations_type_id + '_type_other').textinput();
+      $('#' + new_locations_type_id + '_button').button();
+EOF
+    link_to_function "Add Another", func_str, {'data-role' => 'button', 'data-ajax' => 'false', 'data-mini' => 'true', 'data-inline' => 'true'}
+   %>
+   </fieldset>
+   </fieldset>
+  
+  <br>  
+  <!-- Address -->
+  <% if @current_action == "new" or @current_action == "create" %>
+  <fieldset data-role="controlgroup">
+    <legend>Address:<br />
+    <span class="subtext">Address can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span>
+    </legend>
+    <%= f.text_area :address, :size => "40x2" %><br>
+    <a href="#" onclick="update_marker();" data-role="button" data-ajax="false" data-mini="true" data-inline="true">Move marker to address</a>
+  </fieldset>
+  <% end %>
+  <br>
+  <fieldset data-role="controlgroup">
+  <legend>Location:<br>
+  <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span>
+  </legend>
+  <%= f.text_field :lat, :size => 12, :value => @lat, 'data-inline' => 'true' %> (Latitude)<br>
+  <%= f.text_field :lng, :size => 12, :value => @lng, 'data-inline' => 'true' %> (Longitude)
+  </fieldset>
+  <br>
+  <!-- Author (if new or admin) -->
+  <fieldset data-role="controlgroup">
+    <legend>Author<br />
+    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br>
+    </legend>
+    <%= f.text_field :author, :size => 40 %>
+    <span>
+  </fieldset>
+  <br>
+  <!-- Description -->
+  <fieldset data-role="controlgroup">
+    <legend>Description<br>
+    <span class="subtext">Location details, access issues, plant health...</span><br>
+    </legend>
+    <%= f.text_area :description, :size => "50x10" %>
+  </fieldset>
+  <br>  
+  <!-- Season -->
+  <fieldset data-role="controlgroup">
+    <legend>Season<br />
+    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br>
+    </legend>
+    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>
+    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>
+    <label><%= f.check_box(:no_season) %> No Season</label>
+  </fieldset>
+  <br>  
+  <!-- Unverified -->
+  <fieldset data-role="controlgroup">
+    <legend>Unverified<br>
+    <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
+    </legend>
+    <label><%= f.check_box(:unverified) %> Unverified</label>
+  </fieldset>
+  <br>  
+  <!-- Quality Rating -->
+  <fieldset data-role="controlgroup">
+    <legend>Quality Rating<br />
+    <span class="subtext">Rate the tastiness of this source.</span>
+    </legend>
+    <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+  </fieldset>
+  <br>  
+  <!-- Yield Rating -->
+  <fieldset data-role="controlgroup">
+    <legend>Yield Rating<br />
+    <span class="subtext">Rate the productivity of this source.</span>
+    </legend>
+    <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+  </fieldset>
+  <br>  
+  <!-- Access -->
+  <fieldset data-role="controlgroup">
+    <legend>Access<br />
+    <span class="subtext">Access status of this source. Leave blank if you don't know.</span>
+    </legend>
+    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
+  </fieldset>
+
+  
+  <br>
+  <!-- Submit -->
+    <!-- Captcha -->
+    <div id="captcha">
+    <%= recaptcha_tags(:display => {:theme => 'clean'}) if current_admin.nil? %>
+    </div>
+    <br><br>
+    <%= f.submit "Submit", 'data-ajax' => 'false' %>
+  
+<% end %>
+</form>
+
+</div>

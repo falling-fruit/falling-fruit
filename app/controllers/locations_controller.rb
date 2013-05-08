@@ -1,5 +1,8 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
+  before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
+
+  #################### HELPERS #####################
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"
@@ -79,6 +82,8 @@ class LocationsController < ApplicationController
       n.to_s
     end
   end
+
+  #################### ROUTED METHODS ##################
 
   def cluster
     mfilter = ""
@@ -318,6 +323,7 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     respond_to do |format|
       format.html
+      format.mobile
     end
   end
 
@@ -335,6 +341,7 @@ class LocationsController < ApplicationController
     end
     respond_to do |format|
       format.html # new.html.erb
+      format.mobile
     end
   end
 
@@ -345,6 +352,7 @@ class LocationsController < ApplicationController
     @lng = @location.lng
     respond_to do |format|
       format.html
+      format.mobile
     end
   end
 
@@ -355,8 +363,11 @@ class LocationsController < ApplicationController
       lt_seen = {}
       lts = params[:location][:locations_types].collect{ |dc,data| 
         lt = LocationsType.new
-        lt.type_id = data[:type_id] unless data[:type_id].nil? or (data[:type_id].strip == "")
-        lt.type_other = data[:type_other] unless data[:type_id].nil? or (data[:type_other].strip == "")
+        unless data[:type_id].nil? or (data[:type_id].strip == "")
+          lt.type_id = data[:type_id]
+        else
+          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
+        end
         k = lt.type_id.nil? ? lt.type_other : lt.type_id
         if lt.type_id.nil? and lt.type_other.nil?
           lt = nil
@@ -380,11 +391,14 @@ class LocationsController < ApplicationController
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
+          format.mobile { redirect_to new_location_path, notice: 'Location was successfully created.' }
         else
           format.html { redirect_to @location, notice: 'Location was successfully created.' }
+          format.mobile { redirect_to @location, notice: 'Location was successfully created.' }
         end
       else
         format.html { render action: "new" }
+        format.mobile { render action: "new" }
       end
     end
   end
@@ -407,8 +421,11 @@ class LocationsController < ApplicationController
       lt_seen = {}
       params[:location][:locations_types].each{ |dc,data|
         lt = LocationsType.new
-        lt.type_id = data[:type_id] unless data[:type_id].nil? or (data[:type_id].strip == "")
-        lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
+        unless data[:type_id].nil? or (data[:type_id].strip == "")
+          lt.type_id = data[:type_id]
+        else
+          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
+        end
         next if lt.type_id.nil? and lt.type_other.nil?
         k = lt.type_id.nil? ? lt.type_other : lt.type_id
         next unless lt_seen[k].nil?
@@ -427,8 +444,10 @@ class LocationsController < ApplicationController
         cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
+        format.mobile { redirect_to @location, notice: 'Location was successfully updated.' }
       else
         format.html { render action: "edit" }
+        format.mobile { render action: "edit" }
       end
     end
   end
@@ -446,6 +465,7 @@ class LocationsController < ApplicationController
     log_changes(nil,"1 location deleted")
     respond_to do |format|
       format.html { redirect_to locations_url }
+      format.mobile { redirect_to locations_url }
     end
   end
 end

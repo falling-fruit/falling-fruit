@@ -1,6 +1,6 @@
-<%= render 'searchbar' %>
+<%= render "searchbar" %>
 
-<div id="mainmap_container"><div id="map"></div></div>
+<div id="mobile-map"></div>
 
 <% content_for :page_scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
@@ -21,7 +21,7 @@
       center: new google.maps.LatLng(ini_lat,ini_lng),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    map = new google.maps.Map(document.getElementById('mobile-map'),mapOptions);
     geocoder = new google.maps.Geocoder();
 
     pb = progressBar();

@@ -1,4 +1,4 @@
-<div id="editmap_container"><div id="map"></div></div>
+<div id="mobile-top-map"></div>
 
 <% content_for :page_scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
@@ -15,7 +15,7 @@
       center: new google.maps.LatLng(37.269174,-119.306607),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    map = new google.maps.Map(document.getElementById('mobile-top-map'),mapOptions);
     geocoder = new google.maps.Geocoder();
     map.setTilt(0);
     
@@ -86,5 +86,7 @@
 <%= javascript_include_tag "progressBar" %>
 <%= javascript_include_tag "richmarker" %>
 <% end %>
+
+<%= render 'notices' %>
 
 <%= render 'form' %>

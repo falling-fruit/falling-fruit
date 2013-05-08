@@ -1,0 +1,10 @@
+<fieldset data-role="controlgroup">
+<div class="type">
+<br>
+<%= pf.fields_for :locations_types, lt, :index => "new_42" do |f2| %>
+ <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{}) %><br>
+ <%= f2.text_field :type_other, :size => 15, :value => 'Or, something not in the list...' %>
+ <%= link_to_function "Remove", "$(this).parent().remove()", {'data-role' => 'button', 'data-ajax' => 'false', 'data-mini' => 'true', 'data-inline' => 'true', :id => 'new_42_button'} %><br>
+<% end %>
+</div>
+</fieldset>

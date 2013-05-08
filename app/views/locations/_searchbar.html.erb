@@ -10,8 +10,8 @@
    <span id="hidden_controls" style="display:none;">
      &middot; <b>Filter</b>
      <input name="search" id="search" value="Search term (e.g. Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }" size="25">
-     <button onclick="search_filter($('search').value);">Apply</button>
-     <button onclick="$('search').value = '';search_filter('');">Clear</button>
+     <button onclick="search_filter($('#search').val());">Apply</button>
+     <button onclick="$('#search').val('');search_filter('');">Clear</button>
      &middot; <b>Labels</b> <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); }">
      </span>
    &middot;
@@ -19,5 +19,8 @@
    <span id="export_data" style="display: none;">
     &middot; <a href="#" id="get_data_link">Export Data</a>
     </span>
+    <% if mobile_device? %>
+    &modot;<%= link_to "Mobile Site", :mobile => 1 %>
+    <% end %>
  </div>
 </div>

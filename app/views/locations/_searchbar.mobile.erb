@@ -1,0 +1,25 @@
+<div id="mobile-controls">
+
+<%= render 'notices' %>
+
+<a href="/locations/new" data-role="button" data-mini="true" rel="external">Add Source</a>
+<br>
+<input id="address" name="address" value="Enter an address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30" data-inline="true">
+
+<fieldset data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+<button onclick="recenter_map_to_address();" data-mini="true" rel="external">Zoom to Address</button>
+<button onclick="recenter_map();" data-mini="true" rel="external" id="recenter_button">Zoom to Me</button>
+</fieldset>
+<br>
+
+<label><input type="checkbox" id="muni" value="1" rel="external" data-mini="true" data-inline="true" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%>>Municipal</label>
+
+<label><input type="checkbox" id="labels" value="1" rel="external" data-mini="true" data-inline="true" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); }">Labels</label>
+
+<br>
+<div style="text-align: center;">
+<a href="#" id="get_data_link">Export Data</a> &middot;
+<a href="/" id="permalink">Permalink</a>
+</div>
+
+</div>
