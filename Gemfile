@@ -33,7 +33,7 @@ gem 'jquery-datatables-rails'
 
 gem 'geocoder'
 gem 'devise'
-gem 'thin'
+gem 'thin', "~> 1.3.1"
 gem 'pg'
 gem 'yaml_db'
 gem 'paperclip', '~> 3.1'
