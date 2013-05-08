@@ -1,5 +1,7 @@
 <div id="mobile-controls">
 
+<%= render 'notices' %>
+
 <a href="/locations/new" data-role="button" data-mini="true" rel="external">Add Source</a>
 <br>
 <input id="address" name="address" value="Enter an address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30" data-inline="true">

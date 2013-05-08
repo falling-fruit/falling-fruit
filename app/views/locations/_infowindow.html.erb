@@ -77,9 +77,9 @@
 <table id="footer">
 	<tr>
  		<td id="controls">
- 		<a href="/locations/<%= location.id %>">link</a><a href="/locations/<%= location.id %>/edit">edit</a>
+ 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external">link</a><a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external">edit</a>
  		<% if admin_signed_in? %>
-  		<%= link_to 'delete', location, method: :delete, data: { confirm: 'Are you sure?' } %>
+  		<%= link_to('delete', location, method: :delete, data: { confirm: 'Are you sure?' }) %>
  		<% end %>
  		</td>
   	<td id="added_by">by <i><%= (location.author.nil? or (location.author.strip.length == 0)) ? "Anonymous" : location.author %></i></td>

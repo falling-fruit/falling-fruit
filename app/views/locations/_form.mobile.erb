@@ -11,8 +11,6 @@
 <!-- Source Form -->
 <%= form_for(@location,{:html => {'data-ajax' => 'false'}}) do |f| %>
   <%= f.hidden_field :id %>
-  <%= f.hidden_field :lat, :size => 12, :value => @lat %>
-  <%= f.hidden_field :lng, :size => 12, :value => @lng %>
   <%= hidden_field_tag(:create_another, '1') %>
 
 <div data-role="fieldcontain">
@@ -21,19 +19,59 @@
     <legend>Type<br>
     <span class="subtext">What'd you find? Be as specific as possible. Suggest a new plant name if you can't find yours in the list.</span><br>
     </legend>
-    <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
-      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %><br>
-      <%= f2.text_field :type_other, :size => 15, :value => 'Or, something not in the list...', :onclick => 'this.value="";' %>
+    <% @location.locations_types.each do |lt|  %>
+      <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
+        <fieldset data-role="controlgroup">
+        <div class="type">
+        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{}) %><br>
+        <%= f2.text_field :type_other, :size => 15 %>
+        <%= link_to_function "Remove", "$(this).parent().remove()" %><br>
+        </div>
+        </fieldset>
+      <% end %>
     <% end %>
-  </fieldset>
+    <% if @current_action == "new" or @current_action == "create" %>
+    <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
+      <div class="type">
+      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{}) %><br>
+      <%= f2.text_field :type_other, :size => 15, :value => 'Or, something not in the list...', :onclick => 'this.value="";' %>
+      </div>
+    <% end %>
+    <% end %>
+  <br>
+  <fieldset data-role="controlgroup">
+  <%= 
+    task = render(:partial => 'locations_type', :formats => [:mobile], :locals => { :pf => f, :lt => LocationsType.new })
+    func_str = <<EOF
+      var new_locations_type_id = "new_" + new Date().getTime();
+      $('#{ escape_javascript task }'.replace(/new_\\d+/g, new_locations_type_id)).insertAfter($('.type').last());
+      $('#location_locations_types_' + new_locations_type_id + '_type_id').selectmenu();
+      $('#location_locations_types_' + new_locations_type_id + '_type_other').textinput();
+      $('#' + new_locations_type_id + '_button').button();
+EOF
+    link_to_function "Add Another", func_str, {'data-role' => 'button', 'data-ajax' => 'false', 'data-mini' => 'true', 'data-inline' => 'true'}
+   %>
+   </fieldset>
+   </fieldset>
+  
   <br>  
   <!-- Address -->
+  <% if @current_action == "new" or @current_action == "create" %>
   <fieldset data-role="controlgroup">
     <legend>Address:<br />
     <span class="subtext">Address can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span>
     </legend>
     <%= f.text_area :address, :size => "40x2" %><br>
     <a href="#" onclick="update_marker();" data-role="button" data-ajax="false" data-mini="true" data-inline="true">Move marker to address</a>
+  </fieldset>
+  <% end %>
+  <br>
+  <fieldset data-role="controlgroup">
+  <legend>Location:<br>
+  <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span>
+  </legend>
+  <%= f.text_field :lat, :size => 12, :value => @lat, 'data-inline' => 'true' %> (Latitude)<br>
+  <%= f.text_field :lng, :size => 12, :value => @lng, 'data-inline' => 'true' %> (Longitude)
   </fieldset>
   <br>
   <!-- Author (if new or admin) -->

@@ -14,6 +14,5 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.mobile
-//= require select2
 //= require sprintf
 //= require dataTables/jquery.dataTables

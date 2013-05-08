@@ -28,22 +28,10 @@
 <div data-role="header" id="mobile-header">
  <h1><img src="/logo.png" height="20"> <a id="falling_fruit" href="/">FallingFruit.org</a><span id="subtitle"> &mdash; Mapping the urban harvest</span></h1>
  <a href="/?mobile=1" data-ajax="false">Main Map</a>
- <a href="/?mobile=0" data-ajax="false">Non-Mobile Site</a>
+ <a href="/?mobile=0" data-ajax="false">Full Site</a>
 </div>
 
-<% if notice or alert %>
- <ul data-role="listview" data-theme="e">
-  <% if notice %>
-  <li>Notice: <%= notice %>
-  <% end %>
-  <% if alert %>
-  <li>Warning: <%= alert %>
-  <% end %>
- </ul>
-<% end %>
-
 <%= yield %>
-
 
 <!-- Per Page Javascripts -->
 <%= yield :page_scripts %>

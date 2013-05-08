@@ -323,6 +323,7 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     respond_to do |format|
       format.html
+      format.mobile
     end
   end
 
@@ -443,8 +444,10 @@ class LocationsController < ApplicationController
         cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
+        format.mobile { redirect_to @location, notice: 'Location was successfully updated.' }
       else
         format.html { render action: "edit" }
+        format.mobile { render action: "edit" }
       end
     end
   end
@@ -462,6 +465,7 @@ class LocationsController < ApplicationController
     log_changes(nil,"1 location deleted")
     respond_to do |format|
       format.html { redirect_to locations_url }
+      format.mobile { redirect_to locations_url }
     end
   end
 end
