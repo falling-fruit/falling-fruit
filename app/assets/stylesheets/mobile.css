@@ -28,13 +28,14 @@ div#mobile-controls{
   position: absolute;
   top: 49px;
   left: 0;
-  right: 70%;
+  right: 55%;
   bottom: 0;
+  padding-right: 0.5em;
 }
 div#mobile-map{
   position: absolute;
   bottom: 0;
-  left: 30.5%;
+  left: 45%;
   right: 0;
   top: 49px; 
 }

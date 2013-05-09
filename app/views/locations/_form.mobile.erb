@@ -96,8 +96,8 @@ EOF
     <legend>Season<br />
     <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br>
     </legend>
-    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>
-    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>
+    <%= f.select(:season_start,[['From:','']] + Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>
+    <%= f.select(:season_stop,[['To:','']] + Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>
     <label><%= f.check_box(:no_season) %> No Season</label>
   </fieldset>
   <br>  
