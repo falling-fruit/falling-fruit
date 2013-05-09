@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503191902) do
+ActiveRecord::Schema.define(:version => 20130509020018) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20130503191902) do
     t.integer  "import_id"
     t.string   "photo_url"
     t.spatial  "location",       :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.string   "client",                                                                     :default => "web"
   end
 
   add_index "locations", ["location"], :name => "index_locations_on_location", :spatial => true

@@ -11,6 +11,7 @@
 <!-- Source Form -->
 <%= form_for(@location,{:html => {'data-ajax' => 'false'}}) do |f| %>
   <%= f.hidden_field :id %>
+  <%= f.hidden_field(:client, :value => 'mobile' %>
   <%= hidden_field_tag(:create_another, '1') %>
 
 <div data-role="fieldcontain">

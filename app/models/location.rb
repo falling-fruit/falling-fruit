@@ -10,7 +10,7 @@ class Location < ActiveRecord::Base
   validates :lat, :lng, :numericality => true, :allow_nil => false
   validates :quality_rating, :yield_rating, :access, :numericality => { :only_integer => true }, :allow_nil => true
 
-  attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, 
+  attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
                   :no_season, :quality_rating, :yield_rating, :unverified, :access, :locations_types, :import_id, :photo_url
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   acts_as_gmappable :process_geocoding => false, :lat => "lat", :lng => "lng", :address => "address"

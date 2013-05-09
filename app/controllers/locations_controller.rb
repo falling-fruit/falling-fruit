@@ -264,6 +264,7 @@ class LocationsController < ApplicationController
         next if n == 1 or row.join.blank?
         location = Location.build_from_csv(row)
         location.import = import
+        location.client = 'import'
         if params["import"]["geocode"].present? and params["import"]["geocode"].to_i == 1
           location.geocode
         end
