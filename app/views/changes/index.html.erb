@@ -5,27 +5,27 @@
 <% 
 last_days_ago = nil 
 @changes.each do |c| 
-  c.days_ago = c.days_ago.to_i
-  if last_days_ago.nil? or c.days_ago > last_days_ago
-    header = (c.days_ago <= 0) ? "Less than 24 hours ago" : "#{c.days_ago} days ago"
+  c["days_ago"] = c["days_ago"].to_i
+  if last_days_ago.nil? or c["days_ago"] > last_days_ago
+    header = (c["days_ago"] <= 0) ? "Less than 24 hours ago" : "#{c["days_ago"]} days ago"
     if last_days_ago.nil? 
       header = header + "<blockquote>"
     else
       header = "</blockquote>#{header}<blockquote>"
     end
-    last_days_ago = c.days_ago
+    last_days_ago = c["days_ago"]
   end
 %>
 <%= raw header %>
-<% unless c.location.nil? %>
-  <a href="/locations/<%= c.location.id %>"><%= c.location.title %></a> (#<%= c.location.id %>) was <%= c.description %>.
+<% unless c["location_id"].nil? %>
+  <a href="/locations/<%= c["location_id"] %>"><%= c["type_title"] %></a> (#<%= c["location_id"] %>) was <%= c["description"] %>.
 <% else %>
-  <%= c.description %>.
+  <%= c["description"] %>.
 <% end %>
 <% if admin_signed_in? %>
   <span style="color: grey;">
-  <% if c.admin.nil? %>
-    [<%= c.remote_ip %>]
+  <% if c["admin_id"].nil? %>
+    [<%= c["remote_ip"] %>]
   <% else %>
     [A]
   <% end %>
