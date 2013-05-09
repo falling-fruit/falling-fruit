@@ -167,18 +167,13 @@ class LocationsController < ApplicationController
   end
 
   def import
-    if request.post? && params[:import][:csv].present?
-      infile = params[:import][:csv].read
+    if request.post? && params[:csv].present?
+      infile = params[:csv].read
       n = 0
       errs = []
       text_errs = []
       ok_count = 0
-      import = Import.new
-      import.name = params[:import][:name]
-      import.url = params[:import][:url]
-      import.comments = params[:import][:comments]
-      import.license = params[:import][:license]
-      import.muni = params[:import][:muni].present? and params[:import][:muni].to_i == 1
+      import = Import.new(params[:import])
       import.save
       CSV.parse(infile) do |row| 
         n += 1
@@ -186,7 +181,7 @@ class LocationsController < ApplicationController
         location = Location.build_from_csv(row)
         location.import = import
         location.client = 'import'
-        if params["import"]["geocode"].present? and params["import"]["geocode"].to_i == 1
+        if params["geocode"].present? and params["geocode"].to_i == 1
           location.geocode
         end
         if location.valid?
@@ -198,9 +193,9 @@ class LocationsController < ApplicationController
           errs << row
         end
       end
-      log_changes(nil,"#{okay_count} new locations imported from #{import.name} (#{import.import_url})")
+      log_changes(nil,"#{ok_count} new locations imported from #{import.name} (#{import.url})")
       if errs.any?
-        if params["import"]["error_csv"].present? and params["import"]["error_csv"].to_i == 1
+        if params["error_csv"].present? and params["error_csv"].to_i == 1
           errFile ="errors_#{Date.today.strftime('%d%b%y')}.csv"
           errs.insert(0,Location.csv_header)
           errCSV = CSV.generate do |csv|
