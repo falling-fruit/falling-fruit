@@ -2,88 +2,9 @@ class LocationsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:destroy]
   before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
 
-  #################### HELPERS #####################
-
   def expire_things
     expire_fragment "pages_data_type_summary_table"
   end
-
-  def cluster_increment(location)
-    muni = (!location.import.nil? and location.import.muni) ? true : false
-    mq = muni ? "AND muni" : "AND NOT MUNI"
-    found = []
-    Cluster.where("ST_INTERSECTS(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),polygon) #{mq}").each{ |clust|
-      clust.count += 1
-      # since the center lat is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
-      clust.center_lat = ((clust.count-1).to_f/clust.count.to_f)*clust.center_lat + (1.0/clust.count.to_f)*location.lat
-      clust.center_lng = ((clust.count-1).to_f/clust.count.to_f)*clust.center_lng + (1.0/clust.count.to_f)*location.lng
-      clust.save
-      found << clust.zoom
-    }
-    cluster_seed(location,(1..15).to_a - found,muni) unless found.length == 15
-  end
-
-  def cluster_decrement(location)
-    mq = (!location.import.nil? and location.import.muni) ? "AND muni" : "AND NOT muni"
-    Cluster.where("ST_INTERSECTS(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),polygon) #{mq}").each{ |clust|
-      clust.count -= 1
-      if(clust.count <= 0)
-        clust.destroy
-      else
-        # since the center lat is the arithmetic mean of the bag of points, simply remove this points' location proportionally
-        clust.center_lat = (clust.count.to_f/clust.count.to_f)*clust.center_lat - (1.0/clust.count.to_f)*location.lat
-        clust.center_lng = (clust.count.to_f/clust.count.to_f)*clust.center_lng - (1.0/clust.count.to_f)*location.lng
-        clust.save
-      end
-    }
-  end
-
-  def cluster_seed(location,zooms,muni)
-    zooms.each{ |z| 
-      c = Cluster.new
-      c.grid_size = 360/(12.0*(2.0**(z-3))) 
-      r = ActiveRecord::Base.connection.execute <<-SQL
-        SELECT ST_AsText(ST_MakeBox2d(ST_Translate(grid_point,#{c.grid_size/-2.0},#{c.grid_size/-2.0}),
-                                      ST_translate(grid_point,#{c.grid_size/2.0},#{c.grid_size/2.0}))) AS poly_wkt, 
-               ST_AsText(grid_point) as grid_point_wkt 
-        FROM (
-          SELECT ST_SnapToGrid(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),#{c.grid_size},#{c.grid_size}) AS grid_point
-        ) AS gsub
-      SQL
-      r.each{ |row|
-      c.grid_point = row["grid_point_wkt"]
-      c.polygon = row["poly_wkt"]
-      c.count = 1
-      c.center_lat = location.lat
-      c.center_lng = location.lng
-      c.zoom = z
-      c.method = "grid"
-      c.muni = muni
-      c.save
-      } unless r.nil?
-    }
-  end
-
-  def log_changes(location,description)
-    c = Change.new
-    c.location = location
-    c.description = description
-    c.remote_ip = request.remote_ip
-    c.admin = current_admin if admin_signed_in?
-    c.save
-  end
-
-  def number_to_human(n)
-    if n > 999 and n <= 999999
-      (n/1000.0).round.to_s + "K"
-    elsif n > 999999
-      (n/1000000.0).round.to_s + "M"
-    else
-      n.to_s
-    end
-  end
-
-  #################### ROUTED METHODS ##################
 
   def cluster
     mfilter = ""

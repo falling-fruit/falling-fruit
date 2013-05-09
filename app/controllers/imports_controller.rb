@@ -33,6 +33,7 @@ class ImportsController < ApplicationController
       l.locations_types.each{ |lt|
         LocationsType.delete(lt.id)
       }
+      cluster_decrement(l)
       Location.delete(l.id)
     }
     @import.destroy
