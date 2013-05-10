@@ -2,16 +2,16 @@
 
 <% if @location.errors.any? %>
 <ul data-role="listview" data-theme="e">
-<% @location.errors.full_messages.each do |msg| %>
+ <% @location.errors.full_messages.each do |msg| %>
  <li>Error: <%= msg %>
-<% end %>
+ <% end %>
 </ul>
 <% end %>
 
 <!-- Source Form -->
 <%= form_for(@location,{:html => {'data-ajax' => 'false'}}) do |f| %>
   <%= f.hidden_field :id %>
-  <%= f.hidden_field(:client, :value => 'mobile' %>
+  <%= f.hidden_field(:client, :value => 'mobile') %>
   <%= hidden_field_tag(:create_another, '1') %>
 
 <div data-role="fieldcontain">
@@ -142,7 +142,7 @@ EOF
     <%= recaptcha_tags(:display => {:theme => 'clean'}) if current_admin.nil? %>
     </div>
     <br><br>
-    <%= f.submit "Submit", 'data-ajax' => 'false' %>
+    <%= f.submit("Submit", 'data-ajax' => 'false') %>
   
 <% end %>
 </form>
