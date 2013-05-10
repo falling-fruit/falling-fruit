@@ -104,8 +104,8 @@ div#logobar img {
 
 div#share_controls {
   float: right;
-  width: 180px;  /* For some reason, auto width forces icons onto two lines */
-  padding-top: 0.5em;
+  #width: 180px;  /* Width used to be required, but no more? */
+  padding: 0.5em 0.3em 0 0;
 }
 
 div#warnings {
@@ -141,89 +141,82 @@ div#warnings div.alert  {
 /*** Menu ***/
 
 div#menubar {
-  background-color: lightgrey;
+  background-color: #d3d3d3;
+}
+
+div#menubar a, div#menu span {
+  color: #666;
+  height: 100%; /* need to ensure edge reaches bottom of bar */
+  line-height: 2em;
+  padding: 0em 8px;
+  display: inline-block;
+  cursor: hand;
+  cursor: pointer;
+}
+
+div#rightcontrols {
+  float: right;
+}
+
+div#rightcontrols span#admin_email {
+  font-size: 0.85em;
+  font-style: italic;
 }
 
 div#menu {
   overflow: auto;
 }
 
-div#menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 div#menu ul li {
   float: left;
 }
 
-div#menu li a, div#menubar a {
-  color: #666;
-  height: 100%; /* need to ensure edge reaches bottom of bar */
-  line-height: 2em;
-  padding: 0em 8px;
-  display: inline-block;
-}
-
-div#menu li ul{
-  display:none;
-  height:auto;
-  position:absolute;
-  width:225px;
-  z-index:200;
-}
-div#menu li:hover ul{
-  display:block;
-  background: lightblue;
-  border: 1px solid lightgrey;
-}
-
-div#menu li li {
-  display:block;
-  float:none;
-  margin:0px;
-  padding:0px;
-  width:225px;
-}
-div#menu li:hover li a{
-  background:none;
-}
-div#menu li ul a{
-  display:block;
-  font-style:normal;
-  margin:0px;
-  text-align:left;
-}
-div#menu li ul a:hover, div#menu li ul li:hover a{
-  border:0px;
-  background: grey;
-  text-decoration:none;
-}
-
-div#menubar a#maplink {
+div#menu a#maplink {
   padding-left: 12px;
 }
 
-div#menubar div#rightcontrols {
-  float: right;
+div#menu ul li a.currentpage,div#menu ul li span.currentpage {
+  background-color: #fff;
 }
 
-div#menubar a.currentpage {
-  background-color: #FFF;
+div#menu ul li a:hover:not(.currentpage) {
+  color: #fff;
 }
 
-div#menubar a:hover:not(.currentpage) {
-  color: #FFF;
+div#menu ul li:hover span:not(.currentpage) {
+  color: #fff;
 }
 
-div#menubar span#admin_email {
-  font-size: 0.85em;
-  font-style: italic;
+div#menu ul li ul {
+  display: none;
+  height: auto;
+  position: absolute;
+  z-index: 200;
 }
 
-div#menubar span#clickmap {
-  font-size: 0.85em;
+div#menu ul li:hover ul {
+  display: block;
+  background: #eee;
+}
+
+div#menu ul li ul li {
+  display: block;
+  float: none;
+}
+
+div#menu ul li ul li a {
+  border-top: 1px solid #fff;
+  width: 15em;
+  color: #888;
+}
+
+div#menu ul li ul li a.currentpage {
+  background-color: #d3d3d3;
+  color: #666;
+}
+
+div#menu ul li ul li:hover a:not(.currentpage) {
+  color: #E35809;
 }
 
 
