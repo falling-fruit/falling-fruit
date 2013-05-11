@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
   <!-- Type -->
   <div class="field" id="types">
     *<%= f.label :type %><br />
-    <span class="subtext">What'd you find? Be as specific as possible. Suggest a new plant name if you can't find yours in the list.</span><br>
+    <span class="subtext">What'd you find? Be as specific as possible. Suggest a new type if you can't find yours in the list.</span><br>
       <% @location.locations_types.each{ |lt|  %>
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
         <div class="type">
@@ -41,7 +41,6 @@ jQuery(document).ready(function(){
       <div class="type">
       <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
       <%= f2.text_field :type_other, :size => 15 %>
-      <%= link_to_function "[X]", "$(this).parent().remove()" %><br>
       </div>
     <% end %>
     <% end %>

@@ -1,0 +1,11 @@
+convert bluedot100.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot100.png
+convert bluedot90.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot90.png
+convert bluedot80.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot80.png
+convert bluedot70.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot70.png
+convert bluedot60.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot60.png
+convert bluedot50.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot50.png
+convert bluedot40.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot40.png
+convert bluedot30.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot30.png
+convert bluedot20.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot20.png
+convert bluedot10.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot10.png
+convert bluedot0.png -channel R -evaluate multiply 2 -channel G -evaluate multiply 1.25 -channel B -evaluate add 100% -channel A -evaluate multiply 1.5 lightbluedot0.png
