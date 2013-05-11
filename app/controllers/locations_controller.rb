@@ -42,16 +42,13 @@ class LocationsController < ApplicationController
       max_pct = pct if max_pct.nil? or max_pct < pct
       min_pct = pct if min_pct.nil? or min_pct > pct
       v[:pct] = pct
-      v[:picture] = "/icons/bluedot#{pct}.png"
-      v[:width] = pct
-      v[:height] = pct
       v
     }
     @clusters.collect!{ |v|
       pct = (10.0*(v[:pct]-min_pct).to_f/(max_pct.to_f-min_pct.to_f)).round * 10
       pct = 30 if pct < 30
       pct = 80 if pct == 100
-      v[:picture] = "/icons/bluedot#{pct}.png"
+      v[:picture] = "/icons/orangedot#{pct}.png"
       v[:width] = pct
       v[:height] = pct
       v
