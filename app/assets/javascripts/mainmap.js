@@ -22,19 +22,13 @@ function update_display(force,force_zoom){
   var bounds = map.getBounds();
   var center = map.getCenter();
   update_permalink();
-  if(prior_bounds == null && prior_zoom == null && zoom <= 12){
+  if(zoom <= 12){
     $('#hidden_controls').hide();
     $('#export_data').hide();
-    do_clusters(undefined,zoom,$('#muni').is(':checked'));
-    prior_zoom = zoom;
-    prior_bounds = bounds;
-  }
-  if(zoom <= 12){
-    if((zoom != prior_zoom) || force){
-      $('#hidden_controls').hide();
-      $('#export_data').hide();
+    if(zoom > 8)
+      do_clusters(bounds,zoom,$('#muni').is(':checked'));
+    else
       do_clusters(undefined,zoom,$('#muni').is(':checked'));
-    }
   }else if(zoom >= 13){
     $('#get_data_link').attr('href',data_link());
     $('#hidden_controls').show();

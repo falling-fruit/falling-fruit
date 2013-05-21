@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
     g = params[:grid].present? ? params[:grid].to_i : 1
     g = 15 if g > 15
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
-      "AND ST_INTERSECTS(grid_point,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
+      "AND ST_INTERSECTS(polygon,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     total = 0
     @clusters = {}
     Cluster.where("zoom = #{g} #{mfilter} #{bound}").each{ |c|
