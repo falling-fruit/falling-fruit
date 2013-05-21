@@ -27,7 +27,7 @@ function update_display(force,force_zoom){
     $('#export_data').hide();
     if(zoom > 8)
       do_clusters(bounds,zoom,$('#muni').is(':checked'));
-    else
+    else if(zoom != prior_zoom)
       do_clusters(undefined,zoom,$('#muni').is(':checked'));
   }else if(zoom >= 13){
     $('#get_data_link').attr('href',data_link());
