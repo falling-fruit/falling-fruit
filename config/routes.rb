@@ -21,6 +21,10 @@ FallingfruitWebapp::Application.routes.draw do
 
   match 'about' => 'pages#about'
   match 'data' => 'pages#data'
+  match 'press' => 'pages#press'
+  match 'maps' => 'pages#maps'
+  match 'inventories' => 'pages#inventories'
+  match 'sharing' => 'pages#sharing'
 
   devise_for :admins
   resources :admins do
