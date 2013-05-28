@@ -12,8 +12,13 @@ function update_permalink(){
   var center = map.getCenter();
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();
-  $('#permalink').attr('href','/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid);
+  var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid;
+  $('#permalink').attr('href',permalink);
+}
+
+function update_url(object) {
+  window.history.pushState({},"", $(object).attr('href'));
 }
 
 function update_display(force,force_zoom){
@@ -34,6 +39,8 @@ function update_display(force,force_zoom){
     $('#hidden_controls').show();
     $('#export_data').show();
     do_markers(bounds,null,$('#muni').is(':checked'));
+    var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
+    document.getElementById('mainmap_container').style.top = height + 'px';
   }
   prior_zoom = zoom;
   prior_bounds = bounds;

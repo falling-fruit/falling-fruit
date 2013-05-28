@@ -8,18 +8,18 @@
 
 <%= render 'searchbar' %>
 
-<div id="mainmap_container"><div id="map"></div></div>
+<div id="mainmap_container">
+  <div id="map"></div>
+  <p id="attribution" style="display: none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+</div>
 
 <% content_for :page_scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.1"></script>
 <script type="text/javascript" charset="utf-8">
 
   // ================= functions =================
 
-  function ControlSpacer(spacerDiv, map) {
-    spacerDiv.style.height = '3em';
-  }
-    
   function initialize() {
     var ini_zoom = 2;
     // Kearney, Nebraska :P
@@ -27,6 +27,7 @@
     //var ini_lng = -99.09668;
     var ini_lat = 17.30868;
     var ini_lng = -95.27343;
+    var toner = "toner-lite";
     var ini_type = google.maps.MapTypeId.ROADMAP;
     <% unless @perma.nil? %>
       ini_lat = <%= @perma[:lat] %>;
@@ -38,8 +39,16 @@
       zoom: ini_zoom,
       center: new google.maps.LatLng(ini_lat,ini_lng),
       mapTypeId: ini_type,
+      mapTypeControlOptions: {
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
+      }
     };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    
+    var tonerType = new google.maps.StamenMapType(toner);
+    tonerType.name = "B&W";
+    map.mapTypes.set(toner, tonerType);
+    
     geocoder = new google.maps.Geocoder();
     map.setTilt(0);
     
@@ -48,6 +57,7 @@
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_permalink();
+      update_attribution();
     });
 
     google.maps.event.addListener(map, 'rightclick', function(event) {

@@ -411,3 +411,12 @@
       }
     });
   }
+  
+  function update_attribution() {
+  var typeid = map.getMapTypeId();
+  if(typeid == 'toner-lite'){
+    $('#attribution').show();
+  }else{
+    $('#attribution').hide();
+  }
+ }

@@ -47,6 +47,14 @@ h2 {
   font-weight: bold;	
 }
 
+.nowrap {
+		display: inline-block;
+}
+
+#rightcontrols {
+  float: right;
+}
+
 div#map {
   width: 100%;
   margin: 0;
@@ -97,7 +105,7 @@ div#logobar span#subtitle {
 	margin-left: 1em;
 }
 
-div#logobar img {
+div#logobar img#logo {
   float: right;
   height: 100%;
 }
@@ -150,15 +158,18 @@ div#menubar a, div#menu span {
   line-height: 2em;
   padding: 0em 8px;
   display: inline-block;
-  cursor: hand;
-  cursor: pointer;
 }
 
-div#rightcontrols {
-  float: right;
+div#menubar a#mobile_site {
+		color: #2C4D75;
+		font-weight: bold;
 }
 
-div#rightcontrols span#admin_email {
+div#menubar a#mobile_site:hover {
+		color: #E35809;
+}
+		
+span#admin_email {
   font-size: 0.85em;
   font-style: italic;
 }
@@ -169,6 +180,8 @@ div#menu {
 
 div#menu ul li {
   float: left;
+  cursor: hand;
+  cursor: pointer;
 }
 
 div#menu a#maplink {
@@ -227,7 +240,6 @@ div#menu ul li ul li:hover a:not(.currentpage) {
 /*** Searchbar ***/
 
 div#searchbar {
- 	#height: 3em; /* Leaving blank allows menubar to grow for narrow displays*/
 	line-height: 3em;
 	background-color: #FFF;
 	border-bottom: 2px solid #CCC;
@@ -268,11 +280,6 @@ div#searchbar input[type=checkbox] {
   top: -.1em;
 }
 
-div#searchbar a#permalink {
-  float: right;
-}
-
-
 /*** Map ***/
 
 div#mainmap_container {
@@ -289,6 +296,24 @@ div#newmarker {
   font-size: 1em;
   padding-top: 0.7em;
   line-height: 1.3em;
+}
+
+p#attribution {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-size: 0.85em;
+		background: #ddd;
+		padding: 0.2em 0.5em;
+		margin: 0;
+		z-index: 100;
+		border-top: 1px solid #fff;
+		border-left: 1px solid #fff;
+}
+
+p#attribution a {
+		color: #666;
+		text-decoration: underline;
 }
 
 /**********************************************************/

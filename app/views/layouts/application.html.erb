@@ -26,7 +26,7 @@
 <div id="logobar">
 
  <!-- Logo -->
- <img src="/logo.png">
+ <img id="logo" src="/logo.png">
  
  <!-- AddThis Buttons -->
 	<div id="share_controls" class="addthis_toolbox addthis_default_style" >
@@ -37,7 +37,7 @@
 	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
  
  <!-- Title -->
- <a id="falling_fruit" href="/">FallingFruit.org</a><span id="subtitle">Mapping the urban harvest</span>
+ <a id="falling_fruit" href="/">FallingFruit.org</a><a href="/?mobile=1"><img style="height:1.7em;position:relative;top:0.1em;left:0.5em;" src="/mobile.png" title="Mobile site"/></a><span id="subtitle"> Mapping the urban harvest!</span>
  
  <!-- Alerts -->
  <% if notice or alert %>
@@ -56,11 +56,11 @@
 <!-- Menu Bar -->
 <div id="menubar">
  <div id="rightcontrols">
- <% if admin_signed_in? %>
-  <span id="admin_email"><%= current_admin.email %></span> <%= link_to('Account', edit_admin_registration_path) %><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>
- <% else %>
-  <!-- <%= link_to('Admin', admins_path) %> -->
- <% end %>
+		<% if admin_signed_in? %>
+			<span id="admin_email"><%= current_admin.email %></span> <%= link_to('Account', edit_admin_registration_path) %><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>
+		<% else %>
+			<!-- <%= link_to('Admin', admins_path) %> -->
+		<% end %>
  </div>
  <div id="menu">
     <ul>
@@ -72,33 +72,37 @@
       <li><%= link_to('Community Maps', '/maps', :class => (request.fullpath == '/maps') ? 'currentpage' : 'notcurrentpage') %></li>
       <li><%= link_to('In The Press', '/press', :class => (request.fullpath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
     </ul>
-    </li>
     <li><%= link_to('Data', '/data', :class => (request.fullpath == '/data') ? "currentpage" : "notcurrentpage") %></li>
     <li><%= link_to('Changes', '/changes', :class => (request.fullpath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
     <li><%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
-<% if (request.fullpath.split('?')[0] == root_path) and !admin_signed_in? %>
- <span id="clickmap">(or right-click on map)</span>
-<% end %>
-<% if admin_signed_in? %>
-    <!-- Types -->
-    <li><span class="<%= (request.fullpath == types_path or request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
-    <ul>
-      <li><%= link_to('List Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
-      <li><%= link_to('New Type', new_type_path, :class => (request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage") %>
-    </ul>
-    </li>
     
-    <!-- Imports -->
-    <li><span class="<%= (request.fullpath == imports_path or request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage" %>">Imports</span>
-    <ul>
-						<li><%= link_to('List Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %>
-      <li><%= link_to('New Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %>
+				<% if admin_signed_in? %>
+					<!-- Types -->
+					<li><span class="<%= (request.fullpath == types_path or request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
+					<ul>
+							<li><%= link_to('List Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
+							<li><%= link_to('New Type', new_type_path, :class => (request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage") %>
+					</ul>
+					</li>
+				
+					<!-- Imports -->
+					<li><span class="<%= (request.fullpath == imports_path or request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage" %>">Imports</span>
+					<ul>
+							<li><%= link_to('List Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %>
+							<li><%= link_to('New Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %>
+					</ul>
+					</li>
+				
+					<!-- Admins -->
+					<li><%= link_to('Admins', admins_path, :class => (request.fullpath == admins_path) ? "currentpage" : "notcurrentpage") %></li>
+				<% end %>
     </ul>
-    </li>
     
-    <li><%= link_to('Admins', admins_path, :class => (request.fullpath == admins_path) ? "currentpage" : "notcurrentpage") %>
-<% end %></li>
-    </ul>
+    <!-- Click on map! -->
+    <% if (request.fullpath.split('?')[0] == root_path) and !admin_signed_in? %>
+				<span>(or right-click on map)</span>
+			<% end %>
+
  </div>
 </div>
 
