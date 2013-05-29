@@ -30,6 +30,8 @@ function update_display(force,force_zoom){
   if(zoom <= 12){
     $('#hidden_controls').hide();
     $('#export_data').hide();
+    var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
+    document.getElementById('mainmap_container').style.top = height + 'px';
     if(zoom > 8)
       do_clusters(bounds,zoom,$('#muni').is(':checked'));
     else if(zoom != prior_zoom)
