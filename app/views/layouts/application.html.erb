@@ -65,11 +65,13 @@
  <div id="menu">
     <ul>
     <li><%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) ? "currentpage" : "notcurrentpage") %></li>
+    
+    <!-- About -->
     <li><%= link_to('About', '/about', :class => (request.fullpath == '/about') ? "currentpage" : "notcurrentpage") %>
     <ul>
       <li><%= link_to('Tree Inventories', '/inventories', :class => (request.fullpath == '/inventories') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to('Produce Sharing', '/sharing', :class => (request.fullpath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
       <li><%= link_to('Community Maps', '/maps', :class => (request.fullpath == '/maps') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to('Sharing Produce', '/sharing', :class => (request.fullpath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
       <li><%= link_to('In The Press', '/press', :class => (request.fullpath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
     </ul>
     <li><%= link_to('Data', '/data', :class => (request.fullpath == '/data') ? "currentpage" : "notcurrentpage") %></li>
