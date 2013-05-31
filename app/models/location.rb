@@ -13,8 +13,17 @@ class Location < ActiveRecord::Base
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
                   :no_season, :quality_rating, :yield_rating, :unverified, :access, :locations_types, :import_id, :photo_url
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
-  acts_as_gmappable :process_geocoding => false, :lat => "lat", :lng => "lng", :address => "address"
-  before_validation { |record| record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) }
+  reverse_geocoded_by :lat, :lng do |obj,results|
+    if geo = results.first
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+    end
+  end
+  before_validation { |record| 
+    record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) 
+    record.reverse_geocode unless record.lat.nil? or record.lng.nil?  
+  }
   # manually update postgis location object
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
 

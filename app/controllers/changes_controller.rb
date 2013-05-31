@@ -4,7 +4,7 @@ class ChangesController < ApplicationController
   # GET /types.json
   def index
     r = ActiveRecord::Base.connection.execute("SELECT string_agg(coalesce(t.name,lt.type_other),',') as type_title,
-      extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.admin_id, c.description, c.remote_ip
+      extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.admin_id, c.description, c.remote_ip, l.city, l.state, l.country
       FROM changes c, locations l, locations_types lt left outer join types t on lt.type_id=t.id
       WHERE lt.location_id=l.id AND l.id=c.location_id
       GROUP BY l.id, c.location_id, c.admin_id, c.description, c.remote_ip, c.created_at ORDER BY c.created_at DESC LIMIT 100");

@@ -18,9 +18,12 @@ last_days_ago = nil
 %>
 <%= raw header %>
 <% unless c["location_id"].nil? %>
-  <a href="/locations/<%= c["location_id"] %>"><%= c["type_title"].gsub(","," · ") %></a> (#<%= c["location_id"] %>) was <%= c["description"] %>.
+  <a href="/locations/<%= c["location_id"] %>"><%= c["type_title"].gsub(","," · ") %></a> (#<%= c["location_id"] %>) was <%= c["description"] %>
+  <% unless c["country"].nil? %>
+    in <%= [c["city"],c["state"],c["country"]].compact.join(", ") %>
+  <% end %>
 <% else %>
-    <%= c["description"] %>.
+    <%= c["description"] %>
 <% end %>
 <% if admin_signed_in? %>
   <span style="color: #E35809;">
