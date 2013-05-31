@@ -4,6 +4,7 @@
 
 <% content_for :page_scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.1"></script>
 <script type="text/javascript" charset="utf-8">
 
   // set to true once we open the initial infobox
@@ -15,15 +16,23 @@
     var ini_zoom = 15;
     var ini_lat = <%= @location.lat %>;
     var ini_lng = <%= @location.lng %>;
-
+    var toner = "toner-lite";
+    
     var mapOptions = {
       zoom: ini_zoom,
       center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControlOptions: {
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
+        }
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
-
+    
+    var tonerType = new google.maps.StamenMapType(toner);
+    tonerType.name = "B&W";
+    map.mapTypes.set(toner, tonerType);
+    
     pb = progressBar();
     map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
 
@@ -39,7 +48,11 @@
         openInfoWindow = null;
       }
     });
-
+    
+    google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
+      update_attribution();
+    });
+    
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display(true,ini_zoom);
       document.addEventListener("markersloaded",function(event){

@@ -8,10 +8,6 @@
 
   // ================= functions =================
 
-  function ControlSpacer(spacerDiv, map) {
-    spacerDiv.style.height = '3em';
-  }
-    
   function initialize() {
     var ini_zoom = 2;
     // Kearney, Nebraska :P
@@ -29,7 +25,7 @@
     var mapOptions = {
       zoom: ini_zoom,
       center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: ini_type,
+      mapTypeId: ini_type
     };
 
     map = new google.maps.Map(document.getElementById('mobile-map'),mapOptions);
@@ -88,5 +84,5 @@
 <%= javascript_include_tag "progressBar" %>
 <%= javascript_include_tag "richmarker" %>
 <%= javascript_include_tag "mapcommon" %>
-<%= javascript_include_tag "mainmap" %>
+<%= javascript_include_tag "mainmap.mobile" %>
 <% end %>
