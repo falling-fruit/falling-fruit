@@ -39,8 +39,9 @@ class ApplicationController < ActionController::Base
     Cluster.where("ST_INTERSECTS(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),polygon) #{mq}").each{ |clust|
       clust.count += 1
       # since the center lat is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
-      clust.center_lat = ((clust.count-1).to_f/clust.count.to_f)*clust.center_lat + (1.0/clust.count.to_f)*location.lat
-      clust.center_lng = ((clust.count-1).to_f/clust.count.to_f)*clust.center_lng + (1.0/clust.count.to_f)*location.lng
+      # e.g., https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average
+      clust.center_lat = (location.lat + (clust.count-1).to_f*clust.center_lat)/clust.count.to_f
+      clust.center_lng = (location.lng + (clust.count-1).to_f*clust.center_lng)/clust.count.to_f
       clust.save
       found << clust.zoom
     }
@@ -56,8 +57,8 @@ class ApplicationController < ActionController::Base
         clust.destroy
       else
         # since the center lat is the arithmetic mean of the bag of points, simply remove this points' location proportionally
-        clust.center_lat = (clust.count.to_f/clust.count.to_f)*clust.center_lat - (1.0/clust.count.to_f)*location.lat
-        clust.center_lng = (clust.count.to_f/clust.count.to_f)*clust.center_lng - (1.0/clust.count.to_f)*location.lng
+        clust.center_lat = (-1.0*location.lat + (clust.count).to_f*clust.center_lat)/(clust.count+1).to_f
+        clust.center_lng = (-1.0*location.lng + (clust.count).to_f*clust.center_lng)/(clust.count+1).to_f
         clust.save
       end
     }
@@ -69,8 +70,8 @@ class ApplicationController < ActionController::Base
       c = Cluster.new
       c.grid_size = 360/(12.0*(2.0**(z-3)))
       r = ActiveRecord::Base.connection.execute <<-SQL
-        SELECT ST_AsText(ST_MakeBox2d(ST_Translate(grid_point,#{c.grid_size/-2.0},#{c.grid_size/-2.0}),
-                                      ST_translate(grid_point,#{c.grid_size/2.0},#{c.grid_size/2.0}))) AS poly_wkt, 
+        SELECT ST_AsText(ST_MakeBox2d(ST_Translate(grid_point,-#{c.grid_size}/2,-#{c.grid_size}/2),
+                                      ST_translate(grid_point,#{c.grid_size}/2,#{c.grid_size}/2))) AS poly_wkt, 
                ST_AsText(grid_point) as grid_point_wkt 
         FROM (
           SELECT ST_SnapToGrid(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),#{c.grid_size},#{c.grid_size}) AS grid_point
