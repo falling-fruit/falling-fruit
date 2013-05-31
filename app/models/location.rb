@@ -17,7 +17,9 @@ class Location < ActiveRecord::Base
     if geo = results.first
       obj.city = geo.city
       obj.state = geo.state
+      #obj.state_code = geo.state_code
       obj.country = geo.country
+      #obj.country_code = geo.country_code
     end
   end
   before_validation { |record| 
