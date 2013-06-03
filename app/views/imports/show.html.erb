@@ -1,0 +1,37 @@
+<style>
+blockquote{ margin-left: 2em; }
+</style>
+
+<p>
+<% unless @import.url.nil? %>
+<a href="<%= @import.url %>"><%= @import.name %></a>
+<% else %>
+<%= @import.name %>
+<% end %>
+</p>
+
+<p>
+Type: <%= @import.muni ? "Municipal" : "Community" %>
+</p>
+
+<p>
+License:<br><blockquote>
+<% unless @import.license.nil? or @import.license.length == 0 %>
+<%= raw word_wrap(@import.license,:line_width => 80).gsub("\n","<br>") %>
+<% else %>
+<em>No license defined, assume <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Creative Commons Share-Alike Non-Commercial</a></em>.
+<% end %></blockquote>
+</p>
+
+<% unless @import.comments.nil? %>
+<p>
+Comments:
+<blockquote>
+<%= raw word_wrap(@import.comments,:line_width => 80).gsub("\n","<br>") %>
+</blockquote>
+</p>
+<% end %>
+
+<p>
+Imported at: <%= @import.created_at.to_s %>
+</p>
