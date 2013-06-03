@@ -1,5 +1,5 @@
 class ImportsController < ApplicationController
-  before_filter :authenticate_admin!
+  before_filter :authenticate_admin!, :except => [:show]
 
   def index
     @imports = Import.all
@@ -11,6 +11,14 @@ class ImportsController < ApplicationController
 
   def edit
     @import = Import.find(params[:id])
+  end
+
+  def show
+    @import = Import.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @import }
+    end
   end
 
   def update

@@ -25,13 +25,15 @@ It should go without saying that we take no responsibility for the accuracy of t
 
 <h2>Summary of Sources</h2>
 
-<% cache 'pages_data_type_summary_table' do
-  @types = ActiveRecord::Base.connection.execute("SELECT t.id, t.scientific_name, t.scientific_synonyms, t.usda_symbol, t.wikipedia_url,
-    t.name, t.synonyms, count(*) FROM types t, locations_types lt WHERE lt.type_id=t.id 
-    GROUP BY t.id, t.scientific_name, t.usda_symbol, t.name ORDER BY t.name")
+<% 
+cache 'pages_data_type_summary_table' do
+  @types = LocationsType.joins("LEFT OUTER JOIN types ON types.id=locations_types.type_id").
+                         select("COALESCE(types.name,locations_types.type_other) as cname,
+                                types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
+                         group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
 %>
 
-The database currently contains <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> different types of edibles (most, but not all, are plant species) distributed across <%= LocationsType.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z)/, ',') %> locations. For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the US Department of Agriculture.
+The database currently contains <%= number_to_human(@types.length) %> different types of edibles (most, but not all, are plant species). For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the US Department of Agriculture when available.
 <br><br>
 
 <table id="type_summary">
@@ -47,7 +49,7 @@ The database currently contains <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z
 <% @types.each{ |t| %>
 <tr>
 <td>
-<%= t["name"] unless t["name"].nil? %>
+<%= t.cname unless t.cname.nil? %>
 <%= "(#{t["synonyms"]})" unless t["synonyms"].nil? or t["synonyms"].strip == "" %>
 </td>
 <td>
@@ -68,7 +70,9 @@ The database currently contains <%= Type.count.to_s.gsub(/(?<=\d)(?=(?:\d{3})+\z
 <% } %>
 </tbody>
 </table>
-<% end %>
+<% 
+end 
+%>
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){

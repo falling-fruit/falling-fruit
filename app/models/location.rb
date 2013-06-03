@@ -12,6 +12,7 @@ class Location < ActiveRecord::Base
 
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
                   :no_season, :quality_rating, :yield_rating, :unverified, :access, :locations_types, :import_id, :photo_url
+  attr_accessor :import_link
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   reverse_geocoded_by :lat, :lng do |obj,results|
     if geo = results.first

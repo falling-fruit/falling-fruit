@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531015908) do
+ActiveRecord::Schema.define(:version => 20130603222010) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -97,6 +97,9 @@ ActiveRecord::Schema.define(:version => 20130531015908) do
     t.integer "type_id"
     t.string  "type_other"
   end
+
+  add_index "locations_types", ["location_id"], :name => "index_locations_types_on_location_id"
+  add_index "locations_types", ["type_id"], :name => "index_locations_types_on_type_id"
 
   create_table "observations", :force => true do |t|
     t.integer  "location_id"

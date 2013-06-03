@@ -4,6 +4,7 @@ class LocationsController < ApplicationController
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"
+    expire_fragment "pages_about_stats"
   end
 
   def cluster
@@ -16,7 +17,8 @@ class LocationsController < ApplicationController
     g = params[:grid].present? ? params[:grid].to_i : 1
     g = 15 if g > 15
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
-      "AND ST_INTERSECTS(polygon,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
+      "AND ST_INTERSECTS(polygon,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
+                                                         ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     total = 0
     @clusters = {}
     Cluster.where("zoom = #{g} #{mfilter} #{bound}").each{ |c|
@@ -61,8 +63,9 @@ class LocationsController < ApplicationController
   def markers
     max_n = 500
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
-    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
-      "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
+    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
+      "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
+                                                     ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l
       WHERE #{[bound,ifilter].compact.join(" AND ")}");
@@ -125,36 +128,27 @@ class LocationsController < ApplicationController
 
   def data
     max_n = 500
-    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
-    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
-      "ST_INTERSECTS(location,ST_GeogFromText('POLYGON((#{params[:nelng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:nelat].to_f}, #{params[:swlng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:swlat].to_f}, #{params[:nelng].to_f} #{params[:nelat].to_f}))'))"
-    ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
-    @locations = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name as import_name, i.url as import_url, i.license as import_license,
-      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, imports i,
-      locations_types lt left outer join types t on lt.type_id=t.id 
-      WHERE l.import_id=i.id AND lt.location_id=l.id AND 
-      #{[bound,ifilter].compact.join(" AND ")} 
-      GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, i.name, i.url, i.license 
-      UNION
-      SELECT l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.author, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access, NULL as import_name, NULL as import_url, NULL as import_license,
-      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, imports i,
-      locations_types lt left outer join types t on lt.type_id=t.id 
-      WHERE l.import_id IS NULL AND lt.location_id=l.id AND 
-      #{[bound,ifilter].compact.join(" AND ")} 
-      GROUP BY l.id, l.lat, l.lng, l.unverified, l.description, l.season_start, l.season_stop, 
-      l.no_season, l.address, l.created_at, l.updated_at, l.quality_rating, l.yield_rating, l.access LIMIT #{max_n}")
+    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
+    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
+      "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
+                                                     ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
+    @locations = Location.joins("INNER JOIN locations_types ON locations_types.location_id=locations.id").
+             joins("LEFT OUTER JOIN types ON locations_types.type_id=types.id").
+             select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
+                     description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
+                     yield_rating, quality_rating, author, import_id, locations.created_at, locations.updated_at').
+             where([bound,mfilter].compact.join(" AND ")).
+             group("locations.id").limit(max_n)
     respond_to do |format|
       format.json { render json: @locations }
       format.csv { 
         csv_data = CSV.generate do |csv|
           cols = ["id","lat","lng","unverified","description","season_start","season_stop",
                   "no_season","author","address","created_at","updated_at",
-                  "quality_rating","yield_rating","access","import_name","import_url","import_license","name"]
+                  "quality_rating","yield_rating","access","import_link","name"]
           csv << cols
           @locations.each{ |l|
+            l["import_link"] = l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}"
             csv << cols.collect{ |e| l[e] }
           }
         end
