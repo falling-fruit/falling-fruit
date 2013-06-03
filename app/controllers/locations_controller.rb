@@ -213,9 +213,10 @@ class LocationsController < ApplicationController
 
   def infobox
     @location = Location.find(params[:id])
-    render(:partial => "/locations/infowindow", 
-      :locals => {:location => @location}
-    )
+    respond_to do |format|
+      format.html { render :partial => "/locations/infowindow", :locals => {:location => @location} }
+      format.json { render json: @location }
+    end
   end
 
   # GET /locations
