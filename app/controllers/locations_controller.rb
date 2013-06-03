@@ -215,7 +215,10 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     respond_to do |format|
       format.html { render :partial => "/locations/infowindow", :locals => {:location => @location} }
-      format.json { render json: @location }
+      format.json { 
+        @location["types"] = @location.locations_types
+        render json: @location 
+      }
     end
   end
 
