@@ -148,8 +148,11 @@ class LocationsController < ApplicationController
                   "quality_rating","yield_rating","access","import_link","name"]
           csv << cols
           @locations.each{ |l|
-            l["import_link"] = l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}"
-            csv << cols.collect{ |e| l[e] }
+            csv << [l.id,l.lat,l.lng,l.unverified,l.description,l.season_start.nil? ? nil : Location::Months[l.season_start],
+                    l.season_stop.nil? ? nil : Location::Months[l.season_stop],l.no_season,l.author,l.address,l.created_at,l.updated_at,
+                    l.quality_rating.nil? ? nil : Location::Ratings[l.quality_rating],l.yield_rating.nil? ? nil : Location::Ratings[l.yield_rating],
+                    l.access.nil? ? nil : Location::AccessShort[l.access],l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
+                    l.name]
           }
         end
         send_data(csv_data,:type => 'text/csv; charset=utf-8; header=present', :filename => 'data.csv')

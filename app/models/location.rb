@@ -34,6 +34,7 @@ class Location < ActiveRecord::Base
 
   Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
   Ratings = ["Crummy","Not Great","Decent","Solid","Epic"]
+  AccessShort = ["Owner Added","Owner Permitted","Public","Private/Public","Private"]
   AccessModes = ["I own this source",
                  "I have permission from the owner to add this source",
                  "Source is on public land",
