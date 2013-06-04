@@ -36,12 +36,16 @@ class ApplicationController < ActionController::Base
     muni = (!location.import.nil? and location.import.muni) ? true : false
     mq = muni ? "AND muni" : "AND NOT MUNI"
     found = []
-    Cluster.where("ST_INTERSECTS(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),polygon) #{mq}").each{ |clust|
+    ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").
+                  where("id=#{location.id}").first
+    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").
+            where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
       clust.count += 1
       # since the center lat is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
       # e.g., https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average
-      clust.center_lat = (location.lat + (clust.count-1).to_f*clust.center_lat)/clust.count.to_f
-      clust.center_lng = (location.lng + (clust.count-1).to_f*clust.center_lng)/clust.count.to_f
+      newx = (ml.x.to_f + (clust.count-1).to_f*clust.x.to_f)/clust.count.to_f
+      newy = (ml.y.to_f + (clust.count-1).to_f*clust.y.to_f)/clust.count.to_f
+      clust.cluster_point = "POINT(#{newx} #{newy})"
       clust.save
       found << clust.zoom
     }
@@ -51,14 +55,18 @@ class ApplicationController < ActionController::Base
 
   def cluster_decrement(location)
     mq = (!location.import.nil? and location.import.muni) ? "AND muni" : "AND NOT muni"
-    Cluster.where("ST_INTERSECTS(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),polygon) #{mq}").each{ |clust|
+    ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").
+                  where("id=#{location.id}").first
+    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").
+            where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
       clust.count -= 1
       if(clust.count <= 0)
         clust.destroy
       else
         # since the center lat is the arithmetic mean of the bag of points, simply remove this points' location proportionally
-        clust.center_lat = (-1.0*location.lat + (clust.count).to_f*clust.center_lat)/(clust.count+1).to_f
-        clust.center_lng = (-1.0*location.lng + (clust.count).to_f*clust.center_lng)/(clust.count+1).to_f
+        newx = (-1.0*ml.x.to_f + (clust.count).to_f*clust.x.to_f)/(clust.count+1).to_f
+        newy = (-1.0*ml.y.to_f + (clust.count).to_f*clust.y.to_f)/(clust.count+1).to_f
+        clust.cluster_point = "POINT(#{newx} #{newy}"
         clust.save
       end
     }
@@ -66,33 +74,34 @@ class ApplicationController < ActionController::Base
   helper_method :cluster_decrement
 
   def cluster_seed(location,zooms,muni)
-    earth_radius = 6378137
-    gsize_init = 2*Math::PI*earth_radius
-    xo = -gsize_init/2
-    yo = gsize_init/2
+    earth_radius = 6378137.0
+    gsize_init = 2.0*Math::PI*earth_radius
+    xo = -gsize_init/2.0
+    yo = gsize_init/2.0
     zooms.each{ |z|
+      gsize = gsize_init/(2.0**z)
       c = Cluster.new
-      c.grid_size = gsize_init/(2.0**(z+1))
       r = ActiveRecord::Base.connection.execute <<-SQL
-        SELECT ST_AsText(ST_transform(ST_SETSRID(ST_MakeBox2d(ST_Translate(grid_point,-#{c.grid_size}/2,-#{c.grid_size}/2),
-        ST_translate(grid_point,#{c.grid_size}/2,#{c.grid_size}/2)),900913),4326)) AS poly_wkt, 
-        ST_AsText(st_transform(st_setsrid(grid_point,900913),4326)) as grid_point_wkt
+        SELECT 
+        ST_AsText(ST_SETSRID(ST_MakeBox2d(ST_Translate(grid_point,-#{gsize}/2,-#{gsize}/2),
+                               ST_translate(grid_point,#{gsize}/2,#{gsize}/2)),900913)) AS poly_wkt, 
+        ST_AsText(grid_point) as grid_point_wkt,
+        ST_AsText(st_transform(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),900913)) as cluster_point_wkt
         FROM (
           SELECT ST_SnapToGrid(st_transform(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),900913),
-                               #{xo}+#{c.grid_size}/2,#{yo}-#{c.grid_size}/2,#{c.grid_size},#{c.grid_size}) AS grid_point
+                               #{xo}+#{gsize}/2,#{yo}-#{gsize}/2,#{gsize},#{gsize}) AS grid_point
         ) AS gsub
       SQL
-       
       r.each{ |row|
-      c.grid_point = row["grid_point_wkt"]
-      c.polygon = row["poly_wkt"]
-      c.count = 1
-      c.center_lat = location.lat
-      c.center_lng = location.lng
-      c.zoom = z
-      c.method = "grid"
-      c.muni = muni
-      c.save
+        c.grid_point = row["grid_point_wkt"]
+        c.grid_size = gsize
+        c.polygon = row["poly_wkt"]
+        c.count = 1
+        c.cluster_point = row["cluster_point_wkt"]
+        c.zoom = z
+        c.method = "grid"
+        c.muni = muni
+        c.save
       } unless r.nil?
     }
   end

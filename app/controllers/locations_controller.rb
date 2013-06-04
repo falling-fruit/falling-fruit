@@ -15,49 +15,34 @@ class LocationsController < ApplicationController
       mfilter = "AND NOT muni"
     end
     g = params[:grid].present? ? params[:grid].to_i : 1
-    g = 15 if g > 15
+    g = 12 if g > 12
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
-      "AND ST_INTERSECTS(polygon,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
-                                                         ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
-    total = 0
-    @clusters = {}
-    Cluster.where("zoom = #{g} #{mfilter} #{bound}").each{ |c|
-        if @clusters[c.grid_point].nil?
-          @clusters[c.grid_point] = { :n => [c.count],:lat => [c.center_lat],:lng => [c.center_lng] }
-        elsif
-          @clusters[c.grid_point][:n] << c.count
-          @clusters[c.grid_point][:lat] << c.center_lat
-          @clusters[c.grid_point][:lng] << c.center_lng 
-        end
-        total += c.count
-    }
-    max_pct = nil
-    min_pct = nil
-    @clusters = @clusters.collect{ |k,v|
-      v[:lat] = (0..v[:lat].length-1).collect{ |i| v[:lat][i]*(v[:n][i].to_f/v[:n].sum.to_f) }.sum
-      v[:lng] = (0..v[:lng].length-1).collect{ |i| v[:lng][i]*(v[:n][i].to_f/v[:n].sum.to_f) }.sum
-      v[:merged] = v[:n].length
-      v[:n] = v[:n].sum
-      v[:title] = number_to_human(v[:n])
+      "AND ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
+                                                         ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
+    @clusters = Cluster.select("ST_X(ST_CENTROID(ST_COLLECT(cluster_point))) as center_x, 
+                                ST_Y(ST_CENTROID(ST_COLLECT(cluster_point))) as center_y,
+                                ST_X(ST_TRANSFORM(ST_CENTROID(ST_COLLECT(cluster_point)),4326)) as center_lng,
+                                ST_Y(ST_TRANSFORM(ST_CENTROID(ST_COLLECT(cluster_point)),4326)) as center_lat,
+                                grid_point, SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{bound}")
+    @minmax = Cluster.select("MIN(count) as min_count, MAX(count) as max_count").where("zoom = #{g} #{mfilter}").shift
+  
+    # FIXME: calc pixel distances between, merge as necessary
+    # calc percent using minmax
+    @clusters.collect!{ |c|
+      v = {}
+      v[:lat] = c.center_lat
+      v[:lng] = c.center_lng
+      v[:n] = c.count
+      v[:title] = number_to_human(c.count)
       v[:marker_anchor] = [0,0]
-      pct = ((100.0*v[:n].to_f/total)/10.0).round * 10
-      max_pct = pct if max_pct.nil? or max_pct < pct
-      min_pct = pct if min_pct.nil? or min_pct > pct
-      v[:pct] = pct
+      #pct = (c.count-@minmax.min_count.to_f)/(@minmax.max_count.to_f-@minmax.min_count.to_f)
+      #pct = (10.0*pct).round * 10
+      pct = [[(Math.log10(c.count).round+2)*10,30].max,100].min
+      v[:picture] = "/icons/orangedot#{pct}.png"
+      v[:width] = pct
+      v[:height] = pct
+      v[:pct] = pct 
       v
-    }
-    @clusters.collect!{ |v|
-      if max_pct.nil? or min_pct.nil? or (max_pct-min_pct) == 0
-        nil
-      else
-        pct = (10.0*(v[:pct]-min_pct).to_f/(max_pct.to_f-min_pct.to_f)).round * 10
-        pct = 30 if pct < 30
-        pct = 80 if pct == 100
-        v[:picture] = "/icons/orangedot#{pct}.png"
-        v[:width] = pct
-        v[:height] = pct
-        v
-      end
     }
     respond_to do |format|
       format.json { render json: @clusters }

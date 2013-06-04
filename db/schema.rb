@@ -47,13 +47,16 @@ ActiveRecord::Schema.define(:version => 20130603222010) do
     t.float    "grid_size"
     t.integer  "count"
     t.integer  "zoom"
-    t.float    "center_lat"
-    t.float    "center_lng"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
-    t.spatial  "grid_point", :limit => {:srid=>4326, :type=>"point"}
-    t.spatial  "polygon",    :limit => {:srid=>4326, :type=>"polygon"}
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
+    t.spatial  "cluster_point", :limit => {:srid=>900913, :type=>"point"}
+    t.spatial  "grid_point",    :limit => {:srid=>900913, :type=>"point"}
+    t.spatial  "polygon",       :limit => {:srid=>900913, :type=>"polygon"}
   end
+
+  add_index "clusters", ["cluster_point"], :name => "index_clusters_on_cluster_point", :spatial => true
+  add_index "clusters", ["grid_point"], :name => "index_clusters_on_grid_point", :spatial => true
+  add_index "clusters", ["polygon"], :name => "index_clusters_on_polygon", :spatial => true
 
   create_table "imports", :force => true do |t|
     t.string   "url"
