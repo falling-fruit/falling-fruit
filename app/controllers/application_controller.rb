@@ -66,15 +66,20 @@ class ApplicationController < ActionController::Base
   helper_method :cluster_decrement
 
   def cluster_seed(location,zooms,muni)
+    earth_radius = 6378137
+    gsize_init = 2*Math::PI*earth_radius
+    xo = -gsize_init/2
+    yo = gsize_init/2
     zooms.each{ |z|
       c = Cluster.new
-      c.grid_size = 360/(12.0*(2.0**(z-3)))
+      c.grid_size = gsize_init/(2.0**(z+1))
       r = ActiveRecord::Base.connection.execute <<-SQL
-        SELECT ST_AsText(ST_MakeBox2d(ST_Translate(grid_point,-#{c.grid_size}/2,-#{c.grid_size}/2),
-                                      ST_translate(grid_point,#{c.grid_size}/2,#{c.grid_size}/2))) AS poly_wkt, 
-               ST_AsText(grid_point) as grid_point_wkt 
+        SELECT ST_AsText(ST_transform(ST_SETSRID(ST_MakeBox2d(ST_Translate(grid_point,-#{c.grid_size}/2,-#{c.grid_size}/2),
+                                                   ST_translate(grid_point,#{c.grid_size}/2,#{c.grid_size}/2)),900913),4326)) AS poly_wkt, 
+               ST_AsText(st_transform(grid_point,4326)) as grid_point_wkt 
         FROM (
-          SELECT ST_SnapToGrid(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),#{c.grid_size},#{c.grid_size}) AS grid_point
+          SELECT ST_SnapToGrid(st_transform(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),900913),
+                               #{xo}+#{c.grid_size},#{yo}-#{c.grid_size}) AS grid_point
         ) AS gsub
       SQL
       r.each{ |row|

@@ -47,13 +47,17 @@ class LocationsController < ApplicationController
       v
     }
     @clusters.collect!{ |v|
-      pct = (10.0*(v[:pct]-min_pct).to_f/(max_pct.to_f-min_pct.to_f)).round * 10
-      pct = 30 if pct < 30
-      pct = 80 if pct == 100
-      v[:picture] = "/icons/orangedot#{pct}.png"
-      v[:width] = pct
-      v[:height] = pct
-      v
+      if max_pct.nil? or min_pct.nil? or (max_pct-min_pct) == 0
+        nil
+      else
+        pct = (10.0*(v[:pct]-min_pct).to_f/(max_pct.to_f-min_pct.to_f)).round * 10
+        pct = 30 if pct < 30
+        pct = 80 if pct == 100
+        v[:picture] = "/icons/orangedot#{pct}.png"
+        v[:width] = pct
+        v[:height] = pct
+        v
+      end
     }
     respond_to do |format|
       format.json { render json: @clusters }
