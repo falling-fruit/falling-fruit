@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
       clust.save
       found << clust.zoom
     }
-    cluster_seed(location,(1..15).to_a - found,muni) unless found.length == 15
+    cluster_seed(location,(0..12).to_a - found,muni) unless found.max == 12
   end
   helper_method :cluster_increment
 
@@ -75,13 +75,14 @@ class ApplicationController < ActionController::Base
       c.grid_size = gsize_init/(2.0**(z+1))
       r = ActiveRecord::Base.connection.execute <<-SQL
         SELECT ST_AsText(ST_transform(ST_SETSRID(ST_MakeBox2d(ST_Translate(grid_point,-#{c.grid_size}/2,-#{c.grid_size}/2),
-                                                   ST_translate(grid_point,#{c.grid_size}/2,#{c.grid_size}/2)),900913),4326)) AS poly_wkt, 
-               ST_AsText(st_transform(grid_point,4326)) as grid_point_wkt 
+        ST_translate(grid_point,#{c.grid_size}/2,#{c.grid_size}/2)),900913),4326)) AS poly_wkt, 
+        ST_AsText(st_transform(st_setsrid(grid_point,900913),4326)) as grid_point_wkt
         FROM (
           SELECT ST_SnapToGrid(st_transform(st_setsrid(ST_POINT(#{location.lng},#{location.lat}),4326),900913),
-                               #{xo}+#{c.grid_size},#{yo}-#{c.grid_size}) AS grid_point
+                               #{xo}+#{c.grid_size}/2,#{yo}-#{c.grid_size}/2,#{c.grid_size},#{c.grid_size}) AS grid_point
         ) AS gsub
       SQL
+       
       r.each{ |row|
       c.grid_point = row["grid_point_wkt"]
       c.polygon = row["poly_wkt"]

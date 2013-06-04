@@ -3,12 +3,14 @@ Falling Fruit is built on public data and the generosity of urban foragers willi
 </p>
 
 <% if File.exists?(Rails.root.join("public","data.csv.bz2")) %>
-<blockquote>
-<a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-<i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
-</blockquote>
+		<blockquote>
+		<a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
+		<i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+		</blockquote>
 <% else %>
-<blockquote><em>Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.</em></blockquote>
+		<blockquote>
+		<em>Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.</em>
+		</blockquote>
 <% end %>
 
 <p>
@@ -28,13 +30,15 @@ It should go without saying that we take no responsibility for the accuracy of t
 <% 
 cache 'pages_data_type_summary_table' do
   @types = LocationsType.joins("LEFT OUTER JOIN types ON types.id=locations_types.type_id").
-                         select("COALESCE(types.name,locations_types.type_other) as cname,
-                                types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
-                         group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
+  select("COALESCE(types.name,locations_types.type_other) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
+  group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
+  @lt_count = LocationsType.count
 %>
 
-The database currently contains <%= number_to_human(@types.length) %> different types of edibles (most, but not all, are plant species). For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the US Department of Agriculture when available.
-<br><br>
+<p>
+The database currently contains <%= number_to_human(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the U.S. Department of Agriculture when available.
+</p>
+<br/>
 
 <table id="type_summary">
 <thead>
@@ -70,9 +74,9 @@ The database currently contains <%= number_to_human(@types.length) %> different 
 <% } %>
 </tbody>
 </table>
-<% 
-end 
-%>
+
+<!-- cache ends -->
+<% end %>
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){

@@ -2,47 +2,30 @@
  <img src="/jeff-apples.jpg"><img src="/jeff-tree.jpg"><img src="/plums.jpg"><img src="/amittai-mulberries.jpg">
 </div>
 
-<%
-  cache 'pages_about_stats' do
-  @types = LocationsType.joins("LEFT OUTER JOIN types ON types.id=locations_types.type_id").
-                         select("COALESCE(types.name,locations_types.type_other) as cname,
-                                types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
-                         group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
-  @lt_count = LocationsType.count
-%>
-
 <p style="font-style:italic;font-size:115%; border-left: 2px solid lightgrey; padding-left: 0.5em;">
-This website is still a prototype. We have a lot of exciting features planned, 
-but we also want to evolve to best meet the needs and desires of the community. 
-Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>. 
-We would love to hear from you!
+This website is still a prototype. We have a lot of exciting features planned, but we also want to evolve to best meet the needs and desires of the community. Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>. We would love to hear from you!
 </p>
 
 <h2>About the Site</h2>
 
 <p>
-Falling Fruit is a celebration of the overlooked culinary bounty of our city streets. 
-By quantifying this resource on a map, we hope to facilitate intimate connections 
-between people, food, and the natural organisms growing in our neighborhoods. 
-Not just a free lunch! Foraging in the 21st century is an opportunity for 
-urban exploration, to fight the scourge of stained sidewalks, and to reconnect 
-with the botanical origins of food.
+Falling Fruit is a celebration of the overlooked culinary bounty of our city streets. By quantifying this resource on a map, we hope to facilitate intimate connections between people, food, and the natural organisms growing in our neighborhoods. Not just a free lunch! Foraging in the 21st century is an opportunity for urban exploration, to fight the scourge of stained sidewalks, and to reconnect with the botanical origins of food.
 </p>
 
+<%
+  cache 'pages_about_stats' do
+  @types = LocationsType.joins("LEFT OUTER JOIN types ON types.id=locations_types.type_id").
+  select("COALESCE(types.name,locations_types.type_other) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
+  group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
+  @lt_count = LocationsType.count
+%>
+
 <p>
-Our map of urban edibles is not the first of its kind, but we aspire to be the 
-most comprehensive, bringing together the <a href="/maps">maps of foragers</a> 
-from all across the internet. We are also including edible species found 
-in <a href="/inventories">municipal tree inventories</a> - databases of street 
-(and sometimes private) trees used by many cities, universities, and other 
-institutions to manage the urban forest. This already amounts to 
-<%= number_with_delimiter(@types.length) %> different types 
-of edibles (most, but not all, are plant species) distributed across 
-<%= number_with_delimiter(@lt_count) %> locations. Beyond the cultivated 
-and commonplace to the exotic flavors of foreign plants and the long-forgotten 
-culinary uses of native plants, foraging in your neighborhood is a journey 
-through time and across cultures.
+Our map of urban edibles is not the first of its kind, but we aspire to be the most comprehensive, bringing together the <a href="/maps">maps of foragers</a> from all across the internet. We are also including edible species found in <a href="/inventories">municipal tree inventories</a> - databases of street (and sometimes private) trees used by many cities, universities, and other institutions to manage the urban forest. This already amounts to <%= number_with_delimiter(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
 </p>
+
+<!-- cache end -->
+<% end %>
 
 <p>
 Join us in celebrating the local and edible! The <a href="/">map</a> is open 
@@ -52,8 +35,6 @@ is open-source. We created Falling Fruit driven by our passion for food
 and the environment. If you think it's cool and want to say thanks, you 
 can always "buy us a beer" (i.e., help us pay for the server):
 </p>
-
-<% end %>
 
 <blockquote>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="POST">
