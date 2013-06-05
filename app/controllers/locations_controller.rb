@@ -123,6 +123,7 @@ class LocationsController < ApplicationController
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     @locations = Location.joins("INNER JOIN locations_types ON locations_types.location_id=locations.id").
              joins("LEFT OUTER JOIN types ON locations_types.type_id=types.id").
+             joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
                      yield_rating, quality_rating, author, import_id, locations.created_at, locations.updated_at').
