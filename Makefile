@@ -10,4 +10,4 @@ clusters:
 	rake db:migrate:redo VERSION=20130503191902
 
 shapes:
-	pgsql2shp -u fallingfruit_user -h localhost -P ad3in3kssl -f cluster_boundaries.shp -g polygon fallingfruit_db 'SELECT * FROM clusters'
+	pgsql2shp -u fallingfruit_user -h localhost -f cluster_boundaries.shp -g polygon fallingfruit_db 'SELECT * FROM clusters'
