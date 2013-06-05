@@ -20,11 +20,7 @@ last_days_ago = nil
 <% unless c["location_id"].nil? %>
   <a href="/locations/<%= c["location_id"] %>"><%= c["type_title"].gsub(","," · ") %></a> (#<%= c["location_id"] %>) <%= c["description"] %>
   <% unless c["country"].nil? %>
-    <!--<% unless c["country_code"].nil? %>
-      in <%= [c["city"].gsub(/,.*/,""),c["state_code"],c["country_code"]].compact.join(", ") %>
-    <% else %>-->
-      in <%= [c["city"].gsub(/,.*/,""),c["state"],c["country"]].compact.join(", ") %>
-    <!-- <% end %> -->
+    in <%= [c["city"],c["state"],c["country"]].compact.join(", ") %>
   <% end %>
 <% else %>
     <%= c["description"] %>
