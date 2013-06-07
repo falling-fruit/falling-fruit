@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
   def cluster
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
-      mfilter = "AND muni"
+      mfilter = ""
     elsif params[:muni].present? and params[:muni].to_i == 0
       mfilter = "AND NOT muni"
     end
@@ -19,19 +19,34 @@ class LocationsController < ApplicationController
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
       "AND ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                          ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
-    @clusters = Cluster.select("ST_X(ST_CENTROID(ST_COLLECT(cluster_point))) as center_x, 
-                                ST_Y(ST_CENTROID(ST_COLLECT(cluster_point))) as center_y,
-                                ST_X(ST_TRANSFORM(ST_CENTROID(ST_COLLECT(cluster_point)),4326)) as center_lng,
-                                ST_Y(ST_TRANSFORM(ST_CENTROID(ST_COLLECT(cluster_point)),4326)) as center_lat,
-                                grid_point, SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{bound}")
-    @minmax = Cluster.select("MIN(count) as min_count, MAX(count) as max_count").where("zoom = #{g} #{mfilter}").shift
-  
-    # FIXME: calc pixel distances between, merge as necessary
-    # calc percent using minmax
+    
+    @clusters = Cluster.select("SUM(count*ST_X(cluster_point))/SUM(count) as center_x,
+                                SUM(count*ST_Y(cluster_point))/SUM(count) as center_y,
+                                SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{bound}")
+    
+    #@minmax = Cluster.select("MIN(count) as min_count, MAX(count) as max_count").where("zoom = #{g} #{mfilter}").shift
+
+    earth_radius = 6378137.0
+    earth_circum = 2.0*Math::PI*earth_radius
+    
+    # Conversion SRID 4326 <-> 900913
+    # x = (lng/360)*earth_circum
+    # lng = x*(360/earth_circum)
+    # y = Math.log(Math.tan((lat+90)*(Math::PI/360)))*earth_radius
+    # lat = 90-(Math.atan2(1,Math.exp(y/earth_radius))*(360/Math::PI))
+    
+    # FIXME: calc pixel distances between cluster positions, merge as necessary
     @clusters.collect!{ |c|
       v = {}
-      v[:lat] = c.center_lat
-      v[:lng] = c.center_lng
+      
+      # make single cluster at z = 0 snap to middle of map (optional)
+      if g == 0
+        v[:lat] = 0
+        v[:lng] = 0
+      else      
+        v[:lat] = 90-(Math.atan2(1,Math.exp(c.center_y.to_f/earth_radius))*(360/Math::PI))
+        v[:lng] = c.center_x.to_f*(360/earth_circum)
+      end
       v[:n] = c.count
       v[:title] = number_to_human(c.count)
       v[:marker_anchor] = [0,0]

@@ -15,15 +15,14 @@ else
 	csvfile = ARGV[1]
 end
 
-csv = CSV.open(ARGV[1],"wb")
+csv = CSV.open(csvfile,"wb")
 csv << ["Type","Type Other","Description","Lat","Lng","Address","Season Start",
-        "Season Stop","No Season","Access","Unverified","Yield Rating","Quality Rating","Author"]
+        "Season Stop","No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
 @doc = Nokogiri::XML(File.open(ARGV[0]))
 
 @doc.css('Placemark').each do |placemark|
   title = CGI.unescapeHTML(placemark.css('name').text)
   description = CGI.unescapeHTML(placemark.css('description').text).gsub!(/(<[^>]*>)|\t/s) {""}
-  description.gsub!(/\n/s) {". "} unless description.nil?
   coordinates = placemark.at_css('coordinates')
   lat = nil
   lng = nil

@@ -34,17 +34,16 @@ class ApplicationController < ActionController::Base
 
   def cluster_increment(location)
     muni = (!location.import.nil? and location.import.muni) ? true : false
-    mq = muni ? "AND muni" : "AND NOT MUNI"
+    mq = muni ? "AND muni" : "AND NOT muni"
     found = []
-    ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").
-                  where("id=#{location.id}").first
-    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").
-            where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
-      clust.count += 1
-      # since the center lat is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
+    ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
+    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
+    
+      # since the cluster center is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
       # e.g., https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average
-      newx = (ml.x.to_f + (clust.count-1).to_f*clust.x.to_f)/clust.count.to_f
-      newy = (ml.y.to_f + (clust.count-1).to_f*clust.y.to_f)/clust.count.to_f
+      clust.count += 1
+      newx = clust.x.to_f+((ml.x.to_f-clust.x.to_f)/clust.count.to_f)
+      newy = clust.y.to_f+((ml.y.to_f-clust.y.to_f)/clust.count.to_f)
       clust.cluster_point = "POINT(#{newx} #{newy})"
       clust.save
       found << clust.zoom
@@ -55,18 +54,16 @@ class ApplicationController < ActionController::Base
 
   def cluster_decrement(location)
     mq = (!location.import.nil? and location.import.muni) ? "AND muni" : "AND NOT muni"
-    ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").
-                  where("id=#{location.id}").first
-    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").
-            where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
+    ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
+    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
       clust.count -= 1
       if(clust.count <= 0)
         clust.destroy
       else
-        # since the center lat is the arithmetic mean of the bag of points, simply remove this points' location proportionally
-        newx = (-1.0*ml.x.to_f + (clust.count).to_f*clust.x.to_f)/(clust.count+1).to_f
-        newy = (-1.0*ml.y.to_f + (clust.count).to_f*clust.y.to_f)/(clust.count+1).to_f
-        clust.cluster_point = "POINT(#{newx} #{newy}"
+        # since the cluster center is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
+        newx = (((clust.count+1).to_f*clust.x.to_f)-ml.x.to_f)/clust.count.to_f
+        newy = (((clust.count+1).to_f*clust.y.to_f)-ml.y.to_f)/clust.count.to_f
+        clust.cluster_point = "POINT(#{newx} #{newy})"
         clust.save
       end
     }
