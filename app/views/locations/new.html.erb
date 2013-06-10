@@ -36,10 +36,16 @@
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
     map.setTilt(0);
+    pb = progressBar();
+    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
     
+    // Stamen Toner (B&W) map
     var tonerType = new google.maps.StamenMapType(toner);
     tonerType.name = "B&W";
     map.mapTypes.set(toner, tonerType);
+    
+    // Bicycle map (and control)
+    bicycleControl(map);
     
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
@@ -57,9 +63,6 @@
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_attribution();
     });
-    
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
     
     google.maps.event.addListener(map, 'bounds_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){

@@ -24,18 +24,21 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
-        }
+      }
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
+    pb = progressBar();
+    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
     
+    // Stamen Toner (B&W) map
     var tonerType = new google.maps.StamenMapType(toner);
     tonerType.name = "B&W";
     map.mapTypes.set(toner, tonerType);
     
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
-
+    // Bicycle map (and control)
+    bicycleControl(map);
+    
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);

@@ -412,11 +412,62 @@
     });
   }
   
-  function update_attribution() {
+function update_attribution() {
   var typeid = map.getMapTypeId();
   if(typeid == 'toner-lite'){
-    $('#attribution').show();
+    $('#stamen_attribution').show();
   }else{
-    $('#attribution').hide();
+    $('#stamen_attribution').hide();
   }
  }
+
+// Adds a bicycle layer toggle to the map
+function bicycleControl(map) {
+
+  // Initialize control div
+  var controlDiv = document.createElement('div');
+  controlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+
+  // Set CSS for the control div
+  controlDiv.style.paddingTop = '5px';
+
+  // Set CSS for the control border
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '1px';
+  controlUI.style.borderColor = 'grey';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Show bicycle map';
+  controlUI.style.width = '5em';
+  controlUI.style.boxShadow = '-0.5px 1px 2px grey';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.color = '#000';
+  controlText.style.padding = '0.15em 0';
+  controlText.innerHTML = 'Bicycling';
+  controlUI.appendChild(controlText);
+
+  // Initialize map with control off
+  var toggled = false;
+  var layer = new google.maps.BicyclingLayer();
+
+  // Setup the click event listeners
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+    if (toggled) {
+      layer.setMap(null);
+      controlUI.style.fontWeight = 'normal';
+      toggled = 0;
+    } else {
+      layer.setMap(map);
+      controlUI.style.fontWeight = 'bold';
+      toggled = 1;
+    }
+  });
+}

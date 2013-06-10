@@ -27,9 +27,13 @@
     geocoder = new google.maps.Geocoder();
     map.setTilt(0);
     
+    // Stamen Toner (B&W) map
     var tonerType = new google.maps.StamenMapType(toner);
     tonerType.name = "B&W";
     map.mapTypes.set(toner, tonerType);
+    
+    // Bicycle map (and control)
+    bicycleControl(map);
     
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();

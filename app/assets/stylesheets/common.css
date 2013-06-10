@@ -298,7 +298,7 @@ div#newmarker {
   line-height: 1.3em;
 }
 
-p#attribution {
+p#stamen_attribution {
 		position: absolute;
 		bottom: 0;
 		right: 0;
