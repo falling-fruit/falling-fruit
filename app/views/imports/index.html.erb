@@ -8,7 +8,6 @@
     <th>Muni</th>
     <th>License</th>
     <th>Status</th>
-    <th>Files</th>
     <th>Created At</th>
     <th></th>
     <th></th>
@@ -31,13 +30,9 @@ Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l
     <td><%= import.autoload ? "X" : "" %></td>
     <td><%= import.muni ? "X" : "" %></td>
     <td><%= import.license %></td>
-    <td><%= File.exists?(ofile) ? "Queued" : (File.exists?(ifile) ? "Done" : "Done (Legacy)")%>
-    <td>
-    <% ifile = File.join("db","import","#{import.id}_done.csv")
-       efile = File.join("db","import","#{import.id}_error.csv")
-    %>
-    <%= link_to 'Imported', "/import/#{import.id}_done.csv" if File.exists? ifile %> 
-    <%= link_to 'Errors', "/import/#{import.id}_error.csv" if File.exists? efile %>
+    <td><%= File.exists?(ofile) ? "Queued" : (File.exists?(ifile) ? "Done: " : "Done (Legacy)")%>
+    <%= link_to 'CSV', "/import/#{import.id}_done.csv" if File.exists? ifile %> 
+    <%= link_to 'Err', "/import/#{import.id}_error.csv" if File.exists? efile %>
     </td>
     <td><%= import.created_at %>
     <td><%= link_to 'Edit', edit_import_path(import) %></td>
