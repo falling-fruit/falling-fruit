@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     request.format = :mobile if mobile_device?
   end
 
-  def cluster_increment(location)
+  def self.cluster_increment(location)
     muni = (!location.import.nil? and location.import.muni) ? true : false
     mq = muni ? "AND muni" : "AND NOT muni"
     found = []
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cluster_increment
 
-  def cluster_decrement(location)
+  def self.cluster_decrement(location)
     mq = (!location.import.nil? and location.import.muni) ? "AND muni" : "AND NOT muni"
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
     Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
@@ -70,7 +70,47 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cluster_decrement
 
-  def cluster_seed(location,zooms,muni)
+  def self.cluster_batch_increment(import)
+    earth_radius = 6378137.0
+    gsize_init = 2.0*Math::PI*earth_radius
+    xo = -gsize_init/2.0
+    yo = gsize_init/2.0
+    (0..12).each{ |z|
+      gsize = gsize_init/(2.0**z)
+      r = ActiveRecord::Base.connection.execute <<-SQL
+      SELECT count, cluster_point, grid_point, ST_X(cluster_point) AS x, ST_Y(cluster_point) AS y,
+       st_setsrid(st_makebox2d(st_translate(grid_point,-#{gsize}/2,-#{gsize}/2), st_translate(grid_point,#{gsize}/2,#{gsize}/2)),900913) as polygon
+       FROM
+       (SELECT count(location) as count, st_centroid(st_transform(st_collect(st_setsrid(location::geometry,4326)),900913)) as cluster_point,
+       st_snaptogrid(st_transform(st_setsrid(location::geometry,4326),900913),#{xo}+#{gsize}/2,#{yo}-#{gsize}/2,#{gsize},#{gsize}) as grid_point
+       FROM locations WHERE lng IS NOT NULL and lat IS NOT NULL AND import_id=#{import.id} GROUP BY grid_point) AS subq
+      SQL
+      r.each{ |row|
+        c = Cluster.select("ST_X(cluster_point) AS cx, ST_Y(cluster_point) as cy, *").
+                    where("method = ? AND muni = ? AND zoom = ? and grid_point = ?",'grid',import.muni,z,row["grid_point"]).first
+        if c.nil?
+          c = Cluster.new
+          c.method = 'grid'
+          c.count = row["count"]
+          c.cluster_point = row["cluster_point"]
+          c.grid_point = row["grid_point"]
+          c.zoom = z
+          c.grid_size = gsize
+          c.polygon = row["polygon"]
+          c.muni = import.muni
+          c.save
+        else
+          c.count = row["count"]
+          newx = c.cx.to_f+((row["x"].to_f-c.cx.to_f)/c.count.to_f)
+          newy = c.cy.to_f+((row["y"].to_f-c.cy.to_f)/c.count.to_f)
+          c.cluster_point = "POINT(#{newx} #{newy})"
+          c.save
+        end
+      }  
+    }
+  end
+
+  def self.cluster_seed(location,zooms,muni)
     earth_radius = 6378137.0
     gsize_init = 2.0*Math::PI*earth_radius
     xo = -gsize_init/2.0

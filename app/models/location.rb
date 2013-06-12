@@ -89,13 +89,17 @@ class Location < ActiveRecord::Base
      "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
   end
 
-  def self.build_from_csv(row)
+  def self.build_from_csv(row,typehash=nil)
     type,type_other,desc,lat,lng,address,season_start,season_stop,no_season,access,unverified,yield_rating,quality_rating,author,photo_url = row
     loc = Location.new
     unless type.nil? or type.strip.length == 0
       type.split(/[;,:]/).each{ |t|
         safer_type = t.tr('^A-Za-z- \'','').capitalize
-        types = Type.where("name=?",safer_type)
+        if typehash.nil?
+          types = Type.where("name=?",safer_type)
+        else
+          types = [typehash[safer_type]].compact
+        end
         if types.count == 0
           nt = Type.new
           nt.name = safer_type

@@ -50,3 +50,54 @@ task(:export_data => :environment) do
        }
    end
 end
+
+task(:import => :environment) do
+   typehash = {}
+   Type.all.each{ |t|
+     typehash[t.name] = t
+   }
+   dh = Dir.open("db/import")
+   dh.each{ |l|
+     next unless l =~ /^(\d+).csv$/
+     import_id = $1.to_i
+     import = Import.find(import_id)
+     next if import.nil?
+     print "#{import_id}: "
+     n = 0
+     errs = []
+     text_errs = []
+     ok_count = 0
+     CSV.foreach("db/import/#{l}") do |row|
+       print "."
+       n += 1
+       next if n == 1 or row.join.blank?
+       location = Location.build_from_csv(row,typehash)
+       location.import = import
+       location.client = 'import'
+       if location.lat.nil? or location.lng.nil? and (!location.address.nil? and (!location.address.length == 0))
+         location.geocode
+       end
+       if location.valid?
+         ok_count += 1
+         location.save
+       else
+         text_errs << location.errors
+         errs << row
+       end
+     end
+     c = Change.new
+     c.description = "#{ok_count} new locations imported from #{import.name} (#{import.url})"
+     c.save
+     if errs.any?
+       errFile ="db/import/#{import_id}_error.csv"
+       errs.insert(0,Location.csv_header)
+       errCSV = CSV.open(errFile,"wb") do |csv|
+         errs.each {|row| csv << row}
+       end
+     end
+     ApplicationController.cluster_batch_increment(import)
+     FileUtil.mv "db/import/#{l}", "db/import/#{import_id}_done.csv"
+     puts
+   } 
+   dh.close
+end

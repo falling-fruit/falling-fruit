@@ -167,51 +167,14 @@ class LocationsController < ApplicationController
 
   def import
     if request.post? && params[:csv].present?
-      infile = params[:csv].read
-      n = 0
-      errs = []
-      text_errs = []
-      ok_count = 0
+      infile = params[:csv].tempfile
       import = Import.new(params[:import])
       import.save
-      CSV.parse(infile) do |row| 
-        n += 1
-        next if n == 1 or row.join.blank?
-        location = Location.build_from_csv(row)
-        location.import = import
-        location.client = 'import'
-        if params["geocode"].present? and params["geocode"].to_i == 1
-          location.geocode
-        end
-        if location.valid?
-          ok_count += 1
-          location.save
-          cluster_increment(location)
-        else
-          text_errs << location.errors
-          errs << row
-        end
-      end
-      log_changes(nil,"#{ok_count} new locations imported from #{import.name} (#{import.url})")
-      if errs.any?
-        if params["error_csv"].present? and params["error_csv"].to_i == 1
-          errFile ="errors_#{Date.today.strftime('%d%b%y')}.csv"
-          errs.insert(0,Location.csv_header)
-          errCSV = CSV.generate do |csv|
-            errs.each {|row| csv << row}
-          end
-          send_data errCSV,
-            :type => 'text/csv; charset=iso-8859-1; header=present',
-            :disposition => "attachment; filename=#{errFile}.csv"
-        else
-          flash[:notice] = "#{errs.length} rows generated errors, #{ok_count} worked"
-          @errors = text_errs
-        end
-      else
-        flash[:notice] = "Import total success"
-      end
+      filepath = File.join("db","import","#{import.id}.csv")
+      FileUtils.cp infile.path, filepath
+      flash[:notice] = "Import #{import.id} queued for processing..."
     end
-  end
+  end      
 
   def infobox
     @location = Location.find(params[:id])
