@@ -56,7 +56,7 @@ task(:import => :environment) do
    Type.all.each{ |t|
      typehash[t.name] = t
    }
-   dh = Dir.open("db/import")
+   dh = Dir.open("public/import")
    dh.each{ |l|
      next unless l =~ /^(\d+).csv$/
      import_id = $1.to_i
@@ -67,7 +67,7 @@ task(:import => :environment) do
      errs = []
      text_errs = []
      ok_count = 0
-     CSV.foreach("db/import/#{l}") do |row|
+     CSV.foreach("public/import/#{l}") do |row|
        print "."
        n += 1
        next if n == 1 or row.join.blank?
@@ -89,14 +89,14 @@ task(:import => :environment) do
      c.description = "#{ok_count} new locations imported from #{import.name} (#{import.url})"
      c.save
      if errs.any?
-       errFile ="db/import/#{import_id}_error.csv"
+       errFile ="public/import/#{import_id}_error.csv"
        errs.insert(0,Location.csv_header)
        errCSV = CSV.open(errFile,"wb") do |csv|
          errs.each {|row| csv << row}
        end
      end
      ApplicationController.cluster_batch_increment(import)
-     FileUtil.mv "db/import/#{l}", "db/import/#{import_id}_done.csv"
+     FileUtils.mv "public/import/#{l}", "public/import/#{import_id}_done.csv"
      puts
    } 
    dh.close

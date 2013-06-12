@@ -7,21 +7,42 @@
     <th>Autoload</th>
     <th>Muni</th>
     <th>License</th>
+    <th>Status</th>
+    <th>Files</th>
     <th>Created At</th>
     <th></th>
     <th></th>
   </tr>
 
-<% @imports.each do |import| %>
+<% 
+lcounts = {}
+Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l|
+  lcounts[l.import_id] = l.count
+}
+@imports.each do |import| %>
+  <% 
+    ofile = File.join("public","import","#{import.id}.csv")
+    ifile = File.join("public","import","#{import.id}_done.csv")
+    efile = File.join("public","import","#{import.id}_error.csv")
+  %>
   <tr>
     <td><%= import.name %></td>
-    <td><%= import.locations.count %></td>
+    <td><%= lcounts[import.id] %></td>
     <td><%= import.autoload ? "X" : "" %></td>
     <td><%= import.muni ? "X" : "" %></td>
     <td><%= import.license %></td>
-    <td><%= import.created_at %></td>
+    <td><%= File.exists?(ofile) ? "Queued" : (File.exists?(ifile) ? "Done" : "Done (Legacy)")%>
+    <td>
+    <% ifile = File.join("db","import","#{import.id}_done.csv")
+       efile = File.join("db","import","#{import.id}_error.csv")
+    %>
+    <%= link_to 'Imported', "/import/#{import.id}_done.csv" if File.exists? ifile %> 
+    <%= link_to 'Errors', "/import/#{import.id}_error.csv" if File.exists? efile %>
+    </td>
+    <td><%= import.created_at %>
     <td><%= link_to 'Edit', edit_import_path(import) %></td>
     <td><%= link_to 'Destroy', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    
   </tr>
 <% end %>
 </table>
