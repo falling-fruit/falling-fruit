@@ -57,13 +57,5 @@ The rows contain the values you'd expect (same format as data export on the map 
   <div class="field">
   <%= file_field_tag :csv %>
   </div>
-  <div class="field">
-  <%= check_box_tag :geocode, :checked => false, :value => 1 %>
-  Geocode addresses (possibly overwriting lat/lng)
-  </div>
-  <div class="field">
-  <%= check_box_tag :error_csv, :checked => true, :value => 1 %>
-  Return Errors as CSV
-  </div>
   <%= f.submit "Upload" %>
 <% end %>

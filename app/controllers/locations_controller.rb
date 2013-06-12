@@ -170,7 +170,7 @@ class LocationsController < ApplicationController
       infile = params[:csv].tempfile
       import = Import.new(params[:import])
       import.save
-      filepath = File.join("db","import","#{import.id}.csv")
+      filepath = File.join("public","import","#{import.id}.csv")
       FileUtils.cp infile.path, filepath
       flash[:notice] = "Import #{import.id} queued for processing..."
     end
