@@ -24,8 +24,12 @@ class Location < ActiveRecord::Base
     end
   end
   before_validation { |record| 
-    record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) 
-    record.reverse_geocode unless record.lat.nil? or record.lng.nil?  
+    begin
+      record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) 
+      record.reverse_geocode unless record.lat.nil? or record.lng.nil?  
+    rescue
+      # if geocoding throws an error, ignore it
+    end
   }
   # manually update postgis location object
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
