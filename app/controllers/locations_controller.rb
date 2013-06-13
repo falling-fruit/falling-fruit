@@ -172,6 +172,7 @@ class LocationsController < ApplicationController
       import.save
       filepath = File.join("public","import","#{import.id}.csv")
       FileUtils.cp infile.path, filepath
+      FileUtils.chmod 0666, filepath
       flash[:notice] = "Import #{import.id} queued for processing..."
     end
   end      
@@ -269,7 +270,7 @@ class LocationsController < ApplicationController
     @location.locations_types += lts unless lts.nil?
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
-        cluster_increment(@location)
+        ApplicationController.cluster_increment(@location)
         log_changes(@location,"added")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
@@ -319,12 +320,12 @@ class LocationsController < ApplicationController
       params[:location].delete(:locations_types)
     end
 
-    cluster_decrement(@location)
+    ApplicationController.cluster_decrement(@location)
     respond_to do |format|
       if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
          @location.update_attributes(params[:location])
         log_changes(@location,"edited")
-        cluster_increment(@location)
+        ApplicationController.cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.mobile { redirect_to @location, notice: 'Location was successfully updated.' }
@@ -339,7 +340,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
-    cluster_decrement(@location)
+    ApplicationController.cluster_decrement(@location)
     @location.destroy
     LocationsType.where("location_id=#{params[:id]}").each{ |lt|
       lt.destroy
