@@ -1,0 +1,9 @@
+SHELL=/bin/bash	
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+MAILTO=cphillips@smallwhitecube.com
+HOME=/
+
+00 04 * * * (pushd /var/www/falling-fruit/db;bash backup.sh;popd)
+00 07 * * * (pushd /var/www/falling-fruit;make export;popd)
+00 05 * * * (pushd /var/www/falling-fruit;rake geocode;popd)
+00,30 *  * * * (pushd /var/www/falling-fruit;rake import;popd)

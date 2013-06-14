@@ -52,6 +52,11 @@ task(:export_data => :environment) do
 end
 
 task(:import => :environment) do
+   if File.exists? "public/import/lockfile"
+     puts "Lockfile exists, not running"
+     exit
+   end 
+   FileUtils.touch "public/import/lockfile"
    typehash = {}
    Type.all.each{ |t|
      typehash[t.name] = t
@@ -100,4 +105,5 @@ task(:import => :environment) do
      puts
    } 
    dh.close
+   FileUtils.rm_f "public/import/lockfile"
 end
