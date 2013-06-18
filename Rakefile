@@ -31,22 +31,28 @@ task(:geocode => :environment) do
 end
 
 task(:export_data => :environment) do
+   r = ActiveRecord::Base.connection.execute("SELECT ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id,
+       description, lat, lng, address, season_start, season_stop, no_season, access, unverified,
+       yield_rating, quality_rating, author, import_id, 
+       locations.created_at, locations.updated_at FROM locations 
+       INNER JOIN locations_types ON locations_types.location_id=locations.id LEFT OUTER 
+       JOIN types ON locations_types.type_id=types.id GROUP BY locations.id")
    CSV.open("public/data.csv","wb") do |csv|
      cols = ["id","lat","lng","unverified","description","season_start","season_stop",
              "no_season","author","address","created_at","updated_at",
              "quality_rating","yield_rating","access","import_link","name"]
      csv << cols
-       Location.joins("INNER JOIN locations_types ON locations_types.location_id=locations.id").
-           joins("LEFT OUTER JOIN types ON locations_types.type_id=types.id").
-           select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
-                   description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
-                   yield_rating, quality_rating, author, import_id, locations.created_at, locations.updated_at').
-           group("locations.id").each{ |l|
-             csv << [l.id,l.lat,l.lng,l.unverified,l.description,l.season_start.nil? ? nil : Location::Months[l.season_start],
-                     l.season_stop.nil? ? nil : Location::Months[l.season_stop],l.no_season,l.author,l.address,l.created_at,l.updated_at,
-                     l.quality_rating.nil? ? nil : Location::Ratings[l.quality_rating],l.yield_rating.nil? ? nil : Location::Ratings[l.yield_rating],
-                     l.access.nil? ? nil : Location::AccessShort[l.access],l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
-                     l.name]
+     r.each{ |row|
+       csv << [row["id"],row["lat"],row["lng"],row["unverified"],row["description"],
+               row["season_start"].nil? ? nil : Location::Months[row["season_start"].to_i],
+               row["season_stop"].nil? ? nil : Location::Months[row["season_stop"].to_i],
+               row["no_season"],row["author"],
+               row["address"],row["created_at"],row["updated_at"],
+               row["quality_rating"].nil? ? nil : Location::Ratings[row["quality_rating"].to_i],
+               row["yield_rating"].nil? ? nil : Location::Ratings[row["yield_rating"].to_i],
+               row["access"].nil? ? nil : Location::AccessShort[row["access"].to_i],
+               row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}",
+               row["name"]]
        }
    end
 end
