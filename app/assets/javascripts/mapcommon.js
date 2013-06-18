@@ -5,11 +5,8 @@
   var prior_bounds = null;
   var prior_zoom = null;
   var markersArray = [];
-  var labelsArray = [];
-  var openMarker = null;
   var openInfoWindow = null;
-  var markerIdArray = [];
-  var boundMarkersArray = [];
+  var openMarker = null;
   var labelsOn = false;
   var last_search = null;
   var pb = null;
@@ -18,13 +15,20 @@
 
   // ================= functions =================
 
+  function find_marker(lid){
+    for(var i = 0; i < markersArray.length; i++){
+      if(markersArray[i].id == lid) return i;
+    }
+    return undefined;
+  }
+
   // will avoid adding duplicate markers (using location id)
   function add_markers_from_json(mdata,rich,skip_id){
     var len = mdata.length;
     for(var i = 0; i < len; i++){
       var lid = mdata[i]["location_id"];
       if((skip_id != undefined) && (skip_id == parseInt(lid))) continue;
-      if((lid != undefined) && (markerIdArray.indexOf(lid) >= 0)) continue;
+      if((lid != undefined) && (find_marker(lid) != undefined)) continue;
       if(!rich){
         var w = mdata[i]["width"];
         var h = mdata[i]["height"];
@@ -43,8 +47,7 @@
             title: mdata[i]["title"],
             draggable: false
         });
-        markersArray.push(m);
-        markerIdArray.push(mdata[i]["location_id"]);
+        markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point"});
       }else{
         var w = mdata[i]["width"];
         var h = mdata[i]["height"];
@@ -66,8 +69,7 @@
             anchor: RichMarkerPosition.MIDDLE,
           });
           add_clicky_cluster(m);
-          markersArray.push(m);
-          markerIdArray.push(undefined);
+          markersArray.push({marker: m, id: null, type: "cluster"});
       }
     }
     document.dispatchEvent(markersLoadedEvent);
@@ -77,15 +79,13 @@
   function clear_markers() {
     if (markersArray) {
       for (var i = 0; i < markersArray.length; i++ ) {
-        markersArray[i].setMap(null);
-        markersArray[i] = null;
-        markerIdArray[i] = null;
+        markersArray[i].marker.setMap(null);
+        markersArray[i].marker = null;
+        markersArray[i].id = null;
       }
     }
     markersArray.length = 0;
     markersArray = [];
-    markerIdArray.length = 0;
-    makerIdArray = [];
   }
 
   function do_clusters(bounds,zoom,muni){
@@ -119,7 +119,7 @@
 
   function open_marker_by_id(id,lat,lng){
     for (var i = 0; i < markersArray.length; i++ ) {
-      if(markerIdArray[i] == id){
+      if(markersArray[i].id == id){
         var request = $.ajax({
           type: 'GET',
           url: '/locations/' + id + '/infobox',
@@ -131,10 +131,10 @@
             openInfoWindow = null;
             openMarker = null;
           });
-          infowindow.open(map, markersArray[i]);
+          infowindow.open(map, markersArray[i].marker);
           openInfoWindow = infowindow;
         });
-        openMarker = markersArray[i];
+        openMarker = markersArray[i].marker;
         return true;
       }
     }
@@ -163,7 +163,7 @@
           openInfoWindow = null;
           openMarker = null;
         });
-        infowindow.open(map, markersArray[markersArray.length-1]);
+        infowindow.open(map, markersArray[markersArray.length-1].marker);
         openInfoWindow = infowindow;
       });
       openMarker = markersArray[markersArray.length-1];
@@ -172,8 +172,8 @@
   }
 
   function add_marker_infobox(i){ 
-    var marker = markersArray[i];
-    var id = markerIdArray[i];
+    var marker = markersArray[i].marker;
+    var id = markersArray[i].id;
     google.maps.event.addListener(marker, 'click', function(){
       if(openMarker === marker) return;
       if(openInfoWindow != null) openInfoWindow.close()
@@ -222,14 +222,13 @@
     request.done(function(json){
       if(pb != null) pb.setTotal(json.length);
       // remove any cluster-type markers 
-      var i = markerIdArray.indexOf(undefined);
-      while(i >= 0){
-        markersArray[i].setMap(null);
-        markersArray[i] = null;
-        markerIdArray[i] = null;
+      var i = find_marker(null);
+      while((i != undefined) && (i >= 0)){
+        markersArray[i].marker.setMap(null);
+        markersArray[i].marker = null;
+        markersArray[i].id = null;
         markersArray.splice(i,1);
-        markerIdArray.splice(i,1);
-        i = markerIdArray.indexOf(undefined);
+        i = find_marker(null);
       }
       add_markers_from_json(json,false,skip_id);
       // make markers clickable
@@ -282,12 +281,11 @@
 
   function remove_add_marker(){
     // by convention, the "add" marker has an id of -1
-    var i = markerIdArray.indexOf(-1);
-    if(i < 0) return;
-    var marker = markersArray[i];
-    var id = markerIdArray[i];
+    var i = find_marker(-1);
+    if(i == undefined) return;
+    var marker = markersArray[i].marker;
+    var id = markersArray[i].id;
     marker.setMap(null);
-    markerIdArray.splice(i,1);
     markersArray.splice(i,1);
   }
 
@@ -298,8 +296,7 @@
         map: map,
         draggable: true
     });
-    markersArray.push(marker);
-    markerIdArray.push(-1);
+    markersArray.push({marker: marker, id: -1, type: "point"});
     // Set and open infowindow
     var infowindow = new google.maps.InfoWindow({
         content: '<div id="newmarker">' +
@@ -326,11 +323,11 @@
        if(map.getZoom() <= 11) return;
        var len = markersArray.length;
        for(var i = 0; i < len; i++){
-         var marker = markersArray[i];
-         if(!marker.getVisible()) continue;
-         var pos = marker.getPosition();
+         if(!markersArray[i].marker.getVisible()) continue;
+         if(markersArray[i].label != undefined) continue;
+         var pos = markersArray[i].marker.getPosition();
          var mapLabel = new MapLabel({
-           text: marker.getTitle(),
+           text: markersArray[i].marker.getTitle(),
            // bad hack to prevent marker from overlapping with label
            position: new google.maps.LatLng(pos.lat()-0.00003,pos.lng()),
            map: map,
@@ -340,30 +337,21 @@
            strokeWeight: 5,
            align: 'center'
          });
-         labelsArray.push(mapLabel);
-         boundMarkersArray.push(marker);
-         marker.bindTo('map', mapLabel);
+         markersArray[i].label = mapLabel;     
+         markersArray[i].marker.bindTo('map', mapLabel);
        } 
        labelsOn = true;
   }
 
   function delabelize_markers() {
-        var len = boundMarkersArray.length;
+        var len = markersArray.length;
         for(var i = 0; i < len; i++){
-          var marker = boundMarkersArray[i]
-          marker.unbind('map');
-          marker.unbind('position');
-          boundMarkersArray[i] = null;
+          markersArray[i].marker.unbind('map');
+          markersArray[i].marker.unbind('position');
+          markersArray[i].label.set('text','');
+          markersArray[i].label.set('map',null);
+          markersArray[i].label = null;
         }
-        boundMarkersArray = [];
-        len = labelsArray.length;
-        for(var i = 0; i < len; i++){
-          var lab = labelsArray[i];
-          lab.set('text','');
-          lab.set('map',null);
-          labelsArray[i] = null;
-        }
-        labelsArray = [];
         labelsOn = false;
   }
 
@@ -372,8 +360,8 @@
     last_search = search;
     var len = markersArray.length;
     for(var i = 0; i < len; i++){
-      var marker = markersArray[i];
-      var label = labelsArray[i];
+      var marker = markersArray[i].marker;
+      var label = markersArray[i].label;
       var title = marker.getTitle();
       if(marker == undefined || title == undefined) continue;
       if(search == ""){

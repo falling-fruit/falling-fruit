@@ -34,7 +34,7 @@ function update_display(force,force_zoom){
     document.getElementById('mainmap_container').style.top = height + 'px';
     if(zoom > 8)
       do_clusters(bounds,zoom,$('#muni').is(':checked'));
-    else if(zoom != prior_zoom)
+    else if((zoom != prior_zoom) || force)
       do_clusters(undefined,zoom,$('#muni').is(':checked'));
   }else if(zoom >= 13){
     $('#get_data_link').attr('href',data_link());
