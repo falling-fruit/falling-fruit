@@ -29,14 +29,8 @@ FallingfruitWebapp::Application.routes.draw do
   match 'inventories' => 'pages#inventories'
   match 'sharing' => 'pages#sharing'
 
-  devise_for :admins
-  resources :admins do
-    member do
-      get 'approve'
-    end
-  end
-
   resources :imports
+
   resources :changes
 
   match 'locations/:id/infobox' => 'locations#infobox'

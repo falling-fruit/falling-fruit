@@ -18,3 +18,15 @@ This code is licensed under a Beerware-style license:
 If you want to help with development, feel free to fork the project. If you have something
 to submit upstream, send a pull request from your fork. Cool? Cool.
 
+== How do I run it?
+
+Something like this will start it on your local machine, assuming you have the various
+pre-requisites installed (ruby, rvm, postgis, etc.)
+
+  caleb@krige:~$ bash --login
+  caleb@krige:~$ rvm use 1.9.3
+  Using /home/caleb/.rvm/gems/ruby-1.9.3-p392
+  caleb@krige:~$ cd Checkouts/fallingfruit-webapp/
+  caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle install
+  caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle exec rake db:migrate
+  caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle exec thin start

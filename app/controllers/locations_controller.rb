@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_admin!, :only => [:destroy]
+  before_filter :authenticate_user!, :only => [:destroy]
   before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
 
   def expire_things
@@ -269,7 +269,9 @@ class LocationsController < ApplicationController
     @lng = @location.lng
     @location.locations_types += lts unless lts.nil?
     respond_to do |format|
-      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
+                                                       :message => "ReCAPCHA error!")
+      if test and @location.save
         ApplicationController.cluster_increment(@location)
         log_changes(@location,"added")
         expire_things
@@ -295,7 +297,7 @@ class LocationsController < ApplicationController
     @lng = @location.lng
 
     # prevent normal users from changing author
-    params[:location][:author] = @location.author unless admin_signed_in?
+    params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
 
     # manually update location types :/
     unless params[:location].nil? or params[:location][:locations_types].nil?
@@ -322,8 +324,10 @@ class LocationsController < ApplicationController
 
     ApplicationController.cluster_decrement(@location)
     respond_to do |format|
-      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
-         @location.update_attributes(params[:location])
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
+                                                       :message => "ReCAPCHA error!")
+     
+      if test and @location.update_attributes(params[:location])
         log_changes(@location,"edited")
         ApplicationController.cluster_increment(@location)
         expire_things

@@ -25,12 +25,12 @@ last_days_ago = nil
 <% else %>
     <%= c["description"] %>
 <% end %>
-<% if admin_signed_in? %>
+<% if user_signed_in? and current_user.is? :admin %>
   <span style="color: #E35809;">
-  <% if c["admin_id"].nil? %>
+  <% if c["user_id"].nil? %>
     &nbsp;<%= c["remote_ip"] %>
   <% else %>
-    &nbsp;Admin
+    &nbsp;User #<%= c["user_id"] %>
   <% end %>
   </span>
 <% end %>

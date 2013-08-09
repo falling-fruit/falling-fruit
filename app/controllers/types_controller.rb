@@ -1,5 +1,5 @@
 class TypesController < ApplicationController
-  before_filter :authenticate_admin!
+  before_filter :authenticate_user!
 
   # GET /types
   # GET /types.json

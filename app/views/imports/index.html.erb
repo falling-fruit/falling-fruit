@@ -18,7 +18,7 @@ lcounts = {}
 Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l|
   lcounts[l.import_id] = l.count
 }
-@imports.each do |import| %>
+Import.all.each do |import| %>
   <% 
     ofile = File.join("public","import","#{import.id}.csv")
     ifile = File.join("public","import","#{import.id}_done.csv")

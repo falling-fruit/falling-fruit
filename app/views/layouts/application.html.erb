@@ -56,10 +56,10 @@
 <!-- Menu Bar -->
 <div id="menubar">
  <div id="rightcontrols">
-		<% if admin_signed_in? %>
-			<span id="admin_email"><%= current_admin.email %></span> <%= link_to('Account', edit_admin_registration_path) %><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>
+		<% if user_signed_in? %>
+			<span id="user_email"><%= current_user.email %></span> <%= link_to('Account', edit_user_registration_path) %><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 		<% else %>
-			<!-- <%= link_to('Admin', admins_path) %> -->
+			<!-- <%= link_to('User', users_path) %> -->
 		<% end %>
  </div>
  <div id="menu">
@@ -78,7 +78,7 @@
     <li><%= link_to('Changes', '/changes', :class => (request.fullpath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
     <li><%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
     
-				<% if admin_signed_in? %>
+				<% if user_signed_in? and current_user.is? :admin %>
 					<!-- Types -->
 					<li><span class="<%= (request.fullpath == types_path or request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
 					<ul>
@@ -95,13 +95,13 @@
 					</ul>
 					</li>
 				
-					<!-- Admins -->
-					<li><%= link_to('Admins', admins_path, :class => (request.fullpath == admins_path) ? "currentpage" : "notcurrentpage") %></li>
+					<!-- Users -->
+					<li><%= link_to('Users', users_path, :class => (request.fullpath == users_path) ? "currentpage" : "notcurrentpage") %></li>
 				<% end %>
     </ul>
     
     <!-- Click on map! -->
-    <% if (request.fullpath.split('?')[0] == root_path) and !admin_signed_in? %>
+    <% if (request.fullpath.split('?')[0] == root_path) and !user_signed_in? %>
 				<span>(or right-click on map)</span>
 			<% end %>
 

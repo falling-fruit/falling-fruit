@@ -10,10 +10,15 @@ class ApplicationController < ActionController::Base
       @current_controller = controller_name
   end
 
-  before_filter :set_current_admin
+  before_filter :set_current_user
 
-  def set_current_admin
-    Admin.current_admin = current_admin
+  def set_current_user
+    User.current_user = current_user
+  end
+
+  # catch all perms errors and punt to root
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
   end
 
   # http://railscasts.com/episodes/199-mobile-devices
@@ -149,7 +154,7 @@ class ApplicationController < ActionController::Base
     c.location = location
     c.description = description
     c.remote_ip = request.remote_ip
-    c.admin = current_admin if admin_signed_in?
+    c.user = current_user if user_signed_in?
     c.save
   end
   helper_method :log_changes

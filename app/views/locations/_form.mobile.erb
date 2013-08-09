@@ -75,7 +75,7 @@ EOF
   <%= f.text_field :lng, :size => 12, :value => @lng, 'data-inline' => 'true' %> (Longitude)
   </fieldset>
   <br>
-  <!-- Author (if new or admin) -->
+  <!-- Author -->
   <fieldset data-role="controlgroup">
     <legend>Author<br />
     <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br>
@@ -139,7 +139,7 @@ EOF
   <!-- Submit -->
     <!-- Captcha -->
     <div id="captcha">
-    <%= recaptcha_tags(:display => {:theme => 'clean'}) if current_admin.nil? %>
+    <%= recaptcha_tags(:display => {:theme => 'clean'}) unless user_signed_in? %>
     </div>
     <br><br>
     <%= f.submit("Submit", 'data-ajax' => 'false') %>

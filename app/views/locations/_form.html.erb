@@ -71,7 +71,7 @@ EOF
   </div>
   
   <!-- Author (if new or admin) -->
-  <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and !current_admin.nil?) %>
+  <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and user_signed_in? and current_user.is? :admin) %>
   <div class="field">
     <%= f.label :Author %><br />
     <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br>
@@ -126,11 +126,11 @@ EOF
 
   <br>
   <!-- Captcha -->
-  <% if current_admin.nil? %>
+  <% unless user_signed_in? %>
   	<br>
 	<% end %>
   <div id="captcha">
-  <%= recaptcha_tags(:display => {:theme => 'white'}) if current_admin.nil? %>
+  <%= recaptcha_tags(:display => {:theme => 'white'}) unless user_signed_in? %>
   </div>
   
   <br>
