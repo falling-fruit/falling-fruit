@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :range,
-                  :name, :bio, :roles, :roles_mask, :remember_me
+                  :name, :bio, :roles, :roles_mask, :remember_me, :add_anonymously,
+                  :range_updates_email
 
   roles_attribute :roles_mask
   roles :admin, :forager, :partner, :guest

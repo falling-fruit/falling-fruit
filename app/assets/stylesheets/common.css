@@ -280,6 +280,38 @@ div#searchbar input[type=checkbox] {
   top: -.1em;
 }
 
+div#embed {
+  background: white;
+  padding: 0.5em;
+}
+
+.ui-dialog .ui-dialog-content
+{
+  position: relative;
+  border: 0;
+  padding: .5em 1em;
+  background: none;
+  overflow: auto;
+  zoom: 1;
+  background-color: #ffd;
+  border: solid 1px grey;
+  border-top: none;
+  font-size: 10pt;
+  font-family: 'monospace';
+}
+
+.ui-dialog .ui-dialog-titlebar
+{
+  background: #c0c0c0;
+  padding: 0.5em;
+  font-weight: bold;
+  border: 1px solid grey;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  float: right;
+}
+
 /*** Map ***/
 
 div#mainmap_container {

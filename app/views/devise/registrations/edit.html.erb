@@ -1,9 +1,14 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit Your Info</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
   <%= render :partial => "range_map", :locals => {:f => f} %>
+
+  <div><%= f.label :options %><br />
+   <%= f.check_box :range_updates_email %> Receive weekly email updates on changes/additions in your foraging range<br />
+    <%= f.check_box :add_anonymously %> Add Points Anonymously (even when logged in)
+  </div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>

@@ -11,6 +11,7 @@ FallingfruitWebapp::Application.routes.draw do
       get 'markers'
       get 'marker'
       get 'data'
+      get 'embed'
     end
   end
 

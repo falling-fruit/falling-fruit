@@ -5,6 +5,11 @@
 
   <%= render :partial => "range_map", :locals => {:f => f} %>
 
+  <div><%= f.label :options %><br />
+   <%= f.check_box :range_updates_email %> Receive weekly email updates on changes/additions in your foraging range<br />
+    <%= f.check_box :add_anonymously %> Add Points Anonymously (even when logged in)
+  </div>
+
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 

@@ -1,7 +1,8 @@
-<%= f.label :foraging_range %><br>
+<%= f.label :foraging_range %> <i>(the area you generally forage in)<br><br>
 <div style="width:500px; text-align: right;">
-<input type="text" value="Zoom To..." onclick="this.value='';" name="address" id="address">
-<button type="button" onclick="recenter_map_to_address();return false;">Go</button>
+<input type="text" value="Zoom to address..." onclick="this.value='';" name="address" id="address">
+<button type="button" onclick="recenter_map_to_address();return false;">Zoom</button>
+<button type="button" onclick="overlay.setMap(null);overlay=undefined;return false;">Clear</button>
 <div id="map" style="width:500px; height:300px;"></div>
 </div>
 <% content_for :page_scripts do %>
@@ -24,7 +25,7 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map'),mapOptions);
 
   var drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.MARKER,
+    drawingMode: google.maps.drawing.OverlayType.POLYGON,
     drawingControl: true,
     drawingControlOptions: {
       position: google.maps.ControlPosition.TOP_CENTER,
@@ -66,6 +67,24 @@ function initialize() {
   geocoder = new google.maps.Geocoder();
 
   drawingManager.setMap(map);
+
+  <% if user_signed_in? and !current_user.range.nil? %>
+  var wkt = new Wkt.Wkt();
+  wkt.read('<%= current_user.range %>');
+  var obj = wkt.toObject(map.defaults);
+  obj.setMap(map);
+  overlay = obj;
+  if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
+    // For objects that have defined bounds or a way to get them
+    map.fitBounds(obj.getBounds());
+  } else {
+    if (obj.getPath !== undefined && typeof obj.getPath === 'function') {
+      // For Polygons and Polylines
+      map.panTo(obj.getPath().getAt(0));
+    }
+  }
+  <% end %>
+
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -97,3 +116,4 @@ $("#address").keydown(function (e) {
 </script>
 <% end %>
 <%= f.hidden_field :range %>
+<br>
