@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(:version => 20130811164904) do
     t.spatial  "range",                  :limit => {:srid=>4326, :type=>"polygon", :geographic=>true}
     t.string   "name"
     t.text     "bio"
-    t.integer  "roles_mask"
+    t.integer  "roles_mask",                                                                           :default => 10,    :null => false
     t.boolean  "range_updates_email",                                                                  :default => false, :null => false
     t.boolean  "add_anonymously",                                                                      :default => false, :null => false
   end

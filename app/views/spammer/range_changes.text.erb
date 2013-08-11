@@ -1,6 +1,6 @@
 <% unless @user.name.nil? %>Hi <%= @user.name %>,<% else %>Hi there,<% end %>
 
-Here are <%= @changes.length %> changes, in the last week, in your foraging range: 
+There were <%= @changes.length %> changes, in the last week, in your foraging range: 
 
 <% 
   hist = {}
