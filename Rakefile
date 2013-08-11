@@ -4,6 +4,8 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+SendEmails = false
+
 FallingfruitWebapp::Application.load_tasks
 
 task(:clear_cache => :environment) do
@@ -28,6 +30,18 @@ task(:geocode => :environment) do
       break
     end
   }
+end
+
+task(:range_changes => :environment) do
+  User.where('range_updates_email AND range IS NOT NULL').each{ |u|
+    m = Spammer.range_changes(u,7)
+    next if m.nil?
+    if SendEmails 
+      m.deliver
+    else
+      puts m
+    end
+  } 
 end
 
 task(:export_data => :environment) do

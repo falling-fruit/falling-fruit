@@ -1,0 +1,27 @@
+<% unless @user.name.nil? %>Hi <%= @user.name %>,<% else %>Hi there,<% end %>
+
+Here are <%= @changes.length %> changes, in the last week, in your foraging range: 
+
+<% 
+  hist = {}
+  @changes.each{ |c| 
+    c.location.locations_types.each{ |lt|
+      t = lt.type.nil? ? lt.type_other : lt.type.name 
+      hist[t] = 0 if hist[t].nil?
+      hist[t] += 1
+    }
+  %>
+  * <%= c.location.title %> <%= c.description %>: http://fallingfruit.org/locations/<%= c.location.id %>
+<% } %>
+
+Here's a summary of the types added: 
+
+<%= hist.collect{ |k,v| "#{k}: #{v}" }.join(", ") %>
+
+Thanks for contributing to the map! Have an awesome week.
+
+--
+Caleb Phillips & Ethan Welty
+The Falling Fruit Team
+http://fallingfruit.org
+info@fallingfruit.org
