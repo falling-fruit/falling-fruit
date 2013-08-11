@@ -250,7 +250,8 @@ class LocationsController < ApplicationController
         unless data[:type_id].nil? or (data[:type_id].strip == "")
           lt.type_id = data[:type_id]
         else
-          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
+          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "") or
+                          data[:type_other] =~ /something not in the list/
         end
         k = lt.type_id.nil? ? lt.type_other : lt.type_id
         if lt.type_id.nil? and lt.type_other.nil?
