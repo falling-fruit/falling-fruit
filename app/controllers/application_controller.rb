@@ -32,12 +32,11 @@ class ApplicationController < ActionController::Base
     request.format = :mobile if mobile_device?
   end
 
+  # assumes not muni, increments the not muni clusters
   def self.cluster_increment(location)
-    muni = (!location.import.nil? and location.import.muni) ? true : false
-    mq = muni ? "AND muni" : "AND NOT muni"
     found = []
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
-    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
+    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) AND muni = 'f'").each{ |clust|
     
       # since the cluster center is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
       # e.g., https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average
@@ -52,10 +51,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cluster_increment
 
+  # assumes not muni, increments the not muni clusters
   def self.cluster_decrement(location)
-    mq = (!location.import.nil? and location.import.muni) ? "AND muni" : "AND NOT muni"
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
-    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) #{mq}").each{ |clust|
+    Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) AND muni = 'f'").each{ |clust|
       clust.count -= 1
       if(clust.count <= 0)
         clust.destroy
