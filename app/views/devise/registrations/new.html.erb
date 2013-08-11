@@ -13,6 +13,12 @@
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 
+  <div><%= f.label :name %><br />
+  <%= f.text_field :name %></div>
+
+  <div><%= f.label :bio %> <i>(optionally, a bit about you)<br />
+  <%= f.text_area :bio, :size => "40x6" %></div>
+
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 

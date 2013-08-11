@@ -1,5 +1,6 @@
 class ImportsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
+  authorize_resource
 
   def index
     respond_to do |format|

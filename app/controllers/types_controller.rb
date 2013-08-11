@@ -1,11 +1,11 @@
 class TypesController < ApplicationController
   before_filter :authenticate_user!
+  authorize_resource
 
   # GET /types
   # GET /types.json
   def index
     @types = Type.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @types }

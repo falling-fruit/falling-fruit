@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_user!, :only => [:destroy]
   before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
+  authorize_resource :only => [:destroy]
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"

@@ -1,5 +1,7 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
+    default_role_mask = (["forager","guest"] & User::ROLES).map{ |r| 2**User::ROLES.index(r) }.inject(0, :+)
+
     create_table(:users) do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
@@ -42,7 +44,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.text :bio
 
       # Which roles this user belongs to
-      t.integer :roles_mask
+      t.integer :roles_mask, :null => false, :default => default_role_mask 
     end
 
     add_index :users, :email,                :unique => true
