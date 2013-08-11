@@ -3,16 +3,16 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    if user.has_role? :admin
+    if user.is? :admin
       can :manage, :all
-    elsif user.has_role? :forager
-      # let them edit themselves...
-    elsif user.has_role? :partner
+    elsif user.is? :partner
       # let them edit themself and their organization info
+    elsif user.is? :forager or user.is? :guest
+      # let them edit themselves...
     end
 
     # Things everyone can do
     can [:read, :create, :update], [Location, LocationsType]
-    can :read, [Type, Change]
+    can :read, [Type, Change, Import]
   end
 end
