@@ -1,5 +1,8 @@
 FallingfruitWebapp::Application.routes.draw do
 
+  devise_for :users
+  resources :users
+
   resources :locations do
     collection do
       get 'import'
@@ -8,6 +11,7 @@ FallingfruitWebapp::Application.routes.draw do
       get 'markers'
       get 'marker'
       get 'data'
+      get 'embed'
     end
   end
 
@@ -26,14 +30,8 @@ FallingfruitWebapp::Application.routes.draw do
   match 'inventories' => 'pages#inventories'
   match 'sharing' => 'pages#sharing'
 
-  devise_for :admins
-  resources :admins do
-    member do
-      get 'approve'
-    end
-  end
-
   resources :imports
+
   resources :changes
 
   match 'locations/:id/infobox' => 'locations#infobox'

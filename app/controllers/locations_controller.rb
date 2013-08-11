@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_admin!, :only => [:destroy]
+  before_filter :authenticate_user!, :only => [:destroy]
   before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
+  authorize_resource :only => [:destroy]
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"
@@ -188,6 +189,19 @@ class LocationsController < ApplicationController
     end
   end
 
+  def embed
+    @perma = nil
+    if params[:z].present? and params[:y].present? and params[:x].present? and params[:m].present?
+      @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
+                :muni => params[:m] == "true", :type => params[:t]}
+    end
+    @width = params[:width].present? ? params[:width].to_i : 500
+    @height = params[:height].present? ? params[:height].to_i : 500
+    respond_to do |format|
+      format.html { render :layout => false } # embed.html.erb
+    end
+  end
+
   # GET /locations
   # GET /locations.json
   def index
@@ -250,7 +264,8 @@ class LocationsController < ApplicationController
         unless data[:type_id].nil? or (data[:type_id].strip == "")
           lt.type_id = data[:type_id]
         else
-          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
+          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "") or
+                          data[:type_other] =~ /something not in the list/
         end
         k = lt.type_id.nil? ? lt.type_other : lt.type_id
         if lt.type_id.nil? and lt.type_other.nil?
@@ -269,7 +284,9 @@ class LocationsController < ApplicationController
     @lng = @location.lng
     @location.locations_types += lts unless lts.nil?
     respond_to do |format|
-      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and @location.save
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
+                                                       :message => "ReCAPCHA error!")
+      if test and @location.save
         ApplicationController.cluster_increment(@location)
         log_changes(@location,"added")
         expire_things
@@ -295,7 +312,7 @@ class LocationsController < ApplicationController
     @lng = @location.lng
 
     # prevent normal users from changing author
-    params[:location][:author] = @location.author unless admin_signed_in?
+    params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
 
     # manually update location types :/
     unless params[:location].nil? or params[:location][:locations_types].nil?
@@ -322,8 +339,10 @@ class LocationsController < ApplicationController
 
     ApplicationController.cluster_decrement(@location)
     respond_to do |format|
-      if (!current_admin.nil? or verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")) and 
-         @location.update_attributes(params[:location])
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
+                                                       :message => "ReCAPCHA error!")
+     
+      if test and @location.update_attributes(params[:location])
         log_changes(@location,"edited")
         ApplicationController.cluster_increment(@location)
         expire_things

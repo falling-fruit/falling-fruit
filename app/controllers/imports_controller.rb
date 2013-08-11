@@ -1,11 +1,10 @@
 class ImportsController < ApplicationController
-  before_filter :authenticate_admin!, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show]
+  authorize_resource
 
   def index
-    @imports = Import.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @imports }
     end
   end
 

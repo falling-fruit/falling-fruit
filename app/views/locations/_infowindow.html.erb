@@ -78,7 +78,7 @@
 	<tr>
  		<td id="controls">
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;">link</a><a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external">edit</a>
- 		<% if admin_signed_in? %>
+ 		<% if user_signed_in? and current_user.is? :admin %>
   		<%= link_to('delete', location, method: :delete, data: { confirm: 'Are you sure?' }) %>
  		<% end %>
  		</td>

@@ -43,3 +43,7 @@ gem 'recaptcha', :require => "recaptcha/rails"
 gem 'comma', '~> 3.0'
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
+
+# http://www.phase2technology.com/blog/authentication-permissions-and-roles-in-rails-with-devise-cancan-and-role-model/
+gem 'cancan'
+gem 'role_model'
