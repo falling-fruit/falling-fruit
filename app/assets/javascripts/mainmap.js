@@ -31,7 +31,7 @@ function show_embed_html(object){
   var host = slashes.concat(window.location.hostname);
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + 
-    '&width=400&height=400" width=400 height=400 scrolling="no" style="border: 0;"></iframe>').dialog(); 
+    '&width=400&height=400" width=400 height=400 scrolling="no" style="border: 0;"></iframe>').dialog({ closeText: "[x]" }); 
 }
 
 function update_display(force,force_zoom){
