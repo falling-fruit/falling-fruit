@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
       clust.save
       found << clust.zoom
     }
-    cluster_seed(location,(0..12).to_a - found,muni) unless found.max == 12
+    cluster_seed(location,(0..12).to_a - found,false) unless found.max == 12
   end
   helper_method :cluster_increment
 

@@ -20,6 +20,18 @@
 </head>
 <body>
 
+ <!-- Alerts -->
+ <% if notice or alert %>
+ <div id="warnings_dialog" style="display:none;" title="Notice"></div>
+ <% content_for :page_scripts do %>
+ <script type="text/javascript">
+ var w1 = '<%= notice %>';
+ var w2 = '<%= alert %>';
+ $('#warnings_dialog').text(w1 + "\n\n" + w2).dialog({ closeText: "[x]", height: 75, width: 300, resize: "auto", dialogClass: 'notice', position: 'top' });
+ </script>
+ <% end %>
+ <% end %>
+
 <% @is_index = (@current_controller == "locations") and (@current_action == "index") %>
 
 <!-- Logo Bar -->
@@ -39,18 +51,6 @@
  <!-- Title -->
  <a id="falling_fruit" href="/">FallingFruit.org</a><a href="/?mobile=1"><img style="height:1.7em;position:relative;top:0.1em;left:0.5em;" src="/mobile.png" title="Mobile site"/></a><span id="subtitle"> Mapping the urban harvest!</span>
  
- <!-- Alerts -->
- <% if notice or alert %>
- <div id="warnings">
-  <a id="warnings_close" href="#" onclick="$('#warnings').hide();">[x]</a>
-  <% if notice %>
-  <div class="notice"><%= notice %></div>
-  <% end %>
-  <% if alert %>
-  <div class="alert"><%= alert %></div>
-  <% end %>
- </div>
- <% end %>
 </div>
 
 <!-- Menu Bar -->
