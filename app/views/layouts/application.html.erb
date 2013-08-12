@@ -59,7 +59,7 @@
 		<% if user_signed_in? %>
 			<span id="user_email"><%= current_user.email %></span> <%= link_to('Account', edit_user_registration_path) %><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 		<% else %>
-			<%= link_to('Login', new_user_session_path) %>
+			<%= link_to('Login or Sign Up', new_user_session_path) %>
 		<% end %>
  </div>
  <div id="menu">
