@@ -43,6 +43,7 @@
  <!-- AddThis Buttons -->
 	<div id="share_controls" class="addthis_toolbox addthis_default_style" >
 		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="http://www.facebook.com/FallingFruit"></a> 	
+		<a class="addthis_button_twitter_follow_native" addthis:url="http://www.twitter.com/Falling_Fruit"/>
 		<a class="addthis_counter addthis_pill_style" addthis:url="http://www.FallingFruit.org"></a>
 	</div>
 	<!-- URL tracking <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>-->
@@ -59,7 +60,7 @@
 		<% if user_signed_in? %>
 			<span id="user_email"><%= current_user.email %></span> <%= link_to('Account', edit_user_registration_path) %><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 		<% else %>
-			<%= link_to('Login', new_user_session_path) %>
+			<%= link_to('Login or Sign Up', new_user_session_path) %>
 		<% end %>
  </div>
  <div id="menu">

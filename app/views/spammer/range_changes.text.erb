@@ -1,6 +1,6 @@
 <% unless @user.name.nil? %>Hi <%= @user.name %>,<% else %>Hi there,<% end %>
 
-There were <%= @changes.length %> changes, in the last week, in your foraging range: 
+This week on Falling Fruit, there were <%= @changes.length %> changes in your foraging range: 
 
 <% 
   hist = {}
@@ -14,9 +14,9 @@ There were <%= @changes.length %> changes, in the last week, in your foraging ra
   * <%= c.location.title %> <%= c.description %>: http://fallingfruit.org/locations/<%= c.location.id %>
 <% } %>
 
-Here's a summary of the types added: 
+The number of new locations, by type: 
 
-<%= hist.collect{ |k,v| "#{k}: #{v}" }.join(", ") %>
+<%= hist.collect{ |k,v| "#{k}: #{v}" }.join("\n") %>
 
 Thanks for contributing to the map! Have an awesome week.
 
