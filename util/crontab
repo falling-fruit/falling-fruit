@@ -7,3 +7,4 @@ HOME=/
 00 07 * * * (pushd /var/www/falling-fruit;make export;popd)
 00 05 * * * (pushd /var/www/falling-fruit;rake geocode;popd)
 00,30 *  * * * (pushd /var/www/falling-fruit;rake import;popd)
+00 00 * * 0 (pushd /var/www/falling-fruit;rake range_changes;popd)

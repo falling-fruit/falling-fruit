@@ -104,7 +104,7 @@ class ApplicationController < ActionController::Base
           c.muni = import.muni
           c.save
         else
-          c.count = row["count"] + c.count
+          c.count = row["count"].to_i + c.count.to_i
           newx = c.cx.to_f+((row["x"].to_f-c.cx.to_f)/c.count.to_f)
           newy = c.cy.to_f+((row["y"].to_f-c.cy.to_f)/c.count.to_f)
           c.cluster_point = "POINT(#{newx} #{newy})"

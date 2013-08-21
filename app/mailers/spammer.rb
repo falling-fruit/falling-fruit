@@ -11,6 +11,6 @@ class Spammer < ActionMailer::Base
     #  GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at ORDER BY c.created_at DESC LIMIT 100");
     #@changes = r.collect{ |row| row }
     @changes = Change.where("changes.created_at > NOW() - interval '? days' AND ST_INTERSECTS((SELECT range FROM users WHERE id=?),location)",ndays,user.id).joins(:location)
-    return @changes.length == 0 ? nil : mail(to:user.email,subject:"FallingFruit.org: Weekly Updates")
+    return @changes.length == 0 ? nil : mail(from:"info@fallingfruit.org",to:user.email,subject:"FallingFruit.org: Weekly Updates")
   end
 end

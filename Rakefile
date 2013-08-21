@@ -33,15 +33,23 @@ task(:geocode => :environment) do
 end
 
 task(:range_changes => :environment) do
+  sent_okay = 0
   User.where('range_updates_email AND range IS NOT NULL').each{ |u|
     m = Spammer.range_changes(u,7)
     next if m.nil?
     if SendEmails 
-      m.deliver
+      begin
+        m.deliver
+      rescue
+        $stderr.puts "Problem sending message!!! #{m}"
+        next
+      end
+      sent_okay += 1
     else
       puts m
     end
   } 
+  $stderr.puts "Sent #{sent_okay} messages successfully"
 end
 
 task(:export_data => :environment) do
