@@ -56,7 +56,7 @@ function update_display(force,force_zoom){
     $('#get_data_link').attr('href',data_link());
     $('#hidden_controls').show();
     $('#export_data').show();
-    do_markers(bounds,null,$('#muni').is(':checked'));
+    do_markers(bounds,skip_ids,$('#muni').is(':checked'));
     var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
     document.getElementById('mainmap_container').style.top = height + 'px';
   }

@@ -3,6 +3,8 @@ FallingfruitWebapp::Application.routes.draw do
   devise_for :users
   resources :users
 
+  resources :routes
+
   resources :locations do
     collection do
       get 'import'

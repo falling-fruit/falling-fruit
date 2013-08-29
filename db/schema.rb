@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130811164904) do
+ActiveRecord::Schema.define(:version => 20130829171415) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -76,6 +76,17 @@ ActiveRecord::Schema.define(:version => 20130811164904) do
 
   add_index "locations", ["location"], :name => "index_locations_on_location", :spatial => true
 
+  create_table "locations_routes", :force => true do |t|
+    t.integer  "location_id"
+    t.integer  "route_id"
+    t.integer  "position"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "locations_routes", ["location_id"], :name => "index_locations_routes_on_location_id"
+  add_index "locations_routes", ["route_id"], :name => "index_locations_routes_on_route_id"
+
   create_table "locations_types", :force => true do |t|
     t.integer "location_id"
     t.integer "type_id"
@@ -95,6 +106,16 @@ ActiveRecord::Schema.define(:version => 20130811164904) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
   end
+
+  create_table "routes", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "routes", ["user_id"], :name => "index_routes_on_user_id"
 
   create_table "types", :force => true do |t|
     t.string   "name"
@@ -134,7 +155,7 @@ ActiveRecord::Schema.define(:version => 20130811164904) do
     t.spatial  "range",                  :limit => {:srid=>4326, :type=>"polygon", :geographic=>true}
     t.string   "name"
     t.text     "bio"
-    t.integer  "roles_mask",                                                                           :default => 10,    :null => false
+    t.integer  "roles_mask"
     t.boolean  "range_updates_email",                                                                  :default => false, :null => false
     t.boolean  "add_anonymously",                                                                      :default => false, :null => false
   end

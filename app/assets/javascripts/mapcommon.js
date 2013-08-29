@@ -23,11 +23,11 @@
   }
 
   // will avoid adding duplicate markers (using location id)
-  function add_markers_from_json(mdata,rich,skip_id){
+  function add_markers_from_json(mdata,rich,skip_ids){
     var len = mdata.length;
     for(var i = 0; i < len; i++){
       var lid = mdata[i]["location_id"];
-      if((skip_id != undefined) && (skip_id == parseInt(lid))) continue;
+      if((skip_ids != undefined) && (skip_ids.indexOf(parseInt(lid)) >= 0)) continue;
       if((lid != undefined) && (find_marker(lid) != undefined)) continue;
       if(!rich){
         var w = mdata[i]["width"];
@@ -205,7 +205,7 @@
     });
   }
 
-  function do_markers(bounds,skip_id,muni){
+  function do_markers(bounds,skip_ids,muni){
     var bstr = '';
     if(bounds != undefined){
       bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() + 
@@ -230,7 +230,7 @@
         markersArray.splice(i,1);
         i = find_marker(null);
       }
-      add_markers_from_json(json,false,skip_id);
+      add_markers_from_json(json,false,skip_ids);
       // make markers clickable
       for (var i = 0; i < markersArray.length; ++i) {
         add_marker_infobox(i);
