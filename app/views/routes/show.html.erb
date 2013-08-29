@@ -73,7 +73,7 @@
         destination: new google.maps.LatLng(<%= @stop_location.lat %>,<%= @stop_location.lng %>),
         <% if @route_locations.length > 2 %>
         waypoints: [<%= (1..@route_locations.length-2).collect{ |i| 
-                          "new google.maps.LatLng(#{@route_locations[i].location.lat},#{@route_locations[i].location.lng})" }.join(",") 
+                          "{location: new google.maps.LatLng(#{@route_locations[i].location.lat},#{@route_locations[i].location.lng})}" }.join(",") 
                     %>],
         <% end %>
         travelMode: google.maps.TravelMode.WALKING
@@ -90,7 +90,12 @@
         }
       });
 
+      // draw the markers and whatnot
       update_display(true,ini_zoom);
+
+      // default is labels on
+      labelize_markers();
+      $("#labels").prop('checked',true);
     });
              
     google.maps.event.addListener(map, 'bounds_changed', function() {
