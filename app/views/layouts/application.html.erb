@@ -32,8 +32,6 @@
  <% end %>
  <% end %>
 
-<% @is_index = (@current_controller == "locations") and (@current_action == "index") %>
-
 <!-- Logo Bar -->
 <div id="logobar">
 
@@ -110,7 +108,7 @@
 </div>
 
 <!-- Content -->
-<% unless @is_index %>
+<% unless ((@current_controller == "locations") and (@current_action == "index")) or (@current_controller == "routes") %>
 <div id="content">
  <%= yield %>
  
@@ -119,8 +117,11 @@
   <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Copyleft</a> (c) <%= Time.now.year %> Falling Fruit  
  </div>
 </div>
+
 <% else %>
+
 <%= yield %>
+
 <% end %>
 
 <!-- Per Page Javascripts -->

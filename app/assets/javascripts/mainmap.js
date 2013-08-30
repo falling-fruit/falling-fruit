@@ -36,10 +36,11 @@ function show_embed_html(object){
     }); 
 }
 
-function update_display(force,force_zoom){
+function update_display(force,force_zoom,force_bounds){
   var zoom = map.getZoom();
   if(force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
+  if(force_bounds != undefined) bounds = force_bounds;
   var center = map.getCenter();
   update_permalink();
   if(zoom <= 12){
