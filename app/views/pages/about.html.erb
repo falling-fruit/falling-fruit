@@ -2,8 +2,13 @@
  <img src="/jeff-apples.jpg"><img src="/jeff-tree.jpg"><img src="/plums.jpg"><img src="/amittai-mulberries.jpg">
 </div>
 
-<p style="font-style:italic;font-size:115%; border-left: 2px solid lightgrey; padding-left: 0.5em;">
-This website is still a prototype. We have a lot of exciting features planned, but we also want to evolve to best meet the needs and desires of the community. Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>. We would love to hear from you!
+<p style="font-style:italic;font-size:115%;">
+This website is still a prototype. We want to evolve to best meet the needs and desires of the foraging community, so write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>. We would love to hear from you!
+<ul style="margin-left:2em;line-height:1.5em;">
+<b>New features</b>
+<li style="margin-left:1.5em;list-style:circle;">Embed the Falling Fruit <a href="/">map</a> into any website or blog using the "Embed" button.</li>
+<li style="margin-left:1.5em;list-style:circle;"><a href="/users/sign_up">Sign up</a> for a user account and define your "foraging range". We'll send you weekly emails notifying you of changes in your area.</li>
+</ul>
 </p>
 
 <h2>About the Site</h2>
@@ -21,19 +26,14 @@ Falling Fruit is a celebration of the overlooked culinary bounty of our city str
 %>
 
 <p>
-Our map of urban edibles is not the first of its kind, but we aspire to be the most comprehensive, bringing together the <a href="/maps">maps of foragers</a> from all across the internet. We are also including edible species found in <a href="/inventories">municipal tree inventories</a> - databases of street (and sometimes private) trees used by many cities, universities, and other institutions to manage the urban forest. This already amounts to <%= number_with_delimiter(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
+Our map of urban edibles is not the first of its kind, but we aspire to be the most comprehensive, bringing together the <a href="/maps">maps of foragers</a> from all across the internet. We are also including edible species found in <a href="/inventories">municipal tree inventories</a> - databases of street (and sometimes private) trees used by cities, universities, and other institutions to manage the urban forest. This already amounts to <%= number_with_delimiter(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
 </p>
 
 <!-- cache end -->
 <% end %>
 
 <p>
-Join us in celebrating the local and edible! The <a href="/">map</a> is open 
-for anyone to edit, the entire database can be <a href="/data">downloaded</a> 
-with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">our code</a> 
-is open-source. We created Falling Fruit driven by our passion for food 
-and the environment. If you think it's cool and want to say thanks, you 
-can always "buy us a beer" (i.e., help us pay for the server):
+Join us in celebrating the local and edible! The <a href="/">map</a> is open for anyone to edit, the entire database can be <a href="/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">our code</a> is open-source. If you think it's cool and want to say thanks, please help us pay for our rapidly rising server costs:
 </p>
 
 <blockquote>
@@ -49,7 +49,7 @@ can always "buy us a beer" (i.e., help us pay for the server):
 </blockquote>
 
 <p>
-Finally, if you've picked more than you can use or are overwhelmed by the bumper crop from your private trees, we encourage you to donate the surplus produce to charity or to your neighbors with the help of your local <a href="/sharing">food redistribution programs</a>.
+Finally, if you've picked more than you can use or are overwhelmed by the bumper crop from your private trees, we encourage you to donate the surplus produce to charity or your neighbors with the help of local <a href="/sharing">food redistribution programs</a>.
 </p>
 
 <h2>About Us</h2>
@@ -90,7 +90,7 @@ Harvesting food in an urban setting comes with certain practical and moral consi
 </p>
 
 <p>
-Most of the foraging maps migrated to Falling Fruit were hosted on public Google Maps pages on which it was all too easy to accidentally move markers around. If an address provided in a description disagrees with the location on the map, the marker was likely moved accidentally on the original map. Please help by updating the location of these markers accordingly whenever your scouting determines the address (and not the mapped location) to be correct.
+Most of the foraging maps migrated to Falling Fruit were hosted on public Google Maps pages on which it was all too easy to accidentally move markers. If an address provided in a description disagrees with the location on the map, the marker was likely moved accidentally on the original map. Please update the locations of these markers accordingly whenever your scouting determines the address (and not the mapped location) to be correct.
 </p>
 
 <p>

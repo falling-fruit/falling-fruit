@@ -22,7 +22,7 @@ csv << ["Type","Type Other","Description","Lat","Lng","Address","Season Start",
 
 @doc.css('Placemark').each do |placemark|
   title = CGI.unescapeHTML(placemark.css('name').text)
-  description = CGI.unescapeHTML(placemark.css('description').text).gsub!(/(<[^>]*>)|\t/s) {""}
+  description = CGI.unescapeHTML(placemark.css('description').text).gsub!(/(<[^>]*>)|\t/) {""}
   coordinates = placemark.at_css('coordinates')
   lat = nil
   lng = nil
