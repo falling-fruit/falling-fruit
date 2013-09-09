@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:destroy]
+  before_filter :authenticate_user!, :only => [:destroy,:enroute]
   before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
-  authorize_resource :only => [:destroy]
+  authorize_resource :only => [:destroy,:enroute]
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"
@@ -378,8 +378,12 @@ class LocationsController < ApplicationController
     if params[:route_id].to_i < 0
       @route = Route.new
       @route.name = "New Route"
-      @route.locations = [@location]
+      @route.user = current_user
       @route.save
+      lr = LocationsRoute.new
+      lr.route = @route
+      lr.location = @location
+      lr.save
     else
       @route = Route.find(params[:route_id])
       lr = LocationsRoute.where("route_id = ? AND location_id = ?",@route.id,@location.id)
@@ -391,9 +395,9 @@ class LocationsController < ApplicationController
       else
         lr.each{ |e| e.destroy }
       end
-      respond_to do |format|
-        format.html { redirect_to @route }
-      end
+    end
+    respond_to do |format|
+      format.html { redirect_to @route }
     end
   end
 end
