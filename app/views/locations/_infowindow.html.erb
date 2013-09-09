@@ -61,7 +61,7 @@
 <!-- (keep <p> markup even if empty) -->
 <p>
 <% unless location.description.nil? %>
- <%= raw location.description.strip.gsub("\n","<br>") %>
+ <%= sanitize(location.description.strip.gsub(/\n/,"<br>"),tags:["br"]) %>
 <% end %>
 </p>
 <% unless location.access.nil? %>

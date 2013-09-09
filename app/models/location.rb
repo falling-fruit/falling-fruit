@@ -133,7 +133,7 @@ class Location < ActiveRecord::Base
       loc.lng = lng.to_f
     end
     loc.access = access
-    loc.description = desc
+    loc.description = desc.gsub(/(\\n|\n)/,"<br>")
     loc.address = address
     loc.photo_url = photo_url
     loc.season_start = season_start.to_i unless season_start.nil? or season_start.strip == ""
