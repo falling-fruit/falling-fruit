@@ -93,14 +93,18 @@ task(:import => :environment) do
    dh.each{ |l|
      next unless l =~ /^(\d+).csv$/
      import_id = $1.to_i
-     import = Import.find(import_id)
+     begin
+       import = Import.find(import_id)
+     rescue ActiveRecord::RecordNotFound => e
+       next
+     end
      next if import.nil?
      print "#{import_id}: "
      n = 0
      errs = []
      text_errs = []
      ok_count = 0
-     CSV.foreach("public/import/#{l}") do |row|
+     CSV.foreach("public/import/#{l}","r:ISO-8859-1") do |row|
        print "."
        n += 1
        next if n == 1 or row.join.blank?
