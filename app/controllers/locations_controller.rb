@@ -371,4 +371,29 @@ class LocationsController < ApplicationController
       format.mobile { redirect_to locations_url }
     end
   end
+
+  def enroute
+    @location = Location.find(params[:id])
+    @route = nil
+    if params[:route_id].to_i < 0
+      @route = Route.new
+      @route.name = "New Route"
+      @route.locations = [@location]
+      @route.save
+    else
+      @route = Route.find(params[:route_id])
+      lr = LocationsRoute.where("route_id = ? AND location_id = ?",@route.id,@location.id)
+      if lr.nil? or lr.length == 0
+        lr = LocationsRoute.new
+        lr.route = @route
+        lr.location_id = @location.id
+        lr.save
+      else
+        lr.each{ |e| e.destroy }
+      end
+      respond_to do |format|
+        format.html { redirect_to @route }
+      end
+    end
+  end
 end

@@ -85,6 +85,20 @@
   	<td id="added_by">by <i><%= (location.author.nil? or (location.author.strip.length == 0)) ? "Anonymous" : location.author %></i></td>
  	</tr>
 </table>
+<% if user_signed_in? %>
+<br>
+Routes: 
+<form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">
+<select id="route_id" name="route_id">
+<% Route.where("user_id = ?",current_user.id).each do |r| %>
+ <option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
+<% end %>
+ <option value="-1">-- New Route --</option>
+</select>
+<input type="submit" value="+/-">
+</form>
+<% end %>
+
 </div>
 
 </div>  <!-- Wrapper -->

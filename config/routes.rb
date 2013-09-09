@@ -6,6 +6,9 @@ FallingfruitWebapp::Application.routes.draw do
   resources :routes
 
   resources :locations do
+    member do
+      get 'enroute'
+    end
     collection do
       get 'import'
       post 'import'

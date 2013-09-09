@@ -77,7 +77,11 @@
     <li><%= link_to('Changes', '/changes', :class => (request.fullpath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
     <li><%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
     
-				<% if user_signed_in? and current_user.is? :admin %>
+				<% if user_signed_in? %>
+
+                                    <li><%= link_to('Routes', routes_path, :class => (request.fullpath == routes_path ? "currentpage" : "notcurrentpage")) %>
+
+                                    <% if current_user.is? :admin %>
 					<!-- Types -->
 					<li><span class="<%= (request.fullpath == types_path or request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
 					<ul>
@@ -96,6 +100,7 @@
 				
 					<!-- Users -->
 					<li><%= link_to('Users', users_path, :class => (request.fullpath == users_path) ? "currentpage" : "notcurrentpage") %></li>
+                                  <% end %>
 				<% end %>
     </ul>
     
@@ -108,7 +113,7 @@
 </div>
 
 <!-- Content -->
-<% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes") %>
+<% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show") %>
 <div id="content">
  <%= yield %>
  

@@ -1,0 +1,25 @@
+<h1>Routes</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Locations</th>
+    <th>Created</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% 
+lcounts = {}
+LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where("user_id = ?",current_user.id).each{ |l|
+  lcounts[l.route_id] = l.count
+}
+@routes.each do |route| %>
+  <tr>
+    <td><%= link_to route.name, route %></td>
+    <td><%= lcounts[route.id] %></td>
+    <td><%= time_ago_in_words(route.created_at) %> ago</td>
+    <td><%= link_to 'Rename', edit_route_path(route) %></td>
+    <td><%= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
