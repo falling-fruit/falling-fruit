@@ -36,13 +36,9 @@ class ImportsController < ApplicationController
 
   def destroy
     @import = Import.find(params[:id])
-    @import.locations.each{ |l|
-      l.locations_types.each{ |lt|
-        LocationsType.delete(lt.id)
-      }
-      cluster_decrement(l)
-      Location.delete(l.id)
-    }
+    ApplicationController.cluster_batch_decrement(@import)
+    LocationsType.delete_all(["location_id IN (SELECT id FROM locations WHERE import_id = ?)",@import.id])
+    Location.delete_all(["import_id = ?",@import.id])
     @import.destroy
     respond_to do |format|
       format.html { redirect_to imports_url }
