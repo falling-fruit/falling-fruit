@@ -11,6 +11,15 @@
   var directionsService = new google.maps.DirectionsService();
   //var skip_ids = [<%= @route_locations.collect{ |lr| lr.location.id }.join(",") %>];
   var skip_ids = null;
+  <% if @route_locations.length > 2 %>
+  var waypoints = [<%= (1..@route_locations.length-2).collect{ |i|
+                     "{location: new google.maps.LatLng(#{@route_locations[i].location.lat},#{@route_locations[i].location.lng})}" }.join(",")
+                %>];
+  <% else %>
+  var waypoints = [];
+  <% end %>
+  var origin = new google.maps.LatLng(<%= @start_location.lat %>,<%= @start_location.lng %>);
+  var destination = new google.maps.LatLng(<%= @stop_location.lat %>,<%= @stop_location.lng %>);
 
   // ================= functions =================
   
@@ -69,13 +78,9 @@
       map.fitBounds(bounds);
 
       var request = {
-        origin: new google.maps.LatLng(<%= @start_location.lat %>,<%= @start_location.lng %>),
-        destination: new google.maps.LatLng(<%= @stop_location.lat %>,<%= @stop_location.lng %>),
-        <% if @route_locations.length > 2 %>
-        waypoints: [<%= (1..@route_locations.length-2).collect{ |i| 
-                          "{location: new google.maps.LatLng(#{@route_locations[i].location.lat},#{@route_locations[i].location.lng})}" }.join(",") 
-                    %>],
-        <% end %>
+        origin: origin,
+        destination: destination,
+        waypoints: waypoints,
         travelMode: google.maps.TravelMode.WALKING
       };
 
@@ -91,23 +96,27 @@
       });
 
       // draw the markers and whatnot
-      update_display(true,ini_zoom,bounds);
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+        update_display(true,ini_zoom,bounds);
+      });
+
+      google.maps.event.addListener(map, 'bounds_changed', function() {
+        google.maps.event.addListenerOnce(map, 'idle', function(){
+          update_display(false);
+        });
+      });
+
+      google.maps.event.addListener(map, 'zoom_changed', function() {
+        google.maps.event.addListenerOnce(map, 'idle', function(){
+          update_display(false);
+        });
+      });
 
       // default is labels on
       labelize_markers();
       $("#labels").prop('checked',true);
     });
              
-    google.maps.event.addListener(map, 'bounds_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-        update_display(false);
-      });
-    });
-    google.maps.event.addListener(map, 'zoom_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-        update_display(false);
-      });
-    });
     map.setTilt(0); 
   }
 

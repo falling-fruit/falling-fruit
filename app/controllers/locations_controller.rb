@@ -259,6 +259,7 @@ class LocationsController < ApplicationController
   def create
     unless params[:location].nil? or params[:location][:locations_types].nil?
       lt_seen = {}
+      p = 0
       lts = params[:location][:locations_types].collect{ |dc,data| 
         lt = LocationsType.new
         unless data[:type_id].nil? or (data[:type_id].strip == "")
@@ -275,6 +276,8 @@ class LocationsController < ApplicationController
         else
           lt_seen[k] = true
         end
+        lt.position = p
+        p += 1
         lt
       }.compact
       params[:location].delete(:locations_types)
@@ -320,6 +323,7 @@ class LocationsController < ApplicationController
       @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
       # add/update types
       lt_seen = {}
+      p = 0
       params[:location][:locations_types].each{ |dc,data|
         lt = LocationsType.new
         unless data[:type_id].nil? or (data[:type_id].strip == "")
@@ -332,7 +336,9 @@ class LocationsController < ApplicationController
         next unless lt_seen[k].nil?
         lt_seen[k] = true
         lt.location_id = @location.id   
+        lt.position = p
         lt.save
+        p += 1
       }
       params[:location].delete(:locations_types)
     end
@@ -377,7 +383,7 @@ class LocationsController < ApplicationController
     @route = nil
     if params[:route_id].to_i < 0
       @route = Route.new
-      @route.name = "New Route"
+      @route.name = "Unnamed Route"
       @route.user = current_user
       @route.save
       lr = LocationsRoute.new
