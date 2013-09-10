@@ -24,6 +24,10 @@ FallingfruitWebapp::Application.routes.draw do
     member do
       get 'merge'
     end
+    collection do
+      get 'grow'
+      get 'merge'
+    end
   end
 
   resources :regions

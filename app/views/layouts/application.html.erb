@@ -86,6 +86,7 @@
 					<li><span class="<%= (request.fullpath == types_path or request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
 					<ul>
 							<li><%= link_to('List Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
+                                                        <li><%= link_to('Other Types', grow_types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
 							<li><%= link_to('New Type', new_type_path, :class => (request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage") %>
 					</ul>
 					</li>

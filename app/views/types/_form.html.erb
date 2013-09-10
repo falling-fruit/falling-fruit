@@ -49,6 +49,9 @@
   </div>
   -->
   <br />
+  <% unless lts.nil? %>
+  <%= hidden_field_tag 'lts', lts.join(":") %>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
