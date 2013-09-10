@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130829171415) do
+ActiveRecord::Schema.define(:version => 20130910215544) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20130829171415) do
     t.integer "location_id"
     t.integer "type_id"
     t.string  "type_other"
+    t.integer "position"
   end
 
   add_index "locations_types", ["location_id"], :name => "index_locations_types_on_location_id"
@@ -155,7 +156,7 @@ ActiveRecord::Schema.define(:version => 20130829171415) do
     t.spatial  "range",                  :limit => {:srid=>4326, :type=>"polygon", :geographic=>true}
     t.string   "name"
     t.text     "bio"
-    t.integer  "roles_mask",                                                                           :default => 10,    :null => false
+    t.integer  "roles_mask"
     t.boolean  "range_updates_email",                                                                  :default => false, :null => false
     t.boolean  "add_anonymously",                                                                      :default => false, :null => false
   end

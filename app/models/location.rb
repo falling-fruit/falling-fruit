@@ -1,8 +1,8 @@
 class Location < ActiveRecord::Base
   include ActionView::Helpers::TextHelper # for word_wrap
 
-  has_many :locations_types, :order => 'locations_types.id ASC'
-  has_many :types, :through => :locations_types
+  has_many :locations_types, :order => 'locations_types.position ASC'
+  has_many :types, :through => :locations_types, :order => 'locations_types.position ASC'
   belongs_to :import
 
   validates_associated :locations_types

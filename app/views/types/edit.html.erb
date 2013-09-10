@@ -1,3 +1,21 @@
 <h1>Edit type</h1>
 
 <%= render 'form' %>
+
+<!-- Merge type -->
+
+<% content_for :form_scripts do %>
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+  jQuery('.select2').select2({width:'element'});
+});
+</script>
+<% end %>
+
+<br />
+<h2>Merge into</h2>
+
+<form action="/types/<%= @type.id %>/merge">
+    <%= select_tag(:into_id,options_for_select(Type.order("name").collect{ |t| [t.name,t.id] }),:class=>"select2") %>
+    <%= submit_tag "Merge" %>
+</form>
