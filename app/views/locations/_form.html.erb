@@ -1,7 +1,9 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-  jQuery('.select2').select2({width:'element'});
+	jQuery('#typeselect2').select2({width:'15em',tokenSeparators: [","],
+                                  tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
+                                 });
 });
 </script>
 <% end %>
@@ -25,48 +27,23 @@ jQuery(document).ready(function(){
   
   <!-- Type -->
   <div class="field" id="types">
-    <%= f.label :type %><br />
-    <span class="subtext">What'd you find? Be as specific as possible. Only suggest a new type if you can't find it in the list.</span><br>
-      <% @location.locations_types.each{ |lt|  %>
-      <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
-        <div class="type">
-        	<%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-        	<%= f2.text_field :type_other, :size => 15 %>
-        	<%= link_to_function "[x]", "$(this).parent().remove()" %><br>
-        </div>
-      <% end %>
-    <% } %>
-    <% if @current_action == "new" or @current_action == "create" %>
-    <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
-      <div class="type">
-      	<%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-      	<%= f2.text_field :type_other, :size => 15 %>
-      </div>
-    <% end %>
-    <% end %>
+    *<%= f.label :types %><br />
+    <span class="subtext">What'd you find? Be as specific as possible. Only suggest a new type if you can't find it in the list. Use a comma to separate multiple types.</span><br />
+    <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
   </div>
-  <%= 
-    task = render(:partial => 'locations_type', :locals => { :pf => f, :lt => LocationsType.new })
-    func_str = <<EOF
-      var new_locations_type_id = "new_" + new Date().getTime();
-      $('#{ escape_javascript task }'.replace(/new_\\d+/g, new_locations_type_id)).insertAfter($('.type').last());
-      jQuery('#location_locations_types_'+new_locations_type_id+'_type_id').select2({width:'element'});
-EOF
-    link_to_function "[+] Add another", func_str
-   %>
   
   <!-- Location -->
   <div class="field">
-    <%= f.label :location %><br />
-    <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br/>
+    *<label for="location_address">Location</label><br>
+    <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br />
     Lat-Lon <%= f.text_field :lat, :size => 12, :value => @lat %>, <%= f.text_field :lng, :size => 12, :value => @lng %><br>
     
-    <!-- Address (if new) -->
+  	<!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
       <div style="margin-top:0.25em;">
       	Address <span class="subtext-inline">can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span>
       </div>
-      <%= f.text_area :address, :size => "40x2" %><br>
+      <%= f.text_area :address, :size => "40x2" %><br />
       <a href="#" onclick="update_marker();">>> Move marker to address</a>
     <% end %>
   </div>
@@ -75,23 +52,23 @@ EOF
   <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and user_signed_in? and current_user.is? :admin) %>
   <div class="field">
     <%= f.label :author %><br />
-    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br>
+    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
     <%= f.text_field :author, :size => 40 %>
-    <span>
+    </span>
   </div>
   <% end %>
 
   <!-- Description -->
   <div class="field">
     <%= f.label :description %><br />
-    <span class="subtext">Location details, access issues, plant health...</span><br>
+    <span class="subtext">Location details, access issues, plant health...</span><br />
     <%= f.text_area :description, :size => "50x10" %>
   </div>
   
-  <!-- Season -->
+	<!-- Season -->
   <div class="field">
     <%= f.label :season %><br />
-    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br>
+    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
     <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
     <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
     <%= f.check_box(:no_season) %> No Season
@@ -99,32 +76,32 @@ EOF
   
   <!-- Unverified -->
   <div class="field">
-    <label>Unverified</label> <%= f.check_box(:unverified) %><br>
+    <label>Unverified</label> <%= f.check_box(:unverified) %><br />
     <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
   </div>
   
   <!-- Quality Rating -->
   <div class="field">
     <%= f.label :quality_rating %><br />
-    <span class="subtext">Rate the tastiness of this source.</span><br>
+    <span class="subtext">Rate the tastiness of this source.</span><br />
     <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
   </div>
   
   <!-- Yield Rating -->
   <div class="field">
     <%= f.label :yield_rating %><br />
-    <span class="subtext">Rate the productivity of this source.</span><br>
+    <span class="subtext">Rate the productivity of this source.</span><br />
     <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
   </div>
   
   <!-- Access -->
   <div class="field">
     <%= f.label :access %><br />
-    <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br>
+    <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br />
     <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
   </div>
 
-  <br>
+  <br />
   <!-- Captcha -->
   <% unless user_signed_in? %>
   	<br />

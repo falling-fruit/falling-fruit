@@ -257,35 +257,24 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    unless params[:location].nil? or params[:location][:locations_types].nil?
-      lt_seen = {}
-      p = 0
-      lts = params[:location][:locations_types].collect{ |dc,data| 
-        lt = LocationsType.new
-        unless data[:type_id].nil? or (data[:type_id].strip == "")
-          lt.type_id = data[:type_id]
-        else
-          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "") or
-                          data[:type_other] =~ /something not in the list/
-        end
-        k = lt.type_id.nil? ? lt.type_other : lt.type_id
-        if lt.type_id.nil? and lt.type_other.nil?
-          lt = nil
-        elsif !lt_seen[k].nil?
-          lt = nil
-        else
-          lt_seen[k] = true
-        end
-        lt.position = p
-        p += 1
-        lt
-      }.compact
-      params[:location].delete(:locations_types)
-    end
+    p = 0
+    lts = []
+    params[:types].split(/,/).uniq.each{ |type_name|
+      lt = LocationsType.new
+      t = Type.where("name = ?",type_name.strip).first
+      if t.nil? 
+        lt.type_other = type_name
+      else
+        lt.type = t
+      end
+      lt.position = p
+      p += 1
+      lts.push lt
+    } if params[:types].present?
     @location = Location.new(params[:location])
     @lat = @location.lat
     @lng = @location.lng
-    @location.locations_types += lts unless lts.nil?
+    @location.locations_types += lts
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
@@ -317,38 +306,31 @@ class LocationsController < ApplicationController
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
 
-    # manually update location types :/
-    unless params[:location].nil? or params[:location][:locations_types].nil?
-      # delete existing types before adding new stuff
-      @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
-      # add/update types
-      lt_seen = {}
-      p = 0
-      params[:location][:locations_types].each{ |dc,data|
-        lt = LocationsType.new
-        unless data[:type_id].nil? or (data[:type_id].strip == "")
-          lt.type_id = data[:type_id]
-        else
-          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
-        end
-        next if lt.type_id.nil? and lt.type_other.nil?
-        k = lt.type_id.nil? ? lt.type_other : lt.type_id
-        next unless lt_seen[k].nil?
-        lt_seen[k] = true
-        lt.location_id = @location.id   
-        lt.position = p
-        lt.save
-        p += 1
-      }
-      params[:location].delete(:locations_types)
-    end
+    p = 0
+    lts = []
+    @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
+    params[:types].split(/,/).uniq.each{ |type_name|
+      lt = LocationsType.new
+      t = Type.where("name = ?",type_name.strip).first
+      if t.nil? 
+        lt.type_other = type_name
+      else
+        lt.type = t
+      end
+      lt.position = p
+      lt.location_id = @location.id
+      p += 1
+      lts.push lt
+    } if params[:types].present?
+
+    lt_update_okay = lts.collect{ |lt| lt.save }.all?
 
     ApplicationController.cluster_decrement(@location)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-     
-      if test and @location.update_attributes(params[:location])
+      if test and @location.update_attributes(params[:location]) and lt_update_okay
+        
         log_changes(@location,"edited")
         ApplicationController.cluster_increment(@location)
         expire_things
