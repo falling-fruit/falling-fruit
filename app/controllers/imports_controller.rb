@@ -1,5 +1,5 @@
 class ImportsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show, :all]
   authorize_resource
 
   def index
@@ -7,7 +7,7 @@ class ImportsController < ApplicationController
       format.html # index.html.erb
     end
   end
-
+  
   def edit
     @import = Import.find(params[:id])
   end
@@ -17,6 +17,12 @@ class ImportsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @import }
+    end
+  end
+  
+  def bibliography
+    respond_to do |format|
+      format.html # bibliography.html.erb
     end
   end
 

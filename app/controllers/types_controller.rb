@@ -60,7 +60,6 @@ class TypesController < ApplicationController
   # GET /types/new.json
   def new
     @type = Type.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @type }

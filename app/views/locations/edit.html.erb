@@ -1,6 +1,6 @@
 <div id="editmap_container">
   <div id="map"></div>
-  <p id="attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
 </div>
 
 <% content_for :page_scripts do %>
@@ -13,6 +13,9 @@
 
   // ================= functions =================
 
+  // Enable the visual refresh
+  google.maps.visualRefresh = true;
+  
   function initialize() {
     var toner = 'toner-lite';
     var mapOptions = {
@@ -34,12 +37,8 @@
     
     // Bicycle map (and control)
     bicycleControl(map);
-    
-    google.maps.event.addListener(map, 'rightclick', function(event) {
-      remove_add_marker();
-      place_add_marker(event.latLng);
-    });
 
+    // EditMarker InfoWindow can't be reopened!
     google.maps.event.addListener(map, 'click', function(event) {
       if(openMarker != null && openInfoWindow != null){
         openInfoWindow.close();
@@ -83,7 +82,7 @@
     map.setZoom(18);
     map.panTo(marker.getPosition());
     var nag = new google.maps.InfoWindow({
-      content: '<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br><br><i>Check the satellite view - the source may be visible from space!</i></div>'
+      content: '<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!/div>'
     });
     nag.open(map,marker);  
     google.maps.event.addListener(marker, 'dragend', function() {

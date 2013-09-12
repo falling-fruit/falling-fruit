@@ -39,7 +39,11 @@ FallingfruitWebapp::Application.routes.draw do
   match 'inventories' => 'pages#inventories'
   match 'sharing' => 'pages#sharing'
 
-  resources :imports
+  resources :imports do
+    collection do
+      get 'bibliography'
+    end
+  end
 
   resources :changes
 

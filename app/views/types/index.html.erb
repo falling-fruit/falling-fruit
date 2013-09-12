@@ -1,4 +1,4 @@
-<h1>Source Types</h1>
+<h1>Approved Types</h1>
 
 <%= link_to '[+] Add type', new_type_path %>
 
@@ -19,16 +19,16 @@
 <tr>
 <td style="text-align:right"><%= type.id %></td>
 <td>
- <% unless type.wikipedia_url.nil? %>
+ <% unless type.wikipedia_url.blank? %>
   <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= type.name %></a>
  <% else %>
   <%= type.name %>
  <% end %>
- <%= "(#{type.synonyms})" unless type.synonyms.nil? or type.synonyms == "" %>
+ <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
 </td>
-<td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.nil? or type.scientific_synonyms == "" %></td>
-<td style="text-align:center;"><% unless not type.wikipedia_url.nil? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><%= raw !type.usda_symbol.nil? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "" %></td>
+<td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.blank? %></td>
+<td style="text-align:center;"><% if type.wikipedia_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><%= raw !type.usda_symbol.blank? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "" %></td>
 <td><%= link_to 'Edit', edit_type_path(type) %></td>
 <td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

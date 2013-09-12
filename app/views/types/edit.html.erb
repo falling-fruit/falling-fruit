@@ -1,4 +1,4 @@
-<h1>Edit type</h1>
+<h1>Edit Type</h1>
 
 <%= render 'form' %>
 
@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
 <% end %>
 
 <br />
-<h2>Merge into</h2>
+<h2>Convert to</h2>
 
 <form action="/types/<%= @type.id %>/merge">
     <%= select_tag(:into_id,options_for_select(Type.order("name").collect{ |t| [t.name,t.id] }),:class=>"select2") %>

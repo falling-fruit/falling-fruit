@@ -44,7 +44,7 @@ h2 {
 
 .announcement {
   font-style: italic;
-  font-weight: bold;	
+  font-size: 115%;	
 }
 
 .nowrap {
@@ -62,13 +62,44 @@ div#map {
   height: 100%;
 }
 
+/* Mimics the styling of Google's own MapType controls*/
+
+div#maptype_button {
+	background-color: #FFF;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+	text-align: center;
+	width: 5em;
+	box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.5);
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  color: #565656;
+  padding: 1px 6px;
+  margin-top: 5px;
+  z-index: 1;
+}
+div#maptype_button:hover {
+	background-color: rgb(235,235,235);
+	color: #000;	
+}
+  
+div#content_container {
+	position: absolute;
+  top: 4.5em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+}
+
 div#content {
   padding: 15px 1.5em 10px 1.5em;
   text-align: justify;
-  max-width: 1400px;
+	max-width: 1400px;
   margin: 0 auto;  /* Page is centered on wider screen. */
 }
-
+  
 div#content p {
   line-height: 1.5em;  /* For better legibility on wider screens */
 }
@@ -79,8 +110,137 @@ div#footer {
   font-size: 0.85em;
 }
 
-/*** HEADER ***/
 
+/*** Dialogs ***/
+
+.ui-dialog {
+	font-family: inherit;
+	font-size: 95%;
+	padding: 0;
+}
+
+.ui-dialog .ui-dialog-content {
+  position: relative;
+  border: 0;
+  padding-bottom: 0.75em;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	border-radius: 0;
+	border: none;
+  color: #888;
+}
+
+.dialog_yellow {
+	border: 2px solid #FCF9BF;
+}	
+
+.dialog_yellow .ui-dialog-titlebar {
+	background: #F1F1B1;
+}
+
+.dialog_yellow .ui-dialog-titlebar-close {
+  background: #F1F160;
+}
+
+.dialog_yellow .ui-dialog-titlebar-close:focus {
+  outline: none;
+}
+
+.dialog_yellow .ui-dialog-content {
+	background-color: #ffd;
+}
+
+.dialog_grey {
+	border: 2px solid #f0f0f0;
+}	
+
+.dialog_grey .ui-dialog-titlebar {
+	background: #e9e9e9;
+}
+
+.dialog_grey .ui-dialog-titlebar-close {
+  background: #eee;
+}
+
+.dialog_grey .ui-dialog-titlebar-close:focus {
+  outline: none;
+}
+
+.dialog_grey .ui-dialog-content {
+	background-color: #fcfcfc;
+}
+
+
+/*** Forms ***/
+
+form div.field {
+  margin-top: 1em;
+}
+
+form label {
+  line-height: 1.25em;
+  padding-left: 0;  /* Needed to left-align */
+}
+
+form span.subtext {
+	font-size: 0.75em;
+  color: #888;
+  position: relative;  /* Keeps subtext away from text input edges. */
+  top: -1px;
+}
+
+form span.subtext-inline {  /* Regular behavior, shorthand. */
+  font-size: 0.75em;
+  color: #888;
+}
+
+form input[type=text], input[type=password], input[type=email], textarea {
+	font-family: inherit;
+	color: inherit;
+	font-size: 95%;
+	border: 1px solid #ccc;
+	padding: 2px 3px;
+	margin: 0;
+}
+
+form select {
+	font-family: inherit;
+	color: inherit;
+	font-size: 90%;
+	border: 1px solid #ccc;
+	margin: 0;
+}
+
+form input[type=submit], input[type=file] {
+	font-family: inherit;
+	font-size: inherit;
+	color: #555;
+	margin-left: 0;	/* Needed to left-align */
+	padding: 0.3em 0.5em;
+  border: 1px solid #ccc;
+	border-radius: 2px;
+	background-color: #f3f3f3;
+	cursor: pointer;
+	cursor: hand;
+}
+
+form input[type=submit]:hover {
+	background-color: #C6E1F7;
+}
+
+form input[type=checkbox] {
+	border: 1px solid #CCC;
+	margin-right: 0.1em;
+	position: relative;
+	top: -1px;
+}
+
+form input#user_password_confirmation {
+	margin-top: 0.25em;
+}
+
+/*** HEADER ***/
 
 /*** Logo ***/
 
@@ -202,6 +362,13 @@ div#menu ul li ul li:hover a:not(.currentpage) {
   color: #E35809;
 }
 
+div#rightcontrols a:not(.currentpage):hover{
+	color: #fff;
+}
+
+div#rightcontrols a.currentpage {
+	background-color: #fff;
+}
 
 /**********************************************************/
 /******************* /locations/index *********************/
@@ -228,6 +395,7 @@ div#searchbar button {
 	font-size: 0.8em;
 	font-family: inherit;
 	cursor: pointer;
+	cursor: hand;
 	position: relative;  /* Fixes vertical alignment issue */
 	top: -.1em;
 	color: inherit;
@@ -250,41 +418,6 @@ div#searchbar input[type=checkbox] {
   top: -.1em;
 }
 
-.ui-dialog .ui-dialog-content
-{
-  position: relative;
-  border: 0;
-  padding: .5em;
-  background: none;
-  overflow: auto;
-  zoom: 1;
-  background-color: #ffd;
-  /*border: solid 1px grey;*/
-  border-top: none;
-  font-size: 10pt;
-}
-
-.ui-dialog .ui-dialog-titlebar
-{
-  background: #c0c0c0;
-  padding: 0.1em;
-  font-weight: bold;
-  /*border: 1px solid grey;*/
-  font-family: sans-serif;
-}
-
-.ui-dialog .ui-dialog-titlebar-close {
-  float: right;
-}
-
-.embed {
-  font-family: 'monospace';
-}
-
-.notice {
-  font-family: sans-serif;
-}
-
 /*** Map ***/
 
 div#mainmap_container {
@@ -294,31 +427,7 @@ div#mainmap_container {
   left: 0;
   right: 0;
   z-index: -1;  /* So that if search bar controls wrap, they display above map. */
-}
-
-div#newmarker {
-  text-align: center;
-  font-size: 1em;
-  padding-top: 0.7em;
-  line-height: 1.3em;
-}
-
-p#stamen_attribution {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		font-size: 0.85em;
-		background: #ddd;
-		padding: 0.2em 0.5em;
-		margin: 0;
-		z-index: 100;
-		border-top: 1px solid #fff;
-		border-left: 1px solid #fff;
-}
-
-p#attribution a {
-		color: #666;
-		text-decoration: underline;
+	line-height: normal ! important;
 }
 
 /**********************************************************/
@@ -343,43 +452,16 @@ form#editsource div.field {
 }
 
 form#editsource label {
-  line-height: 1.25em;
-  font-weight: bold;
-  padding-left: 0;  /* Needed to left-align */
-}
-
-form#editsource span.subtext {
-  font-size: 0.75em;
-  color: #888;
-  position: relative;  /* Keeps subtext away from text input edges. */
-  top: -.1em;
-}
-
-form#editsource span.subtext-inline {  /* Regular behavior, shorthand. */
-  font-size: 0.75em;
-  color: #888;
+	font-weight: bold;
+	color: #333;
 }
 
 form#editsource a {
   font-size: 0.85em;
 }
 
-form#editsource input, select, textarea {
-	font-family: inherit;
-	color: inherit;
-	font-size: .85em;
-	border: 1px solid #CCC;
-	padding: 2px 3px;
-	margin: 0;
-}
-
 form#editsource input#location_lat {
   text-align: right;
-}
-
-form#editsource input[type=checkbox] {
-  position: relative;  /* Fixes suble vertical align issue. */
-  top: -.1em;
 }
 
 form#editsource div#captcha {
@@ -388,39 +470,144 @@ form#editsource div#captcha {
 }
 
 form#editsource input[type=submit] {
-  background-color: #4B8CF5;
-  border-radius: 3px;
-  border: 1px solid #3278F0;
   display: inline-block;
-  color: #FFF;
-  font-size: 1em;
-  font-weight: bold;
-  padding: 6px 20px;
+  padding: 0.5em 1em;
   margin-right: 10px;
 }
-
-form#editsource input[type=submit]:hover {
-  background-color: #3278E6;
-  cursor: pointer;
-}
-
 
 /*** Map ***/
 
 div#editmap_container {
   position: absolute;
-  top: 4.5em;
+  top: 61px;
   bottom: 0;
   left: 31em;
   right: 0;
   border-left: 2px solid #DDD;
 }
 
+/**********************************************************/
+/****************** Maps, /locations/infowindow ***********/
+/**********************************************************/
+
+/* Override Google's default Roboto?
+div#newmarker, div#editmarker, div#location_infowindow {
+	font-family: verdana, arial, helvetica, sans-serif;
+}
+*/
+
+div#newmarker, div#editmarker, div#location_infowindow {
+	line-height: normal ! important;	/* Helps avoid scrollbars when using padding. */
+}
+
+div#newmarker {
+  font-size: 1.25em;
+}
+
 div#editmarker {
-  text-align: center;
-  font-size: 0.85em;
+	font-size: 1em;
   width: 18em;
   padding: 0.5em;
+}
+
+p#stamen_attribution {
+	font-family: Roboto, Arial, san-serif;
+	font-size: 10px;
+	position: absolute;
+	bottom: 0;
+	right: 70px;
+	background: #eee;
+	margin: 0;
+	z-index: 100;
+	opacity: 0.7;
+}
+
+p#stamen_attribution a {
+	color: #666;
+	text-decoration: underline;
+}
+
+/*** InfoWindow ***/
+
+div#location_infowindow {
+  max-width: 35em;
+  color: #333;
+  overflow: auto;
+  padding: 0.5em 0.3em;
+}
+
+div#location_infowindow a {
+  color: #333;
+}
+
+/* Types */
+
+div#type_list {
+	margin-bottom: 0.4em;
+}
+
+div#type_list li {
+  list-style: none;
+  margin: 0 0 .3em 0; /* for appropriate "line height" if list longer than one line */
+  display: inline-block;
+  background-color: #EEE;
+  padding: 0.25em;
+  font-size: 1.15em;
+}
+
+div#type_list img.type_icon {
+  height: 0.9em;
+}
+
+/* Description */
+
+div#location_infowindow label {
+  color: #000;
+  font-size: 1.1em;
+  padding-right: 0.2em;
+  padding-left: 0.25em; /* to line up with start of type labels */
+  line-height: 1.5em;
+}
+
+span.in_season {
+  color: green;
+}
+
+span.out_season {
+  color: brown;
+}
+
+div#description p {
+  margin: 1.2em 1em;
+  line-height: 1.5em;
+}
+
+/* Controls & Author */
+
+table#footer {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table#footer td#controls {
+	vertical-align: bottom;
+	white-space: nowrap;
+	padding-left: 0.25em;  /* to line up with start of type labels */
+}
+
+table#footer td#controls a {
+	color: #999;
+	padding-right: 1em;
+}
+
+table#footer td#controls a:hover {
+	color: #333;
+}
+
+table#footer td#added_by {
+	color: #AAA;
+	padding-left: 1em;
+	border-left: 1px solid #DDD;
 }
 
 /**********************************************************/
@@ -428,13 +615,13 @@ div#editmarker {
 /**********************************************************/
 
 div.rightphoto {
-		float: right;
-		position: relative;
-		top: 1em;  /* Make images flush with top of text */
-		margin: 0 0 1.5em 1.5em;  /* To keep text away while wrapping */
-		text-align: right;  /* In case image dimensions are not as expected */
-		line-height: 0;  /* Fixes unresolved white space bug */
-		width: 412px;  /* Multiple of image width + 2 * border + a little */
+	float: right;
+	position: relative;
+	top: 1em;  /* Make images flush with top of text */
+	margin: 0 0 1.5em 1.5em;  /* To keep text away while wrapping */
+	text-align: right;  /* In case image dimensions are not as expected */
+	line-height: 0;  /* Fixes unresolved white space bug */
+	width: 412px;  /* Multiple of image width + 2 * border + a little */
 }
 
 div.rightphoto img {
@@ -445,7 +632,6 @@ div.rightphoto img {
 div#content img {
 	 border: 1px solid #EEE;
 }
-
 
 /*** Data List ***/
 
@@ -458,7 +644,7 @@ div.country_column {
 }
 
 div.country_column div.country {
-		display: block;
+	display: block;
 }
 
 div.country {
@@ -504,12 +690,12 @@ div.profile:after {  /* Clears float instead of a div inside html */
 }
 
 img.avatar {
-		float: left;
-		width: 200px;
+	float: left;
+	width: 200px;
 }
 
 div.bio {
-		margin-left: 216px;
+	margin-left: 216px;
 }
 
 /**********************************************************/
@@ -521,9 +707,8 @@ table#type_summary img.link_icon {
   border: none;
 }
 
-
 /**********************************************************/
-/******************* /pages/press **************************/
+/******************* /pages/press *************************/
 /**********************************************************/
 
 #press_list td {
@@ -532,108 +717,21 @@ table#type_summary img.link_icon {
 }
 
 #press_list td.date {
-		text-align: right;
-		padding-right: 2em;
+	text-align: right;
+	padding-right: 2em;
 }
 
 #press_list td.date span.year {
-		color: #bbb;
+	color: #bbb;
 }
 
 #press_list span.subtitle {
-		font-size: 90%;
-		display: block;
-		padding: 1em 0 0.5em 1em;
+	font-size: 90%;
+	display: block;
+	padding: 1em 0 0.5em 1em;
 }
 
 #press_list iframe,
 #press_list img {
-		margin: 1em 0 0.5em 0;
-}
-
-/**********************************************************/
-/******************* /locations/infobox *******************/
-/**********************************************************/
-
-div#location_popup {
-  max-width: 35em;
-  color: #333;
-  font-size: 0.9em;
-}
-
-div#location_popup a {
-  color: #333;
-}
-
-/* Types */
-
-div#type_list li {
-  list-style: none;
-  margin: 0 0 .3em 0; /* for appropriate "line height" if list longer than one line */
-  display: inline-block;
-  background-color: #EEE;
-  border: 0.25em solid #EEE; /* Instead of padding, solves y-scrollbar bug. But can sometimes crowd [x] button */
-  #padding: 0.25em;
-  font-size: 1.15em;
-}
-
-div#type_list img.type_icon {
-  height: 0.9em;
-}
-
-/* Description */
-
-label {
-  color: #000;
-  font-size: 1.05em;
-  padding-right: 0.1em;
-  padding-left: 0.25em; /* to line up with start of type labels */
-  line-height: 1.75em;
-}
-
-span.in_season {
-  color: green;
-}
-
-span.out_season {
-  color: brown;
-}
-
-div#description p {
-  margin: 1.5em 1em 1.5em 1em;
-  line-height: 1.5em;
-  text-align: left;
-}
-
-/* Controls & Author */
-
-table#footer {
- border-collapse: collapse;
-	border-spacing: 0;
-}
-
-table#footer td {
-	padding: 0;
-	margin: 0;
-}
-
-table#footer td#controls {
-	vertical-align: bottom;
-	white-space: nowrap;
-	padding-left: 0.25em;  /* to line up with start of type labels */
-}
-
-table#footer td#controls a {
-	color: #999;
-	padding-right: 1em;
-}
-
-table#footer td#controls a:hover {
-	color: #333;
-}
-
-table#footer td#added_by {
-	color: #AAA;
-	padding-left: 1em;
-	border-left: 1px solid #DDD;
+	margin: 1em 0 0.5em 0;
 }

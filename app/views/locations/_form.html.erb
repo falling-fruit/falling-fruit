@@ -25,22 +25,22 @@ jQuery(document).ready(function(){
   
   <!-- Type -->
   <div class="field" id="types">
-    *<%= f.label :type %><br />
-    <span class="subtext">What'd you find? Be as specific as possible. Suggest a new type if you can't find yours in the list.</span><br>
+    <%= f.label :type %><br />
+    <span class="subtext">What'd you find? Be as specific as possible. Only suggest a new type if you can't find it in the list.</span><br>
       <% @location.locations_types.each{ |lt|  %>
       <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
         <div class="type">
-        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-        <%= f2.text_field :type_other, :size => 15 %>
-        <%= link_to_function "[X]", "$(this).parent().remove()" %><br>
+        	<%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
+        	<%= f2.text_field :type_other, :size => 15 %>
+        	<%= link_to_function "[x]", "$(this).parent().remove()" %><br>
         </div>
       <% end %>
     <% } %>
     <% if @current_action == "new" or @current_action == "create" %>
     <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
       <div class="type">
-      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
-      <%= f2.text_field :type_other, :size => 15 %>
+      	<%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
+      	<%= f2.text_field :type_other, :size => 15 %>
       </div>
     <% end %>
     <% end %>
@@ -52,19 +52,20 @@ jQuery(document).ready(function(){
       $('#{ escape_javascript task }'.replace(/new_\\d+/g, new_locations_type_id)).insertAfter($('.type').last());
       jQuery('#location_locations_types_'+new_locations_type_id+'_type_id').select2({width:'element'});
 EOF
-    link_to_function "+ Add Another", func_str
+    link_to_function "[+] Add another", func_str
    %>
   
   <!-- Location -->
   <div class="field">
-    <!--*<%= f.label :address %><br />-->
-    *<label for="location_address">Location</label><br>
-    <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br>
+    <%= f.label :location %><br />
+    <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br/>
     Lat-Lon <%= f.text_field :lat, :size => 12, :value => @lat %>, <%= f.text_field :lng, :size => 12, :value => @lng %><br>
     
     <!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
-      <div style="margin-top: 0.25em;">Address <span class="subtext-inline">can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span></div>
+      <div style="margin-top:0.25em;">
+      	Address <span class="subtext-inline">can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span>
+      </div>
       <%= f.text_area :address, :size => "40x2" %><br>
       <a href="#" onclick="update_marker();">>> Move marker to address</a>
     <% end %>
@@ -73,7 +74,7 @@ EOF
   <!-- Author (if new or admin) -->
   <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and user_signed_in? and current_user.is? :admin) %>
   <div class="field">
-    <%= f.label :Author %><br />
+    <%= f.label :author %><br />
     <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br>
     <%= f.text_field :author, :size => 40 %>
     <span>
@@ -82,8 +83,7 @@ EOF
 
   <!-- Description -->
   <div class="field">
-    <!--<%= f.label :description_and_notes %><br />-->
-    <label for="location_description_and_notes">Description</label><br>
+    <%= f.label :description %><br />
     <span class="subtext">Location details, access issues, plant health...</span><br>
     <%= f.text_area :description, :size => "50x10" %>
   </div>
@@ -127,13 +127,13 @@ EOF
   <br>
   <!-- Captcha -->
   <% unless user_signed_in? %>
-  	<br>
+  	<br />
 	<% end %>
   <div id="captcha">
-  <%= recaptcha_tags(:display => {:theme => 'white'}) unless user_signed_in? %>
+  	<%= recaptcha_tags(:display => {:theme => 'white'}) unless user_signed_in? %>
   </div>
   
-  <br>
+  <br />
   <!-- Submit -->
   <div class="actions">
     <%= f.submit "Submit" %>

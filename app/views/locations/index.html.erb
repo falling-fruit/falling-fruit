@@ -10,7 +10,7 @@
 
 <div id="mainmap_container">
   <div id="map"></div>
-  <p id="stamen_attribution" style="display: none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
 </div>
 
 <% content_for :page_scripts do %>
@@ -21,6 +21,9 @@
   var skip_ids = null;
 
   // ================= functions =================
+  
+  // Enable the visual refresh
+  google.maps.visualRefresh = true;
 
   function initialize() {
     var ini_zoom = 2;
@@ -52,6 +55,8 @@
     var tonerType = new google.maps.StamenMapType(toner);
     tonerType.name = "B&W";
     map.mapTypes.set(toner, tonerType);
+    // In case permalinked straight to toner-lite:
+    update_attribution()
     
     // Bicycle map (and control)
     bicycleControl(map);

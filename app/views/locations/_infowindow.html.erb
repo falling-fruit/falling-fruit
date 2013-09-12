@@ -1,16 +1,16 @@
 <!-- Wrapper -->
-<div id="location_popup">
+<div id="location_infowindow">
 
 <!-- Types -->
 <div id="type_list">
  <% @location.locations_types.each{ |d| %>
  <li>
- <%= d.name %>
+ <%= d.name.nil? ? "Unknown" : d.name %>
  <% unless d.type.nil? %>
-	 <% unless d.type.wikipedia_url.nil? or d.type.wikipedia_url.strip == "" %>
+	 <% unless d.type.wikipedia_url.blank? %>
 		<a href="<%= d.type.wikipedia_url %>" target="_blank"><img class="type_icon" src="/wikipedia_icon.png"></a>
 	 <% end %>
-	 <% unless d.type.usda_symbol.nil? or d.type.usda_symbol.strip == "" %>
+	 <% unless d.type.usda_symbol.blank? %>
 		<a href="http://plants.usda.gov/java/profile?symbol=<%= d.type.usda_symbol %>" target="_blank"><img class="type_icon" src="/usda_icon.png"></a>
 	 <% end %>
  <% end %>
@@ -22,15 +22,15 @@
 <div id="description">
 
 <!-- Quality -->
-<% unless location.quality_rating.nil? %>
+<% unless location.quality_rating.blank? %>
 	<% ratings = "true" %>
- <label>Quality</label> "<%= Location::Ratings[location.quality_rating] %>"
+ 	<label>Quality</label> "<%= Location::Ratings[location.quality_rating] %>"
 <% end %>
 
 <!-- Yield -->
-<% unless location.yield_rating.nil? %>
+<% unless location.yield_rating.blank? %>
 	<% ratings = "true" %>
- <label>Yield</label> "<%= Location::Ratings[location.yield_rating] %>"
+	<label>Yield</label> "<%= Location::Ratings[location.yield_rating] %>"
 <% end %>
 <% unless ratings.nil? %>
 	<br/>
@@ -39,7 +39,7 @@
 <!-- Season -->
 <!-- (use ? to denote nil, brown out of season, green in season) -->
 <% unless location.no_season or (location.season_start.nil? and location.season_stop.nil?) %>
- <label>Season</label>&nbsp;  <!-- to account for " of ratings -->
+	<label>Season</label>
  <% current = Date.today.month.to_i - 1 
     season_class = "out_season"
     season_class = "in_season" if (current == location.season_start) or (current == location.season_stop)
@@ -60,7 +60,7 @@
 <!-- Text Description -->
 <!-- (keep <p> markup even if empty) -->
 <p>
-<% unless location.description.nil? %>
+<% unless location.description.blank? %>
  <%= sanitize(location.description.strip.gsub(/\n/,"<br>"),tags:["br"]) %>
 <% end %>
 </p>
@@ -72,12 +72,16 @@
 
 <!-- Controls & Author -->
 <!-- (using table instead of display: table-cell for compatibility with IE <= 7) -->
-<!-- div wrapper needed to fix width of footer to window size so that wrapping does not introduce scroll bar -->
-<div style="width:100%;">
+<!-- FIXED? div width=100% needed to match footer to window size so that wrapping does not introduce scroll bar -->
+<!--<div style="width:100%;">-->
 <table id="footer">
 	<tr>
  		<td id="controls">
+ 		<a href="javascript:zoom_to_marker();" data-ajax="false">zoom</a>
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;">link</a><a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external">edit</a>
+ 		<% if user_signed_in? and current_user.is? :admin %>
+ 			<a href="javascript:toggle_route_controls();" data-ajax="false">routes <img src="/smarrow_down.png" /></a>
+ 		<% end %>
  		<% if user_signed_in? and current_user.is? :admin %>
   		<%= link_to('delete', location, method: :delete, data: { confirm: 'Are you sure?' }) %>
  		<% end %>
@@ -85,20 +89,23 @@
   	<td id="added_by">by <i><%= (location.author.nil? or (location.author.strip.length == 0)) ? "Anonymous" : location.author %></i></td>
  	</tr>
 </table>
+
+<!-- Routes -->
 <% if user_signed_in? %>
-<br>
+<div id="route_controls" style="display:none;">
+<hr style="border-top:1px solid #ddd;margin:1em 0;">
 Routes: 
 <form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">
-<select id="route_id" name="route_id">
-<% Route.where("user_id = ?",current_user.id).each do |r| %>
- <option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
-<% end %>
- <option value="-1">-- New Route --</option>
-</select>
-<input type="submit" value="+/-">
+	<select id="route_id" name="route_id">
+		<% Route.where("user_id = ?",current_user.id).each do |r| %>
+ 			<option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
+		<% end %>
+ 		<option value="-1">-- New Route --</option>
+	</select>
+	<input type="submit" value="+/-">
 </form>
 <% end %>
-
 </div>
+<!--<div style="width:100%;">-->
 
 </div>  <!-- Wrapper -->

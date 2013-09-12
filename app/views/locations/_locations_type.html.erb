@@ -2,6 +2,6 @@
 <%= pf.fields_for :locations_types, lt, :index => "new_42" do |f2| %>
  <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{:class=>"select2"}) %> or
  <%= f2.text_field :type_other, :size => 15, :value => '' %>
- <%= link_to_function "[X]", "$(this).parent().remove()" %><br>
+ <%= link_to_function "[x]", "$(this).parent().remove()" %><br>
 <% end %>
 </div>

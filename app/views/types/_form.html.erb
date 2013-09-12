@@ -39,8 +39,9 @@
   </div>
   <div class="field">
     <%= f.label :edibility %><br />
-    <%= f.select(:edability,Type::Edabilities.collect{ |k,v| [v,k] },:include_blank => true) %>
+    <%= f.select(:edability, Type::Edabilities.collect{ |k,v| [v,k] }, :include_blank => true) %>
   </div>
+  
   <!-- Custom marker (unused)
   <div class="field">
     <%= f.label :custom_marker %><br />
@@ -48,9 +49,10 @@
     <%= f.file_field :marker %>
   </div>
   -->
+  
   <br />
-  <% unless lts.nil? %>
-  <%= hidden_field_tag 'lts', lts.join(":") %>
+  <% unless not(defined? lts) or lts.nil? %>
+    <%= hidden_field_tag 'lts', lts.join(":") %>
   <% end %>
   <div class="actions">
     <%= f.submit %>

@@ -1,18 +1,22 @@
 <h1>Imports</h1>
 
-<table>
+<%= link_to '[+] New import', import_locations_path %>
+
+<table id="import_list">
+<thead>
   <tr>
+  	<th>ID</th>
     <th>Name</th>
     <th>Locations</th>
     <th>Autoload</th>
     <th>Muni</th>
-    <th>License</th>
     <th>Status</th>
-    <th>Created At</th>
-    <th></th>
-    <th></th>
+    <th>Imported</th>
+    <th>Edit</th>
+    <th>Delete</th>
   </tr>
-
+</thead>
+<tbody>
 <% 
 lcounts = {}
 Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l|
@@ -25,19 +29,34 @@ Import.all.each do |import| %>
     efile = File.join("public","import","#{import.id}_error.csv")
   %>
   <tr>
-    <td><%= import.name %></td>
-    <td><%= lcounts[import.id] %></td>
-    <td><%= import.autoload ? "X" : "" %></td>
-    <td><%= import.muni ? "X" : "" %></td>
-    <td><%= import.license %></td>
-    <td><%= File.exists?(ofile) ? "Queued" : (File.exists?(ifile) ? "Done: " : "Done (Legacy)")%>
-    <%= link_to 'CSV', "/import/#{import.id}_done.csv" if File.exists? ifile %> 
-    <%= link_to 'Err', "/import/#{import.id}_error.csv" if File.exists? efile %>
+  	<td style="text-align:right"><a href="/imports/<%= import.id %>/"><%= import.id %></a></td>
+    <td>
+    <% unless import.url.nil? %>
+		<a href="<%= import.url %>"><%= import.name %></a>
+	<% else %>
+		<%= import.name %>
+	<% end %>
     </td>
-    <td><%= import.created_at %>
+    <td><%= lcounts[import.id] %></td>
+    <td><%= import.autoload ? "x" : "" %></td>
+    <td><%= import.muni ? "x" : "" %></td>
+    <td><%= File.exists?(ofile) ? "Queued" : (File.exists?(ifile) ? "Done: " : (File.exists?(efile) ? "Error: " : "Done (Legacy)"))%>
+      <%= link_to 'CSV', "/import/#{import.id}_done.csv" if File.exists? ifile %> 
+      <%= link_to 'CSV', "/import/#{import.id}_error.csv" if File.exists? efile %>
+    </td>
+    <td><%= import.created_at %></td>
     <td><%= link_to 'Edit', edit_import_path(import) %></td>
-    <td><%= link_to 'Destroy', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    
+    <td><%= link_to 'Delete', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
+
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+    jQuery('#import_list').dataTable({
+      "aaSorting": [[0,"asc"]],
+      "bPaginate": false
+    });
+});
+</script>

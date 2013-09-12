@@ -1,37 +1,35 @@
-<style>
-blockquote{ margin-left: 2em; }
-</style>
+<%= link_to('[+] Show all imports', bibliography_imports_path) %>
 
-<p>
-<% unless @import.url.nil? %>
-<a href="<%= @import.url %>"><%= @import.name %></a>
-<% else %>
-<%= @import.name %>
-<% end %>
-</p>
+<table style="border-collapse:separate;border-spacing:0 2em;">
+<tr>
+	<td style="vertical-align:top;text-align:right;padding:2em 1.5em 0 0;"><%= @import.id %></span></td>
+	<td style="padding:2em;background-color:#fafafa;">
 
-<p>
-Type: <%= @import.muni ? "Municipal" : "Community" %>
-</p>
+	<!-- Name, Url -->
+	<b><%= @import.name %></b><br />
+	<% unless @import.url.blank? %>
+		<a href="<%= @import.url %>"><%= @import.url.include?("maps.google") ? "Google Maps" : @import.url %></a><br />
+	<% end %>
 
-<p>
-License:<br><blockquote>
-<% unless @import.license.nil? or @import.license.length == 0 %>
-<%= raw word_wrap(@import.license,:line_width => 80).gsub("\n","<br>") %>
-<% else %>
-<em>No license defined, assume <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Creative Commons Share-Alike Non-Commercial</a></em>.
-<% end %></blockquote>
-</p>
+	<!-- Type, Date -->
+	<%= @import.muni ? "Municipal data" : "Community map" %> | Imported <i><%= @import.created_at.to_s %></i><br />
 
-<% unless @import.comments.nil? %>
-<p>
-Comments:
-<blockquote>
-<%= raw word_wrap(@import.comments,:line_width => 80).gsub("\n","<br>") %>
-</blockquote>
-</p>
-<% end %>
+	<hr style="border:1px solid #eee;margin:1.5em 0;">
 
-<p>
-Imported at: <%= @import.created_at.to_s %>
-</p>
+	<span style="font-size:100%;">
+	<!-- Comments -->
+	<% unless @import.comments.blank? %>
+		<%= raw @import.comments.gsub("\n","<br>") %><br /><br />
+	<% end %>
+
+	<!-- License -->
+	<% unless @import.license.blank? %>
+		<%= raw @import.license.gsub("\n","<br>") %>
+	<% else %>
+		<i>No license defined, assume <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Creative Commons Share-Alike Non-Commercial</a></i>.
+	<% end %>
+	</span>
+
+	</td>
+</tr>
+</table>

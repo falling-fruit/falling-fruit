@@ -74,6 +74,8 @@
         prior_bounds = bounds;
       });
     });
+    
+    var editMarkerHtml = '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>';
 
     if($('#location_lat').val() == "" && $('#location_lng').val() == ""){
       navigator.geolocation.getCurrentPosition(function(position){
@@ -91,7 +93,7 @@
         map.setZoom(15);
         map.panTo(marker.getPosition());
         var nag = new google.maps.InfoWindow({
-          content: '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br><br><i>Check the satellite view - the source may be visible from space!</i></div>'
+          content: editMarkerHtml
         });
         nag.open(map,marker);  
         google.maps.event.addListener(marker, 'dragend', function() {
@@ -127,7 +129,7 @@
       map.setZoom(15);
       map.panTo(marker.getPosition());
       var nag = new google.maps.InfoWindow({
-        content: '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br><br><i>Check the satellite view - the source may be visible from space!</i></div>'
+        content: editMarkerHtml
       });
       nag.open(map,marker);  
       google.maps.event.addListener(marker, 'dragend', function() {
@@ -162,7 +164,7 @@
           draggable: true,
         });
         var nag = new google.maps.InfoWindow({
-          content: '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br><br><i>Check the satellite view - the source may be visible from space!</i></div>'
+          content: editMarkerHtml
         });
         nag.open(map,marker);  
         google.maps.event.addListener(marker, 'dragend', function() {

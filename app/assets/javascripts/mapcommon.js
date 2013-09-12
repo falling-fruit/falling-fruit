@@ -6,6 +6,8 @@
   var prior_zoom = null;
   var markersArray = [];
   var openInfoWindow = null;
+  var showing_route_controls = false;
+  var openInfoWindowHtml = null;
   var openMarker = null;
   var labelsOn = false;
   var last_search = null;
@@ -120,12 +122,12 @@
   function open_marker_by_id(id,lat,lng){
     for (var i = 0; i < markersArray.length; i++ ) {
       if(markersArray[i].id == id){
-        var request = $.ajax({
+        var requestHtml = $.ajax({
           type: 'GET',
           url: '/locations/' + id + '/infobox',
           dataType: 'html'
         });
-        request.done(function(html){
+        requestHtml.done(function(html){
           var infowindow = new google.maps.InfoWindow({content: html });
           google.maps.event.addListener(infowindow,'closeclick',function(){
             openInfoWindow = null;
@@ -133,18 +135,19 @@
           });
           infowindow.open(map, markersArray[i].marker);
           openInfoWindow = infowindow;
+          openInfoWindowHtml = requestHtml.responseText
         });
         openMarker = markersArray[i].marker;
         return true;
       }
     }
     // didn't find it, manually fetch & add it
-    var request = $.ajax({
+    var requestJson = $.ajax({
       type: 'GET',
       url: '/locations/marker.json?id=' + id,
       dataType: 'json'
     });
-    request.done(function(json){
+    requestJson.done(function(json){
       add_markers_from_json(json,false);
       // make marker clickable
       add_marker_infobox(markersArray.length-1);
@@ -152,12 +155,12 @@
       if(labelsOn) labelize_markers();
       search_filter(last_search);
       // open infobox
-      var request2 = $.ajax({
+      var requestHtml = $.ajax({
         type: 'GET',
         url: '/locations/' + id + '/infobox',
         dataType: 'html'
       });
-      request2.done(function(html){
+      requestHtml.done(function(html){
         var infowindow = new google.maps.InfoWindow({content: html });
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
@@ -165,6 +168,7 @@
         });
         infowindow.open(map, markersArray[markersArray.length-1].marker);
         openInfoWindow = infowindow;
+        openInfoWindowHtml = requestHtml.responseText;
       });
       openMarker = markersArray[markersArray.length-1];
     });
@@ -177,12 +181,12 @@
     google.maps.event.addListener(marker, 'click', function(){
       if(openMarker === marker) return;
       if(openInfoWindow != null) openInfoWindow.close()
-      var request = $.ajax({
+      var requestHtml = $.ajax({
         type: 'GET',
         url: '/locations/' + id + '/infobox',
         dataType: 'html'
       });
-      request.done(function(html){
+      requestHtml.done(function(html){
         var infowindow = new google.maps.InfoWindow({content: html });
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
@@ -190,6 +194,7 @@
         });
         infowindow.open(map, marker);
         openInfoWindow = infowindow;
+        openInfoWindowHtml = requestHtml.responseText
       });
       openMarker = marker;
     });
@@ -301,7 +306,7 @@
     var infowindow = new google.maps.InfoWindow({
         content: '<div id="newmarker">' +
                  '<a href="/locations/new?lat=' + latLng.lat() + '&lng=' + latLng.lng() + 
-                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">(You can drag this thing too)</span></div>'
+                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>'
     });
     infowindow.open(map,marker);
     // Listen to drag & drop
@@ -309,7 +314,7 @@
         var infowindow = new google.maps.InfoWindow({
           content: '<div id="newmarker">' +
                  '<a href="/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng() + 
-                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">(You can drag this thing too)</span></div>'
+                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>'
         });
         infowindow.open(map,marker);
     });
@@ -414,48 +419,48 @@ function bicycleControl(map) {
 
   // Initialize control div
   var controlDiv = document.createElement('div');
-  controlDiv.index = 1;
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
-
-  // Set CSS for the control div
-  controlDiv.style.paddingTop = '5px';
-
-  // Set CSS for the control border
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '1px';
-  controlUI.style.borderColor = 'grey';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Show bicycle map';
-  controlUI.style.width = '5em';
-  controlUI.style.boxShadow = '-0.5px 1px 2px grey';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '12px';
-  controlText.style.color = '#000';
-  controlText.style.padding = '0.15em 0';
-  controlText.innerHTML = 'Bicycling';
-  controlUI.appendChild(controlText);
+  controlDiv.id = 'maptype_button';
+  controlDiv.title = 'Show bicycle map';
+  controlDiv.innerHTML = 'Bicycling';
 
   // Initialize map with control off
   var toggled = false;
   var layer = new google.maps.BicyclingLayer();
 
   // Setup the click event listeners
-  google.maps.event.addDomListener(controlUI, 'click', function() {
+  google.maps.event.addDomListener(controlDiv, 'click', function() {
     if (toggled) {
       layer.setMap(null);
-      controlUI.style.fontWeight = 'normal';
+      controlDiv.style.fontWeight = 'normal';
+      controlDiv.style.color = '#565656';
+      controlDiv.style.boxShadow = '0px 1px 1px -1px rgba(0, 0, 0, 0.4)';
       toggled = 0;
     } else {
       layer.setMap(map);
-      controlUI.style.fontWeight = 'bold';
+      controlDiv.style.fontWeight = '500';
+      controlDiv.style.color = '#000';
+      controlDiv.style.boxShadow = '0px 1px 1px -1px rgba(0, 0, 0, 0.6)';
       toggled = 1;
     }
   });
+}
+
+// Toggles on/off route controls below footer of location infowindow
+function toggle_route_controls() {
+    if(showing_route_controls){
+      openInfoWindow.setContent(openInfoWindowHtml);
+      showing_route_controls = false;
+    }else{
+      tempHtml = openInfoWindowHtml.replace('<div id="route_controls" style="display:none;">','<div id="route_controls" style="display:block;">').replace('routes <img src="/smarrow_down.png"','routes <img src="/smarrow_up.png"');
+      openInfoWindow.setContent(tempHtml);
+      showing_route_controls = true;
+    }
+}
+
+// Zooms to currently open marker
+function zoom_to_marker() {
+  maxZoom = map.mapTypes[map.mapTypeId].maxZoom;
+  map.panTo(openMarker.position);
+  map.setZoom(maxZoom);
 }

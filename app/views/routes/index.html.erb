@@ -1,13 +1,16 @@
 <h1>Routes</h1>
 
-<table>
+<table id="route_list">
+<thead>
   <tr>
     <th>Name</th>
     <th>Locations</th>
     <th>Created</th>
-    <th></th>
-    <th></th>
+    <th>Rename</th>
+    <th>Delete</th>
   </tr>
+</thead>
+<tbody>
 <% 
 lcounts = {}
 LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where("user_id = ?",current_user.id).each{ |l|
@@ -19,7 +22,17 @@ LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where
     <td><%= lcounts[route.id] %></td>
     <td><%= time_ago_in_words(route.created_at) %> ago</td>
     <td><%= link_to 'Rename', edit_route_path(route) %></td>
-    <td><%= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Delete', route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
+
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+    jQuery('#route_list').dataTable({
+      "aaSorting": [[0,"asc"]],
+      "bPaginate": false
+    });
+});
+</script>
