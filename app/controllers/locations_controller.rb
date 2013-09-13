@@ -367,6 +367,8 @@ class LocationsController < ApplicationController
       @route = Route.new
       @route.name = "Unnamed Route"
       @route.user = current_user
+      @route.access_key = Digest::MD5.hexdigest(rand.to_s)
+      @route.is_public = true
       @route.save
       lr = LocationsRoute.new
       lr.route = @route

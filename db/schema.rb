@@ -111,9 +111,11 @@ ActiveRecord::Schema.define(:version => 20130910215544) do
   create_table "routes", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.string   "type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "transport_type"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "is_public",      :default => true, :null => false
+    t.string   "access_key"
   end
 
   add_index "routes", ["user_id"], :name => "index_routes_on_user_id"

@@ -3,7 +3,11 @@ FallingfruitWebapp::Application.routes.draw do
   devise_for :users
   resources :users
 
-  resources :routes
+  resources :routes do
+    collection do
+      post 'multiupdate'
+    end
+  end
 
   resources :locations do
     member do
