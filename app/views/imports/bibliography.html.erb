@@ -1,5 +1,5 @@
 <table style="border-collapse:separate;border-spacing:0 2em;">
-<% Import.all.each do |import| %>
+<% Import.order(:id).all.each do |import| %>
 
 <tr>
   <a name="<%= import.id %>"></a>

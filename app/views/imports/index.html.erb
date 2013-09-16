@@ -31,7 +31,7 @@ Import.all.each do |import| %>
   <tr>
   	<td style="text-align:right"><a href="/imports/<%= import.id %>/"><%= import.id %></a></td>
     <td>
-    <% unless import.url.nil? %>
+    <% unless import.url.blank? %>
 		<a href="<%= import.url %>"><%= import.name %></a>
 	<% else %>
 		<%= import.name %>
@@ -65,7 +65,7 @@ Import.all.each do |import| %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
     jQuery('#import_list').dataTable({
-      "aaSorting": [[0,"desc"]],
+      "aaSorting": [[6,"desc"]],
       "bPaginate": false
     });
 });
