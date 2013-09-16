@@ -1,9 +1,9 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-	jQuery('#typeselect2').select2({width:'15em',tokenSeparators: [","],
+	jQuery('#typeselect2').select2({tokenSeparators: [","],
                                   tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
-                                 });
+                                 });                           
 });
 </script>
 <% end %>
@@ -28,7 +28,7 @@ jQuery(document).ready(function(){
   <!-- Type -->
   <div class="field" id="types">
     *<%= f.label :types %><br />
-    <span class="subtext">What'd you find? Be as specific as possible. Only suggest a new type if you can't find it in the list. Use a comma to separate multiple types.</span><br />
+    <span class="subtext">Follow each type with a comma (Apple,Pear,). Review the suggestions carefully, submitting a new name only if an appropriate choice does not already exist.</span><br />
     <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
   </div>
   
@@ -36,24 +36,32 @@ jQuery(document).ready(function(){
   <div class="field">
     *<label for="location_address">Location</label><br>
     <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br />
-    Lat-Lon <%= f.text_field :lat, :size => 12, :value => @lat %>, <%= f.text_field :lng, :size => 12, :value => @lng %><br>
+    Lat-Lon <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br>
     
   	<!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
       <div style="margin-top:0.25em;">
       	Address <span class="subtext-inline">can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span>
       </div>
-      <%= f.text_area :address, :size => "40x2" %><br />
+      <%= f.text_area :address %><br />
       <a href="#" onclick="update_marker();">>> Move marker to address</a>
     <% end %>
   </div>
   
   <!-- Author (if new or admin) -->
-  <% if @current_action == "new" or @current_action == "create" or (@current_action == "edit" and user_signed_in? and current_user.is? :admin) %>
+  <% if (((@current_action == "new" or @current_action == "create") and (!user_signed_in? or (user_signed_in? and current_user.add_anonymously?))) or (@current_action == "edit" and user_signed_in? and current_user.is? :admin)) %>
   <div class="field">
     <%= f.label :author %><br />
     <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
-    <%= f.text_field :author, :size => 40 %>
+    <%= f.text_field :author %>
+    </span>
+  </div>
+  <% end %>
+  <% if ((@current_action == "new" or @current_action == "create") and user_signed_in? and !current_user.add_anonymously?) %>
+  <div class="field">
+    <%= f.label :author %><br />
+    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+    <%= f.text_field :author, :value => current_user.name %>
     </span>
   </div>
   <% end %>
@@ -62,7 +70,7 @@ jQuery(document).ready(function(){
   <div class="field">
     <%= f.label :description %><br />
     <span class="subtext">Location details, access issues, plant health...</span><br />
-    <%= f.text_area :description, :size => "50x10" %>
+    <%= f.text_area :description %>
   </div>
   
 	<!-- Season -->

@@ -71,7 +71,11 @@ class LocationsController < ApplicationController
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
-    ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    if (Import.count == 0)
+      ifilter = "(import_id IS NULL)"
+    else      
+      ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    end
     r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l
       WHERE #{[bound,ifilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil? 
@@ -365,7 +369,7 @@ class LocationsController < ApplicationController
     @route = nil
     if params[:route_id].to_i < 0
       @route = Route.new
-      @route.name = "Unnamed Route"
+      @route.name = "Route ##{Route.count + 1}"
       @route.user = current_user
       @route.access_key = Digest::MD5.hexdigest(rand.to_s)
       @route.is_public = true

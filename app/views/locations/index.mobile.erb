@@ -1,6 +1,9 @@
 <%= render 'searchbar' %>
 
-<div id="mobile-map"></div>
+<div id="mobile-map-container">
+  <div id="map"></div>
+  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+</div>
 
 <% content_for :page_scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
@@ -11,6 +14,9 @@
 
   // ================= functions =================
 
+  // Enable the visual refresh
+  google.maps.visualRefresh = true;
+  
   function initialize() {
     var ini_zoom = 2;
     // Kearney, Nebraska :P
@@ -34,7 +40,7 @@
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
       }
     };
-    map = new google.maps.Map(document.getElementById('mobile-map'),mapOptions);
+    map = new google.maps.Map(document.getElementById('map'),mapOptions);
     geocoder = new google.maps.Geocoder();
     map.setTilt(0);
     pb = progressBar();
@@ -44,14 +50,16 @@
     var tonerType = new google.maps.StamenMapType(toner);
     tonerType.name = "B&W";
     map.mapTypes.set(toner, tonerType);
-    
+    update_attribution();
+
     // Bicycle map (and control)
     bicycleControl(map);
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_permalink();
+      update_attribution();
     });
-
+    
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);

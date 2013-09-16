@@ -1,6 +1,9 @@
 <%= render :partial => '/locations/searchbar' %>
 
-<div id="mainmap_container"><div id="map"></div></div>
+<div id="mainmap_container">
+  <div id="map"></div>
+  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+</div>
 
 <% content_for :page_scripts do %>
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
@@ -22,6 +25,9 @@
   var destination = new google.maps.LatLng(<%= @stop_location.lat %>,<%= @stop_location.lng %>);
 
   // ================= functions =================
+  
+  // Enable the visual refresh
+  google.maps.visualRefresh = true;
   
   function initialize() {
     var ini_zoom = 15;

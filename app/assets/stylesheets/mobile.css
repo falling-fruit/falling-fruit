@@ -32,7 +32,7 @@ div#mobile-controls{
   bottom: 0;
   padding-right: 0.5em;
 }
-div#mobile-map{
+div#mobile-map-container{
   position: absolute;
   bottom: 0;
   left: 45%;

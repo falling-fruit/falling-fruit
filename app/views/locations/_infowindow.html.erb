@@ -79,7 +79,7 @@
  		<td id="controls">
  		<a href="javascript:zoom_to_marker();" data-ajax="false">zoom</a>
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;">link</a><a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external">edit</a>
- 		<% if user_signed_in? and current_user.is? :admin %>
+ 		<% if !mobile_device? and user_signed_in? and current_user.is? :admin %>
  			<a href="javascript:toggle_route_controls();" data-ajax="false">routes <img src="/smarrow_down.png" /></a>
  		<% end %>
  		<% if user_signed_in? and current_user.is? :admin %>
@@ -91,7 +91,7 @@
 </table>
 
 <!-- Routes -->
-<% if user_signed_in? %>
+<% if !mobile_device? and user_signed_in? %>
 <div id="route_controls" style="display:none;">
 <hr style="border-top:1px solid #ddd;margin:1em 0;">
 Routes: 
@@ -102,7 +102,7 @@ Routes:
 		<% end %>
  		<option value="-1">-- New Route --</option>
 	</select>
-	<input type="submit" value="+/-">
+	<input type="submit" value="+ / -" style="padding:0.05em 0.25em;">
 </form>
 <% end %>
 </div>
