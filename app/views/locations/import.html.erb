@@ -21,19 +21,19 @@ Errors:
   <p><b>Type Other:</b> Deprecated. A new type_other object is created in the database for further review by a site admin before being approved as an official type.</p>
   <p><b>Description:</b> Whatever information should be displayed in the location's infobox (location details, access issues, plant health, etc). &lt;br&gt; (HTML line break) tags are converted to \n (newline) characters. No other markup is currently supported.</p>
   <p><b>Address:</b> Full street address of the location (number, street, city, state / province, zip code, country). It is geocoded and converted to coordinates, so don't provide an address if you are already providing Lat and Lng.</p>
-  <p><b>Season Start/Stop:</b> Months that harvesting begins and ends, respectively, with 0 corresponding to January and 11 corresponding to December.</p>
+  <p><b>Season Start/Stop:</b> Months that harvesting begins and ends, respectively, with 1 corresponding to January and 12 corresponding to December.</p>
   <p><b>No Season:</b> Whether season does not apply (eg. Rosemary). Mark 'x', 't', or 'true' if true (no season), otherwise leave blank.</p>
-  <p><b>Access:</b> Access status of the location, on a scale from 0 to 4:</p>
+  <p><b>Access:</b> Access status of the location, on a scale from 1 to 5:</p>
     <blockquote>
     <% Location::AccessModes.each_index{ |i| %>
-    <li><%= i %>: <%= Location::AccessModes[i] %>
+    <li><%= i + 1 %>: <%= Location::AccessModes[i] %>
     <% } %>
     </blockquote>
   <p><b>Unverified:</b> Whether the location or identity of one or more of the sources at the location have not been verified. Mark 'x', 't', or 'true' if true (unverified), otherwise leave blank.</p>
-  <p><b>Yield/Quality Rating:</b> The productivity and tastiness of the sources at the location, on a scale from 0 to 4:</p>
+  <p><b>Yield/Quality Rating:</b> The productivity and tastiness of the sources at the location, on a scale from 1 to 5:</p>
     <blockquote>
     <% Location::Ratings.each_index{ |i| %>
-    <li><%= i %>: <%= Location::Ratings[i] %>
+    <li><%= i + 1 %>: <%= Location::Ratings[i] %>
     <% } %>
     </blockquote>
   <p><b>Author:</b> Author of the location, as displayed on the map. If left blank, the author is "Anonymous".</p>
@@ -45,11 +45,11 @@ Errors:
   <%= fields_for :import do |f2| %>
     <div class="field">
       Name<br>
-      <%= f.text_field :name, :size => "40" %>
+      <%= f.text_field :name, :size => "80" %>
     </div>
     <div class="field">
       URL<br>
-      <%= f.text_field :url, :size => "40" %>
+      <%= f.text_field :url, :size => "80" %>
     </div>
     <div class="field">
       Comments<br>

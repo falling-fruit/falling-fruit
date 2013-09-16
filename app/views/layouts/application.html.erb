@@ -27,14 +27,13 @@
 <script type="text/javascript">
 	var w1 = '<%= notice %>';
 	var w2 = '<%= alert %>';
-	$('#warnings_dialog').text(w1 + "\n\n" + w2).dialog({ 
+	$('#warnings_dialog').dialog({ 
 		closeText: "close",
-		width: 'auto',
 		minHeight: '5em',
 		resizable: false,
 		draggable: false,
 		position: "top",
-		title: "Notice",
+		title: w1 + "\n\n" + w2,
 		dialogClass: "dialog_yellow"
 		});
 </script>

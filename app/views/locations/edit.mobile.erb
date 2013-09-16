@@ -79,7 +79,7 @@
     map.setZoom(18);
     map.panTo(marker.getPosition());
     var nag = new google.maps.InfoWindow({
-      content: '<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!/div>'
+      content: '<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>'
     });
     nag.open(map,marker);  
     google.maps.event.addListener(marker, 'dragend', function() {

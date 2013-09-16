@@ -115,13 +115,13 @@ div#footer {
   font-size: 0.85em;
 }
 
-
 /*** Dialogs ***/
 
 .ui-dialog {
 	font-family: inherit;
 	font-size: 95%;
 	padding: 0;
+	border-radius: 2px;
 }
 
 .ui-dialog .ui-dialog-content {
@@ -133,27 +133,35 @@ div#footer {
 .ui-dialog .ui-dialog-titlebar {
 	border-radius: 0;
 	border: none;
-  color: #888;
+	color: #888;
+}
+
+.ui-dialog .ui-dialog-titlebar-close.ui-state-hover {
+	border-color: #CCC;
 }
 
 .dialog_yellow {
-	border: 2px solid #FCF9BF;
+	border: 2px solid #ECECDC;
+	top: -2px ! important;*/
 }	
 
 .dialog_yellow .ui-dialog-titlebar {
-	background: #F1F1B1;
+	background: #F6F6A8;
+	font-weight: normal;
 }
 
 .dialog_yellow .ui-dialog-titlebar-close {
-  background: #F1F160;
+  background: #F6F6A8;
+  position: absolute;
+  top: 1em;
 }
 
 .dialog_yellow .ui-dialog-titlebar-close:focus {
-  outline: none;
+  outline: none ;
 }
 
 .dialog_yellow .ui-dialog-content {
-	background-color: #ffd;
+	display: none ! important;
 }
 
 .dialog_grey {
@@ -161,7 +169,7 @@ div#footer {
 }	
 
 .dialog_grey .ui-dialog-titlebar {
-	background: #e9e9e9;
+	background: #E9E9E9;
 }
 
 .dialog_grey .ui-dialog-titlebar-close {
@@ -173,7 +181,7 @@ div#footer {
 }
 
 .dialog_grey .ui-dialog-content {
-	background-color: #fcfcfc;
+	background-color: #FCFCFC;
 }
 
 
@@ -212,6 +220,11 @@ form input[type=text], input[type=password], input[type=email], textarea {
 form .select2-choices {
   border: 1px solid #ccc ! important;
   outline: none ! important;
+  background: none ! important;
+}
+
+form .select2-choices .select2-search-choice {
+  font-size: 95%;
 }
 
 form select {
@@ -560,6 +573,7 @@ div#location_infowindow {
 
 div#location_infowindow a {
   color: #333;
+  text-decoration: underline;
 }
 
 /* Types */
@@ -570,10 +584,10 @@ div#type_list {
 
 div#type_list li {
   list-style: none;
-  margin: 0 0 .3em 0; /* for appropriate "line height" if list longer than one line */
+  margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
   display: inline-block;
   background-color: #EEE;
-  padding: 0.25em;
+  padding: 0.1em 0.4em;
   font-size: 1.15em;
 }
 
@@ -602,6 +616,7 @@ span.out_season {
 div#description p {
   margin: 1.2em 1em;
   line-height: 1.5em;
+  cursor: text; /* Google Maps defaults to hand */
 }
 
 /* Controls & Author */
@@ -617,17 +632,19 @@ table#footer td#controls {
 	padding-left: 0.25em;  /* to line up with start of type labels */
 }
 
-table#footer td#controls a {
+table#footer a {
 	color: #999;
+}
+
+table#footer #controls a {
 	padding-right: 1em;
 }
 
-table#footer td#controls a:hover {
+table#footer a:hover {
 	color: #333;
 }
 
 table#footer td#added_by {
-	color: #AAA;
 	padding-left: 1em;
 	border-left: 1px solid #DDD;
 }

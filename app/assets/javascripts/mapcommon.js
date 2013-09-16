@@ -452,7 +452,7 @@ function toggle_route_controls() {
       openInfoWindow.setContent(openInfoWindowHtml);
       showing_route_controls = false;
     }else{
-      tempHtml = openInfoWindowHtml.replace('<div id="route_controls" style="display:none;">','<div id="route_controls" style="display:block;">').replace('routes <img src="/smarrow_down.png"','routes <img src="/smarrow_up.png"');
+      tempHtml = openInfoWindowHtml.replace('<div id="route_controls" style="display:none;','<div id="route_controls" style="display:block;').replace('routes<img src="/smarrow_down.png"','routes<img src="/smarrow_up.png"');
       openInfoWindow.setContent(tempHtml);
       showing_route_controls = true;
     }

@@ -133,7 +133,7 @@ class Location < ActiveRecord::Base
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
-    loc.access = access unless access.blank?
+    loc.access = (access.to_i - 1) unless access.blank?
     loc.description = desc.gsub(/(\\n|<br>)/,"\n") unless desc.blank?
     loc.address = address unless address.blank?
     loc.photo_url = photo_url unless photo_url.blank?
