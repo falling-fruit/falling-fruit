@@ -22,13 +22,21 @@
 
  <!-- Alerts -->
  <% if notice or alert %>
- <div id="warnings_dialog" style="display:none;" title="Notice"></div>
- <% content_for :page_scripts do %>
- <script type="text/javascript">
- var w1 = '<%= notice %>';
- var w2 = '<%= alert %>';
- $('#warnings_dialog').text(w1 + "\n\n" + w2).dialog({ closeText: "[x]", height: 75, width: 300, resize: "auto", dialogClass: 'notice', position: 'top' });
- </script>
+ <div id="warnings_dialog" style="display:none;" ></div>
+<% content_for :page_scripts do %>
+<script type="text/javascript">
+	var w1 = '<%= notice %>';
+	var w2 = '<%= alert %>';
+	$('#warnings_dialog').dialog({ 
+		closeText: "close",
+		minHeight: '5em',
+		resizable: false,
+		draggable: false,
+		position: "top",
+		title: w1 + "\n\n" + w2,
+		dialogClass: "dialog_yellow"
+		});
+</script>
  <% end %>
  <% end %>
 
@@ -39,13 +47,12 @@
  <img id="logo" src="/logo.png">
  
  <!-- AddThis Buttons -->
-	<div id="share_controls" class="addthis_toolbox addthis_default_style" >
+	<div id="share_controls" class="addthis_toolbox addthis_default_style">
 		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="http://www.facebook.com/FallingFruit"></a> 	
 		<a class="addthis_button_twitter_follow_native" tw:screen_name="Falling_Fruit" tw:show-count="false" tw:show-screen-name="false" />
 		<a class="addthis_counter addthis_pill_style" addthis:url="http://www.FallingFruit.org"></a>
+    &nbsp;<script data-gittip-username="Falling_Fruit" data-gittip-widget="button" src="//gttp.co/v1.js"></script>
 	</div>
-	<!-- URL tracking <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>-->
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
  
  <!-- Title -->
  <a id="falling_fruit" href="/">FallingFruit.org</a><a href="/?mobile=1"><img style="height:1.7em;position:relative;top:0.1em;left:0.5em;" src="/mobile.png" title="Mobile site"/></a><span id="subtitle"> Mapping the urban harvest!</span>
@@ -56,9 +63,9 @@
 <div id="menubar">
  <div id="rightcontrols">
 		<% if user_signed_in? %>
-			<span id="user_email"><%= current_user.email %></span> <%= link_to('Account', edit_user_registration_path) %><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+			<span id="user_email"><%= current_user.email %></span> <%= link_to('Account', edit_user_registration_path, :class => (request.fullpath == '/users/edit') ? 'currentpage' : 'notcurrentpage') %><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 		<% else %>
-			<%= link_to('Login', new_user_session_path) %>or<%= link_to('Sign Up', new_user_registration_path) %>
+			<%= link_to('Login', new_user_session_path, :class => (request.fullpath == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to('Sign Up', new_user_registration_path, :class => (request.fullpath == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
 		<% end %>
  </div>
  <div id="menu">
@@ -66,7 +73,7 @@
     <li><%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- About -->
-    <li><%= link_to('About', '/about', :class => (request.fullpath == '/about') ? "currentpage" : "notcurrentpage") %>
+    <li><%= link_to('About', '/about', :class => (['/about','/inventories','/maps','/sharing','/press'].include?(request.fullpath)) ? "currentpage" : "notcurrentpage") %>
     <ul>
       <li><%= link_to('Tree Inventories', '/inventories', :class => (request.fullpath == '/inventories') ? 'currentpage' : 'notcurrentpage') %></li>
       <li><%= link_to('Community Maps', '/maps', :class => (request.fullpath == '/maps') ? 'currentpage' : 'notcurrentpage') %></li>
@@ -77,26 +84,34 @@
     <li><%= link_to('Changes', '/changes', :class => (request.fullpath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
     <li><%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
     
-				<% if user_signed_in? and current_user.is? :admin %>
-					<!-- Types -->
-					<li><span class="<%= (request.fullpath == types_path or request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
-					<ul>
-							<li><%= link_to('List Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %>
-							<li><%= link_to('New Type', new_type_path, :class => (request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage") %>
-					</ul>
-					</li>
-				
-					<!-- Imports -->
-					<li><span class="<%= (request.fullpath == imports_path or request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage" %>">Imports</span>
-					<ul>
-							<li><%= link_to('List Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %>
-							<li><%= link_to('New Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %>
-					</ul>
-					</li>
-				
-					<!-- Users -->
-					<li><%= link_to('Users', users_path, :class => (request.fullpath == users_path) ? "currentpage" : "notcurrentpage") %></li>
-				<% end %>
+    <!-- Routes -->
+		<% if user_signed_in? %>
+			<li><%= link_to('Routes', routes_path, :class => (request.fullpath == routes_path ? "currentpage" : "notcurrentpage")) %></li>
+
+			<% if current_user.is? :admin %>
+					
+				<!-- Types -->
+				<li><span class="<%= (request.fullpath.include? types_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
+				<ul>
+						<li><%= link_to('Approved Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to('Pending Types', grow_types_path, :class => (request.fullpath == grow_types_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to('New Type', new_type_path, :class => (request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage") %></li>
+				</ul>
+				</li>
+		
+				<!-- Imports -->
+				<li><span class="<%= (request.fullpath.include? imports_path or request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage" %>">Imports</span>
+				<ul>
+						<li><%= link_to('List Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to('New Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to('Bibliography', bibliography_imports_path, :class => (request.fullpath == bibliography_imports_path) ? "currentpage" : "notcurrentpage") %></li>
+				</ul>
+				</li>
+		
+				<!-- Users -->
+				<li><%= link_to('Users', users_path, :class => (request.fullpath == users_path) ? "currentpage" : "notcurrentpage") %></li>
+			<% end %>
+		<% end %>
     </ul>
     
     <!-- Click on map! -->
@@ -108,19 +123,22 @@
 </div>
 
 <!-- Content -->
-<% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes") %>
-<div id="content">
- <%= yield %>
+<% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show") %>
+
+<div id="content_container">
+	<div id="content">
+	 <%= yield %>
  
- <!-- Footer -->
- <div id="footer">
-  <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Copyleft</a> (c) <%= Time.now.year %> Falling Fruit  
- </div>
+	 <!-- Footer -->
+	 <div id="footer">
+		<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB">Copyleft</a> (c) <%= Time.now.year %> Falling Fruit  
+	 </div>
+	</div>
 </div>
 
 <% else %>
 
-<%= yield %>
+	<%= yield %>
 
 <% end %>
 
@@ -132,7 +150,6 @@
 
 <!-- Google Analytics -->
 <script type="text/javascript">
-
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-39120529-1']);
   _gaq.push(['_setDomainName', 'fallingfruit.org']);
@@ -143,8 +160,11 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-
 </script>
+
+<!-- AddThis Javascript -->
+<!-- URL tracking <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>-->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
 
 </body>
 </html>

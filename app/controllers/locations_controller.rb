@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:destroy]
+  before_filter :authenticate_user!, :only => [:destroy,:enroute]
   before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
-  authorize_resource :only => [:destroy]
+  authorize_resource :only => [:destroy,:enroute]
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"
@@ -71,7 +71,11 @@ class LocationsController < ApplicationController
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
-    ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    if (Import.count == 0)
+      ifilter = "(import_id IS NULL)"
+    else      
+      ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    end
     r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l
       WHERE #{[bound,ifilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil? 
@@ -257,32 +261,24 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    unless params[:location].nil? or params[:location][:locations_types].nil?
-      lt_seen = {}
-      lts = params[:location][:locations_types].collect{ |dc,data| 
-        lt = LocationsType.new
-        unless data[:type_id].nil? or (data[:type_id].strip == "")
-          lt.type_id = data[:type_id]
-        else
-          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "") or
-                          data[:type_other] =~ /something not in the list/
-        end
-        k = lt.type_id.nil? ? lt.type_other : lt.type_id
-        if lt.type_id.nil? and lt.type_other.nil?
-          lt = nil
-        elsif !lt_seen[k].nil?
-          lt = nil
-        else
-          lt_seen[k] = true
-        end
-        lt
-      }.compact
-      params[:location].delete(:locations_types)
-    end
+    p = 0
+    lts = []
+    params[:types].split(/,/).uniq.each{ |type_name|
+      lt = LocationsType.new
+      t = Type.where("name = ?",type_name.strip).first
+      if t.nil? 
+        lt.type_other = type_name
+      else
+        lt.type = t
+      end
+      lt.position = p
+      p += 1
+      lts.push lt
+    } if params[:types].present?
     @location = Location.new(params[:location])
     @lat = @location.lat
     @lng = @location.lng
-    @location.locations_types += lts unless lts.nil?
+    @location.locations_types += lts
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
@@ -314,35 +310,31 @@ class LocationsController < ApplicationController
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
 
-    # manually update location types :/
-    unless params[:location].nil? or params[:location][:locations_types].nil?
-      # delete existing types before adding new stuff
-      @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
-      # add/update types
-      lt_seen = {}
-      params[:location][:locations_types].each{ |dc,data|
-        lt = LocationsType.new
-        unless data[:type_id].nil? or (data[:type_id].strip == "")
-          lt.type_id = data[:type_id]
-        else
-          lt.type_other = data[:type_other] unless data[:type_other].nil? or (data[:type_other].strip == "")
-        end
-        next if lt.type_id.nil? and lt.type_other.nil?
-        k = lt.type_id.nil? ? lt.type_other : lt.type_id
-        next unless lt_seen[k].nil?
-        lt_seen[k] = true
-        lt.location_id = @location.id   
-        lt.save
-      }
-      params[:location].delete(:locations_types)
-    end
+    p = 0
+    lts = []
+    @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
+    params[:types].split(/,/).uniq.each{ |type_name|
+      lt = LocationsType.new
+      t = Type.where("name = ?",type_name.strip).first
+      if t.nil? 
+        lt.type_other = type_name
+      else
+        lt.type = t
+      end
+      lt.position = p
+      lt.location_id = @location.id
+      p += 1
+      lts.push lt
+    } if params[:types].present?
+
+    lt_update_okay = lts.collect{ |lt| lt.save }.all?
 
     ApplicationController.cluster_decrement(@location)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-     
-      if test and @location.update_attributes(params[:location])
+      if test and @location.update_attributes(params[:location]) and lt_update_okay
+        
         log_changes(@location,"edited")
         ApplicationController.cluster_increment(@location)
         expire_things
@@ -369,6 +361,37 @@ class LocationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to locations_url }
       format.mobile { redirect_to locations_url }
+    end
+  end
+
+  def enroute
+    @location = Location.find(params[:id])
+    @route = nil
+    if params[:route_id].to_i < 0
+      @route = Route.new
+      @route.name = "Route ##{Route.count + 1}"
+      @route.user = current_user
+      @route.access_key = Digest::MD5.hexdigest(rand.to_s)
+      @route.is_public = true
+      @route.save
+      lr = LocationsRoute.new
+      lr.route = @route
+      lr.location = @location
+      lr.save
+    else
+      @route = Route.find(params[:route_id])
+      lr = LocationsRoute.where("route_id = ? AND location_id = ?",@route.id,@location.id)
+      if lr.nil? or lr.length == 0
+        lr = LocationsRoute.new
+        lr.route = @route
+        lr.location_id = @location.id
+        lr.save
+      else
+        lr.each{ |e| e.destroy }
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to @route }
     end
   end
 end

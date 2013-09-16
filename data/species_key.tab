@@ -1,0 +1,979 @@
+Common	Scientific	Rating	Tag
+	Acacia melanoxylon	-1	
+Clammy locust	Robinia viscosa	-1	
+Japanese pagodatree	Sophora japonica	-1	
+Fir	Abies	-1	
+Catclaw acacia	Acacia greggii	-1	
+	Acacia pendula	-1	
+Silver wattle	Acacia dealbata	-1	
+California buckeye	Aesculus californica	-1	
+Red horse-chestnut	Aesculus carnea	-1	
+Ohio buckeye	Aesculus glabra	-1	
+Horse-chestnut	Aesculus hippocastanum	-1	
+	Afrocarpus gracilior	-1	
+Alder	Alnus	-1	
+King palm	Archontophoenix alexandrae	-1	
+Incense cedar	Calocedrus	-1	
+Hornbeam	Carpinus	-1	
+Bitternut Hickory	Carya cordiformis	-1	
+	Catalpa	-1	
+Cedar	Cedrus	-1	
+Sugarberry	Celtis laevigata	-1	
+Katsura	Cercidiphyllum	-1	
+Chinese redbud	Cercis chinensis	-1	
+Cypress	Chamaecyparis	-1	
+Fringetree	Chionanthus	-1	
+Yellowwood	Cladrastis	-1	
+Pagoda dogwood	Cornus alternifolia	-1	
+Flowering dogwood	Cornus florida	-1	
+Pacific dogwood	Cornus nuttallii	-1	
+Northern swamp dogwood	Cornus racemosa	-1	
+	Cornus rutgersensis 	-1	
+Smoketree	Cotinus	-1	
+Cockspur Hawthorn	Crataegus crus-galli	-1	
+Cockspur Hawthorn	Crataegus crusgalli	-1	syn
+Green hawthorn	Crataegus viridis	-1	
+Japanese-fir	Cryptomeria	-1	
+China-fir	Cunninghamia	-1	
+Cypress	Cupressus	-1	
+Japanese blueberry tree	Elaeocarpus decipiens	-1	
+Bronze loquat	Eriobotrya deflexa	-1	
+	Eucommia	-1	
+Moreton bay fig	Ficus macrophylla	-1	
+	Ficus microcarpa	-1	
+Cuban-laurel	Ficus retusa	-1	
+Rubber fig	Ficus elastica 	-1	
+Kentucky coffeetree	Gymnocladus dioicus	-1	
+	Heptacodium	-1	
+Chinese juniper	Juniperus chinensis	-1	
+Savin juniper	Juniperus sabina	-1	
+Prickly castor oil tree	Kalopanax	-1	
+	Koelreuteria	-1	
+Larch	Larix	-1	
+Coast teatree	Leptospermum laevigatum	-1	
+Sweetgum	Liquidambar	-1	
+Tuliptree	Liriodendron	-1	
+Tatarian honeysuckle	Lonicera tatarica	-1	
+Tatarian honeysuckle	Lonicera tataricum	-1	mis
+	Maackia	-1	
+Osage-orange	Maclura pomifera	-1	
+	Magnolia	-1	
+	Malus yunnanensis	-1	
+Dawn redwood	Metasequoia	-1	
+Hophornbeam	Ostrya	-1	
+Persian ironwood	Parrotia	-1	
+	Persea borbonia	-1	
+Canary avocado	Persea indica	-1	
+Cork-tree	Phellodendron	-1	
+Chinese pistache	Pistacia chinensis	-1	syn
+Chinese pistache	Pistacia sinensis	-1	
+Weeping pittosporum	Pittosporum phillyreoides 	-1	
+Plane tree	Platanus	-1	
+	Podocarpus gracilior	-1	syn
+	Podocarpus henkelii	-1	
+	Populus	-1	
+	Prunus blireana	-1	syn
+	Prunus blireiana	-1	
+	Prunus caroliniana	-1	
+Purpleleaf sand cherry	Prunus cistena	-1	
+Bitter cherry	Prunus emarginata	-1	
+Cherry laurel	Prunus laurocerasus	-1	
+Weeping cherry	Prunus pendula	-1	
+Tibetan cherry	Prunus serrula	-1	
+	Prunus serrulata	-1	
+Flowering almond	Prunus triloba	-1	
+Yoshino cherry	Prunus x yedoensis	-1	
+Yoshino cherry	Prunus yedoensis	-1	
+Douglas-fir	Pseudotsuga	-1	
+Hoptree	Ptelea	-1	
+	Pyrus calleryana	-1	
+	Pyrus kawakami	-1	
+Weeping pear	Pyrus salicifolia	-1	
+	Pyrus Ussurian	-1	
+	Pyrus ussuriensis	-1	
+Buckthorn	Rhamnus	-1	
+Koree	Rhus lancea	-1	
+Lacquer tree	Rhus verniciflua	-1	
+Willow	Salix	-1	
+Japanese umbrella-pine	Sciadopitys	-1	
+Sequoia	Sequoiadendron	-1	
+	Sorbus alnifolia	-1	
+American mountain-ash	Sorbus americana	-1	
+Showy Mountain-ash	Sorbus decora	-1	
+Swedish whitebeam	Sorbus intermedia	-1	
+	Strychnos nux-vomica	-1	
+	Styrax	-1	
+Lilac	Syringa	-1	
+	Taxodium	-1	
+English Yew	Taxus baccata	-1	
+Pacific Yew	Taxus brevifolia	-1	
+Canadian Yew	Taxus canadensis	-1	
+Japanese Yew	Taxus cuspidata	-1	
+	Tetradium	-1	
+	Thuja	-1	
+Hemlock	Tsuga	-1	
+	Viburnum japonicum 	-1	
+	Viburnum plicatum	-1	
+	Viburnum sieboldii	-1	
+	Zelkova	-1	
+	Cercis reniformis	0	
+Staghorn sumac	 Rhus hirta	1	syn
+True mulga	Acacia aneura	1	
+Brisbane golden wattle	Acacia fimbriata	1	
+Sydney golden wattle	Acacia longifolia	1	
+Climbing wattle	Acacia pennata	1	
+Sydney golden wattle	Acacia sophorae	1	syn
+Elegant wattle	Acacia victoriae	1	
+Feijoa	Acca sellowiana	1	
+Black Maple	Acer nigrum	1	
+Sugar maple	Acer saccharum	1	
+Star apple	Achras cainito	1	syn
+Lemon aspen	Acronychia acidula	1	
+Kiwifruit	Actinidia	1	
+Bael	Aegle marmelos	1	
+Yellow buckeye	Aesculus flava	1	
+Yellow buckeye	Aesculus octandra	1	syn
+Candlenut	Aleurites moluccana	1	
+Marmelada	Alibertia edulis	1	
+Borojo	Alibertia patinoi	1	
+Amaranth	Amaranth	1	
+Serviceberry	Amelanchier	1	
+Saskatoon	Amelanchier alnifolia	1	
+Downy serviceberry	Amelanchier arborea	1	
+Canadian serviceberry	Amelanchier canadensis	1	
+Apple serviceberry	Amelanchier grandiflora	1	
+Allegheny serviceberry	Amelanchier laevis	1	
+Luma	Amomyrtus luma	1	
+Cashew	Anacardium occidental	1	
+Pineapple	Ananas comosus	1	
+Cherimoya	Annona cherimola	1	
+Bullocks heart	Annona reticulata	1	
+Bignay	Antidesma bunius	1	
+Japanese Angelica Tree	Aralia elata	1	
+Monkey Puzzle	Araucaria araucana	1	
+Bunya pine	Araucaria bidwillii	1	
+Norfolk island Pine	Araucaria heterophylla	1	
+Strawberry Tree	Arbutus unedo	1	
+Bearberry	Arctostaphylos	1	
+Whiteleaf manzanita	Arctostaphylos manzanita	1	
+Sugar palm	Arenga pinnata	1	
+Chokeberry	Aronia	1	
+Arracacha	Arracacia xanthorrhiza	1	
+Breadfruit	Artocarpus altilis	1	
+Jackfruit	Artocarpus heterophyllus	1	
+Pawpaw	Asimina triloba	1	
+Atherton oak	Athertonia diversifolia	1	
+Saltbush	Atriplex	1	
+Grey saltbush	Atriplex cinerea	1	
+Mediterranean saltbush	Atriplex halimus	1	
+Garden orache	Atriplex hortensis	1	
+Common orache	Atriplex patula	1	
+Midyim	Austromyrtus dulcis	1	
+Starfruit	Averrhoa carambola	1	
+Peach palm	Bactris gasipaes	1	
+Kousa dogwood	Benthamidia kousa	1	syn
+Brazil Nut	Bertholletia excelsa	1	
+Apple berry	Billardiera scandens	1	
+Annatto	Bixa orellana	1	
+Ackee	Blighia sapida	1	
+Borojo	Borojoa patinoi	1	syn
+Plum mango	Bouea macrophylla	1	
+Kurrajong	Brachychiton populneum	1	mis
+Kurrajong	Brachychiton populneus	1	
+Guadalupe palm	Brahea edulis	1	
+Paper mulberry	Broussonetia papyrifera	1	
+Jelly palm	Butia capitata	1	
+Wooly jelly palm	Butia eriospatha	1	
+Jelly palm	Butia odorata	1	syn
+Tea	Camellia sinensis	1	
+Pili nut	Canarium ovatum	1	
+	Capparis canescens	1	
+Siberian peashrub	Caragana arborescens 	1	
+Papaya	Carica papaya	1	
+Babaco	Carica pentagona	1	
+Hickory	Carya	1	
+Pecan	Carya illinoinensis	1	
+Shellbark hickory	Carya laciniosa	1	
+Shagbark Hickory	Carya ovata	1	
+Black hickory	Carya texana	1	
+White Sapote	Casimiroa edulis	1	
+Chestnut	Castanea	1	
+Japanese chestnut	Castanea crenata	1	
+American chestnut	Castanea dentata	1	
+Chinese chestnut	Castanea mollissima	1	
+Sweet chestnut	Castanea sativa	1	
+Chinese toon	Cedrela sinensis	1	syn
+Hackberry	Celtis	1	
+Mediterranean Hackberry	Celtis australis	1	
+Common Hackberry	Celtis occidentalis	1	
+Netleaf Hackberry	Celtis reticulata	1	
+Plum Yew	Cephalotaxus	1	
+Chinese Plum Yew	Cephalotaxus fortunei	1	
+Japanese Plum Yew	Cephalotaxus harringtonia	1	
+Chinese Plum Yew	Cephalotaxus sinensis	1	
+Taiwan Plum Yew	Cephalotaxus wilsoniana	1	
+Carob	Ceratonia siliqua	1	
+Eastern redbud	Cercis canadensis	1	
+Western redbud	Cercis occidentali	1	
+Judas tree	Cercis siliquastrum	1	
+	Chaenomeles	1	
+Lapsi	Choerospondias axillaris	1	
+Star apple	Chrysophyllum cainito	1	
+Calamondin	Citrofortunella microcarpa	1	
+Calamondin	Citrus microcarpa	1	syn
+Musk lime	Citrofortunella mitis	1	
+Musk lime	Citrus madurensis	1	syn
+Citrus	Citrus	1	
+Key lime	Citrus aurantifolia	1	
+Key lime	Citrus aurantiifolia	1	mis
+Bitter Orange	Citrus aurantium	1	
+Pomelo	Citrus grande	1	
+Pomelo	Citrus grandis	1	syn
+Kumquat	Citrus japonica	1	
+Lime	Citrus limetta	1	
+Lemon	Citrus limon	1	
+Pomelo	Citrus maxima	1	
+Meyer lemon	Citrus meyeri	1	
+Grapefruit	Citrus paradisi	1	
+Mandarin	Citrus reticulata	1	
+Orange	Citrus sinensis	1	
+Tangerine	Citrus tangerina	1	
+Satsuma mandarin	Citrus unshiu	1	
+Wampee	Clausena lansium	1	
+Coconut	Cocos nucifera	1	
+Cabbage tree	Cordyline australis	1	
+Creeping dogwood	Cornus canadensis	1	
+Himalayan flowering dogwood	Cornus capitata	1	
+Kousa dogwood	Cornus kousa	1	
+Cornelian cherry dogwood	Cornus mas	1	
+Japanese cornelian cherry dogwood	Cornus officinalis	1	
+Japanese cornelian cherry	Cornus officinalis	1	
+Common Hazel	Corylus avellana	1	
+Turkish hazel	Corylus colurna	1	
+Beaked hazel	Corylus cornuta	1	
+Filbert	Corylus maxima	1	
+Hawthorn	Crataegus	1	
+Eastern May Hawthorn	Crataegus aestivalis	1	
+Russian hawthorn	Crataegus ambigua	1	
+Arnold hawthorn	Crataegus arnoldiana	1	
+Azarole	Crataegus azarolus	1	
+Black hawthorn	Crataegus douglasii	1	
+Scarlet hawthorn	Crataegus ellwangeriana	1	
+Midland hawthorn	Crataegus laevigata	1	
+Tejocote	Crataegus mexicana	1	
+Missouri hawthorn	Crataegus missouriensis 	1	
+Downy hawthorn	Crataegus mollis	1	
+Common hawthorn	Crataegus monogyna	1	
+Western May Hawthorn	Crataegus opaca	1	
+Hawthorn	Crataegus oxyacantha	1	
+Pennsylvania hawthorn	Crataegus pensylvanica 	1	
+Chinese hawthorn	Crataegus pinnatifida	1	
+Tansy-leaved Thorn	Crataegus tanacetifolia	1	
+Che	Cudrania tricuspidata	1	syn
+Turmeric	Curcuma longa	1	
+Quince	Cydonia oblonga	1	
+Tamarillo	Cyphomandra betacea	1	syn
+Davidsons plum	Davidsonia pruriens	1	
+Longan	Dimocarpus longan	1	
+	Diospyros	1	
+Mabolo	Diospyros blancoi	1	
+Black Sapote	Diospyros digyna	1	
+Japanese Persimmon	Diospyros kaki	1	
+Date-plum	Diospyros lotus	1	
+Indian Persimmon	Diospyros peregrina	1	
+American Persimmon	Diospyros virginiana	1	
+Native tamarind	Diploglottis cunninghamii	1	
+	Dovyalis	1	
+Kei apple	Dovyalis caffra	1	
+Ketembilla	Dovyalis hebecarpa	1	
+Durian	Durio	1	
+Silverberry	Elaeagnus	1	
+Russian-olive	Elaeagnus angustifolia	1	
+Autumn-olive	Elaeagnus umbellata	1	
+African oil palm	Elaeis guineensis	1	
+American oil palm	Elaeis oleifera	1	
+Silverberry	Eleagnus	1	mis
+Loquat	Eriobotrya japonica	1	
+Cider Gum	Eucalyptus gunnii	1	
+Manna Gum	Eucalyptus viminalis	1	
+Magenta lilly pilly	Eugenia paniculata	1	
+Cedar bay cherry	Eugenia reinwardtiana	1	
+Pitanga	Eugenia uniflora	1	
+Bolwarra	Eupomatia laurina	1	
+Acai palm	Euterpe oleracea	1	
+European Beech	Fagus sylvatica	1	
+Feijoa	Feijoa sellowiana	1	
+Common fig	Ficus carica	1	
+Round kumquat	Fortunella crassifolia	1	syn
+Kumquat	Fortunella japonica	1	syn
+Kumquat	Fortunella margarita	1	syn
+Strawberry	Fragaria	1	
+Manna ash	Fraxinus ornus	1	
+Imbe	Garcinia livingstonei	1	
+	Gaultheria	1	
+Wintergreen	Gaultheria procumbens	1	
+Salal	Gaultheria shallon 	1	
+Huckleberry	Gaylussacia	1	
+Black huckleberry	Gaylussacia baccata	1	
+Dangleberry	Gaylussacia frondosa	1	
+Ginkgo	Ginkgo biloba	1	
+Honey locust	Gleditsia triacanthos	1	
+Honey locust	Gleditsia tricanthos	1	mis
+Phalsa	Grewia asiatica	1	
+Kaffir plum	Harpephyllum caffrum	1	
+Rose of sharon	Hibiscus syriaca	1	syn
+Rose of Sharon	Hibiscus syriacus	1	
+Sea-buckthorn	Hippophae	1	
+Common sea-buckthorn	Hippophae rhamnoides	1	
+Willow-leaved sea-buckthorn	Hippophae salicifolia 	1	
+Chinese sea-buckthorn	Hippophae sinensis 	1	
+Oriental raisin tree	Hovenia dulcis	1	
+Doum palm	Hyphaene thebaica	1	
+Ice-cream bean	Inga edulis	1	
+Pacay	Inga feuilleei	1	
+Chilean wine palm	Jubaea chilensis	1	
+Walnut	Juglans	1	
+Japanese walnut	Juglans ailanthifolia	1	mis
+Japanese Walnut	Juglans ailantifolia	1	
+Japanese walnut	Juglans ailantifolia	1	
+Butternut	Juglans cinerea	1	
+Northern california walnut	Juglans hindsii	1	
+Black Walnut	Juglans nigra	1	
+Persian Walnut	Juglans regia	1	
+California juniper	Juniperus californica 	1	
+Common juniper	Juniperus communis	1	
+Alligator juniper	Juniperus deppeana	1	
+Syrian juniper	Juniperus drupacea	1	
+Phoenicean juniper	Juniperus phoenicea	1	
+Rocky mountain juniper	Juniperus scopulorum	1	
+Bay laurel	Laurus nobilis	1	
+Teatree	Leptospermum scoparium	1	
+Lychee	Litchi chinensis	1	
+Honeysuckle	Lonicera	1	
+Sweetberry honeysuckle	Lonicera caerulea	1	
+Boxthorn	Lycium	1	
+Goji	Lycium barbarum 	1	
+Macadamia	Macadamia	1	
+	Maclura cochinchinensis 	1	
+Che	Maclura tricuspidata	1	
+	Mahonia	1	
+Oregon-grape	Mahonia aquifolium	1	
+Acerola	Malpighia emarginata	1	
+Acerola	Malpighia punicifolia	1	syn
+Siberian crabapple	Malus baccata	1	
+Sweet crabapple	Malus coronaria	1	
+Apple	Malus domestica	1	
+Oregon crabapple	Malus fusca	1	
+Tea crabapple	Malus hupehensis	1	
+Plum-leaf crabapple	Malus prunifolia	1	
+Apple	Malus pumila	1	syn
+European crabapple	Malus sylvestris	1	
+Mango	Mangifera	1	
+Sapodilla	Manilkara zapota	1	
+Bush banana	Masdenia australis	1	
+Mamoncillo	Melicoccus bijugatus	1	
+Medlar	Mespilus	1	
+Common medlar	Mespilus germanica	1	
+Fruit salad plant	Monstera deliciosa	1	
+Mulberry	Morus	1	
+White mulberry	Morus alba	1	
+Black mulberry	Morus nigra	1	
+Paper mulberry	Morus papyrifera	1	
+Red mulberry	Morus rubra	1	
+Banana	Musa	1	
+Banana	Musa acuminata	1	
+Banana	Musa balbisiana	1	
+Banana	Musa paradisiaca	1	
+Nutmeg	Myristica	1	
+Common myrtle	Myrtus communis	1	
+Rambutan	Nephelium lappaceum	1	
+Bacaba palm	Oenocarpus bacaba	1	
+Patawa palm	Oenocarpus bataua	1	
+Olive	Olea europaea	1	
+Prickly pear	Opuntia	1	
+Prickly pear	Opuntia ficus-indica	1	
+Indian trumpet flower	Oroxylum indicum	1	
+Sweet osmanthus	Osmanthus fragrans	1	
+Malabar chestnut	Pachira aquatica	1	
+Halua	Pandanus tectorius	1	
+Jacket plum	Pappea capensis	1	
+Mountain coconut	Parajubaea cocoides	1	
+Bolivian mountain coconut	Parajubaea torallyi	1	
+Mobola plum	Parinari curatellifolia	1	
+Passionfruit	Passiflora edulis	1	
+Maypop	Passiflora incarnata	1	
+Avocado	Persea americana	1	
+Coyo	Persea scheidana	1	
+Boldo	Peumus boldus	1	
+Date palm	Phoenix dactylifera	1	
+Silver date palm	Phoenix sylvestris	1	
+Indian gooseberry	Phyllanthus emblica	1	
+Golden bamboo	Phyllostachys aurea	1	
+Big-node bamboo	Phyllostachys nidularia	1	
+Cape gooseberry	Physalis peruviana	1	
+Allspice	Pimenta dioica	1	
+Whitebark Pine	Pinus albicaulis	1	
+Chinese White Pine	Pinus armandii	1	
+Lacebark Pine	Pinus bungeana	1	
+Swiss Pine	Pinus cembra	1	
+Mexican Pinyon	Pinus cembroides	1	
+Coulter Pine	Pinus coulteri	1	
+Colorado Pinyon	Pinus edulis	1	
+Chilgoza Pine	Pinus gerardiana	1	
+Korean Pine	Pinus koraiensis	1	
+Single-leaf Pinyon	Pinus monophylla	1	
+Japanese white pine	Pinus parviflora	1	
+Stone Pine	Pinus pinea	1	
+Parry Pinyon	Pinus quadrifolia	1	
+Gray Pine	Pinus sabiniana	1	
+Siberian Pine	Pinus sibirica	1	
+Eastern white pine	Pinus strobus	1	
+Torrey Pine	Pinus torreyana	1	
+Yunnan Pine	Pinus yunnanensis	1	
+Pistachio	Pistacia vera	1	
+Dragonfruit	Pitahaya	1	
+Cocky apple	Planchonia careya	1	
+Bacuri	Platonia insignis	1	
+Plum pine	Podocarpus elatus	1	
+Trifoliate orange	Poncirus trifoliata	1	
+Uvilla	Pourouma cecropiifolia	1	
+Eggfruit	Pouteria	1	
+Lucuma	Pouteria lucuma	1	
+Mamey Sapote	Pouteria sapota	1	
+	Prinsepia	1	
+American plum	Prunus americana	1	
+Almond	Prunus amygdalus	1	
+Chickasaw plum	Prunus angustifolia	1	
+Apricot	Prunus armeniaca	1	
+Wild cherry	Prunus avium	1	
+Sand cherry	Prunus besseyi	1	
+Cherry plum	Prunus cerasifera	1	
+Sour cherry	Prunus cerasus	1	
+Plum	Prunus domestica	1	
+Almond	Prunus dulcis	1	syn
+Hollyleaf cherry	Prunus ilicifolia	1	
+Fuji cherry	Prunus incisa	1	
+Damson plum	Prunus insititia	1	
+Catalina cherry	Prunus lyonii	1	
+Beach plum	Prunus maritima	1	
+Japanese apricot	Prunus mume	1	
+Canada plum	Prunus nigra	1	
+Nectarine	Prunus nucipersica	1	
+European bird cherry	Prunus padus	1	
+Peach	Prunus persica	1	
+Cherry plum	Prunus pissardii	1	
+Sand cherry	Prunus pumila	1	
+Japanese plum	Prunus salicina	1	
+Black cherry	Prunus serotina	1	
+Apricot plum	Prunus simonii	1	
+Blackthorn	Prunus spinosa	1	
+Klamath plum	Prunus subcordata	1	
+Nanking cherry	Prunus tomentosa	1	
+Chokecherry	Prunus virginiana	1	
+Chinese quince	Pseudocydonia	1	
+Chinese quince	Pseudocydonia sinensis	1	
+Guava	Psidium	1	
+Cattley guava	Psidium cattleianum	1	
+Cattley guava	Psidium chinense	1	syn
+Cattley guava	Psidium coriaceum	1	syn
+Cattley guava	Psidium littorale	1	syn
+Pomegranate	Punica granatum	1	
+Pomegranate	Punicia granatum	1	mis
+European pear	Pyrus communis	1	
+Asian Pear	Pyrus pyrifolia	1	
+White Oak	Quercus alba	1	
+Holm Oak	Quercus ballota	1	syn
+Swamp White Oak	Quercus bicolor	1	
+Holm Oak	Quercus ilex	1	
+Chinkapin Oak	Quercus muehlenbergii	1	
+Chestnut oak	Quercus prinus	1	
+English Oak	Quercus robur	1	
+Holm Oak	Quercus rotundifolia	1	syn
+Native guava	Rhodomyrtus psidioides	1	
+Fragrant sumac	Rhus aromatica	1	
+Dwarf sumac	Rhus copallina	1	
+Smooth sumac	Rhus glabra	1	
+Sugar Sumac	Rhus ovata	1	
+Skunkbush sumac	Rhus trilobata	1	
+Staghorn sumac	Rhus typhina	1	
+	Ribes	1	
+Blackcurrant	Ribes nigrum	1	
+Redcurrant	Ribes rubrum	1	
+Gooseberry	Ribes uva-crispa	1	
+Black Locust	Robinia pseudoacacia	1	
+Black Locust	Robinia psuedoacacia	1	mis
+Biriba	Rollinia deliciosa	1	
+Rose	Rosa	1	
+	Rubus	1	
+Thimbleberry	Rubus parviflorus	1	
+Wineberry	Rubus phoenicolasius	1	
+Salmonberry	Rubus spectabilis	1	
+Cabbage palmetto	Sabal palmetto	1	
+Snake palm	Salacca zalacca	1	
+White sage	Salvia apiana	1	
+Golden chia	Salvia columbariae	1	
+Chia	Salvia hispanica	1	
+Sage	Salvia officinalis	1	
+Elderberry	Sambucus	1	
+Blue elderberry	Sambucus caerulea	1	
+Black elderberry	Sambucus neomexicana	1	
+Black elderberry	Sambucus nigra	1	
+Desert quandong	Santalum acuminatum	1	
+Sassafras	Sassafras	1	
+Sassafras	Sassafras albidum 	1	
+Brazilian pepper	Schinus terebinthefolia	1	mis
+Brazilian pepper	Schinus terebinthifolius	1	
+	Schisandra	1	
+Marula	Sclerocarya birrea	1	
+Bamboo	Semiarundinaria	1	
+Narihira bamboo	Semiarundinaria fastuosa	1	
+Saw palmetto	Serenoa repens	1	
+Buffaloberry	Shepherdia	1	
+Tamarillo	Solanum betaceum	1	
+Eggplant	Solanum melongena	1	
+Pepino dulce	Solanum muricatum	1	
+Garden Huckleberry	Solanum scabrum	1	
+Potato	Solanum tuberosum	1	
+European Rowan	Sorbus aucuparia	1	
+True Service Tree	Sorbus domestica 	1	
+Wild Service Tree	Sorbus torminalis	1	
+Ambarella	Spondias dulcis	1	
+Red-fruited kurrajong	Sterculia quadrifida	1	
+ Spiny monkey-orange	Strychnos spinosa	1	
+Licuri palm	Syagrus coronata	1	
+Miracle fruit	Synsepalum dulcificum	1	
+Brush cherry	Syzygium australe	1	
+Jambul	Syzygium cumini	1	
+Riberry	Syzygium luehmannii	1	
+Blue lilly pilly	Syzygium oleosum	1	
+Magenta lilly pilly	Syzygium paniculatum	1	
+Java apple	Syzygium samarangense	1	
+Tamarind	Tamarindus indica	1	
+Chebulic myrobalan	Terminalia chebula	1	
+Cacao	Theobroma cacao	1	
+Cupuacu	Theobroma grandiflorum	1	
+Small-leaved linden	Tilia cordata	1	
+European linden	Tilia europaea	1	
+Large-leaved linden	Tilia platyphyllos	1	
+Chinese toon	Toona sinensis	1	
+California nutmeg	Torreya californica	1	
+Kaya	Torreya nucifera 	1	
+Chilean guava	Ugni molinae	1	
+California laurel	Umbellularia californica 	1	
+	Vaccinium	1	
+American cranberry	Vaccinium macrocarpon	1	
+Thinleaf huckleberry	Vaccinium membranaceum	1	
+Bilberry	Vaccinium myrtillus	1	
+Evergreen huckleberry	Vaccinium ovatum	1	
+Red huckleberry	Vaccinium parvifolium	1	
+Lingonberry	Vaccinium vitis-idaea	1	
+Spanish tamarind	Vangueria madagascariensis	1	
+Nannyberry	Viburnum lentago	1	
+American cranberrybush	Viburnum trilobum	1	
+Chaste tree	Vitex agnus castus	1	mis
+Chaste tree	Vitex agnus-castus	1	
+African black plum	Vitex doniana	1	
+Banana yucca	Yucca baccata	1	
+Jujube	Ziziphus jujuba	1	
+	Siraitia grosvenorii	1	
+Wattle	Acacia	2	
+Needle bush	Acacia farnesiana	2	syn
+Mallee golden wattle	Acacia notabilis	2	
+Golden wattle	Acacia pycnantha	2	
+Swamp wattle	Acacia retinodes	2	
+Cooba	Acacia salicina	2	
+Shoestring acacia	Acacia stenophylla 	2	
+Knife-leaf wattle	Acacia cultriformis	2	
+Early black wattle	Acacia decurrens	2	
+Bigleaf Maple	Acer macrophyllum	2	
+Box elder	Acer negundo	2	
+Red Maple	Acer rubrum	2	
+Silver Maple	Acer saccharinum	2	
+Creek lilly pilly	Acmena smithii	2	syn
+Baobab	Adansonia	2	
+	Aesculus	2	
+Agave	Agave	2	
+Titoki	Alectryon excelsus	2	
+Native ginger	Alpinia caerulea	2	
+Chinese angelica tree	Aralia chinensis	2	
+Devils Walkingstick	Aralia spinosa	2	
+Araucaria species	Araucaria	2	
+Pacific madrone	Arbutus menziesii	2	
+Betel nut palm	Areca catechu	2	
+	Attalea	2	
+	Balsamocitrus	2	
+Cut nut	Barringtonia edulis	2	
+Birch	Betula	2	
+Yellow birch	Betula alleghaniensis	2	
+Kenai birch	Betula kenaica	2	
+Cherry birch	Betula lenta	2	
+River birch	Betula nigra	2	
+Water birch	Betula occidentalis	2	
+Paper birch	Betula papyrifera	2	
+Silver birch	Betula pendula	2	
+White birch	Betula pubescens	2	
+Palymra palm	Borassus	2	
+Illawarra Flame Tree	Brachychiton acerifolius	2	
+Mexican blue palm	Brahea armata	2	
+Little gooseberry tree	Buchanania arborescens	2	
+Beautyberry	Callicarpa	2	
+American beautyberry	Callicarpa americana	2	
+Cape chestnut	Calodendrum capense	2	
+Camellia	Camellia	2	
+Japanese camellia	Camellia japonica	2	
+	Campomanesia	2	
+	Carissa	2	
+Scrub Hickory	Carya floridana	2	
+Pignut hickory	Carya glabra	2	
+Mockernut hickory	Carya tomentosa	2	
+Dwarf chestnut	Castanea pumila	2	
+Silk floss tree	Ceiba speciosa	2	
+Chinese hackberry	Celtis sinensis	2	
+Redbud	Cercis	2	
+	Chamaedorea	2	
+Dwarf fan palm	Chamaerops humilis	2	
+Cocoplum	Chrysobalanus icaco	2	
+Pigeon plum	Coccoloba diversifolia	2	
+	Coffea	2	
+Broad-leaved palm lily	Cordyline petiolaris	2	
+Dogwood	Cornus	2	
+Hazel	Corylus	2	
+American hazel	Corylus americana	2	
+Grand rapids hawthorn	Crataegus ambitiosa	2	
+Lavalle hawthorn	Crataegus lavallei 	2	
+Washington Hawthorn	Crataegus phaenopyrum	2	
+Coast canthium	Cyclophyllum coprosmoides	2	
+Sherbet tree	Dialium schlechteri	2	
+Persimmon	Diospyros duclouxii	2	
+Blue marble tree	Elaeocarpus angustifolius	2	
+	Euterpe	2	
+Cherry ballart	Exocarpos cupressiformis	2	
+Fig	Ficus	2	
+Weeping Fig	Ficus benjamina	2	
+Weeping Fig	Ficus nitida	2	
+Port jackson fig	Ficus rubiginosa	2	
+	Flacourtia	2	
+Wild quince	Guioa semiglauca	2	
+African mango	Irvingia	2	
+Southern california walnut	Juglans californica	2	
+Arizona Black Walnut	Juglans major	2	
+Juniper	Juniperus	2	
+One-seed juniper	Juniperus monosperma	2	
+Western juniper	Juniperus occidentalis	2	
+Utah juniper	Juniperus osteosperma	2	
+Eastern red-cedar	Juniperus verginiana	2	mis
+Eastern red-cedar	Juniperus virginiana	2	
+Lemon-scented teatree	Leptospermum petersonii 	2	
+Beard-heath	Leucopogon	2	
+Walking stick palm	Linospadix monostachya	2	
+Cabbage-tree palm	Livistona australis	2	
+Crabapple	Malus	2	
+Japanese flowering crabapple	Malus floribunda	2	
+Prairie crabapple	Malus ioensis	2	
+Midget crabapple	Malus micromalus	2	
+Sargents crabapple	Malus sargentii	2	
+Cut-leaf crabapple	Malus transitoria	2	
+Pillar crabapple	Malus tschonoskii	2	
+Redbud crabapple	Malus zumi	2	
+	Matisia	2	
+Melaleuca	Melaleuca	2	
+True sago palm	Metroxylon sagu 	2	
+	Microcitrus	2	
+Needle bush	Mimosa farnesiana	2	syn
+Bullet wood	Mimusops elengi	2	
+Corduroy tamarind	Mischarytera lautereriana	2	
+Noni	Morinda citrifolia	2	
+Jaboticaba	Myrciaria	2	
+Bayberry	Myrica	2	
+California Bayberry	Myrica californica	2	
+Southern bayberry	Myrica cerifera	2	
+California Bayberry	Myrica heterophylla	2	
+Northern bayberry	Myrica pensylvanica	2	
+Black tupelo	Nyssa sylvatica	2	
+Olive	Olea	2	
+Snuff box tree	Oncoba spinosa	2	
+Guajilote	Parmentiera edulis	2	
+Upright snottygobble	Persoonia longifolia	2	
+Canary Island Date Palm	Phoenix canariensis	2	
+Pygmy date palm	Phoenix roebelenii	2	
+Pygmy date palm	Phoenix roeblenii	2	mis
+Bamboo	Phyllostachys	2	
+Spruce	Picea	2	
+Pine	Pinus	2	
+Native mulberry	Pipturus argenteus	2	
+Mount atlas pistache	Pistacia atlantica	2	
+Black apple	Planchonella australis	2	syn
+Burdekin plum	Pleiogynium timorense	2	
+Podocarpus	Podocarpus	2	
+Kusamaki	Podocarpus macrophylla	2	mis
+Kusamaki	Podocarpus macrophyllus	2	
+Black apple	Pouteria australis	2	
+Stone fruit	Prunus	2	
+Taiwan cherry	Prunus campanulata	2	
+Portugal laurel	Prunus lusitanica	2	
+Amur chokecherry	Prunus maacki	2	mis
+Amur chokecherry	Prunus maackii	2	
+Pin cherry	Prunus pennsylvanica	2	mis
+Pin cherry	Prunus pensylvanica	2	
+Sargents cherry	Prunus sargentii	2	
+Higan cherry	Prunus subhirtella	2	
+	Psychotria	2	
+Pear	Pyrus	2	
+Turkey Oak	Quercus cerris	2	
+Bur Oak	Quercus macrocarpa	2	
+Northern Red Oak	Quercus rubra	2	
+	Rheedia	2	
+Sumac	Rhus	2	
+Bristly locust	Robinia hispida	2	
+Sage	Salvia	2	
+Peruvian pepper	Schinus molle	2	
+Chilean pepper	Schinus polygamus	2	
+	Sideroxylon	2	
+	Sophora	2	
+	Sorbus	2	
+Common whitebeam	Sorbus aria	2	
+Whalebone tree	Streblus brunonianus	2	
+Queen palm	Syagrus romanzoffiana	2	
+Queen palm	Syagrus romanzoffianum	2	mis
+Lilly pilly	Syzygium	2	
+Creek lilly pilly	Syzygium smithii	2	
+American linden	Tilia americana	2	
+Crimean linden	Tilia euchlora	2	
+Silver linden	Tilia tomentosa	2	
+Elm	Ulmus	2	
+Wych elm	Ulmus glabra	2	
+English elm	Ulmus procera	2	
+Needle bush	Vachellia farnesiana	2	
+Black haw	Viburnum prunifolium	2	
+Five-leaved chaste tree	Vitex negundo	2	
+Grape	Vitis 	2	
+Desert fan palm	Washingtonia filifera	2	
+Mexican fan palm	Washingtonia robusta	2	
+Yellowhorn	Xanthoceras sorbifolium	2	
+	Xylosma	2	
+Spineless yucca	Yucca elephantipes	2	syn
+Faxon yucca	Yucca faxoniana	2	
+Spineless yucca	Yucca gigantea	2	
+Moundlily yucca	Yucca gloriosa	2	
+Spineless yucca	Yucca guatemalensis	2	syn
+Faxon yucca	Yucca torreyi	2	syn
+	Zanthoxylum	2	
+Common pricklyash	Zanthoxylum americanum	2	
+Sourwood	Oxydendrum arboreum	2	
+Cootamundra wattle	Acacia baileyana	3	
+Curve-leaf yucca	Yucca recurvifolia	1	
+Fruitipedia	Aberia	2	
+Fruitipedia	Acanthosyris	2	
+Fruitipedia	Acertatum	2	
+Fruitipedia	Achradelpha	2	
+Fruitipedia	Acrocomia	2	
+Fruitipedia	Afrocarpus	2	
+Fruitipedia	Afromomum	2	
+Fruitipedia	Aglaia	2	
+Fruitipedia	Akebia	2	
+Fruitipedia	Alangium	2	
+Fruitipedia	Aiphanes	2	
+Fruitipedia	Allagoptera	2	
+Fruitipedia	Ambelania	2	
+Fruitipedia	Anisophyllea	2	
+Fruitipedia	Anacolosa	2	
+Fruitipedia	Annanas	2	
+Fruitipedia	Anonidium	2	
+Fruitipedia	Anthopterus	2	
+Fruitipedia	Archidendron	2	
+Fruitipedia	Ardisia	2	
+Fruitipedia	Aristotelia	2	
+Fruitipedia	Armeniaca	2	
+Fruitipedia	Artocarps	2	
+Fruitipedia	Astrocarynum	2	
+Fruitipedia	Astrocaryum	2	
+Fruitipedia	Azanza	2	
+Fruitipedia	Baccaurea	2	
+Fruitipedia	Balanites	2	
+Fruitipedia	Bassia	2	
+Fruitipedia	Bellucia	2	
+Fruitipedia	Berberis	2	
+Fruitipedia	Berchemia	2	
+Fruitipedia	Bergera	2	
+Fruitipedia	Boscia	2	
+Fruitipedia	Brosimum	2	
+Fruitipedia	Buchenavia	2	
+Fruitipedia	Bunchosia	2	
+Fruitipedia	Burbroma	2	
+Fruitipedia	Burchellia	2	
+Fruitipedia	Byrsonima	2	
+Fruitipedia	Cactus	2	
+Fruitipedia	Cadaba	2	
+Fruitipedia	Callicarpum	2	
+Fruitipedia	Calocarpum	2	
+Fruitipedia	Calopcarpum	2	
+Fruitipedia	Calophyllum	2	
+Fruitipedia	Campomaesia	2	
+Fruitipedia	Canthium	2	
+Fruitipedia	Carldovica	2	
+Fruitipedia	Caryocar	2	
+Fruitipedia	Casearia	2	
+Fruitipedia	Cassinopsis	2	
+Fruitipedia	Cassia	2	
+Fruitipedia	Cavendishia	2	
+Fruitipedia	Cerasus	2	
+Fruitipedia	Cereus	2	
+Fruitipedia	Chamaepericlymenum	2	
+Fruitipedia	Cheiloclinium	2	
+Fruitipedia	Cheilosa	2	
+Fruitipedia	Chondodendron	2	
+Fruitipedia	Chryobalanus	2	
+Fruitipedia	Chrysophylum	2	
+Fruitipedia	Cicca	2	
+Fruitipedia	Cleistocalyx	2	
+Fruitipedia	Colpoon	2	
+Fruitipedia	Cordia	2	
+Fruitipedia	Cordiera	2	
+Fruitipedia	Cordierra	2	
+Fruitipedia	Cornella	2	
+Fruitipedia	Couma	2	
+Fruitipedia	Coupea	2	
+Fruitipedia	Cragaegus	2	
+Fruitipedia	Crataeva	2	
+Fruitipedia	Crossopetalum	2	
+Fruitipedia	Cynometra	2	
+Fruitipedia	Cryptocarya	2	
+Fruitipedia	Dacryodes	2	
+Fruitipedia	Debregeasia	2	
+Fruitipedia	Detarium	2	
+Fruitipedia	Decachaena	2	
+Fruitipedia	Dilenia	2	
+Fruitipedia	Dillenia	2	
+Fruitipedia	Diopyros	2	
+Fruitipedia	Dipteryx	2	
+Fruitipedia	Docynia	2	
+Fruitipedia	Duguetia	2	
+Fruitipedia	Englerophytum	2	
+Fruitipedia	Emblica	2	
+Fruitipedia	Empetrum	2	
+Fruitipedia	Endopleura	2	
+Fruitipedia	Enterpe	2	
+Fruitipedia	Epiphyllum	2	
+Fruitipedia	Euphoria	2	
+Fruitipedia	Euphorbia	2	
+Fruitipedia	Ferronia	2	
+Fruitipedia	Feronia	2	
+Fruitipedia	Flueggea	2	
+Fruitipedia	Fragaraia	2	
+Fruitipedia	Frgaria	2	
+Fruitipedia	Fuchsia	2	
+Fruitipedia	Garcina	2	
+Fruitipedia	Genipa	2	
+Fruitipedia	Glycosmis	2	
+Fruitipedia	Guilielma	2	
+Fruitipedia	Hairy	2	
+Fruitipedia	Hancornia	2	
+Fruitipedia	Hylocereus	2	
+Fruitipedia	Hymenaea	2	
+Fruitipedia	Hynenacea	2	
+Fruitipedia	Jambos	2	
+Fruitipedia	Jambosa	2	
+Fruitipedia	Jaracatia	2	
+Fruitipedia	Jessenia	2	
+Fruitipedia	Juniperous	2	
+Fruitipedia	Labatia	2	
+Fruitipedia	Lacmellea	2	
+Fruitipedia	Lahia	2	
+Fruitipedia	Landolphia	2	
+Fruitipedia	Lansium	2	
+Fruitipedia	Lardizabala	2	
+Fruitipedia	Laurocerasus	2	
+Fruitipedia	Lepisanthes	2	
+Fruitipedia	Licania	2	
+Fruitipedia	Limonia	2	
+Fruitipedia	Litsea	2	
+Fruitipedia	Listea	2	
+Fruitipedia	Lucuma	2	
+Fruitipedia	Madhuca	2	
+Fruitipedia	Mammea	2	
+Fruitipedia	Maripa	2	
+Fruitipedia	Marungi	2	
+Fruitipedia	Marlierea	2	
+Fruitipedia	Mauritia	2	
+Fruitipedia	Maximiliana	2	
+Fruitipedia	Melancia	2	
+Fruitipedia	Melia	2	
+Fruitipedia	Meliococca	2	
+Fruitipedia	Milnea	2	
+Fruitipedia	Momordica	2	
+Fruitipedia	Mouriri	2	
+Fruitipedia	Muntingia	2	
+Fruitipedia	Murraya	2	
+Fruitipedia	Myrcianthes	2	
+Fruitipedia	Myrianthus	2	
+Fruitipedia	Noronhia	2	
+Fruitipedia	Osyris	2	
+Fruitipedia	Oxycoccus	2	
+Fruitipedia	Otolepis	2	
+Fruitipedia	Pachylobus	2	
+Fruitipedia	Padus	2	
+Fruitipedia	Paramyrciaria	2	
+Fruitipedia	Passiflra	2	
+Fruitipedia	Peritassa	2	
+Fruitipedia	Phyllocalyx	2	
+Fruitipedia	Phylodendron	2	
+Fruitipedia	Pilosocereus	2	
+Fruitipedia	Pithecellobium	2	
+Fruitipedia	Pithecellabium	2	
+Fruitipedia	Pithocollabium	2	
+Fruitipedia	Plancholia	2	
+Fruitipedia	Plectronia	2	
+Fruitipedia	Plinia	2	
+Fruitipedia	Pometia	2	
+Fruitipedia	Poraqueiba	2	
+Fruitipedia	Porcelia	2	
+Fruitipedia	Posoqueria	2	
+Fruitipedia	Poteria	2	
+Fruitipedia	Pradosia	2	
+Fruitipedia	Puteria	2	
+Fruitipedia	Quararibea	2	
+Fruitipedia	Rajania	2	
+Fruitipedia	Rhacoma	2	
+Fruitipedia	Rhamnidium	2	
+Fruitipedia	Rhoicissus	2	
+Fruitipedia	Ricinodendron	2	
+Fruitipedia	Rollinea	2	
+Fruitipedia	Rubachia	2	
+Fruitipedia	Rumea	2	
+Fruitipedia	Saba	2	
+Fruitipedia	Salaca	2	
+Fruitipedia	Salacia	2	
+Fruitipedia	Sandoricum	2	
+Fruitipedia	Saurauia	2	
+Fruitipedia	Scheelia	2	
+Fruitipedia	Schinziophyton	2	
+Fruitipedia	Seclerocarya	2	
+Fruitipedia	Selenicereus	2	
+Fruitipedia	Sicana	2	
+Fruitipedia	Sonneratia	2	
+Fruitipedia	Stelechocarpus	2	
+Fruitipedia	Stilago	2	
+Fruitipedia	Syzigium	2	
+Fruitipedia	Tabernaemontana	2	
+Fruitipedia	Tacsonia	2	
+Fruitipedia	Talisia	2	
+Fruitipedia	Tapura	2	
+Fruitipedia	Tetrastigma	2	
+Fruitipedia	Thibaudia	2	
+Fruitipedia	Tontelia	2	
+Fruitipedia	Treculia	2	
+Fruitipedia	Trema	2	
+Fruitipedia	Triphasia	2	
+Fruitipedia	Uapaca	2	
+Fruitipedia	Upaca	2	
+Fruitipedia	Unedo	2	
+Fruitipedia	Vasconcellea	2	
+Fruitipedia	Vasconcella	2	
+Fruitipedia	Vibrunum	2	
+Fruitipedia	Willughbeia	2	
+Fruitipedia	Willurbheia	2	
+Fruitipedia	Xanthochymus	2	
+Fruitipedia	Ximenia	2	
+Fruitipedia	Zalacca	2	
+Fruitipedia	Zizyphus	2	
+Fruitipedia	Zschokkea	2	

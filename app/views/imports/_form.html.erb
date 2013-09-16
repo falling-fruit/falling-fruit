@@ -13,28 +13,27 @@
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :size => "80" %>
   </div>
   <div class="field">
     <%= f.label :url %><br />
-    <%= f.text_field :url %>
+    <%= f.text_field :url, :size => "80" %>
   </div>
   <div class="field">
     <%= f.label :comments %><br />
-    <%= f.text_area :comments %><br>
+    <%= f.text_area :comments, :size => "80x10" %><br />
   </div>
   <div class="field">
     <%= f.label :license %><br />
-    <%= f.text_area :license %><br>
+    <%= f.text_area :license, :size => "80x10" %><br />
   </div>
   <div class="field">
-    <%= f.label :autoload %><br />
-    <%= f.check_box :autoload %>
+    <%= f.check_box :autoload %> <%= f.label :autoload %>
   </div>
   <div class="field">
-    <%= f.label :municipal %><br />
-    <%= f.check_box :muni %>
+    <%= f.check_box :muni %> <%= f.label :municipal %>
   </div>
+  <br />
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -2,30 +2,41 @@
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-
+  
   <%= render :partial => "range_map", :locals => {:f => f} %>
 
-  <div><%= f.label :options %><br />
-   <%= f.check_box :range_updates_email %> Receive weekly email updates on changes/additions in your foraging range<br />
-    <%= f.check_box :add_anonymously %> Add Points Anonymously (even when logged in)
+  <div class="field">
+    <%= f.label :options %><br />
+    <%= f.check_box :range_updates_email %> Receive weekly email updates on changes in your foraging range<br />
+    <%= f.check_box :add_anonymously %> Add points anonymously (even when logged in)
   </div>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email %>
+  </div>
 
-  <div><%= f.label :name %><br />
-  <%= f.text_field :name %></div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
 
-  <div><%= f.label :bio %> <i>(optionally, a bit about you)<br />
-  <%= f.text_area :bio, :size => "40x6" %></div>
+  <div class="field">
+    <%= f.label :bio %><br/>
+    <span class="subtext">Optionally, a bit about you.</span><br />
+    <%= f.text_area :bio, :size => "40x6" %>
+  </div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <span class="subtext">Type it in twice to confirm.</span><br />
+    <%= f.password_field :password %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up" %></div>
+  <div class="field">
+    <%= f.submit "Sign up" %>
+  </div>
 <% end %>
 
 <%= render "devise/shared/links" %>

@@ -1,21 +1,43 @@
 <h1>Users</h1>
 
-<table>
+<table id="user_list">
+<thead>
   <tr>
+    <th>ID</th>
+    <th>Name</th>
     <th>Email</th>
-    <th>Created At</th>
-    <th>Roles</th>
-    <th></th>
+    <th>Admin</th>
+    <th>Forager</th>
+    <th>Partner</th>
+    <th>Guest</th>
+    <th>Created</th>
+    <th>Delete</th>
   </tr>
+</thead>
 
 <% @users.each do |user| %>
+<% roles = user.roles.join(",") %>
+<tbody>
   <tr>
-    <td><%= user.email %></td>
+    <td style="text-align:right;"><%= user.id %></td>
+    <td><%= user.name %></td>
+    <td><a href="mailto:<%= user.email %>"><%= user.email %></a></td>
+    <td><%= roles.include?("admin")? "x" : "" %></td>
+    <td><%= roles.include?("forager")? "x" : "" %></td>
+    <td><%= roles.include?("partner")? "x" : "" %></td>
+    <td><%= roles.include?("guest")? "x" : "" %></td>
     <td><%= user.created_at %></td>
-    <td><%= user.roles.length == 0 ? "None" : user.roles.join(", ") %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
+</tbody>
 <% end %>
 </table>
 
-<br />
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+    jQuery('#user_list').dataTable({
+      "aaSorting": [[0,"asc"]],
+      "bPaginate": false
+    });
+});
+</script>

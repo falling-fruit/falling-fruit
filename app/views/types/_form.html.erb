@@ -39,8 +39,9 @@
   </div>
   <div class="field">
     <%= f.label :edibility %><br />
-    <%= f.select(:edability,Type::Edabilities.collect{ |k,v| [v,k] },:include_blank => true) %>
+    <%= f.select(:edability, Type::Edabilities.collect{ |k,v| [v,k] }, :include_blank => true) %>
   </div>
+  
   <!-- Custom marker (unused)
   <div class="field">
     <%= f.label :custom_marker %><br />
@@ -48,27 +49,12 @@
     <%= f.file_field :marker %>
   </div>
   -->
+  
   <br />
+  <% unless not(defined? lts) or lts.nil? %>
+    <%= hidden_field_tag 'lts', lts.join(":") %>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
-
-
-<!-- Merge type -->
-
-<% content_for :form_scripts do %>
-<script type="text/javascript" charset="utf-8">
-jQuery(document).ready(function(){
-  jQuery('.select2').select2({width:'element'});
-});
-</script>
-<% end %>
-
-<br />
-<h2>Merge into</h2>
-
-<form action="/types/<%= @type.id %>/merge">
-    <%= select_tag(:into_id,options_for_select(Type.order("name").collect{ |t| [t.name,t.id] }),:class=>"select2") %>
-    <%= submit_tag "Merge" %>
-</form>

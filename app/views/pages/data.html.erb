@@ -36,7 +36,7 @@ cache 'pages_data_type_summary_table' do
 %>
 
 <p>
-The database currently contains <%= number_to_human(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. For each type, the following table lists common name(s), scientific name(s), prevalence, and links to Wikipedia and the U.S. Department of Agriculture when available.
+The database currently contains <%= number_to_human(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. For each type, the following table lists English common name(s), scientific name(s), prevalence, and links to Wikipedia and the U.S. Department of Agriculture when available.
 </p>
 <br/>
 
@@ -53,19 +53,19 @@ The database currently contains <%= number_to_human(@types.length) %> different 
 <% @types.each{ |t| %>
 <tr>
 <td>
-<%= t.cname unless t.cname.nil? %>
-<%= "(#{t["synonyms"]})" unless t["synonyms"].nil? or t["synonyms"].strip == "" %>
+	<%= t.cname unless t.cname.blank? %>
+	<%= "(#{t["synonyms"]})" unless t["synonyms"].blank? %>
 </td>
 <td>
-<i><%= t["scientific_name"] unless t["scientific_name"].nil? %>
-<%= "(#{t["scientific_synonyms"]})" unless t["scientific_synonyms"].nil? or t["scientific_synonyms"].strip == "" %>
+<i><%= t["scientific_name"] unless t["scientific_name"].blank? %>
+<%= "(#{t["scientific_synonyms"]})" unless t["scientific_synonyms"].blank? %>
 </i>
 </td>
 <td>
-<% unless t["wikipedia_url"].nil? %>
+<% unless t["wikipedia_url"].blank? %>
  <a href="<%= t["wikipedia_url"] %>"><img class="link_icon" src="/wikipedia_icon.png"></a>
 <% end %>
-<% unless t["usda_symbol"].nil? %>
+<% unless t["usda_symbol"].blank? %>
  <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>"><img class="link_icon" src="/usda_icon.png"></a>
 <% end %>
 </td>

@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery.ui.all
 //= require select2
 //= require sprintf
 //= require dataTables/jquery.dataTables

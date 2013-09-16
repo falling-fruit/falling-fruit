@@ -3,9 +3,16 @@ FallingfruitWebapp::Application.routes.draw do
   devise_for :users
   resources :users
 
-  resources :routes
+  resources :routes do
+    collection do
+      post 'multiupdate'
+    end
+  end
 
   resources :locations do
+    member do
+      get 'enroute'
+    end
     collection do
       get 'import'
       post 'import'
@@ -21,6 +28,10 @@ FallingfruitWebapp::Application.routes.draw do
     member do
       get 'merge'
     end
+    collection do
+      get 'grow'
+      get 'merge'
+    end
   end
 
   resources :regions
@@ -32,7 +43,11 @@ FallingfruitWebapp::Application.routes.draw do
   match 'inventories' => 'pages#inventories'
   match 'sharing' => 'pages#sharing'
 
-  resources :imports
+  resources :imports do
+    collection do
+      get 'bibliography'
+    end
+  end
 
   resources :changes
 

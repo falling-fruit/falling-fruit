@@ -1,8 +1,8 @@
 class Location < ActiveRecord::Base
   include ActionView::Helpers::TextHelper # for word_wrap
 
-  has_many :locations_types
-  has_many :types, :through => :locations_types
+  has_many :locations_types, :order => 'locations_types.position ASC'
+  has_many :types, :through => :locations_types, :order => 'locations_types.position ASC'
   belongs_to :import
 
   validates_associated :locations_types
@@ -98,7 +98,7 @@ class Location < ActiveRecord::Base
     loc = Location.new
     unless type.nil? or type.strip.length == 0
       type.split(/[;,:]/).each{ |t|
-        safer_type = t.tr('^A-Za-z- \'','').capitalize
+        safer_type = t.squish.tr('^A-Za-z- \'','').capitalize
         if typehash.nil?
           types = Type.where("name=?",safer_type)
         else
@@ -108,7 +108,8 @@ class Location < ActiveRecord::Base
           nt = Type.new
           nt.name = safer_type
           nt.save
-
+          typehash[nt.name] = nt
+          
           lt = LocationsType.new
           lt.type = nt
           lt.save
@@ -132,19 +133,19 @@ class Location < ActiveRecord::Base
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
-    loc.access = access
-    loc.description = desc.nil? ? "" : desc.gsub(/(\\n|<br>)/,"\n")
-    loc.address = address
-    loc.photo_url = photo_url
-    loc.season_start = season_start.to_i unless season_start.nil? or season_start.strip == ""
-    loc.season_stop = season_stop.to_i unless season_stop.nil? or season_stop.strip == ""
+    loc.access = (access.to_i - 1) unless access.blank?
+    loc.description = desc.gsub(/(\\n|<br>)/,"\n") unless desc.blank?
+    loc.address = address unless address.blank?
+    loc.photo_url = photo_url unless photo_url.blank?
+    loc.season_start = (season_start.to_i - 1) unless season_start.blank?
+    loc.season_stop = (season_stop.to_i - 1) unless season_stop.blank?
     no_season = no_season.nil? ? "" : no_season.strip.downcase.tr('^a-z','')
     unverified = unverified.nil? ? "" : unverified.strip.downcase.tr('^a-z','')
     loc.no_season = true if no_season == 't' or no_season == "true" or no_season == "x"
-    loc.unverified = true if unverified == 't'or unverified == "true" or unverified == "x"
-    loc.yield_rating = yield_rating.to_i unless yield_rating.nil? or yield_rating.strip == ""
-    loc.quality_rating = quality_rating.to_i unless quality_rating.nil? or quality_rating.strip == ""
-    loc.author = author
+    loc.unverified = true if unverified == 't' or unverified == "true" or unverified == "x"
+    loc.yield_rating = (yield_rating.to_i - 1) unless yield_rating.blank?
+    loc.quality_rating = (quality_rating.to_i - 1) unless quality_rating.blank?
+    loc.author = author unless author.blank?
     return loc 
   end
 

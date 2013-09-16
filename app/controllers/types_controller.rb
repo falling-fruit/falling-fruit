@@ -13,17 +13,46 @@ class TypesController < ApplicationController
     end
   end
 
-  def merge
-    from = Type.find(params[:id].to_i)
-    to = Type.find(params[:into_id].to_i)
-    LocationsType.where("type_id = ?",from.id).each{ |lt|
-      lt.type = to
-      lt.save
+  def grow
+    @type_others = {}
+    LocationsType.where("type_id IS NULL and type_other IS NOT NULL").each{ |lt|
+      safer_type = lt.type_other.tr('^A-Za-z- \'','').capitalize
+      @type_others[safer_type] = [] if @type_others[safer_type].nil?
+      @type_others[safer_type].push(lt.id)
     }
-    from.destroy
     respond_to do |format|
-      format.html { redirect_to types_url, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
-      format.json { head :no_content }
+      format.html
+      format.json { render json: @types }
+    end
+  end
+
+  def merge
+    if params[:id].present?
+      from = Type.find(params[:id].to_i)
+      to = Type.find(params[:into_id].to_i)
+      LocationsType.where("type_id = ?",from.id).each{ |lt|
+        lt.type = to
+        lt.save
+      }
+      from.destroy
+      respond_to do |format|
+        format.html { redirect_to types_url, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
+        format.json { head :no_content }
+      end
+    elsif params[:lts].present?
+      to = Type.find(params[:into_id].to_i)
+      n = 0
+      params[:lts].split(/:/).each{ |ltid|
+        lt = LocationsType.find(ltid)
+        lt.type_other = nil
+        lt.type = to
+        lt.save
+        n += 1
+      }
+      respond_to do |format|
+        format.html { redirect_to grow_types_url, :notice => "Type #{to.id} absorbed #{n} locations" }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -31,7 +60,6 @@ class TypesController < ApplicationController
   # GET /types/new.json
   def new
     @type = Type.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @type }
@@ -47,11 +75,24 @@ class TypesController < ApplicationController
   # POST /types.json
   def create
     @type = Type.new(params[:type])
-
     respond_to do |format|
       if @type.save
-        format.html { redirect_to types_path, notice: 'Type was successfully created.' }
-        format.json { render json: @type, status: :created, location: @type }
+        andtext = ""
+        if params[:lts].present?
+          n = 0
+          params[:lts].split(/:/).each{ |ltid|
+            lt = LocationsType.find(ltid.to_i)
+            lt.type_other = nil
+            lt.type = @type
+            lt.save
+            n += 1
+          }
+          format.html { redirect_to grow_types_path, notice: "Type was successfully created and #{n} locations were updated to use this new type." }
+          format.json { render json: @type, status: :created, location: @type }
+        else
+          format.html { redirect_to types_path, notice: "Type was successfully created." }
+          format.json { render json: @type, status: :created, location: @type }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @type.errors, status: :unprocessable_entity }

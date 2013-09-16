@@ -1,4 +1,4 @@
-<h2>Import Locations from CSV</h2>
+<h1>Import Locations from CSV</h1>
 
 <% unless @errors.nil? %>
 Errors:
@@ -9,53 +9,64 @@ Errors:
 </ul>
 <% end %>
 
+<details>
+  <summary>Show instructions</summary>
+  <p>This is an admin-only function for doing bulk imports of locations. It assumes a comma seperated values (CSV) file with the following fields:</p>
 
-This is an admin-only function for doing bulk imports of locations. This assumes the CSV has a particular format: the first row should be a header line like this:
-<pre>
-<%= Location.csv_header.join(", ") %>
-</pre>
-The rows contain the values you'd expect (same format as data export on the map page). In particular:
-<ul>
-<li><strong>Type:</strong> should be a real type in the database (i.e., "Orange"), or it will be ignored. This field can be a semicolon-separated list (i.e., "Orange;Potato;Grape")
-<li><strong>Type Other:</strong> if it isn't a real type in the database, you can put it here (one offs, add laters, and whatnot). This field can also be a semicolon-separated list
-<li><strong>Address:</strong> will be geocoded, so don't provide it if you are also providing a lat/lng
-<li><strong>Season Start/Stop:</strong> are numeric, with 0 corresponding to January and 11 corresponding to December
-<li><strong>No Season/Unverified:</strong> can be any of 'true', 't', or 'x' to show affirmation, and blank for negation
-<li><strong>Yield/Quality Rating:</strong> numeric, 0 to 4
-<li><strong>Access:</strong> should be a number, 0-3 corresponding to one of the access modes given below
-<ul>
-<% Location::AccessModes.each_index{ |i| %>
-<li><%= i %>: <%= Location::AccessModes[i] %>
-<% } %>
-</ul>
-</ul>
+  <blockquote style="font-family:Courier;">
+  <%= Location.csv_header.join(", ") %>
+  </blockquote>
 
+  <p><b>Type:</b> Leading English-language common name of the source(s) at each location. If the name does not match an <a href="/types">existing type</a>, a new type object is created in the database. Separate multiple types with commas (eg. "Orange,Potato,Grape").</p>
+  <p><b>Type Other:</b> Deprecated. A new type_other object is created in the database for further review by a site admin before being approved as an official type.</p>
+  <p><b>Description:</b> Whatever information should be displayed in the location's infobox (location details, access issues, plant health, etc). &lt;br&gt; (HTML line break) tags are converted to \n (newline) characters. No other markup is currently supported.</p>
+  <p><b>Address:</b> Full street address of the location (number, street, city, state / province, zip code, country). It is geocoded and converted to coordinates, so don't provide an address if you are already providing Lat and Lng.</p>
+  <p><b>Season Start/Stop:</b> Months that harvesting begins and ends, respectively, with 1 corresponding to January and 12 corresponding to December.</p>
+  <p><b>No Season:</b> Whether season does not apply (eg. Rosemary). Mark 'x', 't', or 'true' if true (no season), otherwise leave blank.</p>
+  <p><b>Access:</b> Access status of the location, on a scale from 1 to 5:</p>
+    <blockquote>
+    <% Location::AccessModes.each_index{ |i| %>
+    <li><%= i + 1 %>: <%= Location::AccessModes[i] %>
+    <% } %>
+    </blockquote>
+  <p><b>Unverified:</b> Whether the location or identity of one or more of the sources at the location have not been verified. Mark 'x', 't', or 'true' if true (unverified), otherwise leave blank.</p>
+  <p><b>Yield/Quality Rating:</b> The productivity and tastiness of the sources at the location, on a scale from 1 to 5:</p>
+    <blockquote>
+    <% Location::Ratings.each_index{ |i| %>
+    <li><%= i + 1 %>: <%= Location::Ratings[i] %>
+    <% } %>
+    </blockquote>
+  <p><b>Author:</b> Author of the location, as displayed on the map. If left blank, the author is "Anonymous".</p>
+  <p><b>Photo URL:</b> Full path to an image of the location. (Currently unused on the website, but support for photos is planned).</p>
+</details>
+
+<br/>
 <%= form_for :import, :html => {:multipart => true} do |f| %>
   <%= fields_for :import do |f2| %>
     <div class="field">
-      Import Name<br>
-      <%= f.text_field :name %>
+      Name<br>
+      <%= f.text_field :name, :size => "80" %>
     </div>
     <div class="field">
-      Import URL<br>
-      <%= f.text_field :url %>
+      URL<br>
+      <%= f.text_field :url, :size => "80" %>
     </div>
     <div class="field">
-      Import Comments<br>
-      <%= f.text_area :comments, :size => "30x5" %>
+      Comments<br>
+      <%= f.text_area :comments, :size => "80x10" %>
     </div>
     <div class="field">
-      Data License<br>
-      <%= f.text_area :license, :size => "30x5" %>
+      License<br>
+      <%= f.text_area :license, :size => "80x10" %>
     </div>
     <div class="field">
-      Municipal?<br>
-      <%= f.check_box :muni, :value => 1, :checked => false %>
+      <%= f.check_box :muni, :value => 1, :checked => false %> Municipal<br />
     </div>
   <% end %>
-
   <div class="field">
-  <%= file_field_tag :csv %>
+    <%= file_field_tag :csv %>
   </div>
-  <%= f.submit "Upload" %>
+  <div class="field">
+    <%= f.submit "Upload" %>
+  </div>
 <% end %>

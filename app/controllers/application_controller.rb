@@ -135,10 +135,14 @@ class ApplicationController < ActionController::Base
                     where("method = ? AND muni = ? AND zoom = ? and grid_point = ?",'grid',import.muni,z,row["grid_point"]).first
         unless c.nil?
           c.count = c.count.to_i - row["count"].to_i
-          newx = c.cx.to_f+((row["x"].to_f-c.cx.to_f)/c.count.to_f)
-          newy = c.cy.to_f+((row["y"].to_f-c.cy.to_f)/c.count.to_f)
-          c.cluster_point = "POINT(#{newx} #{newy})"
-          c.save
+          if (c.count <= 0)
+            c.destroy
+          else
+            newx = c.cx.to_f+((row["x"].to_f-c.cx.to_f)/c.count.to_f)
+            newy = c.cy.to_f+((row["y"].to_f-c.cy.to_f)/c.count.to_f)
+            c.cluster_point = "POINT(#{newx} #{newy})"
+            c.save
+          end
         end
       }  
     }

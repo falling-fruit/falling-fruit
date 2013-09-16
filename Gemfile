@@ -29,7 +29,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery_mobile_rails'
 #gem 'prototype-rails'
-gem 'select2-rails'
+gem 'select2-rails', '~> 3.4.2'
 gem 'jquery-datatables-rails'
 
 gem 'geocoder'
