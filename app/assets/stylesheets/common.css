@@ -197,8 +197,6 @@ form label {
 }
 
 form span.subtext {
-	font-size: 0.75em;
-  color: #888;
   position: relative;  /* Keeps subtext away from text input edges. */
   top: -1px;
 }

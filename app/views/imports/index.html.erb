@@ -40,9 +40,19 @@ Import.all.each do |import| %>
     <td><%= lcounts[import.id] %></td>
     <td><%= import.autoload ? "x" : "" %></td>
     <td><%= import.muni ? "x" : "" %></td>
-    <td><%= File.exists?(ofile) ? "Queued" : (File.exists?(ifile) ? "Done: " : (File.exists?(efile) ? "Error: " : "Done (Legacy)"))%>
-      <%= link_to 'CSV', "/import/#{import.id}_done.csv" if File.exists? ifile %> 
-      <%= link_to 'CSV', "/import/#{import.id}_error.csv" if File.exists? efile %>
+    <td>
+    <% if File.exists? ofile %>
+		Queued
+	<% end %>
+    <% if File.exists? ifile %> 
+		Done (<%= link_to 'CSV', "/import/#{import.id}_done.csv" %>)<%= "," if File.exists? efile %>
+	<% end %>
+	<% if File.exists? efile %> 
+		<span style="color:red;">Error</span> (<%= link_to 'CSV', "/import/#{import.id}_error.csv" %>)
+	<% end %>
+	<% if !File.exists? ofile and !File.exists? ifile and !File.exists? efile  %>
+		Done (Legacy)
+	<% end %>
     </td>
     <td><%= import.created_at %></td>
     <td><%= link_to 'Edit', edit_import_path(import) %></td>
