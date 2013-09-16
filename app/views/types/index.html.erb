@@ -2,7 +2,7 @@
 
 <%= link_to '[+] Add type', new_type_path %>
 
-<table id="type_list">
+<table id="types_table">
 <thead>
 <tr>
  <th>ID</th>
@@ -38,7 +38,7 @@
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-    jQuery('#type_list').dataTable({
+    jQuery('#types_table').dataTable({
       "aaSorting": [[2,"asc"], [1,"asc"]],
       "bPaginate": false
     });

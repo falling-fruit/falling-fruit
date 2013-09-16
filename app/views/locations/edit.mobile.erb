@@ -6,7 +6,9 @@
 <script type="text/javascript" charset="utf-8">
   // ================= globals ==================
 
-  var marker = null;
+  var lat = $("#location_lat").val();
+  var lng = $("#location_lng").val();
+  var editMarkerHtml = '<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>';
 
   // ================= functions =================
   
@@ -15,9 +17,10 @@
   
   function initialize() {
     var toner = 'toner-lite';
+    var markerPos = new google.maps.LatLng(lat,lng)
     var mapOptions = {
-      zoom: 1,
-      center: new google.maps.LatLng(37.269174,-119.306607),
+      zoom: 18,
+      center: markerPos,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
@@ -26,6 +29,8 @@
     map = new google.maps.Map(document.getElementById('mobile-top-map'),mapOptions);
     geocoder = new google.maps.Geocoder();
     map.setTilt(0);
+    pb = progressBar();
+    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
     
     // Stamen Toner (B&W) map
     var tonerType = new google.maps.StamenMapType(toner);
@@ -34,6 +39,33 @@
     
     // Bicycle map (and control)
     bicycleControl(map);
+    
+    // EditMarker
+	var marker = new google.maps.Marker({
+      icon: '',
+      position: markerPos, 
+      map: map,
+      draggable: true,
+    });
+    var nag = new google.maps.InfoWindow({
+      content: editMarkerHtml
+    });
+	google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+    	nag.open(map,marker);
+		nagOpen = true;
+    });
+	google.maps.event.addListener(nag, 'closeclick', function(event) {
+			nagOpen = false;
+	});	
+    google.maps.event.addListener(marker, 'click', function(event) {
+		if(nagOpen){
+			nag.close();
+			nagOpen = false;
+		} else {
+			nag.open(map,marker);
+			nagOpen = true;
+		}
+    });
     
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
@@ -47,9 +79,6 @@
         openInfoWindow = null;
       }
     });
-
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
 
     google.maps.event.addListener(map, 'bounds_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -68,24 +97,6 @@
       });
     });
   
-    var lat = $("#location_lat").val();
-    var lng = $("#location_lng").val();
-    marker = new google.maps.Marker({
-      icon: '',
-      position: new google.maps.LatLng(lat,lng), 
-      map: map,
-      draggable: true,
-    });
-    map.setZoom(18);
-    map.panTo(marker.getPosition());
-    var nag = new google.maps.InfoWindow({
-      content: '<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>'
-    });
-    nag.open(map,marker);  
-    google.maps.event.addListener(marker, 'dragend', function() {
-      $("#location_lat").val(this.getPosition().lat());
-      $("#location_lng").val(this.getPosition().lng());
-    });
     // update markers once we're done panning and zooming
     google.maps.event.addListenerOnce(map, 'idle', function(){
       do_markers(map.getBounds(),$("#location_id").val(),true);

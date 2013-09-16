@@ -98,7 +98,25 @@
         var nag = new google.maps.InfoWindow({
           content: editMarkerHtml
         });
-        nag.open(map,marker);  
+        var nag = new google.maps.InfoWindow({
+        content: editMarkerHtml
+      });
+      google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+			nag.open(map,marker);
+			nagOpen = true;
+		});
+      google.maps.event.addListener(nag, 'closeclick', function(event) {
+			nagOpen = false;
+		});	
+		google.maps.event.addListener(marker, 'click', function(event) {
+			if(nagOpen){
+				nag.close();
+				nagOpen = false;
+			} else {
+				nag.open(map,marker);
+				nagOpen = true;
+			}
+		});
         google.maps.event.addListener(marker, 'dragend', function() {
           $("#location_lat").val(this.getPosition().lat());
           $("#location_lng").val(this.getPosition().lng());
@@ -169,7 +187,25 @@
         var nag = new google.maps.InfoWindow({
           content: editMarkerHtml
         });
-        nag.open(map,marker);  
+        var nag = new google.maps.InfoWindow({
+        content: editMarkerHtml
+      });
+      google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+			nag.open(map,marker);
+			nagOpen = true;
+		});
+      google.maps.event.addListener(nag, 'closeclick', function(event) {
+			nagOpen = false;
+		});	
+		google.maps.event.addListener(marker, 'click', function(event) {
+			if(nagOpen){
+				nag.close();
+				nagOpen = false;
+			} else {
+				nag.open(map,marker);
+				nagOpen = true;
+			}
+		});
         google.maps.event.addListener(marker, 'dragend', function() {
           $("#location_lat").val(this.getPosition().lat());
           $("#location_lng").val(this.getPosition().lng());

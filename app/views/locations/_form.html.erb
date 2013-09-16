@@ -36,7 +36,7 @@ jQuery(document).ready(function(){
   <div class="field">
     *<label for="location_address">Location</label><br>
     <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br />
-    Lat-Lon <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br>
+    Lat, Lon <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br>
     
   	<!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>

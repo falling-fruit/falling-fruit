@@ -20,6 +20,7 @@
   // ================= globals ==================
 
   var marker = null;
+  var editMarkerHtml = '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>';
 
   // ================= functions =================
 
@@ -33,7 +34,7 @@
       center: new google.maps.LatLng(37.269174,-119.306607),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
+	  mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
       }
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
@@ -79,8 +80,6 @@
         prior_bounds = bounds;
       });
     });
-    
-    var editMarkerHtml = '<div id="editmarker"><b>Please adjust the marker to the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>';
 
     if($('#location_lat').val() == "" && $('#location_lng').val() == ""){
       navigator.geolocation.getCurrentPosition(function(position){
@@ -100,7 +99,22 @@
         var nag = new google.maps.InfoWindow({
           content: editMarkerHtml
         });
-        nag.open(map,marker);  
+        google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+			nag.open(map,marker);
+			nagOpen = true;
+		});
+		google.maps.event.addListener(nag, 'closeclick', function(event) {
+			nagOpen = false;
+		});
+		google.maps.event.addListener(marker, 'click', function(event) {
+			if(nagOpen){
+				nag.close();
+				nagOpen = false;
+			} else {
+				nag.open(map,marker);
+				nagOpen = true;
+			}
+	    });
         google.maps.event.addListener(marker, 'dragend', function() {
           $("#location_lat").val(this.getPosition().lat());
           $("#location_lng").val(this.getPosition().lng());
@@ -136,7 +150,22 @@
       var nag = new google.maps.InfoWindow({
         content: editMarkerHtml
       });
-      nag.open(map,marker);  
+      google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+			nag.open(map,marker);
+			nagOpen = true;
+		});
+      google.maps.event.addListener(nag, 'closeclick', function(event) {
+			nagOpen = false;
+		});	
+		google.maps.event.addListener(marker, 'click', function(event) {
+			if(nagOpen){
+				nag.close();
+				nagOpen = false;
+			} else {
+				nag.open(map,marker);
+				nagOpen = true;
+			}
+		});
       google.maps.event.addListener(marker, 'dragend', function() {
         $("#location_lat").val(this.getPosition().lat());
         $("#location_lng").val(this.getPosition().lng());

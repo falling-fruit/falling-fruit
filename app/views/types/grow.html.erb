@@ -1,6 +1,6 @@
 <h1>Pending Types</h1>
 
-<table id="type_list">
+<table id="type_others_table">
 <thead>
 <tr>
  <th>Name</th>
@@ -10,6 +10,9 @@
 </tr>
 </thead>
 <tbody>
+
+<% types_list = Type.order("name").collect{ |t| [t.name,t.id] } %>
+
 <% @type_others.each do |name,lts| 
   @type = Type.new
   @type.name = name
@@ -17,11 +20,19 @@
 
 <tr>
 <td><%= name %></td>
-<td><%= lts.length %></td>
+<td width="25%"><%= lts.length %><br/><br/>
+
+[
+<% lts.each do |ltid| lt = LocationsType.find(ltid) %>        
+<%= link_to lt.location.id, edit_location_path(lt.location.id) %>  
+<% end %>
+]
+
+</td>
 <td><%= render :partial => 'form', :object => @type, :locals => {:lts => lts} %></td>
 <td><form action="/types/merge">
     <%= hidden_field_tag 'lts', lts.join(":") %>
-    <%= select_tag(:into_id,options_for_select(Type.order("name").collect{ |t| [t.name,t.id] }),:class=>"select2") %>
+    <%= select_tag(:into_id,options_for_select(types_list),:class=>"select2") %>
     <%= submit_tag "Merge" %>
 </form>
 </td>
@@ -36,7 +47,7 @@ jQuery(document).ready(function(){
   jQuery('.select2').select2({width:'element'});
 });
 jQuery(document).ready(function(){
-    jQuery('#type_list').dataTable({
+    jQuery('#type_others_table').dataTable({
       "aaSorting": [[1,"desc"]],
       "bPaginate": false
     });

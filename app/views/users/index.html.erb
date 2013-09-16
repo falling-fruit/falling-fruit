@@ -14,10 +14,9 @@
     <th>Delete</th>
   </tr>
 </thead>
-
+<tbody>
 <% @users.each do |user| %>
 <% roles = user.roles.join(",") %>
-<tbody>
   <tr>
     <td style="text-align:right;"><%= user.id %></td>
     <td><%= user.name %></td>
@@ -29,14 +28,14 @@
     <td><%= user.created_at %></td>
     <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-</tbody>
 <% end %>
+</tbody>
 </table>
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
     jQuery('#user_list').dataTable({
-      "aaSorting": [[0,"asc"]],
+      "aaSorting": [[0,"desc"]],
       "bPaginate": false
     });
 });
