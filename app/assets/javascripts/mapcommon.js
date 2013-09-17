@@ -386,16 +386,17 @@
   function recenter_map_to_address() {
     geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        map.setZoom(15)
-        map.panTo(results[0].geometry.location);
-        $('#hidden_controls').show();
-        // update markers once we're done panning and zooming
-        google.maps.event.addListenerOnce(map, 'idle', function(){
-          do_markers(map.getBounds(),null,$('#muni').is(':checked'));
-        });
+        var bounds = results[0].geometry.bounds;
+        var loc = results[0].geometry.location;
+        if(bounds == undefined){       
+          map.setZoom(15)
+          map.panTo(loc);
+        }else{
+          map.fitBounds(bounds);
+        }
         var cross = new google.maps.Marker({
           icon: '/cross.png',
-          position: results[0].geometry.location, 
+          position: loc, 
           map: map,
           draggable: false
         });
