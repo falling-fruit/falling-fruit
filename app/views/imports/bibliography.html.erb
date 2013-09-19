@@ -6,7 +6,7 @@
 	<td style="vertical-align:top;text-align:right;padding:2em 1.5em 0 0;">
 		<a href="/imports/<%= import.id %>"><%= import.id %></a>
 		<% if user_signed_in? and current_user.is? :admin %>
-			<br /><a href="/imports/<%= import.id %>/edit">edit</a>
+			<br/><a href="/imports/<%= import.id %>/edit">edit</a>
 		<% end %>
 	</td>
 	<td style="padding:2em;background-color:#fafafa;">

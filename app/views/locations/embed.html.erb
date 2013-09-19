@@ -1,13 +1,7 @@
-<style>
-html,body{ margin:0;padding:0; }
-div#mainmap_container {}
-div#map {
-  margin: 0;
-  padding: 0;
-  width: <%= @width %>;
-  height: <%= @height %>;
-}
-</style>
+<link href="/assets/base.css" media="screen" rel="stylesheet" type="text/css" />
+
+<!-- Force links to open new window. Cross browser? -->
+<base target="_blank" />
 
 <div id="mainmap_container">
   <div id="map"></div>
@@ -24,6 +18,9 @@ div#map {
 
   // ================= functions =================
 
+  // Enable the visual refresh
+  google.maps.visualRefresh = true;
+  
   function initialize() {
     var ini_zoom = 2;
     var ini_lat = 17.30868;

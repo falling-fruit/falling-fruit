@@ -1,0 +1,406 @@
+/**********************************************************/
+/************************* Header *************************/
+/**********************************************************/
+
+/*** Logo ***/
+
+div#logobar {
+	background-color: #2C4D75;
+	padding: 0 5px;
+	height: 2.5em;
+}
+
+div#logobar a#falling_fruit {
+	font-size: 2.2em;
+	font-family: helvetica, arial, verdana, sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+	color: #FFF;
+}
+
+div#logobar span#subtitle {
+	color: #FFF;
+	font-style: italic;
+	font-size: 1.25em;
+	margin-left: 1em;
+}
+
+div#logobar img#logo {
+	float: right;
+	height: 100%;
+}
+
+div#share_controls {
+	float: right;
+	padding: 0.5em 0.3em 0 0;
+}
+
+/*** Menu ***/
+
+div#menubar {
+	background-color: #d3d3d3;
+}
+
+div#menubar a, div#menu span {
+	color: #666;
+	line-height: 2em;
+	padding: 0em 8px;
+	display: inline-block;
+}
+
+div#menu {
+  overflow: auto;
+}
+
+div#menu a#maplink {
+  padding-left: 12px;
+}
+
+div#menu ul li {
+  float: left;
+  cursor: pointer;
+}
+
+div#menu ul li a.currentpage, div#menu ul li span.currentpage {
+  background-color: #FFF;
+}
+
+div#menu ul li a:hover:not(.currentpage) {
+  color: #FFF;
+}
+
+div#menu ul li:hover span:not(.currentpage) {
+  color: #FFF;
+}
+
+div#menu ul li ul {
+  display: none;
+  height: auto;
+  position: absolute;
+  z-index: 200;
+}
+
+div#menu ul li:hover ul {
+  display: block;
+  background: #EEE;
+}
+
+div#menu ul li ul li {
+  display: block;
+  float: none;
+}
+
+div#menu ul li ul li a {
+  border-top: 1px solid #fff;
+  width: 15em;
+  color: #888;
+}
+
+div#menu ul li ul li a.currentpage {
+  background-color: #D3D3D3;
+  color: #666;
+}
+
+div#menu ul li ul li:hover a:not(.currentpage) {
+  color: #E35809;
+}
+
+div#rightcontrols a:not(.currentpage):hover {
+	color: #FFF;
+}
+
+div#rightcontrols a.currentpage {
+	background-color: #FFF;
+}
+
+div#rightcontrols span#user_email {
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+/**********************************************************/
+/************************ Content *************************/
+/**********************************************************/
+
+div#content_container {
+	position: absolute;
+	top: 4.5em;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow-y: auto;
+}
+
+div#content_container div#content {
+	padding: 15px 1.5em 10px 1.5em;
+	text-align: justify;
+	max-width: 1400px;
+	margin: 0 auto;  /* Page is centered on wider screens */
+}
+  
+div#content_container div#content p {
+	line-height: 1.5em;  /* For better legibility on wider screens */
+}
+
+div#content_container div#footer {
+	margin-top: 2.5em;
+	text-align: center;
+	font-size: 0.85em;
+}
+
+/**********************************************************/
+/******************* /locations/index *********************/
+/**********************************************************/
+
+/*** Searchbar ***/
+
+div#searchbar {
+	line-height: 3em;
+	background-color: #FFF;
+	border-bottom: 2px solid #CCC;
+	width: 100%;
+}
+
+div#searchbar div#searchcontrols {
+  padding: 0 9px 0 15px;  /* Adding padding here keeps searchbar width at 100% */
+}
+
+div#searchbar button {
+	border: 1px solid #DDD;
+	border-radius: 4px;
+	background-color: #EEE;
+	font-size: 0.8em;
+	cursor: pointer;
+	position: relative;  /* Fixes vertical alignment issue */
+	top: -.1em;
+	font-family: inherit;
+	color: inherit;
+}
+
+div#searchbar button:hover {
+	background-color: #C6E1F7;
+}
+
+div#searchbar input {
+	border: 1px solid #DDD;
+	padding: 2px 3px;
+	font-size: .85em;
+	font-family: inherit;
+	color: inherit;
+}
+
+div#searchbar input[type=checkbox] {
+  position: relative;  /* Fixes vertical alignment issue */
+  top: -.1em;
+}
+
+/*** Map ***/
+
+div#mainmap_container {
+  position: absolute;
+  top: 7.5em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;  /* So that if search bar controls wrap, they display above map. */
+}
+
+/**********************************************************/
+/******************* /locations/{edit,new} ****************/
+/**********************************************************/
+
+/*** Form ***/
+
+form#editsource {
+  padding: 20px 1.5em 10px 1.5em;
+  width: 28em;
+  position: absolute;
+  top: 4.5em;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  line-height: 1em;
+    border-right: 2px solid #DDD;
+}
+
+form#editsource label {
+	font-weight: bold;
+	color: #333;
+}
+
+form#editsource a {
+  font-size: 0.85em;
+}
+
+form#editsource #s2id_typeselect2,
+form#editsource #location_description, 
+form#editsource #location_author, 
+form#editsource #location_address {
+  width: 90%;
+}
+
+form#editsource #location_lat, 
+form#editsource #location_lng {
+  width: 9.5em;
+}
+
+form#editsource input#location_lat {
+  text-align: right;
+}
+
+form#editsource #location_address {
+  height: 3em;
+}
+
+form#editsource #location_description {
+  height: 10em;
+}
+
+form#editsource div#captcha {
+  position: relative;  /* Widget has slight left margin */
+  left: -2px;
+}
+
+form#editsource input[type=submit] {
+  padding: 0.5em 1em;
+  margin-right: 10px;
+}
+
+/*** Map ***/
+
+div#editmap_container {
+  position: absolute;
+  top: 61px;
+  bottom: 0;
+  left: 31em;
+  right: 0;
+}
+
+/*** Edit Marker ***/
+
+div#editmarker {
+  width: 20em;
+  padding: 0.5em;
+  line-height: normal ! important;
+}
+
+/**********************************************************/
+/******************* /pages/about *************************/
+/**********************************************************/
+
+div.rightphoto {
+	float: right;
+	position: relative;
+	top: 1em;  /* Make images flush with top of text */
+	margin: 0 0 1.5em 1.5em;  /* To keep text away while wrapping */
+	text-align: right;  /* In case image dimensions are not as expected */
+	line-height: 0;  /* Removes vertical space between image rows */
+	width: 412px;  /* Multiple of image width + 2 * border + a little */
+}
+
+div.rightphoto img {
+	width: 200px;
+	border: 1px solid #EEE;
+}
+
+div.profile img.avatar {
+	float: left;
+	width: 200px;
+	border: 1px solid #EEE;
+}
+
+div.profile div.bio {
+	margin-left: 216px;
+}
+
+/* Clears float instead of a div inside html */
+div.profile:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: left;
+  visibility: hidden;
+}
+
+/**********************************************************/
+/********* /pages/{inventories,maps,sharing} **************/
+/**********************************************************/
+
+div.country_column {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
+}
+
+div.country_column div.country {
+	display: block;
+}
+
+div.country {
+	display: inline-block;
+}
+
+div.country b {
+	line-height: 3em;
+}
+
+div.datalist {
+  margin-left: 25px;
+  padding: 0px 5px;
+  border-left: 1px solid #EEE;
+  display: inline-block;
+  vertical-align: top;
+}
+
+div.datalist ul {
+  margin-left: 3px;
+}
+
+div.datalist ul li {
+  margin-left: 10px;
+}
+
+div.datalist li {
+  margin-left: 13px;
+}
+
+/**********************************************************/
+/******************* /pages/press *************************/
+/**********************************************************/
+
+#press_list td {
+  vertical-align: top;
+  padding-bottom: 1em;
+}
+
+#press_list td.date {
+	text-align: right;
+	padding-right: 2em;
+}
+
+#press_list td.date span.year {
+	color: #bbb;
+}
+
+#press_list span.subtitle {
+	font-size: 90%;
+	display: block;
+	padding: 1em 0 0.5em 1em;
+}
+
+#press_list img {
+	border: 1px solid #EEE;
+}
+
+#press_list iframe,
+#press_list img {
+	margin: 1em 0 0.5em 0;
+}
+
+/**********************************************************/
+/******************* /pages/data **************************/
+/**********************************************************/
+
+table#type_summary img.link_icon {
+  height: 1em;
+}

@@ -1,0 +1,366 @@
+/**********************************************************/
+/****************** Base Formatting ***********************/
+/**********************************************************/
+
+html, body {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 0.925em;
+  color: #666;
+  margin: 0;
+  padding: 0;
+}
+
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #0476D4;
+}
+
+a:hover {
+  color: #E35809;
+}
+
+a, summary, input[type=submit], input[type=file] {
+	cursor: pointer;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #EF6517;
+}
+
+h2 {
+  margin-top: 1.25em;
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #EF6517;
+}
+
+.subtext {
+  font-size: 0.75em;
+  color: #888;
+}
+
+.announcement {
+  font-style: italic;
+  font-size: 115%;	
+}
+
+.nowrap {
+	display: inline-block;
+}
+
+#rightcontrols {
+  float: right;
+}
+
+/**********************************************************/
+/******************** Template: Maps **********************/
+/**********************************************************/
+
+div#map {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+div#newmarker {
+	font-size: 1.25em;
+}
+
+/*** Map Controls ***/
+
+div#maptype_button {
+	background-color: #FFF;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+	text-align: center;
+	width: 5em;
+	box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.5);
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  color: #565656;
+  padding: 1px 6px;
+  margin-top: 5px;
+  z-index: 1;
+}
+
+div#maptype_button:hover {
+	background-color: rgb(235,235,235);
+	color: #000;	
+}
+
+/*** Map Credits ***/
+
+p#stamen_attribution {
+	font-family: Roboto, Arial, san-serif;
+	font-size: 10px;
+	position: absolute;
+	bottom: 0;
+	right: 70px;
+	background: #EEE;
+	margin: 0;
+	z-index: 100;
+	opacity: 0.7;
+}
+
+p#stamen_attribution a {
+	color: #666;
+	text-decoration: underline;
+}
+
+/*** InfoWindow ***/
+
+div#location_infowindow {
+  max-width: 35em;
+  color: #333;
+  overflow: auto;
+  padding: 0.5em 0.3em;
+	line-height: normal ! important;	/* Helps avoid scrollbars when using padding. */
+}
+
+div#location_infowindow a {
+  text-decoration: underline;
+}
+
+/* Types */
+
+div#location_infowindow div#type_list {
+	margin-bottom: 0.4em;
+}
+
+div#location_infowindow div#type_list li {
+  list-style: none;
+  margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
+  display: inline-block;
+  background-color: #EEE;
+  padding: 0.1em 0.4em;
+  font-size: 1.15em;
+}
+
+div#location_infowindow div#type_list img.type_icon {
+  height: 0.9em;
+}
+
+/* Description */
+
+div#location_infowindow label {
+  color: #000;
+  font-size: 1.1em;
+  padding-right: 0.2em;
+  padding-left: 0.25em; /* to line up with start of type labels */
+  line-height: 1.5em;
+}
+
+div#location_infowindow span.in_season {
+  color: green;
+}
+
+div#location_infowindow span.out_season {
+  color: brown;
+}
+
+div#location_infowindow div#description p {
+  margin: 1.2em 1em;
+  line-height: 1.5em;
+  cursor: text; /* Google Maps defaults to pointer */
+}
+
+/* Controls & Author */
+
+div#location_infowindow table#footer {
+	border-collapse: collapse;
+	border-spacing: 0;
+	/* for embed: overrides browser css */
+	color: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+div#location_infowindow table#footer td#controls {
+	vertical-align: bottom;
+	white-space: nowrap;
+	padding-left: 0.25em;  /* to line up with start of type labels */
+}
+
+div#location_infowindow table#footer a {
+	color: #999;
+}
+
+div#location_infowindow table#footer a:hover {
+	color: #333;
+}
+
+div#location_infowindow table#footer #controls a {
+	padding-right: 1em;
+}
+
+div#location_infowindow table#footer td#added_by {
+	padding-left: 1em;
+	border-left: 1px solid #DDD;
+}
+
+/**********************************************************/
+/******************* Template: Forms **********************/
+/**********************************************************/
+
+form div.field {
+  margin-top: 1em;
+}
+
+form label {
+  line-height: 1.25em;
+  padding-left: 0;  /* Needed to left-align */
+}
+
+form span.subtext {
+  position: relative;  /* Keeps subtext away from text input edges. */
+  top: -1px;
+}
+
+form span.subtext-inline {  /* Regular behavior, shorthand. */
+  font-size: 0.75em;
+  color: #888;
+}
+
+form input[type=text], 
+form input[type=password],
+form input[type=email], 
+form textarea {
+	font-family: inherit;
+	color: inherit;
+	font-size: 95%;
+	border: 1px solid #ccc;
+	padding: 2px 3px;
+	margin: 0;
+}
+
+form .select2-choices {
+  border: 1px solid #ccc ! important;
+  outline: none ! important;
+  background: none ! important;
+}
+
+form .select2-choices .select2-search-choice {
+  font-size: 95%;
+}
+
+form select {
+	font-family: inherit;
+	color: inherit;
+	font-size: 90%;
+	border: 1px solid #ccc;
+	margin: 0;
+}
+
+form input[type=submit], 
+form input[type=file] {
+	font-family: inherit;
+	font-size: inherit;
+	color: #555;
+	margin-left: 0;	/* Needed to left-align */
+	padding: 0.3em 0.5em;
+  border: 1px solid #ccc;
+	border-radius: 2px;
+	background-color: #F3F3F3;
+	cursor: pointer;
+}
+
+form input[type=submit]:hover {
+	background-color: #C6E1F7;
+}
+
+form input[type=checkbox] {
+	border: 1px solid #CCC;
+	margin-right: 0.1em;
+	position: relative;
+	top: -1px;
+}
+
+form input#user_password_confirmation {
+	margin-top: 0.25em;
+}
+
+/**********************************************************/
+/****************** Template: Dialogs *********************/
+/**********************************************************/
+
+.ui-dialog {
+	font-family: inherit;
+	font-size: 95%;
+	padding: 0;
+	border-radius: 2px;
+}
+
+.ui-dialog .ui-dialog-content {
+  position: relative;
+  border: 0;
+  padding-bottom: 0.75em;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	border-radius: 0;
+	border: none;
+	color: #888;
+}
+
+.ui-dialog .ui-dialog-titlebar-close.ui-state-hover {
+	border-color: #CCC;
+}
+
+/*** Notice ***/
+
+.dialog_yellow {
+	border: 2px solid #ECECDC;
+	top: -2px ! important;*/
+}	
+
+.dialog_yellow .ui-dialog-titlebar {
+	background: #F6F6A8;
+	font-weight: normal;
+}
+
+.dialog_yellow .ui-dialog-titlebar-close {
+  background: #F6F6A8;
+  position: absolute;
+  top: 1em;
+}
+
+.dialog_yellow .ui-dialog-titlebar-close:focus {
+  outline: none ;
+}
+
+.dialog_yellow .ui-dialog-content {
+	display: none ! important;
+}
+
+/*** Embed HTML ***/
+
+.dialog_grey {
+	border: 2px solid #f0f0f0;
+}	
+
+.dialog_grey .ui-dialog-titlebar {
+	background: #E9E9E9;
+}
+
+.dialog_grey .ui-dialog-titlebar-close {
+  background: #eee;
+}
+
+.dialog_grey .ui-dialog-titlebar-close:focus {
+  outline: none;
+}
+
+.dialog_grey .ui-dialog-content {
+	background-color: #FCFCFC;
+}

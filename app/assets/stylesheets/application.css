@@ -11,5 +11,6 @@
  *= require jquery.ui.all
  *= require select2
  *= require dataTables/jquery.dataTables
- *= require common
+ *= require base
+ *= require pages
  */
