@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require common
+ *= require jquery.ui.all
  *= require select2
  *= require dataTables/jquery.dataTables 
  *= require jquery.mobile

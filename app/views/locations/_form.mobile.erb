@@ -20,41 +20,13 @@
     <legend>Type<br>
     <span class="subtext">What'd you find? Be as specific as possible. Suggest a new type only if you can't find yours in the list.</span><br>
     </legend>
-    <% @location.locations_types.each do |lt|  %>
-      <%= f.fields_for :locations_types, lt, :index => "update_#{lt.id}" do |f2| %>
-        <fieldset data-role="controlgroup">
-        <div class="type">
-        <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{}) %><br>
-        <%= f2.text_field :type_other, :size => 15 %>
-        <%= link_to_function "Remove", "$(this).parent().remove()" %><br>
-        </div>
-        </fieldset>
-      <% end %>
-    <% end %>
-    <% if @current_action == "new" or @current_action == "create" %>
-    <%= f.fields_for :locations_types, :index => "new_0" do |f2| %>
-      <div class="type">
-      <%= f2.select(:type_id,Type.order("name").collect{ |t| [t.name,t.id] },{:include_blank => true},{}) %><br>
-      <%= f2.text_field :type_other, :size => 15, :value => 'Or, something not in the list...', :onclick => 'this.value="";' %>
-      </div>
-    <% end %>
-    <% end %>
-  <br>
-  <fieldset data-role="controlgroup">
-  <%= 
-    task = render(:partial => 'locations_type', :formats => [:mobile], :locals => { :pf => f, :lt => LocationsType.new })
-    func_str = <<EOF
-      var new_locations_type_id = "new_" + new Date().getTime();
-      $('#{ escape_javascript task }'.replace(/new_\\d+/g, new_locations_type_id)).insertAfter($('.type').last());
-      $('#location_locations_types_' + new_locations_type_id + '_type_id').selectmenu();
-      $('#location_locations_types_' + new_locations_type_id + '_type_other').textinput();
-      $('#' + new_locations_type_id + '_button').button();
-EOF
-    link_to_function "Add Another", func_str, {'data-role' => 'button', 'data-ajax' => 'false', 'data-mini' => 'true', 'data-inline' => 'true'}
-   %>
-   </fieldset>
-   </fieldset>
-  
+
+   <div class="field" id="types">
+    *<%= f.label :types %><br />
+    <span class="subtext">Follow each type with a comma (Apple,Pear,). Review the suggestions carefully, submitting a new name only if an appropriate choice does not already exist.</span><br />
+    <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
+   </div>
+  </fieldset>
   <br>  
   <!-- Address -->
   <% if @current_action == "new" or @current_action == "create" %>
@@ -148,3 +120,13 @@ EOF
 </form>
 
 </div>
+
+<% content_for :form_scripts do %>
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+        jQuery('#typeselect2').select2({tokenSeparators: [","],width:'100%',
+                                  tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
+                                 });                           
+});
+</script>
+<% end %>
