@@ -321,7 +321,7 @@ form input#user_password_confirmation {
 
 .dialog_yellow {
 	border: 2px solid #ECECDC;
-	top: -2px ! important;*/
+	top: -2px ! important;
 }	
 
 .dialog_yellow .ui-dialog-titlebar {
