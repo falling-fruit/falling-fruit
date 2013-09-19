@@ -447,6 +447,26 @@ function bicycleControl(map) {
   });
 }
 
+// Adds Key Drag Zoom to the map
+// http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/
+function keyDragZoom(map) {
+	map.enableKeyDragZoom({
+		visualEnabled: true,
+		visualPosition: google.maps.ControlPosition.LEFT,
+		visualPositionOffset: new google.maps.Size(35, 0),
+		visualPositionIndex: null,
+		visualSprite: "http://maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
+		visualSize: new google.maps.Size(20, 20),
+		visualTips: {
+		 off: "Turn on drag-zoom (or hold 'Shift' key)",
+		 on: "Turn off drag-zoom"
+		},
+		key: "shift",
+		boxStyle: {border: "1px solid #736AFF"},
+		veilStyle: {backgroundColor: "gray", opacity: 0.25, cursor: "crosshair"}
+	 });
+}
+
 // Toggles on/off route controls below footer of location infowindow
 function toggle_route_controls() {
     if(showing_route_controls){
