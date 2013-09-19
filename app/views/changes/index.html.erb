@@ -5,6 +5,14 @@
 <% 
 last_days_ago = nil 
 @changes.each do |c| 
+  reordered_type_title = []
+  c["positions"] = $1.split(/,/).collect{ |e| e.to_i } if c["positions"] =~ /\{(.*)\}/
+  c["type_title"] = c["type_title"].split(/,/)
+  c["positions"].each_index{ |i|
+    t = c["type_title"][i]
+    p = c["positions"][i]
+    reordered_type_title[p] = t
+  }
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
     header = (c["days_ago"] <= 0) ? "Last 24 hours" : ((c["days_ago"] == 1) ? "1 day ago" : "#{c["days_ago"]} days ago")
@@ -18,7 +26,7 @@ last_days_ago = nil
 %>
 <%= raw header %>
 <% unless c["location_id"].nil? %>
-  <a href="/locations/<%= c["location_id"] %>"><%= c["type_title"].nil? ? "Unknown" : c["type_title"].gsub(","," · ") %></a> (#<%= c["location_id"] %>) <%= c["description"] %>
+  <a href="/locations/<%= c["location_id"] %>"><%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %></a> (#<%= c["location_id"] %>) <%= c["description"] %>
   <% unless c["country"].nil? %>
     in <%= [c["city"],c["state"],c["country"]].compact.join(", ") %>
   <% end %>
