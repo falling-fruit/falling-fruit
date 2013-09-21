@@ -1,5 +1,5 @@
 class ImportsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :all]
+  before_filter :authenticate_user!, :except => [:show, :bibliography]
   authorize_resource
 
   def index

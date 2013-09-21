@@ -16,7 +16,8 @@ class Ability
 
     # Things everyone can do
     can [:read, :create, :update], [Location, LocationsType]
-    can :read, [Type, Change, Import]
+    can :read, [Type, Change] 
+    can [:read, :bibliography], Import
     can :read, Route, :is_public => true
   end
 end
