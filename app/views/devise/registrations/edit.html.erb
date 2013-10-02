@@ -11,8 +11,8 @@
     <%= f.check_box :add_anonymously %> Add points anonymously (even when logged in)
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
+  <div class="field confirmation">
+    <%= f.label :email %>
     <%= f.email_field :email %>
   </div>
 
@@ -27,10 +27,10 @@
     <%= f.text_area :bio, :size => "40x6" %>
   </div>
 
-  <div class="field">
-    <%= f.label :new_password %><br />
-    <span class="subtext">Type it in twice to confirm.</span><br />
-    <%= f.password_field :password %><br />
+  <div class="field confirmation">
+    <%= f.label :password %>
+    <span class="subtext">Type it in twice to confirm.</span>
+    <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
   </div>
 

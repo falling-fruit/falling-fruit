@@ -1,10 +1,10 @@
 <%= f.label :foraging_range %><br />
-<span class="subtext">The area you generally forage in</span>
-<div style="width:600px; text-align: right;">
+<span class="subtext">Click on the map to define the area you generally forage in.</span>
+<div style="width:600px;text-align:right;">
   <input type="text" value="Zoom to address..." onclick="this.value='';" name="address" id="address">
   <button type="button" onclick="recenter_map_to_address();return false;">Zoom</button>
   <button type="button" onclick="overlay.setMap(null);overlay=undefined;return false;">Clear</button>
-  <div id="map" style="width:600px; height:400px;"></div>
+  <div id="map" style="width:600px;height:400px;"></div>
 </div>
 
 <% content_for :page_scripts do %>

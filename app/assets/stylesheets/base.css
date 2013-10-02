@@ -286,8 +286,32 @@ form input[type=checkbox] {
 	top: -1px;
 }
 
-form input#user_password_confirmation {
+form input#user_password_confirmation, form input#user_email_confirmation {
+	display: block; /* forces to next line, robust to confirmation failure */
 	margin-top: 0.25em;
+}
+
+form div.confirmation span,
+form div.confirmation input[type=text],
+form div.confirmation label {
+  display: block;
+} 
+
+form div.field_with_errors label {
+  color: #EF6517;
+}
+
+form div#error_explanation {
+  margin-bottom: 1em;
+}
+
+form div#error_explanation h2,
+form div#error_explanation strong {
+  display: none;
+}
+
+form div#error_explanation li {
+  color: #EF6517;
 }
 
 /**********************************************************/

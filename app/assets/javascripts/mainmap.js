@@ -31,7 +31,7 @@ function show_embed_html(object){
   var host = slashes.concat(window.location.hostname);
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + 
-    ' width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
+    '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
       closeText: "close", 
       modal: true, 
       width: 'auto',

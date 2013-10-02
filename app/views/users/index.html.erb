@@ -7,10 +7,11 @@
     <th>Name</th>
     <th>Email</th>
     <th>Roles</th>
-	<th>Anonymous</th>
+	  <th>Anonymous</th>
     <th>Range</th>
     <th>Updates</th>
     <th>Created</th>
+    <th>Confirmed</th>
     <th>Delete</th>
   </tr>
 </thead>
@@ -25,6 +26,7 @@
     <td><%= user.range.blank? ? "" : "x" %></td>
     <td><%= user.range_updates_email ? "x" : "" %></td>
     <td><%= user.created_at %></td>
+    <td><%= user.confirmed_at %></td>
     <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>

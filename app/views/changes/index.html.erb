@@ -26,7 +26,12 @@ last_days_ago = nil
 %>
 <%= raw header %>
 <% unless c["location_id"].nil? %>
-  <a href="/locations/<%= c["location_id"] %>"><%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %></a> (#<%= c["location_id"] %>) <%= c["description"] %>
+  <% if user_signed_in? and current_user.is? :admin %>
+    <a href="/locations/<%= c["location_id"] %>/edit">
+  <% else %>
+    <a href="/locations/<%= c["location_id"] %>">
+  <% end %>
+  <%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %></a> (#<%= c["location_id"] %>) <%= c["description"] %>
   <% unless c["country"].nil? %>
     in <%= [c["city"],c["state"],c["country"]].compact.join(", ") %>
   <% end %>
