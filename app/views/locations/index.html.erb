@@ -62,8 +62,8 @@
     // Bicycle map (and control)
     bicycleControl(map);
 
-	// Key Drag Zoom
-	keyDragZoom(map);
+    // Key Drag Zoom
+    keyDragZoom(map);
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_permalink();
@@ -85,6 +85,7 @@
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display(true,ini_zoom);
+      if($("#labels").is(":checked")) labelize_markers();
     });
              
     google.maps.event.addListener(map, 'bounds_changed', function() {

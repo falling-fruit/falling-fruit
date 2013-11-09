@@ -11,7 +11,7 @@
 <hr>
 <div data-role="content">
 <label><input type="checkbox" id="muni" value="1" rel="external" data-mini="true" data-inline="true" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%>>Municipal</label>
-<label><input type="checkbox" id="labels" value="1" rel="external" data-mini="true" data-inline="true" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); }">Labels</label>
+<label><input type="checkbox" id="labels" value="1" rel="external" data-mini="true" data-inline="true" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); }update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %>>Labels</label>
 </div>
 <hr>
 <div style="text-align: center;">

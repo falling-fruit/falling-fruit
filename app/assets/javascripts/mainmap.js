@@ -14,7 +14,8 @@ function update_permalink(){
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid;
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid +
+    '&l=' + $('#labels').is(":checked");
   $('#permalink').attr('href',permalink);
 }
 

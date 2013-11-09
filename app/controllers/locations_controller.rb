@@ -197,7 +197,7 @@ class LocationsController < ApplicationController
     @perma = nil
     if params[:z].present? and params[:y].present? and params[:x].present? and params[:m].present?
       @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
-                :muni => params[:m] == "true", :type => params[:t]}
+                :muni => params[:m] == "true", :type => params[:t], :labels => params[:l] == "true" }
     end
     @width = params[:width].present? ? params[:width].to_i : 500
     @height = params[:height].present? ? params[:height].to_i : 500
@@ -212,7 +212,7 @@ class LocationsController < ApplicationController
     @perma = nil
     if params[:z].present? and params[:y].present? and params[:x].present? and params[:m].present?
       @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
-                :muni => params[:m] == "true", :type => params[:t]}
+                :muni => params[:m] == "true", :type => params[:t], :labels => params[:l] == "true" }
     end
     respond_to do |format|
       format.html # index.html.erb

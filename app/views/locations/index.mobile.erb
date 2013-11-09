@@ -75,6 +75,7 @@
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display(true,ini_zoom);
+      if($("#labels").is(":checked")) labelize_markers();
     });
              
     google.maps.event.addListener(map, 'bounds_changed', function() {

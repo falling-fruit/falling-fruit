@@ -26,8 +26,8 @@
       &middot; 
      </span>
      <span class="nowrap">
-      <b>Labels</b> 
-      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); }"> 
+      <b>Labels</b>
+      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %>> 
       &middot;
      </span>
    </span>
