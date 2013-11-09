@@ -38,6 +38,23 @@
     <%= f.text_field :wikipedia_url %>
   </div>
   <div class="field">
+    <%= f.label :urban_mushrooms_url %><br />
+    <%= f.text_field :urban_mushrooms_url %>
+  </div>
+  <div class="field">
+    <%= f.label :eat_the_weeds_url %><br />
+    <%= f.text_field :eat_the_weeds_url %>
+  </div>
+  <div class="field">
+    <%= f.label :fruitipedia_url %><br />
+    <%= f.text_field :fruitipedia_url %>
+  </div>
+  <div class="field">
+    <%= f.label :foraging_texas_url %><br />
+    <%= f.text_field :foraging_texas_url %>
+  </div>
+
+  <div class="field">
     <%= f.label :edibility %><br />
     <%= f.select(:edability, Type::Edabilities.collect{ |k,v| [v,k] }, :include_blank => true) %>
   </div>

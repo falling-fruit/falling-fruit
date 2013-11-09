@@ -10,6 +10,10 @@
  <th>Scientific name</th>
  <th>W</th>
  <th>USDA</th>
+ <th>ETW</th>
+ <th>FT</th>
+ <th>UM</th>
+ <th>F</th>
  <th>Edit</th>
  <th>Delete</th>
 </tr>
@@ -29,6 +33,10 @@
 <td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.blank? %></td>
 <td style="text-align:center;"><% if type.wikipedia_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
 <td style="text-align:center;"><%= raw !type.usda_symbol.blank? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "" %></td>
+<td style="text-align:center;"><% if type.eat_the_weeds_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.eat_the_weeds_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.foraging_texas_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.foraging_texas_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.urban_mushrooms_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.urban_mushrooms_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.fruitipedia_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.fruitipedia_url %>" target="_blank">...</a><% end %></td>
 <td><%= link_to 'Edit', edit_type_path(type) %></td>
 <td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
