@@ -1,9 +1,59 @@
 <% content_for :form_scripts do %>
+<style>
+
+div.slider-legend {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 0.5em;
+}
+
+div.slider-legend > div {
+    display: table-cell;
+    width: 2%;
+    margin-bottom: 0;
+    font-size: 8pt;
+}
+div#slider{ 
+    margin-left: 0.5em; 
+    margin-right: 0.5em;
+}
+</style>
+
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-	jQuery('#typeselect2').select2({tokenSeparators: [","],
+  jQuery('#typeselect2').select2({tokenSeparators: [","],
                                   tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
                                  });                           
+  var select = $( "#location_quality_rating" );
+  var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
+    min: 1,
+    max: 6,
+    range: "min",
+    value: select[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#location_quality_rating" ).change(function() {
+    slider.slider( "value", this.selectedIndex + 1 );
+  });
+  select.hide();
+
+  var select = $( "#location_yield_rating" );
+  var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
+    min: 1,
+    max: 6,
+    range: "min",
+    value: select[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#location_yield_rating" ).change(function() {
+    slider.slider( "value", this.selectedIndex + 1 );
+  });
+  select.hide();
 });
 </script>
 <% end %>
@@ -93,6 +143,7 @@ jQuery(document).ready(function(){
     <%= f.label :quality_rating %><br />
     <span class="subtext">Rate the tastiness of this source.</span><br />
     <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
   
   <!-- Yield Rating -->
@@ -100,6 +151,7 @@ jQuery(document).ready(function(){
     <%= f.label :yield_rating %><br />
     <span class="subtext">Rate the productivity of this source.</span><br />
     <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
   
   <!-- Access -->
