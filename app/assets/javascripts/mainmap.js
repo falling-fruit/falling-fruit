@@ -8,14 +8,13 @@ function data_link(){
   return '/locations/data.csv?muni=' + mstr + '&' + bstr;
 }
 
-
 function update_permalink(){
   var center = map.getCenter();
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid +
-    '&l=' + $('#labels').is(":checked");
+    '&l=' + $('#labels').is(":checked") + "&f=" + type_filter;
   $('#permalink').attr('href',permalink);
 }
 
@@ -57,14 +56,14 @@ function update_display(force,force_zoom,force_bounds){
                  document.getElementById('logobar').offsetHeight;
     document.getElementById('mainmap_container').style.top = height + 'px';
     if(zoom > 8)
-      do_clusters(bounds,zoom,$('#muni').is(':checked'));
+      do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
     else if((zoom != prior_zoom) || force)
-      do_clusters(undefined,zoom,$('#muni').is(':checked'));
+      do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
   }else if(zoom >= 13){
     $('#get_data_link').attr('href',data_link());
     $('#hidden_controls').show();
     $('#export_data').show();
-    do_markers(bounds,skip_ids,$('#muni').is(':checked'));
+    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter);
     var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
     document.getElementById('mainmap_container').style.top = height + 'px';
   }
@@ -79,11 +78,11 @@ function update_display_embedded(force,force_zoom,muni){
   var center = map.getCenter();
   if(zoom <= 12){
     if(zoom > 8)
-      do_clusters(bounds,zoom,muni);
+      do_clusters(bounds,zoom,muni,type_filter);
     else if((zoom != prior_zoom) || force)
-      do_clusters(undefined,zoom,muni);
+      do_clusters(undefined,zoom,muni,type_filter);
   }else if(zoom >= 13){
-    do_markers(bounds,null,muni);
+    do_markers(bounds,null,muni,type_filter);
   }
   prior_zoom = zoom;
   prior_bounds = bounds;

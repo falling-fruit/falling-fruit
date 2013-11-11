@@ -15,16 +15,13 @@
     or <button onclick="recenter_map()">Zoom to Me</button>
     </span>
     &middot; 
+    <span class="nowrap">
+     <%= select_tag "type_filter", options_for_select([[nil,nil]] + Type.order(:name).collect{ |t| [t.name,t.id] }) %>
+     &middot;
+    </span>
   </span>
   
    <span id="hidden_controls" style="display:none;">
-     <span class="nowrap">
-      <b>Filter</b>
-      <input name="search" id="search" value="Search term (e.g. Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }" size="25">
-      <button onclick="search_filter($('#search').val());">Apply</button>
-      <button onclick="$('#search').val('');search_filter('');">Clear</button>
-      &middot; 
-     </span>
      <span class="nowrap">
       <b>Labels</b>
       <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %>> 
@@ -46,3 +43,22 @@
   
  </div>
 </div>
+
+<% content_for :form_scripts do %>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  jQuery('#type_filter').select2({
+    placeholder: "Filter by type",
+    allowClear: true,
+    width: "15em"
+  });
+  jQuery('#type_filter').on("change",function(){
+    type_filter = jQuery("#type_filter").val();
+    if(type_filter == "") type_filter = undefined;
+    clear_markers();
+    update_display(true);
+    update_permalink();
+  });
+});
+</script>
+<% end %>

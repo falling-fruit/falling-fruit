@@ -15,6 +15,10 @@ class LocationsController < ApplicationController
     elsif params[:muni].present? and params[:muni].to_i == 0
       mfilter = "AND NOT muni"
     end
+    tfilter = "AND type_id IS NULL"
+    if params[:t].present?
+      tfilter = "AND type_id = #{params[:t].to_i}"
+    end
     g = params[:grid].present? ? params[:grid].to_i : 1
     g = 12 if g > 12
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
@@ -23,7 +27,7 @@ class LocationsController < ApplicationController
     
     @clusters = Cluster.select("SUM(count*ST_X(cluster_point))/SUM(count) as center_x,
                                 SUM(count*ST_Y(cluster_point))/SUM(count) as center_y,
-                                SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{bound}")
+                                SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{tfilter} #{bound}")
     
     #@minmax = Cluster.select("MIN(count) as min_count, MAX(count) as max_count").where("zoom = #{g} #{mfilter}").shift
 
@@ -68,6 +72,10 @@ class LocationsController < ApplicationController
   def markers
     max_n = 500
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
+    tfilter = nil
+    if params[:t].present?
+      tfilter = "type_id = #{params[:t].to_i}"
+    end
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
@@ -82,7 +90,7 @@ class LocationsController < ApplicationController
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
       string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
       locations_types lt left outer join types t on lt.type_id=t.id
-      WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
+      WHERE lt.location_id=l.id AND #{[tfilter,bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
     @markers = r.collect{ |row|
       if row["name"].nil? or row["name"].strip == ""
@@ -214,6 +222,7 @@ class LocationsController < ApplicationController
       @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
                 :muni => params[:m] == "true", :type => params[:t], :labels => params[:l] == "true" }
     end
+    @type = params[:f].present? ? Type.find(params[:f]) : nil
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @locations }

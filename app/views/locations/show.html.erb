@@ -14,6 +14,10 @@
   // set to true once we open the initial infobox
   var opened_once = false;
   var skip_ids = null;
+  var type_filter = undefined;
+  <% unless @type.nil? %>
+    type_filter = <%= @type.id %>;
+  <% end %>
 
   // ================= functions =================
   

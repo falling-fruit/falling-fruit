@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131109161337) do
+ActiveRecord::Schema.define(:version => 20131110213005) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20131109161337) do
     t.spatial  "cluster_point", :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "grid_point",    :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "polygon",       :limit => {:srid=>900913, :type=>"polygon"}
+    t.integer  "type_id"
   end
 
   add_index "clusters", ["cluster_point"], :name => "index_clusters_on_cluster_point", :spatial => true

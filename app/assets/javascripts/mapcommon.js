@@ -90,7 +90,7 @@
     markersArray = [];
   }
 
-  function do_clusters(bounds,zoom,muni){
+  function do_clusters(bounds,zoom,muni,type_filter){
       var bstr = '';
       var gstr = 'method=grid&grid=' + zoom;
       if(bounds != undefined){
@@ -101,10 +101,14 @@
       }
       if(muni) mstr = '';
       else mstr = 'muni=0&';
+      var tstr = '';
+      if(type_filter != undefined){
+        tstr = '&t='+type_filter;
+      }
       if(pb != null) pb.start(200);
       var request = $.ajax({
         type: 'GET',
-        url: '/locations/cluster.json?' + mstr + gstr + '&' + bstr,
+        url: '/locations/cluster.json?' + mstr + gstr + '&' + bstr + tstr,
         dataType: 'json'
       });
       request.done(function(json){
@@ -210,7 +214,7 @@
     });
   }
 
-  function do_markers(bounds,skip_ids,muni){
+  function do_markers(bounds,skip_ids,muni,type_filter){
     var bstr = '';
     if(bounds != undefined){
       bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() + 
@@ -218,10 +222,14 @@
     }
     mstr = 0;
     if(muni) mstr = 1;
+    var tstr = '';
+    if(type_filter != undefined){
+      tstr = '&t='+type_filter;
+    }
     if(pb != null) pb.start(200);
     var request = $.ajax({
       type: 'GET',
-      url: '/locations/markers.json?muni=' + mstr + '&' + bstr,
+      url: '/locations/markers.json?muni=' + mstr + '&' + bstr + tstr,
       dataType: 'json'
     });
     request.done(function(json){

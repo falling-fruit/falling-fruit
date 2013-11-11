@@ -20,6 +20,10 @@
 <script type="text/javascript" charset="utf-8">
 
   var skip_ids = null;
+  var type_filter = undefined;
+  <% unless @type.nil? %>
+    type_filter = <%= @type.id %>;
+  <% end %>
 
   // ================= functions =================
   
@@ -43,7 +47,8 @@
       center: new google.maps.LatLng(ini_lat,ini_lng),
       mapTypeId: ini_type,
       mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, 
+                     google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
       }
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions);

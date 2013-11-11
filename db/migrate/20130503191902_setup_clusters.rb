@@ -1,14 +1,12 @@
 class SetupClusters < ActiveRecord::Migration
   def up
-    change_table :clusters do |t| 
-    end
-    
     earth_radius = 6378137.0
     gsize_init = 2.0*Math::PI*earth_radius
     xo = -gsize_init/2.0
     yo = gsize_init/2.0
     (0..12).each{ |z|
-      gsize = gsize_init/(2.0**z)
+      z2 = (z > 3) ? z + 1 : z
+      gsize = gsize_init/(2.0**z2)
       execute <<-SQL
       
       INSERT INTO clusters (method,muni,zoom,grid_size,count,cluster_point,grid_point,polygon,created_at,updated_at) 
