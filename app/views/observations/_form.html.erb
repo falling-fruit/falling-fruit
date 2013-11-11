@@ -1,0 +1,143 @@
+<% content_for :form_scripts do %>
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+  $("#observation_observed_on").datepicker();
+
+  var select = $( "#observation_quality_rating" );
+  var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
+    min: 1,
+    max: 6,
+    range: "min",
+    value: select[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#observation_quality_rating" ).change(function() {
+    slider.slider( "value", this.selectedIndex + 1 );
+  });
+  select.hide();
+
+  var select2 = $( "#observation_yield_rating" );
+  var slider2 = jQuery( "<div id='slider'></div>" ).insertAfter( select2 ).slider({
+    min: 1,
+    max: 6,
+    range: "min",
+    value: select2[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select2[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#observation_yield_rating" ).change(function() {
+    slider2.slider( "value", this.selectedIndex + 1 );
+  });
+  select2.hide();
+});
+
+  var select3 = $( "#observation_fruiting" );
+  var slider3 = jQuery( "<div id='slider'></div>" ).insertAfter( select3 ).slider({
+    min: 1,
+    max: 4,
+    range: "min",
+    value: select3[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select3[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#observation_fruiting" ).change(function() {
+    slider3.slider( "value", this.selectedIndex + 1 );
+  });
+  select3.hide();
+
+</script>
+<% end %>
+
+<!-- Source Form -->
+<%= form_for(@obs,:html => {:id=>"editsource"}) do |f| %>
+  <!-- Errors -->
+  <% if @obs.errors.any? %>
+    <div id="error_explanation">
+      <strong><%= pluralize(@obs.errors.count, "error") %> prohibited this observation from being saved:</strong>
+        <ul>
+      <% @obs.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :location_id %>
+
+  <!-- Fruiting -->
+  <div class="field">
+    <%= f.label :current_status %><br />
+    <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span><br />
+    <%= f.select(:fruiting,Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+  </div>
+  
+  <!-- Quality Rating -->
+  <div class="field">
+    <%= f.label :quality_rating %><br />
+    <span class="subtext">Rate the tastiness of this source.</span><br />
+    <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+  </div>
+  
+  <!-- Yield Rating -->
+  <div class="field">
+    <%= f.label :yield_rating %><br />
+    <span class="subtext">Rate the productivity of this source.</span><br />
+    <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+  </div>
+
+  <!-- Date -->
+  <div class="field">
+    <%= f.label :visited_on %>
+    <span class="subtext">Date you visited the source (if not today)</span><br />
+    <%= f.text_field(:observed_on) %>
+  </div>
+
+  <!-- Photo -->
+  <div class="field">
+   <%= f.label :photo %><br />
+   <span class="subtext">Add a photo of the source if you wish.</span><br />
+   <%= f.file_field :photo %>
+  </div>
+
+  <!-- Comment -->
+  <div class="field">
+    <%= f.label :comment %><br />
+    <span class="subtext">Updates, access issues, plant health...</span><br />
+    <%= f.text_area :comment, :size => "40x3" %>
+  </div>
+
+  <!-- Author (if new or admin) -->
+  <div class="field">
+    <%= f.label :author %><br />
+    <span class="subtext">Leave blank if you prefer to remain anonymous.</span><br />
+    <%= f.text_field :author %>
+    </span>
+  </div>
+  
+  <br />
+  <!-- Captcha -->
+  <% unless user_signed_in? %>
+  	<br />
+	<% end %>
+  <div id="captcha">
+  	<%= recaptcha_tags(:display => {:theme => 'white'}) unless user_signed_in? %>
+  </div>
+  
+  <br />
+  <!-- Submit -->
+  <div class="actions">
+    <%= f.submit "Submit" %>
+    <% if @current_action == "new" %>
+    <% end %>
+  </div>
+  
+<% end %>
+</form>
