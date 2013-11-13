@@ -1,6 +1,9 @@
 require 'role_model'
 
 class User < ActiveRecord::Base
+  has_many :locations
+  has_many :observations
+
   ROLES = %w[admin forager partner guest]
 
   # Include default devise modules. Others available are:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131110213005) do
+ActiveRecord::Schema.define(:version => 20131111173614) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -60,19 +60,18 @@ ActiveRecord::Schema.define(:version => 20131110213005) do
     t.integer  "season_stop"
     t.boolean  "no_season"
     t.text     "address"
-    t.datetime "created_at",                                                                                    :null => false
-    t.datetime "updated_at",                                                                                    :null => false
-    t.boolean  "unverified",                                                                 :default => false
-    t.integer  "quality_rating"
-    t.integer  "yield_rating"
+    t.datetime "created_at",                                                                                  :null => false
+    t.datetime "updated_at",                                                                                  :null => false
+    t.boolean  "unverified",                                                               :default => false
     t.integer  "access"
     t.integer  "import_id"
     t.string   "photo_url"
-    t.spatial  "location",       :limit => {:srid=>4326, :type=>"point", :geographic=>true}
-    t.string   "client",                                                                     :default => "web"
+    t.spatial  "location",     :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.string   "client",                                                                   :default => "web"
     t.string   "city"
     t.string   "state"
     t.string   "country"
+    t.integer  "user_id"
   end
 
   add_index "locations", ["location"], :name => "index_locations_on_location", :spatial => true
@@ -100,13 +99,20 @@ ActiveRecord::Schema.define(:version => 20131110213005) do
 
   create_table "observations", :force => true do |t|
     t.integer  "location_id"
-    t.boolean  "is_fruiting"
     t.text     "comment"
     t.date     "observed_on"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "quality_rating"
+    t.integer  "yield_rating"
+    t.integer  "user_id"
+    t.string   "remote_ip"
+    t.string   "author"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "fruiting"
   end
 
   create_table "routes", :force => true do |t|

@@ -1,31 +1,10 @@
 <% content_for :form_scripts do %>
-<style>
-
-div.slider-legend {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    margin-bottom: 0.5em;
-}
-
-div.slider-legend > div {
-    display: table-cell;
-    width: 2%;
-    margin-bottom: 0;
-    font-size: 8pt;
-}
-div#slider{ 
-    margin-left: 0.5em; 
-    margin-right: 0.5em;
-}
-</style>
-
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
   jQuery('#typeselect2').select2({tokenSeparators: [","],
                                   tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
                                  });                           
-  var select = $( "#location_quality_rating" );
+  var select = $( "#quality_rating" );
   var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
     min: 1,
     max: 6,
@@ -35,25 +14,41 @@ jQuery(document).ready(function(){
       select[ 0 ].selectedIndex = ui.value - 1;
     }
   });
-  $( "#location_quality_rating" ).change(function() {
+  $( "#quality_rating" ).change(function() {
     slider.slider( "value", this.selectedIndex + 1 );
   });
   select.hide();
 
-  var select = $( "#location_yield_rating" );
-  var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
+  var select2 = $( "#yield_rating" );
+  var slider2 = jQuery( "<div id='slider'></div>" ).insertAfter( select2 ).slider({
     min: 1,
     max: 6,
     range: "min",
-    value: select[ 0 ].selectedIndex + 1,
+    value: select2[ 0 ].selectedIndex + 1,
     slide: function( event, ui ) {
-      select[ 0 ].selectedIndex = ui.value - 1;
+      select2[ 0 ].selectedIndex = ui.value - 1;
     }
   });
-  $( "#location_yield_rating" ).change(function() {
-    slider.slider( "value", this.selectedIndex + 1 );
+  $( "#yield_rating" ).change(function() {
+    slider2.slider( "value", this.selectedIndex + 1 );
   });
-  select.hide();
+  select2.hide();
+
+  var select3 = $( "#fruiting" );
+  var slider3 = jQuery( "<div id='slider'></div>" ).insertAfter( select3 ).slider({
+    min: 1,
+    max: 4,
+    range: "min",
+    value: select3[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select3[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#fruiting" ).change(function() {
+    slider3.slider( "value", this.selectedIndex + 1 );
+  });
+  select3.hide();
+
 });
 </script>
 <% end %>
@@ -123,37 +118,38 @@ jQuery(document).ready(function(){
     <%= f.text_area :description %>
   </div>
   
-	<!-- Season -->
-  <div class="field">
-    <%= f.label :season %><br />
-    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
-    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
-    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
-    <%= f.check_box(:no_season) %> No Season
-  </div>
-  
   <!-- Unverified -->
   <div class="field">
     <label>Unverified</label> <%= f.check_box(:unverified) %><br />
     <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
   </div>
-  
+ 
+  <% if @current_action == "new" or @current_action == "create" %> 
   <!-- Quality Rating -->
   <div class="field">
     <%= f.label :quality_rating %><br />
-    <span class="subtext">Rate the tastiness of this source.</span><br />
-    <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+    <span class="subtext">Rate the tastiness of this source right now (if applicable)</span><br />
+    <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
   
   <!-- Yield Rating -->
   <div class="field">
     <%= f.label :yield_rating %><br />
-    <span class="subtext">Rate the productivity of this source.</span><br />
-    <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
+    <span class="subtext">Rate the productivity of this source right now (if applicable)</span><br />
+    <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
-  
+
+  <!-- Fruiting -->
+  <div class="field">
+    <%= f.label :current_status %><br />
+    <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span><br />
+    <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
+    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+  </div>
+  <% end %>
+
   <!-- Access -->
   <div class="field">
     <%= f.label :access %><br />

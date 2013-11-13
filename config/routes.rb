@@ -51,6 +51,8 @@ FallingfruitWebapp::Application.routes.draw do
 
   resources :changes
 
+  resources :observations
+
   match 'locations/:id/infobox' => 'locations#infobox'
 
   # The priority is based upon order of creation:

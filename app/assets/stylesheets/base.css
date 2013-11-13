@@ -314,6 +314,24 @@ form div#error_explanation li {
   color: #EF6517;
 }
 
+div.slider-legend {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 0.5em;
+}
+
+div.slider-legend > div {
+    display: table-cell;
+    width: 2%;
+    margin-bottom: 0;
+    font-size: 8pt;
+}
+div#slider{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
 /**********************************************************/
 /****************** Template: Dialogs *********************/
 /**********************************************************/

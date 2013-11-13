@@ -23,12 +23,14 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem 'faker'
+  gem 'better_errors'
 end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery_mobile_rails'
-#gem 'prototype-rails'
+gem 'validates_timeliness'
+gem 'timeliness'
 gem 'select2-rails', '~> 3.4.2'
 gem 'jquery-datatables-rails'
 

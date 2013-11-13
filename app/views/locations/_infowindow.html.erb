@@ -22,41 +22,20 @@
 <div id="description">
 
 <!-- Quality -->
-<% unless location.quality_rating.blank? %>
+<% unless location.mean_quality_rating.nil? %>
 	<% ratings = "true" %>
- 	<label>Quality</label> '<%= Location::Ratings[location.quality_rating] %>'
+ 	<label>Quality</label> '<%= Location::Ratings[location.mean_quality_rating] %>'
 <% end %>
 
 <!-- Yield -->
-<% unless location.yield_rating.blank? %>
+<% unless location.mean_yield_rating.nil? %>
 	<% ratings = "true" %>
-	<label>Yield</label> '<%= Location::Ratings[location.yield_rating] %>'
+	<label>Yield</label> '<%= Location::Ratings[location.mean_yield_rating] %>'
 <% end %>
 <% unless ratings.nil? %>
 	<br/>
 <% end %>
 
-<!-- Season -->
-<!-- (use ? to denote nil, brown out of season, green in season) -->
-<% unless location.no_season or (location.season_start.nil? and location.season_stop.nil?) %>
-	<label>Season</label>
- <% current = Date.today.month.to_i - 1 
-    season_class = "out_season"
-    season_class = "in_season" if (current == location.season_start) or (current == location.season_stop)
-    season_class = "in_season" if (!location.season_start.nil? and !location.season_stop.nil? and 
-                                  current >= location.season_start and current <= location.season_stop)
-    pretty_stop = location.season_stop.nil? ? "?" : Location::Months[location.season_stop]
-    pretty_start = location.season_start.nil? ? "?" : Location::Months[location.season_start]
-  %>
-  <span class="<%= season_class %>">
-  <% unless pretty_start == pretty_stop %>
-  	<%= pretty_start %> - <%= pretty_stop %>
-  <% else %>
-  	<%= pretty_start %>
-	<% end %>
-  </span><br/>
-<% end %>
- 
 <!-- Text Description -->
 <!-- (keep <p> markup even if empty) -->
 <p>
@@ -64,6 +43,10 @@
  <%= sanitize(location.description.strip.gsub(/\n/,"<br>"),tags:["br"]) %>
 <% end %>
 </p>
+<%= raw location.observations.collect{ |o| 
+          o.photo_file_size.nil? ? nil : "<a href=\"" + o.photo.url + "\"><img src=\"" + o.photo.url(:thumb) + "\"></a> "
+    }.compact.join 
+%>
 <% unless location.access.nil? %>
 <p><span style="font-style: italic; color: #a9a9a9;"><%= Location::AccessStatements[location.access] %></span></p>
 <% end %>
@@ -78,7 +61,9 @@
 	<tr>
  		<td id="controls">
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
- 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a><a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location">edit</a>
+ 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
+                <a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Visit this location">visit</a>
+                <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location">edit</a>
  		<% if !mobile_device? and user_signed_in? %>
  			<a href="javascript:toggle_route_controls();" data-ajax="false" title="Toggle route controls">routes<img src="/smarrow_down.png" style="margin-left:0.25em;"/><img src="/smarrow_up.png" style="display:none;"/></a>
  		<% end %>

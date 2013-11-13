@@ -154,7 +154,7 @@ class LocationsController < ApplicationController
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
-                     yield_rating, quality_rating, author, import_id, locations.created_at, locations.updated_at').
+                     author, import_id, locations.created_at, locations.updated_at').
              where([bound,mfilter].compact.join(" AND ")).
              group("locations.id").limit(max_n)
     respond_to do |format|
@@ -163,12 +163,11 @@ class LocationsController < ApplicationController
         csv_data = CSV.generate do |csv|
           cols = ["id","lat","lng","unverified","description","season_start","season_stop",
                   "no_season","author","address","created_at","updated_at",
-                  "quality_rating","yield_rating","access","import_link","name"]
+                  "access","import_link","name"]
           csv << cols
           @locations.each{ |l|
             csv << [l.id,l.lat,l.lng,l.unverified,l.description,l.season_start.nil? ? nil : Location::Months[l.season_start],
                     l.season_stop.nil? ? nil : Location::Months[l.season_stop],l.no_season,l.author,l.address,l.created_at,l.updated_at,
-                    l.quality_rating.nil? ? nil : Location::Ratings[l.quality_rating],l.yield_rating.nil? ? nil : Location::Ratings[l.yield_rating],
                     l.access.nil? ? nil : Location::AccessShort[l.access],l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
                     l.name]
           }
@@ -284,14 +283,30 @@ class LocationsController < ApplicationController
       p += 1
       lts.push lt
     } if params[:types].present?
+
     @location = Location.new(params[:location])
     @lat = @location.lat
     @lng = @location.lng
     @location.locations_types += lts
+    @location.user = current_user if user_signed_in?
+
+    # create an observation if necessary
+    @obs = nil
+    if params[:quality_rating].present? or params[:yield_rating].present?
+      @obs = Observation.new
+      @obs.quality_rating = params[:quality_rating].to_i unless params[:quality_rating].blank?
+      @obs.yield_rating = params[:yield_rating].to_i unless params[:yield_rating].blank?
+      @obs.fruiting = params[:fruiting].to_i unless params[:fruiting].blank?
+      @obs.observed_on = Date.today
+      @obs.location = @location
+      @obs.user = current_user if user_signed_in?
+      @obs.author = @location.author
+    end
+
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-      if test and @location.save
+      if test and @location.save and (@obs.nil? or @obs.save)
         ApplicationController.cluster_increment(@location)
         log_changes(@location,"added")
         expire_things
