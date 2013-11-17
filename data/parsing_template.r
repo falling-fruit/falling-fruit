@@ -1,8 +1,9 @@
 ##################################################################################
-# CITY
-# DATASET
+# City / Location
+# Name
 # URL
-# COMMENTS
+# Comments
+# License
 
 ## Set working directory
 setwd("~/sites/falling-fruit-data/muni/")
@@ -26,41 +27,71 @@ if (grepl("\\.csv",file)) {
   dt$Lat = shp@coords[,2]
 }
 
-# remove incomplete rows
 
 ####
-## Format names
+## Filtering: Manual
 
-# common
+# export a csv with unique species field combinations for manual review
+# Type, Description, and Unverified columns must be added and completed as needed for desired species
+speciesfile = ''
+speciesfield = c()
+if (!file.exists(speciesfile)) {
+  write.csv(unique(dt[,speciesfield]), speciesfile, row.names = F)
+}
+
+# apply species filter
+species = read.csv(speciesfile, stringsAsFactors=F)
+species = species[species$Type != "",]
+speciesString = apply(dt[,speciesfield], 1, paste, collapse = " ")
+for (i in 1:nrow(species)) {
+  ind = speciesString == apply(species[i,speciesfield], 1, paste, collapse = " ")
+	dt$Type[ind] = species$Type[i]
+	dt$Unverified[ind] = species$Unverified[i]
+	dt$Description[ind] = species$Description[i]
+}
+dt = dt[!is.na(dt$Type),]
+
+# remove species
+# NA: none, "": all, "|": list by type
+tier2 = NA
+tier2 = paste("^", tier2, "$", sep = "", collapse = "|")
+ind = grepl(tier2, dt$Type, ignore.case = T)
+dt = dt[!ind,]
+table(dt$Type)
+
+####
+## Filtering: Species Key
+
+## Format fields
+
+# prepare Common
 dt$Common = format.field(dt$Common.Name)
 
-# scientific
+# prepare Scientific
 dt$Scientific = format.field(dt$Scientific.Name,'species')
 
-# special cases
-
-# finalize
+# finalize fields
 dt$Scientific_ori = dt$Scientific
 dt$Scientific = gsub("[ ]+[a-z][ ]+"," ",dt$Scientific,ignore.case=T)
 dt = dt[order(dt$Scientific),]
 unique(dt[intersect(c("Scientific","Common"),names(dt))])
 
-####
-## Filter
+# apply key
 temp = filter.data(dt, genus = T)
-fields = intersect(c("Scientific_ori","Common","Type","Rating"),names(temp))
+fields = intersect(c("Scientific_ori","Common","Type","Rating"), names(temp))
 ddply(temp[fields], fields, summarise, Count = length(Type))
 
-# upgrade tier 2
+# upgrade tier 2 species
 # NA: none, "": all, "|": list by type
 tier2 = NA
-tier2 = paste("^",tier2,"$",sep="")
-temp$Rating[grepl(gsub("\\|","$|^",tier2),temp$Type,ignore.case=T) & temp$Rating == 2] = 1
+tier2 = paste("^", tier2, "$", sep = "", collapse = "|")
+temp$Rating[grepl(tier2, temp$Type, ignore.case = T) & temp$Rating == 2] = 1
 table(temp$Type[temp$Rating == 1])
 table(temp$Type[temp$Rating == 2])
 
-# commit
+# commit choices
 dt = temp[temp$Rating == 1 & !is.na(temp$Type) & temp$Type != "",]
+
 
 ####
 ## Format fields
@@ -81,27 +112,33 @@ dt$Unverified[ind] = "x"
 fields = intersect(c("Scientific_ori","Common","Type","Unverified"),names(dt))
 unique(dt[order(dt$Unverified,decreasing=T),fields])
 
+# format: access
+dt$Access = NA
+
 # format: author
 dt$Author = author
 
+# format: coordinates
+lngCol = ""
+latCol = ""
+names(dt)[names(dt) == lngCol] = "Lng"
+names(dt)[names(dt) == latCol] = "Lat"
+
 # format: address
-dt$Street = format.field(dt$Street,'address')
-dt$Address = paste(dt$Number," ",dt$Street,", City, ST",sep="")
+addressCol = ""
+streetCol = ""
+cityString = ""
+dt$Street = format.field(dt[,streetCol], 'address')
+dt$Address = paste(dt[,streetCol], " ", dt$Street, ", ", cityString, sep = "")
 sort(unique(dt$Address))
 
-# format: coordinates
-names(dt)[names(dt) == "POINT_X"] = "Lng"
-names(dt)[names(dt) == "POINT_Y"] = "Lat"
-
 # format: notes
-dt$Notes = paste(dt$Number," ",dt$Street,sep="")
-# dt$Address = NA
+dt$Notes = NA
 sort(unique(dt$Notes))
 
 ####
 ## Flatten
 fdt = flatten.data(dt)
-#fdt$Description = gsub("[ ]+@[ ]+Planted",". Planted", dt$Description)
 unique(fdt[c("Type","Description")])
 
 ####
@@ -111,4 +148,4 @@ export.data(fdt, file, dropfields = T)
 ####
 ## Summary
 fields = intersect(c("Scientific","Common","Type"),names(dt))
-ddply(fdt[fields], fields, summarise, Count = length(Type))
+ddply(dt[fields], fields, summarise, Count = length(Type))

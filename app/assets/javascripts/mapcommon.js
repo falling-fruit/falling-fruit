@@ -12,10 +12,67 @@
   var labelsOn = false;
   var last_search = null;
   var pb = null;
+  var toner = 'toner-lite';
   var markersLoadedEvent = document.createEvent("Event");
   markersLoadedEvent.initEvent("markersloaded",true,true);
 
   // ================= functions =================
+
+	function basemap(lat,lng,zoom,type){
+		var latlng = new google.maps.LatLng(lat,lng);
+		var mapOptions = {
+			zoom: zoom,
+			center: latlng,
+			mapTypeId: type,
+			mapTypeControlOptions: {
+			mapTypeIds: [
+				google.maps.MapTypeId.ROADMAP, 
+				google.maps.MapTypeId.TERRAIN, 
+				google.maps.MapTypeId.SATELLITE, 
+				google.maps.MapTypeId.HYBRID, 
+				toner]
+			}
+		};
+		map = new google.maps.Map(document.getElementById('map'),mapOptions);
+		
+		// Stamen Toner (B&W) map
+		var tonerType = new google.maps.StamenMapType(toner);
+		tonerType.name = "B&W";
+		map.mapTypes.set(toner, tonerType);
+		if(type == toner){
+			update_attribution();
+		}
+	
+		// Turn off 45 deg imagery by default
+		map.setTilt(0);
+	
+		// Bicycle map (and control)
+		bicycleControl(map);
+
+		// Key Drag Zoom
+		keyDragZoom(map);
+
+		// Progress bar
+		pb = progressBar();
+		map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
+
+		// Geocoder
+		geocoder = new google.maps.Geocoder();
+	
+		// Close open location infowindow when map is clicked
+		google.maps.event.addListener(map, 'click', function(event) {
+			if(openMarker != null && openInfoWindow != null){
+				openInfoWindow.close();
+				openMarker = null;
+				openInfoWindow = null;
+			}
+		});
+
+		// Update attribution when map type changes
+		google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
+			update_attribution();
+		});
+	}
 
   function find_marker(lid){
     for(var i = 0; i < markersArray.length; i++){
