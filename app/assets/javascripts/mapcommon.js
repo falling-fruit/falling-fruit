@@ -4,6 +4,7 @@
   var geocoder;
   var prior_bounds = null;
   var prior_zoom = null;
+  var prior_url = null;
   var markersArray = [];
   var openInfoWindow = null;
   var showing_route_controls = false;
@@ -449,26 +450,49 @@
 
   // see: https://developers.google.com/maps/documentation/javascript/geocoding 
   function recenter_map_to_address() {
+  	
+  	// Bypass geocoder if already lat, lng
+  	// (geocoder snaps to nearest address, so not exact)
+  	var strsplit = $("#address").val().split(/[\s,]+/);
+  	if (strsplit.length == 2) {
+  		var lat = parseFloat(strsplit[0]);
+  		var lng = parseFloat(strsplit[1]);
+  		if (!isNaN(lat) && !isNaN(lng)) {
+  			var latlng = new google.maps.LatLng(lat,lng);
+  			apply_geocode(latlng);
+  			return;
+  		}
+  	}
+
+  	// Run geocoder for everything else
     geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var bounds = results[0].geometry.bounds;
-        var loc = results[0].geometry.location;
-        if(bounds == undefined){       
-          map.setZoom(15)
-          map.panTo(loc);
-        }else{
-          map.fitBounds(bounds);
-        }
-        var cross = new google.maps.Marker({
-          icon: '/cross.png',
-          position: loc, 
-          map: map,
-          draggable: false
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
+			if (status == google.maps.GeocoderStatus.OK) {
+				var bounds = results[0].geometry.viewport;
+				var latlng = results[0].geometry.location;
+				apply_geocode(latlng,bounds);
+				return;
+			} else {
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		});
+
+  	// Update map
+  	function apply_geocode(latlng,bounds) {
+			if (latlng !=  undefined) {
+				if (bounds == undefined) {
+					map.setZoom(17)
+					map.panTo(latlng);
+				} else {
+					map.fitBounds(bounds);
+				}
+				var cross = new google.maps.Marker({
+					icon: '/cross.png',
+					position: latlng, 
+					map: map,
+					draggable: false
+				});
+			}
+		}
   }
   
 function update_attribution() {

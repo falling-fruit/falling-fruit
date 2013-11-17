@@ -295,8 +295,6 @@ class LocationsController < ApplicationController
     } if params[:types].present?
 
     @location = Location.new(params[:location])
-    @lat = @location.lat
-    @lng = @location.lng
     @location.locations_types += lts
     @location.user = current_user if user_signed_in?
 
@@ -338,8 +336,6 @@ class LocationsController < ApplicationController
   # PUT /locations/1.json
   def update
     @location = Location.find(params[:id])
-    @lat = @location.lat
-    @lng = @location.lng
 
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin

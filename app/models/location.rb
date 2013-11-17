@@ -5,12 +5,13 @@ class Location < ActiveRecord::Base
   has_many :types, :through => :locations_types, :order => 'locations_types.position ASC'
   has_many :observations
   belongs_to :import
+  belongs_to :user
 
   validates_associated :locations_types
   validates :locations_types, :presence => true
   validates :lat, :lng, :numericality => true, :allow_nil => false
   validates :access, :numericality => { :only_integer => true }, :allow_nil => true
-
+	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
                   :no_season, :unverified, :access, :locations_types, :import_id, :photo_url, :user, :user_id
   attr_accessor :import_link
@@ -19,9 +20,7 @@ class Location < ActiveRecord::Base
     if geo = results.first
       obj.city = geo.city
       obj.state = geo.state
-      #obj.state_code = geo.state_code
       obj.country = geo.country
-      #obj.country_code = geo.country_code
     end
   end
   before_validation { |record| 
@@ -69,12 +68,12 @@ class Location < ActiveRecord::Base
     photo_url
   end
 
-  def self.mean_yield_rating
+  def mean_yield_rating
     y = self.observations.collect{ |o| o.yield_rating }.compact
     y.length == 0 ? nil : (y.sum/y.length).round
   end
   
-  def self.mean_quality_rating
+  def mean_quality_rating
     q = self.observations.collect{ |o| o.quality_rating }.compact
     q.length == 0 ? nil : (q.sum/q.length).round
   end
