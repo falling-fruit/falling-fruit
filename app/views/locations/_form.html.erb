@@ -94,21 +94,28 @@ jQuery(document).ready(function(){
     <% end %>
   </div>
   
-  <!-- Author (if new or admin) -->
-  <% if (((@current_action == "new" or @current_action == "create") and (!user_signed_in? or (user_signed_in? and current_user.add_anonymously?))) or (@current_action == "edit" and user_signed_in? and current_user.is? :admin)) %>
-  <div class="field">
-    <%= f.label :author %><br />
-    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
-    <%= f.text_field :author %>
-    </span>
-  </div>
-  <% elsif ((@current_action == "new" or @current_action == "create") and user_signed_in? and !current_user.add_anonymously?) %>
-  <div class="field">
-    <%= f.label :author %><br />
-    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
-    <%= f.text_field :author, :value => current_user.name %>
-    </span>
-  </div>
+  <!-- Author (new) -->
+  <% if @current_action == "new" %>
+  	<div class="field">
+			<%= f.label :author %><br />
+			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+			<% if !user_signed_in? or (user_signed_in? and current_user.add_anonymously?) %>
+				<%= f.text_field :author %>
+			<% elsif user_signed_in? and !current_user.add_anonymously? %>
+				<%= f.text_field :author, :value => current_user.name %>
+			<% end %>
+			</span>
+  	</div>
+  <% end %>
+  
+  <!-- Author (edit: admin only) -->
+  <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
+  	<div class="field">
+			<%= f.label :author %><br />
+			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+			<%= f.text_field :author %>
+			</span>
+  	</div>
   <% end %>
 
   <!-- Description -->
@@ -124,7 +131,7 @@ jQuery(document).ready(function(){
     <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
   </div>
  
-  <% if @current_action == "new" or @current_action == "create" %> 
+  <% if @current_action == "new" %> 
   <!-- Quality Rating -->
   <div class="field">
     <%= f.label :quality_rating %><br />

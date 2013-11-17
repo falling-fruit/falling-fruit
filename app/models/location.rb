@@ -40,7 +40,7 @@ class Location < ActiveRecord::Base
   Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
   Ratings = ["Poor","Fair","Good","Very Good","Excellent"]
   Fruiting = ["Flowering","Fruiting","Ripe"]
-  AccessShort = ["Owner Added","Owner Permitted","Public","Private/Public","Private"]
+  AccessShort = ["Added by owner","Permitted by owner","Public","Private but overhanging","Private"]
   AccessModes = ["I own this source",
                  "I have permission from the owner to add this source",
                  "Source is on public land",
@@ -65,20 +65,18 @@ class Location < ActiveRecord::Base
     no_season
     access
     unverified
-    mean_yield_rating
-    mean_quality_rating
     author
     photo_url
   end
 
-  def mean_yield_rating
+  def self.mean_yield_rating
     y = self.observations.collect{ |o| o.yield_rating }.compact
-    y.length == 0 ? nil : (y.sum/y.length).floor
+    y.length == 0 ? nil : (y.sum/y.length).round
   end
   
-  def mean_quality_rating
+  def self.mean_quality_rating
     q = self.observations.collect{ |o| o.quality_rating }.compact
-    q.length == 0 ? nil : (q.sum/q.length).floor
+    q.length == 0 ? nil : (q.sum/q.length).round
   end
 
   def title

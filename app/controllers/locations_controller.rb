@@ -154,21 +154,31 @@ class LocationsController < ApplicationController
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
-                     author, import_id, locations.created_at, locations.updated_at').
+                     author, import_id, locations.created_at, locations.updated_at, muni').
              where([bound,mfilter].compact.join(" AND ")).
-             group("locations.id").limit(max_n)
+             group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|
       format.json { render json: @locations }
       format.csv { 
         csv_data = CSV.generate do |csv|
           cols = ["id","lat","lng","unverified","description","season_start","season_stop",
-                  "no_season","author","address","created_at","updated_at",
-                  "access","import_link","name"]
+                  "no_season","quality_rating","yield_rating","author","address","created_at","updated_at",
+                  "access","import_link","muni","name"]
           csv << cols
           @locations.each{ |l|
-            csv << [l.id,l.lat,l.lng,l.unverified,l.description,l.season_start.nil? ? nil : Location::Months[l.season_start],
-                    l.season_stop.nil? ? nil : Location::Months[l.season_stop],l.no_season,l.author,l.address,l.created_at,l.updated_at,
+          
+          	quality_rating = Location.find(l.id).mean_quality_rating
+          	yield_rating = Location.find(l.id).mean_yield_rating
+          	
+            csv << [l.id,l.lat,l.lng,l.unverified,l.description,
+            				l.season_start.nil? ? nil : Location::Months[l.season_start],
+                    l.season_stop.nil? ? nil : Location::Months[l.season_stop],
+                    l.no_season,
+                    quality_rating.nil? ? nil : Location::Ratings[quality_rating],
+                    yield_rating.nil? ? nil : Location::Ratings[yield_rating],
+                    l.author,l.address,l.created_at,l.updated_at,
                     l.access.nil? ? nil : Location::AccessShort[l.access],l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
+                    l.import_id.nil? ? false : (l.muni ? true : false), 
                     l.name]
           }
         end

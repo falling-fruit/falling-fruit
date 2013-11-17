@@ -297,6 +297,11 @@ form div.confirmation label {
   display: block;
 } 
 
+form div.field_with_errors {
+	display: inline; \* since label becomes div on error, avoids extra line breaks *\
+}
+
+
 form div.field_with_errors label {
   color: #EF6517;
 }

@@ -33,8 +33,6 @@
   
   function initialize() {
   
-  	// Basemap:
-
     // No user-provided lat/lng
     // (location_lat and location_lng will be empty)
     if($('#location_lat').val() == "" && $('#location_lng').val() == ""){
@@ -55,18 +53,21 @@
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         var latlng = new google.maps.LatLng(lat,lng)
-        marker.setPosition(latlng);
-        map.panTo(latlng);
+        if(marker != null){
+        	// Chrome was complaining of marker being null
+					marker.setPosition(latlng);
+				}
+				map.panTo(latlng);
         $('#location_lat').val(lat);
         $('#location_lng').val(lng);
       },function(error){
         //...
       },{enableHighAccuracy:true, maximumAge:30000, timeout:30000});
       
-      // If geolocation failed, load basemap without marker
+      // If geolocation failed, load map without marker
       if($('#location_lat').val() == "" && $('#location_lng').val() == ""){
-      	var lat = 37.269174;
-  			var lng = -119.306607;
+      	var lat = 0;
+  			var lng = 0;
   			var zoom = 1;
   			basemap(lat,lng,zoom,type);
       }
