@@ -99,8 +99,8 @@
               url: mdata[i]["picture"],
               size: new google.maps.Size(w,h),
               origin: new google.maps.Point(0,0),
-              // by convention, icon center is at 6.5/17ths
-              anchor: new google.maps.Point(w*0.382,h*0.382)
+              // by convention, icon center is at ~40%
+              anchor: new google.maps.Point(w*0.4,h*0.4)
             },
             position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
             map: map,
@@ -327,29 +327,6 @@
     });
   }
 
-  function recenter_map(){
-    navigator.geolocation.getCurrentPosition(function(position){
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
-        loc = new google.maps.LatLng(lat,lon);
-        map.panTo(loc);
-        map.setZoom(15);
-        $('#hidden_controls').show();
-        // update markers once we're done panning and zooming
-        google.maps.event.addListenerOnce(map, 'idle', function(){
-          do_markers(map.getBounds(),null,$('#muni').is(':checked'));
-        });
-        var cross = new google.maps.Marker({
-          icon: '/cross.png',
-          position: new google.maps.LatLng(lat,lon), 
-          map: map,
-          draggable: false,
-        });
-    },function(error){
-      //use error.code to determine what went wrong
-    });
-  }
-
   function remove_add_marker(){
     // by convention, the "add" marker has an id of -1
     var i = find_marker(-1);
@@ -448,61 +425,85 @@
     }
   }
 
-  // see: https://developers.google.com/maps/documentation/javascript/geocoding 
-  function recenter_map_to_address() {
-  	
-  	// Bypass geocoder if already lat, lng
-  	// (geocoder snaps to nearest address, so not exact)
-  	var strsplit = $("#address").val().split(/[\s,]+/);
-  	if (strsplit.length == 2) {
-  		var lat = parseFloat(strsplit[0]);
-  		var lng = parseFloat(strsplit[1]);
-  		if (!isNaN(lat) && !isNaN(lng)) {
-  			var latlng = new google.maps.LatLng(lat,lng);
-  			apply_geocode(latlng);
-  			return;
-  		}
-  	}
-
-  	// Run geocoder for everything else
-    geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				var bounds = results[0].geometry.viewport;
-				var latlng = results[0].geometry.location;
-				apply_geocode(latlng,bounds);
-				return;
-			} else {
-				alert("Geocode was not successful for the following reason: " + status);
-			}
-		});
-
-  	// Update map
-  	function apply_geocode(latlng,bounds) {
-			if (latlng !=  undefined) {
-				if (bounds == undefined) {
-					map.setZoom(17)
-					map.panTo(latlng);
-				} else {
-					map.fitBounds(bounds);
-				}
-				var cross = new google.maps.Marker({
-					icon: '/cross.png',
-					position: latlng, 
-					map: map,
-					draggable: false
-				});
-			}
-		}
-  }
-  
 function update_attribution() {
   var typeid = map.getMapTypeId();
-  if(typeid == 'toner-lite'){
+  if (typeid == toner) {
     $('#stamen_attribution').show();
-  }else{
+  } else {
     $('#stamen_attribution').hide();
   }
- }
+}
+ 
+function recenter_map(){
+	navigator.geolocation.getCurrentPosition(function(position){
+			var lat = position.coords.latitude;
+			var lng = position.coords.longitude;
+			var latlng = new google.maps.LatLng(lat,lng);
+			apply_geocode(latlng,undefined,15);
+	},function(error){
+		//use error.code to determine what went wrong
+	});
+} 
+
+// see: https://developers.google.com/maps/documentation/javascript/geocoding 
+function recenter_map_to_address() {
+	
+	// Bypass geocoder if already lat, lng
+	// (geocoder snaps to nearest address, so not exact)
+	var strsplit = $("#address").val().split(/[\s,]+/);
+	if (strsplit.length == 2) {
+		var lat = parseFloat(strsplit[0]);
+		var lng = parseFloat(strsplit[1]);
+		if (!isNaN(lat) && !isNaN(lng)) {
+			var latlng = new google.maps.LatLng(lat,lng);
+			apply_geocode(latlng,undefined,17);
+			return;
+		}
+	}
+
+	// Run geocoder for everything else
+	geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			var bounds = results[0].geometry.viewport;
+			var latlng = results[0].geometry.location;
+			apply_geocode(latlng,bounds);
+			return;
+		} else {
+			alert("Geocode was not successful for the following reason: " + status);
+		}
+	});
+}
+
+function apply_geocode(latlng,bounds,zoom) {
+	if (zoom == undefined) {
+		var zoom = 17;
+	}
+	if (latlng != undefined) {
+		if (bounds == undefined) {
+			map.setZoom(zoom);
+			map.panTo(latlng);
+		} else {
+			map.fitBounds(bounds);
+			zoom = map.getZoom();
+		}
+		if (zoom > 12) {
+			var w = 19;
+			var h = 19;
+			var cross = new google.maps.Marker({
+				icon: {
+					url: '/cross.png',
+					size: new google.maps.Size(w, h),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(w/2, h/2),
+					},
+				position: latlng, 
+				map: map,
+				draggable: false,
+				clickable: false,
+			});
+		}
+	}
+}
 
 // Adds a bicycle layer toggle to the map
 function bicycleControl(map) {
