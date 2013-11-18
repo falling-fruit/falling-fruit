@@ -1,9 +1,19 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-  jQuery('#typeselect2').select2({tokenSeparators: [","],
-                                  tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
-                                 });                           
+  
+  // Type selector
+  $('#typeselect2').select2({
+  	tokenSeparators: [","],
+    tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
+  });
+  $("#typeselect2").select2("container").find("ul.select2-choices").sortable({
+    containment: 'parent',
+    start: function() { $("#typeselect2").select2("onSortStart"); },
+    update: function() { $("#typeselect2").select2("onSortEnd"); }
+	});
+  
+  // Quality rating slider        
   var select = $( "#quality_rating" );
   var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
     min: 1,
@@ -18,7 +28,8 @@ jQuery(document).ready(function(){
     slider.slider( "value", this.selectedIndex + 1 );
   });
   select.hide();
-
+	
+	// Yield rating slider
   var select2 = $( "#yield_rating" );
   var slider2 = jQuery( "<div id='slider'></div>" ).insertAfter( select2 ).slider({
     min: 1,
@@ -33,7 +44,8 @@ jQuery(document).ready(function(){
     slider2.slider( "value", this.selectedIndex + 1 );
   });
   select2.hide();
-
+	
+	// Fruiting slider
   var select3 = $( "#fruiting" );
   var slider3 = jQuery( "<div id='slider'></div>" ).insertAfter( select3 ).slider({
     min: 1,

@@ -14,7 +14,10 @@ function update_permalink(){
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid +
-    '&l=' + $('#labels').is(":checked") + "&f=" + type_filter;
+    '&l=' + $('#labels').is(":checked");
+  if (type_filter != undefined) {
+  	permalink = permalink + "&f=" + type_filter;
+  }
   $('#permalink').attr('href',permalink);
 }
 

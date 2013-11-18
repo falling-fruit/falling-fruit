@@ -244,16 +244,6 @@ form textarea {
 	margin: 0;
 }
 
-form .select2-choices {
-  border: 1px solid #ccc ! important;
-  outline: none ! important;
-  background: none ! important;
-}
-
-form .select2-choices .select2-search-choice {
-  font-size: 95%;
-}
-
 form select {
 	font-family: inherit;
 	color: inherit;
@@ -335,6 +325,106 @@ div.slider-legend > div {
 div#slider{
     margin-left: 0.5em;
     margin-right: 0.5em;
+}
+
+/**********************************************************/
+/****************** Template: Select2 *********************/
+/**********************************************************/
+
+/* Clean borders */
+.select2-choices,
+.select2-container {
+  outline: none ! important;
+  background: none ! important;
+}
+.select2-drop {
+	border-bottom: 1px solid #CCC ! important;
+	border-left: 1px solid #CCC ! important;
+	border-right: 1px solid #CCC ! important;
+	box-shadow: none ! important;
+}
+.select2-drop-multi {
+	border-top: 1px dotted #DDD ! important;
+}
+.select2-choices {
+	border: 1px solid #CCC ! important;
+	box-shadow: none ! important;
+}
+
+/* Reduce font-size */
+.select2-container,
+.select2-drop {
+  font-size: 95% ! important;
+}
+
+/* Background color of results on hover */
+.select2-highlighted {
+	background-color: #0476D4 ! important;
+	background: #0476D4 ! important;
+}
+
+/* Multi-choice tokens */
+.select2-search-choice {
+	background-color: #EEE ! important;
+	background: #EEE ! important;
+}
+.select2-search-choice-focus {
+	background-color: #DDD ! important;
+	background: #DDD ! important;
+}
+.select2-search-choice-close {
+	opacity: 0.5 ! important;
+}
+.select2-container-multi .select2-search-choice-close {
+	top: 3px ! important;
+}
+
+/* Border of search box in dropdown */
+.select2-drop .select2-input {
+	border: 1px solid #DDD ! important;
+	box-shadow: none ! important;
+	-webkit-box-shadow: none ! important;
+	margin-top: 4px ! important;
+	background: none ! important;
+}
+
+/* Grey when no selection, white when selected */
+[class='select2-choice select2-default'],
+.select2-dropdown-open .select2-choice {
+	background-color: #EEE ! important;
+	background: #EEE ! important;
+}
+[class='select2-choice'] {
+	background-color: #FFF ! important;
+	background: #FFF ! important;
+}
+.select2-choice {
+	border: 1px solid #CCC ! important;
+	box-shadow: none ! important;
+	-webkit-box-shadow: none ! important;
+	color: inherit ! important;
+	border-radius: 0px ! important;
+}
+.select2-arrow {
+	border-left: none ! important;
+	background-color: #EEE ! important;
+	background: #EEE ! important;
+	border-radius: 0px ! important;
+}
+
+/* Reduce left padding */
+.select2-choice {
+	padding-left: 6px ! important;
+}
+.select2-result-label {
+	padding-left: 5px ! important;
+}
+
+/* Blue on hover */
+.select2-default:hover,
+.select2-default:hover .select2-arrow,
+.select2-arrow:hover {
+	background-color: #C6E1F7 ! important;
 }
 
 /**********************************************************/

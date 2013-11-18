@@ -1,43 +1,49 @@
 <div id="searchbar">
  <div id="searchcontrols">
-  
+ 
+ 	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;">Permalink</a> | 
-   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;">Embed</a>
+   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map">Permalink</a> | 
+   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML">Embed</a>
    <div id="embed" style="display:none;" title="Embeddable iFrame HTML"></div>
   </span>
   
   <span class="nowrap">  
-   <b>Location</b>
-   <input id="address" name="address" value="Zoom to address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30">
-    <button onclick="recenter_map_to_address();">Go</button>
+   <!-- Address -->
+   <b>Address</b>
+   <input id="address" name="address" value="Zoom to address..." onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30">
+    <button onclick="recenter_map_to_address();" title="Move map to address">Go</button>
     <span id="recenter_button">
-    or <button onclick="recenter_map()">Zoom to Me</button>
+    or <button onclick="recenter_map()" title="Move map to current location">Zoom to Me</button>
     </span>
     &middot; 
+    <!-- Type Filter -->
     <span class="nowrap">
-     <%= select_tag "type_filter", options_for_select([[nil,nil]] + Type.order(:name).collect{ |t| [t.name,t.id] }) %>
+    	<b>Filter</b>
+    	<%= select_tag(:type_filter, options_for_select([[nil,nil]] + Type.order(:name).collect{ |t| [t.name,t.id] })) %>
      &middot;
     </span>
   </span>
   
+	 <!-- Labels -->
    <span id="hidden_controls" style="display:none;">
      <span class="nowrap">
       <b>Labels</b>
-      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %>> 
+      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %> title="Toggle location labels"> 
       &middot;
      </span>
    </span>
 
+   <!-- Municipal -->
    <span class="nowrap">
-     <b>Municipal</b> 
-     <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%>>
+     <b>Tree inventories</b>
+     <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> title="Toggle city and campus tree inventories">
    </span>
    
    <span id="export_data" style="display: none;">
     &middot;
     <span class="nowrap">
-     <a href="#" id="get_data_link">Export Data</a>
+     <a href="#" id="get_data_link" title="Download locations as a CSV file">Export Data</a>
     </span>
    </span>
   
@@ -47,12 +53,13 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript">
 jQuery(document).ready(function(){
-  jQuery('#type_filter').select2({
-    placeholder: "Filter by type",
+  $('#type_filter').select2({
+    placeholder: "Select edible type",
     allowClear: true,
     width: "15em"
   });
-  jQuery('#type_filter').on("change",function(){
+	$('#type_filter').select2("val",type_filter);
+  $('#type_filter').on("change",function(){
     type_filter = jQuery("#type_filter").val();
     if(type_filter == "") type_filter = undefined;
     clear_markers();

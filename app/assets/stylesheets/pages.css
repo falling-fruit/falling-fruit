@@ -7,11 +7,11 @@
 div#logobar {
 	background-color: #1F5F92;
 	padding: 0 5px;
-	height: 36px;
+	height: 2.75em;
 }
 
 div#logobar a#falling_fruit {
-	font-size: 2.2em;
+	font-size: 2.4em;
 	font-family: helvetica, arial, verdana, sans-serif;
 	font-variant: small-caps;
 	font-weight: bold;
@@ -33,9 +33,8 @@ div#logobar img#logo {
 
 div#share_controls {
 	float: right;
-	margin: 3px 6px 0 0;
-	white-space: nowrap;
-	height: 28px;
+	margin: 0.3em 6px 0 0;
+	height: 80%;
 }
 
 div#share_controls img {
@@ -45,10 +44,11 @@ div#share_controls img {
 /*** Menu ***/
 
 div#menubar {
-	background-color: #d3d3d3;
+	background-color: #D3D3D3;
 }
 
-div#menubar a, div#menu span {
+div#menubar a, 
+div#menu span {
 	color: #666;
 	line-height: 2em;
 	padding: 0em 8px;
@@ -68,7 +68,8 @@ div#menu ul li {
   cursor: pointer;
 }
 
-div#menu ul li a.currentpage, div#menu ul li span.currentpage {
+div#menu ul li a.currentpage, 
+div#menu ul li span.currentpage {
   background-color: #FFF;
 }
 
@@ -98,7 +99,7 @@ div#menu ul li ul li {
 }
 
 div#menu ul li ul li a {
-  border-top: 1px solid #fff;
+  border-top: 1px solid #FFF;
   width: 15em;
   color: #888;
 }
@@ -131,7 +132,7 @@ div#rightcontrols span#user_email {
 
 div#content_container {
 	position: absolute;
-	top: 4.5em;
+	top: 4.75em;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -168,6 +169,10 @@ div#searchbar {
 	width: 100%;
 }
 
+div#searchbar b {
+	font-size: 95%;
+}
+
 div#searchbar div#searchcontrols {
   padding: 0 9px 0 15px;  /* Adding padding here keeps searchbar width at 100% */
 }
@@ -191,7 +196,7 @@ div#searchbar button:hover {
 div#searchbar input {
 	border: 1px solid #DDD;
 	padding: 2px 3px;
-	font-size: .85em;
+	font-size: .9em;
 	font-family: inherit;
 	color: inherit;
 }
@@ -201,11 +206,24 @@ div#searchbar input[type=checkbox] {
   top: -.1em;
 }
 
+/* Mainmap type filter */
+#s2id_type_filter .select2-choice{
+	line-height: 1.5em ! important;
+	height: 1.5em ! important;
+	border: 1px solid #DDD ! important;
+}
+#s2id_type_filter .select2-arrow b {
+	background: url(/assets/select2.png) no-repeat 0 -2px ! important;
+}
+#s2id_type_filter .select2-search-choice-close {
+	top: 4px ! important;
+}
+
 /*** Map ***/
 
 div#mainmap_container {
   position: absolute;
-  top: 7.5em;
+  top: 7.75em;
   bottom: 0;
   left: 0;
   right: 0;
@@ -222,12 +240,12 @@ form#editsource {
   padding: 20px 1.5em 10px 1.5em;
   width: 28em;
   position: absolute;
-  top: 4.5em;
+  top: 4.75em;
   bottom: 0;
   left: 0;
   overflow-y: auto;
   line-height: 1em;
-    border-right: 2px solid #DDD;
+  border-right: 2px solid #DDD;
 }
 
 form#editsource label {
@@ -277,7 +295,7 @@ form#editsource input[type=submit] {
 
 div#editmap_container {
   position: absolute;
-  top: 61px;
+  top: 4.75em;
   bottom: 0;
   left: 31em;
   right: 0;
