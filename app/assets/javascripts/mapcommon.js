@@ -500,6 +500,7 @@ function apply_geocode(latlng,bounds,zoom) {
 				map: map,
 				draggable: false,
 				clickable: false,
+				zIndex: -9999, // so that it draws beneath any overlapping marker
 			});
 		}
 	}

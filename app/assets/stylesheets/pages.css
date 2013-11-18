@@ -7,7 +7,7 @@
 div#logobar {
 	background-color: #1F5F92;
 	padding: 0 5px;
-	height: 2.5em;
+	height: 36px;
 }
 
 div#logobar a#falling_fruit {
@@ -16,6 +16,7 @@ div#logobar a#falling_fruit {
 	font-variant: small-caps;
 	font-weight: bold;
 	color: #FFF;
+	margin-left: 4px;
 }
 
 div#logobar span#subtitle {
@@ -32,7 +33,13 @@ div#logobar img#logo {
 
 div#share_controls {
 	float: right;
-	padding: 0.5em 0.3em 0 0;
+	margin: 3px 6px 0 0;
+	white-space: nowrap;
+	height: 28px;
+}
+
+div#share_controls img {
+	height: 100%;
 }
 
 /*** Menu ***/
