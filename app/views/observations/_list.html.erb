@@ -1,0 +1,10 @@
+<div id="observation_list">
+<% @obs.location.observations.each{ |o| %>
+<% unless o.photo_file_size.nil? %>
+<div style="float: right;"><img src="<%= obs.photo.url(:thumb) %>"></div>
+<% end %>
+On <%= o.observed_on %>: <%= o.comment %><br>
+Yield: <%= o.yield_rating %>, Quality: <%= o.quality_rating %>, Status <%= o.fruiting %>
+<hr>
+<% } %>
+</div>
