@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   # assumes not muni, increments the not muni clusters
   def self.cluster_increment(location)
     found = {}
-    tids = location.locations_types.collect{ |lt| lt.type_id }
+    tids = location.locations_types.collect{ |lt| lt.type_id }.compact
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
     Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) AND muni = 'f' AND (type_id IS NULL or type_id IN (#{tids.join(",")}))").each{ |clust|
     
@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
 
   # assumes not muni, increments the not muni clusters
   def self.cluster_decrement(location)
-    tids = location.locations_types.collect{ |lt| lt.type_id }
+    tids = location.locations_types.collect{ |lt| lt.type_id }.compact
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
     Cluster.select("ST_X(cluster_point) as x, ST_Y(cluster_point) as y, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) AND muni = 'f' AND (type_id IS NULL or type_id IN (#{tids.join(",")}))").each{ |clust|
       clust.count -= 1

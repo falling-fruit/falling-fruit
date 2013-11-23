@@ -118,10 +118,14 @@ jQuery(document).ready(function(){
   <div class="field">
     <%= f.label :author %><br />
     <span class="subtext">Leave blank if you prefer to remain anonymous.</span><br />
-    <%= f.text_field :author %>
+    <% if (user_signed_in? and !current_user.add_anonymously?) %>
+    	<%= f.text_field :author, :value => current_user.name %>
+    <% else %>
+    	<%= f.text_field :author %>
+    <% end %>
     </span>
   </div>
-  
+
   <br />
   <!-- Captcha -->
   <% unless user_signed_in? %>

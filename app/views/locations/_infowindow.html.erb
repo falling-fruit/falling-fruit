@@ -3,6 +3,9 @@
 
 <!-- Types -->
 <div id="type_list">
+	<% if location.unverified %>
+		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">UNVERIFIED</li>
+	<% end %>
  <% @location.locations_types.each{ |d| %>
  <li>
  <%= d.name.nil? ? "Unknown" : d.name %>
@@ -36,16 +39,56 @@
 <!-- Quality -->
 <% unless location.mean_quality_rating.nil? %>
 	<% ratings = "true" %>
- 	<label>Quality</label> '<%= Location::Ratings[location.mean_quality_rating] %>'
+ 	<label>Quality</label> <%= Location::Ratings[location.mean_quality_rating] %>
+ 	<span class="observation_count">(<%= location.observations.reject{ |o| o.quality_rating.nil? }.length %>)</span>
 <% end %>
 
 <!-- Yield -->
 <% unless location.mean_yield_rating.nil? %>
 	<% ratings = "true" %>
-	<label>Yield</label> '<%= Location::Ratings[location.mean_yield_rating] %>'
+	<label>Yield</label> <%= Location::Ratings[location.mean_yield_rating] %>
+	<span class="observation_count">(<%= location.observations.reject{ |o| o.yield_rating.nil? }.length %>)</span>
 <% end %>
 <% unless ratings.nil? %>
 	<br/>
+<% end %>
+
+<!-- Season -->
+<!-- (use ? to denote nil, brown out of season, green in season) -->
+<% unless location.no_season %>
+	<% current = Date.today.month.to_i - 1 %>
+	<% season_class = "out_season"	%>
+	<!-- Start - Stop -->
+	<% unless (location.season_start.nil? and location.season_stop.nil?)
+		season_class = "in_season" if (current == location.season_start) or (current == location.season_stop)
+		season_class = "in_season" if (!location.season_start.nil? and !location.season_stop.nil? and 
+																		location.season_stop > location.season_start and 
+																		current > location.season_start and current < location.season_stop)
+		season_class = "in_season" if (!location.season_start.nil? and !location.season_stop.nil? and 
+																		location.season_stop < location.season_start and 
+																		(current > location.season_start or current < location.season_stop))
+		pretty_start = location.season_start.nil? ? "?" : Location::Months[location.season_start]
+		pretty_stop = location.season_stop.nil? ? "?" : Location::Months[location.season_stop]
+		pretty_season = (pretty_start == pretty_stop) ? pretty_start : pretty_start + " - " + pretty_stop
+	%>
+  	<label>Season</label> <span class="<%= season_class %>"><%= pretty_season %></span><br/>
+  <% else %>
+  <!-- Observation table -->
+  	<% unless location.observations.length == 0 %>
+			<% unless location.nobs_months_flowering.length == 0 %>
+				<label>Flower</label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + Location::Months[v[0]] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+			<% end %>
+			<% unless location.nobs_months_fruiting.length == 0 %>
+				<label>Fruit</label> <%= location.nobs_months_fruiting.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + Location::Months[v[0]] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+			<% end %>
+			<% unless location.nobs_months_ripe.length == 0 %>
+				<label>Ripe</label> <%= location.nobs_months_ripe.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + Location::Months[v[0]] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+			<% end %>
+		<% end %>
+  <% end %>
+<!-- No Season -->
+<% else %>
+	<label>Season</label> <span class="in_season">January - December</span><br/>
 <% end %>
 
 <!-- Text Description -->
@@ -59,9 +102,14 @@
           o.photo_file_size.nil? ? nil : "<a href=\"" + o.photo.url + "\"><img src=\"" + o.photo.url(:thumb) + "\"></a> "
     }.compact.join 
 %>
+<!-- Access Statement -->
 <% unless location.access.nil? %>
-<p><span style="font-style: italic; color: #a9a9a9;"><%= Location::AccessStatements[location.access] %></span></p>
+	<p><span style="font-style: italic; color: #a9a9a9;"><%= Location::AccessStatements[location.access] %></span></p>
 <% end %>
+<!-- Last updated (words) -->
+<!--<p><span class="subtext" style="color: #a9a9a9;">Updated <%= distance_of_time_in_words_to_now(location.updated_at) %> ago</span></p>-->
+<!-- Last updated (date) -->
+<!--<p><span class="subtext" style="color: #a9a9a9;">Updated <%= location.updated_at.strftime('%d %b %Y') %></span></p>-->
 
 </div>  <!-- Description wrapper -->
 
@@ -72,9 +120,9 @@
 <table id="footer">
 	<tr>
  		<td id="controls">
+		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ Review</a>
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
-    <a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Visit this location">visit</a>
     <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location">edit</a>
  		<% if !mobile_device? and user_signed_in? %>
  			<a href="javascript:toggle_route_controls();" data-ajax="false" title="Toggle route controls">routes<img src="/smarrow_down.png" style="margin-left:0.25em;"/><img src="/smarrow_up.png" style="display:none;"/></a>
@@ -106,6 +154,5 @@ Add to / remove from:
 </form>
 </div>
 <% end %>
-<!--<div style="width:100%;">-->
 
 </div>  <!-- Wrapper -->

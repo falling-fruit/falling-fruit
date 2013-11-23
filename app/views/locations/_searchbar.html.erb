@@ -3,7 +3,7 @@
  
  	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map">Permalink</a> | 
+   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map">Link</a> | 
    <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML">Embed</a>
    <div id="embed" style="display:none;" title="Embeddable iFrame HTML"></div>
   </span>
@@ -11,16 +11,16 @@
   <span class="nowrap">  
    <!-- Address -->
    <b>Address</b>
-   <input id="address" name="address" value="Zoom to address..." onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30">
-    <button onclick="recenter_map_to_address();" title="Move map to address">Go</button>
+   <input id="address" name="address" value="" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;"><button onclick="recenter_map_to_address();" title="Zoom to address" style="margin-left:0;border-top-left-radius:0;border-bottom-left-radius:0;border-left:none;">Go</button>
     <span id="recenter_button">
-    or <button onclick="recenter_map()" title="Move map to current location">Zoom to Me</button>
+    &middot;
+    <button onclick="recenter_map()" title="Zoom to current location">Zoom to Me</button>
     </span>
     &middot; 
     <!-- Type Filter -->
     <span class="nowrap">
     	<b>Filter</b>
-    	<%= select_tag(:type_filter, options_for_select([[nil,nil]] + Type.order(:name).collect{ |t| [t.name,t.id] })) %>
+    	<%= select_tag(:type_filter, options_for_select([[nil,nil]] + Type.order(:name).collect{ |t| t.scientific_name.nil? ? [t.name, t.id] : [t.name.to_s + " [" + t.scientific_name.to_s + "]", t.id] })) %>
      &middot;
     </span>
   </span>
@@ -43,7 +43,7 @@
    <span id="export_data" style="display: none;">
     &middot;
     <span class="nowrap">
-     <a href="#" id="get_data_link" title="Download locations as a CSV file">Export Data</a>
+     <a href="#" id="get_data_link" title="Download map as a text file">Download</a>
     </span>
    </span>
   
@@ -55,8 +55,7 @@
 jQuery(document).ready(function(){
   $('#type_filter').select2({
     placeholder: "Select edible type",
-    allowClear: true,
-    width: "15em"
+    allowClear: true
   });
 	$('#type_filter').select2("val",type_filter);
   $('#type_filter').on("change",function(){

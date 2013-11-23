@@ -10,7 +10,7 @@
   var showing_route_controls = false;
   var openInfoWindowHtml = null;
   var openMarker = null;
-  var labelsOn = false;
+  var labelsOn = null;
   var last_search = null;
   var pb = null;
   var toner = 'toner-lite';
@@ -368,7 +368,7 @@
 
   function labelize_markers() {
        // if we're still in clustered mode, don't label
-       if(map.getZoom() <= 11) return;
+       if(map.getZoom() <= 12) return;
        var len = markersArray.length;
        for(var i = 0; i < len; i++){
          if(!markersArray[i].marker.getVisible()) continue;

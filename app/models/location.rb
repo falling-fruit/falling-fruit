@@ -68,20 +68,34 @@ class Location < ActiveRecord::Base
     photo_url
   end
 
+	# NOTE: hack to always round up (1.5 => 2)
   def mean_yield_rating
     y = self.observations.collect{ |o| o.yield_rating }.compact
-    y.length == 0 ? nil : (y.sum/y.length).round
+    y.length == 0 ? nil : ((y.sum.to_f/y.length) + 1e-32).round
   end
   
   def mean_quality_rating
     q = self.observations.collect{ |o| o.quality_rating }.compact
-    q.length == 0 ? nil : (q.sum/q.length).round
+    q.length == 0 ? nil : ((q.sum.to_f/q.length) + 1e-32).round
+  end
+  
+	# WARNING: Simple ordering, ignores the fact that seasonality may wrap to next calendar year
+	def nobs_months_flowering
+  	m = self.observations.reject{ |o| o.fruiting.nil? or o.fruiting != 0 }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
+  end
+  
+	def nobs_months_fruiting
+  	m = self.observations.reject{ |o| o.fruiting.nil? or o.fruiting != 1 }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
+  end
+  
+  def nobs_months_ripe
+  	m = self.observations.reject{ |o| o.fruiting.nil? or o.fruiting != 2 }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
 
   def title
     lt = self.locations_types
     if lt.length == 2
-      "#{lt[0].name} and #{lt[1].name}"
+      "#{lt[0].name} & #{lt[1].name}"
     elsif lt.length > 2
       "#{lt[0].name} & Others"
     else

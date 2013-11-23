@@ -174,7 +174,7 @@ div#searchbar b {
 }
 
 div#searchbar div#searchcontrols {
-  padding: 0 9px 0 15px;  /* Adding padding here keeps searchbar width at 100% */
+  padding: 0 9px 0 11px;  /* Adding padding here keeps searchbar width at 100% */
 }
 
 div#searchbar button {
@@ -183,10 +183,9 @@ div#searchbar button {
 	background-color: #EEE;
 	font-size: 0.8em;
 	cursor: pointer;
-	position: relative;  /* Fixes vertical alignment issue */
-	top: -.1em;
 	font-family: inherit;
 	color: inherit;
+	padding: 3px;
 }
 
 div#searchbar button:hover {
@@ -207,7 +206,10 @@ div#searchbar input[type=checkbox] {
 }
 
 /* Mainmap type filter */
-#s2id_type_filter .select2-choice{
+#s2id_type_filter {
+  width: 20em;
+}
+#s2id_type_filter .select2-choice {
 	line-height: 1.5em ! important;
 	height: 1.5em ! important;
 	border: 1px solid #DDD ! important;
@@ -307,6 +309,7 @@ div#editmarker {
   width: 20em;
   padding: 0.5em;
   line-height: normal ! important;
+  overflow: none;
 }
 
 /**********************************************************/
