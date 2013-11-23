@@ -284,7 +284,7 @@ class LocationsController < ApplicationController
   def create
     p = 0
     lts = []
-    params[:types].split(/,/).collect{ |e| e.capitalize }.uniq.each{ |type_name|
+     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       lt = LocationsType.new
       t = Type.where("name = ?",type_name.strip).first
       if t.nil? 
