@@ -1,3 +1,9 @@
+  // ================= globals ==================
+
+  var labelsOn = document.getElementById("labels").checked;
+
+  // ================= functions =================
+  
 function data_link(){
   var muni = $('#muni').is(':checked'); 
   var bounds = map.getBounds();
@@ -22,10 +28,41 @@ function update_permalink(){
 }
 
 function update_url(object) {
-  window.history.pushState({},"", $(object).attr('href'));
+  window.history.pushState(undefined, "", $(object).attr('href'));
 }
 
+// Force url updates before leaving page (does not work on refresh)
+// better?: http://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page/3354511#3354511
+$(window).unload(function () {
+	if ($('#location_link').length > 0) {
+		update_url('#location_link');
+	} else if ($('#permalink').length > 0) {
+		update_permalink();
+		update_url('#permalink');
+	}
+});
+
 function show_embed_html(object){
+  var center = map.getCenter();
+  var typeid = map.getMapTypeId();
+  var zoom = map.getZoom();
+  var http = location.protocol;
+  var slashes = http.concat("//");
+  var host = slashes.concat(window.location.hostname);
+  $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + 
+    '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
+      closeText: "close", 
+      modal: true, 
+      width: 'auto',
+      minHeight: '5em',
+      resizable: true,
+      draggable: false,
+      dialogClass: "dialog_grey"
+    }); 
+}
+
+function show_observation_html(object){
   var center = map.getCenter();
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();

@@ -69,12 +69,15 @@ class LocationsController < ApplicationController
     end
   end
 
+	# Currently keeps max_n markers, and displays filtered out markers as translucent grey.
+	# Unverified no longer has its own color.
   def markers
     max_n = 500
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     tfilter = nil
     if params[:t].present?
       tfilter = "type_id = #{params[:t].to_i}"
+      tname = Type.find(params[:t].to_i).name
     end
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
@@ -90,7 +93,7 @@ class LocationsController < ApplicationController
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
       string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
       locations_types lt left outer join types t on lt.type_id=t.id
-      WHERE lt.location_id=l.id AND #{[tfilter,bound,ifilter].compact.join(" AND ")} 
+      WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
     @markers = r.collect{ |row|
       if row["name"].nil? or row["name"].strip == ""
@@ -98,15 +101,15 @@ class LocationsController < ApplicationController
       else
         t = row["name"].split(/,/)
         if t.length == 2
-          name = "#{t[0]} and #{t[1]}"
+          name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2
           name = "#{t[0]} & Others"
         else
           name = t[0]
         end
       end
-      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => (row["unverified"] == 't') ? "/icons/smdot_t1_gray_light.png" : "/icons/smdot_t1_red.png",:width => 17, :height => 17,
+      {:title => (tname.present? and not row["name"].include? tname) ? '' : name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
+       :picture => (tname.present? and not row["name"].include? tname) ? "/icons/smdot_t1_gray_light_a75.png" : "/icons/smdot_t1_red.png",:width => 17, :height => 17,
        :marker_anchor => [0,0], :n => found_n }
     } unless r.nil?
     respond_to do |format|
@@ -127,7 +130,7 @@ class LocationsController < ApplicationController
       else
         t = row["name"].split(/,/)
         if t.length == 2
-          name = "#{t[0]} and #{t[1]}"
+          name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2
           name = "#{t[0]} & Others"
         else
@@ -281,7 +284,7 @@ class LocationsController < ApplicationController
   def create
     p = 0
     lts = []
-    params[:types].split(/,/).collect{ |e| e.capitalize }.uniq.each{ |type_name|
+     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       lt = LocationsType.new
       t = Type.where("name = ?",type_name.strip).first
       if t.nil? 
@@ -347,9 +350,9 @@ class LocationsController < ApplicationController
     p = 0
     lts = []
     @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
-    params[:types].split(/,/).collect{ |e| e.capitalize }.uniq.each{ |type_name|
+    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       lt = LocationsType.new
-      t = Type.where("name = ?",type_name.strip).first
+      t = Type.where("name = ?",type_name).first
       if t.nil? 
         lt.type_other = type_name
       else

@@ -1,13 +1,11 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-
   $("#observed_on").datepicker();
-  
   // Type selector
   $('#typeselect2').select2({
   	tokenSeparators: [","],
-    tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
+    tags:[<%= raw Type.order("name").collect{ |t| t.scientific_name.nil? ? '"'+t.name+'"' : '"'+t.name+" ["+t.scientific_name+"]"+'"' }.join(",") %>] 
   });
   $("#typeselect2").select2("container").find("ul.select2-choices").sortable({
     containment: 'parent',
@@ -17,6 +15,7 @@ jQuery(document).ready(function(){
   
   // Quality rating slider        
   var select = $( "#quality_rating" );
+  if (select.length > 0) {
   var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
     min: 1,
     max: 6,
@@ -30,9 +29,11 @@ jQuery(document).ready(function(){
     slider.slider( "value", this.selectedIndex + 1 );
   });
   select.hide();
+	}
 	
 	// Yield rating slider
   var select2 = $( "#yield_rating" );
+	if (select2.length > 0) {
   var slider2 = jQuery( "<div id='slider'></div>" ).insertAfter( select2 ).slider({
     min: 1,
     max: 6,
@@ -46,9 +47,11 @@ jQuery(document).ready(function(){
     slider2.slider( "value", this.selectedIndex + 1 );
   });
   select2.hide();
+	}
 	
 	// Fruiting slider
   var select3 = $( "#fruiting" );
+  if (select3.length > 0) {
   var slider3 = jQuery( "<div id='slider'></div>" ).insertAfter( select3 ).slider({
     min: 1,
     max: 4,
@@ -62,7 +65,8 @@ jQuery(document).ready(function(){
     slider3.slider( "value", this.selectedIndex + 1 );
   });
   select3.hide();
-
+	}
+	
 });
 </script>
 <% end %>
@@ -87,7 +91,7 @@ jQuery(document).ready(function(){
   <!-- Type -->
   <div class="field" id="types">
     *<%= f.label :types %><br />
-    <span class="subtext">Follow each type with a comma (Apple,Pear,). Review the suggestions carefully, submitting a new name only if an appropriate choice does not already exist.</span><br />
+    <span class="subtext">Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.</span><br />
     <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
   </div>
   
@@ -139,6 +143,15 @@ jQuery(document).ready(function(){
     <%= f.text_area :description %>
   </div>
   
+  <!-- Season -->
+  <div class="field">
+    <%= f.label :season %><br />
+    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
+    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
+    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
+    <%= f.check_box(:no_season) %> No Season
+  </div>
+  
   <!-- Unverified -->
   <div class="field">
     <label>Unverified</label> <%= f.check_box(:unverified) %><br />
@@ -154,11 +167,12 @@ jQuery(document).ready(function(){
     <%= f.check_box(:no_season) %> No Season
   </div>
  
-  <% if @current_action == "new" %> 
+  <% if @current_action == "new" %>
+  
   <!-- Quality Rating -->
   <div class="field">
     <%= f.label :quality_rating %><br />
-    <span class="subtext">Rate the tastiness of this source right now (if applicable)</span><br />
+    <span class="subtext">Rate the tastiness of this source (if applicable)</span><br />
     <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
@@ -166,7 +180,7 @@ jQuery(document).ready(function(){
   <!-- Yield Rating -->
   <div class="field">
     <%= f.label :yield_rating %><br />
-    <span class="subtext">Rate the productivity of this source right now (if applicable)</span><br />
+    <span class="subtext">Rate the productivity of this source (if applicable)</span><br />
     <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
@@ -186,7 +200,7 @@ jQuery(document).ready(function(){
     <%= text_field_tag(:observed_on) %>
   </div>
   <% end %>
-
+  
   <!-- Access -->
   <div class="field">
     <%= f.label :access %><br />

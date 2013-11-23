@@ -142,14 +142,14 @@
   function update_marker_latlng(){
   	var lat = $("#location_lat").val();
   	var lng = $("#location_lng").val();
-  	
+
   	// If empty, do nothing
     if(lat == "" || lng == "" ) return;
 		
 		// If numeric, move existing (or place new) marker
 		// Out of range: latitude is snapped to [-90, 90], longitude converted to [-180, 180]
 		var latlng = new google.maps.LatLng(lat,lng, false)
-		if(!isNaN(latlng.jb) && !isNaN(latlng.kb)){
+		if(!isNaN(latlng.mb) && !isNaN(latlng.nb)){
 			map.panTo(latlng);
 			map.setZoom(15);
 			if(marker != null){

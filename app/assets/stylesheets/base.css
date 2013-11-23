@@ -72,8 +72,8 @@ div#map {
   height: 100%;
 }
 
-div#newmarker {
-	font-size: 1.25em;
+div#newmarker * {
+	font-size: 1.1em;
 }
 
 /*** Map Controls ***/
@@ -123,7 +123,7 @@ p#stamen_attribution a {
 div#location_infowindow {
   max-width: 35em;
   color: #333;
-  overflow: auto;
+  overflow: none;
   padding: 0.5em 0.3em;
 	line-height: normal ! important;	/* Helps avoid scrollbars when using padding. */
 }
@@ -161,6 +161,10 @@ div#location_infowindow label {
   line-height: 1.5em;
 }
 
+div#location_infowindow span.observation_count {
+	font-size: 0.8em;
+}
+
 div#location_infowindow span.in_season {
   color: green;
 }
@@ -189,7 +193,6 @@ div#location_infowindow table#footer {
 div#location_infowindow table#footer td#controls {
 	vertical-align: bottom;
 	white-space: nowrap;
-	padding-left: 0.25em;  /* to line up with start of type labels */
 }
 
 div#location_infowindow table#footer a {
@@ -206,7 +209,19 @@ div#location_infowindow table#footer #controls a {
 
 div#location_infowindow table#footer td#added_by {
 	padding-left: 1em;
-	border-left: 1px solid #DDD;
+	border-left: 1px solid #555;
+}
+
+div#location_infowindow table#footer a#add_review {
+	border: 1px solid #DDD;
+	padding: 0.1em 0.4em;
+	text-decoration: none;
+	margin-right: 0.5em;
+	color: #555;
+}
+
+div#location_infowindow table#footer a#add_review:hover {
+	color: #111;
 }
 
 /**********************************************************/
@@ -425,6 +440,12 @@ div#slider{
 .select2-default:hover .select2-arrow,
 .select2-arrow:hover {
 	background-color: #C6E1F7 ! important;
+}
+
+/* Alternate shading of results */
+.select2-result:nth-of-type(even):not(.select2-highlighted) {
+	background: #F9F9F9 ! important;
+	background-color: #F9F9F9 ! important;
 }
 
 /**********************************************************/
