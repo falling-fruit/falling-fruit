@@ -1,7 +1,7 @@
 class ObservationsController < ApplicationController
-  #before_filter :authenticate_user!, :only => [:destroy]
+  before_filter :authenticate_user!, :only => [:destroy,:delete_photo]
   #before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
-  #authorize_resource :only => [:destroy,:enroute]
+  authorize_resource :only => [:destroy,:delete_photo]
 
   def new
     @obs = Observation.new
