@@ -36,4 +36,26 @@ class ObservationsController < ApplicationController
     end
   end
 
+  # DELETE /locations/1
+  # DELETE /locations/1.json
+  def destroy
+    @obs = Observation.find(params[:id])
+    @obs.destroy
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.mobile { redirect_to :back }
+    end
+  end
+
+  def delete_photo
+    @obs = Observation.find(params[:id])
+    @obs.photo.destroy
+    @obs.photo_file_size = nil
+    @obs.save
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.mobile { redirect_to :back }
+    end
+  end
+
 end

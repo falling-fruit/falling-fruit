@@ -51,7 +51,11 @@ FallingfruitWebapp::Application.routes.draw do
 
   resources :changes
 
-  resources :observations
+  resources :observations do
+    member do
+      get 'delete_photo'
+    end
+  end
 
   match 'locations/:id/infobox' => 'locations#infobox'
 

@@ -52,8 +52,11 @@ jQuery(document).ready(function(){
 </script>
 <% end %>
 
+<%= render 'list' %>
+
 <!-- Source Form -->
-<%= form_for(@obs,:html => {:id=>"editsource"}) do |f| %>
+<%= form_for(@obs,:html => {:id=>"editsource",:style => "top: 17em;"}) do |f| %>
+
   <!-- Errors -->
   <% if @obs.errors.any? %>
     <div id="error_explanation">
