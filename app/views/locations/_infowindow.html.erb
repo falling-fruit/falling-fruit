@@ -1,3 +1,11 @@
+<% if location.has_photos? %>
+<div id="tabs">
+<ul>
+ <li><a href="#tab-1"><span>Info</span></a></li>
+ <li><a href="#tab-2"><span>Photos</span></a><li>
+</ul>
+<div id="tab-1">
+<% end %>
 <!-- Wrapper -->
 <div id="location_infowindow">
 
@@ -98,10 +106,6 @@
  <%= sanitize(location.description.strip.gsub(/\n/,"<br>"),tags:["br"]) %>
 <% end %>
 </p>
-<%= raw location.observations.collect{ |o| 
-          o.photo_file_size.nil? ? nil : "<a href=\"" + o.photo.url + "\"><img src=\"" + o.photo.url(:thumb) + "\"></a> "
-    }.compact.join 
-%>
 <!-- Access Statement -->
 <% unless location.access.nil? %>
 	<p><span style="font-style: italic; color: #a9a9a9;"><%= Location::AccessStatements[location.access] %></span></p>
@@ -154,5 +158,14 @@ Add to / remove from:
 </form>
 </div>
 <% end %>
-
 </div>  <!-- Wrapper -->
+<% if location.has_photos? %>
+</div> <!-- tab 1 -->
+<div id="tab-2">
+<%= raw location.observations.collect{ |o|
+          o.photo_file_size.nil? ? nil : "<a href=\"" + o.photo.url + "\"><img src=\"" + o.photo.url(:thumb) + "\"></a> "
+    }.compact.join
+%>
+</div> <! -- tab 2 -->
+</div> <!-- tabs -->
+<% end %>

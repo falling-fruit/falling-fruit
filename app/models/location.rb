@@ -68,15 +68,19 @@ class Location < ActiveRecord::Base
     photo_url
   end
 
-	# NOTE: hack to always round up (1.5 => 2)
+  def has_photos?
+    self.observations.any?{ |o| !o.photo_file_size.nil? }
+  end
+
+  # NOTE: hack to always round up (1.5 => 2)
   def mean_yield_rating
     y = self.observations.collect{ |o| o.yield_rating }.compact
-    y.length == 0 ? nil : ((y.sum.to_f/y.length) + 1e-32).round
+    y.length == 0 ? nil : (y.sum.to_f/y.length).ceil
   end
   
   def mean_quality_rating
     q = self.observations.collect{ |o| o.quality_rating }.compact
-    q.length == 0 ? nil : ((q.sum.to_f/q.length) + 1e-32).round
+    q.length == 0 ? nil : (q.sum.to_f/q.length).ceil
   end
   
   # WARNING: Simple ordering, ignores the fact that seasonality may wrap to next calendar year

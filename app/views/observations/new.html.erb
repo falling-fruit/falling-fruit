@@ -54,6 +54,7 @@
         if(!opened_once){
           opened_once = open_marker_by_id(<%= @obs.location.id %>,<%= @obs.location.lat %>,<%= @obs.location.lng %>);
         }
+        $("#tabs").tabs();
       },false);
     });
 
@@ -64,7 +65,7 @@
         openInfoWindow = null;
       }
     });
-	
+
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_attribution();
     });

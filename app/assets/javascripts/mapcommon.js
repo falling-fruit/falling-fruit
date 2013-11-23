@@ -250,6 +250,9 @@
       });
       requestHtml.done(function(html){
         var infowindow = new google.maps.InfoWindow({content: html });
+        google.maps.event.addListener(infowindow, 'domready', function() {
+          $("#tabs").tabs();
+        });
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
           openMarker = null;
