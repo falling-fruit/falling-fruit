@@ -305,7 +305,11 @@ class LocationsController < ApplicationController
       @obs.quality_rating = params[:quality_rating].to_i unless params[:quality_rating].blank?
       @obs.yield_rating = params[:yield_rating].to_i unless params[:yield_rating].blank?
       @obs.fruiting = params[:fruiting].to_i unless params[:fruiting].blank?
-      @obs.observed_on = Date.today
+      if params[:observed_on].empty?
+        @obs.observed_on = Date.today
+      else
+        @obs.observed_on = Timeliness.parse(params[:observed_on], :format => 'mm/dd/yyyy')
+      end
       @obs.location = @location
       @obs.user = current_user if user_signed_in?
       @obs.author = @location.author

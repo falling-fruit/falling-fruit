@@ -1,6 +1,8 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
+
+  $("#observed_on").datepicker();
   
   // Type selector
   $('#typeselect2').select2({
@@ -142,6 +144,15 @@ jQuery(document).ready(function(){
     <label>Unverified</label> <%= f.check_box(:unverified) %><br />
     <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
   </div>
+
+  <!-- Season -->
+  <div class="field">
+    <%= f.label :season %><br />
+    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
+    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
+    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
+    <%= f.check_box(:no_season) %> No Season
+  </div>
  
   <% if @current_action == "new" %> 
   <!-- Quality Rating -->
@@ -166,6 +177,13 @@ jQuery(document).ready(function(){
     <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span><br />
     <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
     <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+  </div>
+
+  <!-- Date -->
+  <div class="field">
+    <%= f.label :visited_on %>
+    <span class="subtext">Date you visited the source (if not today)</span><br />
+    <%= text_field_tag(:observed_on) %>
   </div>
   <% end %>
 
