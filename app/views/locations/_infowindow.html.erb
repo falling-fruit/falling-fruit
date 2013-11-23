@@ -120,10 +120,9 @@
 <table id="footer">
 	<tr>
  		<td id="controls">
-		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ Review</a>
+		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ Review (<%= location.observations.length %>)</a>
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
-    <a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Visit this location">comment (<%= location.observations.length %>)</a>
     <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location">edit</a>
  		<% if !mobile_device? and user_signed_in? %>
  			<a href="javascript:toggle_route_controls();" data-ajax="false" title="Toggle route controls">routes<img src="/smarrow_down.png" style="margin-left:0.25em;"/><img src="/smarrow_up.png" style="display:none;"/></a>

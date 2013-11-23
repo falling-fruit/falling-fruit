@@ -79,17 +79,23 @@ class Location < ActiveRecord::Base
     q.length == 0 ? nil : ((q.sum.to_f/q.length) + 1e-32).round
   end
   
-	# WARNING: Simple ordering, ignores the fact that seasonality may wrap to next calendar year
-	def nobs_months_flowering
-  	m = self.observations.reject{ |o| o.fruiting.nil? or o.fruiting != 0 }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
+  # WARNING: Simple ordering, ignores the fact that seasonality may wrap to next calendar year
+  def nobs_months_flowering
+    m = self.observations.reject{ |o| 
+          o.fruiting.nil? or o.fruiting != 0 or o.observed_on.nil? 
+        }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
   
-	def nobs_months_fruiting
-  	m = self.observations.reject{ |o| o.fruiting.nil? or o.fruiting != 1 }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
+  def nobs_months_fruiting
+    m = self.observations.reject{ |o| 
+      o.fruiting.nil? or o.fruiting != 1 or o.observed_on.nil?
+    }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
   
   def nobs_months_ripe
-  	m = self.observations.reject{ |o| o.fruiting.nil? or o.fruiting != 2 }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
+    m = self.observations.reject{ |o| 
+      o.fruiting.nil? or o.fruiting != 2 or o.observed_on.nil?
+    }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
 
   def title
