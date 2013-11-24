@@ -24,7 +24,7 @@
 
 [
 <% lts.each do |ltid| lt = LocationsType.find(ltid) %>        
-<%= link_to lt.location.id, edit_location_path(lt.location.id) %>  
+<%= link_to lt.location.id, edit_location_path(lt.location.id) unless lt.location.nil? %>
 <% end %>
 ]
 
