@@ -87,14 +87,16 @@ function update_display(force,force_zoom,force_bounds){
   if(force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
   if(force_bounds != undefined) bounds = force_bounds;
-  var center = map.getCenter();
   update_permalink();
   if(zoom <= 12){
     $('#hidden_controls').hide();
     $('#export_data').hide();
-    var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + 
-                 document.getElementById('logobar').offsetHeight;
-    document.getElementById('mainmap_container').style.top = height + 'px';
+    // Ethan's searchbar height hack
+    if(document.getElementById('searchbar') != undefined){
+      var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + 
+                   document.getElementById('logobar').offsetHeight;
+      document.getElementById('mainmap_container').style.top = height + 'px';
+    }
     if(zoom > 8)
       do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
     else if((zoom != prior_zoom) || force)
@@ -104,8 +106,11 @@ function update_display(force,force_zoom,force_bounds){
     $('#hidden_controls').show();
     $('#export_data').show();
     do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter);
-    var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
-    document.getElementById('mainmap_container').style.top = height + 'px';
+    // Ethan's searchbar height hack
+    if(document.getElementById('searchbar') != undefined){
+      var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
+      document.getElementById('mainmap_container').style.top = height + 'px';
+    }
   }
   prior_zoom = zoom;
   prior_bounds = bounds;

@@ -89,7 +89,13 @@
     <legend>Quality Rating<br />
     <span class="subtext">Rate the tastiness of this source (if applicable)</span>
     </legend>
-    <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
+    <fieldset data-role="controlgroup" data-type="horizontal" >
+    <% Location::Ratings.each_index{ |r| %>
+    <%= radio_button_tag("quality_rating",r) %>
+    <label for="quality_rating_<%= r %>"><%= Location::Ratings[r] %></label>
+
+    <% } %>
+    </fieldset>
   </fieldset>
   <br>
   <!-- Yield Rating -->
@@ -97,7 +103,13 @@
     <legend>Yield Rating<br />
     <span class="subtext">Rate the productivity of this source (if applicable)</span>
     </legend>
-    <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
+    <fieldset data-role="controlgroup" data-type="horizontal" >
+    <% Location::Ratings.each_index{ |r| %>
+    <%= radio_button_tag("yield_rating",r) %>
+    <label for="yield_rating_<%= r %>"><%= Location::Ratings[r] %></label>
+
+    <% } %>
+    </fieldset>
   </fieldset>
   <br>
   <!-- Fruiting -->
@@ -105,7 +117,13 @@
     <legend>Current Status<br />
     <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span>
     </legend>
-    <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
+    <fieldset data-role="controlgroup" data-type="horizontal" >
+    <% Location::Fruiting.each_index{ |r| %>
+    <%= radio_button_tag("fruiting",r) %>
+    <label for="fruiting_<%= r %>"><%= Location::Fruiting[r] %></label>
+
+    <% } %>
+    </fieldset>
   </fieldset>
   <br>
   <!-- Date -->
@@ -136,7 +154,6 @@
     <%= f.submit("Submit", 'data-ajax' => 'false') %>
   
 <% end %>
-</form>
 
 </div>
 
@@ -146,7 +163,7 @@ jQuery(document).ready(function(){
   $("#observed_on").datepicker();
   // Type selector
   $('#typeselect2').select2({
-        tokenSeparators: [","],
+        tokenSeparators: [","],width:'100%',
     tags:[<%= raw Type.order("name").collect{ |t| t.scientific_name.nil? ? '"'+t.name+'"' : '"'+t.name+" ["+t.scientific_name+"]"+'"' }.join(",") %>]
   });
   $("#typeselect2").select2("container").find("ul.select2-choices").sortable({
@@ -155,9 +172,10 @@ jQuery(document).ready(function(){
     update: function() { $("#typeselect2").select2("onSortEnd"); }
         });
 
-  jQuery('#typeselect2').select2({tokenSeparators: [","],width:'100%',
-                                  tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
-                                 });                           
+  // Hide the checkboxes since they are overwritten by jQuery mobile
+  $("#location_no_season").hide();
+  $("#location_unverified").hide();
+
 });
 </script>
 <% end %>

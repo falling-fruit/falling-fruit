@@ -10,13 +10,32 @@
 </div>
 <hr>
 <div data-role="content">
+<select name="type_filter" id="type_filter" data-mini="true">
+<%= options_for_select([["--- Filter by Type ---",nil]] + Type.order(:name).collect{ |t| t.scientific_name.nil? ? [t.name, t.id] : [t.name.to_s + " [" + t.scientific_name.to_s + "]", t.id] },{"data-mini"=>true}) %>
+</select>
 <label><input type="checkbox" id="muni" value="1" rel="external" data-mini="true" data-inline="true" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%>>Municipal</label>
+<div class="hidden_controls" style="display:inline;">
 <label><input type="checkbox" id="labels" value="1" rel="external" data-mini="true" data-inline="true" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); }update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %>>Labels</label>
+</div>
 </div>
 <hr>
 <div style="text-align: center;">
-<a href="#" id="get_data_link">Export Data</a> &middot;
+<div class="hidden_controls" style="display:inline;"><a href="#" id="get_data_link">Export Data</a> &middot;</div>
 <a href="/" id="permalink">Permalink</a>
 </div>
 
 </div>
+
+<% content_for :form_scripts do %>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  $('#type_filter').on("change",function(){
+    type_filter = jQuery("#type_filter").val();
+    if(type_filter == "") type_filter = undefined;
+    clear_markers();
+    update_display(true);
+    update_permalink();
+  });
+});
+</script>
+<% end %>

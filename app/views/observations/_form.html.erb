@@ -52,10 +52,16 @@ jQuery(document).ready(function(){
 </script>
 <% end %>
 
+<% 
+form_style = ""
+if @obs.location.observations.length > 0 
+  form_style = "top: 17em;"
+%>
 <%= render 'list' %>
+<% end %>
 
 <!-- Source Form -->
-<%= form_for(@obs,:html => {:id=>"editsource",:style => "top: 17em;"}) do |f| %>
+<%= form_for(@obs,:html => {:id=>"editsource",:style => form_style}) do |f| %>
 
   <!-- Errors -->
   <% if @obs.errors.any? %>
