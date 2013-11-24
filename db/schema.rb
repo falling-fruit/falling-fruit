@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131111173614) do
+ActiveRecord::Schema.define(:version => 20131124204626) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(:version => 20131111173614) do
     t.boolean  "unverified",                                                               :default => false
     t.integer  "access"
     t.integer  "import_id"
-    t.string   "photo_url"
     t.spatial  "location",     :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.string   "client",                                                                   :default => "web"
     t.string   "city"

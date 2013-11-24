@@ -174,7 +174,6 @@ class Location < ActiveRecord::Base
     loc.access = (access.to_i - 1) unless access.blank?
     loc.description = desc.gsub(/(\\n|<br>)/,"\n") unless desc.blank?
     loc.address = address unless address.blank?
-    loc.photo_url = photo_url unless photo_url.blank?
     loc.season_start = (season_start.to_i - 1) unless season_start.blank?
     loc.season_stop = (season_stop.to_i - 1) unless season_stop.blank?
     no_season = no_season.nil? ? "" : no_season.strip.downcase.tr('^a-z','')
@@ -188,6 +187,10 @@ class Location < ActiveRecord::Base
     obs.yield_rating = (yield_rating.to_i - 1) unless yield_rating.blank?
     obs.quality_rating = (quality_rating.to_i - 1) unless quality_rating.blank?
     obs.location = loc
+    begin
+    obs.photo = open(photo_url) unless photo_url.blank?
+    rescue
+    end
     obs.save
 
     return loc 
