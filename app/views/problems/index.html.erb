@@ -1,0 +1,73 @@
+<h1>Problems</h1>
+
+<h3>To Do</h3>
+
+<table id="open_problems_table">
+<thead>
+<tr>
+ <th>Created At</th>
+ <th>By Whom</th>
+ <th>Problem</th>
+ <th>Resolve</th>
+</tr>
+</thead>
+<tbody>
+<% @open_problems.each do |problem| %>
+<tr>
+<td><%= problem.created_at %></td>
+<td><%= problem.reporter.nil? ? "Anonymous" : problem.reporter.name %></td>
+<td><%= Problem::Codes[problem.problem_code] %>
+    <% unless problem.comment.blank? %>
+    <br><em><%= problem.comment %></em>
+    <% end %>
+<td>Coming soon!</td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<% if @closed_problems.length > 0 %>
+<h3>Done</h3>
+
+<table id="closed_problems_table">
+<thead>
+<tr>
+ <th>Created At</th>
+ <th>By Whom</th>
+ <th>Problem</th>
+ <th>Resolution</th>
+ <th>By Whom</th>
+</tr>
+</thead>
+<tbody>
+<% @closed_problems.each do |problem| %>
+<tr>
+<td><%= problem.created_at %></td>
+<td><%= problem.reporter.nil? ? "Anonymous" : problem.reporter.name %></td>
+<td><%= Problem::Codes[problem.problem_code] %>
+    <% unless problem.comment.blank? %>
+    <br><em><%= problem.comment %></em>
+    <% end %>
+<td><%= Problem::Resolutions[problem.resolution_code] %>
+    <% unless problem.response.blank? %>
+    <br><em><%= problem.response %></em>
+    <% end %>
+<td><%= problem.responder.nil? ? "Anonymous" : problem.responder.name %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function(){
+    jQuery('#open_problems_table').dataTable({
+      "aaSorting": [[1,"asc"]],
+      "bPaginate": true
+    });
+    jQuery('#closed_problems_table').dataTable({
+      "aaSorting": [[1,"asc"]],
+      "bPaginate": true
+    });
+});
+</script>

@@ -124,7 +124,8 @@
 <table id="footer">
 	<tr>
  		<td id="controls">
-		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ Review (<%= location.observations.length %>)</a>
+		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review (<%= location.observations.length %>)</a>
+                <a href="#" title="Report a problem" id="problem_link" onclick="$('#problem_modal').load('/problems/new?location_id=<%= location.id %>').dialog({autoOpen:true,title:'Report a Problem',width:425,height:350,modal:true})">problem</a>
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
     <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location">edit</a>
@@ -169,3 +170,4 @@ Add to / remove from:
 </div> <! -- tab 2 -->
 </div> <!-- tabs -->
 <% end %>
+<div id="problem_modal"></div>

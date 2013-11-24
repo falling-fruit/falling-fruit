@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131124204626) do
+ActiveRecord::Schema.define(:version => 20131124212425) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -113,6 +113,22 @@ ActiveRecord::Schema.define(:version => 20131124204626) do
     t.datetime "updated_at"
     t.integer  "fruiting"
   end
+
+  create_table "problems", :force => true do |t|
+    t.integer  "problem_code"
+    t.text     "comment"
+    t.integer  "resolution_code"
+    t.text     "response"
+    t.integer  "reporter_id"
+    t.integer  "responder_id"
+    t.integer  "location_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "problems", ["location_id"], :name => "index_problems_on_location_id"
+  add_index "problems", ["reporter_id"], :name => "index_problems_on_reporter_id"
+  add_index "problems", ["responder_id"], :name => "index_problems_on_responder_id"
 
   create_table "routes", :force => true do |t|
     t.string   "name"

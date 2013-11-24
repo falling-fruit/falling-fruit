@@ -17,6 +17,14 @@
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+  <script type="text/javascript">
+    function show_recaptcha(element) {
+      Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {
+        theme: "white",
+        callback: Recaptcha.focus_response_field});
+    }
+  </script>
 </head>
 <body>
 
@@ -105,7 +113,8 @@
 			<li><%= link_to('Routes', routes_path, :class => (request.fullpath == routes_path ? "currentpage" : "notcurrentpage")) %></li>
 
 			<% if current_user.is? :admin %>
-					
+				
+                                <li><span class="<%= (request.fullpath.include? problems_path) ? "currentpage" : "notcurrentpage" %>"><a href="<%= problems_path %>">Trouble</a></span>	
 				<!-- Types -->
 				<li><span class="<%= (request.fullpath.include? types_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
 				<ul>
