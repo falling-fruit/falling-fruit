@@ -7,6 +7,8 @@ class CreateProblems < ActiveRecord::Migration
       t.text :response
       t.integer :reporter_id
       t.integer :responder_id
+      t.string :email
+      t.string :name
       t.references :location
 
       t.timestamps

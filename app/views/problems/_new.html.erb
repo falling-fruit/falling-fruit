@@ -27,6 +27,13 @@
     <span class="subtext">Explain the problem (if necessary).</span><br />
     <%= f.text_area(:comment,:size => "40x3") %>
   </div>
+
+  <div class="field">
+   <%= f.label :contact_info %><br />
+   <span class="subtext">Give your name and email if you'd like us to contact you</span><br />
+   Name: <%= f.text_field(:name,:size => 20) %>
+   Email: <%= f.text_field(:email,:size => 20) %>
+  </div>
   
   <br />
   <!-- Captcha -->

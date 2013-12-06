@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(:version => 20131124212425) do
     t.text     "response"
     t.integer  "reporter_id"
     t.integer  "responder_id"
+    t.string   "email"
+    t.string   "name"
     t.integer  "location_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
