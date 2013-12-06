@@ -1,11 +1,33 @@
-<% if location.has_photos? %>
-<div id="tabs">
+<!-- These things are manual overrides to jquery-ui's tab's css -->
+<style>
+#tabs{
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+#tab-1,#tab-2,#tab-3{
+  padding: 0;
+  margin: 0;
+  padding-top: 0.2em;
+}
+.ui-tabs-nav{
+  background: white;
+  border: 0;
+  border-bottom: 1px solid #aaaaaa;
+  border-radius: 0;
+}
+</style>
+
+<!-- Tab Menu -->
+<div id="tabs" style="border: 0;">
 <ul>
  <li><a href="#tab-1"><span>Info</span></a></li>
- <li><a href="#tab-2"><span>Photos</span></a><li>
+ <li><a href="#tab-2"><span>Reviews (<%= location.observations.length %>)</span></a><li>
+ <li><a href="#tab-3"><span>Street View</span></a><li>
 </ul>
+
+<!-- Info Tab -->
 <div id="tab-1">
-<% end %>
 <!-- Wrapper -->
 <div id="location_infowindow">
 
@@ -124,7 +146,7 @@
 <table id="footer">
 	<tr>
  		<td id="controls">
-		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review (<%= location.observations.length %>)</a>
+		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review</a>
                 <a href="#" title="Report a problem" id="problem_link" onclick="$('#problem_modal').load('/problems/new?location_id=<%= location.id %>').dialog({autoOpen:true,title:'Report a Problem',width:425,height:350,modal:true})">problem</a>
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
@@ -160,14 +182,70 @@ Add to / remove from:
 </div>
 <% end %>
 </div>  <!-- Wrapper -->
-<% if location.has_photos? %>
 </div> <!-- tab 1 -->
+
+<!-- Reviews Tab -->
 <div id="tab-2">
-<%= raw location.observations.collect{ |o|
-          o.photo_file_size.nil? ? nil : "<a href=\"" + o.photo.url + "\"><img src=\"" + o.photo.url(:thumb) + "\"></a> "
-    }.compact.join
-%>
-</div> <! -- tab 2 -->
-</div> <!-- tabs -->
+
+<!-- Hi Ethan, Just sticking this css here for now since you'll probably want to tweak it and then move it elsewhere... -->
+<style>
+div#observation_list{
+  font-size: 10pt;
+}
+div.observation{
+  border: 1px solid #c9c9c9;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 3px;
+}
+div.obsphoto{
+  float: right;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+</style>
+
+<div id="observation_list">
+<% location.observations.each{ |o| %>
+<div class="observation">
+<% unless o.photo_file_size.nil? %>
+<div class="obsphoto"><img src="<%= o.photo.url(:thumb) %>"></div>
 <% end %>
-<div id="problem_modal"></div>
+<% unless o.comment.blank? %>
+<p style="font-style: italic;"><%= o.comment %><p>
+<% end %>
+<p style="font-size: 8pt;">
+Yield: <%= o.yield_rating.nil? ? "N/A" : Location::Ratings[o.yield_rating] %> | 
+Quality: <%= o.quality_rating.nil? ? "N/A" : Location::Ratings[o.quality_rating] %> | 
+Status: <%= o.fruiting.nil? ? "Unsure" : Location::Fruiting[o.fruiting] %>
+</p>
+<p style="color: #c9c9c9;">
+Added by <%= o.author.blank? ? "Anonymous" : o.author %>
+<% unless o.observed_on.nil? %>
+on <%= o.observed_on %>
+<% end %>
+<% if user_signed_in? and current_user.is? :admin %>
+<div style="float: right; clear:right;">
+<%= link_to('delete', o, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete this observation') %> 
+<% unless o.photo_file_size.nil? %> 
+| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="Delete photo">delete photo</a>
+<% end %>
+</div>
+<% end %>
+</p>
+<div style="clear: right; height: 3px;"></div>
+</div>
+<% } %>
+</div>
+
+</div>
+
+<!-- Street View Tab -->
+<div id="tab-3">
+Street view!
+</div>
+
+</div> <!-- tabs -->
+
+<div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->
