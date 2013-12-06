@@ -52,16 +52,8 @@ jQuery(document).ready(function(){
 </script>
 <% end %>
 
-<% 
-form_style = ""
-if @obs.location.observations.length > 0 
-  form_style = "top: 17em;"
-%>
-<%= render 'list' %>
-<% end %>
-
 <!-- Source Form -->
-<%= form_for(@obs,:html => {:id=>"editsource",:style => form_style}) do |f| %>
+<%= form_for(@obs,:html => {:id=>"editsource"}) do |f| %>
 
   <!-- Errors -->
   <% if @obs.errors.any? %>
@@ -115,6 +107,13 @@ if @obs.location.observations.length > 0
    <span class="subtext">Add a photo of the source if you wish. If posting someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.</span><br />
    <%= f.file_field :photo %>
   </div>
+
+  <!-- Caption -->
+  <div class="field">
+    <%= f.label :photo_caption %><br />
+    <%= f.text_field :photo_caption, :size => "40x3" %>
+  </div>
+
 
   <!-- Comment -->
   <div class="field">
