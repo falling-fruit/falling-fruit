@@ -1,5 +1,8 @@
 <!-- These things are manual overrides to jquery-ui's tab's css -->
 <style>
+.ui-tabs{
+  border: 0;
+}
 #tabs{
   border: 0;
   padding: 0;
@@ -10,6 +13,10 @@
   margin: 0;
   padding-top: 0.2em;
 }
+#tab-2{
+  height: 15em;
+  overflow: auto;
+}
 .ui-tabs-nav{
   background: white;
   border: 0;
@@ -19,7 +26,6 @@
 </style>
 
 <!-- Tab Menu -->
-<div id="tabs" style="border: 0;">
 <ul>
  <li><a href="#tab-1"><span>Info</span></a></li>
  <li><a href="#tab-2"><span>Reviews (<%= location.observations.length %>)</span></a><li>
@@ -249,7 +255,5 @@ on <%= o.observed_on %>
 <div id="tab-3">
 Street view!
 </div>
-
-</div> <!-- tabs -->
 
 <div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->

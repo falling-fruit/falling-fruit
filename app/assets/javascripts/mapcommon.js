@@ -209,14 +209,19 @@
           dataType: 'html'
         });
         requestHtml.done(function(html){
-          var infowindow = new google.maps.InfoWindow({content: html });
+          var div = document.createElement('div');
+          div.innerHTML = html;
+          $(div).tabs();
+          $("#tab-2").height($("#tab-1").height());
+          $("#tab-3").height($("#tab-1").height());
+          var infowindow = new google.maps.InfoWindow({content:div});
           google.maps.event.addListener(infowindow,'closeclick',function(){
             openInfoWindow = null;
             openMarker = null;
           });
           infowindow.open(map, markersArray[i].marker);
           openInfoWindow = infowindow;
-          openInfoWindowHtml = requestHtml.responseText
+          openInfoWindowHtml = infowindow.content;
         });
         openMarker = markersArray[i].marker;
         return true;
@@ -242,14 +247,19 @@
         dataType: 'html'
       });
       requestHtml.done(function(html){
-        var infowindow = new google.maps.InfoWindow({content: html });
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        $(div).tabs();
+        $("#tab-2").height($("#tab-1").height());
+        $("#tab-3").height($("#tab-1").height());
+        var infowindow = new google.maps.InfoWindow({content: div});
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
           openMarker = null;
         });
         infowindow.open(map, markersArray[markersArray.length-1].marker);
         openInfoWindow = infowindow;
-        openInfoWindowHtml = requestHtml.responseText;
+        openInfoWindowHtml = infowindow.content;
       });
       openMarker = markersArray[markersArray.length-1];
     });
@@ -268,10 +278,12 @@
         dataType: 'html'
       });
       requestHtml.done(function(html){
-        var infowindow = new google.maps.InfoWindow({content: html });
-        google.maps.event.addListener(infowindow, 'domready', function() {
-          $("#tabs").tabs();
-        });
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        $(div).tabs();
+        $("#tab-2").height($("#tab-1").height());
+        $("#tab-3").height($("#tab-1").height());
+        var infowindow = new google.maps.InfoWindow({content:div});
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
           openMarker = null;
