@@ -19,6 +19,7 @@ FallingfruitWebapp::Application.routes.draw do
       get 'cluster'
       get 'markers'
       get 'marker'
+      get 'cluster_types'
       get 'data'
       get 'embed'
     end

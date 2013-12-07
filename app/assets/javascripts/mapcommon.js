@@ -185,6 +185,19 @@
       request.fail(function() {  
         if(pb != null) pb.hide();
       });
+      var request = $.ajax({
+        type: 'GET',
+        url: '/locations/cluster_types.json?' + mstr + gstr + '&' + bstr,
+        dataType: 'json'
+      });
+      request.done(function(json){
+        if(json.length > 0){
+          types_hash = {}
+          for(var i = 0;i < json.length; i++){
+            types_hash[json[i]["id"]] = json[i]["n"]
+          }
+        }
+      });
   }
 
   function open_marker_by_id(id,lat,lng){

@@ -8,6 +8,26 @@ class LocationsController < ApplicationController
     expire_fragment "pages_about_stats"
   end
 
+  def cluster_types
+    mfilter = ""
+    if params[:muni].present? and params[:muni].to_i == 1
+      mfilter = ""
+    elsif params[:muni].present? and params[:muni].to_i == 0
+      mfilter = "AND NOT muni"
+    end
+    g = params[:grid].present? ? params[:grid].to_i : 1
+    g = 12 if g > 12
+    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
+      "AND ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
+                                                         ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
+    @clusters = Cluster.select("type_id, SUM(count) as count").group("type_id").
+                        where("zoom = #{g} AND type_id IS NOT NULL #{mfilter} #{bound}").
+                        collect{ |c| {:id => c.type_id, :n => c.count } }
+    respond_to do |format|
+      format.json { render json: @clusters }
+    end
+  end
+
   def cluster
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
@@ -71,9 +91,12 @@ class LocationsController < ApplicationController
     max_n = 500
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     tfilter = nil
+    sorted = "1 as sort"
+    # FIXME: would be easy to allow t to be an array of types
     if params[:t].present?
       tfilter = "type_id = #{params[:t].to_i}"
       tname = Type.find(params[:t].to_i).name
+      sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{params[:t].to_i}] THEN 0 ELSE 1 END as sort"
     end
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
@@ -87,10 +110,10 @@ class LocationsController < ApplicationController
       WHERE #{[bound,ifilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil? 
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
-      string_agg(coalesce(t.name,lt.type_other),',') AS name FROM locations l,
+      string_agg(coalesce(t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
       locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
-      GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
+      GROUP BY l.id, l.lat, l.lng, l.unverified ORDER BY sort LIMIT #{max_n}");
     @markers = r.collect{ |row|
       if row["name"].nil? or row["name"].strip == ""
         name = "Unknown"
