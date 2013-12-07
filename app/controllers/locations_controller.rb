@@ -29,8 +29,6 @@ class LocationsController < ApplicationController
                                 SUM(count*ST_Y(cluster_point))/SUM(count) as center_y,
                                 SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{tfilter} #{bound}")
     
-    #@minmax = Cluster.select("MIN(count) as min_count, MAX(count) as max_count").where("zoom = #{g} #{mfilter}").shift
-
     earth_radius = 6378137.0
     earth_circum = 2.0*Math::PI*earth_radius
     
@@ -55,8 +53,6 @@ class LocationsController < ApplicationController
       v[:n] = c.count
       v[:title] = number_to_human(c.count)
       v[:marker_anchor] = [0,0]
-      #pct = (c.count-@minmax.min_count.to_f)/(@minmax.max_count.to_f-@minmax.min_count.to_f)
-      #pct = (10.0*pct).round * 10
       pct = [[(Math.log10(c.count).round+2)*10,30].max,100].min
       v[:picture] = "/icons/orangedot#{pct}.png"
       v[:width] = pct
@@ -69,8 +65,8 @@ class LocationsController < ApplicationController
     end
   end
 
-	# Currently keeps max_n markers, and displays filtered out markers as translucent grey.
-	# Unverified no longer has its own color.
+  # Currently keeps max_n markers, and displays filtered out markers as translucent grey.
+  # Unverified no longer has its own color.
   def markers
     max_n = 500
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
@@ -90,9 +86,9 @@ class LocationsController < ApplicationController
     r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l
       WHERE #{[bound,ifilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil? 
-    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
-      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
-      locations_types lt left outer join types t on lt.type_id=t.id
+    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
+      string_agg(coalesce(t.name,lt.type_other),',') AS name FROM locations l,
+      locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified LIMIT #{max_n}");
     @markers = r.collect{ |row|
@@ -109,9 +105,12 @@ class LocationsController < ApplicationController
         end
       end
       {:title => (tname.present? and not row["name"].include? tname) ? '' : name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => (tname.present? and not row["name"].include? tname) ? "/icons/smdot_t1_gray_light_a75.png" : "/icons/smdot_t1_red.png",:width => 17, :height => 17,
-       :marker_anchor => [0,0], :n => found_n }
+       :picture => (tname.present? and not row["name"].include? tname) ? "/icons/smdot_t1_gray_light_a75.png" : 
+                                                                         "/icons/smdot_t1_red.png",:width => 17, :height => 17,
+       :marker_anchor => [0,0], :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i } }
     } unless r.nil?
+    @markers.unshift(max_n)
+    @markers.unshift(found_n)
     respond_to do |format|
       format.json { render json: @markers }
     end

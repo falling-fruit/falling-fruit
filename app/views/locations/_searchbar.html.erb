@@ -20,7 +20,7 @@
     <!-- Type Filter -->
     <span class="nowrap">
     	<b>Filter</b>
-    	<%= select_tag(:type_filter, options_for_select([[nil,nil]] + Type.order(:name).collect{ |t| t.scientific_name.nil? ? [t.name, t.id] : [t.name.to_s + " [" + t.scientific_name.to_s + "]", t.id] })) %>
+    	<%= text_field_tag(:type_filter) %>
      &middot;
     </span>
   </span>
@@ -60,9 +60,16 @@
 
 <% content_for :form_scripts do %>
 <script type="text/javascript">
+
 jQuery(document).ready(function(){
   $('#type_filter').select2({
     placeholder: "Select edible type",
+    data: function(term,page){
+            var base_data = [<%= Type.order(:name).collect{ |t| 
+                                  "{id:#{t.id},text:\"#{t.scientific_name.nil? ? t.name : t.name + " [" + t.scientific_name + "]"}\"}" }.
+                                  join(",\n").html_safe %>];
+            return { text:'text', results: base_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }) };
+    },
     allowClear: true
   });
 	$('#type_filter').select2("val",type_filter);

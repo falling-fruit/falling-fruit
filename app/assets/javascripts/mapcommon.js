@@ -6,6 +6,7 @@
   var prior_zoom = null;
   var prior_url = null;
   var markersArray = [];
+  var types_hash = {};
   var openInfoWindow = null;
   var showing_route_controls = false;
   var openInfoWindowHtml = null;
@@ -108,6 +109,11 @@
             draggable: false
         });
         markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point"});
+        for(var j = 0; j < mdata[i]["types"].length; j++){
+          var tid = mdata[i]["types"][j];
+          if(types_hash[tid] == undefined) types_hash[tid] = 1;
+          else types_hash[tid] += 1;
+        }
       }else{
         var w = mdata[i]["width"];
         var h = mdata[i]["height"];
@@ -304,6 +310,8 @@
         markersArray.splice(i,1);
         i = find_marker(null);
       }
+      n_found = json.shift();
+      n_limit = json.shift()
       add_markers_from_json(json,false,skip_ids);
       // make markers clickable
       for (var i = 0; i < markersArray.length; ++i) {
@@ -315,8 +323,8 @@
       n = json.length;
       if(n > 0){
         nt = json[0]["n"];
-        if((n < nt) && (nt >= 500)){
-          $("#pg_text").html(n + " of " + nt + " visible");
+        if((n < n_found) && (n_found >= n_limit)){
+          $("#pg_text").html(n + " of " + n_found + " visible");
         }else{
           pb.hide();
         }
