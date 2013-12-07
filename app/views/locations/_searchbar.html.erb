@@ -68,7 +68,10 @@ jQuery(document).ready(function(){
             var base_data = [<%= Type.order(:name).collect{ |t| 
                                   "{id:#{t.id},text:\"#{t.scientific_name.nil? ? t.name : t.name + " [" + t.scientific_name + "]"}\"}" }.
                                   join(",\n").html_safe %>];
-            return { text:'text', results: base_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }) };
+            return { text:'text', results: jQuery.map(base_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
+                                                      function(obj){ obj["text"] = obj["text"] + " (" + types_hash[obj["id"]] + ")";
+                                                                     return obj; })
+                   };
     },
     allowClear: true
   });
