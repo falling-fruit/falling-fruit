@@ -224,6 +224,31 @@ div#location_infowindow table#footer a#add_review:hover {
 	color: #111;
 }
 
+/* These things are manual overrides to jquery-ui's tab's css */
+.ui-tabs{
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+#tab-1,#tab-2,#tab-3{
+  padding: 0;
+  margin: 0;
+  padding-top: 0.2em;
+}
+
+#tab-2{
+  height: 15em;
+  overflow: auto;
+}
+
+.ui-tabs-nav{
+  background: white;
+  border: 0;
+  border-bottom: 1px solid #aaaaaa;
+  border-radius: 0;
+}
+
 /**********************************************************/
 /******************* Template: Forms **********************/
 /**********************************************************/
