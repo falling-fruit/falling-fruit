@@ -22,6 +22,10 @@ class ObservationsController < ApplicationController
       @obs.observed_on = Timeliness.parse(params[:observation][:observed_on], :format => 'mm/dd/yyyy')
       params[:observation].delete(:observed_on)
     end
+    unless params[:verify].blank? or !params[:verify]
+      @obs.location.unverified = false
+      @obs.location.save
+    end
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @obs, 
                                                        :message => "ReCAPCHA error!")

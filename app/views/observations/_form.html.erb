@@ -101,6 +101,15 @@ jQuery(document).ready(function(){
     <%= f.text_field(:observed_on) %>
   </div>
 
+  <% if @obs.location.unverified %>
+  <!-- Verify -->
+  <div class="field">
+    <%= f.label :verify_location %>
+    <span class="subtext">This location has been previously flagged as Unverified [?]. Can you confirm that type and location are indeed correct?</span><br />
+    <%= check_box_tag(:verify) %> Yes
+  </div>
+  <% end %>
+
   <!-- Photo -->
   <div class="field">
    <%= f.label :photo %><br />
