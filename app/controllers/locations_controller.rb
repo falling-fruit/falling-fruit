@@ -88,7 +88,7 @@ class LocationsController < ApplicationController
   # Currently keeps max_n markers, and displays filtered out markers as translucent grey.
   # Unverified no longer has its own color.
   def markers
-    max_n = 500
+    max_n = 1000
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     tfilter = nil
     sorted = "1 as sort"
