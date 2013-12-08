@@ -102,6 +102,7 @@ function update_display(force,force_zoom,force_bounds){
     else if((zoom != prior_zoom) || force)
       do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
   }else if(zoom >= 13){
+    if(prior_zoom < 13) types_hash = {};
     $('#get_data_link').attr('href',data_link());
     $('#hidden_controls').show();
     $('#export_data').show();
