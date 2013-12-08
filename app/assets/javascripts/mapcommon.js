@@ -10,6 +10,7 @@
   var openInfoWindow = null;
   var showing_route_controls = false;
   var openInfoWindowHtml = null;
+  var openInfoWindowHeight = null;
   var openMarker = null;
   var labelsOn = null;
   var last_search = null;
@@ -200,6 +201,24 @@
       });
   }
 
+  var pano = null;
+  function show_streetview(){
+    if(pano != null){
+      pano.unbind("position");
+      pano.setVisible(false);
+      pano = null;
+    }
+    pano = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
+      navigationControl: true,
+      navigationControlOptions: {style: google.maps.NavigationControlStyle.ANDROID},
+      enableCloseButton: false,
+      addressControl: false,
+      linksControl: false
+    });
+    pano.bindTo("position", openMarker);
+    pano.setVisible(true);
+  }
+
   function open_marker_by_id(id,lat,lng){
     for (var i = 0; i < markersArray.length; i++ ) {
       if(markersArray[i].id == id){
@@ -212,12 +231,15 @@
           var div = document.createElement('div');
           div.innerHTML = html;
           $(div).tabs();
-          $("#tab-2").height($("#tab-1").height());
-          $("#tab-3").height($("#tab-1").height());
           var infowindow = new google.maps.InfoWindow({content:div});
           google.maps.event.addListener(infowindow,'closeclick',function(){
             openInfoWindow = null;
             openMarker = null;
+          });
+          google.maps.event.addListener(infowindow,'domready',function(){
+            openInfoWindowHeight = $("#tab-1").height();
+            $("#tab-2").height(openInfoWindowHeight);
+            $("#tab-3").height(openInfoWindowHeight);
           });
           infowindow.open(map, markersArray[i].marker);
           openInfoWindow = infowindow;
@@ -250,12 +272,15 @@
         var div = document.createElement('div');
         div.innerHTML = html;
         $(div).tabs();
-        $("#tab-2").height($("#tab-1").height());
-        $("#tab-3").height($("#tab-1").height());
         var infowindow = new google.maps.InfoWindow({content: div});
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
           openMarker = null;
+        });
+        google.maps.event.addListener(infowindow,'domready',function(){
+          openInfoWindowHeight = $("#tab-1").height();
+          $("#tab-2").height(openInfoWindowHeight);
+          $("#tab-3").height(openInfoWindowHeight);
         });
         infowindow.open(map, markersArray[markersArray.length-1].marker);
         openInfoWindow = infowindow;
@@ -281,12 +306,15 @@
         var div = document.createElement('div');
         div.innerHTML = html;
         $(div).tabs();
-        $("#tab-2").height($("#tab-1").height());
-        $("#tab-3").height($("#tab-1").height());
         var infowindow = new google.maps.InfoWindow({content:div});
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
           openMarker = null;
+        });
+        google.maps.event.addListener(infowindow,'domready',function(){
+          openInfoWindowHeight = $("#tab-1").height();
+          $("#tab-2").height(openInfoWindowHeight);
+          $("#tab-3").height(openInfoWindowHeight);
         });
         infowindow.open(map, marker);
         openInfoWindow = infowindow;
