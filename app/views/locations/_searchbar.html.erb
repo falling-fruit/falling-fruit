@@ -75,7 +75,7 @@ jQuery(document).ready(function(){
     },
     allowClear: true
   });
-	$('#type_filter').select2("val",type_filter);
+  $('#type_filter').select2("val",type_filter);
   $('#type_filter').on("change",function(){
     type_filter = jQuery("#type_filter").val();
     if(type_filter == "") type_filter = undefined;

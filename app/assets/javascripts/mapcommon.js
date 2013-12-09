@@ -153,6 +153,7 @@
     }
     markersArray.length = 0;
     markersArray = [];
+    types_hash = {};
   }
 
   function bounds_to_query_string(bounds){
@@ -363,7 +364,8 @@
         i = find_marker(null);
       }
       n_found = json.shift();
-      n_limit = json.shift()
+      n_limit = json.shift();
+      clear_markers();
       add_markers_from_json(json,false,skip_ids);
       // make markers clickable
       for (var i = 0; i < markersArray.length; ++i) {
