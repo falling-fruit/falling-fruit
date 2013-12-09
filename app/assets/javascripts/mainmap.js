@@ -97,11 +97,10 @@ function update_display(force,force_zoom,force_bounds){
                    document.getElementById('logobar').offsetHeight;
       document.getElementById('mainmap_container').style.top = height + 'px';
     }
-    do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
-    //if(zoom > 8)
-    //  do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
-    //else if((zoom != prior_zoom) || force)
-    //  do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
+    if(zoom > 8)
+      do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
+    else if((zoom != prior_zoom) || force)
+      do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
   }else if(zoom >= 13){
     if(prior_zoom < 13) types_hash = {};
     $('#get_data_link').attr('href',data_link());
@@ -124,11 +123,10 @@ function update_display_embedded(force,force_zoom,muni){
   var bounds = map.getBounds();
   var center = map.getCenter();
   if(zoom <= 12){
-    do_clusters(bounds,zoom,muni,type_filter);
-    //if(zoom > 8)
-    //  do_clusters(bounds,zoom,muni,type_filter);
-    //else if((zoom != prior_zoom) || force)
-    //  do_clusters(undefined,zoom,muni,type_filter);
+    if(zoom > 8)
+      do_clusters(bounds,zoom,muni,type_filter);
+    else if((zoom != prior_zoom) || force)
+      do_clusters(undefined,zoom,muni,type_filter);
   }else if(zoom >= 13){
     do_markers(bounds,null,muni,type_filter);
   }

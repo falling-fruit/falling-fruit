@@ -155,15 +155,18 @@
     markersArray = [];
   }
 
+  function bounds_to_query_string(bounds){
+      if(bounds == undefined) return '';
+      var ne = bounds.getNorthEast();
+      var sw = bounds.getSouthWest();
+      bstr = 'nelat=' + ne.lat() + '&nelng=' + ne.lng() +
+             '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
+      return bstr;
+  }
+
   function do_clusters(bounds,zoom,muni,type_filter){
-      var bstr = '';
+      var bstr = bounds_to_query_string(bounds);
       var gstr = 'method=grid&grid=' + zoom;
-      if(bounds != undefined){
-        var ne = bounds.getNorthEast();
-        var sw = bounds.getSouthWest();
-        bstr = 'nelat=' + ne.lat() + '&nelng=' + ne.lng() + 
-               '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
-      }
       if(muni) mstr = '';
       else mstr = 'muni=0&';
       var tstr = '';
@@ -188,7 +191,7 @@
       });
       var request = $.ajax({
         type: 'GET',
-        url: '/locations/cluster_types.json?' + mstr + gstr + '&' + bstr,
+        url: '/locations/cluster_types.json?' + mstr + gstr + '&' + bounds_to_query_string(map.getBounds()),
         dataType: 'json'
       });
       request.done(function(json){
@@ -335,11 +338,7 @@
   }
 
   function do_markers(bounds,skip_ids,muni,type_filter){
-    var bstr = '';
-    if(bounds != undefined){
-      bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() + 
-             '&swlat=' + bounds.getSouthWest().lat() + '&swlng=' + bounds.getSouthWest().lng();
-    }
+    var bstr = bounds_to_query_string(bounds);
     mstr = 0;
     if(muni) mstr = 1;
     var tstr = '';
