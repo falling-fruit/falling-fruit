@@ -13,6 +13,7 @@
   var openInfoWindowHtml = null;
   var openInfoWindowHeight = null;
   var openMarker = null;
+  var openMarkerId = null;
   var labelsOn = null;
   var last_search = null;
   var pb = null;
@@ -79,6 +80,7 @@
 			if(openMarker != null && openInfoWindow != null){
 				openInfoWindow.close();
 				openMarker = null;
+				openMarkerId = null;
 				openInfoWindow = null;
 			}
 		});
@@ -97,9 +99,7 @@
   }
 
   // will avoid adding duplicate markers (using location id)
-  var foo = null;
   function add_markers_from_json(mdata,rich,skip_ids){
-    foo = mdata;
     var len = mdata.length;
     for(var i = 0; i < len; i++){
       var lid = mdata[i]["location_id"];
@@ -110,7 +110,10 @@
         var h = mdata[i]["height"];
         var wo = parseInt(w/2,10);
         var ho = parseInt(h/2,10);
-        var m = new google.maps.Marker({
+        if(openMarkerId == lid){
+          var m = openMarker; 
+        }else{
+          var m = new google.maps.Marker({
             icon: {
               url: mdata[i]["picture"],
               size: new google.maps.Size(w,h),
@@ -122,7 +125,8 @@
             map: map,
             title: mdata[i]["title"],
             draggable: false
-        });
+          });
+        }
         markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point"});
         for(var j = 0; j < mdata[i]["types"].length; j++){
           var tid = mdata[i]["types"][j];
@@ -223,32 +227,31 @@
   // Finds nearest imagery from Street View Service, then calculates the heading.
   // https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
   var panoClient = new google.maps.StreetViewService();
-  function show_streetview_tab(latlng,distance) {
+  var panoPosition = null;
+  function setup_streetview_tab(marker,distance) {
+    var astorPlace = new google.maps.LatLng(40.729884, -73.990988);
+    var latlng = marker.getPosition();
     var nearestLatLng = null; 
     var nearestPano = null; 
-    panoClient.getPanoramaByLocation(openMarker.getPosition(), distance, function(result, status) { 		
+    panoClient.getPanoramaByLocation(latlng, distance, function(result, status) { 		
       if (status == google.maps.StreetViewStatus.OK) { 
         nearestPano = result.location.pano; 
         nearestLatLng = result.location.latLng; 
+        panoPosition = nearestLatLng;
         var heading = google.maps.geometry.spherical.computeHeading(nearestLatLng, latlng);
         var pano_tab = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
           navigationControl: true,
           navigationControlOptions: {style: google.maps.NavigationControlStyle.ANDROID},
           enableCloseButton: false,
           addressControl: false,
+          pov: { heading: heading, zoom: 1, pitch: 0 },
           linksControl: false,
         });
-        pano_tab.setPosition(nearestLatLng);
-        pano_tab.setPov({
-          heading: heading,
-          zoom: 1,
-          pitch: 0
-        });
-        pano_tab.setVisible(true);
-        var pano_marker = new google.maps.Marker({
-          position: openMarker.getPosition(), 
-          map: pano_tab
-        });
+        pano = pano_tab;
+        // FIXME: the following function call produces a maximum call stack size exceeded
+        //        error when it is called on a div that is offscreen. However, calling it
+        //        later (e.g., onclick) doesn't seem to work at all :/
+        show_streetview_tab();
         return(true);
       } else {
         $("#streetview-tab").remove();
@@ -259,8 +262,8 @@
   
   // Attempt at full screen street view
   // still needs infowindow and label support and then we're golden
-  function show_streetview_fullscreen() {
-    pano.setPosition(openMarker.getPosition());
+  function show_streetview_tab() {
+    pano.setPosition(panoPosition);
     pano.setVisible(true);
   }
 
@@ -308,7 +311,7 @@
     var current_width = $('.ui-tabs').width();
     $('#tab-1').width(current_width);
     openInfoWindow.setContent(openInfoWindowHtml);
-    openInfoWindow.open(map, openMarker);
+    //openInfoWindow.open(map, openMarker);
   }
 
   // Tab 2 (reviews) tries to get as close as possible to its content height.
@@ -340,12 +343,11 @@ function open_tab_2() {
 		}
 	}
 	var interval = setInterval(forceResize, 1);
-	openInfoWindow.open(map, openMarker);
+	//openInfoWindow.open(map, openMarker);
 }
 
 // Tab 3 (street view) requires a minimum height to be useful.
 function open_tab_3() {
-	
 	// Potentially necessary for accurate reading on #tab-1 height
 	$('#tab-2, #tab-3').addClass('ui-tabs-hide');
 	$('#tab-1').removeClass('ui-tabs-hide');
@@ -372,7 +374,7 @@ function open_tab_3() {
 		}
 	}
 	var interval = setInterval(forceResize, 1);
-	openInfoWindow.open(map, openMarker);
+	//openInfoWindow.open(map, openMarker);
 }
 
   function setup_tabs(){
@@ -380,7 +382,7 @@ function open_tab_3() {
     $("#tab-2").height(openInfoWindowHeight);
     $("#tab-3").height(openInfoWindowHeight);
     //$('#problem_controls').load('/problems/new?location_id=' + id);
-    show_streetview_tab(openMarker.getPosition(),100)
+    setup_streetview_tab(openMarker,100);
   }
 
   function open_marker_by_id(id,lat,lng){
@@ -405,6 +407,7 @@ function open_tab_3() {
           google.maps.event.addListener(infowindow,'closeclick',function(){
             openInfoWindow = null;
             openMarker = null;
+            openMarkerId = null;
           });
           google.maps.event.addListener(infowindow,'domready',function(){
             setup_tabs();
@@ -418,6 +421,7 @@ function open_tab_3() {
           openInfoWindowHtml = infowindow.content;
         });
         openMarker = markersArray[i].marker;
+        openMarkerId = markersArray[i].id;
         return true;
       }
     }
@@ -448,6 +452,7 @@ function open_tab_3() {
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
           openMarker = null;
+          openMarkerId = null;
         });
         google.maps.event.addListener(infowindow,'domready',function(){
           setup_tabs();
@@ -460,7 +465,8 @@ function open_tab_3() {
         openInfoWindow = infowindow;
         openInfoWindowHtml = infowindow.content;
       });
-      openMarker = markersArray[markersArray.length-1];
+      openMarker = markersArray[markersArray.length-1].marker;
+      openMarkerId = markersArray[markersArray.length-1].id;
     });
     return true;
   }
@@ -484,6 +490,7 @@ function open_tab_3() {
         google.maps.event.addListener(infowindow,'closeclick',function(){
           openInfoWindow = null;
           openMarker = null;
+          openMarkerId = null;
         });
         google.maps.event.addListener(infowindow,'domready',function(){
           setup_tabs();
@@ -497,6 +504,7 @@ function open_tab_3() {
         openInfoWindowHtml = infowindow.content;
       });
       openMarker = marker;
+      openMarkerId = id;
     });
   }
 

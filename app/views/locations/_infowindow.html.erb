@@ -9,7 +9,7 @@
 </ul>
 
 <!-- Info Tab -->
-<div id="tab-1 info-tab-content">
+<div id="tab-1">
 
 <!-- Types -->
 <div id="type_list">
@@ -184,25 +184,7 @@ Add to / remove from:
 </div> <!-- tab 1 -->
 
 <!-- Reviews Tab -->
-<div id="tab-2 review-tab-content">
-
-<!-- Hi Ethan, Just sticking this css here for now since you'll probably want to tweak it and then move it elsewhere... -->
-<style>
-div#observation_list {
-}
-div.observation {
-  border-bottom: 1px solid #EEE;
-}
-div.obsphoto {
-  float: right;
-  padding: 0 0 0 5px;
-  background: #EEE:
-  width: 100px;
-  text-align: center;
-  color: #555555;
-  font-style: italic;
-}
-</style>
+<div id="tab-2">
 
 <div id="observation_list">
 <% location.observations.each{ |o| %>
@@ -240,6 +222,6 @@ on <%= o.observed_on %>
 </div>
 
 <!-- Street View Tab -->
-<div id="tab-3 streetview-tab-content"></div>
+<div id="tab-3"></div>
 
 </div>  <!-- Wrapper -->
