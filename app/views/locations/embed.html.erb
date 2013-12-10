@@ -16,6 +16,10 @@
 <script type="text/javascript" charset="utf-8">
 
   muni = <%= (@perma.nil? or (@perma[:muni].present? and @perma[:muni])) ? "true" : "false" %>;
+  var type_filter = undefined;
+  <% unless @type.nil? %>
+    type_filter = <%= @type.id %>;
+  <% end %>
 
   // ================= functions =================
 
@@ -79,6 +83,9 @@
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display_embedded(true,ini_zoom,muni);
+      <% if @perma[:labels] %>
+      labelize_markers();
+      <% end %>
     });
              
     google.maps.event.addListener(map, 'bounds_changed', function() {
