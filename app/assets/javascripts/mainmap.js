@@ -56,7 +56,7 @@ function show_embed_html(object){
       modal: true, 
       width: 'auto',
       minHeight: '5em',
-      resizable: true,
+      resizable: false,
       draggable: false,
       dialogClass: "dialog_grey"
     }); 

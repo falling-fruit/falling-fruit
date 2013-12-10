@@ -156,7 +156,7 @@ div#location_infowindow {
 
 div#tab-1 {
   color: #333;
-  padding: 0 0 0.1em 0;
+  padding: 0 0 0.5em 0;
   overflow: auto;
 }
 
@@ -294,8 +294,7 @@ div#tab-1 table#footer a#add_review:hover {
   border-top: 0;
   border-bottom: 1px solid #CCC;
   background: transparent;
-  /* position: relative;
-  top: -33px; */
+  margin-bottom: 0.5em;
 }
 .ui-tabs .ui-tabs-nav .ui-corner-top {
 	border-top-left-radius: 2px;

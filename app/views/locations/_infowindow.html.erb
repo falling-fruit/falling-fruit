@@ -5,7 +5,7 @@
 <ul>
  <li><a href="#tab-1" onclick="open_tab_1();"><span>Info</span></a></li>
  	<li><a href="#tab-2" onclick="open_tab_2();"><span>Reviews (<%= location.observations.length %>)</span></a></li>
- <li><a href="#tab-3" onclick="open_tab_3();show_streetview_tab();"><span>Street View</span></a></li>
+ <li><a href="#tab-3" onclick="open_tab_3();show_streetview_tab(openMarker.getPosition(),100);"><span>Street View</span></a></li>
 </ul>
 
 <!-- Info Tab -->
@@ -130,10 +130,10 @@
  		<!-- Observation -->
 		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review</a>
 		<!-- Problem -->
-		<% if user_signed_in? %>
-   		<!--<a href="#" title="Report a problem" id="problem_link" onclick="$('#problem_modal').load('/problems/new?location_id=<%= location.id %>').dialog({autoOpen:true, title:'Report a problem', width:425, modal:true, resizable:false, draggable:false, close:function(){$('#problem_modal').html('');}})">report</a>-->
-   		<a href="#" title="Report a problem" id="problem_toggle" onclick="toggle_problem_controls(<%= location.id %>);">report</a>
-   	<% end %>
+
+   		<a href="#" title="Report a problem" id="problem_link" onclick="$('#problem_modal').load('/problems/new?location_id=<%= location.id %>').dialog({autoOpen:true, title:'Report a problem', width:425, modal:true, resizable:false, draggable:false, close:function(){$('#problem_modal').html('');}})">report</a>
+   		<!--<a href="#" title="Report a problem" id="problem_toggle" onclick="toggle_problem_controls(<%= location.id %>);">report</a>-->
+
    	
 		<!-- Zoom -->
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>

@@ -217,31 +217,43 @@
       });
   }
 
-	// Can be improved by calculating nearest imagery from Street View Service, and then the
-	// POV (heading) using ComputeHeading function here:
+	// Finds nearest imagery from Street View Service, then calculates the heading.
 	// https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
-	var pano_tab = null;
-  function show_streetview_tab () {
-    if(pano_tab != null){
-      pano_tab.unbind("position");
-      pano_tab.setVisible(false);
-      pano_tab = null;
-    }
-    pano_tab = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
-      navigationControl: true,
-      navigationControlOptions: {style: google.maps.NavigationControlStyle.ANDROID},
-      enableCloseButton: false,
-      addressControl: false,
-      linksControl: false
-    });
-    pano_tab.bindTo("position", openMarker);    
-    pano_tab.setVisible(true);
-    var pano_marker = new google.maps.Marker({
-        position: openMarker.getPosition(), 
-        map: pano_tab,
-    });
-  }
-  
+  var panoClient = new google.maps.StreetViewService();
+  function show_streetview_tab(latlng,distance) {
+    var nearestLatLng = null; 
+		var nearestPano = null; 
+		panoClient.getPanoramaByLocation(openMarker.getPosition(), distance, function(result, status) { 
+  		
+  		if (status == google.maps.StreetViewStatus.OK) { 
+    		nearestPano = result.location.pano; 
+    		nearestLatLng = result.location.latLng; 
+    		var heading = google.maps.geometry.spherical.computeHeading(nearestLatLng, latlng);
+    		var pano_tab = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
+      		navigationControl: true,
+      		navigationControlOptions: {style: google.maps.NavigationControlStyle.ANDROID},
+      		enableCloseButton: false,
+      		addressControl: false,
+      		linksControl: false,
+				});
+				pano_tab.setPosition(nearestLatLng);
+        pano_tab.setPov({
+           heading: heading,
+            zoom: 1,
+            pitch: 0
+        });
+				pano_tab.setVisible(true);
+    		var pano_marker = new google.maps.Marker({
+        	position: openMarker.getPosition(), 
+        	map: pano_tab
+    		});
+    		return(true);
+  		} else {
+  			return(false);
+  		}
+		});		
+	}
+	
   // Attempt at full screen street view
   // still needs infowindow and label support and then we're golden
   function show_streetview_fullscreen() {
