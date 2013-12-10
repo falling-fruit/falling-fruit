@@ -13,6 +13,10 @@ class Type < ActiveRecord::Base
     self.usda_symbol.nil? ? nil : "http://plants.usda.gov/java/profile?symbol=#{usda_symbol}"
   end
 
+  def full_name
+    self.scientific_name.nil? ? self.name : (self.name + " [" + self.scientific_name + "]")
+  end
+
   # csv support
   comma do
     id

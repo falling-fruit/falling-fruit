@@ -146,6 +146,7 @@
   function clear_markers() {
     if (markersArray) {
       for (var i = 0; i < markersArray.length; i++ ) {
+        if(openMarker != undefined && markersArray[i].marker == openMarker) continue;
         markersArray[i].marker.setMap(null);
         markersArray[i].marker = null;
         markersArray[i].id = null;
@@ -357,9 +358,11 @@
       // remove any cluster-type markers 
       var i = find_marker(null);
       while((i != undefined) && (i >= 0)){
-        markersArray[i].marker.setMap(null);
-        markersArray[i].marker = null;
-        markersArray[i].id = null;
+        if(markersArray[i].marker != undefined){
+          markersArray[i].marker.setMap(null);
+          markersArray[i].marker = null;
+          markersArray[i].id = null;
+        }
         markersArray.splice(i,1);
         i = find_marker(null);
       }
