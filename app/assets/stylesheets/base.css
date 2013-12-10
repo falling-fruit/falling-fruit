@@ -148,8 +148,8 @@ p#stamen_attribution a {
 /**********************************************************/
 
 div#location_infowindow {
-	min-width: 20em;
-	max-width: 35em;
+	min-width: 30em;
+	max-width: 40em;
 }
 
 /*** Info Tab ***/
@@ -262,10 +262,34 @@ div#tab-1 table#footer a#add_review:hover {
   overflow: auto;
 }
 
+div.observation {
+  border-bottom: 1px solid #EEE;
+}
+
+div#observation_list a {
+	text-decoration: underline;
+	color: #999;
+}
+
+div#observation_list a:hover {
+	color: #333;
+}
+
+div.obsphoto {
+  float: right;
+  padding: 0.7em 0 0.5em 0;
+  background: #EEE;
+  min-width: 100px;
+  max-width: 250px;
+  text-align: center;
+  color: #555555;
+  font-style: italic;
+}
+
 /*** Street View Tab ***/
 
 #tab-3 {
-	/* border-top: 1px solid #FFF; */
+
 }
 
 /**********************************************************/

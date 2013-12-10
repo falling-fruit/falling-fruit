@@ -33,7 +33,6 @@
 		displayCounter: true
 	});
 </script>
-	<- This code screws up my tab-resizing code ! -> 
 	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript">
     function show_recaptcha(element) {
@@ -42,6 +41,8 @@
   </script>
 </head>
 <body>
+
+ <div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->
 
  <!-- Alerts -->
  <% if notice or alert %>
