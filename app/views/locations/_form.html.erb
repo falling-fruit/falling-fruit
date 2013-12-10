@@ -1,7 +1,23 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
+	
+	// Access
+	$("#location_access").select2({
+		minimumResultsForSearch: 999
+	});
+	
+	// Season
+	$("#location_season_start").select2({
+		minimumResultsForSearch: 999
+	});
+	$("#location_season_stop").select2({
+		minimumResultsForSearch: 999
+	});
+	
+	// Date observed
   $("#observed_on").datepicker();
+  
   // Type selector
   $('#typeselect2').select2({
   	tokenSeparators: [","],
@@ -89,7 +105,7 @@ jQuery(document).ready(function(){
   <%= f.hidden_field :client, :value => 'web' %>
   
   <!-- Type -->
-  <div class="field" id="types">
+  <div class="field first" id="types">
     *<%= f.label :types %><br />
     <span class="subtext">Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.</span><br />
     <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
@@ -99,7 +115,7 @@ jQuery(document).ready(function(){
   <div class="field">
     *<label for="location_address">Location</label><br>
     <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br />
-    Lat, Lon <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br />
+    Lat, Lng <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br />
     <a href="#" onclick="update_marker_latlng();">>> Move marker to coordinates</a>
     
   	<!-- Address (if new) -->
@@ -152,26 +168,26 @@ jQuery(document).ready(function(){
     <%= f.check_box(:no_season) %> No Season
   </div>
   
+    <!-- Access -->
+  <div class="field">
+    <%= f.label :access %><br />
+    <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br />
+    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
+  </div>
+  
   <!-- Unverified -->
   <div class="field">
     <label>Unverified</label> <%= f.check_box(:unverified) %><br />
-    <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
+    <span class="subtext">If you doubt the existence, location, or identity of this source.</span>
   </div>
-
-  <!-- Season -->
-  <div class="field">
-    <%= f.label :season %><br />
-    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
-    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
-    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
-    <%= f.check_box(:no_season) %> No Season
-  </div>
- 
-  <% if @current_action == "new" %>
   
+  <!-- Observations -->
+  <% if @current_action == "new" %>
+  <hr />
+
   <!-- Quality Rating -->
   <div class="field">
-    <%= f.label :quality_rating %><br />
+    <%= f.label :quality %><br />
     <span class="subtext">Rate the tastiness of this source (if applicable)</span><br />
     <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
@@ -179,45 +195,38 @@ jQuery(document).ready(function(){
   
   <!-- Yield Rating -->
   <div class="field">
-    <%= f.label :yield_rating %><br />
+    <%= f.label :yield %><br />
     <span class="subtext">Rate the productivity of this source (if applicable)</span><br />
     <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
-
+  
   <!-- Fruiting -->
   <div class="field">
-    <%= f.label :current_status %><br />
-    <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span><br />
+    <%= f.label :fruiting_status %><br />
+    <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
     <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
     <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
   </div>
-
+  
   <!-- Date -->
   <div class="field">
-    <%= f.label :visited_on %>
-    <span class="subtext">Date you visited the source (if not today)</span><br />
+    <%= f.label :date_visited %><br />
+    <span class="subtext">Date of the reported fruiting status (if not today)</span><br />
     <%= text_field_tag(:observed_on) %>
   </div>
   <% end %>
-  
-  <!-- Access -->
-  <div class="field">
-    <%= f.label :access %><br />
-    <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br />
-    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
-  </div>
 
-  <br />
+  <hr />
+  
   <!-- Captcha -->
   <% unless user_signed_in? %>
-  	<br />
-	<% end %>
-  <div id="captcha">
-  	<%= recaptcha_tags(:display => {:theme => 'white'}) unless user_signed_in? %>
-  </div>
-  
+  	<div id="captcha">
+  		<%= recaptcha_tags(:display => {:theme => 'white'}) %>
+  	</div>
   <br />
+	<% end %>
+  
   <!-- Submit -->
   <div class="actions">
     <%= f.submit "Submit" %>

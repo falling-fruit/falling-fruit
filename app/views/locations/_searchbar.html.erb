@@ -11,12 +11,13 @@
   <span class="nowrap">  
    <!-- Address -->
    <b>Address</b>
-   <input id="address" name="address" value="" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;"><button onclick="recenter_map_to_address();" title="Zoom to address" style="margin-left:0;border-top-left-radius:0;border-bottom-left-radius:0;border-left:none;">Go</button>
+   <input id="address" name="address" placeholder="Type and press Enter" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;"><!--<button onclick="recenter_map_to_address();" title="Zoom to address" style="margin-left:0;border-top-left-radius:0;border-bottom-left-radius:0;border-left:none;">Go</button>-->
     <span id="recenter_button">
-    &middot;
-    <button onclick="recenter_map()" title="Zoom to current location">Zoom to Me</button>
+    	&middot;
+    	<button onclick="recenter_map()" title="Zoom to current location">Zoom to Me</button>
     </span>
     &middot; 
+    
     <!-- Type Filter -->
     <span class="nowrap">
     	<b>Filter</b>
@@ -34,55 +35,45 @@
      </span>
    </span>
 
-   <!-- Municipal -->
-   <span class="nowrap" style="cursor:help;" onclick="$('#tree_inventories_help').dialog({autoOpen:true,title:'What is a Tree Inventory?',width:425,height:275,modal:true})">
-     <b>Tree inventories</b>
+   <!-- Tree inventories -->
+   <span class="nowrap">
+     <b>Tree inventories</b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="$('#tree_inventories_help').dialog({autoOpen:true, title:'What is a tree inventory?', width:640, modal:true, resizable:false, draggable:false})">[?]</span>
      <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> title="Toggle city and campus tree inventories">
    </span>
    <div id="tree_inventories_help" style="display:none;">
-     <img src="/paloalto.jpg" style="float:right;margin:0.2em;" width="200" title="Example tree inventory data for Palo Alto, California">
-     Tree Inventories are collected by municipalities and organizations who want to document and care for their trees.
-     These datasets are created by trained arborists and are typically both detailed and exhaustive. At Falling Fruit,
-     we carefully process open tree inventory data selecting for edible species to be displayed on the map. If you 
-     would like to add data for your own city or town, you can start by asking your town officials if there has been a tree inventory or survey, 
-     and if you can get a copy of the (presumably public) data.
+     <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Example tree inventory data for Palo Alto, California">
+     Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. You can help us map your neighborhood by asking your city or university if a tree inventory exists and whether  it can be shared with Falling Fruit.
    </div>
    
+   <!-- Download -->
    <span id="export_data" style="display: none;">
     &middot;
     <span class="nowrap">
      <a href="#" id="get_data_link" title="Download map as a text file">Download</a>
     </span>
    </span>
-  
+   
  </div>
 </div>
 
 <% content_for :page_scripts do %>
 <script type="text/javascript">
-var en_type_data = [<%= Type.order(:name).collect{ |t|
-                 "{id:#{t.id},text:\"#{t.il8n_name("en-us")}\"}" }.
-                 join(",\n").html_safe %>];
-var la_type_data = [<%= Type.order(:name).collect{ |t|
-                 "{id:#{t.id},text:\"#{t.il8n_name("la")}\"}" }.
+var base_type_data = [<%= Type.order(:name).collect{ |t|
+                 "{id:#{t.id},text:\"#{t.full_name}\"}" }.
                  join(",\n").html_safe %>];
 jQuery(document).ready(function(){
   $('#type_filter').select2({
     <% if @type.nil? %>
-    placeholder: "Select edible type",
+    	placeholder: "Select edible type",
     <% else %>
-    placeholder: "<%= @type.full_name %>",
+    	placeholder: "<%= @type.full_name %>",
     <% end %>
     data: function(term,page){
-            return { text:'text', results: jQuery.map(en_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
+            return { text:'text', results: jQuery.map(base_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
                                                       function(obj){ 
                                                         return {text:obj["text"] + " (" + types_hash[obj["id"]] + ")",
                                                                 id:obj["id"]}; 
-                                                      }).concat(jQuery.map(la_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
-                                                      function(obj){ 
-                                                        return {text:obj["text"] + " (" + types_hash[obj["id"]] + ")",
-                                                                id:obj["id"]}; 
-                                                      }))
+                                                      })
                    };
     },
     allowClear: true

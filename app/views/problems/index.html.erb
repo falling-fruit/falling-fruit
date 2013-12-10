@@ -5,8 +5,9 @@
 <table id="open_problems_table">
 <thead>
 <tr>
- <th>Created At</th>
- <th>By Whom</th>
+ <th>Created</th>
+ <th>User</th>
+ <th>Where</th>
  <th>Problem</th>
  <th>Resolve</th>
 </tr>
@@ -15,7 +16,24 @@
 <% @open_problems.each do |problem| %>
 <tr>
 <td><%= problem.created_at %></td>
-<td><%= problem.reporter.nil? ? "Anonymous" : problem.reporter.name %></td>
+<td>
+	<% unless problem.reporter.nil? %>
+		<% unless problem.reporter.name.nil? %>
+			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.name %></a>
+		<% else %>
+			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.email %></a>
+		<% end %>
+	<% else %>
+		<% if (not problem.email.nil? and not problem.name.nil?) %>
+			<a href="mailto:<%= problem.email %>"><%= problem.name %></a>
+		<% elsif (problem.email.nil? and not problem.name.nil?) %>
+			<%= problem.name %>
+		<% elsif (not problem.email.nil? and problem.name.nil?) %>
+			<a href="mailto:<%= problem.email %>"><%= problem.email %></a>
+		<% end %>
+	<% end %>
+</td>
+<td><a href="/locations/<%= problem.location.id %>"><%= problem.location.id %></a></td>
 <td><%= Problem::Codes[problem.problem_code] %>
     <% unless problem.comment.blank? %>
     <br><em><%= problem.comment %></em>
@@ -27,23 +45,42 @@
 </table>
 
 <% if @closed_problems.length > 0 %>
+<br />
 <h3>Done</h3>
 
 <table id="closed_problems_table">
 <thead>
 <tr>
- <th>Created At</th>
- <th>By Whom</th>
+ <th>Created</th>
+ <th>User</th>
+ <th>Where</th>
  <th>Problem</th>
  <th>Resolution</th>
- <th>By Whom</th>
+ <th>Admin</th>
 </tr>
 </thead>
 <tbody>
 <% @closed_problems.each do |problem| %>
 <tr>
 <td><%= problem.created_at %></td>
-<td><%= problem.reporter.nil? ? "Anonymous" : problem.reporter.name %></td>
+<td>
+	<% unless problem.reporter.nil? %>
+		<% unless problem.reporter.name.nil? %>
+			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.name %></a>
+		<% else %>
+			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.email %></a>
+		<% end %>
+	<% else %>
+		<% if (not problem.email.nil? and not problem.name.nil?) %>
+			<a href="mailto:<%= problem.email %>"><%= problem.name %></a>
+		<% elsif (problem.email.nil? and not problem.name.nil?) %>
+			<%= problem.name %>
+		<% elsif (not problem.email.nil? and problem.name.nil?) %>
+			<a href="mailto:<%= problem.email %>"><%= problem.email %></a>
+		<% end %>
+	<% end %>
+</td>
+<td><a href="/locations/<%= problem.location.id %>"><%= problem.location.id %></a></td>
 <td><%= Problem::Codes[problem.problem_code] %>
     <% unless problem.comment.blank? %>
     <br><em><%= problem.comment %></em>
@@ -62,11 +99,11 @@
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
     jQuery('#open_problems_table').dataTable({
-      "aaSorting": [[1,"asc"]],
+      "aaSorting": [[0,"asc"]],
       "bPaginate": true
     });
     jQuery('#closed_problems_table').dataTable({
-      "aaSorting": [[1,"asc"]],
+      "aaSorting": [[0,"asc"]],
       "bPaginate": true
     });
 });

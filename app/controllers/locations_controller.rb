@@ -128,7 +128,7 @@ class LocationsController < ApplicationController
         end
       end
       {:title => (tname.present? and not row["name"].include? tname) ? '' : name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => (tname.present? and not row["name"].include? tname) ? "/icons/smdot_t1_gray_light_a75.png" : 
+       :picture => (tname.present? and not row["name"].include? tname) ? "/icons/smdot_t1_white_a50.png" : 
                                                                          "/icons/smdot_t1_red.png",:width => 17, :height => 17,
        :marker_anchor => [0,0], :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i } }
     } unless r.nil?
@@ -160,7 +160,7 @@ class LocationsController < ApplicationController
         end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => (row["unverified"] == 't') ? "/icons/smdot_t1_gray_light.png" : "/icons/smdot_t1_red.png",:width => 17, :height => 17,
+       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17,
        :marker_anchor => [0,0], :n => 1 }
     } unless r.nil?
     respond_to do |format|

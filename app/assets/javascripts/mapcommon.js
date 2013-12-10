@@ -1,6 +1,7 @@
   // ================= globals ==================
 
   var map;
+  var pano;
   var geocoder;
   var prior_bounds = null;
   var prior_zoom = null;
@@ -22,6 +23,10 @@
   // ================= functions =================
 
 	function basemap(lat,lng,zoom,type){
+		
+		// Enable the visual refresh
+  	google.maps.visualRefresh = true;
+  	
 		var latlng = new google.maps.LatLng(lat,lng);
 		var mapOptions = {
 			zoom: zoom,
@@ -38,6 +43,12 @@
 		};
 		map = new google.maps.Map(document.getElementById('map'),mapOptions);
 		
+		// Street View Pano (full screen, still in beta)
+		pano = map.getStreetView();
+		pano.setPosition(latlng);
+		pano.setVisible(false);
+		map.setStreetView(pano);
+
 		// Stamen Toner (B&W) map
 		var tonerType = new google.maps.StamenMapType(toner);
 		tonerType.name = "B&W";
@@ -51,14 +62,14 @@
 	
 		// Bicycle map (and control)
 		bicycleControl(map);
-
-		// Key Drag Zoom
-		keyDragZoom(map);
-
+		
 		// Progress bar
 		pb = progressBar();
 		map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
-
+		
+		// Key Drag Zoom
+		keyDragZoom(map);
+		
 		// Geocoder
 		geocoder = new google.maps.Geocoder();
 	
@@ -115,7 +126,7 @@
           if(types_hash[tid] == undefined) types_hash[tid] = 1;
           else types_hash[tid] += 1;
         }
-      }else{
+      } else {
         var w = mdata[i]["width"];
         var h = mdata[i]["height"];
         var wo = parseInt(w/2,10);
@@ -206,27 +217,116 @@
       });
   }
 
-  var pano = null;
-  function show_streetview(){
-    if(pano != null){
-      pano.unbind("position");
-      pano.setVisible(false);
-      pano = null;
+	// Can be improved by calculating nearest imagery from Street View Service, and then the
+	// POV (heading) using ComputeHeading function here:
+	// https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
+	var pano_tab = null;
+  function show_streetview_tab () {
+    if(pano_tab != null){
+      pano_tab.unbind("position");
+      pano_tab.setVisible(false);
+      pano_tab = null;
     }
-    pano = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
+    pano_tab = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
       navigationControl: true,
       navigationControlOptions: {style: google.maps.NavigationControlStyle.ANDROID},
       enableCloseButton: false,
       addressControl: false,
       linksControl: false
     });
-    pano.bindTo("position", openMarker);
+    pano_tab.bindTo("position", openMarker);    
+    pano_tab.setVisible(true);
+    var pano_marker = new google.maps.Marker({
+        position: openMarker.getPosition(), 
+        map: pano_tab,
+    });
+  }
+  
+  // Attempt at full screen street view
+  // still needs infowindow and label support and then we're golden
+  function show_streetview_fullscreen() {
+    pano.setPosition(openMarker.getPosition());
     pano.setVisible(true);
   }
+  
+// Tab 1 (info, the default) uses its original height.
+function open_tab_1() {
+	
+	$('#tab-2, #tab-3').addClass('ui-tabs-hide');
+	$('#tab-1').removeClass('ui-tabs-hide');
+	var current_width = $('.ui-tabs').width();
+	$('#tab-1').width(current_width);
+	openInfoWindow.setContent(openInfoWindowHtml);
+	openInfoWindow.open(map, openMarker);
+}
+
+// Tab 2 (reviews) tries to get as close as possible to its content height.
+function open_tab_2() {
+	
+	// Potentially necessary for accurate reading on #tab-1 height
+	$('#tab-2, #tab-3').addClass('ui-tabs-hide');
+	$('#tab-1').removeClass('ui-tabs-hide');
+	var starting_height = $('#tab-1').height();
+	var current_width = $('.ui-tabs').width();
+	
+	// Enforce tab height
+	$('#tab-1, #tab-3').addClass('ui-tabs-hide');
+	$('#tab-2').removeClass('ui-tabs-hide');
+	$('#tab-2').width(current_width);
+	var max_height = $('#tab-2')[0].scrollHeight;
+	if (starting_height > max_height) {
+		max_height = starting_height;
+	}
+	$('#tab-2').height(max_height);
+	openInfoWindow.setContent(openInfoWindowHtml);
+	function forceResize(){
+    var h = $('#tab-2').height();
+    if (h != max_height) {    
+      	$('#tab-2').height(max_height);
+        gH = h;
+    } else {
+    	clearInterval(interval);
+		}
+	}
+	var interval = setInterval(forceResize, 1);
+	openInfoWindow.open(map, openMarker);
+}
+
+// Tab 3 (street view) requires a minimum height to be useful.
+function open_tab_3() {
+	
+	// Potentially necessary for accurate reading on #tab-1 height
+	$('#tab-2, #tab-3').addClass('ui-tabs-hide');
+	$('#tab-1').removeClass('ui-tabs-hide');
+	var starting_height = $('#tab-1').height();
+	var current_width = $('.ui-tabs').width();
+	
+	// Enforce tab height
+	$('#tab-1, #tab-2').addClass('ui-tabs-hide');
+	$('#tab-3').removeClass('ui-tabs-hide');
+	$('#tab-3').width(current_width);
+	var max_height = 300;
+	if (starting_height > max_height) {
+		max_height = starting_height;
+	}
+	$('#tab-3').height(max_height);
+	openInfoWindow.setContent(openInfoWindowHtml);
+	function forceResize(){
+    var h = $('#tab-3').height();
+    if (h != max_height) {    
+      	$('#tab-3').height(max_height);
+        gH = h;
+    } else {
+    	clearInterval(interval);
+		}
+	}
+	var interval = setInterval(forceResize, 1);
+	openInfoWindow.open(map, openMarker);
+}
 
   function open_marker_by_id(id,lat,lng){
-    for (var i = 0; i < markersArray.length; i++ ) {
-      if(markersArray[i].id == id){
+    for (var i = 0; i < markersArray.length; i++) {
+      if (markersArray[i].id == id) {
         var requestHtml = $.ajax({
           type: 'GET',
           url: '/locations/' + id + '/infobox',
@@ -234,8 +334,14 @@
         });
         requestHtml.done(function(html){
           var div = document.createElement('div');
-          div.innerHTML = html;
-          $(div).tabs();
+          div.innerHTML = html;   
+          // I've been trying to capture tab changes for pre-emptive resizing but to no avail.   
+          // http://jsfiddle.net/WnDV9/298/
+          $(div).tabs({
+          	beforeActivate: function (event, ui) {
+    					alert(ui.newPanel.attr('id'));
+  					}
+					});
           var infowindow = new google.maps.InfoWindow({content:div});
           google.maps.event.addListener(infowindow,'closeclick',function(){
             openInfoWindow = null;
@@ -245,8 +351,13 @@
             openInfoWindowHeight = $("#tab-1").height();
             $("#tab-2").height(openInfoWindowHeight);
             $("#tab-3").height(openInfoWindowHeight);
+            $('#problem_controls').load('/problems/new?location_id=' + id);
           });
-          infowindow.open(map, markersArray[i].marker);
+          if (map.getStreetView().getVisible()) {
+          	infowindow.open(map.getStreetView(), markersArray[i].marker);
+          } else {
+          	infowindow.open(map, markersArray[i].marker);
+          }
           openInfoWindow = infowindow;
           openInfoWindowHtml = infowindow.content;
         });
@@ -286,8 +397,13 @@
           openInfoWindowHeight = $("#tab-1").height();
           $("#tab-2").height(openInfoWindowHeight);
           $("#tab-3").height(openInfoWindowHeight);
+          $('#problem_controls').load('/problems/new?location_id=' + id);
         });
-        infowindow.open(map, markersArray[markersArray.length-1].marker);
+        if (map.getStreetView().getVisible()) {
+					infowindow.open(map.getStreetView(), markersArray[markersArray.length-1].marker);
+        } else {
+					infowindow.open(map, markersArray[markersArray.length-1].marker);
+				}
         openInfoWindow = infowindow;
         openInfoWindowHtml = infowindow.content;
       });
@@ -296,12 +412,12 @@
     return true;
   }
 
-  function add_marker_infobox(i){ 
+  function add_marker_infobox(i) { 
     var marker = markersArray[i].marker;
     var id = markersArray[i].id;
     google.maps.event.addListener(marker, 'click', function(){
-      if(openMarker === marker) return;
-      if(openInfoWindow != null) openInfoWindow.close()
+      if (openMarker === marker) return;
+      if (openInfoWindow != null) openInfoWindow.close()
       var requestHtml = $.ajax({
         type: 'GET',
         url: '/locations/' + id + '/infobox',
@@ -320,10 +436,15 @@
           openInfoWindowHeight = $("#tab-1").height();
           $("#tab-2").height(openInfoWindowHeight);
           $("#tab-3").height(openInfoWindowHeight);
+          $('#problem_controls').load('/problems/new?location_id=' + id);
         });
-        infowindow.open(map, marker);
+        if (map.getStreetView().getVisible()) {
+					infowindow.open(map.getStreetView(), marker);
+        } else {
+					infowindow.open(map, marker);
+				}
         openInfoWindow = infowindow;
-        openInfoWindowHtml = requestHtml.responseText
+        openInfoWindowHtml = infowindow.content;
       });
       openMarker = marker;
     });
@@ -406,26 +527,26 @@
   }
 
   // Add a marker with an open infowindow
-  function place_add_marker(latLng) {
+  function place_add_marker(latlng) {
     var marker = new google.maps.Marker({
-        position: latLng, 
+        position: latlng, 
         map: map,
         draggable: true
     });
     markersArray.push({marker: marker, id: -1, type: "point"});
     // Set and open infowindow
+    var html = $('<div id="newmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + 
+                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>');
     var infowindow = new google.maps.InfoWindow({
-        content: '<div id="newmarker">' +
-                 '<a href="/locations/new?lat=' + latLng.lat() + '&lng=' + latLng.lng() + 
-                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>'
+    	content: html[0]
     });
     infowindow.open(map,marker);
     // Listen to drag & drop
     google.maps.event.addListener(marker, 'dragend', function() {
-        var infowindow = new google.maps.InfoWindow({
-          content: '<div id="newmarker">' +
-                 '<a href="/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng() + 
-                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>'
+    	var html = '<div id="newmarker"><a href="/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng() + 
+                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>';
+      var infowindow = new google.maps.InfoWindow({
+          content: html[0]
         });
         infowindow.open(map,marker);
     });
@@ -502,7 +623,7 @@ function update_attribution() {
   }
 }
  
-function recenter_map(){
+function recenter_map() {
 	navigator.geolocation.getCurrentPosition(function(position){
 			var lat = position.coords.latitude;
 			var lng = position.coords.longitude;
@@ -606,36 +727,52 @@ function bicycleControl(map) {
   });
 }
 
-// Adds Key Drag Zoom to the map
+// Adds Key Drag Zoom to the map (unless mobile device)
 // http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/
 function keyDragZoom(map) {
-	map.enableKeyDragZoom({
-		visualEnabled: true,
-		visualPosition: google.maps.ControlPosition.LEFT,
-		visualPositionOffset: new google.maps.Size(35, 0),
-		visualPositionIndex: null,
-		visualSprite: "http://maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
-		visualSize: new google.maps.Size(20, 20),
-		visualTips: {
-		 off: "Turn on drag-zoom (or hold 'Shift' key)",
-		 on: "Turn off drag-zoom"
-		},
-		key: "shift",
-		boxStyle: {border: "1px solid #736AFF"},
-		veilStyle: {backgroundColor: "gray", opacity: 0.25, cursor: "crosshair"}
-	 });
+	if (typeof map.enableDragZoom == 'function') {
+		map.enableKeyDragZoom({
+			visualEnabled: true,
+			visualPosition: google.maps.ControlPosition.LEFT,
+			visualPositionOffset: new google.maps.Size(35, 0),
+			visualPositionIndex: null,
+			visualSprite: "http://maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
+			visualSize: new google.maps.Size(20, 20),
+			visualTips: {
+			 off: "Turn on drag-zoom (or hold 'Shift' key)",
+			 on: "Turn off drag-zoom"
+			},
+			key: "shift",
+			boxStyle: {border: "1px solid #736AFF"},
+			veilStyle: {backgroundColor: "gray", opacity: 0.25, cursor: "crosshair"}
+		 });
+	}
 }
 
 // Toggles on/off route controls below footer of location infowindow
 function toggle_route_controls() {
-    if(showing_route_controls){
-      openInfoWindow.setContent(openInfoWindowHtml);
-      showing_route_controls = false;
-    }else{
-      tempHtml = openInfoWindowHtml.replace('<div id="route_controls" style="display:none;','<div id="route_controls" style="display:block;').replace('routes<img src="/smarrow_down.png"','routes<img src="/smarrow_up.png"');
-      openInfoWindow.setContent(tempHtml);
-      showing_route_controls = true;
+  if ($('#route_controls').css('display') == 'none') {
+      $('#route_controls').show();
+      $('#route_toggle').css('color', '#333');
+    } else {
+    	$('#route_controls').hide();
+    	$('#route_toggle').css('color', '#999');
     }
+    openInfoWindow.setContent(openInfoWindowHtml);
+    openInfoWindow.open(map, openMarker);
+}
+
+// Toggles on/off route controls below footer of location infowindow
+function toggle_problem_controls(location_id) {
+  if ($('#problem_controls').css('display') == 'none') {
+      $('#problem_controls').show();
+      $('#problem_toggle').css('color', '#333');
+    } else {
+    	$('#problem_controls').hide();
+    	$('#problem_toggle').css('color', '#999');
+    }
+    openInfoWindow.setContent(openInfoWindowHtml);
+    openInfoWindow.open(map, openMarker);
 }
 
 // Zooms to currently open marker
@@ -643,4 +780,125 @@ function zoom_to_marker() {
   maxZoom = map.mapTypes[map.mapTypeId].maxZoom;
   map.panTo(openMarker.position);
   map.setZoom(maxZoom);
+}
+
+/**********************************************************/
+/********************** New / Edit ************************/
+/**********************************************************/
+
+// Update marker position from user-provided address
+function update_marker_address() {
+
+	// If empty, do nothing
+	if($("#location_address").val() == "") return;
+	geocoder.geocode({'address': $("#location_address").val()}, function(results, status) {
+		
+		// If valid address, move existing (or place new) marker
+		if (status == google.maps.GeocoderStatus.OK) {
+			var lat = results[0].geometry.location.lat();
+			var lng = results[0].geometry.location.lng();
+			var latlng = results[0].geometry.location
+			$("#location_lat").val(lat);
+			$("#location_lng").val(lng);
+			map.panTo(latlng);
+			map.setZoom(15);
+			if (marker != null) {
+				marker.setPosition(latlng);
+			} else {
+				initialize_marker(lat,lng);
+			}
+			nag.open(map,marker);
+			nagOpen = true;
+			
+		// Otherwise, return geocoding errors
+		} else {
+			alert("Geocode was not successful for the following reason: " + status);
+		}
+	});
+}
+
+// Update marker position from user-provided latitude and longitude
+function update_marker_latlng() {
+	var lat = $("#location_lat").val();
+	var lng = $("#location_lng").val();
+
+	// If empty, do nothing
+	if (lat == "" || lng == "" ) return;
+	
+	// If numeric, move existing (or place new) marker
+	// Out of range: latitude is snapped to [-90, 90], longitude converted to [-180, 180]
+	var latlng = new google.maps.LatLng(lat,lng, false)
+	if (!isNaN(latlng.mb) && !isNaN(latlng.nb)) {
+		map.panTo(latlng);
+		map.setZoom(15);
+		if (marker != null) {
+			marker.setPosition(latlng);
+		} else {
+			initialize_marker(lat,lng);
+		}
+		nag.open(map,marker);
+		nagOpen = true;
+		
+	// Otherwise, return error
+	} else {
+		alert("Latitude and longitude must both be numbers.");
+	}
+}
+
+// Initialize map marker (marker) and infowindow (nag)
+function place_edit_marker(lat,lng) {
+	
+	var latlng = new google.maps.LatLng(lat,lng)
+	
+	// Marker (global variable in new)
+	marker = new google.maps.Marker({
+		icon: '',
+		position: latlng, 
+		map: map,
+		draggable: true
+	});
+	
+	// Infowindow
+	var html = $('<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>');
+	var nag = new google.maps.InfoWindow({
+		content: html[0]
+	});
+	var nagOpen = false;
+	
+	// Event listeners
+	// Open nag once tiles loaded 
+	google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+		nag.open(map,marker);
+		nagOpen = true;
+	});
+	
+	// Update lat, lng when marker moved
+	google.maps.event.addListener(marker, 'dragend', function() {
+		$("#location_lat").val(this.getPosition().lat());
+		$("#location_lng").val(this.getPosition().lng());
+	});
+	
+	// Record closing of nag
+	google.maps.event.addListener(nag, 'closeclick', function(event) {
+		nagOpen = false;
+	});
+	
+	// Toggle nag open/close on click of marker
+	google.maps.event.addListener(marker, 'click', function(event) {
+		if (nagOpen) {
+			nag.close();
+			nagOpen = false;
+		} else {
+			nag.open(map,marker);
+			nagOpen = true;
+		}
+	});
+	
+	// Close nag if map is clicked
+	google.maps.event.addListener(map, 'click', function(event) {
+		if (nagOpen) {
+			nag.close();
+			nagOpen = false;
+		}
+	});
 }

@@ -1,19 +1,21 @@
+<!-- Wrapper -->
+<div id="location_infowindow">
+
 <!-- Tab Menu -->
 <ul>
- <li><a href="#tab-1"><span>Info</span></a></li>
- <li><a href="#tab-2"><span>Reviews (<%= location.observations.length %>)</span></a><li>
- <li><a href="#tab-3" onclick="show_streetview();"><span>Street View</span></a><li>
+ <li><a href="#tab-1" onclick="open_tab_1();"><span>Info</span></a></li>
+ 	<li><a href="#tab-2" onclick="open_tab_2();"><span>Reviews (<%= location.observations.length %>)</span></a></li>
+ <li><a href="#tab-3" onclick="open_tab_3();show_streetview_tab();"><span>Street View</span></a></li>
 </ul>
 
 <!-- Info Tab -->
 <div id="tab-1">
-<!-- Wrapper -->
-<div id="location_infowindow">
 
 <!-- Types -->
 <div id="type_list">
 	<% if location.unverified %>
-		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">UNVERIFIED</li>
+		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">UNVERIFIED<% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="$('#unverified_help').dialog({autoOpen:true, title:'Why Unverified?', width:500, modal:true, resizable:false, draggable:false})">[?]</span><% end %>
+			</li>
 	<% end %>
  <% @location.locations_types.each{ |d| %>
  <li>
@@ -125,23 +127,35 @@
 <table id="footer">
 	<tr>
  		<td id="controls">
+ 		<!-- Observation -->
 		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review</a>
-                <a href="#" title="Report a problem" id="problem_link" onclick="$('#problem_modal').load('/problems/new?location_id=<%= location.id %>').dialog({autoOpen:true,title:'Report a Problem',width:425,height:350,modal:true})">problem</a>
+		<!-- Problem -->
+		<% if user_signed_in? %>
+   		<!--<a href="#" title="Report a problem" id="problem_link" onclick="$('#problem_modal').load('/problems/new?location_id=<%= location.id %>').dialog({autoOpen:true, title:'Report a problem', width:425, modal:true, resizable:false, draggable:false, close:function(){$('#problem_modal').html('');}})">report</a>-->
+   		<a href="#" title="Report a problem" id="problem_toggle" onclick="toggle_problem_controls(<%= location.id %>);">report</a>
+   	<% end %>
+   	
+		<!-- Zoom -->
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
+ 		<!-- Link -->
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
+    <!-- Edit -->
     <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location">edit</a>
+    <!-- Routes -->
  		<% if !mobile_device? and user_signed_in? %>
- 			<a href="javascript:toggle_route_controls();" data-ajax="false" title="Toggle route controls">routes<img src="/smarrow_down.png" style="margin-left:0.25em;"/><img src="/smarrow_up.png" style="display:none;"/></a>
+ 			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="Toggle route controls">routes</a>
  		<% end %>
+ 		<!-- Delete -->
  		<% if user_signed_in? and current_user.is? :admin %>
   			<%= link_to('delete', location, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete this location') %>
  		<% end %>
- 		</td>
+ 		</td>	
+ 		<!-- Author (source) -->
   	<td id="added_by">by <i style="padding-right:0.5em;"><%= (location.author.nil? or (location.author.strip.length == 0)) ? "Anonymous" : location.author %></i>
   	<% unless location.import.nil? %>
-		(<a href="/imports/<%= location.import.id %>" title="Citation to the original source">source</a>)
+			(<a href="/imports/<%= location.import.id %>" title="Citation to the original source">source</a>)
   	<% end %>
-</td>
+		</td>
  	</tr>
 </table>
 
@@ -150,17 +164,23 @@
 <div id="route_controls" style="display:none;border-top:1px solid #F0F0F0;margin-top:0.75em;padding-top:0.75em;width:100%;">
 Add to / remove from: 
 <form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">
-	<select id="route_id" name="route_id">
+	<select id="route_id" name="route_id" style="font-size:85%;">
 		<% Route.where("user_id = ?",current_user.id).each do |r| %>
  			<option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
 		<% end %>
  		<option value="-1">-- New Route --</option>
 	</select>
-	<input type="submit" value="+ / -" style="padding:0.05em 0.25em;">
+	<input type="submit" value="+ / -" style="padding:0.2em 0.3em;line-height:85%;">
 </form>
 </div>
 <% end %>
-</div>  <!-- Wrapper -->
+
+<!-- Problem -->
+<% if user_signed_in? %>
+<div id="problem_controls" style="display:none;border-top:1px solid #F0F0F0;margin-top:0.75em;padding-top:0.75em;width:100%;font-size:85%!important;">
+</div>
+<% end %>
+
 </div> <!-- tab 1 -->
 
 <!-- Reviews Tab -->
@@ -168,20 +188,15 @@ Add to / remove from:
 
 <!-- Hi Ethan, Just sticking this css here for now since you'll probably want to tweak it and then move it elsewhere... -->
 <style>
-div#observation_list{
-  font-size: 10pt;
+div#observation_list {
 }
-div.observation{
-  border: 1px solid #c9c9c9;
-  border-radius: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-bottom: 3px;
+div.observation {
+  border-bottom: 1px solid #EEE;
 }
-div.obsphoto{
+div.obsphoto {
   float: right;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 0 0 0 5px;
+  background: #EEE:
   width: 100px;
   text-align: center;
   color: #555555;
@@ -226,7 +241,8 @@ on <%= o.observed_on %>
 
 <!-- Street View Tab -->
 <div id="tab-3">
-Street view!
 </div>
+
+</div>  <!-- Wrapper -->
 
 <div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->

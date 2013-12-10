@@ -208,6 +208,7 @@ div#searchbar input[type=checkbox] {
 /* Mainmap type filter */
 #s2id_type_filter {
   width: 20em;
+  font-size: 95% ! important;
 }
 #s2id_type_filter .select2-choice {
 	line-height: 1.5em ! important;
@@ -255,20 +256,29 @@ form#editsource label {
 	color: #333;
 }
 
-form#editsource a {
+form#editsource > div > a {
   font-size: 0.85em;
 }
 
-form#editsource #s2id_typeselect2,
 form#editsource #location_description, 
 form#editsource #location_author, 
 form#editsource #location_address {
-  width: 90%;
+  width: 98%;
+}
+
+form#editsource #s2id_typeselect2,
+form#editsource #s2id_location_access {
+	width: 99%;
 }
 
 form#editsource #location_lat, 
 form#editsource #location_lng {
-  width: 9.5em;
+  width: 10.25em;
+}
+
+form#editsource #s2id_location_season_start,
+form#editsource #s2id_location_season_stop {
+	width: 8em;
 }
 
 form#editsource input#location_lat {
@@ -281,11 +291,6 @@ form#editsource #location_address {
 
 form#editsource #location_description {
   height: 10em;
-}
-
-form#editsource div#captcha {
-  position: relative;  /* Widget has slight left margin */
-  left: -2px;
 }
 
 form#editsource input[type=submit] {
@@ -307,9 +312,21 @@ div#editmap_container {
 
 div#editmarker {
   width: 20em;
-  padding: 0.5em;
-  line-height: normal ! important;
-  overflow: none;
+  height: 6.5em;
+  padding: 0.4em 0.4em 0.9em 0.4em;
+}
+
+/**********************************************************/
+/******************* /observations/new ********************/
+/**********************************************************/
+
+#observation_photo {
+	width: 93%;
+}
+
+#observation_photo_caption,
+#observation_comment {
+	width: 95%;
 }
 
 /**********************************************************/
