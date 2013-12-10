@@ -1,5 +1,5 @@
 <!-- Source Form -->
-<%= form_for(problem,:html => {:id=>"problemform"}) do |f| %>
+<%= form_for(problem,:html => {:id=>"problemform",:onsubmit=>"process_form();return false;"}) do |f| %>
 
   <!-- Errors -->
   <% if problem.errors.any? %>
@@ -49,4 +49,14 @@
 
 <script type="text/javascript">
 show_recaptcha("captcha");
+function process_form(){
+  $.ajax({
+    type: 'POST',
+    url: '/problems',
+    data: $("#problemform").serialize(),
+    success: function(data){
+      $("#problem_modal").html(data);
+    }
+  });
+}
 </script>
