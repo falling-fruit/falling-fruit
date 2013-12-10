@@ -241,6 +241,7 @@ class LocationsController < ApplicationController
       @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
                 :muni => params[:m] == "true", :type => params[:t], :labels => params[:l] == "true" }
     end
+    @type = params[:f].present? ? Type.find(params[:f]) : nil
     @width = params[:width].present? ? params[:width].to_i : 500
     @height = params[:height].present? ? params[:height].to_i : 500
     respond_to do |format|

@@ -56,25 +56,29 @@
  </div>
 </div>
 
-<% content_for :form_scripts do %>
+<% content_for :page_scripts do %>
 <script type="text/javascript">
-
+var base_type_data = [<%= Type.order(:name).collect{ |t|
+                 "{id:#{t.id},text:\"#{t.full_name}\"}" }.
+                 join(",\n").html_safe %>];
 jQuery(document).ready(function(){
-	$('#type_filter').select2({
-    placeholder: "Select edible type",
+  $('#type_filter').select2({
+    <% if @type.nil? %>
+    	placeholder: "Select edible type",
+    <% else %>
+    	placeholder: "<%= @type.full_name %>",
+    <% end %>
     data: function(term,page){
-            var base_data = [<%= Type.order(:name).collect{ |t| 
-                                  "{id:#{t.id},text:\"#{t.scientific_name.nil? ? t.name : t.name + " [" + t.scientific_name + "]"}\"}" }.
-                                  join(",\n").html_safe %>];
-            return { text:'text', results: jQuery.map(base_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
-                                                      function(obj){ obj["text"] = obj["text"] + " (" + types_hash[obj["id"]] + ")";
-                                                                     return obj; })
+            return { text:'text', results: jQuery.map(base_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
+                                                      function(obj){ 
+                                                        return {text:obj["text"] + " (" + types_hash[obj["id"]] + ")",
+                                                                id:obj["id"]}; 
+                                                      })
                    };
     },
     allowClear: true
-  })
-  .val(type_filter) // Requires an initSelection function?
-  .on("change",function(){
+  });
+  $('#type_filter').on("change",function(){
     type_filter = jQuery("#type_filter").val();
     if(type_filter == "") type_filter = undefined;
     clear_markers();
