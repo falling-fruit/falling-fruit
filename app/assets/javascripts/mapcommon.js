@@ -96,7 +96,9 @@
   }
 
   // will avoid adding duplicate markers (using location id)
+  var foo = null;
   function add_markers_from_json(mdata,rich,skip_ids){
+    foo = mdata;
     var len = mdata.length;
     for(var i = 0; i < len; i++){
       var lid = mdata[i]["location_id"];
@@ -217,10 +219,10 @@
       });
   }
 
-	// Can be improved by calculating nearest imagery from Street View Service, and then the
-	// POV (heading) using ComputeHeading function here:
-	// https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
-	var pano_tab = null;
+  // Can be improved by calculating nearest imagery from Street View Service, and then the
+  // POV (heading) using ComputeHeading function here:
+  // https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
+  var pano_tab = null;
   function show_streetview_tab () {
     if(pano_tab != null){
       pano_tab.unbind("position");
@@ -354,9 +356,9 @@ function open_tab_3() {
             $('#problem_controls').load('/problems/new?location_id=' + id);
           });
           if (map.getStreetView().getVisible()) {
-          	infowindow.open(map.getStreetView(), markersArray[i].marker);
+            infowindow.open(map.getStreetView(), markersArray[i].marker);
           } else {
-          	infowindow.open(map, markersArray[i].marker);
+            infowindow.open(map, markersArray[i].marker);
           }
           openInfoWindow = infowindow;
           openInfoWindowHtml = infowindow.content;
@@ -500,7 +502,6 @@ function open_tab_3() {
 
       n = json.length;
       if(n > 0){
-        nt = json[0]["n"];
         if((n < n_found) && (n_found >= n_limit)){
           $("#pg_text").html(n + " of " + n_found + " visible");
         }else{

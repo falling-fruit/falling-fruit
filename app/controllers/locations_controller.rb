@@ -141,7 +141,7 @@ class LocationsController < ApplicationController
 
   def marker
      id = params[:id].to_i
-     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, 
+     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
       string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
       locations_types lt left outer join types t on lt.type_id=t.id
       WHERE lt.location_id=l.id AND l.id=#{id}
@@ -161,7 +161,7 @@ class LocationsController < ApplicationController
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
        :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17,
-       :marker_anchor => [0,0], :n => 1 }
+       :marker_anchor => [0,0], :n => 1, :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i } }
     } unless r.nil?
     respond_to do |format|
       format.json { render json: @markers }

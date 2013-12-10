@@ -28,7 +28,8 @@
       center: new google.maps.LatLng(ini_lat,ini_lng),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, 
+                     google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
       }
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
