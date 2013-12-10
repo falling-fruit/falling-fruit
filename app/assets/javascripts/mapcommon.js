@@ -96,7 +96,9 @@
   }
 
   // will avoid adding duplicate markers (using location id)
+  var foo = null;
   function add_markers_from_json(mdata,rich,skip_ids){
+    foo = mdata;
     var len = mdata.length;
     for(var i = 0; i < len; i++){
       var lid = mdata[i]["location_id"];
@@ -253,7 +255,7 @@
   		}
 		});		
 	}
-	
+  
   // Attempt at full screen street view
   // still needs infowindow and label support and then we're golden
   function show_streetview_fullscreen() {
@@ -366,9 +368,9 @@ function open_tab_3() {
             $('#problem_controls').load('/problems/new?location_id=' + id);
           });
           if (map.getStreetView().getVisible()) {
-          	infowindow.open(map.getStreetView(), markersArray[i].marker);
+            infowindow.open(map.getStreetView(), markersArray[i].marker);
           } else {
-          	infowindow.open(map, markersArray[i].marker);
+            infowindow.open(map, markersArray[i].marker);
           }
           openInfoWindow = infowindow;
           openInfoWindowHtml = infowindow.content;
@@ -512,7 +514,6 @@ function open_tab_3() {
 
       n = json.length;
       if(n > 0){
-        nt = json[0]["n"];
         if((n < n_found) && (n_found >= n_limit)){
           $("#pg_text").html(n + " of " + n_found + " visible");
         }else{

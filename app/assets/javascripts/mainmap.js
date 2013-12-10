@@ -50,7 +50,8 @@ function show_embed_html(object){
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + 
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + "&f=" + type_filter +
+    '&l=' + $('#labels').is(":checked") + 
     '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
       closeText: "close", 
       modal: true, 

@@ -19,22 +19,22 @@
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/2.0.9/src/keydragzoom_packed.js"></script>
 <script type="text/javascript" charset="utf-8">
 	
-	// ================= globals ==================
+  // ================= globals ==================
 	
-	var lat = 17.30868;
-	var lng = -95.27343;
-	var zoom = 2;
-	var type = google.maps.MapTypeId.ROADMAP;
-	<% unless @perma.nil? %>
-      lat = <%= @perma[:lat] %>;
-      lng = <%= @perma[:lng] %>;
-      zoom = <%= @perma[:zoom] %>;
-      type = '<%= @perma[:type] %>';
+  var lat = 17.30868;
+  var lng = -95.27343;
+  var zoom = 2;
+  var type = google.maps.MapTypeId.ROADMAP;
+  <% unless @perma.nil? %>
+  lat = <%= @perma[:lat] %>;
+  lng = <%= @perma[:lng] %>;
+  zoom = <%= @perma[:zoom] %>;
+  type = '<%= @perma[:type] %>';
   <% end %>
   var skip_ids = null;
   var type_filter = undefined;
   <% unless @type.nil? %>
-    type_filter = <%= @type.id %>;
+  type_filter = <%= @type.id %>;
   <% end %>
 
   // ================= functions =================
