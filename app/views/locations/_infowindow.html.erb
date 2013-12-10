@@ -3,18 +3,18 @@
 
 <!-- Tab Menu -->
 <ul>
- <li><a href="#tab-1" onclick="open_tab_1();"><span>Info</span></a></li>
- 	<li><a href="#tab-2" onclick="open_tab_2();"><span>Reviews (<%= location.observations.length %>)</span></a></li>
- <li><a href="#tab-3" onclick="open_tab_3();show_streetview_tab(openMarker.getPosition(),100);"><span>Street View</span></a></li>
+ <li id="info-tab"><a href="#tab-1" onclick="open_tab_1();"><span>Info</span></a></li>
+ <li id="review-tab"><a href="#tab-2" onclick="open_tab_2();"><span>Reviews (<%= location.observations.length %>)</span></a></li>
+ <li id="streetview-tab"><a href="#tab-3" onclick="open_tab_3();"><span>Street View</span></a></li>
 </ul>
 
 <!-- Info Tab -->
-<div id="tab-1">
+<div id="tab-1 info-tab-content">
 
 <!-- Types -->
 <div id="type_list">
 	<% if location.unverified %>
-		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">UNVERIFIED<% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="$('#unverified_help').dialog({autoOpen:true, title:'Why Unverified?', width:500, modal:true, resizable:false, draggable:false})">[?]</span><% end %>
+		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">UNVERIFIED<% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span><% end %>
 			</li>
 	<% end %>
  <% @location.locations_types.each{ |d| %>
@@ -131,7 +131,7 @@
 		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review</a>
 		<!-- Problem -->
 
-   		<a href="#" title="Report a problem" id="problem_link" onclick="$('#problem_modal').load('/problems/new?location_id=<%= location.id %>').dialog({autoOpen:true, title:'Report a problem', width:425, modal:true, resizable:false, draggable:false, close:function(){$('#problem_modal').html('');}})">report</a>
+   		<a href="#" title="Report a problem" id="problem_link" onclick="open_problem_modal(<%= location.id %>);">report</a>
    		<!--<a href="#" title="Report a problem" id="problem_toggle" onclick="toggle_problem_controls(<%= location.id %>);">report</a>-->
 
    	
@@ -184,7 +184,7 @@ Add to / remove from:
 </div> <!-- tab 1 -->
 
 <!-- Reviews Tab -->
-<div id="tab-2">
+<div id="tab-2 review-tab-content">
 
 <!-- Hi Ethan, Just sticking this css here for now since you'll probably want to tweak it and then move it elsewhere... -->
 <style>
@@ -240,9 +240,6 @@ on <%= o.observed_on %>
 </div>
 
 <!-- Street View Tab -->
-<div id="tab-3">
-</div>
+<div id="tab-3 streetview-tab-content"></div>
 
 </div>  <!-- Wrapper -->
-
-<div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->
