@@ -16,28 +16,37 @@
   <%= f.hidden_field :id %>
   <%= f.hidden_field :location_id %>
 
-  <div class="field">
+	<!-- Problem -->
+  <div class="field first">
     <%= f.label :problem_type %><br />
-    <span class="subtext">What's the problem?</span><br />
     <%= f.select(:problem_code,Problem::Codes.collect{ |r| [r,Problem::Codes.index(r)] },:include_blank => true) %>
   </div>
 
+	<!-- Explanation -->
   <div class="field">
     <%= f.label :explanation %><br />
-    <span class="subtext">Explain the problem (if necessary).</span><br />
-    <%= f.text_area(:comment,:size => "40x3") %>
-  </div>
-
-  <div class="field">
-   <%= f.label :contact_info %><br />
-   <span class="subtext">Give your name and email if you'd like us to contact you</span><br />
-   Name: <%= f.text_field(:name,:size => 20) %>
-   Email: <%= f.text_field(:email,:size => 20) %>
+    <span class="subtext">Any information that can help us evaluate the problem</span><br />
+    <%= f.text_area(:comment) %>
   </div>
   
-  <br />
-  <!-- Captcha -->
-  <div id="captcha"></div>
+  <% unless user_signed_in? %>
+  	<!-- Contact info -->
+    <div class="field">
+   		<%= f.label :contact_info %><br />
+   		<span class="subtext">In case we need to contact you (optional)</span><br />
+   		<%= f.text_field(:name, :placeholder=>'Name') %><br />
+   		<div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder=>'Email') %></div>
+  	</div>
+
+   	<br />
+  	<!-- Captcha -->
+  	<!-- Often doesn't load?! -->
+  	<div id="captcha"></div>
+  	<script type="text/javascript">
+  			show_recaptcha("captcha");
+		</script>
+  <% end %>
+  
   <br />
   <!-- Submit -->
   <div class="actions">
@@ -46,7 +55,3 @@
   
 <% end %>
 </form>
-
-<script type="text/javascript">
-show_recaptcha("captcha");
-</script>

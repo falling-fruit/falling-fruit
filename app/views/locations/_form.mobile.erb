@@ -18,43 +18,61 @@
   <!-- Type -->
   <fieldset data-role="controlgroup">
     <legend>Type<br>
-    <span class="subtext">What'd you find? Be as specific as possible. Suggest a new type only if you can't find yours in the list.</span><br>
+    <span class="subtext">Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.</span><br>
     </legend>
-
    <div class="field" id="types">
-    *<%= f.label :types %><br />
-    <span class="subtext">Follow each type with a comma (Apple,Pear,). Review the suggestions carefully, submitting a new name only if an appropriate choice does not already exist.</span><br />
     <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
    </div>
   </fieldset>
   <br>  
-  <!-- Address -->
-  <% if @current_action == "new" or @current_action == "create" %>
+  
+  <!-- Location -->
   <fieldset data-role="controlgroup">
-    <legend>Address:<br />
-    <span class="subtext">Address can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span>
-    </legend>
-    <%= f.text_area :address, :size => "40x2" %><br>
-    <a href="#" onclick="update_marker();" data-role="button" data-ajax="false" data-mini="true" data-inline="true">Move marker to address</a>
-  </fieldset>
-  <% end %>
-  <br>
-  <fieldset data-role="controlgroup">
-  <legend>Location:<br>
+  <legend>Location<br>
   <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span>
   </legend>
   <%= f.text_field :lat, :size => 12, :value => @lat, 'data-inline' => 'true' %> (Latitude)<br>
   <%= f.text_field :lng, :size => 12, :value => @lng, 'data-inline' => 'true' %> (Longitude)
+  <a href="#" onclick="update_marker_latlng();" data-role="button" data-ajax="false" data-mini="true" data-inline="true">Move marker to coordinates</a>
   </fieldset>
   <br>
-  <!-- Author -->
+  
+  <!-- Address -->
+  <% if @current_action == "new" or @current_action == "create" %>
   <fieldset data-role="controlgroup">
-    <legend>Author<br />
-    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br>
+    <legend>Address<br />
+    <span class="subtext">Address can be used to quickly position the marker. Adjust as needed before submitting.</span>
     </legend>
-    <%= f.text_field :author, :size => 40 %>
-    <span>
+    <%= f.text_area :address, :size => "40x2" %><br>
+    <a href="#" onclick="update_marker_address();" data-role="button" data-ajax="false" data-mini="true" data-inline="true">Move marker to address</a>
   </fieldset>
+  <% end %>
+  <br>
+  
+  <!-- Author (new) -->
+  <% if @current_action == "new" %>
+  	<fieldset data-role="controlgroup">
+			<legend>Author<br />
+			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+			</legend>
+			<% if !user_signed_in? or (user_signed_in? and current_user.add_anonymously?) %>
+				<%= f.text_field :author, :size => 40 %>
+			<% elsif user_signed_in? and !current_user.add_anonymously? %>
+				<%= f.text_field :author, :value => current_user.name, :size => 40 %>
+			<% end %>
+  	</fieldset>
+  <% end %>
+  
+  <!-- Author (edit: admin only) -->
+  <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
+  	<fieldset data-role="controlgroup">
+			<legend>Author<br />
+			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+			</legend>
+			<%= f.text_field :author, :size => 40 %>
+  	</fieldset>
+  <% end %>
+  
   <br>
   <!-- Description -->
   <fieldset data-role="controlgroup">
@@ -63,7 +81,8 @@
     </legend>
     <%= f.text_area :description, :size => "50x10" %>
   </fieldset>
-  <br>  
+  <br>
+  
   <!-- Season -->
   <fieldset data-role="controlgroup">
     <legend>Season<br />
@@ -73,11 +92,20 @@
     <%= f.select(:season_stop,[['To:','']] + Location::Months.collect{ |m| [m,Location::Months.index(m)] }) %>
     <label><%= f.check_box(:no_season) %> No Season</label>
   </fieldset>
-  <br>  
+  <br>
+  
+  <!-- Access -->
+  <fieldset data-role="controlgroup">
+    <legend>Access<br />
+    <span class="subtext">Access status of this source. Leave blank if you don't know.</span>
+    </legend>
+    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
+  </fieldset>
+  
   <!-- Unverified -->
   <fieldset data-role="controlgroup">
     <legend>Unverified<br>
-    <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
+    <span class="subtext">If you doubt the existence, location, or identity of this source.</span>
     </legend>
     <label><%= f.check_box(:unverified) %> Unverified</label>
   </fieldset>
@@ -114,8 +142,8 @@
   <br>
   <!-- Fruiting -->
   <fieldset data-role="controlgroup">
-    <legend>Current Status<br />
-    <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span>
+    <legend>Fruiting status<br />
+    <span class="subtext">What is the fruit doing right now? (if applicable)</span>
     </legend>
     <fieldset data-role="controlgroup" data-type="horizontal" >
     <% Location::Fruiting.each_index{ |r| %>
@@ -129,20 +157,11 @@
   <!-- Date -->
   <fieldset data-role="controlgroup">
     <legend>Visited On<br />
-    <span class="subtext">Date you visited the source (if not today)</span>
+    <span class="subtext">Date of the reported fruiting status (if not today)</span>
     </legend>
     <%= text_field_tag(:observed_on) %>
   </fieldset>
   <% end %>
-
-  <!-- Access -->
-  <fieldset data-role="controlgroup">
-    <legend>Access<br />
-    <span class="subtext">Access status of this source. Leave blank if you don't know.</span>
-    </legend>
-    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
-  </fieldset>
-
   
   <br>
   <!-- Submit -->

@@ -70,16 +70,8 @@ jQuery(document).ready(function(){
   <%= f.hidden_field :id %>
   <%= f.hidden_field :location_id %>
 
-  <!-- Fruiting -->
-  <div class="field">
-    <%= f.label :current_status %><br />
-    <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span><br />
-    <%= f.select(:fruiting,Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] },:include_blank => true) %>
-    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
-  </div>
-  
   <!-- Quality Rating -->
-  <div class="field">
+  <div class="field first">
     <%= f.label :quality_rating %><br />
     <span class="subtext">Rate the tastiness of this source.</span><br />
     <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
@@ -94,26 +86,35 @@ jQuery(document).ready(function(){
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
 
+  <!-- Fruiting -->
+  <div class="field">
+    <%= f.label :current_status %><br />
+    <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
+    <%= f.select(:fruiting,Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+  </div>
+  
   <!-- Date -->
   <div class="field">
     <%= f.label :visited_on %>
-    <span class="subtext">Date you visited the source (if not today)</span><br />
+    <span class="subtext">Date of your visit (if not today)</span><br />
     <%= f.text_field(:observed_on) %>
   </div>
 
   <% if @obs.location.unverified %>
   <!-- Verify -->
   <div class="field">
-    <%= f.label :verify_location %>
-    <span class="subtext">This location has been previously flagged as Unverified [?]. Can you confirm that type and location are indeed correct?</span><br />
-    <%= check_box_tag(:verify) %> Yes
+    <%= f.label :verify_location %> <%= check_box_tag(:verify) %> Yes<br />
+    <span class="subtext">This location has been previously flagged as Unverified<span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:9px;" onclick="$('#unverified_help').dialog({autoOpen:true, title:'Why Unverified?', width:500, modal:true, resizable:false, draggable:false})">[?]</span>. Can you confirm that type and location are indeed correct?</span>
   </div>
   <% end %>
+
+	<hr>
 
   <!-- Photo -->
   <div class="field">
    <%= f.label :photo %><br />
-   <span class="subtext">Add a photo of the source if you wish. If posting someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.</span><br />
+   <span class="subtext">Optionally, upload a photo of the source. If it is someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.</span><br />
    <%= f.file_field :photo %>
   </div>
 
@@ -124,9 +125,9 @@ jQuery(document).ready(function(){
   </div>
 
 
-  <!-- Comment -->
+  <!-- Comments -->
   <div class="field">
-    <%= f.label :comment %><br />
+    <%= f.label :comments %><br />
     <span class="subtext">Updates, access issues, plant health...</span><br />
     <%= f.text_area :comment, :size => "40x3" %>
   </div>
@@ -142,17 +143,17 @@ jQuery(document).ready(function(){
     <% end %>
     </span>
   </div>
-
-  <br />
+	
+  <hr />
+  
   <!-- Captcha -->
   <% unless user_signed_in? %>
-  	<br />
-	<% end %>
-  <div id="captcha">
-  	<%= recaptcha_tags(:display => {:theme => 'white'}) unless user_signed_in? %>
-  </div>
-  
+  	<div id="captcha">
+  		<%= recaptcha_tags(:display => {:theme => 'white'}) %>
+  	</div>
   <br />
+	<% end %>
+  
   <!-- Submit -->
   <div class="actions">
     <%= f.submit "Submit" %>

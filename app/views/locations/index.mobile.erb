@@ -9,52 +9,29 @@
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.1"></script>
 <script type="text/javascript" charset="utf-8">
-
+	
+	// ================= globals ==================
+	
+	var lat = 17.30868;
+	var lng = -95.27343;
+	var zoom = 2;
+	var type = google.maps.MapTypeId.ROADMAP;
+	<% unless @perma.nil? %>
+      lat = <%= @perma[:lat] %>;
+      lng = <%= @perma[:lng] %>;
+      zoom = <%= @perma[:zoom] %>;
+      type = '<%= @perma[:type] %>';
+  <% end %>
   var skip_ids = null;
-  var type_filter = null;
+  var type_filter = undefined;
+  <% unless @type.nil? %>
+    type_filter = <%= @type.id %>;
+  <% end %>
 
   // ================= functions =================
 
-  // Enable the visual refresh
-  google.maps.visualRefresh = true;
-  
   function initialize() {
-    var ini_zoom = 2;
-    // Kearney, Nebraska :P
-    //var ini_lat = 40.713956;
-    //var ini_lng = -99.09668;
-    var ini_lat = 17.30868;
-    var ini_lng = -95.27343;
-    var toner = "toner-lite";
-    var ini_type = google.maps.MapTypeId.ROADMAP;
-    <% unless @perma.nil? %>
-      ini_lat = <%= @perma[:lat] %>;
-      ini_lng = <%= @perma[:lng] %>;
-      ini_zoom = <%= @perma[:zoom] %>;
-      ini_type = '<%= @perma[:type] %>';
-    <% end %>
-    var mapOptions = {
-      zoom: ini_zoom,
-      center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: ini_type,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
-      }
-    };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
-    geocoder = new google.maps.Geocoder();
-    map.setTilt(0);
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
-    
-    // Stamen Toner (B&W) map
-    var tonerType = new google.maps.StamenMapType(toner);
-    tonerType.name = "B&W";
-    map.mapTypes.set(toner, tonerType);
-    update_attribution();
-
-    // Bicycle map (and control)
-    bicycleControl(map);
+    basemap(lat,lng,zoom,type);
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_permalink();
@@ -75,7 +52,7 @@
     });
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      update_display(true,ini_zoom);
+      update_display(true,zoom);
       if($("#labels").is(":checked")) labelize_markers();
     });
              
@@ -84,6 +61,7 @@
         update_display(false);
       });
     });
+    
     google.maps.event.addListener(map, 'zoom_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
         update_display(false);
@@ -107,5 +85,6 @@
 <%= javascript_include_tag "progressBar" %>
 <%= javascript_include_tag "richmarker" %>
 <%= javascript_include_tag "mapcommon" %>
+<%= javascript_include_tag "mainmap" %>
 <%= javascript_include_tag "mainmap.mobile" %>
 <% end %>

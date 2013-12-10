@@ -13,15 +13,12 @@ function update_permalink(){
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid;
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid +
+    '&l=' + $('#labels').is(":checked");
   if (type_filter != undefined) {
-    permalink = permalink + "&f=" + type_filter;
+  	permalink = permalink + "&f=" + type_filter;
   }
   $('#permalink').attr('href',permalink);
-}
-
-function update_url(object) {
-  window.history.pushState({},"", $(object).attr('href'));
 }
 
 function update_display(force,force_zoom){

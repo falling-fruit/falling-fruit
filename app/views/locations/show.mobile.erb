@@ -10,42 +10,25 @@
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.1"></script>
 <script type="text/javascript" charset="utf-8">
 
+	// ================= globals ==================
+		
+	var lat = <%= @location.lat %>;
+	var lng = <%= @location.lng %>;
+	var zoom = 15;
+	var type = google.maps.MapTypeId.ROADMAP;
+	
   // set to true once we open the initial infobox
   var opened_once = false;
   var skip_ids = null;
-  var type_filter = null;
+  var type_filter = undefined;
+  <% unless @type.nil? %>
+    type_filter = <%= @type.id %>;
+  <% end %>
 
   // ================= functions =================
   
-  // Enable the visual refresh
-  google.maps.visualRefresh = true;
-  
   function initialize() {
-    var ini_zoom = 15;
-    var ini_lat = <%= @location.lat %>;
-    var ini_lng = <%= @location.lng %>;
-    var toner = "toner-lite";
-    
-    var mapOptions = {
-      zoom: ini_zoom,
-      center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
-      }
-    };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
-    geocoder = new google.maps.Geocoder();
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
-
-    // Stamen Toner (B&W) map
-    var tonerType = new google.maps.StamenMapType(toner);
-    tonerType.name = "B&W";
-    map.mapTypes.set(toner, tonerType);
-    
-    // Bicycle map (and control)
-    bicycleControl(map);
+    basemap(lat,lng,zoom,type);
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_permalink();
@@ -66,7 +49,7 @@
     });
 
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      update_display(true,ini_zoom);
+      update_display(true,zoom);
       document.addEventListener("markersloaded",function(event){
         if(!opened_once){
           opened_once = open_marker_by_id(<%= @location.id %>,<%= @location.lat %>,<%= @location.lng %>);
@@ -80,12 +63,12 @@
         update_display(false);
       });
     });
+    
     google.maps.event.addListener(map, 'zoom_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
         update_display(false);
       });
     });
-    map.setTilt(0); 
   }
 
   // ================== main-level code ===================
@@ -105,4 +88,5 @@
 <%= javascript_include_tag "richmarker" %>
 <%= javascript_include_tag "mapcommon" %>
 <%= javascript_include_tag "mainmap" %>
+<%= javascript_include_tag "mainmap.mobile" %>
 <% end %>

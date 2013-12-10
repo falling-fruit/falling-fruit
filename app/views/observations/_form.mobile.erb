@@ -46,7 +46,7 @@
   <!-- Fruiting -->
   <fieldset data-role="controlgroup">
     <legend>Current Status<br />
-    <span class="subtext">What is the tree doing right now? (will be used to infer seasonality)</span>
+    <span class="subtext">What is the fruit doing right now? (if applicable)</span>
     </legend>
     <fieldset data-role="controlgroup" data-type="horizontal" >
     <% Location::Fruiting.each_index{ |r| %>
@@ -60,22 +60,32 @@
   <!-- Date -->
   <fieldset data-role="controlgroup">
     <legend>Visited On<br />
-    <span class="subtext">Date you visited the source (if not today)</span>
+    <span class="subtext">Date of your visit (if not today)</span>
     </legend>
     <%= f.text_field(:observed_on) %>
   </fieldset>
   
+  <% if @obs.location.unverified %>
+  <!-- Verify -->
+  <fieldset data-role="controlgroup">
+   <legend>Verify location<br />
+   <span class="subtext">This location has been previously flagged as Unverified. Can you confirm that type and location are indeed correct?</span>
+   </legend>
+   <label>Yes</label>
+  </fieldset>
+  <% end %>
+  
   <!-- Photo -->
   <fieldset data-role="controlgroup">
    <legend>Photo<br />
-   <span class="subtext">Add a photo of the source if you wish.</span>
+   <span class="subtext">Optionally, upload a photo of the source. If it is someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.</span>
    </legend>
    <%= f.file_field :photo %>
   </fieldset>
 
   <!-- Comment -->
   <fieldset data-role="controlgroup">
-    <legend>Comment<br />
+    <legend>Comments<br />
     <span class="subtext">Updates, access issues, plant health...</span>
     </legend>
     <%= f.text_area :comment, :size => "40x3" %>
@@ -95,12 +105,16 @@
   </fieldset>
 
   <br />
-  <!-- Submit -->
+  
   <!-- Captcha -->
-  <div id="captcha">
-    <%= recaptcha_tags(:display => {:theme => 'clean'}) unless user_signed_in? %>
-  </div>
-  <br><br>
+  <% unless user_signed_in? %>
+  	<div id="captcha">
+    	<%= recaptcha_tags(:display => {:theme => 'clean'}) unless user_signed_in? %>
+  	</div>
+  	<br />
+  <% end %>
+  <br />
+	<!-- Submit -->
   <%= f.submit("Submit", 'data-ajax' => 'false') %>
     
   </div>
@@ -110,9 +124,9 @@
 </div>
 
 <% content_for :form_scripts do %>
-<script type="text/javascript" charset="utf-8">
-jQuery(document).ready(function(){
-  $("#observation_observed_on").datepicker();
-});
-</script>
+	<script type="text/javascript" charset="utf-8">
+		jQuery(document).ready(function(){
+			$("#observation_observed_on").datepicker();
+		});
+	</script>
 <% end %>

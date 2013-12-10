@@ -20,8 +20,7 @@
   <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript">
     function show_recaptcha(element) {
-      Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {
-        theme: "white"});
+      Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
     }
   </script>
 </head>
@@ -90,7 +89,7 @@
  </div>
  <div id="menu">
     <ul>
-    <li><%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil? or not request.fullpath.match('/observations/new').nil?) ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- About -->
     <li><%= link_to('About', '/about', :class => (['/about','/inventories','/maps','/sharing','/press'].include?(request.fullpath)) ? "currentpage" : "notcurrentpage") %>
@@ -110,7 +109,9 @@
 
 			<% if current_user.is? :admin %>
 				
-                                <li><span class="<%= (request.fullpath.include? problems_path) ? "currentpage" : "notcurrentpage" %>"><a href="<%= problems_path %>">Trouble</a></span>	
+				<!-- Trouble -->
+				<li><%= link_to('Trouble', problems_path, :class => (request.fullpath == problems_path) ? "currentpage" : "notcurrentpage") %></li>
+				
 				<!-- Types -->
 				<li><span class="<%= (request.fullpath.include? types_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
 				<ul>
@@ -143,6 +144,11 @@
  </div>
 </div>
 
+<!-- Unverified? -->
+<div id="unverified_help" style="display:none;">
+Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (eg. "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report back.
+</div>
+   
 <!-- Content -->
 <% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show")  or (@current_controller == "observations") %>
 
