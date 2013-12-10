@@ -304,6 +304,7 @@ function open_tab_2() {
 	}
 	var interval = setInterval(forceResize, 1);
 	openInfoWindow.open(map, openMarker);
+	Shadowbox.setup("a[rel='shadowbox']", { gallery: "Gallery" });
 }
 
 // Tab 3 (street view) requires a minimum height to be useful.

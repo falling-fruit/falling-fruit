@@ -190,14 +190,22 @@ Add to / remove from:
 <style>
 div#observation_list {
 }
+div#observation_list a {
+	text-decoration: underline;
+	color: #999;
+}
+div#observation_list a:hover {
+	color: #333;
+}
 div.observation {
   border-bottom: 1px solid #EEE;
 }
 div.obsphoto {
   float: right;
-  padding: 0 0 0 5px;
-  background: #EEE:
-  width: 100px;
+  padding: 0.7em 0 0.5em 0;
+  background: #EEE;
+  min-width: 100px;
+  max-width: 250px;
   text-align: center;
   color: #555555;
   font-style: italic;
@@ -205,38 +213,47 @@ div.obsphoto {
 </style>
 
 <div id="observation_list">
-<% location.observations.each{ |o| %>
-<div class="observation">
-<% unless o.photo_file_size.nil? %>
-<div class="obsphoto"><img src="<%= o.photo.url(:thumb) %>"><br><%= o.photo_caption %></div>
-<% end %>
-<% unless o.comment.blank? %>
-<p style="font-style: italic;"><%= o.comment %><p>
-<% end %>
-<p style="font-size: 8pt;">
-Yield: <%= o.yield_rating.nil? ? "N/A" : Location::Ratings[o.yield_rating] %> | 
-Quality: <%= o.quality_rating.nil? ? "N/A" : Location::Ratings[o.quality_rating] %> | 
-Status: <%= o.fruiting.nil? ? "Unsure" : Location::Fruiting[o.fruiting] %>
-</p>
-<p style="color: #c9c9c9;">
-Added by <%= o.author.blank? ? "Anonymous" : o.author %>
-<% unless o.observed_on.nil? %>
-on <%= o.observed_on %>
-<% end %>
-<% if user_signed_in? and current_user.is? :admin %>
-<div style="float: right; clear:right;">
-<%= link_to('delete', o, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete this observation') %> 
-<% unless o.photo_file_size.nil? %> 
-| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="Delete photo">delete photo</a>
-<% end %>
-</div>
-<% end %>
-</p>
+	<% location.observations.each{ |o| %>
+	
+		<div class="observation">
+			<!-- Photo -->
+			<% unless o.photo_file_size.nil? %>
+				<div class="obsphoto">
+				<a href="<%= o.photo.url(:original) %>" rel="shadowbox" title="<%= o.photo_caption %>"><img src="<%= o.photo.url(:thumb) %>"></a><br />
+				<%=	truncate(o.photo_caption, :length => 20) %>
+				</div>
+			<% end %>
+			<!-- Comment -->
+			<% unless o.comment.blank? %>
+				<p style="font-style: italic;"><%= o.comment %></p>
+			<% end %>
+			<!-- Ratings -->
+			<p>
+				<span class="label">Yield</span> <%= o.yield_rating.nil? ? "___" : Location::Ratings[o.yield_rating] %> | 
+				<span class="label">Quality</span> <%= o.quality_rating.nil? ? "___" : Location::Ratings[o.quality_rating] %> | 
+				<span class="label">Status</span> <%= o.fruiting.nil? ? "___" : Location::Fruiting[o.fruiting] %>
+			</p>
+			<!-- Author -->
+			<p style="color: #DDD;">Added by <%= o.author.blank? ? "Anonymous" : o.author %>
+				<% unless o.observed_on.nil? %>
+					on <%= o.observed_on %>
+				<% end %>
+			</p>
+			
+			<!-- Delete controls -->
+			<% if user_signed_in? and current_user.is? :admin %>
+				<div style="float: right; clear:right;">
+					<%= link_to('x', o, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete comment') %> 
+					<% unless o.photo_file_size.nil? %> 
+						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="Delete photo">x photo</a>
+					<% end %>
+				</div>
+			<% end %>
+			
 <div style="clear: right; height: 3px;"></div>
 </div>
 <% } %>
 </div>
-
 </div>
 
 <!-- Street View Tab -->

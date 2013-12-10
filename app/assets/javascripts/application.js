@@ -16,3 +16,4 @@
 //= require select2
 //= require sprintf
 //= require dataTables/jquery.dataTables
+//= require shadowbox

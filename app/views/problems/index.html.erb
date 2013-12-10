@@ -1,14 +1,12 @@
-<h1>Problems</h1>
-
-<h3>To Do</h3>
+<h1>Pending</h1>
 
 <table id="open_problems_table">
 <thead>
 <tr>
- <th>Created</th>
- <th>User</th>
+ <th>When</th>
+ <th>Who</th>
  <th>Where</th>
- <th>Problem</th>
+ <th>What</th>
  <th>Resolve</th>
 </tr>
 </thead>
@@ -45,16 +43,15 @@
 </table>
 
 <% if @closed_problems.length > 0 %>
-<br />
-<h3>Done</h3>
+<h1>Completed</h1>
 
 <table id="closed_problems_table">
 <thead>
 <tr>
- <th>Created</th>
- <th>User</th>
+ <th>When</th>
+ <th>Who</th>
  <th>Where</th>
- <th>Problem</th>
+ <th>What</th>
  <th>Resolution</th>
  <th>Admin</th>
 </tr>
@@ -100,11 +97,13 @@
 jQuery(document).ready(function(){
     jQuery('#open_problems_table').dataTable({
       "aaSorting": [[0,"asc"]],
-      "bPaginate": true
+      "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+						"iDisplayLength" : -1
     });
     jQuery('#closed_problems_table').dataTable({
       "aaSorting": [[0,"asc"]],
-      "bPaginate": true
+      "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+						"iDisplayLength" : -1
     });
 });
 </script>

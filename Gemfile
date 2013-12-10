@@ -49,3 +49,5 @@ gem 'activerecord-postgis-adapter'
 # http://www.phase2technology.com/blog/authentication-permissions-and-roles-in-rails-with-devise-cancan-and-role-model/
 gem 'cancan'
 gem 'role_model'
+
+gem 'shadowbox-rails'

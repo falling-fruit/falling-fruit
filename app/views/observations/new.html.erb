@@ -8,79 +8,42 @@
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.1"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/2.0.9/src/keydragzoom_packed.js"></script>
 <script type="text/javascript" charset="utf-8">
+  
   // ================= globals ==================
-  var ini_lat = <%= @obs.location.lat %>;
-  var ini_lng = <%= @obs.location.lng %>;
-  var ini_zoom = 15;
+  
+  var lat = <%= @obs.location.lat %>;
+  var lng = <%= @obs.location.lng %>;
+  var zoom = 20;
+  var type = google.maps.MapTypeId.HYBRID;
   var type_filter = undefined;
   var skip_ids = null;
   var opened_once = false;
 
   // ================= functions =================
   
-  // Enable the visual refresh
-  google.maps.visualRefresh = true;
-  
-  function initialize() {
-    var toner = 'toner-lite';
-    var mapOptions = {
-      zoom: ini_zoom,
-      center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, 
-                     google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
-      }
-    };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
-    geocoder = new google.maps.Geocoder();
-    map.setTilt(0);
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
-  
-    // Stamen Toner (B&W) map
-    var tonerType = new google.maps.StamenMapType(toner);
-    tonerType.name = "B&W";
-    map.mapTypes.set(toner, tonerType);
+ function initialize() {
+  	basemap(lat,lng,zoom,type);
     
-    // Bicycle map (and control)
-    bicycleControl(map);
-
-    // Key Drag Zoom
-    keyDragZoom(map);
-	
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       do_markers(map.getBounds(),$("#observation_location_id").val(),true);
       document.addEventListener("markersloaded",function(event){
-        if(!opened_once){
+        if (!opened_once) {
           opened_once = open_marker_by_id(<%= @obs.location.id %>,<%= @obs.location.lat %>,<%= @obs.location.lng %>);
         }
         $("#tabs").tabs();
       },false);
     });
 
-    google.maps.event.addListener(map, 'click', function(event) {
-      if(openMarker != null && openInfoWindow != null){
-        openInfoWindow.close();
-        openMarker = null;
-        openInfoWindow = null;
-      }
-    });
-
-    google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
-      update_attribution();
-    });
-    
     google.maps.event.addListener(map, 'bounds_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
+      google.maps.event.addListenerOnce(map, 'idle', function() {
         var zoom = map.getZoom();
         var bounds = map.getBounds();
-        if(prior_bounds == null && prior_zoom == null){
+        if (prior_bounds == null && prior_zoom == null) {
           prior_zoom = zoom;
           prior_bounds = bounds;
           return;
         }
-        if(zoom > 11 && prior_bounds != bounds){
+        if (zoom > 12 && prior_bounds != bounds) {
           do_markers(bounds,null,true);
         }
         prior_zoom = zoom;

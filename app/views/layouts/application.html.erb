@@ -17,7 +17,24 @@
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+  <!-- http://www.webmuse.co.uk/blog/shadowbox-ajax-and-other-generated-content-with-jquery-and-javascript/ -->
+  <script type="text/javascript">
+	Shadowbox.init({
+	 	language: 'en', 
+    players: ['img', 'html', 'iframe'], 
+		skipSetup: true,
+		cache: false,
+		animate: false,
+		animateFade: false,
+		showOverlay: true,
+		overlayOpacity: 0.6,
+		counterType: "default",
+		continuous: true,
+		displayCounter: true
+	});
+</script>
+	<- This code screws up my tab-resizing code ! -> 
+	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript">
     function show_recaptcha(element) {
       Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
