@@ -17,6 +17,16 @@ class Type < ActiveRecord::Base
     self.scientific_name.nil? ? self.name : (self.name + " [" + self.scientific_name + "]")
   end
 
+  # http://www.i18nguy.com/unicode/language-identifiers.html
+  Languages = {"en-us" => "English (US)","la" => "Latin"}
+  def il8n_name(lang="en-us")
+    if lang == "la"
+      self.scientific_name
+    else
+      self.name
+    end
+  end
+
   # csv support
   comma do
     id

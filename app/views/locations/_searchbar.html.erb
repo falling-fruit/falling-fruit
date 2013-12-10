@@ -60,8 +60,11 @@
 
 <% content_for :page_scripts do %>
 <script type="text/javascript">
-var base_type_data = [<%= Type.order(:name).collect{ |t|
-                 "{id:#{t.id},text:\"#{t.full_name}\"}" }.
+var en_type_data = [<%= Type.order(:name).collect{ |t|
+                 "{id:#{t.id},text:\"#{t.il8n_name("en-us")}\"}" }.
+                 join(",\n").html_safe %>];
+var la_type_data = [<%= Type.order(:name).collect{ |t|
+                 "{id:#{t.id},text:\"#{t.il8n_name("la")}\"}" }.
                  join(",\n").html_safe %>];
 jQuery(document).ready(function(){
   $('#type_filter').select2({
@@ -71,11 +74,15 @@ jQuery(document).ready(function(){
     placeholder: "<%= @type.full_name %>",
     <% end %>
     data: function(term,page){
-            return { text:'text', results: jQuery.map(base_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
+            return { text:'text', results: jQuery.map(en_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
                                                       function(obj){ 
                                                         return {text:obj["text"] + " (" + types_hash[obj["id"]] + ")",
                                                                 id:obj["id"]}; 
-                                                      })
+                                                      }).concat(jQuery.map(la_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
+                                                      function(obj){ 
+                                                        return {text:obj["text"] + " (" + types_hash[obj["id"]] + ")",
+                                                                id:obj["id"]}; 
+                                                      }))
                    };
     },
     allowClear: true
