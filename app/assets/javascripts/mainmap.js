@@ -84,12 +84,13 @@ function show_observation_html(object){
 }
 
 function update_display(force,force_zoom,force_bounds){
+  if (typeof type_filter != 'number') type_filter = undefined;
   var zoom = map.getZoom();
-  if(force_zoom != undefined) zoom = force_zoom;
+  if (force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
-  if(force_bounds != undefined) bounds = force_bounds;
+  if (force_bounds != undefined) bounds = force_bounds;
   update_permalink();
-  if(zoom <= 12){
+  if (zoom <= 12) {
     $('#hidden_controls').hide();
     $('#export_data').hide();
     // Ethan's searchbar height hack
@@ -98,18 +99,18 @@ function update_display(force,force_zoom,force_bounds){
                    document.getElementById('logobar').offsetHeight;
       document.getElementById('mainmap_container').style.top = height + 'px';
     }
-    if(zoom > 8)
+    if (zoom > 8)
       do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
-    else if((zoom != prior_zoom) || force)
+    else if ((zoom != prior_zoom) || force)
       do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
-  }else if(zoom >= 13){
-    if(prior_zoom < 13) types_hash = {};
+  } else if (zoom >= 13) {
+    if (prior_zoom < 13) types_hash = {};
     $('#get_data_link').attr('href',data_link());
     $('#hidden_controls').show();
     $('#export_data').show();
     do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter);
     // Ethan's searchbar height hack
-    if(document.getElementById('searchbar') != undefined){
+    if (document.getElementById('searchbar') != undefined) {
       var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
       document.getElementById('mainmap_container').style.top = height + 'px';
     }

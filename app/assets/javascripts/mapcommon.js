@@ -2,7 +2,10 @@
 
   var map;
   var pano;
-  var geocoder;
+  var pano_tab = null;
+  var panoClient = new google.maps.StreetViewService();
+  var elevationClient = new google.maps.ElevationService();
+  var geocoder = geocoder = new google.maps.Geocoder();
   var prior_bounds = null;
   var prior_zoom = null;
   var prior_url = null;
@@ -11,10 +14,13 @@
   var openInfoWindow = null;
   var showing_route_controls = false;
   var openInfoWindowHtml = null;
-  var openInfoWindowHeight = null;
+  var openInfoWindowHeight = null; // currently unused
+  var openInfoWindowHeaderHeight = null;
   var openMarker = null;
   var openMarkerId = null;
   var labelsOn = null;
+  var bicycleLayerOn = null;
+  var bicycleControl = null;
   var last_search = null;
   var pb = null;
   var toner = 'toner-lite';
@@ -23,73 +29,69 @@
 
   // ================= functions =================
 
-  // FIXME: indention is all wack in this function
-	function basemap(lat,lng,zoom,type){
-		
-		// Enable the visual refresh
-  	google.maps.visualRefresh = true;
-  	
-		var latlng = new google.maps.LatLng(lat,lng);
-		var mapOptions = {
-			zoom: zoom,
-			center: latlng,
-			mapTypeId: type,
-			mapTypeControlOptions: {
-			mapTypeIds: [
-				google.maps.MapTypeId.ROADMAP, 
-				google.maps.MapTypeId.TERRAIN, 
-				google.maps.MapTypeId.SATELLITE, 
-				google.maps.MapTypeId.HYBRID, 
-				toner]
-			}
-		};
-		map = new google.maps.Map(document.getElementById('map'),mapOptions);
-		
-		// Street View Pano (full screen, still in beta)
-		pano = map.getStreetView();
-		pano.setPosition(latlng);
-		pano.setVisible(false);
-		map.setStreetView(pano);
+  function basemap(lat,lng,zoom,type){
+    
+    // Enable the visual refresh
+    google.maps.visualRefresh = true;
+    
+    var latlng = new google.maps.LatLng(lat,lng);
+    var mapOptions = {
+      zoom: zoom,
+      center: latlng,
+      mapTypeId: type,
+      mapTypeControlOptions: {
+      mapTypeIds: [
+        google.maps.MapTypeId.ROADMAP, 
+        google.maps.MapTypeId.TERRAIN, 
+        google.maps.MapTypeId.SATELLITE, 
+        google.maps.MapTypeId.HYBRID, 
+        toner]
+      }
+    };
+    map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    
+    // Street View Pano (full screen, still in beta)
+    pano = map.getStreetView();
+    pano.setPosition(latlng);
+    pano.setVisible(false);
+    map.setStreetView(pano);
 
-		// Stamen Toner (B&W) map
-		var tonerType = new google.maps.StamenMapType(toner);
-		tonerType.name = "B&W";
-		map.mapTypes.set(toner, tonerType);
-		if(type == toner){
-			update_attribution();
-		}
-	
-		// Turn off 45 deg imagery by default
-		map.setTilt(0);
-	
-		// Bicycle map (and control)
-		bicycleControl(map);
-		
-		// Progress bar
-		pb = progressBar();
-		map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
-		
-		// Key Drag Zoom
-		keyDragZoom(map);
-		
-		// Geocoder
-		geocoder = new google.maps.Geocoder();
-	
-		// Close open location infowindow when map is clicked
-		google.maps.event.addListener(map, 'click', function(event) {
-			if(openMarker != null && openInfoWindow != null){
-				openInfoWindow.close();
-				openMarker = null;
-				openMarkerId = null;
-				openInfoWindow = null;
-			}
-		});
-
-		// Update attribution when map type changes
-		google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
-			update_attribution();
-		});
-	}
+    // Stamen Toner (B&W) map
+    var tonerType = new google.maps.StamenMapType(toner);
+    tonerType.name = "B&W";
+    map.mapTypes.set(toner, tonerType);
+    if(type == toner){
+      update_attribution();
+    }
+  
+    // Turn off 45 deg imagery by default
+    map.setTilt(0);
+  
+    // Bicycle map (and control)
+    addBicycleControl(map);
+    
+    // Progress bar
+    pb = progressBar();
+    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
+    
+    // Key Drag Zoom
+    keyDragZoom(map);
+  
+    // Close open location infowindow when map is clicked
+    google.maps.event.addListener(map, 'click', function(event) {
+      if (openMarker != null && openInfoWindow != null) {
+        openInfoWindow.close();
+        openMarker = null;
+        openMarkerId = null;
+        openInfoWindow = null;
+      }
+    });
+    
+    // Update attribution when map type changes
+    google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
+      update_attribution();
+    });
+  }
 
   function find_marker(lid){
     for(var i = 0; i < markersArray.length; i++){
@@ -226,9 +228,6 @@
 
   // Finds nearest imagery from Street View Service, then calculates the heading.
   // https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
-  var panoClient = new google.maps.StreetViewService();
-  var elevationClient = new google.maps.ElevationService();
-  var pano_tab = null;
   function setup_streetview_tab(marker,distance,visible) {
     var latlng = marker.getPosition();
     var nearestLatLng = null;
@@ -288,7 +287,7 @@
       modal:true, 
       resizable:false, 
       draggable:false,
-      position: {my:"center center",at:"center center",of:"#searchbar"},
+      position: {my: "center", at: "center", of: "#searchbar"},
       close:function(){
         $('#problem_modal').html('');
       }
@@ -319,77 +318,58 @@
   
   // Tab 1 (info, the default) uses its original height.
   function open_tab_1() {	
-    $('#tab-2, #tab-3').addClass('ui-tabs-hide');
-    $('#tab-1').removeClass('ui-tabs-hide');
-    var current_width = $('.ui-tabs').width();
-    $('#tab-1').width(current_width);
-    openInfoWindow.setContent(openInfoWindowHtml);
+		var max_height = Math.min(0.80 * $('#map').height() - openInfoWindowHeaderHeight)
+    if (max_height < $('#tab-1').height()) {
+    	$('#tab-1').height(max_height);
+    	openInfoWindow.open(map,openMarker);
+    } else {
+			openInfoWindow.setContent(openInfoWindowHtml);
+		}
   }
 
 // Tab 2 (reviews) tries to get as close as possible to its content height.
 function open_tab_2() {
-	var starting_height = $('#tab-1').height();
-	var current_width = $('.ui-tabs').width();
-	$('#tab-1, #tab-3').addClass('ui-tabs-hide');
-	$('#tab-2').removeClass('ui-tabs-hide');
-	$('#tab-2').width(current_width);
-	var max_height = $('#tab-2').height();
-	if (starting_height > max_height) {
-		max_height = starting_height;
-	}
-	$('#tab-2').height(max_height);
-	openInfoWindow.setContent(openInfoWindowHtml);
-	function forceResize(){
-    var h = $('#tab-2').height();
-    if (Math.abs(h - max_height) > 1) {    
-      	$('#tab-2').height(max_height);
-    } else {
-    	clearInterval(interval);
-		}
-	}
-	var interval = setInterval(forceResize, 1);
-	// Force map to pan to accomodate new infowindow size
+	$('#tab-2').width($('.ui-tabs').width());
+	var new_height = Math.min(0.80 * $('#map').height() - openInfoWindowHeaderHeight, Math.max($('#tab-1').height(), $('#tab-2').height()));
+	$('#tab-2').height(new_height);
 	openInfoWindow.open(map,openMarker);	
-	// FIXME:
-	// Gallery needs to be cleared on open if already exists!
+	// Load images into Shadowbox gallery
+	Shadowbox.clearCache();
 	Shadowbox.setup("a[rel='shadowbox']", { gallery: "Gallery" });
 }
 
 // Tab 3 (street view) requires a minimum height to be useful.
 function open_tab_3() {
-	var starting_height = $('#tab-1').height();
+  if ($("#tab-1").hasClass('ui-tabs-hide')) {
+  	var starting_height = $('#tab-2').height();
+  } else {
+  	var starting_height = $('#tab-1').height();
+  }
+  var previous_height = $('#tab-3').height()
 	var current_width = $('.ui-tabs').width();
-	$('#tab-1, #tab-2').addClass('ui-tabs-hide');
-	$('#tab-3').removeClass('ui-tabs-hide');
 	$('#tab-3').width(current_width);
-	var max_height = 300;
-	if (starting_height > max_height) {
-		max_height = starting_height;
-	}
-	$('#tab-3').height(max_height);
-	openInfoWindow.setContent(openInfoWindowHtml);
-	function forceResize(){
-    var h = $('#tab-3').height();
-    if (Math.abs(h - max_height) > 1) {    
-      	$('#tab-3').height(max_height);
-    } else {
-    	clearInterval(interval);
-		}
-	}
-	var interval = setInterval(forceResize, 1);
+	var new_height = Math.max(starting_height, Math.min(400, 0.80 * $('#map').height() - openInfoWindowHeaderHeight));
+	$('#tab-3').height(new_height);
 	openInfoWindow.open(map,openMarker);
-	setup_streetview_tab(openMarker,100,true);
+	if (pano_tab == null || !pano_tab.visible) {
+    setup_streetview_tab(openMarker,50,true);
+  } else if (previous_height != new_height) {
+  	pano_tab.setVisible(true);
+  }
 }
 
-  function setup_tabs(){
-    //openInfoWindowHeight = $("#tab-1").height();
-    //$("#tab-2").height(openInfoWindowHeight);
-    //$("#tab-3").height(openInfoWindowHeight);
-    //$('#problem_controls').load('/problems/new?location_id=' + id);
-    setup_streetview_tab(openMarker,100,false);
+  function setup_tabs() {
+    openInfoWindowHeaderHeight = $('.ui-tabs-nav')[0].scrollHeight + parseFloat($('.ui-tabs-nav').css('margin-bottom'));
+    var max_height = 0.80 * $('#map').height() - openInfoWindowHeaderHeight;
+    if (max_height < $('#tab-1').height()) {
+    	$('#tab-1').height(max_height);
+    	openInfoWindow.open(map,openMarker);
+    	return;
+    }
+    setup_streetview_tab(openMarker,50,false);
   }
 
-  function open_marker_by_id(id,lat,lng){
+  function open_marker_by_id(id) {
     for (var i = 0; i < markersArray.length; i++) {
       if (markersArray[i].id == id) {
         var requestHtml = $.ajax({
@@ -473,6 +453,9 @@ function open_tab_3() {
     var marker = markersArray[i].marker;
     var id = markersArray[i].id;
     google.maps.event.addListener(marker, 'click', function(){
+    	// Clear existing Street View tab object
+    	// (doing this on map-click and close-click is not enough, marker-click is sufficient)
+    	pano_tab = null;
       if (openMarker === marker) return;
       if (openInfoWindow != null) openInfoWindow.close()
       var requestHtml = $.ajax({
@@ -516,12 +499,12 @@ function open_tab_3() {
     });
   }
 
-  function do_markers(bounds,skip_ids,muni,type_filter){
+  function do_markers(bounds,skip_ids,muni,type_filter) {
     var bstr = bounds_to_query_string(bounds);
     mstr = 0;
     if(muni) mstr = 1;
     var tstr = '';
-    if(type_filter != undefined){
+    if (type_filter != undefined) {
       tstr = '&t='+type_filter;
     }
     if(pb != null) pb.start(200);
@@ -751,33 +734,33 @@ function apply_geocode(latlng,bounds,zoom) {
 }
 
 // Adds a bicycle layer toggle to the map
-function bicycleControl(map) {
+function addBicycleControl(map) {
 
   // Initialize control div
-  var controlDiv = document.createElement('div');
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
-  controlDiv.id = 'maptype_button';
-  controlDiv.title = 'Show bicycle map';
-  controlDiv.innerHTML = 'Bicycling';
+  bicycleControl = document.createElement('div');
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(bicycleControl);
+  bicycleControl.id = 'maptype_button';
+  bicycleControl.title = 'Show bicycle map';
+  bicycleControl.innerHTML = 'Bicycling';
 
   // Initialize map with control off
-  var toggled = false;
+  bicycleLayerOn = false;
   var layer = new google.maps.BicyclingLayer();
 
   // Setup the click event listeners
-  google.maps.event.addDomListener(controlDiv, 'click', function() {
-    if (toggled) {
+  google.maps.event.addDomListener(bicycleControl, 'click', function() {
+    if (bicycleLayerOn) {
       layer.setMap(null);
-      controlDiv.style.fontWeight = 'normal';
-      controlDiv.style.color = '#565656';
-      controlDiv.style.boxShadow = '0px 1px 1px -1px rgba(0, 0, 0, 0.4)';
-      toggled = 0;
+      bicycleControl.style.fontWeight = 'normal';
+      bicycleControl.style.color = '#565656';
+      bicycleControl.style.boxShadow = '0px 1px 1px -1px rgba(0, 0, 0, 0.4)';
+      bicycleLayerOn = false;
     } else {
       layer.setMap(map);
-      controlDiv.style.fontWeight = '500';
-      controlDiv.style.color = '#000';
-      controlDiv.style.boxShadow = '0px 1px 1px -1px rgba(0, 0, 0, 0.6)';
-      toggled = 1;
+      bicycleControl.style.fontWeight = '500';
+      bicycleControl.style.color = '#000';
+      bicycleControl.style.boxShadow = '0px 1px 1px -1px rgba(0, 0, 0, 0.6)';
+      bicycleLayerOn = true;
     }
   });
 }

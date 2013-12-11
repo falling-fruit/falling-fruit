@@ -30,7 +30,10 @@
 		overlayOpacity: 0.6,
 		counterType: "default",
 		continuous: true,
-		displayCounter: true
+		displayCounter: true,
+		// Prevent arrows from switching photos and panning map
+		onOpen: function() {if (typeof map == "object" & typeof map.setOptions == "function") map.setOptions({keyboardShortcuts: false})},
+		onClose: function() {if (typeof map == "object" & typeof map.setOptions == "function") map.setOptions({keyboardShortcuts: true})}
 	});
 </script>
 	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
@@ -123,7 +126,7 @@
     
     <!-- Routes -->
 		<% if user_signed_in? %>
-			<li><%= link_to('Routes', routes_path, :class => (request.fullpath == routes_path ? "currentpage" : "notcurrentpage")) %></li>
+			<li><%= link_to('Routes', routes_path, :class => ((request.fullpath == routes_path or not request.fullpath.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
 			<% if current_user.is? :admin %>
 				

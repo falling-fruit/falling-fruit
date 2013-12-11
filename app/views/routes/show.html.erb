@@ -11,6 +11,8 @@
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/2.0.9/src/keydragzoom_packed.js"></script>
 <script type="text/javascript" charset="utf-8">
 
+  // ================= globals ==================
+  
   var directionsDisplay;
   var directionsService = new google.maps.DirectionsService();
   //var skip_ids = [<%= @route_locations.collect{ |lr| lr.location.id }.join(",") %>];
@@ -24,6 +26,11 @@
   <% end %>
   var origin = new google.maps.LatLng(<%= @start_location.lat %>,<%= @start_location.lng %>);
   var destination = new google.maps.LatLng(<%= @stop_location.lat %>,<%= @stop_location.lng %>);
+  var zoom = 15;
+  var lat = <%= @start_location.lat %>;
+  var lng = <%= @start_location.lng %>;
+  var type = google.maps.MapTypeId.ROADMAP;
+  var bicycle_route = <%= @route.transport_type == 'Bicycling' %>;
 
   // ================= functions =================
   
@@ -31,55 +38,21 @@
   google.maps.visualRefresh = true;
   
   function initialize() {
-    var ini_zoom = 15;
-    var ini_lat = <%= @start_location.lat %>;
-    var ini_lng = <%= @start_location.lng %>;
-    var toner = "toner-lite";
- 	   
-    var mapOptions = {
-      zoom: ini_zoom,
-      center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
-      }
-    };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    
+    basemap(lat,lng,zoom,type);
     geocoder = new google.maps.Geocoder();
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setOptions({suppressMarkers: true});
     directionsDisplay.setMap(map);
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
+    if (bicycle_route) {
+      google.maps.event.trigger(bicycleControl, 'click');
+    }
     
-    // Stamen Toner (B&W) map
-    var tonerType = new google.maps.StamenMapType(toner);
-    tonerType.name = "B&W";
-    map.mapTypes.set(toner, tonerType);
-    
-    // Bicycle map (and control)
-    bicycleControl(map);
-    
-    // Key Drag Zoom
-	keyDragZoom(map);
-	
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);
     });
 
-    google.maps.event.addListener(map, 'click', function(event) {
-      if(openMarker != null && openInfoWindow != null){
-        openInfoWindow.close();
-        openMarker = null;
-        openInfoWindow = null;
-      }
-    });
-    
-    google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
-      update_attribution();
-    });
-    
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       var bounds = new google.maps.LatLngBounds();
       <% @route_locations.each{ |lr| %>
@@ -107,7 +80,7 @@
 
       // draw the markers and whatnot
       google.maps.event.addListenerOnce(map, 'idle', function(){
-        update_display(true,ini_zoom,bounds);
+        update_display(true,zoom,bounds);
       });
 
       google.maps.event.addListener(map, 'bounds_changed', function() {
@@ -141,6 +114,7 @@
   navigator.geolocation.getCurrentPosition(function(position){},function(error){
     $('#recenter_button').hide();
   });
+
 </script>
 <%= javascript_include_tag "maplabel" %>
 <%= javascript_include_tag "progressBar" %>

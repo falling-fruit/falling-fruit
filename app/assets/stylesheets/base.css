@@ -8,6 +8,12 @@ html, body {
   color: #666;
   margin: 0;
   padding: 0;
+  position: absolute; /* Enable z-index */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -999; /* Prevent from covering links in map */
 }
 
 ul, li {
@@ -152,8 +158,13 @@ div#location_infowindow {
 	max-width: 40em;
 }
 
+div#tab-1 {
+	overflow: auto;
+}
+
 div#tab-1,
-div#tab-2 {
+div#tab-2,
+div#tab-3 {
 	color: #333;
   padding: 0 0 0.5em 0;
   overflow: auto;
@@ -188,7 +199,7 @@ div#tab-1 div#type_list img.type_icon {
 
 /* Description */
 
-div#location_infowindow label {
+div#tab-1 label {
   color: #000;
   font-size: 1.1em;
   padding-right: 0.2em;
@@ -239,7 +250,7 @@ div#tab-1 table#footer a:hover {
 }
 
 div#tab-1 table#footer #controls a {
-	padding-right: 1em;
+	padding-right: 0.75em;
 }
 
 div#tab-1 table#footer td#added_by {
@@ -262,7 +273,12 @@ div#tab-1 table#footer a#add_review:hover {
 /*** Reviews Tab ***/
 
 div.observation {
-  border-bottom: 1px solid #EEE;
+  border-top: 1px solid #EEE;
+  padding: 0.5em 0;
+}
+
+div.observation:last-of-type {
+  padding-bottom: 0;
 }
 
 div#observation_list a {
@@ -276,13 +292,18 @@ div#observation_list a:hover {
 
 div.obsphoto {
   float: right;
+  clear: right;
   padding: 0.7em 0 0.5em 0;
   background: #EEE;
   min-width: 100px;
   max-width: 250px;
   text-align: center;
-  color: #555555;
-  font-style: italic;
+  color: #555;
+}
+
+div#tab-2 label {
+  color: #333;
+  font-size: inherit;
 }
 
 /*** Street View Tab ***/
@@ -337,10 +358,10 @@ div.obsphoto {
 
 /* Hiding by putting off screen rather than using display:none so that dimensions are still reported */
 .ui-tabs .ui-tabs-hide { /* my_tabs-1 contains google map */
-    display: block !important;
-    position: absolute !important;
-    left: -9999px !important;
-    overflow: hidden ! important; /* To avoid measuring the scrollbars */
+	display: block !important;
+	position: absolute !important;
+	left: -9999px !important;
+	overflow: hidden ! important; /* To avoid measuring the scrollbars */
 }
 
 /**********************************************************/
@@ -679,4 +700,13 @@ div#slider{
 .ui-datepicker-calendar td a.ui-state-active {
 	border-color: #AAA ! important;
 	background: #EEE ! important;
+}
+
+/**********************************************************/
+/********************** Shadowbox *************************/
+/**********************************************************/
+
+div#sb-title-inner {
+	font-size: inherit;
+	font-family: Roboto, Arial, sans-serif;;
 }

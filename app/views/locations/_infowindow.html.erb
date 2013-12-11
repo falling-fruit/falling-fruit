@@ -184,9 +184,22 @@ Add to / remove from:
 <div id="tab-2">
 
 <div id="observation_list">
-	<% location.observations.each{ |o| %>
+  <div style="margin-bottom: 1em;">
+    <i>Have you visited this source? Add a <a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a></i>.
+  </div>
+	<% location.observations.reverse_order.each{ |o| %>
 	
 		<div class="observation">
+		  <!-- Delete controls -->
+			<% if user_signed_in? and current_user.is? :admin %>
+				<div style="float: right;">
+					<%= link_to('x', o, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete comment') %> 
+					<% unless o.photo_file_size.nil? %> 
+						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="Delete photo">x photo</a>
+					<% end %>
+				</div>
+			<% end %>
+			
 			<!-- Photo -->
 			<% unless o.photo_file_size.nil? %>
 				<div class="obsphoto">
@@ -196,32 +209,34 @@ Add to / remove from:
 			<% end %>
 			<!-- Comment -->
 			<% unless o.comment.blank? %>
-				<p style="font-style: italic;"><%= o.comment %></p>
+				<span style="color: #000;"><%= o.comment %></span><br/>
 			<% end %>
 			<!-- Ratings -->
-			<p>
-				<span class="label">Yield</span> <%= o.yield_rating.nil? ? "___" : Location::Ratings[o.yield_rating] %> | 
-				<span class="label">Quality</span> <%= o.quality_rating.nil? ? "___" : Location::Ratings[o.quality_rating] %> | 
-				<span class="label">Status</span> <%= o.fruiting.nil? ? "___" : Location::Fruiting[o.fruiting] %>
-			</p>
+			<span style="color: #666; font-size: 90%;">
+			  <% unless o.yield_rating.nil? %>
+			    <label>Yield</label> <%= Location::Ratings[o.yield_rating] %>
+			    <% unless o.quality_rating.nil? %>&middot;<% end %>
+			  <% end %>
+			  <% unless o.quality_rating.nil? %>
+			    <label>Quality</label> <%= Location::Ratings[o.quality_rating] %>
+			    <% unless o.fruiting.nil? %>&middot;<% end %>
+			  <% end %>
+			  <% unless o.fruiting.nil? %>
+			    <label>Status</label> <%= Location::Fruiting[o.fruiting] %>
+			  <% end %>
+			</span><br />
 			<!-- Author -->
-			<p style="color: #DDD;">Added by <%= o.author.blank? ? "Anonymous" : o.author %>
+			<span style="color: #999; font-size: 85%;">by <%= o.author.blank? ? "Anonymous" : o.author %>
 				<% unless o.observed_on.nil? %>
-					on <%= o.observed_on %>
-				<% end %>
-			</p>
-			
-			<!-- Delete controls -->
-			<% if user_signed_in? and current_user.is? :admin %>
-				<div style="float: right; clear:right;">
-					<%= link_to('x', o, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete comment') %> 
-					<% unless o.photo_file_size.nil? %> 
-						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="Delete photo">x photo</a>
+				  <% if o.observed_on.year == DateTime.now.year %>
+					  | <%= o.observed_on.strftime('%B %-d') %>
+					<% else %>
+					  | <%= o.observed_on.strftime('%B %-d, %Y') %>
 					<% end %>
-				</div>
-			<% end %>
+				<% end %>
+			</span>
 			
-<div style="clear: right; height: 3px;"></div>
+<div style="clear: right;"></div>
 </div>
 <% } %>
 </div>
