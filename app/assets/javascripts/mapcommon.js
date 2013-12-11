@@ -227,6 +227,7 @@
   // Finds nearest imagery from Street View Service, then calculates the heading.
   // https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
   var panoClient = new google.maps.StreetViewService();
+  var elevationClient = new google.maps.ElevationService();
   var pano_tab = null;
   function setup_streetview_tab(marker,distance,visible) {
     var latlng = marker.getPosition();
@@ -236,7 +237,7 @@
       if (status == google.maps.StreetViewStatus.OK) { 
         if (visible) {
 					nearestPano = result.location.pano; 
-					panoPosition = result.location.latLng; 
+					panoPosition = result.location.latLng;
 					var heading = google.maps.geometry.spherical.computeHeading(panoPosition, latlng);
 					pano_tab = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
 						navigationControl: true,
@@ -244,20 +245,35 @@
 						enableCloseButton: false,
 						addressControl: false,
 						position: panoPosition,
-						pov: { heading: heading, zoom: 1, pitch: 0 },
+						pov: { heading: heading, pitch: 0, zoom: 1 },
 						linksControl: false,
 					});
 					var pano_marker = new google.maps.Marker({
 						position: openMarker.getPosition(), 
 						map: pano_tab
 					});
-					pano_tab.setVisible(true);
+					// Calculate pitch from Google Elevation API
+					// If fails, assume that elevation is equal at both points
+					var camera_height = 2;
+				  var locations = [panoPosition, latlng];
+					var positionalRequest = {
+					  'locations': locations
+					}
+					var x = google.maps.geometry.spherical.computeDistanceBetween(locations[0], locations[1]);
+					elevationClient.getElevationForLocations(positionalRequest, function(results, status) {
+					  if (status == google.maps.ElevationStatus.OK & results.length == 2) {
+					    var y = results[1].elevation - (results[0].elevation + camera_height);
+				    } else {
+				      var y = -camera_height;
+				    }
+				    var pitch = 90 - Math.atan2(x,y) * (180 / Math.PI);
+					  pano_tab.setPov({ heading: heading, pitch: pitch, zoom: 1 });
+				  });
+				  pano_tab.setVisible(true);
 				}
-        // FIXME: the following function call produces a maximum call stack size exceeded
-        //        error when it is called on a div that is offscreen. However, calling it
-        //        later (e.g., onclick) doesn't seem to work at all :/
         return(true);
       } else {
+        // FIXME: Visibly flickers off when infowindow is opened
         $("#streetview-tab").remove();
         return(false);
       }
@@ -310,21 +326,14 @@
     openInfoWindow.setContent(openInfoWindowHtml);
   }
 
-// FIXME: Tab 2 sometimes takes on previous tab-2 size???
 // Tab 2 (reviews) tries to get as close as possible to its content height.
 function open_tab_2() {
-
-	// Potentially necessary for accurate reading on #tab-1 height
-	$('#tab-2, #tab-3').addClass('ui-tabs-hide');
-	$('#tab-1').removeClass('ui-tabs-hide');
 	var starting_height = $('#tab-1').height();
 	var current_width = $('.ui-tabs').width();
-	
-	// Enforce tab height
 	$('#tab-1, #tab-3').addClass('ui-tabs-hide');
 	$('#tab-2').removeClass('ui-tabs-hide');
 	$('#tab-2').width(current_width);
-	var max_height = $('#tab-2')[0].scrollHeight;
+	var max_height = $('#tab-2').height();
 	if (starting_height > max_height) {
 		max_height = starting_height;
 	}
@@ -332,13 +341,15 @@ function open_tab_2() {
 	openInfoWindow.setContent(openInfoWindowHtml);
 	function forceResize(){
     var h = $('#tab-2').height();
-    if (h != max_height) {    
+    if (Math.abs(h - max_height) > 1) {    
       	$('#tab-2').height(max_height);
     } else {
     	clearInterval(interval);
 		}
 	}
 	var interval = setInterval(forceResize, 1);
+	// Force map to pan to accomodate new infowindow size
+	openInfoWindow.open(map,openMarker);	
 	// FIXME:
 	// Gallery needs to be cleared on open if already exists!
 	Shadowbox.setup("a[rel='shadowbox']", { gallery: "Gallery" });
@@ -346,13 +357,8 @@ function open_tab_2() {
 
 // Tab 3 (street view) requires a minimum height to be useful.
 function open_tab_3() {
-	// Potentially necessary for accurate reading on #tab-1 height
-	$('#tab-2, #tab-3').addClass('ui-tabs-hide');
-	$('#tab-1').removeClass('ui-tabs-hide');
 	var starting_height = $('#tab-1').height();
 	var current_width = $('.ui-tabs').width();
-	
-	// Enforce tab height
 	$('#tab-1, #tab-2').addClass('ui-tabs-hide');
 	$('#tab-3').removeClass('ui-tabs-hide');
 	$('#tab-3').width(current_width);
@@ -364,14 +370,14 @@ function open_tab_3() {
 	openInfoWindow.setContent(openInfoWindowHtml);
 	function forceResize(){
     var h = $('#tab-3').height();
-    if (h != max_height) {    
+    if (Math.abs(h - max_height) > 1) {    
       	$('#tab-3').height(max_height);
-        gH = h;
     } else {
     	clearInterval(interval);
 		}
 	}
 	var interval = setInterval(forceResize, 1);
+	openInfoWindow.open(map,openMarker);
 	setup_streetview_tab(openMarker,100,true);
 }
 
@@ -393,14 +399,8 @@ function open_tab_3() {
         });
         requestHtml.done(function(html){
           var div = document.createElement('div');
-          div.innerHTML = html;   
-          // I've been trying to capture tab changes for pre-emptive resizing but to no avail.   
-          // http://jsfiddle.net/WnDV9/298/
-          $(div).tabs({
-          	beforeActivate: function (event, ui) {
-    					alert(ui.newPanel.attr('id'));
-  					}
-					});
+          div.innerHTML = html;
+          $(div).tabs();
           var infowindow = new google.maps.InfoWindow({content:div});
           google.maps.event.addListener(infowindow,'closeclick',function(){
             openInfoWindow = null;
@@ -800,7 +800,7 @@ function keyDragZoom(map) {
 			},
 			key: "shift",
 			boxStyle: {border: "1px solid #736AFF"},
-			veilStyle: {backgroundColor: "gray", opacity: 0.25, cursor: "crosshair"}
+			veilStyle: {backgroundColor: "transparent", cursor: "crosshair"}
 		 });
 	//}
 }

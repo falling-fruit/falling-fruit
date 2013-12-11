@@ -152,17 +152,20 @@ div#location_infowindow {
 	max-width: 40em;
 }
 
-/*** Info Tab ***/
-
-div#tab-1 {
-  color: #333;
+div#tab-1,
+div#tab-2 {
+	color: #333;
   padding: 0 0 0.5em 0;
   overflow: auto;
 }
 
-div#tab-1 a {
+div#tab-1 a,
+div#tab-2 a {
   text-decoration: underline;
 }
+
+/*** Info Tab Only ***/
+
 
 /* Types */
 
@@ -258,10 +261,6 @@ div#tab-1 table#footer a#add_review:hover {
 
 /*** Reviews Tab ***/
 
-#tab-2 {
-  overflow: auto;
-}
-
 div.observation {
   border-bottom: 1px solid #EEE;
 }
@@ -288,9 +287,6 @@ div.obsphoto {
 
 /*** Street View Tab ***/
 
-#tab-3 {
-
-}
 
 /**********************************************************/
 /********************* Template: Tabs *********************/
