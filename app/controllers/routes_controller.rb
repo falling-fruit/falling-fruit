@@ -5,7 +5,6 @@ class RoutesController < ApplicationController
   def show
     @route = Route.find(params[:id])
     if @route.is_public or @route.user == current_user or (params[:k].present? and @route.access_key == params[:k])
-      @route_transport_type = @route.transport_type;
       @route_locations = LocationsRoute.where("route_id = ?",@route.id).order(:position)
       @start_location = @route_locations[0].location
       @stop_location = @route_locations[@route_locations.length-1].location

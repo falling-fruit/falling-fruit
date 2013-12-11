@@ -1,6 +1,18 @@
 <%= render :partial => '/locations/searchbar' %>
 
-<div id="mainmap_container">
+<div id="directions_panel">
+<div id="travel_mode">
+  <b>Mode of travel: </b>
+  <select id="travel_mode_select" onchange="calculate_route();">
+    <option value="WALKING">Walking</option>
+    <option value="BICYCLING">Bicycling</option>
+    <option value="TRANSIT">Transit</option>
+    <option value="DRIVING">Driving</option>
+  </select>
+  </div>
+  <div id="directions"></div>
+</div>
+<div id="mainmap_container" style="left: 310px;">
   <div id="map"></div>
   <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
 </div>
@@ -30,7 +42,7 @@
   var lat = <%= @start_location.lat %>;
   var lng = <%= @start_location.lng %>;
   var type = google.maps.MapTypeId.ROADMAP;
-  var bicycle_route = <%= @route.transport_type == 'Bicycling' %>;
+  var travelMode = '<%= @route.transport_type.upcase %>';
 
   // ================= functions =================
   
@@ -44,10 +56,12 @@
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setOptions({suppressMarkers: true});
     directionsDisplay.setMap(map);
-    if (bicycle_route) {
-      google.maps.event.trigger(bicycleControl, 'click');
-    }
+    directionsDisplay.setPanel(document.getElementById('directions'));
     
+    // default is labels on
+    labelize_markers();
+    $("#labels").prop('checked',true);
+      
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);
@@ -56,27 +70,10 @@
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       var bounds = new google.maps.LatLngBounds();
       <% @route_locations.each{ |lr| %>
-      bounds.extend(new google.maps.LatLng(<%= lr.location.lat %>,<%= lr.location.lng %>));
+        bounds.extend(new google.maps.LatLng(<%= lr.location.lat %>,<%= lr.location.lng %>));
       <% } %>
       map.fitBounds(bounds);
-
-      var request = {
-        origin: origin,
-        destination: destination,
-        waypoints: waypoints,
-        travelMode: google.maps.TravelMode.WALKING
-      };
-
-      // Route the directions and pass the response to a
-      // function to create markers for each step.
-      directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          //var warnings = document.getElementById('warnings_panel');
-          //warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
-          directionsDisplay.setDirections(response);
-          //showSteps(response);
-        }
-      });
+      calculate_route();
 
       // draw the markers and whatnot
       google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -94,17 +91,32 @@
           update_display(false);
         });
       });
-
-      // default is labels on
-      labelize_markers();
-      $("#labels").prop('checked',true);
     });
-             
-    map.setTilt(0); 
   }
+  
+  function calculate_route() {
+    travelMode = document.getElementById('travel_mode_select').value;
+     var request = {
+       origin: origin,
+       destination: destination,
+       waypoints: waypoints,
+       travelMode: google.maps.TravelMode[travelMode]
+     };
+     // Route the directions and pass the response to a
+     // function to create markers for each step.
+     directionsService.route(request, function(response, status) {
+       if (status == google.maps.DirectionsStatus.OK) {
+         //var warnings = document.getElementById('warnings_panel');
+         //warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
+         directionsDisplay.setDirections(response);
+         //showSteps(response);
+       }
+     });
+   }
 
   // ================== main-level code ===================
 
+  $("#travel_mode_select").val(travelMode);
   google.maps.event.addDomListener(window, 'load', initialize);
 
   // hide the 'zoom to me' button if browser isn't supporting geolocation
@@ -114,7 +126,7 @@
   navigator.geolocation.getCurrentPosition(function(position){},function(error){
     $('#recenter_button').hide();
   });
-
+  
 </script>
 <%= javascript_include_tag "maplabel" %>
 <%= javascript_include_tag "progressBar" %>

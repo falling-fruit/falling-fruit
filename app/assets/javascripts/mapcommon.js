@@ -68,7 +68,7 @@
     map.setTilt(0);
   
     // Bicycle map (and control)
-    addBicycleControl(map);
+    add_bicycle_control(map);
     
     // Progress bar
     pb = progressBar();
@@ -734,7 +734,7 @@ function apply_geocode(latlng,bounds,zoom) {
 }
 
 // Adds a bicycle layer toggle to the map
-function addBicycleControl(map) {
+function add_bicycle_control(map) {
 
   // Initialize control div
   bicycleControl = document.createElement('div');

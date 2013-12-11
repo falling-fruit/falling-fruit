@@ -449,3 +449,30 @@ div.datalist li {
 table#type_summary img.link_icon {
   height: 1em;
 }
+
+/**********************************************************/
+/****************** /routes/show **************************/
+/**********************************************************/
+
+#directions_panel {
+	position: absolute;
+	top: 8em;
+	left: 0;
+	bottom: 0;
+	width: 310px;
+	padding: 1em 5px 5px 5px;
+}
+
+#directions {
+	overflow: auto;
+	position: absolute;
+	bottom: 0;
+	top: 3em;
+	width: 300px;
+}
+
+#travel_mode {
+	position: absolute;
+	top: 1em;
+	height: 2em;
+}
