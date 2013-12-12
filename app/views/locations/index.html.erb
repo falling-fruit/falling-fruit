@@ -34,7 +34,7 @@
   var skip_ids = null;
   var type_filter = undefined;
   <% unless @type.nil? %>
-  type_filter = <%= @type.id %>;
+    type_filter = <%= @type.id %>;
   <% end %>
 
   // ================= functions =================
@@ -56,9 +56,11 @@
       update_display(true,zoom);
       if($("#labels").is(":checked")) labelize_markers();
     });
-             
-    google.maps.event.addListener(map, 'idle', function(){
-        update_display(false);
+    
+    google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+         update_display(false);
+      });
     });
       
     google.maps.event.addListener(map, 'zoom_changed', function() {
