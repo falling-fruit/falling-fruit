@@ -158,7 +158,7 @@
     </ul>
     
     <!-- Click on map! -->
-    <% if (request.fullpath.split('?')[0] == root_path) and !user_signed_in? %>
+    <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
 				<span>(or right-click on map)</span>
 			<% end %>
 

@@ -66,8 +66,12 @@ Sources are marked as unverified if their identity, location, or existence is di
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display_embedded(true,zoom,muni);
-      if (labels) {
+      if (labels && zoom > 12) {
         labelize_markers();
+      }
+      // Ensures that labels come on later if labels = true and zoom <= 12
+      if (labels && zoom <= 12) {
+        labelsOn = true;
       }
     });
     

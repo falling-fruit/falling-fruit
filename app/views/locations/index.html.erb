@@ -58,6 +58,10 @@
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display(true,zoom);
       if($("#labels").is(":checked")) labelize_markers();
+      // Ensures that labels come on again if labels = true and zoom <= 12
+      if ($('#labels').length > 0) {
+        labelsOn = $("#labels").is(":checked");
+      }
     });
     
     google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
