@@ -1,14 +1,4 @@
-  // ================= globals ==================
-  
-  	if ($('#labels').length > 0) {
-      labelsOn = $("#labels").attr('checked') == 'checked';
-    }
-    // For embed map. Note dangerous use of globals!
-    if (labels && zoom <= 12) {
-    	labelsOn = true;
-  	}
-    
-  // ================= functions =================
+// ================= functions =================
   
 function data_link(){
   var muni = $('#muni').is(':checked'); 

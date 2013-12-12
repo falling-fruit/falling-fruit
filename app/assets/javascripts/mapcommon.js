@@ -160,19 +160,35 @@
     document.dispatchEvent(markersLoadedEvent);
   }
 
-  // Removes the overlays from the map
+  // Removes all markers, except the open one, from the map
   function clear_markers() {
-    if (markersArray) {
-      for (var i = 0; i < markersArray.length; i++ ) {
-        if(openMarker != undefined && markersArray[i].marker == openMarker) continue;
-        markersArray[i].marker.setMap(null);
-        markersArray[i].marker = null;
-        markersArray[i].id = null;
-      }
+    if (markersArray == undefined || markersArray.length == 0) return;
+    for (var i = 0; i < markersArray.length; i++ ) {
+      if(openMarker != undefined && markersArray[i].marker == openMarker) continue;
+      markersArray[i].marker.setMap(null);
+      markersArray[i].marker = null;
+      markersArray[i].id = null;
     }
     markersArray.length = 0;
     markersArray = [];
     types_hash = {};
+  }
+
+  function clear_offscreen_markers(){
+    if (markersArray == undefined || markersArray.length == 0) return;    
+    var bounds = map.getBounds();
+    var len = markersArray.length;
+    for (var i = 0; i < len; i++ ) {
+      if(openMarker != undefined && markersArray[i].marker == openMarker) continue;
+      if(!bounds.contains(markersArray[i].marker.getPosition())){
+        markersArray[i].marker.setMap(null);
+        markersArray[i].marker = null;
+        markersArray[i].id = null;
+        markersArray.splice(i,1);
+        i--;
+        len--;
+      }
+    }
   }
 
   function bounds_to_query_string(bounds){
