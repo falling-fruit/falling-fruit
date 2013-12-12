@@ -14,7 +14,8 @@
   var openInfoWindow = null;
   var showing_route_controls = false;
   var openInfoWindowHtml = null;
-  var openInfoWindowHeight = null; // currently unused
+  var originalTab1Height = null; // currently unused
+  var originalTab2Height = null; // currently unused
   var openInfoWindowHeaderHeight = null;
   var openMarker = null;
   var openMarkerId = null;
@@ -272,8 +273,8 @@
 				}
         return(true);
       } else {
-        // FIXME: Visibly flickers off when infowindow is opened
         $("#streetview-tab").remove();
+        $("#tab-3").remove();
         return(false);
       }
     });		
@@ -318,19 +319,18 @@
   
   // Tab 1 (info, the default) uses its original height.
   function open_tab_1() {	
-		var max_height = Math.min(0.80 * $('#map').height() - openInfoWindowHeaderHeight)
-    if (max_height < $('#tab-1').height()) {
-    	$('#tab-1').height(max_height);
-    	openInfoWindow.open(map,openMarker);
-    } else {
-			openInfoWindow.setContent(openInfoWindowHtml);
-		}
+    openInfoWindowHeaderHeight = $('.ui-tabs-nav')[0].scrollHeight + parseFloat($('.ui-tabs-nav').css('margin-bottom'));
+    var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
+    if (max_height < ($('#tab-1').height() - 1)) {
+      $('#tab-1').height(max_height);
+    }
+		openInfoWindow.open(map,openMarker);
   }
 
 // Tab 2 (reviews) tries to get as close as possible to its content height.
 function open_tab_2() {
 	$('#tab-2').width($('.ui-tabs').width());
-	var new_height = Math.min(0.80 * $('#map').height() - openInfoWindowHeaderHeight, Math.max($('#tab-1').height(), $('#tab-2').height()));
+	var new_height = Math.min(0.75 * $('#map').height() - openInfoWindowHeaderHeight, Math.max($('#tab-1').height(), $('#tab-2').height()));
 	$('#tab-2').height(new_height);
 	openInfoWindow.open(map,openMarker);	
 	// Load images into Shadowbox gallery
@@ -348,7 +348,7 @@ function open_tab_3() {
   var previous_height = $('#tab-3').height()
 	var current_width = $('.ui-tabs').width();
 	$('#tab-3').width(current_width);
-	var new_height = Math.max(starting_height, Math.min(400, 0.80 * $('#map').height() - openInfoWindowHeaderHeight));
+	var new_height = Math.max(starting_height, Math.min(400, 0.75 * $('#map').height() - openInfoWindowHeaderHeight));
 	$('#tab-3').height(new_height);
 	openInfoWindow.open(map,openMarker);
 	if (pano_tab == null || !pano_tab.visible) {
@@ -358,15 +358,19 @@ function open_tab_3() {
   }
 }
 
-  function setup_tabs() {
-    openInfoWindowHeaderHeight = $('.ui-tabs-nav')[0].scrollHeight + parseFloat($('.ui-tabs-nav').css('margin-bottom'));
-    var max_height = 0.80 * $('#map').height() - openInfoWindowHeaderHeight;
-    if (max_height < $('#tab-1').height()) {
-    	$('#tab-1').height(max_height);
-    	openInfoWindow.open(map,openMarker);
-    	return;
-    }
-    setup_streetview_tab(openMarker,50,false);
+  function setup_tabs(marker, infowindow) {
+    //originalTab1Height = $('#tab-1').height();
+    //originalTab2Height = $('#tab-2').height();
+    // Hack: Avoids error when request arrives before DOM ready?
+    if ($('.ui-tabs-nav')[0] != undefined) {
+			openInfoWindowHeaderHeight = $('.ui-tabs-nav')[0].scrollHeight + parseFloat($('.ui-tabs-nav').css('margin-bottom'));
+			var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
+			if (max_height < ($('#tab-1').height() - 1)) {
+				$('#tab-1').height(max_height);
+				infowindow.open(map,marker);
+				return;
+			}
+		}
   }
 
   function open_marker_by_id(id) {
@@ -380,6 +384,7 @@ function open_tab_3() {
         requestHtml.done(function(html){
           var div = document.createElement('div');
           div.innerHTML = html;
+          setup_streetview_tab(markersArray[i].marker,50,false);
           $(div).tabs();
           var infowindow = new google.maps.InfoWindow({content:div});
           google.maps.event.addListener(infowindow,'closeclick',function(){
@@ -387,16 +392,16 @@ function open_tab_3() {
             openMarker = null;
             openMarkerId = null;
           });
-          google.maps.event.addListener(infowindow,'domready',function(){
-            setup_tabs();
-          });
           if (map.getStreetView().getVisible()) {
-            infowindow.open(map.getStreetView(), markersArray[i].marker);
+            infowindow.open(pano, markersArray[i].marker);
           } else {
             infowindow.open(map, markersArray[i].marker);
           }
           openInfoWindow = infowindow;
           openInfoWindowHtml = infowindow.content;
+          google.maps.event.addListenerOnce(infowindow,'domready',function(){
+            setup_tabs(markersArray[i].marker, openInfoWindow);
+          });
         });
         openMarker = markersArray[i].marker;
         openMarkerId = markersArray[i].id;
@@ -425,6 +430,7 @@ function open_tab_3() {
       requestHtml.done(function(html){
         var div = document.createElement('div');
         div.innerHTML = html;
+        setup_streetview_tab(markersArray[markersArray.length-1].marker,50,false);
         $(div).tabs();
         var infowindow = new google.maps.InfoWindow({content: div});
         google.maps.event.addListener(infowindow,'closeclick',function(){
@@ -432,16 +438,16 @@ function open_tab_3() {
           openMarker = null;
           openMarkerId = null;
         });
-        google.maps.event.addListener(infowindow,'domready',function(){
-          setup_tabs();
-        });
         if (map.getStreetView().getVisible()) {
-					infowindow.open(map.getStreetView(), markersArray[markersArray.length-1].marker);
-        } else {
-					infowindow.open(map, markersArray[markersArray.length-1].marker);
-				}
-        openInfoWindow = infowindow;
-        openInfoWindowHtml = infowindow.content;
+            infowindow.open(pano, markersArray[markersArray.length-1].marker);
+          } else {
+            infowindow.open(map, markersArray[markersArray.length-1].marker);
+          }
+          openInfoWindow = infowindow;
+          openInfoWindowHtml = infowindow.content;
+          google.maps.event.addListenerOnce(infowindow,'domready',function(){
+            setup_tabs(markersArray[markersArray.length-1].marker, openInfoWindow);
+          });
       });
       openMarker = markersArray[markersArray.length-1].marker;
       openMarkerId = markersArray[markersArray.length-1].id;
@@ -463,9 +469,10 @@ function open_tab_3() {
         url: '/locations/' + id + '/infobox',
         dataType: 'html'
       });
-      requestHtml.done(function(html){
+      requestHtml.done(function(html) {
         var div = document.createElement('div');
         div.innerHTML = html;
+        setup_streetview_tab(marker,50,false);
         $(div).tabs();
         var infowindow = new google.maps.InfoWindow({content:div});
         google.maps.event.addListener(infowindow,'closeclick',function(){
@@ -473,16 +480,21 @@ function open_tab_3() {
           openMarker = null;
           openMarkerId = null;
         });
-        google.maps.event.addListener(infowindow,'domready',function(){
-          setup_tabs();
-        });
+        // google.maps.event.addListenerOnce(infowindow,'domready',function(){
+//           setup_tabs();
+//         });
         if (map.getStreetView().getVisible()) {
-					infowindow.open(map.getStreetView(), marker);
-        } else {
-					infowindow.open(map, marker);
-				}
-        openInfoWindow = infowindow;
-        openInfoWindowHtml = infowindow.content;
+            infowindow.open(pano, marker);
+          } else {
+            infowindow.open(map, marker);
+          }
+          openInfoWindow = infowindow;
+          openInfoWindowHtml = infowindow.content;
+          google.maps.event.addListenerOnce(infowindow,'domready',function(){
+            setup_tabs(marker, openInfoWindow);
+          });
+					// Hack: Avoids incorrectly sized tab-1 in infowindow.
+          setup_tabs(marker, openInfoWindow);
       });
       openMarker = marker;
       openMarkerId = id;

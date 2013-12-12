@@ -80,10 +80,8 @@
         update_display(true,zoom,bounds);
       });
 
-      google.maps.event.addListener(map, 'bounds_changed', function() {
-        google.maps.event.addListenerOnce(map, 'idle', function(){
-          update_display(false);
-        });
+      google.maps.event.addListener(map, 'idle', function(){
+        update_display(false);
       });
 
       google.maps.event.addListener(map, 'zoom_changed', function() {

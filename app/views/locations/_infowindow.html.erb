@@ -11,6 +11,9 @@
 <!-- Info Tab -->
 <div id="tab-1">
 
+<!-- Description wrapper -->
+<div id="description">
+
 <!-- Types -->
 <div id="type_list">
 	<% if location.unverified %>
@@ -43,9 +46,6 @@
  </li>
  <% } %>
 </div>
-
-<!-- Description wrapper -->
-<div id="description">
 
 <!-- Quality -->
 <% unless location.mean_quality_rating.nil? %>
@@ -184,7 +184,7 @@ Add to / remove from:
 <div id="tab-2">
 
 <div id="observation_list">
-  <div style="margin-bottom: 1em;">
+  <div style="margin: 0 0 1em 0.25em;">
     <i>Have you visited this source? Add a <a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a></i>.
   </div>
 	<% location.observations.reverse_order.each{ |o| %>
@@ -207,6 +207,8 @@ Add to / remove from:
 				<%=	truncate(o.photo_caption, :length => 20) %>
 				</div>
 			<% end %>
+			
+			<div class="observation_text">
 			<!-- Comment -->
 			<% unless o.comment.blank? %>
 				<span style="color: #000;"><%= o.comment %></span><br/>
@@ -235,6 +237,7 @@ Add to / remove from:
 					<% end %>
 				<% end %>
 			</span>
+			</div>
 			
 <div style="clear: right;"></div>
 </div>

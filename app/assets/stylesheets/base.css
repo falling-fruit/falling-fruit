@@ -274,7 +274,11 @@ div#tab-1 table#footer a#add_review:hover {
 
 div.observation {
   border-top: 1px solid #EEE;
-  padding: 0.5em 0;
+  padding: 0.75em 0;
+}
+
+div.observation_text {
+  padding: 0 1em 0 0.25em;
 }
 
 div.observation:last-of-type {
