@@ -21,8 +21,8 @@
 	
   // ================= globals ==================
 	
-  var lat = 17.30868;
-  var lng = -95.27343;
+  var lat = 36.45662936733231;
+  var lng = -49.57030500000002;
   var zoom = 2;
   var type = google.maps.MapTypeId.ROADMAP;
   <% unless @perma.nil? %>
@@ -36,6 +36,9 @@
   <% unless @type.nil? %>
     type_filter = <%= @type.id %>;
   <% end %>
+  
+   // state variable used to leave out certain info_window features (report)
+   <% $embed = not(request.fullpath.match('/locations/embed[.]*').nil?) %>
 
   // ================= functions =================
   

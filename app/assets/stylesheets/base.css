@@ -714,3 +714,52 @@ div#sb-title-inner {
 	font-size: inherit;
 	font-family: Roboto, Arial, sans-serif;;
 }
+
+/**********************************************************/
+/******************* locations/embed **********************/
+/**********************************************************/
+
+div#embed_branding {
+	display: block;
+	height: 30px;
+	position: absolute;
+	left: 80px;
+	top: 16px;
+	font-size: 15px;
+	font-family: helvetica, arial, verdana, sans-serif;
+	color: #FFF;
+}
+
+div#embed_branding a {
+  color: #FFF;
+  display: block;
+  font-weight: bold;
+  text-shadow: -1px -1px 3px rgba(51,51,51,0.5), 1px -1px 3px rgba(51,51,51,0.5), -1px 1px 3px rgba(51,51,51,0.5), 1px 1px 3px rgba(51,51,51,0.5);
+}
+
+div#embed_branding a:hover {
+ text-shadow: -1px -1px 5px rgba(51,51,51,0.5), 1px -1px 5px rgba(51,51,51,0.5),-1px 1px 5px rgba(51,51,51,0.5),1px 1px 5px rgba(51,51,51,0.5);
+}
+
+div#embed_branding span {
+  text-shadow: -1px -1px 3px rgba(51,51,51,0.5), 1px -1px 3px rgba(51,51,51,0.5), -1px 1px 3px rgba(51,51,51,0.5), 1px 1px 3px rgba(51,51,51,0.5);
+  float: right;
+  display: none;
+}
+
+div#embed_branding a#falling_fruit {
+	font-size: 2em;
+}
+
+div#embed_branding a#add_source {
+	font-size: 1em;
+}
+
+div#embed_branding .hr-like {
+	width: 85%;
+	height: 1px;
+	background: white;
+	display: block;
+	margin: 0 0 0 0.25em;
+	box-shadow: -1px -1px .1em rgba(51,51,51,0.2),1px -1px .1em rgba(51,51,51,0.2),-1px 1px .1em rgba(51,51,51,0.2),1px 1px .1em rgba(51,51,51,0.2);
+}

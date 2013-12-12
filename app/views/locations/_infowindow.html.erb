@@ -129,8 +129,7 @@
  		<td id="controls">
  		<!-- Observation -->
 		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review</a>
-		<%= request.fullpath %>
-		<% if request.fullpath.match('/locations/embed[.]*').nil? %>
+		<% if not(!defined?($embed).nil? and $embed) %>
 		  <!-- Problem -->
       <a href="#" title="Report a problem" id="problem_link" onclick="open_problem_modal(<%= location.id %>);">report</a>
       <!--<a href="#" title="Report a problem" id="problem_toggle" onclick="toggle_problem_controls(<%= location.id %>);">report</a>-->

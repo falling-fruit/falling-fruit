@@ -3,7 +3,7 @@
   	if ($('#labels').length > 0) {
       labelsOn = $("#labels").attr('checked') == 'checked';
     }
-    // Embed map. Note dangerous use of globals!
+    // For embed map. Note dangerous use of globals!
     if (labels && zoom <= 12) {
     	labelsOn = true;
   	}
