@@ -134,6 +134,10 @@
     <!--<a href="#" title="Report a problem" id="problem_toggle" onclick="toggle_problem_controls(<%= location.id %>);">report</a>-->
 		<!-- Zoom -->
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
+ 		<!-- Street View -->
+ 		<% if user_signed_in? and current_user.is? :admin %>
+ 		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="See this location in Street View">street</a>
+ 		<% end %>
  		<!-- Link -->
  		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
     <!-- Edit -->

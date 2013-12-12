@@ -53,9 +53,6 @@
     
     // Street View Pano (full screen, still in beta)
     pano = map.getStreetView();
-    pano.setPosition(latlng);
-    pano.setVisible(false);
-    map.setStreetView(pano);
 
     // Stamen Toner (B&W) map
     var tonerType = new google.maps.StamenMapType(toner);
@@ -231,7 +228,6 @@
   // https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
   function setup_streetview_tab(marker,distance,visible) {
     var latlng = marker.getPosition();
-    var nearestLatLng = null;
     var nearestPano = null;
     panoClient.getPanoramaByLocation(latlng, distance, function(result, status) { 		
       if (status == google.maps.StreetViewStatus.OK) { 
@@ -275,9 +271,59 @@
       } else {
         $("#streetview-tab").remove();
         $("#tab-3").remove();
+        $("#streetview-toggle").remove();
         return(false);
       }
     });		
+  }
+  
+  // Finds nearest imagery from Street View Service, then calculates the heading.
+  // https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
+  function streetview_toggle(marker,distance) {
+    if (pano.getVisible()) {
+  	  pano.setVisible(false);
+  	} else {
+			var latlng = marker.getPosition();
+			var nearestPano = null;
+			panoClient.getPanoramaByLocation(latlng, distance, function(result, status) { 		
+				if (status == google.maps.StreetViewStatus.OK) { 
+					nearestPano = result.location.pano; 
+					panoPosition = result.location.latLng;
+					var heading = google.maps.geometry.spherical.computeHeading(panoPosition, latlng);
+					// Calculate pitch from Google Elevation API
+					// If fails, assume that elevation is equal at both points
+					var camera_height = 2;
+					var locations = [panoPosition, latlng];
+					var positionalRequest = {
+						'locations': locations
+					}
+					var x = google.maps.geometry.spherical.computeDistanceBetween(locations[0], locations[1]);
+					elevationClient.getElevationForLocations(positionalRequest, function(results, status) {
+						if (status == google.maps.ElevationStatus.OK & results.length == 2) {
+							var y = results[1].elevation - (results[0].elevation + camera_height);
+						} else {
+							var y = -camera_height;
+						}
+						var pitch = 90 - Math.atan2(x,y) * (180 / Math.PI);
+						pano.setPosition(panoPosition);
+						pano.setPov({ heading: heading, pitch: pitch, zoom: 1 });
+					});
+					google.maps.event.addListener(pano, 'visible_changed', function() {
+						if (openMarker == marker && openInfoWindow != null) {
+							if (pano.getVisible()) {
+								openInfoWindow.open(pano, openMarker);
+							} else {
+								openInfoWindow.open(map, openMarker);
+							}
+						}
+					});
+					pano.setVisible(true);
+				} else {
+					$("#streetview-toggle").remove();
+					return(false);
+				}
+			});		
+		}
   }
 
   function open_problem_modal(id){
@@ -324,7 +370,11 @@
     if (max_height < ($('#tab-1').height() - 1)) {
       $('#tab-1').height(max_height);
     }
-		openInfoWindow.open(map,openMarker);
+		if (pano.getVisible()) {
+            	openInfoWindow.open(pano, openMarker);
+          	} else {
+            	openInfoWindow.open(map, openMarker);
+          	}
   }
 
 // Tab 2 (reviews) tries to get as close as possible to its content height.
@@ -332,7 +382,11 @@ function open_tab_2() {
 	$('#tab-2').width($('.ui-tabs').width());
 	var new_height = Math.min(0.75 * $('#map').height() - openInfoWindowHeaderHeight, Math.max($('#tab-1').height(), $('#tab-2').height()));
 	$('#tab-2').height(new_height);
-	openInfoWindow.open(map,openMarker);	
+	if (pano.getVisible()) {
+            	openInfoWindow.open(pano, openMarker);
+          	} else {
+            	openInfoWindow.open(map, openMarker);
+          	}
 	// Load images into Shadowbox gallery
 	Shadowbox.clearCache();
 	Shadowbox.setup("a[rel='shadowbox']", { gallery: "Gallery" });
@@ -350,7 +404,11 @@ function open_tab_3() {
 	$('#tab-3').width(current_width);
 	var new_height = Math.max(starting_height, Math.min(400, 0.75 * $('#map').height() - openInfoWindowHeaderHeight));
 	$('#tab-3').height(new_height);
-	openInfoWindow.open(map,openMarker);
+	if (pano.getVisible()) {
+            	openInfoWindow.open(pano, openMarker);
+          	} else {
+            	openInfoWindow.open(map, openMarker);
+          	}
 	if (pano_tab == null || !pano_tab.visible) {
     setup_streetview_tab(openMarker,50,true);
   } else if (previous_height != new_height) {
@@ -367,7 +425,11 @@ function open_tab_3() {
 			var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
 			if (max_height < ($('#tab-1').height() - 1)) {
 				$('#tab-1').height(max_height);
-				infowindow.open(map,marker);
+				if (pano.getVisible()) {
+            	openInfoWindow.open(pano, openMarker);
+          	} else {
+            	openInfoWindow.open(map, openMarker);
+          	}
 				return;
 			}
 		}
@@ -392,7 +454,7 @@ function open_tab_3() {
             openMarker = null;
             openMarkerId = null;
           });
-          if (map.getStreetView().getVisible()) {
+          if (pano.getVisible()) {
             infowindow.open(pano, markersArray[i].marker);
           } else {
             infowindow.open(map, markersArray[i].marker);
@@ -438,7 +500,7 @@ function open_tab_3() {
           openMarker = null;
           openMarkerId = null;
         });
-        if (map.getStreetView().getVisible()) {
+        if (pano.getVisible()) {
             infowindow.open(pano, markersArray[markersArray.length-1].marker);
           } else {
             infowindow.open(map, markersArray[markersArray.length-1].marker);
@@ -480,10 +542,7 @@ function open_tab_3() {
           openMarker = null;
           openMarkerId = null;
         });
-        // google.maps.event.addListenerOnce(infowindow,'domready',function(){
-//           setup_tabs();
-//         });
-        if (map.getStreetView().getVisible()) {
+        if (pano.getVisible()) {
             infowindow.open(pano, marker);
           } else {
             infowindow.open(map, marker);
