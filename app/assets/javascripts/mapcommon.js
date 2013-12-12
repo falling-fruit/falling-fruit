@@ -605,9 +605,7 @@ function open_tab_3() {
       for (var i = 0; i < markersArray.length; ++i) {
         add_marker_infobox(i);
       }
-
       if(labelsOn) labelize_markers();
-
       n = json.length;
       if(n > 0){
         if((n < n_found) && (n_found >= n_limit)){
@@ -890,6 +888,9 @@ function zoom_to_marker() {
   maxZoom = map.mapTypes[map.mapTypeId].maxZoom;
   map.panTo(openMarker.position);
   map.setZoom(maxZoom);
+  if (openInfoWindow != null && openMarker != null) {
+    openInfoWindow.open(map, openMarker);
+  }
 }
 
 /**********************************************************/

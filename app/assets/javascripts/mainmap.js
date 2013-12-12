@@ -1,7 +1,13 @@
   // ================= globals ==================
-
-  var labelsOn = document.getElementById("labels").checked;
-
+  
+  	if ($('#labels').length > 0) {
+      labelsOn = $("#labels").attr('checked') == 'checked';
+    }
+    // Embed map. Note dangerous use of globals!
+    if (labels && zoom <= 12) {
+    	labelsOn = true;
+  	}
+    
   // ================= functions =================
   
 function data_link(){
@@ -19,8 +25,8 @@ function update_permalink(){
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid +
-    '&l=' + $('#labels').is(":checked");
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
+     typeid + '&l=' + $('#labels').is(":checked");;
   if (type_filter != undefined) {
   	permalink = permalink + "&f=" + type_filter;
   }
@@ -49,8 +55,13 @@ function show_embed_html(object){
   var http = location.protocol;
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
+  if (type_filter != undefined) {
+  	var fstr = "&f=" + type_filter;
+  } else {
+    var fstr = "";
+  }
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + "&f=" + type_filter +
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + fstr +
     '&l=' + $('#labels').is(":checked") + 
     '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
       closeText: "close", 
@@ -119,17 +130,17 @@ function update_display(force,force_zoom,force_bounds){
   prior_bounds = bounds;
 }
 
-function update_display_embedded(force,force_zoom,muni){
+function update_display_embedded(force, force_zoom, muni) {
   var zoom = map.getZoom();
   if(force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
   var center = map.getCenter();
-  if(zoom <= 12){
-    if(zoom > 8)
+  if (zoom <= 12) {
+    if (zoom > 8)
       do_clusters(bounds,zoom,muni,type_filter);
-    else if((zoom != prior_zoom) || force)
+    else if ((zoom != prior_zoom) || force)
       do_clusters(undefined,zoom,muni,type_filter);
-  }else if(zoom >= 13){
+  } else if (zoom >= 13) {
     do_markers(bounds,null,muni,type_filter);
   }
   prior_zoom = zoom;

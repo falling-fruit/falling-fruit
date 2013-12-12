@@ -26,10 +26,10 @@
   var zoom = 2;
   var type = google.maps.MapTypeId.ROADMAP;
   <% unless @perma.nil? %>
-  lat = <%= @perma[:lat] %>;
-  lng = <%= @perma[:lng] %>;
-  zoom = <%= @perma[:zoom] %>;
-  type = '<%= @perma[:type] %>';
+		<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
+		<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
+		<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
+		<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
   <% end %>
   var skip_ids = null;
   var type_filter = undefined;
