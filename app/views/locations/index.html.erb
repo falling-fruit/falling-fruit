@@ -64,7 +64,7 @@
       }
     });
     
-    google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+    google.maps.event.addListener(map, 'bounds_changed', function(event) {
       google.maps.event.addListenerOnce(map, 'idle', function(){
          update_display(false);
       });

@@ -615,7 +615,7 @@ function open_tab_3() {
       }
       n_found = json.shift();
       n_limit = json.shift();
-      clear_markers();
+      clear_offscreen_markers();
       add_markers_from_json(json,false,skip_ids);
       // make markers clickable
       for (var i = 0; i < markersArray.length; ++i) {
