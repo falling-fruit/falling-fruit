@@ -505,6 +505,14 @@ div#slider{
 /****************** Template: Select2 *********************/
 /**********************************************************/
 
+/* TEMPORARY image-url patch */
+.select2-search-choice-close {
+  background: url("select2.png") right top no-repeat ! important;
+}
+.select2-arrow b {
+  background: url("select2.png") no-repeat 0 1px ! important;
+}
+
 /* Clean borders */
 .select2-choices,
 .select2-container {
@@ -605,6 +613,11 @@ div#slider{
 .select2-result:nth-of-type(even):not(.select2-highlighted) {
 	background: #F9F9F9 ! important;
 	background-color: #F9F9F9 ! important;
+}
+
+/* Invite handles to be handled */
+.ui-slider-handle {
+  cursor: pointer;
 }
 
 /**********************************************************/
