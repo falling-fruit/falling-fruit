@@ -17,8 +17,39 @@
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <!-- http://www.webmuse.co.uk/blog/shadowbox-ajax-and-other-generated-content-with-jquery-and-javascript/ -->
+  <script type="text/javascript">
+	Shadowbox.init({
+	 	language: 'en', 
+    players: ['img', 'html', 'iframe'], 
+		skipSetup: true,
+		cache: false,
+		animate: false,
+		animateFade: false,
+		showOverlay: true,
+		overlayOpacity: 0.6,
+		counterType: "default",
+		continuous: true,
+		displayCounter: true,
+		// Prevent arrows from switching photos and panning map
+		onOpen: function() {if (typeof map == "object" & typeof map.setOptions == "function") map.setOptions({keyboardShortcuts: false})},
+		onClose: function() {if (typeof map == "object" & typeof map.setOptions == "function") map.setOptions({keyboardShortcuts: true})}
+	});
+</script>
+	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+  <script type="text/javascript">
+    function show_recaptcha(element) {
+      Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
+    }
+  </script>
+  <script>
+    // Mobile state variable
+    var mobile = false;
+  </script>
 </head>
 <body>
+
+ <div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->
 
  <!-- Alerts -->
  <% if notice or alert %>
@@ -43,16 +74,29 @@
 <!-- Logo Bar -->
 <div id="logobar">
 
- <!-- Logo -->
- <img id="logo" src="/logo.png">
- 
  <!-- AddThis Buttons -->
-	<div id="share_controls" class="addthis_toolbox addthis_default_style">
-		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="http://www.facebook.com/FallingFruit"></a> 	
-		<a class="addthis_button_twitter_follow_native" tw:screen_name="Falling_Fruit" tw:show-count="false" tw:show-screen-name="false" />
-		<a class="addthis_counter addthis_pill_style" addthis:url="http://www.FallingFruit.org"></a>
-    &nbsp;<script data-gittip-username="Falling_Fruit" data-gittip-widget="button" src="//gttp.co/v1.js"></script>
+	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
+		
+		<a class="addthis_button_facebook_follow" addthis:userid="FallingFruit">
+			<img src="/social/facebook.svg" />
+		</a>
+		<a class="addthis_button_twitter_follow" addthis:userid="Falling_Fruit">
+			<img src="/social/twitter.svg" />
+		</a>
+		<a class="addthis_button_google_follow" addthis:url="https://plus.google.com/114324461382595896953/about">
+			<img src="/social/gplus.svg" />
+		</a>
+		<a class="addthis_button_compact" addthis:url="http://www.FallingFruit.org">
+			<img src="/social/addthis.png" />
+		</a>
+
+		<!-- Facebook like
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="http://www.facebook.com/FallingFruit"></a> --> 	
+		<!-- Twitter follow
+		<a class="addthis_button_twitter_follow_native" tw:screen_name="Falling_Fruit" tw:show-count="false" tw:show-screen-name="false" />-->
 	</div>
+	
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
  
  <!-- Title -->
  <a id="falling_fruit" href="/">FallingFruit.org</a><a href="/?mobile=1"><img style="height:1.7em;position:relative;top:0.1em;left:0.5em;" src="/mobile.png" title="Mobile site"/></a><span id="subtitle"> Mapping the urban harvest!</span>
@@ -70,7 +114,7 @@
  </div>
  <div id="menu">
     <ul>
-    <li><%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil? or not request.fullpath.match('/observations/new').nil?) ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- About -->
     <li><%= link_to('About', '/about', :class => (['/about','/inventories','/maps','/sharing','/press'].include?(request.fullpath)) ? "currentpage" : "notcurrentpage") %>
@@ -86,10 +130,13 @@
     
     <!-- Routes -->
 		<% if user_signed_in? %>
-			<li><%= link_to('Routes', routes_path, :class => (request.fullpath == routes_path ? "currentpage" : "notcurrentpage")) %></li>
+			<li><%= link_to('Routes', routes_path, :class => ((request.fullpath == routes_path or not request.fullpath.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
 			<% if current_user.is? :admin %>
-					
+				
+				<!-- Trouble -->
+				<li><%= link_to('Trouble', problems_path, :class => (request.fullpath == problems_path) ? "currentpage" : "notcurrentpage") %></li>
+				
 				<!-- Types -->
 				<li><span class="<%= (request.fullpath.include? types_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
 				<ul>
@@ -115,15 +162,20 @@
     </ul>
     
     <!-- Click on map! -->
-    <% if (request.fullpath.split('?')[0] == root_path) and !user_signed_in? %>
+    <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
 				<span>(or right-click on map)</span>
 			<% end %>
 
  </div>
 </div>
 
+<!-- Unverified? -->
+<div id="unverified_help" style="display:none;">
+Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
+</div>
+   
 <!-- Content -->
-<% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show") %>
+<% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show")  or (@current_controller == "observations") %>
 
 <div id="content_container">
 	<div id="content">

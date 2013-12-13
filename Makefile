@@ -9,7 +9,10 @@ export:
 	bzip2 public/data.csv
 
 clusters:
-	rake db:migrate:redo VERSION=20130503191902
+	rake db:migrate:redo VERSION=20131110213005
+
+devserver:
+	bundle exec thin -e development start
 
 shapes:
 	pgsql2shp -u fallingfruit_user -h localhost -f $(DATETIME)_cluster_polygon.shp fallingfruit_db 'SELECT zoom, muni, count, created_at, updated_at, ST_TRANSFORM(ST_SETSRID(polygon,900913),4326) FROM clusters ORDER BY zoom ASC, muni ASC'

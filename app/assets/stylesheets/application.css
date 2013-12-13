@@ -13,5 +13,5 @@
  *= require dataTables/jquery.dataTables
  *= require base
  *= require pages
- *= require select2_patch
+ *= require shadowbox
  */

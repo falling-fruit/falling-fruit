@@ -1,0 +1,71 @@
+<!-- Source Form -->
+<%= form_for(problem,:html => {:id=>"problemform",:onsubmit=>"process_form();return false;"}) do |f| %>
+
+  <!-- Errors -->
+  <% if problem.errors.any? %>
+    <div id="error_explanation">
+      <strong><%= pluralize(problem.errors.count, "error") %> prohibited this issue from being saved:</strong>
+        <ul>
+      <% problem.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :location_id %>
+
+	<!-- Problem -->
+  <div class="field first">
+    <%= f.label :problem_type %><br />
+    <%= f.select(:problem_code,Problem::Codes.collect{ |r| [r,Problem::Codes.index(r)] },:include_blank => true) %>
+  </div>
+
+	<!-- Explanation -->
+  <div class="field">
+    <%= f.label :explanation %><br />
+    <span class="subtext">Any information that can help us evaluate the problem</span><br />
+    <%= f.text_area(:comment) %>
+  </div>
+  
+  <% unless user_signed_in? %>
+  	<!-- Contact info -->
+    <div class="field">
+   		<%= f.label :contact_info %><br />
+   		<span class="subtext">In case we need to contact you (optional)</span><br />
+   		<%= f.text_field(:name, :placeholder=>'Name') %><br />
+   		<div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder=>'Email') %></div>
+  	</div>
+
+   	<br />
+  	<!-- Captcha -->
+  	<!-- Often doesn't load?! -->
+  	<div id="captcha"></div>
+  	<script type="text/javascript">
+  			show_recaptcha("captcha");
+		</script>
+  <% end %>
+  
+  <br />
+  <!-- Submit -->
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+  
+<% end %>
+</form>
+
+<script type="text/javascript">
+show_recaptcha("captcha");
+function process_form(){
+  $.ajax({
+    type: 'POST',
+    url: '/problems',
+    data: $("#problemform").serialize(),
+    success: function(data){
+      $("#problem_modal").html(data);
+    }
+  });
+}
+</script>

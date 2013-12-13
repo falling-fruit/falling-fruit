@@ -19,6 +19,7 @@ FallingfruitWebapp::Application.routes.draw do
       get 'cluster'
       get 'markers'
       get 'marker'
+      get 'cluster_types'
       get 'data'
       get 'embed'
     end
@@ -50,6 +51,14 @@ FallingfruitWebapp::Application.routes.draw do
   end
 
   resources :changes
+
+  resources :observations do
+    member do
+      get 'delete_photo'
+    end
+  end
+
+  resources :problems
 
   match 'locations/:id/infobox' => 'locations#infobox'
 

@@ -1,0 +1,132 @@
+<div id="mobile-form">
+
+<!-- Errors -->
+<% if @obs.errors.any? %>
+    <ul data-role="listview" data-theme="e">
+    <% @obs.errors.full_messages.each do |msg| %>
+      <li>Error <%= msg %></li>
+    <% end %>
+    </ul>
+<% end %>
+
+<!-- Source Form -->
+<%= form_for(@obs,:html => {'data-ajax'=>"false"}) do |f| %>
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :location_id %>
+
+  <div data-role="fieldcontain">
+  <!-- Quality Rating -->
+  <fieldset data-role="controlgroup">
+    <legend>Quality Rating<br />
+    <span class="subtext">Rate the tastiness of this source (if applicable)</span>
+    </legend>
+    <fieldset data-role="controlgroup" data-type="horizontal" >
+    <% Location::Ratings.each_index{ |r| %>
+    <%= f.radio_button("quality_rating",r) %>
+    <label for="observation_quality_rating_<%= r %>"><%= Location::Ratings[r] %></label>
+
+    <% } %>
+    </fieldset>
+  </fieldset>
+  <br>
+  <!-- Yield Rating -->
+  <fieldset data-role="controlgroup">
+    <legend>Yield Rating<br />
+    <span class="subtext">Rate the productivity of this source (if applicable)</span>
+    </legend>
+    <fieldset data-role="controlgroup" data-type="horizontal" >
+    <% Location::Ratings.each_index{ |r| %>
+    <%= f.radio_button("yield_rating",r) %>
+    <label for="observation_yield_rating_<%= r %>"><%= Location::Ratings[r] %></label>
+
+    <% } %>
+    </fieldset>
+  </fieldset>
+  <br>
+  <!-- Fruiting -->
+  <fieldset data-role="controlgroup">
+    <legend>Current Status<br />
+    <span class="subtext">What is the fruit doing right now? (if applicable)</span>
+    </legend>
+    <fieldset data-role="controlgroup" data-type="horizontal" >
+    <% Location::Fruiting.each_index{ |r| %>
+    <%= f.radio_button("fruiting",r) %>
+    <label for="observation_fruiting_<%= r %>"><%= Location::Fruiting[r] %></label>
+
+    <% } %>
+    </fieldset>
+  </fieldset>
+  <br>
+  <!-- Date -->
+  <fieldset data-role="controlgroup">
+    <legend>Visited On<br />
+    <span class="subtext">Date of your visit (if not today)</span>
+    </legend>
+    <%= f.text_field(:observed_on) %>
+  </fieldset>
+  
+  <% if @obs.location.unverified %>
+  <!-- Verify -->
+  <fieldset data-role="controlgroup">
+   <legend>Verify location<br />
+   <span class="subtext">This location has been previously flagged as Unverified. Can you confirm that type and location are indeed correct?</span>
+   </legend>
+   <label>Yes</label>
+  </fieldset>
+  <% end %>
+  
+  <!-- Photo -->
+  <fieldset data-role="controlgroup">
+   <legend>Photo<br />
+   <span class="subtext">Optionally, upload a photo of the source. If it is someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.</span>
+   </legend>
+   <%= f.file_field :photo %>
+  </fieldset>
+
+  <!-- Comment -->
+  <fieldset data-role="controlgroup">
+    <legend>Comments<br />
+    <span class="subtext">Updates, access issues, plant health...</span>
+    </legend>
+    <%= f.text_area :comment, :size => "40x3" %>
+  </fieldset>
+
+  <!-- Author (if new or admin) -->
+  <fieldset data-role="controlgroup">
+    <legend>Author<br />
+    <span class="subtext">Leave blank if you prefer to remain anonymous.</span>
+    </legend>
+    <% if (user_signed_in? and !current_user.add_anonymously?) %>
+    	<%= f.text_field :author, :value => current_user.name %>
+    <% else %>
+    	<%= f.text_field :author %>
+    <% end %>
+    </span>
+  </fieldset>
+
+  <br />
+  
+  <!-- Captcha -->
+  <% unless user_signed_in? %>
+  	<div id="captcha">
+    	<%= recaptcha_tags(:display => {:theme => 'clean'}) unless user_signed_in? %>
+  	</div>
+  	<br />
+  <% end %>
+  <br />
+	<!-- Submit -->
+  <%= f.submit("Submit", 'data-ajax' => 'false') %>
+    
+  </div>
+  
+<% end %>
+
+</div>
+
+<% content_for :form_scripts do %>
+	<script type="text/javascript" charset="utf-8">
+		jQuery(document).ready(function(){
+			$("#observation_observed_on").datepicker();
+		});
+	</script>
+<% end %>

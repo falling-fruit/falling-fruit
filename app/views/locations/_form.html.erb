@@ -1,9 +1,88 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-	jQuery('#typeselect2').select2({tokenSeparators: [","],
-                                  tags:[<%= raw Type.order("name").select("name").collect{ |t| '"'+t.name+'"' }.join(",") %>]
-                                 });                           
+	
+	// Access
+	$("#location_access").select2({
+		minimumResultsForSearch: 999
+	});
+	
+	// Season
+	$("#location_season_start").select2({
+		minimumResultsForSearch: 999
+	});
+	$("#location_season_stop").select2({
+		minimumResultsForSearch: 999
+	});
+	
+	// Date observed
+  $("#observed_on").datepicker();
+  
+  // Type selector
+  $('#typeselect2').select2({
+  	tokenSeparators: [","],
+    tags:[<%= raw Type.order("name").collect{ |t| t.scientific_name.nil? ? '"'+t.name+'"' : '"'+t.name+" ["+t.scientific_name+"]"+'"' }.join(",") %>] 
+  });
+  $("#typeselect2").select2("container").find("ul.select2-choices").sortable({
+    containment: 'parent',
+    start: function() { $("#typeselect2").select2("onSortStart"); },
+    update: function() { $("#typeselect2").select2("onSortEnd"); }
+	});
+  
+  // Quality rating slider        
+  var select = $( "#quality_rating" );
+  if (select.length > 0) {
+  var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
+    min: 1,
+    max: 6,
+    range: "min",
+    value: select[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#quality_rating" ).change(function() {
+    slider.slider( "value", this.selectedIndex + 1 );
+  });
+  select.hide();
+	}
+	
+	// Yield rating slider
+  var select2 = $( "#yield_rating" );
+	if (select2.length > 0) {
+  var slider2 = jQuery( "<div id='slider'></div>" ).insertAfter( select2 ).slider({
+    min: 1,
+    max: 6,
+    range: "min",
+    value: select2[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select2[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#yield_rating" ).change(function() {
+    slider2.slider( "value", this.selectedIndex + 1 );
+  });
+  select2.hide();
+	}
+	
+	// Fruiting slider
+  var select3 = $( "#fruiting" );
+  if (select3.length > 0) {
+  var slider3 = jQuery( "<div id='slider'></div>" ).insertAfter( select3 ).slider({
+    min: 1,
+    max: 4,
+    range: "min",
+    value: select3[ 0 ].selectedIndex + 1,
+    slide: function( event, ui ) {
+      select3[ 0 ].selectedIndex = ui.value - 1;
+    }
+  });
+  $( "#fruiting" ).change(function() {
+    slider3.slider( "value", this.selectedIndex + 1 );
+  });
+  select3.hide();
+	}
+	
 });
 </script>
 <% end %>
@@ -26,44 +105,51 @@ jQuery(document).ready(function(){
   <%= f.hidden_field :client, :value => 'web' %>
   
   <!-- Type -->
-  <div class="field" id="types">
+  <div class="field first" id="types">
     *<%= f.label :types %><br />
-    <span class="subtext">Follow each type with a comma (Apple,Pear,). Review the suggestions carefully, submitting a new name only if an appropriate choice does not already exist.</span><br />
+    <span class="subtext">Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.</span><br />
     <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
   </div>
-  
+ 
   <!-- Location -->
   <div class="field">
     *<label for="location_address">Location</label><br>
     <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br />
-    Lat, Lon <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br>
+    Lat, Lng <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br />
+    <a href="#" onclick="update_marker_latlng();">>> Move marker to coordinates</a>
     
   	<!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
       <div style="margin-top:0.25em;">
-      	Address <span class="subtext-inline">can be used to quickly move the marker. Adjust the resulting position as needed before submitting.</span>
+      	Address <span class="subtext-inline">can be used to quickly position the marker. Adjust as needed before submitting.</span>
       </div>
       <%= f.text_area :address %><br />
-      <a href="#" onclick="update_marker();">>> Move marker to address</a>
+      <a href="#" onclick="update_marker_address();">>> Move marker to address</a>
     <% end %>
   </div>
   
-  <!-- Author (if new or admin) -->
-  <% if (((@current_action == "new" or @current_action == "create") and (!user_signed_in? or (user_signed_in? and current_user.add_anonymously?))) or (@current_action == "edit" and user_signed_in? and current_user.is? :admin)) %>
-  <div class="field">
-    <%= f.label :author %><br />
-    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
-    <%= f.text_field :author %>
-    </span>
-  </div>
+  <!-- Author (new) -->
+  <% if @current_action == "new" or @current_action == "create" %>
+  	<div class="field">
+			<%= f.label :author %><br />
+			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+			<% if !user_signed_in? or (user_signed_in? and current_user.add_anonymously?) %>
+				<%= f.text_field :author %>
+			<% elsif user_signed_in? and !current_user.add_anonymously? %>
+				<%= f.text_field :author, :value => current_user.name %>
+			<% end %>
+			</span>
+  	</div>
   <% end %>
-  <% if ((@current_action == "new" or @current_action == "create") and user_signed_in? and !current_user.add_anonymously?) %>
-  <div class="field">
-    <%= f.label :author %><br />
-    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
-    <%= f.text_field :author, :value => current_user.name %>
-    </span>
-  </div>
+  
+  <!-- Author (edit: admin only) -->
+  <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
+  	<div class="field">
+			<%= f.label :author %><br />
+			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+			<%= f.text_field :author %>
+			</span>
+  	</div>
   <% end %>
 
   <!-- Description -->
@@ -73,7 +159,7 @@ jQuery(document).ready(function(){
     <%= f.text_area :description %>
   </div>
   
-	<!-- Season -->
+  <!-- Season -->
   <div class="field">
     <%= f.label :season %><br />
     <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
@@ -82,47 +168,69 @@ jQuery(document).ready(function(){
     <%= f.check_box(:no_season) %> No Season
   </div>
   
-  <!-- Unverified -->
-  <div class="field">
-    <label>Unverified</label> <%= f.check_box(:unverified) %><br />
-    <span class="subtext">If you haven't actually seen this source, or are unsure of its identity.</span>
-  </div>
-  
-  <!-- Quality Rating -->
-  <div class="field">
-    <%= f.label :quality_rating %><br />
-    <span class="subtext">Rate the tastiness of this source.</span><br />
-    <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
-  </div>
-  
-  <!-- Yield Rating -->
-  <div class="field">
-    <%= f.label :yield_rating %><br />
-    <span class="subtext">Rate the productivity of this source.</span><br />
-    <%= f.select(:yield_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
-  </div>
-  
-  <!-- Access -->
+    <!-- Access -->
   <div class="field">
     <%= f.label :access %><br />
     <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br />
     <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
   </div>
-
-  <br />
-  <!-- Captcha -->
-  <% unless user_signed_in? %>
-  	<br />
-	<% end %>
-  <div id="captcha">
-  	<%= recaptcha_tags(:display => {:theme => 'white'}) unless user_signed_in? %>
+  
+  <!-- Unverified -->
+  <div class="field">
+    <label>Unverified</label> <%= f.check_box(:unverified) %><br />
+    <span class="subtext">If you doubt the existence, location, or identity of this source.</span>
   </div>
   
+  <!-- Observations -->
+  <% if @current_action == "new" or @current_action == "create" %>
+  <hr />
+
+  <!-- Quality Rating -->
+  <div class="field">
+    <%= f.label :quality %><br />
+    <span class="subtext">Rate the tastiness of this source (if applicable)</span><br />
+    <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
+    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+  </div>
+  
+  <!-- Yield Rating -->
+  <div class="field">
+    <%= f.label :yield %><br />
+    <span class="subtext">Rate the productivity of this source (if applicable)</span><br />
+    <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
+    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+  </div>
+  
+  <!-- Fruiting -->
+  <div class="field">
+    <%= f.label :fruiting_status %><br />
+    <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
+    <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
+    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+  </div>
+  
+  <!-- Date -->
+  <div class="field">
+    <%= f.label :date_visited %><br />
+    <span class="subtext">Date of the reported fruiting status (if not today)</span><br />
+    <%= text_field_tag(:observed_on) %>
+  </div>
+  <% end %>
+
+  <hr />
+  
+  <!-- Captcha -->
+  <% unless user_signed_in? %>
+  	<div id="captcha">
+  		<%= recaptcha_tags(:display => {:theme => 'white'}) %>
+  	</div>
   <br />
+	<% end %>
+  
   <!-- Submit -->
   <div class="actions">
     <%= f.submit "Submit" %>
-    <% if @current_action == "new" %>
+    <% if @current_action == "new" or @current_action == "create" %>
     <%= check_box_tag(:create_another, '1', false) %> Create another<br>
     <% end %>
   </div>

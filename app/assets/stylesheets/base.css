@@ -8,6 +8,12 @@ html, body {
   color: #666;
   margin: 0;
   padding: 0;
+  position: absolute; /* Enable z-index */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -999; /* Prevent from covering links in map */
 }
 
 ul, li {
@@ -61,9 +67,31 @@ h2 {
   float: right;
 }
 
+hr {
+	border: none;
+	border-bottom: 1px dotted #CCC;
+	height: 1px;
+	width: 70%;
+	margin: 1.75em 0 1.25em 15%;
+}
+
+.first {
+	margin-top: 0 ! important;
+}
+
+div#captcha {
+  position: relative;  /* Widget has slight left margin */
+  left: -2px;
+}
+
 /**********************************************************/
 /******************** Template: Maps **********************/
 /**********************************************************/
+
+/* Fixes scrollbar issues */
+.gm-style-iw {
+	overflow: hidden !important;
+} 
 
 div#map {
   width: 100%;
@@ -73,7 +101,10 @@ div#map {
 }
 
 div#newmarker {
-	font-size: 1.25em;
+	font-size: 1.1em;
+  padding: 0.1em 0.1em;
+  height: 3.25em;
+  width: 13em;
 }
 
 /*** Map Controls ***/
@@ -118,27 +149,42 @@ p#stamen_attribution a {
 	text-decoration: underline;
 }
 
-/*** InfoWindow ***/
+/**********************************************************/
+/********************** Infowindow ************************/
+/**********************************************************/
 
 div#location_infowindow {
-  max-width: 35em;
-  color: #333;
-  overflow: auto;
-  padding: 0.5em 0.3em;
-	line-height: normal ! important;	/* Helps avoid scrollbars when using padding. */
+	min-width: 30em;
+	max-width: 40em;
 }
 
-div#location_infowindow a {
+div#tab-1 {
+	overflow: auto;
+}
+
+div#tab-1,
+div#tab-2,
+div#tab-3 {
+	color: #333;
+  padding: 0 0 0.5em 0;
+  overflow: auto;
+}
+
+div#tab-1 a,
+div#tab-2 a {
   text-decoration: underline;
 }
 
+/*** Info Tab Only ***/
+
+
 /* Types */
 
-div#location_infowindow div#type_list {
+div#tab-1 div#type_list {
 	margin-bottom: 0.4em;
 }
 
-div#location_infowindow div#type_list li {
+div#tab-1 div#type_list li {
   list-style: none;
   margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
   display: inline-block;
@@ -147,13 +193,13 @@ div#location_infowindow div#type_list li {
   font-size: 1.15em;
 }
 
-div#location_infowindow div#type_list img.type_icon {
+div#tab-1 div#type_list img.type_icon {
   height: 0.9em;
 }
 
 /* Description */
 
-div#location_infowindow label {
+div#tab-1 label {
   color: #000;
   font-size: 1.1em;
   padding-right: 0.2em;
@@ -161,15 +207,19 @@ div#location_infowindow label {
   line-height: 1.5em;
 }
 
-div#location_infowindow span.in_season {
+div#tab-1 span.observation_count {
+	font-size: 0.8em;
+}
+
+div#tab-1 span.in_season {
   color: green;
 }
 
-div#location_infowindow span.out_season {
+div#tab-1 span.out_season {
   color: brown;
 }
 
-div#location_infowindow div#description p {
+div#tab-1 div#description p {
   margin: 1.2em 1em;
   line-height: 1.5em;
   cursor: text; /* Google Maps defaults to pointer */
@@ -177,36 +227,159 @@ div#location_infowindow div#description p {
 
 /* Controls & Author */
 
-div#location_infowindow table#footer {
+div#tab-1 table#footer {
 	border-collapse: collapse;
 	border-spacing: 0;
 	/* for embed: overrides browser css */
 	color: inherit;
 	font-size: inherit;
-	font-weight: inherit;
+	font-weight: inherit;	
 }
 
-div#location_infowindow table#footer td#controls {
+div#tab-1 table#footer td#controls {
 	vertical-align: bottom;
 	white-space: nowrap;
-	padding-left: 0.25em;  /* to line up with start of type labels */
 }
 
-div#location_infowindow table#footer a {
+div#tab-1 table#footer a {
 	color: #999;
 }
 
-div#location_infowindow table#footer a:hover {
+div#tab-1 table#footer a:hover {
 	color: #333;
 }
 
-div#location_infowindow table#footer #controls a {
-	padding-right: 1em;
+div#tab-1 table#footer #controls a {
+	padding-right: 0.75em;
 }
 
-div#location_infowindow table#footer td#added_by {
+div#tab-1 table#footer td#added_by {
 	padding-left: 1em;
-	border-left: 1px solid #DDD;
+	border-left: 1px solid #555;
+}
+
+div#tab-1 table#footer a#add_review {
+	border: 1px solid #DDD;
+	padding: 0.1em 0.4em;
+	text-decoration: none;
+	margin-right: 0.5em;
+	color: #555;
+}
+
+div#tab-1 table#footer a#add_review:hover {
+	color: #111;
+}
+
+/*** Reviews Tab ***/
+
+div.observation {
+  border-top: 1px solid #EEE;
+  padding: 0.75em 0;
+}
+
+div.observation_text {
+  padding: 0 1em 0 0.25em;
+}
+
+div.observation:last-of-type {
+  padding-bottom: 0;
+}
+
+div#observation_list a {
+	text-decoration: underline;
+	color: #999;
+}
+
+div#observation_list a:hover {
+	color: #333;
+}
+
+div.obsphoto {
+  float: right;
+  clear: right;
+  padding: 0.7em 0 0.5em 0;
+  background: #EEE;
+  min-width: 100px;
+  max-width: 250px;
+  text-align: center;
+  color: #555;
+}
+
+div#tab-2 label {
+  color: #333;
+  font-size: inherit;
+}
+
+/*** Street View Tab ***/
+
+
+/**********************************************************/
+/********************* Template: Tabs *********************/
+/**********************************************************/
+
+/*.gm-style-iw {
+	top: -24px ! important;
+}*/
+
+.ui-tabs,
+.ui-tabs > div {
+  border: 0 ! important;
+  padding: 0;
+  margin: 0;
+} 
+.ui-tabs .ui-tabs-panel {
+	padding: 0;
+}
+.ui-tabs .ui-tabs-nav {
+	padding: 0 0 0 0.2em;
+	line-height: 1.75em;
+	border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 1px solid #CCC;
+  background: transparent;
+  margin-bottom: 0.5em;
+}
+.ui-tabs .ui-tabs-nav .ui-corner-top {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	margin-right: 0.35em;
+}
+.ui-tabs .ui-tabs-nav .ui-corner-top > a {
+	padding: 0 0.5em;
+}
+.ui-tabs .ui-tabs-nav li:not(.ui-state-active) { 
+	background: transparent;
+	border-color: transparent;
+} 
+.ui-tabs .ui-tabs-nav .ui-state-active { 
+  border-bottom: 1px solid #FFF;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+} 
+
+/* Hiding by putting off screen rather than using display:none so that dimensions are still reported */
+.ui-tabs .ui-tabs-hide { /* my_tabs-1 contains google map */
+	display: block !important;
+	position: absolute !important;
+	left: -9999px !important;
+	overflow: hidden ! important; /* To avoid measuring the scrollbars */
+}
+
+/**********************************************************/
+/******************** Modal: Problem **********************/
+/**********************************************************/
+
+#problem_comment {
+	width: 97%;
+	height: 5em;
+}
+
+#problem_name,
+#problem_email {
+	width: 15em;
 }
 
 /**********************************************************/
@@ -244,16 +417,6 @@ form textarea {
 	margin: 0;
 }
 
-form .select2-choices {
-  border: 1px solid #ccc ! important;
-  outline: none ! important;
-  background: none ! important;
-}
-
-form .select2-choices .select2-search-choice {
-  font-size: 95%;
-}
-
 form select {
 	font-family: inherit;
 	color: inherit;
@@ -286,7 +449,8 @@ form input[type=checkbox] {
 	top: -1px;
 }
 
-form input#user_password_confirmation, form input#user_email_confirmation {
+form input#user_password_confirmation, 
+form input#user_email_confirmation {
 	display: block; /* forces to next line, robust to confirmation failure */
 	margin-top: 0.25em;
 }
@@ -296,6 +460,11 @@ form div.confirmation input[type=text],
 form div.confirmation label {
   display: block;
 } 
+
+form div.field_with_errors {
+	display: inline; \* since label becomes div on error, avoids extra line breaks *\
+}
+
 
 form div.field_with_errors label {
   color: #EF6517;
@@ -314,6 +483,130 @@ form div#error_explanation li {
   color: #EF6517;
 }
 
+div.slider-legend {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 0.5em;
+}
+
+div.slider-legend > div {
+    display: table-cell;
+    width: 2%;
+    margin-bottom: 0;
+    font-size: 8pt;
+}
+div#slider{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+/**********************************************************/
+/****************** Template: Select2 *********************/
+/**********************************************************/
+
+/* Clean borders */
+.select2-choices,
+.select2-container {
+  outline: none ! important;
+  background: none ! important;
+}
+.select2-drop {
+	border-bottom: 1px solid #CCC ! important;
+	border-left: 1px solid #CCC ! important;
+	border-right: 1px solid #CCC ! important;
+	box-shadow: none ! important;
+}
+.select2-drop-multi {
+	border-top: 1px dotted #DDD ! important;
+}
+.select2-choices {
+	border: 1px solid #CCC ! important;
+	box-shadow: none ! important;
+}
+
+/* Reduce font-size */
+.select2-container,
+.select2-drop {
+  font-size: 90%;
+}
+
+/* Background color of results on hover */
+.select2-highlighted {
+	background-color: #0476D4 ! important;
+	background: #0476D4 ! important;
+}
+
+/* Multi-choice tokens */
+.select2-search-choice {
+	background-color: #EEE ! important;
+	background: #EEE ! important;
+}
+.select2-search-choice-focus {
+	background-color: #DDD ! important;
+	background: #DDD ! important;
+}
+.select2-search-choice-close {
+	opacity: 0.5 ! important;
+}
+.select2-container-multi .select2-search-choice-close {
+	top: 3px ! important;
+}
+
+/* Border of search box in dropdown */
+.select2-drop .select2-input {
+	border: 1px solid #DDD ! important;
+	box-shadow: none ! important;
+	-webkit-box-shadow: none ! important;
+	margin-top: 4px ! important;
+	background: none ! important;
+}
+
+/* Grey when no selection, white when selected */
+[class='select2-choice select2-default'],
+.select2-dropdown-open .select2-choice {
+	background-color: #EEE ! important;
+	background: #EEE ! important;
+}
+[class='select2-choice'] {
+	background-color: #FFF ! important;
+	background: #FFF ! important;
+}
+.select2-choice {
+	border: 1px solid #CCC ! important;
+	box-shadow: none ! important;
+	-webkit-box-shadow: none ! important;
+	color: inherit ! important;
+	border-radius: 0px ! important;
+}
+.select2-arrow {
+	border-left: none ! important;
+	background-color: #EEE ! important;
+	background: #EEE ! important;
+	border-radius: 0px ! important;
+}
+
+/* Reduce left padding */
+.select2-choice {
+	padding-left: 6px ! important;
+}
+.select2-result-label {
+	padding-left: 5px ! important;
+}
+
+/* Blue on hover */
+.select2-default:hover,
+.select2-default:hover .select2-arrow,
+.select2-arrow:hover {
+	background-color: #C6E1F7 ! important;
+}
+
+/* Alternate shading of results */
+.select2-result:nth-of-type(even):not(.select2-highlighted) {
+	background: #F9F9F9 ! important;
+	background-color: #F9F9F9 ! important;
+}
+
 /**********************************************************/
 /****************** Template: Dialogs *********************/
 /**********************************************************/
@@ -323,22 +616,36 @@ form div#error_explanation li {
 	font-size: 95%;
 	padding: 0;
 	border-radius: 2px;
-}
-
-.ui-dialog .ui-dialog-content {
-  position: relative;
-  border: 0;
-  padding-bottom: 0.75em;
+	border: 1px solid #CCC;
 }
 
 .ui-dialog .ui-dialog-titlebar {
 	border-radius: 0;
 	border: none;
-	color: #888;
+	color: #666;
+	background: #EEE;
+}
+
+.ui-dialog .ui-dialog-content {
+  padding: 1em;
+  color: #666;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+	background: rgba(0,0,0,0);
+	opacity: 0.75;
 }
 
 .ui-dialog .ui-dialog-titlebar-close.ui-state-hover {
-	border-color: #CCC;
+	border-color: rgba(0,0,0,0);
+}
+
+.ui-dialog .ui-dialog-titlebar-close .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_454545_256x240.png)/*{iconsHeader}*/ ! important;
+}
+
+.ui-dialog .ui-dialog-titlebar-close.ui-state-hover .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_222222_256x240.png)/*{iconsHeader}*/ ! important;
 }
 
 /*** Notice ***/
@@ -354,37 +661,105 @@ form div#error_explanation li {
 }
 
 .dialog_yellow .ui-dialog-titlebar-close {
-  background: #F6F6A8;
   position: absolute;
   top: 1em;
-}
-
-.dialog_yellow .ui-dialog-titlebar-close:focus {
-  outline: none ;
 }
 
 .dialog_yellow .ui-dialog-content {
 	display: none ! important;
 }
 
-/*** Embed HTML ***/
+/**********************************************************/
+/***************** Template: Datepicker *******************/
+/**********************************************************/
 
-.dialog_grey {
-	border: 2px solid #f0f0f0;
-}	
-
-.dialog_grey .ui-dialog-titlebar {
-	background: #E9E9E9;
+.ui-datepicker {
+	z-index: 999 ! important;
+	font-size: 90%;
 }
 
-.dialog_grey .ui-dialog-titlebar-close {
-  background: #eee;
+.ui-datepicker-header {
+	background: #EEE ! important;
+	border-radius: 0 ! important;
+	border: 
 }
 
-.dialog_grey .ui-dialog-titlebar-close:focus {
-  outline: none;
+.ui-datepicker-next-hover,
+.ui-datepicker-prev-hover {
+	border-color: rgba(0,0,0,0) ! important;
+	background: rgba(0,0,0,0) ! important;
 }
 
-.dialog_grey .ui-dialog-content {
-	background-color: #FCFCFC;
+.ui-datepicker-calendar td a:not(.ui-state-highlight):not(.ui-state-hover):not(.ui-state-active) {
+	background: #F9F9F9 ! important;
+	border-color: #EEE ! important;
+}
+
+.ui-datepicker-calendar td a.ui-state-highlight {
+	border-color: #AAA ! important;
+	background: #F9F9F9 ! important;
+}
+
+.ui-datepicker-calendar td a.ui-state-hover,
+.ui-datepicker-calendar td a.ui-state-active {
+	border-color: #AAA ! important;
+	background: #EEE ! important;
+}
+
+/**********************************************************/
+/********************** Shadowbox *************************/
+/**********************************************************/
+
+div#sb-title-inner {
+	font-size: inherit;
+	font-family: Roboto, Arial, sans-serif;;
+}
+
+/**********************************************************/
+/******************* locations/embed **********************/
+/**********************************************************/
+
+div#embed_branding {
+	display: block;
+	height: 30px;
+	position: absolute;
+	left: 80px;
+	top: 16px;
+	font-size: 15px;
+	font-family: helvetica, arial, verdana, sans-serif;
+	color: #FFF;
+}
+
+div#embed_branding a {
+  color: #FFF;
+  display: block;
+  font-weight: bold;
+  text-shadow: -1px -1px 3px rgba(51,51,51,0.5), 1px -1px 3px rgba(51,51,51,0.5), -1px 1px 3px rgba(51,51,51,0.5), 1px 1px 3px rgba(51,51,51,0.5);
+}
+
+div#embed_branding a:hover {
+ text-shadow: -1px -1px 5px rgba(51,51,51,0.5), 1px -1px 5px rgba(51,51,51,0.5),-1px 1px 5px rgba(51,51,51,0.5),1px 1px 5px rgba(51,51,51,0.5);
+}
+
+div#embed_branding span {
+  text-shadow: -1px -1px 3px rgba(51,51,51,0.5), 1px -1px 3px rgba(51,51,51,0.5), -1px 1px 3px rgba(51,51,51,0.5), 1px 1px 3px rgba(51,51,51,0.5);
+  float: right;
+  display: none;
+}
+
+div#embed_branding a#falling_fruit {
+	font-size: 2em;
+}
+
+div#embed_branding a#add_source {
+	font-size: 1em;
+}
+
+div#embed_branding .hr-like {
+	width: 85%;
+	height: 1px;
+	background: white;
+	display: block;
+	margin: 0 0 0 0.25em;
+	box-shadow: -1px -1px .1em rgba(51,51,51,0.2),1px -1px .1em rgba(51,51,51,0.2),-1px 1px .1em rgba(51,51,51,0.2),1px 1px .1em rgba(51,51,51,0.2);
 }

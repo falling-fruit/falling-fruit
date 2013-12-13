@@ -6,5 +6,5 @@ class Route < ActiveRecord::Base
 
   set_inheritance_column 'does_not_have_one'
 
-  TransportTypes = ["Bicycling","Walking","Driving"]
+  TransportTypes = ["Walking","Bicycling","Transit","Driving"]
 end

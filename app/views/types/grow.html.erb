@@ -24,12 +24,12 @@
 
 [
 <% lts.each do |ltid| lt = LocationsType.find(ltid) %>        
-<%= link_to lt.location.id, edit_location_path(lt.location.id) %>  
+<%= link_to lt.location.id, edit_location_path(lt.location.id) unless lt.location.nil? %>
 <% end %>
 ]
 
 </td>
-<td><%= render :partial => 'form', :object => @type, :locals => {:lts => lts} %></td>
+<td style="padding-bottom:1em;"><%= render :partial => 'form', :object => @type, :locals => {:lts => lts} %></td>
 <td><form action="/types/merge">
     <%= hidden_field_tag 'lts', lts.join(":") %>
     <%= select_tag(:into_id,options_for_select(types_list),:class=>"select2") %>
@@ -48,7 +48,7 @@ jQuery(document).ready(function(){
 });
 jQuery(document).ready(function(){
     jQuery('#type_others_table').dataTable({
-      "aaSorting": [[1,"desc"]],
+      "aaSorting": [],
       "bPaginate": false
     });
 });

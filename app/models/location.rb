@@ -3,24 +3,24 @@ class Location < ActiveRecord::Base
 
   has_many :locations_types, :order => 'locations_types.position ASC'
   has_many :types, :through => :locations_types, :order => 'locations_types.position ASC'
+  has_many :observations
   belongs_to :import
+  belongs_to :user
 
   validates_associated :locations_types
   validates :locations_types, :presence => true
   validates :lat, :lng, :numericality => true, :allow_nil => false
-  validates :quality_rating, :yield_rating, :access, :numericality => { :only_integer => true }, :allow_nil => true
-
+  validates :access, :numericality => { :only_integer => true }, :allow_nil => true
+	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
-                  :no_season, :quality_rating, :yield_rating, :unverified, :access, :locations_types, :import_id, :photo_url
+                  :no_season, :unverified, :access, :locations_types, :import_id, :photo_url, :user, :user_id
   attr_accessor :import_link
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   reverse_geocoded_by :lat, :lng do |obj,results|
     if geo = results.first
       obj.city = geo.city
       obj.state = geo.state
-      #obj.state_code = geo.state_code
       obj.country = geo.country
-      #obj.country_code = geo.country_code
     end
   end
   before_validation { |record| 
@@ -37,8 +37,9 @@ class Location < ActiveRecord::Base
   public 
 
   Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-  Ratings = ["Crummy","Not Great","Decent","Solid","Epic"]
-  AccessShort = ["Owner Added","Owner Permitted","Public","Private/Public","Private"]
+  Ratings = ["Poor","Fair","Good","Very Good","Excellent"]
+  Fruiting = ["Flowering","Fruiting","Ripe"]
+  AccessShort = ["Added by owner","Permitted by owner","Public","Private but overhanging","Private"]
   AccessModes = ["I own this source",
                  "I have permission from the owner to add this source",
                  "Source is on public land",
@@ -63,16 +64,48 @@ class Location < ActiveRecord::Base
     no_season
     access
     unverified
-    yield_rating
-    quality_rating
     author
     photo_url
+  end
+
+  def has_photos?
+    self.observations.any?{ |o| !o.photo_file_size.nil? }
+  end
+
+  # NOTE: hack to always round up (1.5 => 2)
+  def mean_yield_rating
+    y = self.observations.collect{ |o| o.yield_rating }.compact
+    y.length == 0 ? nil : (y.sum.to_f/y.length).ceil
+  end
+  
+  def mean_quality_rating
+    q = self.observations.collect{ |o| o.quality_rating }.compact
+    q.length == 0 ? nil : (q.sum.to_f/q.length).ceil
+  end
+  
+  # WARNING: Simple ordering, ignores the fact that seasonality may wrap to next calendar year
+  def nobs_months_flowering
+    m = self.observations.reject{ |o| 
+          o.fruiting.nil? or o.fruiting != 0 or o.observed_on.nil? 
+        }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
+  end
+  
+  def nobs_months_fruiting
+    m = self.observations.reject{ |o| 
+      o.fruiting.nil? or o.fruiting != 1 or o.observed_on.nil?
+    }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
+  end
+  
+  def nobs_months_ripe
+    m = self.observations.reject{ |o| 
+      o.fruiting.nil? or o.fruiting != 2 or o.observed_on.nil?
+    }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
 
   def title
     lt = self.locations_types
     if lt.length == 2
-      "#{lt[0].name} and #{lt[1].name}"
+      "#{lt[0].name} & #{lt[1].name}"
     elsif lt.length > 2
       "#{lt[0].name} & Others"
     else
@@ -94,8 +127,11 @@ class Location < ActiveRecord::Base
   end
 
   def self.build_from_csv(row,typehash=nil)
-    type,type_other,desc,lat,lng,address,season_start,season_stop,no_season,access,unverified,yield_rating,quality_rating,author,photo_url = row
+    type,type_other,desc,lat,lng,address,season_start,season_stop,no_season,
+      access,unverified,yield_rating,quality_rating,author,photo_url = row
+
     loc = Location.new
+
     unless type.nil? or type.strip.length == 0
       type.split(/[;,:]/).each{ |t|
         safer_type = t.squish.tr('^A-Za-z- \'','').capitalize
@@ -123,6 +159,7 @@ class Location < ActiveRecord::Base
         end
       }
     end
+
     type_other.split(/[;,:]/).each{ |to|
       lt = LocationsType.new
       lt.type_other = to
@@ -133,19 +170,29 @@ class Location < ActiveRecord::Base
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
+
     loc.access = (access.to_i - 1) unless access.blank?
     loc.description = desc.gsub(/(\\n|<br>)/,"\n") unless desc.blank?
     loc.address = address unless address.blank?
-    loc.photo_url = photo_url unless photo_url.blank?
     loc.season_start = (season_start.to_i - 1) unless season_start.blank?
     loc.season_stop = (season_stop.to_i - 1) unless season_stop.blank?
     no_season = no_season.nil? ? "" : no_season.strip.downcase.tr('^a-z','')
     unverified = unverified.nil? ? "" : unverified.strip.downcase.tr('^a-z','')
     loc.no_season = true if no_season == 't' or no_season == "true" or no_season == "x"
     loc.unverified = true if unverified == 't' or unverified == "true" or unverified == "x"
-    loc.yield_rating = (yield_rating.to_i - 1) unless yield_rating.blank?
-    loc.quality_rating = (quality_rating.to_i - 1) unless quality_rating.blank?
     loc.author = author unless author.blank?
+
+    obs = Observation.new
+    obs.observed_on = Date.today
+    obs.yield_rating = (yield_rating.to_i - 1) unless yield_rating.blank?
+    obs.quality_rating = (quality_rating.to_i - 1) unless quality_rating.blank?
+    obs.location = loc
+    begin
+    obs.photo = open(photo_url) unless photo_url.blank?
+    rescue
+    end
+    obs.save
+
     return loc 
   end
 

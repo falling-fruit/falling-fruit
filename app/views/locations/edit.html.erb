@@ -8,113 +8,44 @@
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.1"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/2.0.9/src/keydragzoom_packed.js"></script>
 <script type="text/javascript" charset="utf-8">
+  
   // ================= globals ==================
-
+	
   var lat = $("#location_lat").val();
   var lng = $("#location_lng").val();
-  var editMarkerHtml = '<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>';
-    
+  var zoom = 20;
+	var type = google.maps.MapTypeId.HYBRID;
+
   // ================= functions =================
 
-  // Enable the visual refresh
-  google.maps.visualRefresh = true;
-  
   function initialize() {
-    var toner = 'toner-lite';
-    var markerPos = new google.maps.LatLng(lat,lng)
-    var mapOptions = {
-      zoom: 18,
-      center: markerPos,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
-      }
-    };
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
-    geocoder = new google.maps.Geocoder();
-    map.setTilt(0);
-	pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
-  
-    // Stamen Toner (B&W) map
-    var tonerType = new google.maps.StamenMapType(toner);
-    tonerType.name = "B&W";
-    map.mapTypes.set(toner, tonerType);
-    
-    // Bicycle map (and control)
-    bicycleControl(map);
-
-	// Key Drag Zoom
-	keyDragZoom(map);
-	
-	// EditMarker
-	var marker = new google.maps.Marker({
-      icon: '',
-      position: markerPos, 
-      map: map,
-      draggable: true,
-    });
-    var nag = new google.maps.InfoWindow({
-      content: editMarkerHtml
-    });
-	google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-    	nag.open(map,marker);
-		nagOpen = true;
-    });
-	google.maps.event.addListener(nag, 'closeclick', function(event) {
-			nagOpen = false;
-	});		
-    google.maps.event.addListener(marker, 'click', function(event) {
-		if(nagOpen){
-			nag.close();
-			nagOpen = false;
-		} else {
-			nag.open(map,marker);
-			nagOpen = true;
-		}
-    });
-
-    google.maps.event.addListener(map, 'click', function(event) {
-      if(openMarker != null && openInfoWindow != null){
-        openInfoWindow.close();
-        openMarker = null;
-        openInfoWindow = null;
-      }
-    });
-	
-    google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
-      update_attribution();
-    });
-    
-    google.maps.event.addListener(map, 'bounds_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-        var zoom = map.getZoom();
-        var bounds = map.getBounds();
-        if(prior_bounds == null && prior_zoom == null){
-          prior_zoom = zoom;
-          prior_bounds = bounds;
-          return;
-        }
-        if(zoom > 11 && prior_bounds != bounds){
-          do_markers(bounds,null,true);
-        }
-        prior_zoom = zoom;
-        prior_bounds = bounds;
-      });
-    });
-  
-    google.maps.event.addListener(marker, 'dragend', function() {
-      $("#location_lat").val(this.getPosition().lat());
-      $("#location_lng").val(this.getPosition().lng());
-    });
-    
+  	basemap(lat,lng,zoom,type);
+    place_edit_marker(lat,lng);
+     
     // update markers once we're done panning and zooming
-    google.maps.event.addListenerOnce(map, 'idle', function(){
+    google.maps.event.addListenerOnce(map, 'idle', function() {
       do_markers(map.getBounds(),$("#location_id").val(),true);
     });
-    
+		
+		// Update location markers when bounds change
+		google.maps.event.addListener(map, 'bounds_changed', function() {
+			google.maps.event.addListenerOnce(map, 'idle', function() {
+				var zoom = map.getZoom();
+				var bounds = map.getBounds();
+				if (prior_bounds == null && prior_zoom == null) {
+					prior_zoom = zoom;
+					prior_bounds = bounds;
+					return;
+				}
+				if (zoom > 12 && prior_bounds != bounds) {
+					do_markers(bounds,null,true);
+				}
+				prior_zoom = zoom;
+				prior_bounds = bounds;
+			});
+		});
   }
-
+  
   // ================== main-level code ===================
 
   google.maps.event.addDomListener(window, 'load', initialize);

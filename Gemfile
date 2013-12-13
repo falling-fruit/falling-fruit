@@ -5,8 +5,7 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
+#gem 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,12 +22,15 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem 'faker'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery_mobile_rails'
-#gem 'prototype-rails'
+gem 'validates_timeliness'
+gem 'timeliness'
 gem 'select2-rails', '~> 3.4.2'
 gem 'jquery-datatables-rails'
 
@@ -47,3 +49,5 @@ gem 'activerecord-postgis-adapter'
 # http://www.phase2technology.com/blog/authentication-permissions-and-roles-in-rails-with-devise-cancan-and-role-model/
 gem 'cancan'
 gem 'role_model'
+
+gem 'shadowbox-rails'

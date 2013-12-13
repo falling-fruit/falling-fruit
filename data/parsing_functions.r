@@ -165,6 +165,8 @@ flatten.data = function(data, notesep = " @ ") {
 		stop(paste("Location incorrectly defined: ",paste(posfields,collapse=", ")))
 	} else if (length(posfields) > 2) {
 		stop(paste("Location over-defined: ",paste(posfields,collapse=", ")))
+	} else if (length(posfields) == 0) {
+	  stop("No location fields (either Lat & Lng, or Address) found.")
 	}
 	
 	# keep only required fields (since processing singles separately)
@@ -183,12 +185,16 @@ flatten.data = function(data, notesep = " @ ") {
 	}
 	
 	# Recombine
-	data = data[!dind,]
-	data$Description = paste("[1x] ",data$Description,sep="") # COMMENT OUT to remove "[1x]"
-	if (sum(dind) > 0) {
-		data = rbind(ddata, data)
-	}
-		
+	if (sum(dind) != nrow(data)) {
+    data = data[!dind,]
+    data$Description = paste("[1x] ",data$Description,sep="") # COMMENT OUT to remove "[1x]"
+    if (sum(dind) > 0) {
+      data = rbind(ddata, data)
+    }
+  } else {
+    data = ddata
+  }
+  
 	# append surviving notes to item description
 	hasdesc = !is.na(data$Description)
 	hasnote = !is.na(data$Notes)

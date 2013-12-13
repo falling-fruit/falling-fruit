@@ -30,6 +30,24 @@ class TypesController < ApplicationController
     if params[:id].present?
       from = Type.find(params[:id].to_i)
       to = Type.find(params[:into_id].to_i)
+      Cluster.select("*, ST_X(cluster_point) AS cx, ST_Y(cluster_point) AS cy").
+        where("type_id = ?",from.id).each{ |c|
+        c2 = Cluster.select("*, ST_X(cluster_point) AS cx, ST_Y(cluster_point) AS cy").
+                     where("type_id = ? AND zoom = ? AND muni = ? AND grid_point = ?",to.id,c.zoom,c.muni,c.grid_point).first
+        # to type doesn't have a cluster here, so just change the type
+        if c2.nil?
+          c.type_id = to.id
+          c.save
+        # to type does have a cluster here so merge with from type's cluster
+        else
+          c2.count = c2.count.to_i + c.count.to_i
+          newx = c2.cx.to_f+((c.cx.to_f-c2.cx.to_f)/c2.count.to_f)
+          newy = c.cy.to_f+((c.cx.to_f-c2.cy.to_f)/c2.count.to_f)
+          c2.cluster_point = "POINT(#{newx} #{newy})"
+          c2.save
+          c.destroy
+        end 
+      }
       LocationsType.where("type_id = ?",from.id).each{ |lt|
         lt.type = to
         lt.save
@@ -80,12 +98,17 @@ class TypesController < ApplicationController
         andtext = ""
         if params[:lts].present?
           n = 0
+          locs = []
           params[:lts].split(/:/).each{ |ltid|
             lt = LocationsType.find(ltid.to_i)
             lt.type_other = nil
             lt.type = @type
             lt.save
+            locs << lt.location
+          }
+          locs.uniq.each{ |loc|
             n += 1
+            ApplicationController.cluster_increment(loc,[@type.id])
           }
           format.html { redirect_to grow_types_path, notice: "Type was successfully created and #{n} locations were updated to use this new type." }
           format.json { render json: @type, status: :created, location: @type }
@@ -121,7 +144,9 @@ class TypesController < ApplicationController
   def destroy
     @type = Type.find(params[:id])
     @type.destroy
-
+    Cluster.where("type_id = ?",params[:id]).each{ |c|
+      c.destroy
+    }
     respond_to do |format|
       format.html { redirect_to types_url }
       format.json { head :no_content }

@@ -1,3 +1,5 @@
+// ================= functions =================
+  
 function data_link(){
   var muni = $('#muni').is(':checked'); 
   var bounds = map.getBounds();
@@ -8,21 +10,61 @@ function data_link(){
   return '/locations/data.csv?muni=' + mstr + '&' + bstr;
 }
 
-
 function update_permalink(){
   var center = map.getCenter();
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid;
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
+     typeid + '&l=' + $('#labels').is(":checked");;
+  if (type_filter != undefined) {
+  	permalink = permalink + "&f=" + type_filter;
+  }
   $('#permalink').attr('href',permalink);
 }
 
 function update_url(object) {
-  window.history.pushState({},"", $(object).attr('href'));
+  window.history.pushState(undefined, "", $(object).attr('href'));
 }
 
+// Force url updates before leaving page (does not work on refresh)
+// better?: http://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page/3354511#3354511
+$(window).unload(function () {
+	if ($('#location_link').length > 0) {
+		update_url('#location_link');
+	} else if ($('#permalink').length > 0) {
+		update_permalink();
+		update_url('#permalink');
+	}
+});
+
 function show_embed_html(object){
+  var center = map.getCenter();
+  var typeid = map.getMapTypeId();
+  var zoom = map.getZoom();
+  var http = location.protocol;
+  var slashes = http.concat("//");
+  var host = slashes.concat(window.location.hostname);
+  if (type_filter != undefined) {
+  	var fstr = "&f=" + type_filter;
+  } else {
+    var fstr = "";
+  }
+  $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + fstr +
+    '&l=' + $('#labels').is(":checked") + 
+    '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
+      closeText: "close", 
+      modal: true, 
+      width: 'auto',
+      minHeight: '5em',
+      resizable: false,
+      draggable: false,
+      dialogClass: "dialog_grey"
+    }); 
+}
+
+function show_observation_html(object){
   var center = map.getCenter();
   var typeid = map.getMapTypeId();
   var zoom = map.getZoom();
@@ -43,46 +85,53 @@ function show_embed_html(object){
 }
 
 function update_display(force,force_zoom,force_bounds){
+  if (typeof type_filter != 'number') type_filter = undefined;
   var zoom = map.getZoom();
-  if(force_zoom != undefined) zoom = force_zoom;
+  if (force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
-  if(force_bounds != undefined) bounds = force_bounds;
-  var center = map.getCenter();
+  if (force_bounds != undefined) bounds = force_bounds;
   update_permalink();
-  if(zoom <= 12){
+  if (zoom <= 12) {
     $('#hidden_controls').hide();
     $('#export_data').hide();
-    var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + 
-                 document.getElementById('logobar').offsetHeight;
-    document.getElementById('mainmap_container').style.top = height + 'px';
-    if(zoom > 8)
-      do_clusters(bounds,zoom,$('#muni').is(':checked'));
-    else if((zoom != prior_zoom) || force)
-      do_clusters(undefined,zoom,$('#muni').is(':checked'));
-  }else if(zoom >= 13){
+    // Ethan's searchbar height hack
+    if(document.getElementById('searchbar') != undefined){
+      var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + 
+                   document.getElementById('logobar').offsetHeight;
+      document.getElementById('mainmap_container').style.top = height + 'px';
+    }
+    if (zoom > 8)
+      do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
+    else if ((zoom != prior_zoom) || force)
+      do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
+  } else if (zoom >= 13) {
+    if (prior_zoom < 13) types_hash = {};
     $('#get_data_link').attr('href',data_link());
     $('#hidden_controls').show();
     $('#export_data').show();
-    do_markers(bounds,skip_ids,$('#muni').is(':checked'));
-    var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
-    document.getElementById('mainmap_container').style.top = height + 'px';
+    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter);
+    // Ethan's searchbar height hack
+    if (document.getElementById('searchbar') != undefined) {
+      var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
+      document.getElementById('mainmap_container').style.top = height + 'px';
+    }
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
 }
 
-function update_display_embedded(force,force_zoom,muni){
+function update_display_embedded(force, force_zoom, muni) {
   var zoom = map.getZoom();
   if(force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
   var center = map.getCenter();
-  if(zoom <= 12){
-    if(zoom > 8)
-      do_clusters(bounds,zoom,muni);
-    else if((zoom != prior_zoom) || force)
-      do_clusters(undefined,zoom,muni);
-  }else if(zoom >= 13){
-    do_markers(bounds,null,muni);
+  if (zoom <= 12) {
+    if (zoom > 8)
+      do_clusters(bounds,zoom,muni,type_filter);
+    else if ((zoom != prior_zoom) || force)
+      do_clusters(undefined,zoom,muni,type_filter);
+  } else if (zoom >= 13) {
+    do_markers(bounds,null,muni,type_filter);
   }
   prior_zoom = zoom;
   prior_bounds = bounds;

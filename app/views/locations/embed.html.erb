@@ -1,4 +1,6 @@
-<link href="/assets/base.css" media="screen" rel="stylesheet" type="text/css" />
+<%= javascript_include_tag "application" %>
+<%= stylesheet_link_tag "jquery.ui.tabs" %>
+<%= stylesheet_link_tag "base" %>
 
 <!-- Force links to open new window. Cross browser? -->
 <base target="_blank" />
@@ -6,91 +8,84 @@
 <div id="mainmap_container">
   <div id="map"></div>
   <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+  <div id="embed_branding">
+    <a href="<%= request.fullpath.gsub('locations/embed', '') %>" id="falling_fruit">fallingfruit.org </a>
+		<div class="hr-like"></div>
+    <span>mini</span>
+    <a href="/locations/new" id="add_source">Add source</a>
+  </div>
 </div>
 
-<%= javascript_include_tag "application" %>
+<!-- Unverified? -->
+<div id="unverified_help" style="display:none;">
+Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
+</div>
+
 <script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" 
         type="text/javascript"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.1"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/2.0.9/src/keydragzoom_packed.js"></script>
 <script type="text/javascript" charset="utf-8">
 
+  // ================= globals ==================
+
+  var lat = 36.45662936733231;
+  var lng = -49.57030500000002;
+  var zoom = 2;
+  var type = google.maps.MapTypeId.ROADMAP;
+  <% unless @perma.nil? %>
+		<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
+		<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
+		<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
+		<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
+  <% end %>
   muni = <%= (@perma.nil? or (@perma[:muni].present? and @perma[:muni])) ? "true" : "false" %>;
+	labels = <%= (@perma.nil? or (@perma[:labels].present? and @perma[:labels])) ? "true" : "false" %>;
+  var skip_ids = null;
+  var type_filter = undefined;
+  <% unless @type.nil? %>
+    type_filter = <%= @type.id %>;
+  <% end %>
+  
+  // state variable used to leave out certain info_window features (report)
+  <% $embed = not(request.fullpath.match('/locations/embed[.]*').nil?) %>
 
   // ================= functions =================
 
-  // Enable the visual refresh
-  google.maps.visualRefresh = true;
-  
   function initialize() {
-    var ini_zoom = 2;
-    var ini_lat = 17.30868;
-    var ini_lng = -95.27343;
-    var toner = "toner-lite";
-    var ini_type = google.maps.MapTypeId.ROADMAP;
-    <% unless @perma.nil? %>
-      ini_lat = <%= @perma[:lat] %>;
-      ini_lng = <%= @perma[:lng] %>;
-      ini_zoom = <%= @perma[:zoom] %>;
-      ini_type = '<%= @perma[:type] %>';
-    <% end %>
-    var mapOptions = {
-      zoom: ini_zoom,
-      center: new google.maps.LatLng(ini_lat,ini_lng),
-      mapTypeId: ini_type,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, toner]
-      }
-    };
-    map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    map.setTilt(0);
-    pb = progressBar();
-    map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
+    basemap(lat,lng,zoom,type);
     
-    // Stamen Toner (B&W) map
-    var tonerType = new google.maps.StamenMapType(toner);
-    tonerType.name = "B&W";
-    map.mapTypes.set(toner, tonerType);
-    // In case permalinked straight to toner-lite:
-    update_attribution()
-    
-    // Bicycle map (and control)
-    bicycleControl(map);
-	
-	// Key Drag Zoom
-	keyDragZoom(map);
-	
-	google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
+    google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_attribution();
     });
-    
+
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);
     });
-
-    google.maps.event.addListener(map, 'click', function(event) {
-      if(openMarker != null && openInfoWindow != null){
-        openInfoWindow.close();
-        openMarker = null;
-        openInfoWindow = null;
+    
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+      update_display_embedded(true,zoom,muni);
+      if (labels && zoom > 12) {
+        labelize_markers();
+      }
+      // Ensures that labels come on later if labels = true and zoom <= 12
+      if (labels && zoom <= 12) {
+        labelsOn = true;
       }
     });
     
-    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      update_display_embedded(true,ini_zoom,muni);
-    });
-             
     google.maps.event.addListener(map, 'bounds_changed', function() {
       google.maps.event.addListenerOnce(map, 'idle', function(){
         update_display_embedded(false,null,muni);
       });
     });
+      
     google.maps.event.addListener(map, 'zoom_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-        update_display_embedded(false,null,muni);
+      google.maps.event.addListenerOnce(map, 'idle', function() {
+        update_display_embedded(false, null, muni);
       });
-    });    
+    });     
   }
 
   // ================== main-level code ===================

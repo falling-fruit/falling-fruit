@@ -1,48 +1,95 @@
 <div id="searchbar">
  <div id="searchcontrols">
-  
+ 
+ 	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;">Permalink</a> | 
-   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;">Embed</a>
+   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map">Link</a> | 
+   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML">Embed</a>
    <div id="embed" style="display:none;" title="Embeddable iFrame HTML"></div>
   </span>
   
   <span class="nowrap">  
-   <b>Location</b>
-   <input id="address" name="address" value="Zoom to address" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" onclick="this.value = '';" size="30">
-    <button onclick="recenter_map_to_address();">Go</button>
+   <!-- Address -->
+   <b>Address</b>
+   <input id="address" name="address" placeholder="Type and press Enter" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
     <span id="recenter_button">
-    or <button onclick="recenter_map()">Zoom to Me</button>
+    	&middot;
+    	<button onclick="recenter_map()" title="Zoom to current location">Zoom to Me</button>
     </span>
     &middot; 
+    
+    <!-- Type Filter -->
+    <span class="nowrap">
+    	<b>Filter</b>
+    	<%= text_field_tag(:type_filter) %>
+     &middot;
+    </span>
   </span>
   
+	 <!-- Labels -->
    <span id="hidden_controls" style="display:none;">
      <span class="nowrap">
-      <b>Filter</b>
-      <input name="search" id="search" value="Search term (e.g. Apple)" onclick="this.value = '';" onkeypress="if(event.keyCode == 13){ search_filter(); }" size="25">
-      <button onclick="search_filter($('#search').val());">Apply</button>
-      <button onclick="$('#search').val('');search_filter('');">Clear</button>
-      &middot; 
-     </span>
-     <span class="nowrap">
-      <b>Labels</b> 
-      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); }"> 
+      <b>Labels</b>
+      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %> title="Toggle location labels"> 
       &middot;
      </span>
    </span>
 
+   <!-- Tree inventories -->
    <span class="nowrap">
-     <b>Municipal</b> 
-     <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%>>
+     <b>Tree inventories</b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
+
+     <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> title="Toggle city and campus tree inventories">
    </span>
+   <div id="tree_inventories_help" style="display:none;">
+     <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Example tree inventory data for Palo Alto, California">
+     Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. You can help us map your neighborhood by asking your city or university if a tree inventory exists and whether  it can be shared with Falling Fruit.
+   </div>
    
+   <!-- Download -->
    <span id="export_data" style="display: none;">
     &middot;
     <span class="nowrap">
-     <a href="#" id="get_data_link">Export Data</a>
+     <a href="#" id="get_data_link" title="Download map as a text file">Download</a>
     </span>
    </span>
-  
+   
  </div>
 </div>
+
+<% content_for :page_scripts do %>
+<script type="text/javascript">
+var base_type_data = [<%= Type.order(:name).collect{ |t|
+                 "{id:#{t.id},text:\"#{t.full_name}\"}" }.
+                 join(",\n").html_safe %>];
+jQuery(document).ready(function(){
+  $('#type_filter').select2({
+    <% if @type.nil? %>
+    	placeholder: "Select edible type",
+    <% else %>
+    	placeholder: "<%= @type.full_name %>",
+    <% end %>
+    data: function(term,page){
+            return { text:'text', results: jQuery.map(base_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
+                                                      function(obj){ 
+                                                        return {text:obj["text"] + " (" + types_hash[obj["id"]] + ")",
+                                                                id:obj["id"]}; 
+                                                      })
+                   };
+    },
+    allowClear: true
+  });
+  $('#type_filter').on("change",function() {
+    $('#type_filter').attr("placeholder", "Select edible type");
+    if ($("#type_filter").val() == "") {
+      type_filter = undefined;
+    } else {
+      type_filter = parseFloat($("#type_filter").val());
+    }
+    clear_markers();
+    update_display(true);
+    update_permalink();
+  });
+});
+</script>
+<% end %>

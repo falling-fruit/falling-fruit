@@ -54,26 +54,30 @@ end
 
 task(:export_data => :environment) do
    r = ActiveRecord::Base.connection.execute("SELECT ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id,
-       description, lat, lng, address, season_start, season_stop, no_season, access, unverified,
-       yield_rating, quality_rating, author, import_id, 
+       description, lat, lng, address, season_start, season_stop, no_season, access, unverified, author, import_id, 
        locations.created_at, locations.updated_at FROM locations 
        INNER JOIN locations_types ON locations_types.location_id=locations.id LEFT OUTER 
        JOIN types ON locations_types.type_id=types.id GROUP BY locations.id")
    CSV.open("public/data.csv","wb") do |csv|
      cols = ["id","lat","lng","unverified","description","season_start","season_stop",
              "no_season","author","address","created_at","updated_at",
-             "quality_rating","yield_rating","access","import_link","name"]
+             "quality_rating","yield_rating","access","import_link","muni","name"]
      csv << cols
      r.each{ |row|
+     
+			 quality_rating = Location.find(row["id"]).mean_quality_rating
+       yield_rating = Location.find(row["id"]).mean_yield_rating     	
+     
        csv << [row["id"],row["lat"],row["lng"],row["unverified"],row["description"],
                row["season_start"].nil? ? nil : Location::Months[row["season_start"].to_i],
                row["season_stop"].nil? ? nil : Location::Months[row["season_stop"].to_i],
                row["no_season"],row["author"],
                row["address"],row["created_at"],row["updated_at"],
-               row["quality_rating"].nil? ? nil : Location::Ratings[row["quality_rating"].to_i],
-               row["yield_rating"].nil? ? nil : Location::Ratings[row["yield_rating"].to_i],
+               quality_rating.nil? ? nil : Location::Ratings[quality_rating],
+            	 yield_rating.nil? ? nil : Location::Ratings[yield_rating],
                row["access"].nil? ? nil : Location::AccessShort[row["access"].to_i],
                row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}",
+               row["import_id"].nil? ? 'f' : (Import.find(row["import_id"]).muni ? 't' : 'f'), 
                row["name"]]
        }
    end
