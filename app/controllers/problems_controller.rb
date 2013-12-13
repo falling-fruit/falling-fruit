@@ -19,7 +19,7 @@ class ProblemsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @problem, 
                                                        :message => "ReCAPCHA error!")
       if test and @problem.save
-        format.html { render :text => 'Thanks for letting us know!' }
+        format.html { render :text => 'Thank you for letting us know!' }
       else
         format.html { render :partial => "/problems/new", :locals => {:problem => @problem} }
       end
