@@ -27,6 +27,7 @@
   var toner = 'toner-lite';
   var markersLoadedEvent = document.createEvent("Event");
   markersLoadedEvent.initEvent("markersloaded",true,true);
+  var markersMax = 5000; // maximum markers that will display at one time...
 
   // ================= functions =================
 
@@ -164,10 +165,10 @@
   function clear_markers() {
     if (markersArray == undefined || markersArray.length == 0) return;
     for (var i = 0; i < markersArray.length; i++ ) {
-      if(openMarker != undefined && markersArray[i].marker == openMarker) continue;
       markersArray[i].marker.setMap(null);
       markersArray[i].marker = null;
       markersArray[i].id = null;
+      delabelize_marker(i);
     }
     markersArray.length = 0;
     markersArray = [];
@@ -189,6 +190,7 @@
         markersArray[i].marker.setMap(null);
         markersArray[i].marker = null;
         markersArray[i].id = null;
+        delabelize_marker(i);
         markersArray.splice(i,1);
         i--;
         len--;
@@ -592,6 +594,7 @@ function open_tab_3() {
   }
 
   function do_markers(bounds,skip_ids,muni,type_filter) {
+    if(markersArray.length >= markersMax) return;
     var bstr = bounds_to_query_string(bounds);
     mstr = 0;
     if(muni) mstr = 1;
@@ -631,7 +634,7 @@ function open_tab_3() {
       n = json.length;
       if(n > 0){
         if((n < n_found) && (n_found >= n_limit)){
-          $("#pg_text").html(n + " of " + n_found + " visible");
+          $("#pg_text").html(markersArray.length + " of " + n_found + " visible");
         }else{
           pb.hide();
         }
@@ -709,16 +712,18 @@ function open_tab_3() {
        labelsOn = true;
   }
 
+  function delabelize_marker(i){
+    if(markersArray[i].label != undefined){
+      markersArray[i].label.set('text','');
+      markersArray[i].label.set('map',null);
+      markersArray[i].label = null;
+    }
+  }
+
   function delabelize_markers() {
-        var len = markersArray.length;
-        for(var i = 0; i < len; i++){
-          markersArray[i].marker.unbind('map');
-          markersArray[i].marker.unbind('position');
-          markersArray[i].label.set('text','');
-          markersArray[i].label.set('map',null);
-          markersArray[i].label = null;
-        }
-        labelsOn = false;
+    var len = markersArray.length;
+    for(var i = 0; i < len; i++) delabelize_marker(i);
+    labelsOn = false;
   }
 
   function search_filter(search){
