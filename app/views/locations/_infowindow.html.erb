@@ -208,10 +208,12 @@ Add to / remove from:
 			
 			<!-- Photo -->
 			<% unless o.photo_file_size.nil? %>
-				<div class="obsphoto">
-				<a href="<%= o.photo.url(:original) %>" rel="shadowbox" <% unless o.photo_caption.to_s.empty? %>title="<%= o.photo_caption %>"<% end %>><img src="<%= o.photo.url(:thumb) %>"></a><br />
-				<%=	truncate(o.photo_caption, :length => 20) %>
-				</div>
+				<a href="<%= o.photo.url(:original) %>" rel="shadowbox" <% unless o.photo_caption.to_s.empty? %>title="<%= o.photo_caption %>"<% end %> style="text-decoration:none;color: inherit;">
+				  <div class="obsphoto">
+				  <img src="<%= o.photo.url(:thumb) %>"><br />
+				  <%=	truncate(o.photo_caption, :length => 20) %>
+				  </div>
+				</a>
 			<% end %>
 			
 			<div class="observation_text">

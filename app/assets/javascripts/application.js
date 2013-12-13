@@ -17,3 +17,4 @@
 //= require sprintf
 //= require dataTables/jquery.dataTables
 //= require shadowbox
+//= require infowindowShadowbox
