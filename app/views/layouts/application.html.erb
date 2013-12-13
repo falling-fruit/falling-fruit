@@ -17,25 +17,6 @@
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <!-- http://www.webmuse.co.uk/blog/shadowbox-ajax-and-other-generated-content-with-jquery-and-javascript/ -->
-  <script type="text/javascript">
-	Shadowbox.init({
-	 	language: 'en', 
-    players: ['img', 'html', 'iframe'], 
-		skipSetup: true,
-		cache: false,
-		animate: false,
-		animateFade: false,
-		showOverlay: true,
-		overlayOpacity: 0.6,
-		counterType: "default",
-		continuous: true,
-		displayCounter: true,
-		// Prevent arrows from switching photos and panning map
-		onOpen: function() {if (typeof map == "object" & typeof map.setOptions == "function") map.setOptions({keyboardShortcuts: false})},
-		onClose: function() {if (typeof map == "object" & typeof map.setOptions == "function") map.setOptions({keyboardShortcuts: true})}
-	});
-</script>
 	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript">
     function show_recaptcha(element) {
