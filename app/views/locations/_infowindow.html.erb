@@ -209,7 +209,7 @@ Add to / remove from:
 			<!-- Photo -->
 			<% unless o.photo_file_size.nil? %>
 				<div class="obsphoto">
-				<a href="<%= o.photo.url(:original) %>" rel="shadowbox" title="<%= o.photo_caption %>"><img src="<%= o.photo.url(:thumb) %>"></a><br />
+				<a href="<%= o.photo.url(:original) %>" rel="shadowbox" <% unless o.photo_caption.to_s.empty? %>title="<%= o.photo_caption %>"<% end %>><img src="<%= o.photo.url(:thumb) %>"></a><br />
 				<%=	truncate(o.photo_caption, :length => 20) %>
 				</div>
 			<% end %>
@@ -220,19 +220,22 @@ Add to / remove from:
 				<span style="color: #000;"><%= o.comment %></span><br/>
 			<% end %>
 			<!-- Ratings -->
-			<span style="color: #666; font-size: 90%;">
-			  <% unless o.yield_rating.nil? %>
-			    <label>Yield</label> <%= Location::Ratings[o.yield_rating] %>
-			    <% unless o.quality_rating.nil? %>&middot;<% end %>
-			  <% end %>
-			  <% unless o.quality_rating.nil? %>
-			    <label>Quality</label> <%= Location::Ratings[o.quality_rating] %>
-			    <% unless o.fruiting.nil? %>&middot;<% end %>
-			  <% end %>
-			  <% unless o.fruiting.nil? %>
-			    <label>Status</label> <%= Location::Fruiting[o.fruiting] %>
-			  <% end %>
-			</span><br />
+			<% unless o.yield_rating.nil? and o.quality_rating.nil? and o.fruiting.nil? %>
+				<span style="color: #666; font-size: 90%;">
+					<% unless o.yield_rating.nil? %>
+						<label>Yield</label> <%= Location::Ratings[o.yield_rating] %>
+						<% unless o.quality_rating.nil? %>&middot;<% end %>
+					<% end %>
+					<% unless o.quality_rating.nil? %>
+						<label>Quality</label> <%= Location::Ratings[o.quality_rating] %>
+						<% unless o.fruiting.nil? %>&middot;<% end %>
+					<% end %>
+					<% unless o.fruiting.nil? %>
+						<label>Status</label> <%= Location::Fruiting[o.fruiting] %>
+					<% end %>
+					<br />
+				</span>
+			<% end %>
 			<!-- Author -->
 			<span style="color: #999; font-size: 85%;">by <%= o.author.blank? ? "Anonymous" : o.author %>
 				<% unless o.observed_on.nil? %>

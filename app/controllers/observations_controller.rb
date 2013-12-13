@@ -31,8 +31,8 @@ class ObservationsController < ApplicationController
                                                        :message => "ReCAPCHA error!")
       if test and @obs.save
         log_changes(@obs.location,"visited")
-        format.html { redirect_to @obs.location, notice: 'Observation was successfully created.' }
-        format.mobile { redirect_to @obs.location, notice: 'Observation was successfully created.' }
+        format.html { redirect_to @obs.location, notice: 'You review was added successfully.' }
+        format.mobile { redirect_to @obs.location, notice: 'You review was added successfully.' }
       else
         format.html { render action: "new" }
         format.mobile { render action: "new" }

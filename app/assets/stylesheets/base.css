@@ -568,6 +568,7 @@ div#slider{
 	-webkit-box-shadow: none ! important;
 	margin-top: 4px ! important;
 	background: none ! important;
+	font-family: inherit ! important;
 }
 
 /* Grey when no selection, white when selected */
