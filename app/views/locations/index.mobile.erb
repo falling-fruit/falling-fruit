@@ -12,21 +12,24 @@
 	
 	// ================= globals ==================
 	
-	var lat = 17.30868;
-	var lng = -95.27343;
-	var zoom = 2;
-	var type = google.maps.MapTypeId.ROADMAP;
-	<% unless @perma.nil? %>
-      lat = <%= @perma[:lat] %>;
-      lng = <%= @perma[:lng] %>;
-      zoom = <%= @perma[:zoom] %>;
-      type = '<%= @perma[:type] %>';
+	var lat = 36.45662936733231;
+  var lng = -49.57030500000002;
+  var zoom = 2;
+  var type = google.maps.MapTypeId.ROADMAP;
+  <% unless @perma.nil? %>
+		<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
+		<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
+		<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
+		<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
   <% end %>
   var skip_ids = null;
   var type_filter = undefined;
   <% unless @type.nil? %>
     type_filter = <%= @type.id %>;
   <% end %>
+  
+   // state variable used to leave out certain info_window features (report)
+   <% $embed = not(request.fullpath.match('/locations/embed[.]*').nil?) %>
 
   // ================= functions =================
 
@@ -54,6 +57,10 @@
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display(true,zoom);
       if($("#labels").is(":checked")) labelize_markers();
+      // Ensures that labels come on again if labels = true and zoom <= 12
+      if ($('#labels').length > 0) {
+        labelsOn = $("#labels").is(":checked");
+      }
     });
              
     google.maps.event.addListener(map, 'bounds_changed', function() {

@@ -853,8 +853,7 @@ function add_bicycle_control(map) {
 // Adds Key Drag Zoom to the map (unless mobile device)
 // http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/
 function keyDragZoom(map) {
-	// Chrome fails this test!
-	//if (typeof map.enableDragZoom == 'function') {
+	if (!mobile) {
 		map.enableKeyDragZoom({
 			visualEnabled: true,
 			visualPosition: google.maps.ControlPosition.LEFT,
@@ -870,7 +869,7 @@ function keyDragZoom(map) {
 			boxStyle: {border: "1px solid #736AFF"},
 			veilStyle: {backgroundColor: "transparent", cursor: "crosshair"}
 		 });
-	//}
+	}
 }
 
 // Toggles on/off route controls below footer of location infowindow
