@@ -104,7 +104,7 @@ task(:import => :environment) do
      errs = []
      text_errs = []
      ok_count = 0
-     CSV.foreach("public/import/#{l}","r:ISO-8859-1") do |row|
+     CSV.foreach("public/import/#{l}") do |row|
        print "."
        n += 1
        next if n == 1 or row.join.blank?
