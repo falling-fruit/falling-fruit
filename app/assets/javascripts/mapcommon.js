@@ -165,6 +165,8 @@
   function clear_markers() {
     if (markersArray == undefined || markersArray.length == 0) return;
     for (var i = 0; i < markersArray.length; i++ ) {
+      // comment this line in to keep open marker between refreshes
+      //if(openMarker != undefined && openMarker == markersArray[i].marker) continue;
       markersArray[i].marker.setMap(null);
       markersArray[i].marker = null;
       markersArray[i].id = null;
