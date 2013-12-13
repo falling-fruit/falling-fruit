@@ -127,7 +127,7 @@
             draggable: false
           });
         }
-        markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point"});
+        markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point", types: mdata[i]["types"]});
         for(var j = 0; j < mdata[i]["types"].length; j++){
           var tid = mdata[i]["types"][j];
           if(types_hash[tid] == undefined) types_hash[tid] = 1;
@@ -181,6 +181,11 @@
     for (var i = 0; i < len; i++ ) {
       if(openMarker != undefined && markersArray[i].marker == openMarker) continue;
       if(!bounds.contains(markersArray[i].marker.getPosition())){
+        for(var j = 0; j < markersArray[i].types.length; j++){
+          var tid = markersArray[i].types[j];
+          if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
+          if(types_hash[tid] == 0) delete types_hash[tid];
+        }
         markersArray[i].marker.setMap(null);
         markersArray[i].marker = null;
         markersArray[i].id = null;
@@ -609,6 +614,7 @@ function open_tab_3() {
           markersArray[i].marker.setMap(null);
           markersArray[i].marker = null;
           markersArray[i].id = null;
+          markersArray[i].types = [];
         }
         markersArray.splice(i,1);
         i = find_marker(null);
