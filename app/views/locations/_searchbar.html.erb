@@ -67,13 +67,14 @@ jQuery(document).ready(function(){
     <% else %>
     	placeholder: "<%= @type.full_name %>",
     <% end %>
-    data: function(term,page){
-            return { text:'text', results: jQuery.map(base_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
-                                                      function(obj){ 
-                                                        return {text:obj["text"] + " (" + types_hash[obj["id"]] + ")",
-                                                                id:obj["id"]}; 
-                                                      })
-                   };
+      data: function(term,page){
+          return { text:'text', results: jQuery.map(base_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
+                  function(obj){
+                      mp = markersPartial ? "+" : "";
+                      return {text:obj["text"] + " (" + types_hash[obj["id"]] + mp + ")",
+                          id:obj["id"]};
+                  })
+          };
     },
     allowClear: true,
     allowedMethods: ['updateResults']
@@ -95,8 +96,6 @@ jQuery(document).ready(function(){
         apply_type_filter();
       }
     }
-    //clear_markers();
-    //update_display(true);
     update_permalink();
   });
 });

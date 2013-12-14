@@ -28,6 +28,8 @@
   var markersLoadedEvent = document.createEvent("Event");
   markersLoadedEvent.initEvent("markersloaded",true,true);
   var markersMax = 5000; // maximum markers that will display at one time...
+  var markersPartial = false;
+
 
   // ================= functions =================
 
@@ -654,8 +656,10 @@ function open_tab_3() {
       if(n > 0){
         if((n < n_found) && (n_found >= n_limit)){
           $("#pg_text").html(markersArray.length + " of " + n_found + " visible");
+          markersPartial = true;
         }else{
           pb.hide();
+          markersPartial = false;
         }
       }else{
         pb.hide();
