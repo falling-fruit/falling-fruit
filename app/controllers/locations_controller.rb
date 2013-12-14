@@ -234,14 +234,16 @@ class LocationsController < ApplicationController
   end
 
   def embed
-    @perma = nil
-    if params[:z].present? and params[:y].present? and params[:x].present? and params[:m].present?
-      @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
-                :muni => params[:m] == "true", :type => params[:t], :labels => params[:l] == "true" }
-    end
+    @perma = {}
+    @perma[:zoom] = params[:z].to_i if params[:z].present?
+    @perma[:lat] = params[:y].to_f if params[:y].present?
+    @perma[:lng] = params[:x].to_f if params[:x].present?
+    @perma[:muni] = params[:m] == "true" if params[:m].present?
+    @perma[:labels] = params[:l] == "true" if params[:l].present?
+    @perma[:type] = params[:t] if params[:t].present?
     @type = params[:f].present? ? Type.find(params[:f]) : nil
-    @width = params[:width].present? ? params[:width].to_i : 500
-    @height = params[:height].present? ? params[:height].to_i : 500
+    @width = params[:width].present? ? params[:width].to_i : 640
+    @height = params[:height].present? ? params[:height].to_i : 600
     respond_to do |format|
       format.html { render :layout => false } # embed.html.erb
     end

@@ -38,14 +38,12 @@ Sources are marked as unverified if their identity, location, or existence is di
   var lng = -49.57030500000002;
   var zoom = 2;
   var type = google.maps.MapTypeId.ROADMAP;
-  <% unless @perma.nil? %>
-		<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
-		<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
-		<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
-		<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
-  <% end %>
-  muni = <%= (@perma.nil? or (@perma[:muni].present? and @perma[:muni])) ? "true" : "false" %>;
-	labels = <%= (@perma.nil? or (@perma[:labels].present? and @perma[:labels])) ? "true" : "false" %>;
+	<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
+	<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
+	<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
+	<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
+  muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>;
+  labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var skip_ids = null;
   var type_filter = undefined;
   <% unless @type.nil? %>

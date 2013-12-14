@@ -1,6 +1,6 @@
 Shadowbox.init({
   language: 'en', 
-  players: ['img'], 
+  players: ['img', 'html', 'iframe'], 
   skipSetup: true,
   cache: false,
   animate: false,
@@ -11,6 +11,7 @@ Shadowbox.init({
   continuous: true,
   displayCounter: true,
   // Prevent arrows from switching photos and panning map
+  // Custom next on-image control
   onOpen: function() {
     if (typeof map == "object" & typeof map.setOptions == "function") map.setOptions({keyboardShortcuts: false})
     var nextLink = $('<a>').attr('id', 'sb-custom-nav-next');

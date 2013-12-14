@@ -761,10 +761,6 @@ div#sb-title-inner {
   width: 0%;
   left: 0; 
 }
-#sb-custom-nav-next.unused, 
-#sb-custom-nav-previous.unused { 
-  display: none; 
-}
 /*
 #sb-custom-nav-next:hover { 
   cursor: url('http://localhost:3000/icons/arrow_right.cur'), default;
