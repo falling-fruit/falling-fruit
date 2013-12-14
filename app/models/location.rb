@@ -4,6 +4,7 @@ class Location < ActiveRecord::Base
   has_many :locations_types, :order => 'locations_types.position ASC'
   has_many :types, :through => :locations_types, :order => 'locations_types.position ASC'
   has_many :observations
+  has_many :changes, :dependent => :delete_all
   belongs_to :import
   belongs_to :user
 
