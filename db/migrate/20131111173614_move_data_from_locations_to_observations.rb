@@ -6,6 +6,7 @@ class MoveDataFromLocationsToObservations < ActiveRecord::Migration
       o.quality_rating = l.quality_rating
       o.yield_rating = l.yield_rating
       o.observed_on = l.updated_at.to_date
+      o.author = l.author
       o.save
       print "."
     }
