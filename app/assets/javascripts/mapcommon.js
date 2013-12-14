@@ -31,15 +31,13 @@
 
   // ================= functions =================
 
-  function basemap(lat,lng,zoom,type){
+  function basemap(lat,lng,zoom,type,bounds){
     
     // Enable the visual refresh
     google.maps.visualRefresh = true;
     
-    var latlng = new google.maps.LatLng(lat,lng);
     var mapOptions = {
       zoom: zoom,
-      center: latlng,
       mapTypeId: type,
       mapTypeControlOptions: {
       mapTypeIds: [
@@ -51,6 +49,12 @@
       }
     };
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    if (bounds == undefined) { 
+      map.setCenter(new google.maps.LatLng(lat,lng));
+      map.setZoom(zoom);
+    } else {
+      map.fitBounds(bounds);
+    }
     
     // Street View Pano (full screen, still in beta)
     pano = map.getStreetView();

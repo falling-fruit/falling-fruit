@@ -6,11 +6,12 @@
   <select id="travel_mode_select" onchange="calculate_route();">
     <option value="WALKING">Walking</option>
     <option value="BICYCLING">Bicycling</option>
-    <option value="TRANSIT">Transit</option>
+    <!--<option value="TRANSIT">Transit</option>-->
     <option value="DRIVING">Driving</option>
   </select>
   </div>
-  <div id="directions"></div>
+  <div id="directions">
+  </div>
 </div>
 <div id="mainmap_container" style="left: 310px;">
   <div id="map"></div>
@@ -29,21 +30,23 @@
   var directionsService = new google.maps.DirectionsService();
   //var skip_ids = [<%= @route_locations.collect{ |lr| lr.location.id }.join(",") %>];
   var skip_ids = null;
+  var route_step_ids = [<%= @route_locations.collect{ |l| l.location.id }.join(",") %>];
   <% if @route_locations.length > 2 %>
-  var waypoints = [<%= (1..@route_locations.length-2).collect{ |i|
+    var waypoints = [<%= (1..@route_locations.length-2).collect{ |i|
                      "{location: new google.maps.LatLng(#{@route_locations[i].location.lat},#{@route_locations[i].location.lng})}" }.join(",")
                 %>];
   <% else %>
-  var waypoints = [];
+    var waypoints = [];
   <% end %>
   var origin = new google.maps.LatLng(<%= @start_location.lat %>,<%= @start_location.lng %>);
   var destination = new google.maps.LatLng(<%= @stop_location.lat %>,<%= @stop_location.lng %>);
-  var zoom = 15;
-  var lat = <%= @start_location.lat %>;
-  var lng = <%= @start_location.lng %>;
   var type = google.maps.MapTypeId.ROADMAP;
   var travelMode = '<%= @route.transport_type.upcase %>';
-
+  var bounds = new google.maps.LatLngBounds();
+  <% @route_locations.each{ |lr| %>
+    bounds.extend(new google.maps.LatLng(<%= lr.location.lat %>,<%= lr.location.lng %>));
+  <% } %>
+  
   // ================= functions =================
   
   // Enable the visual refresh
@@ -51,44 +54,51 @@
   
   function initialize() {
     
-    basemap(lat,lng,zoom,type);
+    basemap(undefined,undefined,undefined,type,bounds);
+    var zoom = map.getZoom();
+    
     geocoder = new google.maps.Geocoder();
     directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setOptions({suppressMarkers: true});
+    directionsDisplay.setOptions({
+      suppressMarkers: true,
+      draggable: true,
+      polylineOptions: {
+        zIndex: 10,
+        strokeColor: '#2d97ec',
+        strokeOpacity: 0.8,
+        strokeWeight: 6
+        }
+      });
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById('directions'));
     
     // default is labels on
-    labelize_markers();
-    $("#labels").prop('checked',true);
-      
+    //labelize_markers();
+    //$("#labels").prop('checked',true);
+    
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);
     });
 
-    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      var bounds = new google.maps.LatLngBounds();
-      <% @route_locations.each{ |lr| %>
-        bounds.extend(new google.maps.LatLng(<%= lr.location.lat %>,<%= lr.location.lng %>));
-      <% } %>
-      map.fitBounds(bounds);
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) { 
       calculate_route();
 
       // draw the markers and whatnot
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-        update_display(true,zoom,bounds);
-      });
-
-      google.maps.event.addListener(map, 'idle', function(){
+//       google.maps.event.addListenerOnce(map, 'idle', function(){
+//         update_display(true,zoom,bounds);
+//       });
+     });
+    
+    google.maps.event.addListener(map, 'idle', function(){
         update_display(false);
-      });
-
-      google.maps.event.addListener(map, 'zoom_changed', function() {
-        google.maps.event.addListenerOnce(map, 'idle', function(){
-          update_display(false);
-        });
-      });
+        var len = markersArray.length;
+        for (var i = 0; i < len; i++) {
+          if (route_step_ids.indexOf(parseInt(markersArray[i].id)) == -1) {
+            markersArray[i].marker.setZIndex(99);
+            markersArray[i].marker.setIcon({url: "/icons/smdot_t1_white_a50.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
+          }
+       }
     });
   }
   
@@ -107,10 +117,12 @@
          //var warnings = document.getElementById('warnings_panel');
          //warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
          directionsDisplay.setDirections(response);
-         //showSteps(response);
+       } else {
+         directionsDisplay.setDirections(response);
        }
      });
    }
+
 
   // ================== main-level code ===================
 

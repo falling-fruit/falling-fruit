@@ -14,7 +14,7 @@ class Type < ActiveRecord::Base
   end
 
   def full_name
-    self.scientific_name.nil? ? self.name : (self.name + " [" + self.scientific_name + "]")
+    self.scientific_name.to_s == '' ? self.name : (self.name + " [" + self.scientific_name + "]")
   end
 
   # http://www.i18nguy.com/unicode/language-identifiers.html
