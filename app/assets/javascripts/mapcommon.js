@@ -750,24 +750,30 @@ function open_tab_3() {
     }
   }
 
-  function apply_type_filter(){
+  function apply_type_filter() {
     var len = markersArray.length;
     for(var i = 0; i < len; i++){
-      if(markersArray[i].types.indexOf(type_filter) >= 0){
-        markersArray[i].marker.setVisible(true);
-        if(markersArray[i].label != undefined) markersArray[i].label.set('map',map);
+      if (markersArray[i].types.indexOf(type_filter) >= 0) {
+        //markersArray[i].marker.setVisible(true);
+        markersArray[i].marker.setZIndex(101);
+        markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
+        if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
       }else{
-        markersArray[i].marker.setVisible(false);
+        //markersArray[i].marker.setVisible(false);
+        markersArray[i].marker.setZIndex(99);
+        markersArray[i].marker.setIcon({url: "/icons/smdot_t1_white_a50.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
         if(markersArray[i].label != undefined) markersArray[i].label.set('map',null);
       }
     }
   }
-
-  function clear_type_filter(){
+  
+  function clear_type_filter() {
     var len = markersArray.length;
-    for(var i = 0; i < len; i++){
-      markersArray[i].marker.setVisible(true);
-      if(markersArray[i].label != undefined) markersArray[i].label.set('map',map);
+    for (var i = 0; i < len; i++) {
+      //markersArray[i].marker.setVisible(true);
+      markersArray[i].marker.setZIndex(101);
+      markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
+      if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
     }
   }
 
