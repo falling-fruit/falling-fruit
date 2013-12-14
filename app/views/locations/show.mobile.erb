@@ -54,7 +54,6 @@
         if(!opened_once){
           opened_once = open_marker_by_id(<%= @location.id %>,<%= @location.lat %>,<%= @location.lng %>);
         }
-        $("#tabs").tabs();
       },false);
     });
      
@@ -82,6 +81,7 @@
   navigator.geolocation.getCurrentPosition(function(position){},function(error){
     $('#recenter_button').hide();
   });
+  
 </script>
 <%= javascript_include_tag "maplabel" %>
 <%= javascript_include_tag "progressBar" %>

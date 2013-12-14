@@ -252,11 +252,13 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @perma = nil
-    if params[:z].present? and params[:y].present? and params[:x].present? and params[:m].present?
-      @perma = {:zoom => params[:z].to_i, :lat => params[:y].to_f, :lng => params[:x].to_f,
-                :muni => params[:m] == "true", :type => params[:t], :labels => params[:l] == "true" }
-    end
+    @perma = {}
+    @perma[:zoom] = params[:z].to_i if params[:z].present?
+    @perma[:lat] = params[:y].to_f if params[:y].present?
+    @perma[:lng] = params[:x].to_f if params[:x].present?
+    @perma[:muni] = params[:m] == "true" if params[:m].present?
+    @perma[:labels] = params[:l] == "true" if params[:l].present?
+    @perma[:type] = params[:t] if params[:t].present?
     @type = params[:f].present? ? Type.find(params[:f]) : nil
     respond_to do |format|
       format.html # index.html.erb
