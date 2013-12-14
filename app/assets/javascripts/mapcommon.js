@@ -717,7 +717,6 @@ function open_tab_3() {
   function delabelize_marker(i){
     if(markersArray[i].label != undefined){
       markersArray[i].label.set('text','');
-      markersArray[i].label.set('map',null);
       markersArray[i].label = null;
     }
   }

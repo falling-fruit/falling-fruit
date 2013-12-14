@@ -1,11 +1,12 @@
 class MoveDataFromLocationsToObservations < ActiveRecord::Migration
   def change
-    Location.each{ |l|
+    Location.all.each{ |l|
       next if l.quality_rating.nil? and l.yield_rating.nil?
       o = Observation.new
       o.quality_rating = l.quality_rating
       o.yield_rating = l.yield_rating
       o.observed_on = l.updated_at.to_date
+      o.author = l.author
       o.save
       print "."
     }

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
 
   def set_current_user
-    User.current_user = current_user
+    #User.current_user = current_user
   end
 
   # catch all perms errors and punt to root
