@@ -8,6 +8,7 @@ class LocationsController < ApplicationController
     expire_fragment "pages_about_stats"
   end
 
+	# Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
@@ -15,11 +16,15 @@ class LocationsController < ApplicationController
     elsif params[:muni].present? and params[:muni].to_i == 0
       mfilter = "AND NOT muni"
     end
-    g = params[:grid].present? ? params[:grid].to_i : 1
+    g = params[:grid].present? ? params[:grid].to_i : 2
     g = 12 if g > 12
-    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
-      "AND ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
-                                                         ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
+    if [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? }
+      bound = ""
+    elsif params[:swlng].to_f < params[:nelng].to_f
+      bound = "AND ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
+    else # map spans -180 | 180 seam, split into two polygons
+      bound = "AND (ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(180,#{params[:nelat]})),4326),900913)))"
+    end
     @clusters = Cluster.select("type_id, SUM(count) as count").group("type_id").
                         where("zoom = #{g} AND type_id IS NOT NULL #{mfilter} #{bound}").
                         collect{ |c| {:id => c.type_id, :n => c.count } }
@@ -39,16 +44,20 @@ class LocationsController < ApplicationController
     if params[:t].present?
       tfilter = "AND type_id = #{params[:t].to_i}"
     end
-    g = params[:grid].present? ? params[:grid].to_i : 1
+    g = params[:grid].present? ? params[:grid].to_i : 2
     g = 12 if g > 12
-    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" : 
-      "AND ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
-                                                         ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
+    if [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? }
+      bound = ""
+    elsif params[:swlng].to_f < params[:nelng].to_f
+      bound = "AND ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
+    else # map spans -180 | 180 seam, split into two polygons
+      bound = "AND (ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(180,#{params[:nelat]})),4326),900913)))"
+    end
     
     @clusters = Cluster.select("SUM(count*ST_X(cluster_point))/SUM(count) as center_x,
                                 SUM(count*ST_Y(cluster_point))/SUM(count) as center_y,
                                 SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{tfilter} #{bound}")
-    
+                                
     earth_radius = 6378137.0
     earth_circum = 2.0*Math::PI*earth_radius
     

@@ -209,10 +209,10 @@
       return bstr;
   }
 
-  function do_clusters(bounds,zoom,muni,type_filter){
+  function do_clusters(bounds,zoom,muni,type_filter) {
       var bstr = bounds_to_query_string(bounds);
       var gstr = 'method=grid&grid=' + zoom;
-      if(muni) mstr = '';
+      if (muni) mstr = '';
       else mstr = 'muni=0&';
       var tstr = '';
       if(type_filter != undefined){
@@ -225,8 +225,8 @@
         dataType: 'json'
       });
       request.done(function(json){
+        clear_markers();
         if(json.length > 0){
-          clear_markers();
           add_markers_from_json(json,true);
         }
         if(pb != null) pb.hide();
@@ -234,20 +234,32 @@
       request.fail(function() {  
         if(pb != null) pb.hide();
       });
-      var request = $.ajax({
-        type: 'GET',
-        url: '/locations/cluster_types.json?' + mstr + gstr + '&' + bounds_to_query_string(map.getBounds()),
-        dataType: 'json'
-      });
-      request.done(function(json){
-        if(json.length > 0){
-          types_hash = {}
-          for(var i = 0;i < json.length; i++){
-            types_hash[json[i]["id"]] = json[i]["n"]
-          }
-        }
-      });
   }
+  
+  function do_cluster_types(bounds,zoom,muni) {
+		var bstr = bounds_to_query_string(bounds);
+		var gstr = 'method=grid&grid=' + zoom;
+		if (muni) mstr = '';
+		else mstr = 'muni=0&';
+		var request = $.ajax({
+			type: 'GET',
+			url: '/locations/cluster_types.json?' + mstr + gstr + '&' + bstr,
+			dataType: 'json'
+		});
+		request.done(function(json){
+			if(json.length > 0){
+				types_hash = {};
+				for(var i = 0;i < json.length; i++){
+					types_hash[json[i]["id"]] = json[i]["n"];
+				}
+				// Update count hack
+				if (type_filter != undefined && !mobile) {
+					filter_display = $('#s2id_type_filter .select2-chosen');
+					filter_display.html(filter_display.html().replace(/([0-9]+)/, types_hash[type_filter]));
+				}
+			}
+		});
+	}
 
   // Finds nearest imagery from Street View Service, then calculates the heading.
   // https://developers.google.com/maps/documentation/javascript/reference?csw=1#spherical
@@ -645,6 +657,11 @@ function open_tab_3() {
         pb.hide();
       }
       search_filter(last_search);
+			// Update count hack
+			if (type_filter != undefined && !mobile) {
+				filter_display = $('#s2id_type_filter .select2-chosen');
+				filter_display.html(filter_display.html().replace(/([0-9]+)/, types_hash[type_filter]));
+			}
     });
     request.fail(function(){
       if(pb != null) pb.hide();
@@ -757,12 +774,12 @@ function open_tab_3() {
         //markersArray[i].marker.setVisible(true);
         markersArray[i].marker.setZIndex(101);
         markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
-        if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
+        //if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
       }else{
         //markersArray[i].marker.setVisible(false);
         markersArray[i].marker.setZIndex(99);
         markersArray[i].marker.setIcon({url: "/icons/smdot_t1_white_a50.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
-        if(markersArray[i].label != undefined) markersArray[i].label.set('map',null);
+        //if(markersArray[i].label != undefined) markersArray[i].label.set('map',null);
       }
     }
   }
@@ -773,7 +790,7 @@ function open_tab_3() {
       //markersArray[i].marker.setVisible(true);
       markersArray[i].marker.setZIndex(101);
       markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
-      if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
+      //if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
     }
   }
 

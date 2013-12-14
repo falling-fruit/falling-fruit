@@ -64,17 +64,10 @@
       }
     });
     
-    google.maps.event.addListener(map, 'bounds_changed', function(event) {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-         update_display(false);
-      });
+    // Far less redundant event trigger
+    google.maps.event.addListener(map, 'idle', function() {
+      update_display(false);
     });
-      
-    google.maps.event.addListener(map, 'zoom_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-        update_display(false);
-      });
-    });    
   }
 
   // ================== main-level code ===================

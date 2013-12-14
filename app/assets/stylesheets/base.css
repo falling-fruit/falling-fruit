@@ -736,6 +736,18 @@ div#slider{
 /********************** Shadowbox *************************/
 /**********************************************************/
 
+/* Image URL Override (same issue as select2) */
+
+#sb-nav-close {
+  background-image: url("shadowbox/close.png") ! important;
+}
+#sb-nav-next {
+  background-image: url("shadowbox/next.png") ! important;
+}
+#sb-nav-previous {
+  background-image: url("shadowbox/previous.png") ! important;
+}
+
 /* Caption */ 
 
 div#sb-title-inner {

@@ -78,17 +78,9 @@ Sources are marked as unverified if their identity, location, or existence is di
       }
     });
     
-    google.maps.event.addListener(map, 'bounds_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function(){
-        update_display_embedded(false,null,muni);
-      });
-    });
-      
-    google.maps.event.addListener(map, 'zoom_changed', function() {
-      google.maps.event.addListenerOnce(map, 'idle', function() {
-        update_display_embedded(false, null, muni);
-      });
-    });     
+    google.maps.event.addListener(map, 'idle', function() {
+      update_display_embedded(false,null,muni);
+    });   
   }
 
   // ================== main-level code ===================

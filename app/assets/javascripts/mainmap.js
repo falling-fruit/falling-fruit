@@ -16,7 +16,7 @@ function update_permalink(){
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
-     typeid + '&l=' + $('#labels').is(":checked");;
+     typeid + '&l=' + $('#labels').is(":checked");
   if (type_filter != undefined) {
   	permalink = permalink + "&f=" + type_filter;
   }
@@ -92,32 +92,47 @@ function update_display(force,force_zoom,force_bounds){
   if (force_bounds != undefined) bounds = force_bounds;
   update_permalink();
   if (zoom <= 12) {
-    $('#hidden_controls').hide();
-    $('#export_data').hide();
-    // Ethan's searchbar height hack
-    if(document.getElementById('searchbar') != undefined){
-      var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + 
-                   document.getElementById('logobar').offsetHeight;
-      document.getElementById('mainmap_container').style.top = height + 'px';
-    }
-    if (zoom > 8)
+    if (prior_zoom > 12) hide_map_controls();
+    // FIX ME: If we want to still load all clusters at low zoom
+    if (zoom > 8) {
       do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
-    else if ((zoom != prior_zoom) || force)
+    } else if ((zoom != prior_zoom) || force) {
       do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
-  } else if (zoom >= 13) {
-    if (prior_zoom < 13) types_hash = {};
-    $('#get_data_link').attr('href',data_link());
-    $('#hidden_controls').show();
-    $('#export_data').show();
-    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter);
-    // Ethan's searchbar height hack
-    if (document.getElementById('searchbar') != undefined) {
-      var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
-      document.getElementById('mainmap_container').style.top = height + 'px';
     }
+  if (!mobile) do_cluster_types(bounds,zoom,$('#muni').is(':checked'));
+  } else if (zoom >= 13) {
+    if (prior_zoom < 13) {
+      types_hash = {};
+      show_map_controls();
+    }
+    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter);
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
+}
+
+function hide_map_controls() {
+    $('#hidden_controls').hide();
+    $('#export_data').hide();
+    if (!mobile) {
+			if (document.getElementById('searchbar') != undefined) {
+				var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + 
+										 document.getElementById('logobar').offsetHeight;
+				document.getElementById('mainmap_container').style.top = height + 'px';
+			}
+  }
+}
+
+function show_map_controls() {
+    $('#get_data_link').attr('href',data_link());
+    $('#hidden_controls').show();
+    $('#export_data').show();
+    if (!mobile) {
+			if (document.getElementById('searchbar') != undefined) {
+				var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
+				document.getElementById('mainmap_container').style.top = height + 'px';
+			}
+		}
 }
 
 function update_display_embedded(force, force_zoom, muni) {

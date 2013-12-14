@@ -59,9 +59,7 @@
 
 <% content_for :page_scripts do %>
 <script type="text/javascript">
-var base_type_data = [<%= Type.order(:name).collect{ |t|
-                 "{id:#{t.id},text:\"#{t.full_name}\"}" }.
-                 join(",\n").html_safe %>];
+var base_type_data = [<%= Type.order(:name).collect{ |t| "{id:#{t.id},text:\"#{t.full_name}\"}" }.join(",\n").html_safe %>];
 jQuery(document).ready(function(){
   $('#type_filter').select2({
     <% if @type.nil? %>
@@ -77,16 +75,25 @@ jQuery(document).ready(function(){
                                                       })
                    };
     },
-    allowClear: true
+    allowClear: true,
+    allowedMethods: ['updateResults']
   });
   $('#type_filter').on("change",function() {
     $('#type_filter').attr("placeholder", "Select edible type");
     if ($("#type_filter").val() == "") {
       type_filter = undefined;
-      clear_type_filter();
+      if (map.getZoom() <= 12) { // getZoom is critical!
+        update_display(true);
+      } else {
+        clear_type_filter();
+      }
     } else {
       type_filter = parseFloat($("#type_filter").val());
-      apply_type_filter();
+      if (zoom <= 12) {
+        update_display(true);
+      } else {
+        apply_type_filter();
+      }
     }
     //clear_markers();
     //update_display(true);
