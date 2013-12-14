@@ -295,14 +295,26 @@ div#observation_list a:hover {
 }
 
 div.obsphoto {
-  float: right;
-  clear: right;
-  padding: 0.7em 0 0.5em 0;
-  background: #EEE;
-  min-width: 100px;
-  max-width: 250px;
+  max-width: 100px;
   text-align: center;
   color: #555;
+  text-align: center;
+}
+
+div.obsphoto img {
+  max-height: 100px;
+  max-width: 100px;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 0.25em;
+}
+
+div.obsphoto_frame {
+  background: #EEE;
+  padding: 0.5em 0.5em 0.25em 0.5em;
+  float: right;
+  clear: right;
+  width: 100px;
 }
 
 div#tab-2 label {
@@ -724,10 +736,43 @@ div#slider{
 /********************** Shadowbox *************************/
 /**********************************************************/
 
+/* Caption */ 
+
 div#sb-title-inner {
 	font-size: inherit;
 	font-family: Roboto, Arial, sans-serif;;
 }
+
+/* Custom navigation controls */ 
+/* (previous currently unused) */ 
+
+#sb-custom-nav-next, 
+#sb-custom-nav-previous { 
+	position: absolute; 
+	display: block; 
+	top: 0; 
+	height: 100%; 
+}
+#sb-custom-nav-next { 
+  width: 100%;
+  right: 0; 
+} 
+#sb-custom-nav-previous { 
+  width: 0%;
+  left: 0; 
+}
+#sb-custom-nav-next.unused, 
+#sb-custom-nav-previous.unused { 
+  display: none; 
+}
+/*
+#sb-custom-nav-next:hover { 
+  cursor: url('http://localhost:3000/icons/arrow_right.cur'), default;
+} 
+#sb-custom-nav-previous:hover { 
+  cursor: url('http://localhost:3000/icons/arrow_left.cur'), default;
+}
+*/
 
 /**********************************************************/
 /******************* locations/embed **********************/

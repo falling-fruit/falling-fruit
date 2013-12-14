@@ -11,7 +11,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-#ActiveRecord::Schema.define(:version => 20130913193714) do
 ActiveRecord::Schema.define(:version => 20131206141457) do
 
   create_table "changes", :force => true do |t|
@@ -93,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "fruiting"
     t.integer  "quality_rating"
     t.integer  "yield_rating"
     t.integer  "user_id"
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "fruiting"
     t.text     "photo_caption"
   end
 
@@ -117,10 +116,6 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
-
-  add_index "problems", ["location_id"], :name => "index_problems_on_location_id"
-  add_index "problems", ["reporter_id"], :name => "index_problems_on_reporter_id"
-  add_index "problems", ["responder_id"], :name => "index_problems_on_responder_id"
 
   create_table "routes", :force => true do |t|
     t.string   "name"
