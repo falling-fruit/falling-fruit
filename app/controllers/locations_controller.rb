@@ -95,7 +95,6 @@ class LocationsController < ApplicationController
     # FIXME: would be easy to allow t to be an array of types
     if params[:t].present?
       tfilter = "type_id = #{params[:t].to_i}"
-      tname = Type.find(params[:t].to_i).name
       sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{params[:t].to_i}] THEN 0 ELSE 1 END as sort"
     end
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
@@ -127,9 +126,8 @@ class LocationsController < ApplicationController
           name = t[0]
         end
       end
-      {:title => (tname.present? and not row["name"].include? tname) ? '' : name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => (tname.present? and not row["name"].include? tname) ? "/icons/smdot_t1_white_a50.png" : 
-                                                                         "/icons/smdot_t1_red.png",:width => 17, :height => 17,
+      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
+       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17,
        :marker_anchor => [0,0], :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i } }
     } unless r.nil?
     @markers.unshift(max_n)

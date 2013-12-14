@@ -628,6 +628,7 @@ function open_tab_3() {
       n_limit = json.shift();
       clear_offscreen_markers();
       add_markers_from_json(json,false,skip_ids);
+      if(type_filter != undefined) apply_type_filter();
       // make markers clickable
       for (var i = 0; i < markersArray.length; ++i) {
         add_marker_infobox(i);
@@ -746,6 +747,27 @@ function open_tab_3() {
         marker.setVisible(false);
         if(label != undefined) label.set('map',null);
       }
+    }
+  }
+
+  function apply_type_filter(){
+    var len = markersArray.length;
+    for(var i = 0; i < len; i++){
+      if(markersArray[i].types.indexOf(type_filter) >= 0){
+        markersArray[i].marker.setVisible(true);
+        if(markersArray[i].label != undefined) markersArray[i].label.set('map',map);
+      }else{
+        markersArray[i].marker.setVisible(false);
+        if(markersArray[i].label != undefined) markersArray[i].label.set('map',null);
+      }
+    }
+  }
+
+  function clear_type_filter(){
+    var len = markersArray.length;
+    for(var i = 0; i < len; i++){
+      markersArray[i].marker.setVisible(true);
+      if(markersArray[i].label != undefined) markersArray[i].label.set('map',map);
     }
   }
 

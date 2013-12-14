@@ -83,11 +83,13 @@ jQuery(document).ready(function(){
     $('#type_filter').attr("placeholder", "Select edible type");
     if ($("#type_filter").val() == "") {
       type_filter = undefined;
+      clear_type_filter();
     } else {
       type_filter = parseFloat($("#type_filter").val());
+      apply_type_filter();
     }
-    clear_markers();
-    update_display(true);
+    //clear_markers();
+    //update_display(true);
     update_permalink();
   });
 });
