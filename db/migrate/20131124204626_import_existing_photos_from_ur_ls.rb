@@ -7,8 +7,8 @@ class ImportExistingPhotosFromUrLs < ActiveRecord::Migration
         o.location = l
         o.save
         puts "+ #{l.photo_url}"
-      rescue
-        puts "- #{l.photo_url}"
+      rescue Exception => e
+        puts "- #{l.photo_url} (#{e.message})"
       end     
     }
     remove_column :locations, :photo_url
