@@ -235,6 +235,8 @@
         if(json.length > 0){
           add_markers_from_json(json,true);
         }
+        do_cluster_types(bounds,zoom,muni);
+        markersPartial = false;
         if(pb != null) pb.hide();
       });
       request.fail(function() {  
