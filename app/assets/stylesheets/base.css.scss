@@ -3,7 +3,7 @@
 /**********************************************************/
 
 html, body {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   font-size: 0.925em;
   color: #666;
   margin: 0;
@@ -32,7 +32,7 @@ a:hover {
 }
 
 a, summary, input[type=submit], input[type=file] {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 h1 {
@@ -56,11 +56,11 @@ h2 {
 
 .announcement {
   font-style: italic;
-  font-size: 115%;	
+  font-size: 115%;  
 }
 
 .nowrap {
-	display: inline-block;
+  display: inline-block;
 }
 
 #rightcontrols {
@@ -68,15 +68,15 @@ h2 {
 }
 
 hr {
-	border: none;
-	border-bottom: 1px dotted #CCC;
-	height: 1px;
-	width: 70%;
-	margin: 1.75em 0 1.25em 15%;
+  border: none;
+  border-bottom: 1px dotted #CCC;
+  height: 1px;
+  width: 70%;
+  margin: 1.75em 0 1.25em 15%;
 }
 
 .first {
-	margin-top: 0 ! important;
+  margin-top: 0 ! important;
 }
 
 div#captcha {
@@ -90,7 +90,7 @@ div#captcha {
 
 /* Fixes scrollbar issues */
 .gm-style-iw {
-	overflow: hidden !important;
+  overflow: hidden !important;
 } 
 
 div#map {
@@ -101,7 +101,7 @@ div#map {
 }
 
 div#newmarker {
-	font-size: 1.1em;
+  font-size: 1.1em;
   padding: 0.1em 0.1em;
   height: 3.25em;
   width: 13em;
@@ -110,12 +110,12 @@ div#newmarker {
 /*** Map Controls ***/
 
 div#maptype_button {
-	background-color: #FFF;
-	border: 1px solid rgba(0, 0, 0, 0.25);
-	cursor: pointer;
-	text-align: center;
-	width: 5em;
-	box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.5);
+  background-color: #FFF;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  text-align: center;
+  width: 5em;
+  box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.5);
   font-family: Roboto, Arial, sans-serif;
   font-size: 11px;
   font-weight: normal;
@@ -126,27 +126,27 @@ div#maptype_button {
 }
 
 div#maptype_button:hover {
-	background-color: rgb(235,235,235);
-	color: #000;	
+  background-color: rgb(235,235,235);
+  color: #000;  
 }
 
 /*** Map Credits ***/
 
 p#stamen_attribution {
-	font-family: Roboto, Arial, san-serif;
-	font-size: 10px;
-	position: absolute;
-	bottom: 0;
-	right: 70px;
-	background: #EEE;
-	margin: 0;
-	z-index: 100;
-	opacity: 0.7;
+  font-family: Roboto, Arial, san-serif;
+  font-size: 10px;
+  position: absolute;
+  bottom: 0;
+  right: 70px;
+  background: #EEE;
+  margin: 0;
+  z-index: 100;
+  opacity: 0.7;
 }
 
 p#stamen_attribution a {
-	color: #666;
-	text-decoration: underline;
+  color: #666;
+  text-decoration: underline;
 }
 
 /**********************************************************/
@@ -154,18 +154,18 @@ p#stamen_attribution a {
 /**********************************************************/
 
 div#location_infowindow {
-	min-width: 30em;
-	max-width: 40em;
+  min-width: 30em;
+  max-width: 40em;
 }
 
 div#tab-1 {
-	overflow: auto;
+  overflow: auto;
 }
 
 div#tab-1,
 div#tab-2,
 div#tab-3 {
-	color: #333;
+  color: #333;
   padding: 0 0 0.5em 0;
   overflow: auto;
 }
@@ -181,7 +181,7 @@ div#tab-2 a {
 /* Types */
 
 div#tab-1 div#type_list {
-	margin-bottom: 0.4em;
+  margin-bottom: 0.4em;
 }
 
 div#tab-1 div#type_list li {
@@ -208,7 +208,7 @@ div#tab-1 label {
 }
 
 div#tab-1 span.observation_count {
-	font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 div#tab-1 span.in_season {
@@ -228,46 +228,46 @@ div#tab-1 div#description p {
 /* Controls & Author */
 
 div#tab-1 table#footer {
-	border-collapse: collapse;
-	border-spacing: 0;
-	/* for embed: overrides browser css */
-	color: inherit;
-	font-size: inherit;
-	font-weight: inherit;	
+  border-collapse: collapse;
+  border-spacing: 0;
+  /* for embed: overrides browser css */
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;  
 }
 
 div#tab-1 table#footer td#controls {
-	vertical-align: bottom;
-	white-space: nowrap;
+  vertical-align: bottom;
+  white-space: nowrap;
 }
 
 div#tab-1 table#footer a {
-	color: #999;
+  color: #999;
 }
 
 div#tab-1 table#footer a:hover {
-	color: #333;
+  color: #333;
 }
 
 div#tab-1 table#footer #controls a {
-	padding-right: 0.75em;
+  padding-right: 0.75em;
 }
 
 div#tab-1 table#footer td#added_by {
-	padding-left: 1em;
-	border-left: 1px solid #555;
+  padding-left: 1em;
+  border-left: 1px solid #555;
 }
 
 div#tab-1 table#footer a#add_review {
-	border: 1px solid #DDD;
-	padding: 0.1em 0.4em;
-	text-decoration: none;
-	margin-right: 0.5em;
-	color: #555;
+  border: 1px solid #DDD;
+  padding: 0.1em 0.4em;
+  text-decoration: none;
+  margin-right: 0.5em;
+  color: #555;
 }
 
 div#tab-1 table#footer a#add_review:hover {
-	color: #111;
+  color: #111;
 }
 
 /*** Reviews Tab ***/
@@ -286,12 +286,12 @@ div.observation:last-of-type {
 }
 
 div#observation_list a {
-	text-decoration: underline;
-	color: #999;
+  text-decoration: underline;
+  color: #999;
 }
 
 div#observation_list a:hover {
-	color: #333;
+  color: #333;
 }
 
 div.obsphoto {
@@ -330,7 +330,7 @@ div#tab-2 label {
 /**********************************************************/
 
 /*.gm-style-iw {
-	top: -24px ! important;
+  top: -24px ! important;
 }*/
 
 .ui-tabs,
@@ -340,12 +340,12 @@ div#tab-2 label {
   margin: 0;
 } 
 .ui-tabs .ui-tabs-panel {
-	padding: 0;
+  padding: 0;
 }
 .ui-tabs .ui-tabs-nav {
-	padding: 0 0 0 0.2em;
-	line-height: 1.75em;
-	border-radius: 0;
+  padding: 0 0 0 0.2em;
+  line-height: 1.75em;
+  border-radius: 0;
   border-left: 0;
   border-right: 0;
   border-top: 0;
@@ -354,16 +354,16 @@ div#tab-2 label {
   margin-bottom: 0.5em;
 }
 .ui-tabs .ui-tabs-nav .ui-corner-top {
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	margin-right: 0.35em;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-right: 0.35em;
 }
 .ui-tabs .ui-tabs-nav .ui-corner-top > a {
-	padding: 0 0.5em;
+  padding: 0 0.5em;
 }
 .ui-tabs .ui-tabs-nav li:not(.ui-state-active) { 
-	background: transparent;
-	border-color: transparent;
+  background: transparent;
+  border-color: transparent;
 } 
 .ui-tabs .ui-tabs-nav .ui-state-active { 
   border-bottom: 1px solid #FFF;
@@ -374,10 +374,10 @@ div#tab-2 label {
 
 /* Hiding by putting off screen rather than using display:none so that dimensions are still reported */
 .ui-tabs .ui-tabs-hide { /* my_tabs-1 contains google map */
-	display: block !important;
-	position: absolute !important;
-	left: -9999px !important;
-	overflow: hidden ! important; /* To avoid measuring the scrollbars */
+  display: block !important;
+  position: absolute !important;
+  left: -9999px !important;
+  overflow: hidden ! important; /* To avoid measuring the scrollbars */
 }
 
 /**********************************************************/
@@ -385,13 +385,13 @@ div#tab-2 label {
 /**********************************************************/
 
 #problem_comment {
-	width: 97%;
-	height: 5em;
+  width: 97%;
+  height: 5em;
 }
 
 #problem_name,
 #problem_email {
-	width: 15em;
+  width: 15em;
 }
 
 /**********************************************************/
@@ -421,50 +421,50 @@ form input[type=text],
 form input[type=password],
 form input[type=email], 
 form textarea {
-	font-family: inherit;
-	color: inherit;
-	font-size: 95%;
-	border: 1px solid #ccc;
-	padding: 2px 3px;
-	margin: 0;
+  font-family: inherit;
+  color: inherit;
+  font-size: 95%;
+  border: 1px solid #ccc;
+  padding: 2px 3px;
+  margin: 0;
 }
 
 form select {
-	font-family: inherit;
-	color: inherit;
-	font-size: 90%;
-	border: 1px solid #ccc;
-	margin: 0;
+  font-family: inherit;
+  color: inherit;
+  font-size: 90%;
+  border: 1px solid #ccc;
+  margin: 0;
 }
 
 form input[type=submit], 
 form input[type=file] {
-	font-family: inherit;
-	font-size: inherit;
-	color: #555;
-	margin-left: 0;	/* Needed to left-align */
-	padding: 0.3em 0.5em;
+  font-family: inherit;
+  font-size: inherit;
+  color: #555;
+  margin-left: 0;  /* Needed to left-align */
+  padding: 0.3em 0.5em;
   border: 1px solid #ccc;
-	border-radius: 2px;
-	background-color: #F3F3F3;
-	cursor: pointer;
+  border-radius: 2px;
+  background-color: #F3F3F3;
+  cursor: pointer;
 }
 
 form input[type=submit]:hover {
-	background-color: #C6E1F7;
+  background-color: #C6E1F7;
 }
 
 form input[type=checkbox] {
-	border: 1px solid #CCC;
-	margin-right: 0.1em;
-	position: relative;
-	top: -1px;
+  border: 1px solid #CCC;
+  margin-right: 0.1em;
+  position: relative;
+  top: -1px;
 }
 
 form input#user_password_confirmation, 
 form input#user_email_confirmation {
-	display: block; /* forces to next line, robust to confirmation failure */
-	margin-top: 0.25em;
+  display: block; /* forces to next line, robust to confirmation failure */
+  margin-top: 0.25em;
 }
 
 form div.confirmation span,
@@ -474,7 +474,7 @@ form div.confirmation label {
 } 
 
 form div.field_with_errors {
-	display: inline; \* since label becomes div on error, avoids extra line breaks *\
+  display: inline; /* since label becomes div on error, avoids extra line breaks */
 }
 
 
@@ -496,34 +496,26 @@ form div#error_explanation li {
 }
 
 div.slider-legend {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    margin-bottom: 0.5em;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 0.5em;
 }
 
 div.slider-legend > div {
-    display: table-cell;
-    width: 2%;
-    margin-bottom: 0;
-    font-size: 8pt;
+  display: table-cell;
+  width: 2%;
+  margin-bottom: 0;
+  font-size: 8pt;
 }
 div#slider{
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 /**********************************************************/
 /****************** Template: Select2 *********************/
 /**********************************************************/
-
-/* TEMPORARY image-url patch */
-.select2-search-choice-close {
-  background: url("select2.png") right top no-repeat ! important;
-}
-.select2-arrow b {
-  background: url("select2.png") no-repeat 0 1px ! important;
-}
 
 /* Clean borders */
 .select2-choices,
@@ -532,17 +524,17 @@ div#slider{
   background: none ! important;
 }
 .select2-drop {
-	border-bottom: 1px solid #CCC ! important;
-	border-left: 1px solid #CCC ! important;
-	border-right: 1px solid #CCC ! important;
-	box-shadow: none ! important;
+  border-bottom: 1px solid #CCC ! important;
+  border-left: 1px solid #CCC ! important;
+  border-right: 1px solid #CCC ! important;
+  box-shadow: none ! important;
 }
 .select2-drop-multi {
-	border-top: 1px dotted #DDD ! important;
+  border-top: 1px dotted #DDD ! important;
 }
 .select2-choices {
-	border: 1px solid #CCC ! important;
-	box-shadow: none ! important;
+  border: 1px solid #CCC ! important;
+  box-shadow: none ! important;
 }
 
 /* Reduce font-size */
@@ -553,79 +545,79 @@ div#slider{
 
 /* Background color of results on hover */
 .select2-highlighted {
-	background-color: #0476D4 ! important;
-	background: #0476D4 ! important;
+  background-color: #0476D4 ! important;
+  background: #0476D4 ! important;
 }
 
 /* Multi-choice tokens */
 .select2-search-choice {
-	background-color: #EEE ! important;
-	background: #EEE ! important;
+  background-color: #EEE ! important;
+  background: #EEE ! important;
 }
 .select2-search-choice-focus {
-	background-color: #DDD ! important;
-	background: #DDD ! important;
+  background-color: #DDD ! important;
+  background: #DDD ! important;
 }
 .select2-search-choice-close {
-	opacity: 0.5 ! important;
+  opacity: 0.5 ! important;
 }
 .select2-container-multi .select2-search-choice-close {
-	top: 3px ! important;
+  top: 3px ! important;
 }
 
 /* Border of search box in dropdown */
 .select2-drop .select2-input {
-	border: 1px solid #DDD ! important;
-	box-shadow: none ! important;
-	-webkit-box-shadow: none ! important;
-	margin-top: 4px ! important;
-	background: none ! important;
-	font-family: inherit ! important;
+  border: 1px solid #DDD ! important;
+  box-shadow: none ! important;
+  -webkit-box-shadow: none ! important;
+  margin-top: 4px ! important;
+  background: none ! important;
+  font-family: inherit ! important;
 }
 
 /* Grey when no selection, white when selected */
 [class='select2-choice select2-default'],
 .select2-dropdown-open .select2-choice {
-	background-color: #EEE ! important;
-	background: #EEE ! important;
+  background-color: #EEE ! important;
+  background: #EEE ! important;
 }
 [class='select2-choice'] {
-	background-color: #FFF ! important;
-	background: #FFF ! important;
+  background-color: #FFF ! important;
+  background: #FFF ! important;
 }
 .select2-choice {
-	border: 1px solid #CCC ! important;
-	box-shadow: none ! important;
-	-webkit-box-shadow: none ! important;
-	color: inherit ! important;
-	border-radius: 0px ! important;
+  border: 1px solid #CCC ! important;
+  box-shadow: none ! important;
+  -webkit-box-shadow: none ! important;
+  color: inherit ! important;
+  border-radius: 0px ! important;
 }
 .select2-arrow {
-	border-left: none ! important;
-	background-color: #EEE ! important;
-	background: #EEE ! important;
-	border-radius: 0px ! important;
+  border-left: none ! important;
+  background-color: #EEE ! important;
+  background: #EEE ! important;
+  border-radius: 0px ! important;
 }
 
 /* Reduce left padding */
 .select2-choice {
-	padding-left: 6px ! important;
+  padding-left: 6px ! important;
 }
 .select2-result-label {
-	padding-left: 5px ! important;
+  padding-left: 5px ! important;
 }
 
 /* Blue on hover */
 .select2-default:hover,
 .select2-default:hover .select2-arrow,
 .select2-arrow:hover {
-	background-color: #C6E1F7 ! important;
+  background-color: #C6E1F7 ! important;
 }
 
 /* Alternate shading of results */
 .select2-result:nth-of-type(even):not(.select2-highlighted) {
-	background: #F9F9F9 ! important;
-	background-color: #F9F9F9 ! important;
+  background: #F9F9F9 ! important;
+  background-color: #F9F9F9 ! important;
 }
 
 /* Invite handles to be handled */
@@ -638,18 +630,18 @@ div#slider{
 /**********************************************************/
 
 .ui-dialog {
-	font-family: inherit;
-	font-size: 95%;
-	padding: 0;
-	border-radius: 2px;
-	border: 1px solid #CCC;
+  font-family: inherit;
+  font-size: 95%;
+  padding: 0;
+  border-radius: 2px;
+  border: 1px solid #CCC;
 }
 
 .ui-dialog .ui-dialog-titlebar {
-	border-radius: 0;
-	border: none;
-	color: #666;
-	background: #EEE;
+  border-radius: 0;
+  border: none;
+  color: #666;
+  background: #EEE;
 }
 
 .ui-dialog .ui-dialog-content {
@@ -658,32 +650,32 @@ div#slider{
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
-	background: rgba(0,0,0,0);
-	opacity: 0.75;
+  background: rgba(0,0,0,0);
+  opacity: 0.75;
 }
 
 .ui-dialog .ui-dialog-titlebar-close.ui-state-hover {
-	border-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
 }
 
 .ui-dialog .ui-dialog-titlebar-close .ui-icon {
-	background-image: url(/assets/jquery-ui/ui-icons_454545_256x240.png)/*{iconsHeader}*/ ! important;
+  background-image: image-url("/assets/jquery-ui/ui-icons_454545_256x240.png") /*{iconsHeader}*/ ! important;
 }
 
 .ui-dialog .ui-dialog-titlebar-close.ui-state-hover .ui-icon {
-	background-image: url(/assets/jquery-ui/ui-icons_222222_256x240.png)/*{iconsHeader}*/ ! important;
+  background-image: image-url("/assets/jquery-ui/ui-icons_222222_256x240.png") /*{iconsHeader}*/ ! important;
 }
 
 /*** Notice ***/
 
 .dialog_yellow {
-	border: 2px solid #ECECDC;
-	top: -2px ! important;
-}	
+  border: 2px solid #ECECDC;
+  top: -2px ! important;
+}  
 
 .dialog_yellow .ui-dialog-titlebar {
-	background: #F6F6A8;
-	font-weight: normal;
+  background: #F6F6A8;
+  font-weight: normal;
 }
 
 .dialog_yellow .ui-dialog-titlebar-close {
@@ -692,7 +684,7 @@ div#slider{
 }
 
 .dialog_yellow .ui-dialog-content {
-	display: none ! important;
+  display: none ! important;
 }
 
 /**********************************************************/
@@ -700,36 +692,35 @@ div#slider{
 /**********************************************************/
 
 .ui-datepicker {
-	z-index: 999 ! important;
-	font-size: 90%;
+  z-index: 999 ! important;
+  font-size: 90%;
 }
 
 .ui-datepicker-header {
-	background: #EEE ! important;
-	border-radius: 0 ! important;
-	border: 
+  background: #EEE ! important;
+  border-radius: 0 ! important;
 }
 
 .ui-datepicker-next-hover,
 .ui-datepicker-prev-hover {
-	border-color: rgba(0,0,0,0) ! important;
-	background: rgba(0,0,0,0) ! important;
+  border-color: rgba(0,0,0,0) ! important;
+  background: rgba(0,0,0,0) ! important;
 }
 
 .ui-datepicker-calendar td a:not(.ui-state-highlight):not(.ui-state-hover):not(.ui-state-active) {
-	background: #F9F9F9 ! important;
-	border-color: #EEE ! important;
+  background: #F9F9F9 ! important;
+  border-color: #EEE ! important;
 }
 
 .ui-datepicker-calendar td a.ui-state-highlight {
-	border-color: #AAA ! important;
-	background: #F9F9F9 ! important;
+  border-color: #AAA ! important;
+  background: #F9F9F9 ! important;
 }
 
 .ui-datepicker-calendar td a.ui-state-hover,
 .ui-datepicker-calendar td a.ui-state-active {
-	border-color: #AAA ! important;
-	background: #EEE ! important;
+  border-color: #AAA ! important;
+  background: #EEE ! important;
 }
 
 /**********************************************************/
@@ -739,20 +730,20 @@ div#slider{
 /* Image URL Override (same issue as select2) */
 
 #sb-nav-close {
-  background-image: url("shadowbox/close.png") ! important;
+  background-image: image-url("shadowbox/close.png") ! important;
 }
 #sb-nav-next {
-  background-image: url("shadowbox/next.png") ! important;
+  background-image: image-url("shadowbox/next.png") ! important;
 }
 #sb-nav-previous {
-  background-image: url("shadowbox/previous.png") ! important;
+  background-image: image-url("shadowbox/previous.png") ! important;
 }
 
 /* Caption */ 
 
 div#sb-title-inner {
-	font-size: inherit;
-	font-family: Roboto, Arial, sans-serif;;
+  font-size: inherit;
+  font-family: Roboto, Arial, sans-serif;;
 }
 
 /* Custom navigation controls */ 
@@ -760,10 +751,10 @@ div#sb-title-inner {
 
 #sb-custom-nav-next, 
 #sb-custom-nav-previous { 
-	position: absolute; 
-	display: block; 
-	top: 0; 
-	height: 100%; 
+  position: absolute; 
+  display: block; 
+  top: 0; 
+  height: 100%; 
 }
 #sb-custom-nav-next { 
   width: 100%;
@@ -775,10 +766,10 @@ div#sb-title-inner {
 }
 /*
 #sb-custom-nav-next:hover { 
-  cursor: url('http://localhost:3000/icons/arrow_right.cur'), default;
+  cursor: asset-url('/icons/arrow_right.cur'), default;
 } 
 #sb-custom-nav-previous:hover { 
-  cursor: url('http://localhost:3000/icons/arrow_left.cur'), default;
+  cursor: asset-url('/icons/arrow_left.cur'), default;
 }
 */
 
@@ -787,14 +778,14 @@ div#sb-title-inner {
 /**********************************************************/
 
 div#embed_branding {
-	display: block;
-	height: 30px;
-	position: absolute;
-	left: 80px;
-	top: 16px;
-	font-size: 15px;
-	font-family: helvetica, arial, verdana, sans-serif;
-	color: #FFF;
+  display: block;
+  height: 30px;
+  position: absolute;
+  left: 80px;
+  top: 16px;
+  font-size: 15px;
+  font-family: helvetica, arial, verdana, sans-serif;
+  color: #FFF;
 }
 
 div#embed_branding a {
@@ -805,7 +796,7 @@ div#embed_branding a {
 }
 
 div#embed_branding a:hover {
- text-shadow: -1px -1px 5px rgba(51,51,51,0.5), 1px -1px 5px rgba(51,51,51,0.5),-1px 1px 5px rgba(51,51,51,0.5),1px 1px 5px rgba(51,51,51,0.5);
+  text-shadow: -1px -1px 5px rgba(51,51,51,0.5), 1px -1px 5px rgba(51,51,51,0.5),-1px 1px 5px rgba(51,51,51,0.5),1px 1px 5px rgba(51,51,51,0.5);
 }
 
 div#embed_branding span {
@@ -815,18 +806,18 @@ div#embed_branding span {
 }
 
 div#embed_branding a#falling_fruit {
-	font-size: 2em;
+  font-size: 2em;
 }
 
 div#embed_branding a#add_source {
-	font-size: 1em;
+  font-size: 1em;
 }
 
 div#embed_branding .hr-like {
-	width: 85%;
-	height: 1px;
-	background: white;
-	display: block;
-	margin: 0 0 0 0.25em;
-	box-shadow: -1px -1px .1em rgba(51,51,51,0.2),1px -1px .1em rgba(51,51,51,0.2),-1px 1px .1em rgba(51,51,51,0.2),1px 1px .1em rgba(51,51,51,0.2);
+  width: 85%;
+  height: 1px;
+  background: white;
+  display: block;
+  margin: 0 0 0 0.25em;
+  box-shadow: -1px -1px .1em rgba(51,51,51,0.2),1px -1px .1em rgba(51,51,51,0.2),-1px 1px .1em rgba(51,51,51,0.2),1px 1px .1em rgba(51,51,51,0.2);
 }

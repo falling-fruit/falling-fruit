@@ -59,7 +59,29 @@ FallingfruitWebapp::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( maplabel.js mainmap.js mapcommmon.js *.png *.jpg *.jpeg *.gif)
+  #config.assets.precompile += %w( *.png *.jpg *.jpeg *.gif
+  #                                application.css  base.css  EZWmobile.css  mobile.css  pages.css  routes.css.scss
+  #				  application.js  infowindowShadowbox.js  mainmap.mobile.js  maplabel.js  progressBar.js
+  #                               routes.js.coffee  wicket-gmap3.src.js mainmap.js mapcommon.js       mobile.js    
+  #                                richmarker.js   sprintf.js        wicket.src.js
+  #                              )
+
+  # Precompile everything! From: http://guides.rubyonrails.org/asset_pipeline.html
+  config.assets.precompile << Proc.new do |path|
+    if path =~ /\.(css|js)\z/
+      full_path = Rails.application.assets.resolve(path).to_path
+      app_assets_path = Rails.root.join('app', 'assets').to_path
+      if full_path.starts_with? app_assets_path
+        puts "including asset: " + full_path
+        true
+      else
+        puts "excluding asset: " + full_path
+        false
+      end
+    else
+      false
+    end
+  end
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

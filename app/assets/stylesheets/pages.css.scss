@@ -5,53 +5,53 @@
 /*** Logo ***/
 
 div#logobar {
-	background-color: #1F5F92;
-	padding: 0 5px;
-	height: 2.75em;
+  background-color: #1F5F92;
+  padding: 0 5px;
+  height: 2.75em;
 }
 
 div#logobar a#falling_fruit {
-	font-size: 2.4em;
-	font-family: helvetica, arial, verdana, sans-serif;
-	font-variant: small-caps;
-	font-weight: bold;
-	color: #FFF;
-	margin-left: 4px;
+  font-size: 2.4em;
+  font-family: helvetica, arial, verdana, sans-serif;
+  font-variant: small-caps;
+  font-weight: bold;
+  color: #FFF;
+  margin-left: 4px;
 }
 
 div#logobar span#subtitle {
-	color: #FFF;
-	font-style: italic;
-	font-size: 1.25em;
-	margin-left: 1em;
+  color: #FFF;
+  font-style: italic;
+  font-size: 1.25em;
+  margin-left: 1em;
 }
 
 div#logobar img#logo {
-	float: right;
-	height: 100%;
+  float: right;
+  height: 100%;
 }
 
 div#share_controls {
-	float: right;
-	margin: 0.3em 0 0 0;
+  float: right;
+  margin: 0.3em 0 0 0;
 }
 
 div#share_controls img {
-	height: 2.15em;
+  height: 2.15em;
 }
 
 /*** Menu ***/
 
 div#menubar {
-	background-color: #D3D3D3;
+  background-color: #D3D3D3;
 }
 
 div#menubar a, 
 div#menu span {
-	color: #666;
-	line-height: 2em;
-	padding: 0em 8px;
-	display: inline-block;
+  color: #666;
+  line-height: 2em;
+  padding: 0em 8px;
+  display: inline-block;
 }
 
 div#menu {
@@ -113,11 +113,11 @@ div#menu ul li ul li:hover a:not(.currentpage) {
 }
 
 div#rightcontrols a:not(.currentpage):hover {
-	color: #FFF;
+  color: #FFF;
 }
 
 div#rightcontrols a.currentpage {
-	background-color: #FFF;
+  background-color: #FFF;
 }
 
 div#rightcontrols span#user_email {
@@ -130,29 +130,29 @@ div#rightcontrols span#user_email {
 /**********************************************************/
 
 div#content_container {
-	position: absolute;
-	top: 4.75em;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	overflow-y: auto;
+  position: absolute;
+  top: 4.75em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
 }
 
 div#content_container div#content {
-	padding: 15px 1.5em 10px 1.5em;
-	text-align: justify;
-	max-width: 1400px;
-	margin: 0 auto;  /* Page is centered on wider screens */
+  padding: 15px 1.5em 10px 1.5em;
+  text-align: justify;
+  max-width: 1400px;
+  margin: 0 auto;  /* Page is centered on wider screens */
 }
   
 div#content_container div#content p {
-	line-height: 1.5em;  /* For better legibility on wider screens */
+  line-height: 1.5em;  /* For better legibility on wider screens */
 }
 
 div#content_container div#footer {
-	margin-top: 2.5em;
-	text-align: center;
-	font-size: 0.85em;
+  margin-top: 2.5em;
+  text-align: center;
+  font-size: 0.85em;
 }
 
 /**********************************************************/
@@ -162,14 +162,14 @@ div#content_container div#footer {
 /*** Searchbar ***/
 
 div#searchbar {
-	line-height: 3em;
-	background-color: #FFF;
-	border-bottom: 2px solid #CCC;
-	width: 100%;
+  line-height: 3em;
+  background-color: #FFF;
+  border-bottom: 2px solid #CCC;
+  width: 100%;
 }
 
 div#searchbar b {
-	font-size: 95%;
+  font-size: 95%;
 }
 
 div#searchbar div#searchcontrols {
@@ -177,26 +177,26 @@ div#searchbar div#searchcontrols {
 }
 
 div#searchbar button {
-	border: 1px solid #DDD;
-	border-radius: 4px;
-	background-color: #EEE;
-	font-size: 0.8em;
-	cursor: pointer;
-	font-family: inherit;
-	color: inherit;
-	padding: 3px;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  background-color: #EEE;
+  font-size: 0.8em;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  padding: 3px;
 }
 
 div#searchbar button:hover {
-	background-color: #C6E1F7;
+  background-color: #C6E1F7;
 }
 
 div#searchbar input {
-	border: 1px solid #DDD;
-	padding: 2px 3px;
-	font-size: .9em;
-	font-family: inherit;
-	color: inherit;
+  border: 1px solid #DDD;
+  padding: 2px 3px;
+  font-size: .9em;
+  font-family: inherit;
+  color: inherit;
 }
 
 div#searchbar input[type=checkbox] {
@@ -210,15 +210,15 @@ div#searchbar input[type=checkbox] {
   font-size: 95% ! important;
 }
 #s2id_type_filter .select2-choice {
-	line-height: 1.5em ! important;
-	height: 1.5em ! important;
-	border: 1px solid #DDD ! important;
+  line-height: 1.5em ! important;
+  height: 1.5em ! important;
+  border: 1px solid #DDD ! important;
 }
 #s2id_type_filter .select2-arrow b {
-	background: url(/assets/select2.png) no-repeat 0 -2px ! important;
+  background: image-url("/assets/select2.png") no-repeat 0 -2px ! important;
 }
 #s2id_type_filter .select2-search-choice-close {
-	top: 4px ! important;
+  top: 4px ! important;
 }
 
 /*** Map ***/
@@ -251,8 +251,8 @@ form#editsource {
 }
 
 form#editsource label {
-	font-weight: bold;
-	color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 form#editsource > div > a {
@@ -267,7 +267,7 @@ form#editsource #location_address {
 
 form#editsource #s2id_typeselect2,
 form#editsource #s2id_location_access {
-	width: 99%;
+  width: 99%;
 }
 
 form#editsource #location_lat, 
@@ -277,7 +277,7 @@ form#editsource #location_lng {
 
 form#editsource #s2id_location_season_start,
 form#editsource #s2id_location_season_stop {
-	width: 8em;
+  width: 8em;
 }
 
 form#editsource input#location_lat {
@@ -320,12 +320,12 @@ div#editmarker {
 /**********************************************************/
 
 #observation_photo {
-	width: 93%;
+  width: 93%;
 }
 
 #observation_photo_caption,
 #observation_comment {
-	width: 95%;
+  width: 95%;
 }
 
 /**********************************************************/
@@ -333,28 +333,28 @@ div#editmarker {
 /**********************************************************/
 
 div.rightphoto {
-	float: right;
-	position: relative;
-	top: 1em;  /* Make images flush with top of text */
-	margin: 0 0 1.5em 1.5em;  /* To keep text away while wrapping */
-	text-align: right;  /* In case image dimensions are not as expected */
-	line-height: 0;  /* Removes vertical space between image rows */
-	width: 412px;  /* Multiple of image width + 2 * border + a little */
+  float: right;
+  position: relative;
+  top: 1em;  /* Make images flush with top of text */
+  margin: 0 0 1.5em 1.5em;  /* To keep text away while wrapping */
+  text-align: right;  /* In case image dimensions are not as expected */
+  line-height: 0;  /* Removes vertical space between image rows */
+  width: 412px;  /* Multiple of image width + 2 * border + a little */
 }
 
 div.rightphoto img {
-	width: 200px;
-	border: 1px solid #EEE;
+  width: 200px;
+  border: 1px solid #EEE;
 }
 
 div.profile img.avatar {
-	float: left;
-	width: 200px;
-	border: 1px solid #EEE;
+  float: left;
+  width: 200px;
+  border: 1px solid #EEE;
 }
 
 div.profile div.bio {
-	margin-left: 216px;
+  margin-left: 216px;
 }
 
 /* Clears float instead of a div inside html */
@@ -371,21 +371,21 @@ div.profile:after {
 /**********************************************************/
 
 div.country_column {
-	display: inline-block;
-	vertical-align: top;
-	margin-right: 20px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 20px;
 }
 
 div.country_column div.country {
-	display: block;
+  display: block;
 }
 
 div.country {
-	display: inline-block;
+  display: inline-block;
 }
 
 div.country b {
-	line-height: 3em;
+  line-height: 3em;
 }
 
 div.datalist {
@@ -418,27 +418,27 @@ div.datalist li {
 }
 
 #press_list td.date {
-	text-align: right;
-	padding-right: 2em;
+  text-align: right;
+  padding-right: 2em;
 }
 
 #press_list td.date span.year {
-	color: #bbb;
+  color: #bbb;
 }
 
 #press_list span.subtitle {
-	font-size: 90%;
-	display: block;
-	padding: 1em 0 0.5em 1em;
+  font-size: 90%;
+  display: block;
+  padding: 1em 0 0.5em 1em;
 }
 
 #press_list img {
-	border: 1px solid #EEE;
+  border: 1px solid #EEE;
 }
 
 #press_list iframe,
 #press_list img {
-	margin: 1em 0 0.5em 0;
+  margin: 1em 0 0.5em 0;
 }
 
 /**********************************************************/
@@ -454,24 +454,24 @@ table#type_summary img.link_icon {
 /**********************************************************/
 
 #directions_panel {
-	position: absolute;
-	top: 8em;
-	left: 0;
-	bottom: 0;
-	width: 310px;
-	padding: 1em 5px 5px 5px;
+  position: absolute;
+  top: 8em;
+  left: 0;
+  bottom: 0;
+  width: 310px;
+  padding: 1em 5px 5px 5px;
 }
 
 #directions {
-	overflow: auto;
-	position: absolute;
-	bottom: 0;
-	top: 3em;
-	width: 300px;
+  overflow: auto;
+  position: absolute;
+  bottom: 0;
+  top: 3em;
+  width: 300px;
 }
 
 #travel_mode {
-	position: absolute;
-	top: 1em;
-	height: 2em;
+  position: absolute;
+  top: 1em;
+  height: 2em;
 }
