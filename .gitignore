@@ -16,6 +16,7 @@
 /tmp
 db/data.yml
 config/database.yml
+config/initializers/secret_token.rb
 
 # Other stuff
 db/backups/*.sql
