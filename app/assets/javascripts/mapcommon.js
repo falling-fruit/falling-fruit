@@ -235,7 +235,7 @@
         if(json.length > 0){
           add_markers_from_json(json,true);
         }
-        do_cluster_types(bounds,zoom,muni);
+        //do_cluster_types(bounds,zoom,muni);
         markersPartial = false;
         if(pb != null) pb.hide();
       });
@@ -245,6 +245,10 @@
   }
   
   function do_cluster_types(bounds,zoom,muni) {
+    var previous_text = $('#s2id_type_filter .select2-chosen').html();
+    $('#s2id_type_filter').select2("readonly", true);
+    // Flickers annoyingly:
+    //$('#s2id_type_filter .select2-chosen').html('Loading edible types... ');
 		var bstr = bounds_to_query_string(bounds);
 		var gstr = 'method=grid&grid=' + zoom;
 		if (muni) mstr = '';
@@ -254,18 +258,25 @@
 			url: '/locations/cluster_types.json?' + mstr + gstr + '&' + bstr,
 			dataType: 'json'
 		});
-		request.done(function(json){
+		request.done(function(json){		    
+		    types_hash = {};
 			if(json.length > 0){
-				types_hash = {};
 				for(var i = 0;i < json.length; i++){
 					types_hash[json[i]["id"]] = json[i]["n"];
 				}
-				// Update count hack
-				if (type_filter != undefined && !mobile) {
-					filter_display = $('#s2id_type_filter .select2-chosen');
-					filter_display.html(filter_display.html().replace(/([0-9]+)/, types_hash[type_filter]));
-				}
 			}
+			// Update count hack
+				if (!mobile && type_filter != undefined) {
+				  filter_display = $('#s2id_type_filter .select2-chosen');
+				  if (types_hash[type_filter] == undefined) {
+				    filter_display.html(previous_text.replace(/([0-9]+)/, 0));
+				  } else {
+				    filter_display.html(previous_text.replace(/([0-9]+)/, types_hash[type_filter]));
+				  }
+			  } else {
+			    //$('#s2id_type_filter .select2-chosen').html(previous_text);
+			  }
+			  $('#s2id_type_filter').select2("readonly", false)
 		});
 	}
 
@@ -668,9 +679,13 @@ function open_tab_3() {
       }
       search_filter(last_search);
 			// Update count hack
-			if (type_filter != undefined && !mobile) {
+			if (!mobile && type_filter != undefined) {
 				filter_display = $('#s2id_type_filter .select2-chosen');
-				filter_display.html(filter_display.html().replace(/([0-9]+)/, types_hash[type_filter]));
+				if (types_hash[type_filter] == undefined) {
+				  filter_display.html(filter_display.html().replace(/([0-9]+)/, 0));
+				} else {
+				  filter_display.html(filter_display.html().replace(/([0-9]+)/, types_hash[type_filter]));
+				}
 			}
     });
     request.fail(function(){
