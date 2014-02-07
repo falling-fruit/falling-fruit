@@ -156,7 +156,7 @@ task(:import => :environment) do
        end
        if location.valid?
          ok_count += 1
-         location.save
+         location.save and ApplicationController.cluster_increment(location)
        else
          text_errs << location.errors
          errs << row
@@ -172,7 +172,6 @@ task(:import => :environment) do
          errs.each {|row| csv << row}
        end
      end
-     ApplicationController.cluster_batch_increment(import)
      FileUtils.mv "public/import/#{l}", "public/import/#{import_id}_done.csv"
      puts
    } 

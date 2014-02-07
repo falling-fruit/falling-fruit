@@ -80,6 +80,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cluster_decrement
 
+  # note, this is HELLA slow and should probably be avoided until it can be made faster
   def self.cluster_batch_increment(import)
     earth_radius = 6378137.0
     gsize_init = 2.0*Math::PI*earth_radius
@@ -157,6 +158,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cluster_batch_increment
 
+  # note, this is HELLA slow and should probably be avoided until it can be made faster
   def self.cluster_batch_decrement(import)
     earth_radius = 6378137.0
     gsize_init = 2.0*Math::PI*earth_radius
