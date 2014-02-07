@@ -167,6 +167,7 @@ class Location < ActiveRecord::Base
       lt.save          
       loc.locations_types.push lt
     } unless type_other.nil? or type_other.strip.length == 0
+
     unless lat.nil? or lng.nil? or lat.strip.length == 0 or lng.strip.length == 0
       loc.lat = lat.to_f
       loc.lng = lng.to_f
@@ -183,16 +184,18 @@ class Location < ActiveRecord::Base
     loc.unverified = true if unverified == 't' or unverified == "true" or unverified == "x"
     loc.author = author unless author.blank?
 
-    obs = Observation.new
-    obs.observed_on = Date.today
-    obs.yield_rating = (yield_rating.to_i - 1) unless yield_rating.blank?
-    obs.quality_rating = (quality_rating.to_i - 1) unless quality_rating.blank?
-    obs.location = loc
-    begin
-    obs.photo = open(photo_url) unless photo_url.blank?
-    rescue
+    unless yield_rating.blank? and quality_rating.blank? and photo_url.blank?
+      obs = Observation.new
+      obs.observed_on = Date.today
+      obs.yield_rating = (yield_rating.to_i - 1) unless yield_rating.blank?
+      obs.quality_rating = (quality_rating.to_i - 1) unless quality_rating.blank?
+      obs.location = loc
+      begin
+        obs.photo = open(photo_url) unless photo_url.blank?
+      rescue
+      end
+      obs.save
     end
-    obs.save
 
     return loc 
   end
