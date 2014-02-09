@@ -1013,7 +1013,7 @@ function update_marker_address() {
 			if (marker != null) {
 				marker.setPosition(latlng);
 			} else {
-				initialize_marker(lat,lng);
+				nag = initialize_marker(lat,lng);
 			}
 			nag.open(map,marker);
 			nagOpen = true;
@@ -1033,16 +1033,24 @@ function update_marker_latlng() {
 	// If empty, do nothing
 	if (lat == "" || lng == "" ) return;
 	
-	// If numeric, move existing (or place new) marker
-	// Out of range: latitude is snapped to [-90, 90], longitude converted to [-180, 180]
+	// If latitude > 85, return error
+	// Google Maps cannot display lat > 85 properly, and lat > 85 breaks clusters.
+	if (Math.abs(lat) > 85) {
+	  alert("We do not support latitudes beyond 85 degrees (north or south).");
+	  return;
+	}
+	
+	// Otherwise, and if numeric, move marker
+	// If out of range, longitude is converted to [-180, 180]
 	var latlng = new google.maps.LatLng(lat,lng, false)
 	if (!isNaN(latlng.mb) && !isNaN(latlng.nb)) {
-		map.panTo(latlng);
+	  $("#location_lng").val(latlng.nb);
+	  map.panTo(latlng);
 		map.setZoom(15);
 		if (marker != null) {
 			marker.setPosition(latlng);
 		} else {
-			initialize_marker(lat,lng);
+		  nag = initialize_marker(lat,lng);
 		}
 		nag.open(map,marker);
 		nagOpen = true;

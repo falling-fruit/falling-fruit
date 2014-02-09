@@ -1,6 +1,6 @@
 ####
 ## Install libraries (run once)
-#install.packages(c('plyr','foreign','doSNOW','foreach'))
+#install.packages(c('plyr','foreign','doSNOW','foreach','rgdal'))
 
 ####
 ## Load libraries
