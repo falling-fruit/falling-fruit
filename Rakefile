@@ -12,6 +12,42 @@ task(:clear_cache => :environment) do
   LocationsController.new.expire_things
 end
 
+task(:fix_ratings => :environment) do
+  missing_count = 0
+  copy_fail_count = 0
+  File.open("util/ratings.txt","r"){ |fh|
+    fh.each_line{ |l|
+      id,qr,yr = l.strip.split(/\s+/)
+      qr = nil if qr =~ /\\N/
+      yr = nil if yr =~ /\\N/
+      next if qr.nil? and yr.nil?
+      puts "+ #{qr} #{yr}"
+      begin
+        l = Location.find(id)
+      rescue ActiveRecord::RecordNotFound
+        puts "deleted"
+        next
+      end
+      if l.observations.empty?
+        o = Observation.new
+        o.quality_rating = qr.to_i
+        o.yield_rating = qr.to_i
+        o.observed_on = l.created_at.to_date
+        o.location = l
+        o.save
+        missing_count += 1
+      else
+        o = l.observations.first
+        o.quality_rating = qr.to_i if o.quality_rating.nil?
+        o.yield_rating = yr.to_i if o.yield_rating.nil?
+        o.save
+        copy_fail_count += 1
+      end
+    }
+  }
+  puts "#{missing_count} missing, #{copy_fail_count} blank"
+end
+
 task(:geocode => :environment) do
   Geocoder.configure({:always_raise => :all})	
   n = Location.where("lat is null and lng is null").count

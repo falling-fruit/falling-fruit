@@ -26,7 +26,7 @@ class SetupClustersWithTypes < ActiveRecord::Migration
        SELECT 'grid' as method, 't' as muni, #{z} as zoom, #{gsize} as grid_size, count, cluster_point, grid_point,
        st_setsrid(st_makebox2d(st_translate(grid_point,-#{gsize}/2,-#{gsize}/2), st_translate(grid_point,#{gsize}/2,#{gsize}/2)),900913) as polygon, 
        NOW() as created_at, NOW() as updated_at, #{type.id} as type_id FROM
-       (SELECT count(location) as count, st_centroid(st_transform(st_collect(location::geometry),900913)) as cluster_point,
+       (SELECT count(location) as count, st_centroid(st_transform(st_collect(st_setsrid(location::geometry,4326)),900913)) as cluster_point,
        st_snaptogrid(st_transform(st_setsrid(location::geometry,4326),900913),#{xo}+#{gsize}/2,#{yo}-#{gsize}/2,#{gsize},#{gsize}) as grid_point
        FROM locations, locations_types WHERE lng IS NOT NULL and lat IS NOT NULL AND (import_id IS NOT NULL AND
        import_id IN (SELECT id FROM imports WHERE muni)) AND locations_types.location_id=locations.id AND
@@ -62,7 +62,7 @@ class SetupClustersWithTypes < ActiveRecord::Migration
        SELECT 'grid' as method, 't' as muni, #{z} as zoom, #{gsize} as grid_size, count, cluster_point, grid_point,
        st_setsrid(st_makebox2d(st_translate(grid_point,-#{gsize}/2,-#{gsize}/2), st_translate(grid_point,#{gsize}/2,#{gsize}/2)),900913) as polygon, 
        NOW() as created_at, NOW() as updated_at FROM
-       (SELECT count(location) as count, st_centroid(st_transform(st_collect(location::geometry),900913)) as cluster_point,
+       (SELECT count(location) as count, st_centroid(st_transform(st_collect(st_setsrid(location::geometry,4326)),900913)) as cluster_point,
        st_snaptogrid(st_transform(st_setsrid(location::geometry,4326),900913),#{xo}+#{gsize}/2,#{yo}-#{gsize}/2,#{gsize},#{gsize}) as grid_point
        FROM locations WHERE lng IS NOT NULL and lat IS NOT NULL AND (import_id IS NOT NULL AND
        import_id IN (SELECT id FROM imports WHERE muni)) GROUP BY grid_point) AS subq;
