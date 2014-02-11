@@ -25,11 +25,18 @@ class LocationsController < ApplicationController
     else # map spans -180 | 180 seam, split into two polygons
       bound = "AND (ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(180,#{params[:nelat]})),4326),900913)))"
     end
-    @clusters = Cluster.select("type_id, SUM(count) as count").group("type_id").
-                        where("zoom = #{g} AND type_id IS NOT NULL #{mfilter} #{bound}").
-                        collect{ |c| {:id => c.type_id, :n => c.count } }
+    types = {}
+    Cluster.select("type_id, parent_id, SUM(count) as count").joins(:type).group("type_id,parent_id").
+                        where("zoom = #{g} AND type_id IS NOT NULL #{mfilter} #{bound}").each{ |t|
+      types[t.type_id] = 0 if types[t.type_id].nil?
+      types[t.type_id] += t.count
+      # FIXME: doesn't deal properly with more than a single generation, would need to find our parents' parents
+      # (grandparents) and so on, and increment those too!
+      types[t.parent_id] = 0 if types[t.parent_id].nil?
+      types[t.parent_id] += t.count
+    }
     respond_to do |format|
-      format.json { render json: @clusters }
+      format.json { render json: types.collect{ |id,n| {:id => id, :n => n} } }
     end
   end
 
@@ -122,7 +129,7 @@ class LocationsController < ApplicationController
       WHERE #{[bound,ifilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil? 
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
-      string_agg(coalesce(t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
+      array_agg(t.parent_id) as parent_types, string_agg(coalesce(t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
       locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
       GROUP BY l.id, l.lat, l.lng, l.unverified ORDER BY sort LIMIT #{max_n}");
@@ -141,7 +148,9 @@ class LocationsController < ApplicationController
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
        :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17,
-       :marker_anchor => [0,0], :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i } }
+       :marker_anchor => [0,0], :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i },
+       :parent_types => row["parent_types"].tr('{}','').split(/,/).collect{ |e| e.to_i }
+      }
     } unless r.nil?
     @markers.unshift(max_n)
     @markers.unshift(found_n)

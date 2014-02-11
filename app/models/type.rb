@@ -2,7 +2,7 @@ class Type < ActiveRecord::Base
   attr_accessible :name, :marker, :scientific_name, :usda_symbol, :wikipedia_url, :notes, 
                   :edability, :synonyms, :scientific_synonyms, :urban_mushrooms_url, 
                   :eat_the_weeds_url, :fruitipedia_url, :foraging_texas_url, :parent_id, :parent,
-                  :es_name, :pl_name, :he_name
+                  :es_name, :pl_name, :he_name, :taxonomic_rank
   has_attached_file :marker
   validates :name, :presence => true
   has_many :locations_types
