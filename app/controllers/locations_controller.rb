@@ -42,7 +42,9 @@ class LocationsController < ApplicationController
     end
     tfilter = "AND type_id IS NULL"
     if params[:t].present?
-      tfilter = "AND type_id = #{params[:t].to_i}"
+      type = Type.find(params[:t])
+      tids = ([type.id] + type.all_children.collect{ |c| c.id }).compact.uniq
+      tfilter = "AND type_id IN (#{tids.join(",")})"
     end
     g = params[:grid].present? ? params[:grid].to_i : 2
     g = 12 if g > 12
@@ -103,8 +105,10 @@ class LocationsController < ApplicationController
     sorted = "1 as sort"
     # FIXME: would be easy to allow t to be an array of types
     if params[:t].present?
-      tfilter = "type_id = #{params[:t].to_i}"
-      sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{params[:t].to_i}] THEN 0 ELSE 1 END as sort"
+      type = Type.find(params[:t])
+      tids = ([type.id] + type.all_children.collect{ |c| c.id }).compact.uniq
+      tfilter = "AND type_id IN (#{tids.join(",")})"
+      sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{tids.join(",")}] THEN 0 ELSE 1 END as sort"
     end
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
