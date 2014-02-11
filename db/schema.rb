@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131206141457) do
+ActiveRecord::Schema.define(:version => 20140210231416) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.spatial  "polygon",       :limit => {:srid=>900913, :type=>"polygon"}
     t.integer  "type_id"
   end
+
+  add_index "clusters", ["cluster_point"], :name => "index_clusters_on_cluster_point", :spatial => true
+  add_index "clusters", ["grid_point"], :name => "index_clusters_on_grid_point", :spatial => true
+  add_index "clusters", ["polygon"], :name => "index_clusters_on_polygon", :spatial => true
 
   create_table "imports", :force => true do |t|
     t.string   "url"
@@ -69,6 +73,8 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.integer  "user_id"
   end
 
+  add_index "locations", ["location"], :name => "index_locations_on_location", :spatial => true
+
   create_table "locations_routes", :force => true do |t|
     t.integer  "location_id"
     t.integer  "route_id"
@@ -77,12 +83,18 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "locations_routes", ["location_id"], :name => "index_locations_routes_on_location_id"
+  add_index "locations_routes", ["route_id"], :name => "index_locations_routes_on_route_id"
+
   create_table "locations_types", :force => true do |t|
     t.integer "location_id"
     t.integer "type_id"
     t.string  "type_other"
     t.integer "position"
   end
+
+  add_index "locations_types", ["location_id"], :name => "index_locations_types_on_location_id"
+  add_index "locations_types", ["type_id"], :name => "index_locations_types_on_type_id"
 
   create_table "observations", :force => true do |t|
     t.integer  "location_id"
@@ -92,7 +104,6 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.integer  "fruiting"
     t.integer  "quality_rating"
     t.integer  "yield_rating"
     t.integer  "user_id"
@@ -100,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "fruiting"
     t.text     "photo_caption"
   end
 
@@ -117,6 +129,10 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.datetime "updated_at",      :null => false
   end
 
+  add_index "problems", ["location_id"], :name => "index_problems_on_location_id"
+  add_index "problems", ["reporter_id"], :name => "index_problems_on_reporter_id"
+  add_index "problems", ["responder_id"], :name => "index_problems_on_responder_id"
+
   create_table "routes", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
@@ -126,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.boolean  "is_public",      :default => true, :null => false
     t.string   "access_key"
   end
+
+  add_index "routes", ["user_id"], :name => "index_routes_on_user_id"
 
   create_table "types", :force => true do |t|
     t.string   "name"
@@ -146,6 +164,11 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.string   "fruitipedia_url"
     t.string   "eat_the_weeds_url"
     t.string   "foraging_texas_url"
+    t.integer  "parent_id"
+    t.integer  "taxonomic_rank"
+    t.string   "es_name"
+    t.string   "he_name"
+    t.string   "pl_name"
   end
 
   create_table "users", :force => true do |t|
@@ -169,9 +192,15 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.spatial  "range",                  :limit => {:srid=>4326, :type=>"polygon", :geographic=>true}
     t.string   "name"
     t.text     "bio"
-    t.integer  "roles_mask",                                                                           :default => 10,    :null => false
+    t.integer  "roles_mask"
     t.boolean  "range_updates_email",                                                                  :default => false, :null => false
     t.boolean  "add_anonymously",                                                                      :default => false, :null => false
   end
+
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["range"], :name => "index_users_on_range", :spatial => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

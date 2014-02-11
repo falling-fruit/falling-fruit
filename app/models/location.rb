@@ -10,7 +10,8 @@ class Location < ActiveRecord::Base
 
   validates_associated :locations_types
   validates :locations_types, :presence => true
-  validates :lat, :lng, :numericality => true, :allow_nil => false
+  validates :lat, numericality: {greater_than_or_equal_to: -85.0, less_than_or_equal_to: 85.0, allow_nil: false}
+  validates :lat, numericality: {greater_than_or_equal_to: -180.0, less_than_or_equal_to: 180.0, allow_nil: false}
   validates :access, :numericality => { :only_integer => true }, :allow_nil => true
 	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
@@ -168,7 +169,7 @@ class Location < ActiveRecord::Base
       loc.locations_types.push lt
     } unless type_other.nil? or type_other.strip.length == 0
 
-    unless lat.nil? or lng.nil? or lat.strip.length == 0 or lng.strip.length == 0
+    unless lat.blank? or lng.blank?
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
