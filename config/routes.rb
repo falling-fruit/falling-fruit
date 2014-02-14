@@ -43,6 +43,7 @@ FallingfruitWebapp::Application.routes.draw do
   match 'maps' => 'pages#maps'
   match 'inventories' => 'pages#inventories'
   match 'sharing' => 'pages#sharing'
+  match 'dumpsters' => 'locations#freegan_index'
 
   resources :imports do
     collection do

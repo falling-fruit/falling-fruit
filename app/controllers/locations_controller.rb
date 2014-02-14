@@ -271,6 +271,14 @@ class LocationsController < ApplicationController
     end
   end
 
+  # GET /dumpsters
+  def freegan_index
+    @freegan = true
+    @type = Type.find(2)
+    params[:f] = 2
+    index and return
+  end
+
   # GET /locations
   # GET /locations.json
   def index
@@ -281,9 +289,11 @@ class LocationsController < ApplicationController
     @perma[:muni] = params[:m] == "true" if params[:m].present?
     @perma[:labels] = params[:l] == "true" if params[:l].present?
     @perma[:type] = params[:t] if params[:t].present?
-    @type = params[:f].present? ? Type.find(params[:f]) : nil
+    unless @freegan
+      @type = params[:f].present? ? Type.find(params[:f]) : nil
+    end
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render "index" }# index.html.erb
       format.json { render json: @locations }
       format.csv { render :csv => @locations }
     end
