@@ -35,6 +35,28 @@ class Type < ActiveRecord::Base
     self.scientific_name.to_s == '' ? n : (n + " [" + self.scientific_name + "]")
   end
 
+  def Type.hash_tree
+    Rails.cache.fetch('types_hash_tree',:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      $seen = {}
+      Type.where("parent_id is NULL").order(:name).collect{ |t| t.to_hash }
+    end
+  end
+
+  def to_hash
+    $seen = {} if $seen.nil?
+    return nil unless $seen[self.id].nil?
+    $seen[self.id] = true
+    ret = {"id" => self.id, "name" => self.full_name}
+    ret["children"] = self.children.collect{ |c| c.to_hash }.compact unless self.children.empty?
+    ret
+  end
+
+  def Type.sorted_with_parents
+    Type.joins("LEFT OUTER JOIN types parents_types ON types.parent_id = parents_types.id").
+      select("array_to_string(ARRAY[parents_types.name,types.name],'::') as sortme, parents_types.name as parent_name, types.*").
+      order(:sortme)
+  end
+
   # http://www.i18nguy.com/unicode/language-identifiers.html
   Languages = {"en-us" => "English (US)","la" => "Latin"}
   def il8n_name(lang="en-us")
