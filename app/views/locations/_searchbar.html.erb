@@ -59,7 +59,18 @@
 
 <% content_for :page_scripts do %>
 <script type="text/javascript">
-var base_type_data = [<%= Type.order(:name).collect{ |t| "{id:#{t.id},text:\"#{t.full_name}\"}" }.join(",\n").html_safe %>];
+  var base_type_data = <%= Type.hash_tree.to_json.html_safe %>;
+  function filter_by_types_hash(children){
+    var mp = markersPartial ? "+" : "";
+    var ret = children.filter(function(obj){ return types_hash[obj["id"]] != undefined; })
+    for(var i = 0; i < ret.length; i++){
+      ret[i]["text"] = ret[i]["name"] + " (" + types_hash[ret[i]["id"]] + mp + ")";
+      if(ret[i]["children"] != undefined){
+        ret[i]["children"] = filter_by_types_hash(ret[i]["children"])
+      }
+    }
+    return ret;
+  }
 jQuery(document).ready(function(){
   $('#type_filter').select2({
     <% if @type.nil? %>
@@ -68,13 +79,7 @@ jQuery(document).ready(function(){
     	placeholder: "<%= @type.full_name %>",
     <% end %>
       data: function(term,page){
-          return { text:'text', results: jQuery.map(base_type_data.filter(function(obj){ return types_hash[obj["id"]] != undefined; }),
-                  function(obj){
-                      mp = markersPartial ? "+" : "";
-                      return {text:obj["text"] + " (" + types_hash[obj["id"]] + mp + ")",
-                          id:obj["id"]};
-                  })
-          };
+          return { text:'text', results: filter_by_types_hash(base_type_data) };
     },
     allowClear: true,
     allowedMethods: ['updateResults']
