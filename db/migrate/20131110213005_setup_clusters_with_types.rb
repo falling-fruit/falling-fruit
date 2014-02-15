@@ -1,6 +1,7 @@
 class SetupClustersWithTypes < ActiveRecord::Migration
 
   def add_type_clusters(type)
+    $stderr.puts "Type: #{type.id}"
     earth_radius = 6378137.0
     gsize_init = 2.0*Math::PI*earth_radius
     xo = -gsize_init/2.0
@@ -38,6 +39,8 @@ class SetupClustersWithTypes < ActiveRecord::Migration
   def up
     # per-type clusters
     Type.all.each{ |t| add_type_clusters(t) }
+
+    $stderr.puts "All types!"
 
     # all types clusters
     earth_radius = 6378137.0

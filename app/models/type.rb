@@ -15,11 +15,13 @@ class Type < ActiveRecord::Base
 
   def all_children
     c = []
+    seen = []
     todo = [self]
     while not todo.empty?
       t = todo.shift
+      seen << t
       c += t.children
-      todo += t.children
+      todo += t.children.reject{ |t| seen.include? t }
     end
     c
   end
