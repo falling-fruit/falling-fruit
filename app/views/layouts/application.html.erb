@@ -87,48 +87,51 @@
 <!-- Menu Bar -->
 <div id="menubar">
  <div id="rightcontrols">
+   <% path = request.fullpath %>
 		<% if user_signed_in? %>
-			<span id="user_email"><%= current_user.email %></span> <%= link_to('Account', edit_user_registration_path, :class => (request.fullpath == '/users/edit') ? 'currentpage' : 'notcurrentpage') %><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+			<span id="user_email"><%= current_user.email %></span> <%= link_to('Account', edit_user_registration_path, :class => (path == '/users/edit') ? 'currentpage' : 'notcurrentpage') %><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 		<% else %>
-			<%= link_to('Login', new_user_session_path, :class => (request.fullpath == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to('Sign Up', new_user_registration_path, :class => (request.fullpath == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
+			<%= link_to('Login', new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to('Sign Up', new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
 		<% end %>
  </div>
  <div id="menu">
     <ul>
-    <li><%= link_to('Map', root_path, :id => "maplink", :class => (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil? or not request.fullpath.match('/observations/new').nil?) ? "currentpage" : "notcurrentpage") %></li>
+    
+    <!-- Map -->
+    <li><%= link_to('Map', root_path, :id => "maplink", :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path)) ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- About -->
-    <li><%= link_to('About', '/about', :class => (['/about','/inventories','/maps','/sharing','/press'].include?(request.fullpath)) ? "currentpage" : "notcurrentpage") %>
+    <li><%= link_to('About', '/about', :class => (['/about','/datasets','/sharing','/press'].include?(path)) ? "currentpage" : "notcurrentpage") %>
     <ul>
-      <li><%= link_to('Tree Inventories', '/inventories', :class => (request.fullpath == '/inventories') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to('Community Maps', '/maps', :class => (request.fullpath == '/maps') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to('Sharing Produce', '/sharing', :class => (request.fullpath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to('In the Press', '/press', :class => (request.fullpath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to('The Project', '/about', :class => (path == '/about') ? 'currentpage' : 'notcurrentpage') %>
+      <li><%= link_to('Imported Datasets', '/datasets', :class => (path == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to('Sharing the Harvest', '/sharing', :class => (path == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to('In the Press', '/press', :class => (path == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
     </ul>
-    <li><%= link_to('Data', '/data', :class => (request.fullpath == '/data') ? "currentpage" : "notcurrentpage") %></li>
-    <li><%= link_to('Changes', '/changes', :class => (request.fullpath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
-    <li><%= link_to('Add Source', new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to('Data', '/data', :class => (path == '/data') ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to('Changes', '/changes', :class => (path == '/changes') ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to('Add Source', new_location_path, :class => (path == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- Routes -->
 		<% if user_signed_in? %>
-			<li><%= link_to('Routes', routes_path, :class => ((request.fullpath == routes_path or not request.fullpath.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
+			<li><%= link_to('Routes', routes_path, :class => ((path == routes_path or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
 			<% if current_user.is? :admin %>
 				
 				<!-- Trouble -->
-				<li><%= link_to('Trouble', problems_path, :class => (request.fullpath == problems_path) ? "currentpage" : "notcurrentpage") %></li>
+				<li><%= link_to('Trouble', problems_path, :class => (path == problems_path) ? "currentpage" : "notcurrentpage") %></li>
 				
 				<!-- Types -->
-				<li><span class="<%= (request.fullpath.include? types_path) ? "currentpage" : "notcurrentpage" %>">Types</span>
+				<li><%= link_to('Types', types_path, :class => (path.include? types_path) ? "currentpage" : "notcurrentpage") %>
 				<ul>
-						<li><%= link_to('Approved Types', types_path, :class => (request.fullpath == types_path) ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to('Pending Types', grow_types_path, :class => (request.fullpath == grow_types_path) ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to('New Type', new_type_path, :class => (request.fullpath == new_type_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to('Approved Types', types_path, :class => (path == types_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to('Pending Types', grow_types_path, :class => (path == grow_types_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to('New Type', new_type_path, :class => (path == new_type_path) ? "currentpage" : "notcurrentpage") %></li>
 				</ul>
 				</li>
 		
 				<!-- Imports -->
-				<li><span class="<%= (request.fullpath.include? imports_path or request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage" %>">Imports</span>
+				<li><%= link_to('Imports', imports_path, :class => (path.include? imports_path or path == import_locations_path) ? "currentpage" : "notcurrentpage") %>
 				<ul>
 						<li><%= link_to('List Imports', imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %></li>
 						<li><%= link_to('New Import', import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %></li>

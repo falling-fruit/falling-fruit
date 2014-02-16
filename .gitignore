@@ -17,6 +17,7 @@
 db/data.yml
 config/database.yml
 config/initializers/secret_token.rb
+config/initializers/secret_token.rb.example
 
 # Other stuff
 db/backups/*.sql
@@ -27,4 +28,4 @@ public/data.yml.bz2
 config/create.log
 
 # Ignore Mac OS
-.DS_Store
+**/.DS_Store

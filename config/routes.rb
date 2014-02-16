@@ -38,12 +38,14 @@ FallingfruitWebapp::Application.routes.draw do
   resources :regions
 
   match 'about' => 'pages#about'
-  match 'data' => 'pages#data'
+  match 'datasets' => 'pages#datasets'
+  match 'sharing' => 'pages#sharing'
   match 'press' => 'pages#press'
+  match 'data' => 'pages#data'
+  
+  # Replaced by pages#datasets (unused)
   match 'maps' => 'pages#maps'
   match 'inventories' => 'pages#inventories'
-  match 'sharing' => 'pages#sharing'
-
   resources :imports do
     collection do
       get 'bibliography'

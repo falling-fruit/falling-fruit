@@ -245,10 +245,6 @@
   }
   
   function do_cluster_types(bounds,zoom,muni) {
-    var previous_text = $('#s2id_type_filter .select2-chosen').html();
-    $('#s2id_type_filter').select2("readonly", true);
-    // Flickers annoyingly:
-    //$('#s2id_type_filter .select2-chosen').html('Loading edible types... ');
 		var bstr = bounds_to_query_string(bounds);
 		var gstr = 'method=grid&grid=' + zoom;
 		if (muni) mstr = '';
@@ -267,16 +263,14 @@
 			}
 			// Update count hack
 				if (!mobile && type_filter != undefined) {
+				  var previous_text = $('#s2id_type_filter .select2-chosen').html();
 				  filter_display = $('#s2id_type_filter .select2-chosen');
 				  if (types_hash[type_filter] == undefined) {
 				    filter_display.html(previous_text.replace(/([0-9]+)/, 0));
 				  } else {
 				    filter_display.html(previous_text.replace(/([0-9]+)/, types_hash[type_filter]));
 				  }
-			  } else {
-			    //$('#s2id_type_filter .select2-chosen').html(previous_text);
 			  }
-			  $('#s2id_type_filter').select2("readonly", false)
 		});
 	}
 

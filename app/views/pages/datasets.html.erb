@@ -1,0 +1,123 @@
+<p>
+Falling Fruit aspires to be the world’s most comprehensive and open geographic dataset of urban edibles. While our users explore, edit, and add locations using our <a href="/">map</a>, we comb the known universe for pre-existing datasets and import them directly into the <a href="/data">database</a>, uniting the efforts of foragers, foresters, and freegans everywhere. If you know of a dataset we've missed, please <a href="mailto:info@fallingfruit.org">let us know</a>! You can also help us with the import process by formatting the data using the <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">import template</a>. Note that since imports must be performed manually, further changes to the original data are not reflected on Falling Fruit.
+</p>
+
+<h2>Imported Datasets</h2>
+
+<p>
+Datasets imported to Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their surroundings for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us get your neighborhood on the map, contact your school or city urging them to share their tree inventory with us.
+</p>
+
+<p>
+Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the original data, the import process, and the license governing how the data may be used.
+</p>
+
+<table id="import_list">
+<thead>
+  <tr>
+    <th></th>
+    <th>Comments</th>
+    <th>License</th>
+    <th>Type</th>
+    <th>Name</th>
+    <th>Locations</th>
+    <th>Date imported</th>
+  </tr>
+</thead>
+<tbody>
+<% 
+lcounts = {}
+Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l|
+  lcounts[l.import_id] = l.count
+}
+Import.all.each do |import|
+  ofile = File.join("public","import","#{import.id}.csv")
+  ifile = File.join("public","import","#{import.id}_done.csv")
+  efile = File.join("public","import","#{import.id}_error.csv")
+  next if File.exists? efile or (File.exists? ofile and !File.exists? ifile)
+%>
+  <tr>
+    <td style="text-align:center;width:25px;">
+      <img src="/details_open.png" style="cursor:pointer;"/>
+    </td>
+    <td>
+      <% unless import.comments.blank? %>
+		    <%= raw import.comments.gsub("\n","<br>") %>
+	    <% end %>
+    </td>
+    <td>
+      <% unless import.license.blank? %>
+		    <%= raw import.license.gsub("\n","<br>") %>
+	    <% else %>
+		    No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons (Attribution, Non-commercial, Share-alike).</a>
+	    <% end %>
+    </td>
+    <td>
+      <%= import.muni ? "Tree inventory" : "Community map" %>
+    </td>
+    <td>
+	    <% unless import.url.blank? %>
+	      <a href="<%= import.url %>"><%= import.name %></a>
+	    <% else %>
+	      <%= import.name %>
+	    <% end %>
+	    <!--<i><a href="<%= import.url %>"><%= !import.url.match('google.com/maps|maps.google').nil? ? "Google Map" : (!import.url.match('google.com/fusiontables').nil? ? "Google Fusion Table" : (!import.url.match('mapsengine.google').nil? ? "Google Maps Engine" : import.url)) %></a></i>-->
+    </td>
+    <td><%= lcounts[import.id] %></td>
+    <td><%= import.created_at %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<style>
+.details {
+  padding-bottom: 1em !important;
+  background-color: #FAFAFA;
+}
+</style>
+
+<script type="text/javascript" charset="utf-8">
+function fnFormatDetails ( oTable, nTr )
+{
+    var aData = oTable.fnGetData( nTr );
+    
+    var sOut = '<div style="margin:0 auto 0 42px;padding:10px;">';
+    if (aData[1].length > 0) {  
+      sOut += aData[1] + '<br/>' + '<i>' + aData[2] + '</i>';	
+    } else {
+      sOut += '<i>' + aData[2] + '</i>';
+    }
+    sOut += '</div>';
+    return sOut;
+}
+
+jQuery(document).ready(function(){
+    var oTable = jQuery('#import_list').dataTable({
+      "aaSorting": [[6,"desc"]],
+      "bPaginate": false,
+      "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 0 ] },
+            { "bVisible": false, "aTargets": [ 1 ] },
+            { "bVisible": false, "aTargets": [ 2 ] }
+        ]
+    });
+    
+    $('#import_list tbody td img').live('click', function () {
+        var nTr = $(this).parents('tr')[0];
+        if ( oTable.fnIsOpen(nTr) )
+        {
+            /* This row is already open - close it */
+            this.src = "/details_open.png";
+            oTable.fnClose( nTr );
+        }
+        else
+        {
+            /* Open this row */
+            this.src = "/details_close.png";
+            oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+        }
+    } );
+    
+});
+</script>

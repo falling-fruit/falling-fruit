@@ -79,6 +79,7 @@ jQuery(document).ready(function(){
     allowClear: true,
     allowedMethods: ['updateResults']
   });
+  $('#s2id_type_filter').select2('disable', true);
   $('#type_filter').on("change",function() {
     $('#type_filter').attr("placeholder", "Select edible type");
     if ($("#type_filter").val() == "") {

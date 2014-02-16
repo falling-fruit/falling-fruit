@@ -85,6 +85,7 @@ function show_observation_html(object){
 }
 
 function update_display(force,force_zoom,force_bounds){
+  $('#s2id_type_filter').select2('disable', true);
   if (typeof type_filter != 'number') type_filter = undefined;
   var zoom = map.getZoom();
   if (force_zoom != undefined) zoom = force_zoom;
@@ -93,7 +94,6 @@ function update_display(force,force_zoom,force_bounds){
   update_permalink();
   if (zoom <= 12) {
     if (prior_zoom > 12) hide_map_controls();
-    // FIX ME: If we want to still load all clusters at low zoom
     if (zoom > 8) {
       do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
     } else if ((zoom != prior_zoom) || force) {
@@ -109,6 +109,7 @@ function update_display(force,force_zoom,force_bounds){
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
+  $('#s2id_type_filter').select2('enable', true);
 }
 
 function hide_map_controls() {

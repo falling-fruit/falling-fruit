@@ -4,7 +4,7 @@
 <tr>
   <a name="<%= import.id %>"></a>
 	<td style="vertical-align:top;text-align:right;padding:2em 1.5em 0 0;">
-		<a href="/imports/<%= import.id %>"><%= import.id %></a>
+		<a href="/imports/<%= import.id %>">#<%= import.id %></a>
 		<% if user_signed_in? and current_user.is? :admin %>
 			<br/><a href="/imports/<%= import.id %>/edit">edit</a>
 		<% end %>
@@ -34,7 +34,7 @@
 	<% unless import.license.blank? %>
 		<%= raw import.license.gsub("\n","<br>") %>
 	<% else %>
-		<i>No license defined, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons (Attribution, Non-commercial, Share-alike)</a></i>.
+		<i>No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons (Attribution, Non-commercial, Share-alike)</a></i>.
 	<% end %>
 	</span>
 
