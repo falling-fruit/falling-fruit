@@ -19,12 +19,6 @@ class ImportsController < ApplicationController
       format.json { render json: @import }
     end
   end
-  
-  def bibliography
-    respond_to do |format|
-      format.html # bibliography.html.erb
-    end
-  end
 
   def update
     @import = Import.find(params[:id])

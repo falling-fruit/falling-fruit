@@ -43,17 +43,14 @@ FallingfruitWebapp::Application.routes.draw do
   match 'press' => 'pages#press'
   match 'data' => 'pages#data'
   match 'dumpsters' => 'locations#freegan_index'
+  match 'imports/bibliography' => 'pages#datasets'
   
   # Replaced by pages#datasets (unused)
   match 'maps' => 'pages#maps'
   match 'inventories' => 'pages#inventories'
   
   # Still used by /imports/show. Consider redirecting to /datasets.
-  resources :imports do
-    collection do
-      get 'bibliography'
-    end
-  end
+  resources :imports
 
   resources :changes
 
