@@ -1,5 +1,12 @@
 DATETIME = $(shell date +%Y%m%d%H%M%S)
 
+bounce:
+	git pull
+	bundle --deployment
+	rake db:migrate
+	rake assets:precompile
+	sudo /etc/init.d/thin restart
+
 export:
 	#cp export_csv.sql /tmp/
 	#sudo su postgres -c "psql -f /tmp/export_csv.sql fallingfruit_db"

@@ -21,12 +21,32 @@
     <%= f.text_field :synonyms %>
   </div>
   <div class="field">
-    <%= f.label :scientific_name %><br />
+    <%= f.label :spanish_name %><br />
+    <%= f.text_field :es_name %>
+  </div>
+  <div class="field">
+    <%= f.label :polish_name %><br />
+    <%= f.text_field :pl_name %>
+  </div>
+  <div class="field">
+    <%= f.label :hebrew_name %><br />
+    <%= f.text_field :he_name %>
+  </div>
+  <div class="field">
+    Scientific (latin) name<br />
     <%= f.text_field :scientific_name %>
   </div>
   <div class="field">
     <%= f.label :scientific_synonyms %><br />
     <%= f.text_field :scientific_synonyms %>
+  </div>
+  <div class="field">
+    <%= f.label :parent %><br/>
+    <%= f.select(:parent_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank=>true) %>
+  </div>
+  <div class="field">
+    <%= f.label :taxonomic_rank %><br/>
+    <%= f.select(:taxonomic_rank,Type::Ranks.collect{ |id,name| [name,id] },:include_blank=>true) %>
   </div>
   <div class="field">
     <%= f.label "USDA" %><br />
@@ -74,4 +94,15 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
+
+<% content_for :form_scripts do %>
+  <script type="text/javascript" charset="utf-8">
+    jQuery(document).ready(function(){
+      // Parent
+      $("#type_parent_id").select2({
+        width: "20em"
+      });
+    });
+  </script>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131206141457) do
+ActiveRecord::Schema.define(:version => 20140210231416) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -146,6 +146,11 @@ ActiveRecord::Schema.define(:version => 20131206141457) do
     t.string   "fruitipedia_url"
     t.string   "eat_the_weeds_url"
     t.string   "foraging_texas_url"
+    t.integer  "parent_id"
+    t.integer  "taxonomic_rank"
+    t.string   "es_name"
+    t.string   "he_name"
+    t.string   "pl_name"
   end
 
   create_table "users", :force => true do |t|

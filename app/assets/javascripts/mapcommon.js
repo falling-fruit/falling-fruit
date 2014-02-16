@@ -134,9 +134,14 @@
             draggable: false
           });
         }
-        markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point", types: mdata[i]["types"]});
+        markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point", types: mdata[i]["types"], parent_types: mdata[i]["parent_types"]});
         for(var j = 0; j < mdata[i]["types"].length; j++){
           var tid = mdata[i]["types"][j];
+          if(types_hash[tid] == undefined) types_hash[tid] = 1;
+          else types_hash[tid] += 1;
+        }
+        for(var j = 0; j < mdata[i]["parent_types"].length; j++){
+          var tid = mdata[i]["parent_types"][j];
           if(types_hash[tid] == undefined) types_hash[tid] = 1;
           else types_hash[tid] += 1;
         }
@@ -645,6 +650,7 @@ function open_tab_3() {
           markersArray[i].marker = null;
           markersArray[i].id = null;
           markersArray[i].types = [];
+          markersArray[i].parent_types = [];
         }
         markersArray.splice(i,1);
         i = find_marker(null);
@@ -789,7 +795,7 @@ function open_tab_3() {
   function apply_type_filter() {
     var len = markersArray.length;
     for(var i = 0; i < len; i++){
-      if (markersArray[i].types.indexOf(type_filter) >= 0) {
+      if (markersArray[i].types.indexOf(type_filter) >= 0 || markersArray[i].parent_types.indexOf(type_filter) >= 0) {
         //markersArray[i].marker.setVisible(true);
         markersArray[i].marker.setZIndex(101);
         markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});

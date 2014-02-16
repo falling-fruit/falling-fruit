@@ -38,7 +38,7 @@
   <% end %>
   
    // state variable used to leave out certain info_window features (report)
-   <% $embed = not(request.fullpath.match('/locations/embed[.]*').nil?) %>
+   <% $embed = (not (request.fullpath.match('/locations/embed[.]*').nil?)) %>
 
   // ================= functions =================
   
