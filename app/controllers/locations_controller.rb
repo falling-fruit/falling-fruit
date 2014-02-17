@@ -275,7 +275,7 @@ class LocationsController < ApplicationController
   def freegan_index
     @freegan = true
     @type = Type.find(843)
-    params[:f] = 2
+    params[:f] = @type.id
     index and return
   end
 

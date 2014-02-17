@@ -3,8 +3,8 @@ DATETIME = $(shell date +%Y%m%d%H%M%S)
 bounce:
 	git pull
 	bundle --deployment
-	rake db:migrate
-	rake assets:precompile
+	bundle exec rake db:migrate
+	bundle exec rake assets:precompile
 	sudo /etc/init.d/thin restart
 
 export:
