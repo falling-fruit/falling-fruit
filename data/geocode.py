@@ -20,18 +20,14 @@ if len(sys.argv) > 1:
 
 # Google Geocode API
 GEOCODE_BASE_URL = 'http://maps.googleapis.com/maps/api/geocode/json'
-def getLatLng(address, sensor = 'false'):
+def getLatLng(address, sensor = 'false', key = 'AIzaSyBB8Abarc_SZdsJoK1C0xAJoXcNC91xHWk'):
 	
 	geocode_args = {'address': address, 'sensor': sensor}
 	url = GEOCODE_BASE_URL + '?' + urllib.urlencode(geocode_args)
 	response = json.load(urllib.urlopen(url))
 	
 	# Parse results
-	places = [];
-	cities = [];
-	lat = response['results'][0]['geometry']['location']['lat']
-	lng = response['results'][0]['geometry']['location']['lng']
-	print '%.6f' % lat + '\t' + '%.6f' % lng
+	print response
 
 # Send single location requests
 # (pause inserted to avoid being booted by Google servers)

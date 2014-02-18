@@ -1,4 +1,4 @@
-<%= link_to('[+] Show all imports', bibliography_imports_path) %>
+<%= link_to('[+] List all imports', '/datasets') %>
 
 <table style="border-collapse:separate;border-spacing:0 2em;">
 <tr>
@@ -14,7 +14,7 @@
 	<b><%= @import.name %></b><br />
 	<% unless @import.url.blank? %>
 		<a href="<%= @import.url %>">
-		<%= !import.url.match('google.com/maps|maps.google').nil? ? "Google Map" : (!import.url.match('google.com/fusiontables').nil? ? "Google Fusion Table" : (!import.url.match('mapsengine.google').nil? ? "Google Maps Engine" : import.url)) %>
+		<%= !@import.url.match('google.com/maps|maps.google').nil? ? "Google Map" : (!@import.url.match('google.com/fusiontables').nil? ? "Google Fusion Table" : (!@import.url.match('mapsengine.google').nil? ? "Google Maps Engine" : @import.url)) %>
 		</a><br />
 	<% end %>
 
