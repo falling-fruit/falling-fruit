@@ -263,6 +263,8 @@ class LocationsController < ApplicationController
     @perma[:muni] = params[:m] == "true" if params[:m].present?
     @perma[:labels] = params[:l] == "true" if params[:l].present?
     @perma[:type] = params[:t] if params[:t].present?
+    @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
+    @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
     @type = params[:f].present? ? Type.find(params[:f]) : nil
     @width = params[:width].present? ? params[:width].to_i : 640
     @height = params[:height].present? ? params[:height].to_i : 600

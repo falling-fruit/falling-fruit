@@ -888,7 +888,7 @@ function apply_geocode(latlng,bounds,zoom) {
 					url: '/cross.png',
 					size: new google.maps.Size(w, h),
 					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(w/2, h/2),
+					anchor: new google.maps.Point(w/2, h/2)
 					},
 				position: latlng, 
 				map: map,

@@ -38,12 +38,15 @@ Sources are marked as unverified if their identity, location, or existence is di
   var lng = -49.57030500000002;
   var zoom = 2;
   var type = google.maps.MapTypeId.ROADMAP;
-	<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
+  <% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
 	<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
 	<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
 	<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
-  muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>;
-  labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
+  var muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>; // this seems wrong!?
+  var labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
+  var center_marker = <%= (!@perma[:center_mark].nil? and @perma[:center_mark]) ? "true" : "false" %>;
+  var center_radius = <%= (!@perma[:center_radius].nil? and @perma[:center_radius].to_i > 0) ? @perma[:center_radius].to_i : "undefined" %>;
+
   var skip_ids = null;
   var type_filter = undefined;
   <% unless @type.nil? %>
@@ -57,7 +60,7 @@ Sources are marked as unverified if their identity, location, or existence is di
 
   function initialize() {
     basemap(lat,lng,zoom,type);
-    
+
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_attribution();
     });
@@ -80,7 +83,38 @@ Sources are marked as unverified if their identity, location, or existence is di
     
     google.maps.event.addListener(map, 'idle', function() {
       update_display_embedded(false,null,muni);
-    });   
+    });
+
+    if(center_marker){
+      var w = 19;
+      var h = 19;
+      var marker = new google.maps.Marker({
+        map: map,
+        icon: {
+          url: '/cross.png',
+          size: new google.maps.Size(w, h),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(w/2, h/2)
+        },
+        position: new google.maps.LatLng(lat,lng),
+        title: 'Some location'
+      });
+    }
+
+    if(center_radius != undefined){
+      var marker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(lat, lng),
+        title: 'Some location'
+      });
+      // Add circle overlay and bind to marker
+      var circle = new google.maps.Circle({
+        map: map,
+        radius: center_radius,    // 10 miles in metres
+        fillColor: '#AA0000'
+      });
+      circle.bindTo('center', marker, 'position');
+    }
   }
 
   // ================== main-level code ===================
