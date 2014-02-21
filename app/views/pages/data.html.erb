@@ -30,8 +30,8 @@ It should go without saying that we take no responsibility for the accuracy of t
 <% 
 cache 'pages_data_type_summary_table' do
   @types = LocationsType.joins("LEFT OUTER JOIN types ON types.id=locations_types.type_id").
-  select("COALESCE(types.name,locations_types.type_other) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
-  group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
+  select("COALESCE(types.name,locations_types.type_other) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms, count(*)").
+  group("cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms").order("cname")
   @lt_count = LocationsType.count
 %>
 
