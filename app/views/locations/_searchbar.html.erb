@@ -96,7 +96,7 @@ jQuery(document).ready(function(){
       }
     } else {
       type_filter = parseFloat($("#type_filter").val());
-      if (zoom <= 12) {
+      if (map.getZoom() <= 12) {
         update_display(true);
       } else {
         apply_type_filter();

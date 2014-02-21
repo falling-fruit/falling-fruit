@@ -12,7 +12,7 @@
   var markersArray = [];
   var types_hash = {};
   var openInfoWindow = null;
-  var showing_route_controls = false;
+  var showing_route_controls = false; // currently unused
   var openInfoWindowHtml = null;
   var originalTab1Height = null; // currently unused
   var originalTab2Height = null; // currently unused
@@ -166,7 +166,7 @@
             anchor: RichMarkerPosition.MIDDLE,
           });
           add_clicky_cluster(m);
-          markersArray.push({marker: m, id: null, type: "cluster"});
+          markersArray.push({marker: m, id: null, type: "cluster", types: [], parent_types: []});
       }
     }
     document.dispatchEvent(markersLoadedEvent);
@@ -200,9 +200,17 @@
           if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
           if(types_hash[tid] == 0) delete types_hash[tid];
         }
+        for(var j = 0; j < markersArray[i].parent_types.length; j++){
+          var tid = markersArray[i].parent_types[j];
+          if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
+          if(types_hash[tid] == 0) delete types_hash[tid];
+        }
         markersArray[i].marker.setMap(null);
         markersArray[i].marker = null;
         markersArray[i].id = null;
+        markersArray[i].types = null;
+        markersArray[i].type = null;
+        markersArray[i].parent_types = null;
         delabelize_marker(i);
         markersArray.splice(i,1);
         i--;
@@ -649,8 +657,9 @@ function open_tab_3() {
           markersArray[i].marker.setMap(null);
           markersArray[i].marker = null;
           markersArray[i].id = null;
-          markersArray[i].types = [];
-          markersArray[i].parent_types = [];
+          markersArray[i].type = null;
+          markersArray[i].types = null;
+          markersArray[i].parent_types = null;
         }
         markersArray.splice(i,1);
         i = find_marker(null);
@@ -795,6 +804,7 @@ function open_tab_3() {
   function apply_type_filter() {
     var len = markersArray.length;
     for(var i = 0; i < len; i++){
+      if(markersArray[i].types == undefined || markersArray[i].parent_types == undefined) continue;
       if (markersArray[i].types.indexOf(type_filter) >= 0 || markersArray[i].parent_types.indexOf(type_filter) >= 0) {
         //markersArray[i].marker.setVisible(true);
         markersArray[i].marker.setZIndex(101);
