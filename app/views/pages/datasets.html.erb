@@ -16,8 +16,7 @@ Each dataset is listed by name, number of locations, and date imported. Expandin
 <thead>
   <tr>
     <th></th>
-    <th>Comments</th>
-    <th>License</th>
+    <th>Details</th>
     <th>Type</th>
     <th>Name</th>
     <th>Locations</th>
@@ -30,7 +29,7 @@ lcounts = {}
 Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l|
   lcounts[l.import_id] = l.count
 }
-Import.all.each do |import|
+Import.order("id").reverse.each do |import|
   ofile = File.join("public","import","#{import.id}.csv")
   ifile = File.join("public","import","#{import.id}_done.csv")
   efile = File.join("public","import","#{import.id}_error.csv")
@@ -41,16 +40,26 @@ Import.all.each do |import|
       <img src="/details_open.png" style="cursor:pointer;"/>
     </td>
     <td>
+      <!-- To match /imports/#
+      <b><%= import.name %></b><br />
+      <% unless import.url.blank? %>
+        <a href="<%= import.url %>">
+        <%= !import.url.match('google.com/maps|maps.google').nil? ? "Google Map" : (!import.url.match('google.com/fusiontables').nil? ? "Google Fusion Table" : (!import.url.match('mapsengine.google').nil? ? "Google Maps Engine" : import.url)) %>
+        </a><br />
+      <% end %>
+      <%= import.muni ? "Tree inventory" : "Community map" %> | Imported <i><%= import.created_at.to_s %></i><br />
+      <hr style="border:1px solid #eee;margin:1.5em 0;">
+      -->
+      <!-- Comments -->
       <% unless import.comments.blank? %>
-		    <%= raw import.comments.gsub("\n","<br>") %>
-	    <% end %>
-    </td>
-    <td>
+        <%= raw import.comments.gsub("\n","<br>") %><br /><br />
+      <% end %>
+      <!-- License -->
       <% unless import.license.blank? %>
-		    <%= raw import.license.gsub("\n","<br>") %>
-	    <% else %>
-		    No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons (Attribution, Non-commercial, Share-alike).</a>
-	    <% end %>
+        <%= raw import.license.gsub("\n","<br>") %>
+      <% else %>
+        <i>No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons (Attribution, Non-commercial, Share-alike)</a></i>.
+      <% end %>
     </td>
     <td>
       <%= import.muni ? "Tree inventory" : "Community map" %>
@@ -84,9 +93,7 @@ function fnFormatDetails ( oTable, nTr )
     
     var sOut = '<div style="margin:0 auto 0 42px;padding:10px;">';
     if (aData[1].length > 0) {  
-      sOut += aData[1] + '<br/>' + '<i>' + aData[2] + '</i>';	
-    } else {
-      sOut += '<i>' + aData[2] + '</i>';
+      sOut += aData[1];	
     }
     sOut += '</div>';
     return sOut;
@@ -94,12 +101,11 @@ function fnFormatDetails ( oTable, nTr )
 
 jQuery(document).ready(function(){
     var oTable = jQuery('#import_list').dataTable({
-      "aaSorting": [[6,"desc"]],
+      "aaSorting": [[5,"desc"]],
       "bPaginate": false,
       "aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 0 ] },
-            { "bVisible": false, "aTargets": [ 1 ] },
-            { "bVisible": false, "aTargets": [ 2 ] }
+            { "bVisible": false, "aTargets": [ 1 ] }
         ]
     });
     
