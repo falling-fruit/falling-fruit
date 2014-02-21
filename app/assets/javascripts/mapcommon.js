@@ -12,7 +12,7 @@
   var markersArray = [];
   var types_hash = {};
   var openInfoWindow = null;
-  var showing_route_controls = false;
+  var showing_route_controls = false; // currently unused
   var openInfoWindowHtml = null;
   var originalTab1Height = null; // currently unused
   var originalTab2Height = null; // currently unused
@@ -197,6 +197,11 @@
       if(!bounds.contains(markersArray[i].marker.getPosition())){
         for(var j = 0; j < markersArray[i].types.length; j++){
           var tid = markersArray[i].types[j];
+          if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
+          if(types_hash[tid] == 0) delete types_hash[tid];
+        }
+        for(var j = 0; j < markersArray[i].parent_types.length; j++){
+          var tid = markersArray[i].parent_types[j];
           if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
           if(types_hash[tid] == 0) delete types_hash[tid];
         }
