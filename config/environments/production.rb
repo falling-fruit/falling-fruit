@@ -67,7 +67,9 @@ FallingfruitWebapp::Application.configure do
   #                              )
 
   # Precompile everything! From: http://guides.rubyonrails.org/asset_pipeline.html
+  skip = ["EZWmobile.css"]
   config.assets.precompile << Proc.new do |path|
+    next if skip.any?{ |x| path =~ /#{x}/ }
     if path =~ /\.(css|js)\z/
       full_path = Rails.application.assets.resolve(path).to_path
       app_assets_path = Rails.root.join('app', 'assets').to_path

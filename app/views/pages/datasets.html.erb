@@ -40,12 +40,12 @@ Import.all.each do |import|
     <td style="text-align:center;width:25px;">
       <img src="/details_open.png" style="cursor:pointer;"/>
     </td>
-    <td>
+    <td style="display:none;">
       <% unless import.comments.blank? %>
 		    <%= raw import.comments.gsub("\n","<br>") %>
 	    <% end %>
     </td>
-    <td>
+    <td style="display:none;">
       <% unless import.license.blank? %>
 		    <%= raw import.license.gsub("\n","<br>") %>
 	    <% else %>
