@@ -67,23 +67,23 @@ FallingfruitWebapp::Application.configure do
   #                              )
 
   # Precompile everything! From: http://guides.rubyonrails.org/asset_pipeline.html
-  skip = ["EZWmobile.css"]
-  config.assets.precompile << Proc.new do |path|
-    next if skip.any?{ |x| path =~ /#{x}/ }
-    if path =~ /\.(css|js)\z/
-      full_path = Rails.application.assets.resolve(path).to_path
-      app_assets_path = Rails.root.join('app', 'assets').to_path
-      if full_path.starts_with? app_assets_path
-        puts "including asset: " + full_path
-        true
-      else
-        puts "excluding asset: " + full_path
-        false
-      end
-    else
-      false
-    end
-  end
+  #skip = ["EZWmobile.css","wicket"]
+  #config.assets.precompile << Proc.new do |path|
+  #  next if skip.any?{ |x| path =~ /#{x}/ }
+  #  if path =~ /\.(css|js)\z/
+  #    full_path = Rails.application.assets.resolve(path).to_path
+  #    app_assets_path = Rails.root.join('app', 'assets').to_path
+  #    if full_path.starts_with? app_assets_path
+  #      puts "including asset: " + full_path
+  #      true
+  #    else
+  #      puts "excluding asset: " + full_path
+  #      false
+  #    end
+  #  else
+  #    false
+  #  end
+  #end
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
