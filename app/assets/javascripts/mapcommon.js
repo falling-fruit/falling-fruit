@@ -105,6 +105,30 @@
     return undefined;
   }
 
+  function draw_and_zoom_to_range(range_string){
+    var wkt = new Wkt.Wkt();
+    wkt.read(range_string);
+    obj = wkt.toObject(map.defaults);
+    obj.setMap(map);
+    if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
+      // For objects that have defined bounds or a way to get them
+      map.fitBounds(obj.getBounds());
+    } else {
+      if (obj.getPath !== undefined && typeof obj.getPath === 'function') {
+        // For Polygons and Polylines
+        var b = new google.maps.LatLngBounds();
+        for(var i = 0; i < obj.getPath().length;i++){
+          b.extend(obj.getPath().getAt(i));
+        }
+        map.fitBounds(b);
+      } else { // But points (Markers) are different
+        if (obj.getPosition !== undefined && typeof obj.getPosition === 'function') {
+          map.panTo(obj.getPosition());
+        }
+      }
+    }
+  }
+
   // will avoid adding duplicate markers (using location id)
   function add_markers_from_json(mdata,rich,skip_ids){
     var len = mdata.length;

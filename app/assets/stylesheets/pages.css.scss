@@ -230,6 +230,79 @@ div#mainmap_container {
   left: 0;
   right: 0;
   z-index: -1;  /* So that if search bar controls wrap, they display above map. */
+  div#sidebar{
+    background: #eeeeee;
+    position: absolute;
+    z-index: 1;
+    width: 210px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    ul{
+      background: #c9c9c9;
+      padding: 0;
+      margin-bottom: 1em;
+      li{
+        padding: 0;
+        margin: 0;
+        a{
+          padding-right: 5px;
+          padding-left: 5px;
+          padding-top: 0px;
+          padding-bottom: 0px;
+          cursor: pointer;
+          span{
+            font-size: 8pt;
+          }
+        }
+      }
+    }
+    #tab-1{
+      padding-left: 0.5em;
+      blockquote{
+        margin-left: 2em;
+        margin-right: 1em;
+      }
+    }
+    #tab-2{
+      padding-left: 0.5em;
+      div.favorite{
+        padding: 1em;
+      }
+    }
+    #tab-3{
+      padding-left: 0.5em;
+      div.route{
+        padding: 1em;
+        a{
+          text-decoration: underline;
+        }
+
+      }
+    }
+    font-size: 8pt;
+    overflow: auto;
+  }
+  div#sidebar_button{
+    font-size: 8pt;
+    font-weight: bold;
+    background: #c9c9c9;
+    position: absolute;
+    z-index: 1;
+    width: 2em;
+    border-radius: 0 0 5px 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    line-height: 3em;
+    height: 3em;
+    padding-left: 1em;
+    a{ color: #a0a0a0; }
+    display: none;
+  }
+  div#map{}
 }
 
 /**********************************************************/

@@ -294,6 +294,7 @@ class LocationsController < ApplicationController
     unless @freegan
       @type = params[:f].present? ? Type.find(params[:f]) : nil
     end
+    prepare_for_sidebar if user_signed_in? and current_user.is? :admin
     respond_to do |format|
       format.html { render "index" }# index.html.erb
       format.json { render json: @locations }
@@ -303,6 +304,7 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
+    prepare_for_sidebar if user_signed_in? and current_user.is? :admin
     respond_to do |format|
       format.html
       format.mobile
@@ -489,5 +491,23 @@ class LocationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @route }
     end
+  end
+
+  private
+
+  def prepare_for_sidebar
+    rangeq = current_user.range.nil? ? "" : "AND ST_INTERSECTS(l.location,(SELECT range FROM users u2 WHERE u2.id=#{current_user.id}))"
+    r = ActiveRecord::Base.connection.execute("SELECT string_agg(coalesce(t.name,lt.type_other),',') as type_title,
+      extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state, l.country,
+      array_agg(lt.position) as positions
+      FROM changes c, locations l, locations_types lt left outer join types t on lt.type_id=t.id
+      WHERE lt.location_id=l.id AND l.id=c.location_id #{rangeq}
+      GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at ORDER BY c.created_at DESC LIMIT 100");
+    @changes = r.collect{ |row| row }
+    @mine = Observation.select('max(created_at) as created_at,user_id,location_id').where("user_id = ?",current_user.id).group(:location_id,:user_id).order('created_at desc')
+    @routes = Route.where("user_id = ?",current_user.id)
+    @zoom_to_polygon = current_user.range.nil? ? nil : current_user.range
+    @zoom_to_circle = nil
+    # FIXME: zoom circle!
   end
 end

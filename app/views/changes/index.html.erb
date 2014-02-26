@@ -31,7 +31,9 @@ last_days_ago = nil
   <% else %>
     <a href="/locations/<%= c["location_id"] %>">
   <% end %>
-  <%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %></a> (#<%= c["location_id"] %>) <%= c["description"] %>
+  <%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %>
+    </a>
+    (#<%= c["location_id"] %>) <%= c["description"] %>
   <% unless c["country"].nil? %>
     in <%= [c["city"],c["state"],c["country"]].compact.join(", ") %>
   <% end %>
