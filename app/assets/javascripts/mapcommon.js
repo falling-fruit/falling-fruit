@@ -105,10 +105,16 @@
     return undefined;
   }
 
-  function draw_and_zoom_to_range(range_string){
+  function draw_and_zoom_to_range(range_string,infobox){
     var wkt = new Wkt.Wkt();
     wkt.read(range_string);
-    obj = wkt.toObject(map.defaults);
+    obj = wkt.toObject({
+      strokeColor: '#000099',
+      strokeWeight: 5,
+      strokeOpacity: 0.5,
+      //fillColor: '#EEFFCC',
+      fillOpacity: 0
+    });
     obj.setMap(map);
     if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
       // For objects that have defined bounds or a way to get them
@@ -127,6 +133,17 @@
         }
       }
     }
+    if(!(infobox == undefined) && infobox){
+      google.maps.event.addListener(obj,'click',function(event){
+        // FIXME: tolerance (0.001) is in lat/lng but would be more meaningful in pixels
+        if(google.maps.geometry.poly.isLocationOnEdge(event.latLng,obj,0.001)){
+          var i = new google.maps.InfoWindow({content:'This is your foraging range. <a href="/users/edit">Click here</a> to edit it.'});
+          i.setPosition(event.latLng);
+          i.setMap(map);
+        }
+      });
+    }
+    return obj;
   }
 
   // will avoid adding duplicate markers (using location id)
@@ -875,7 +892,6 @@ function recenter_map() {
 
 // see: https://developers.google.com/maps/documentation/javascript/geocoding 
 function recenter_map_to_address() {
-	
 	// Bypass geocoder if already lat, lng
 	// (geocoder snaps to nearest address, so not exact)
 	var strsplit = $("#address").val().split(/[\s,]+/);

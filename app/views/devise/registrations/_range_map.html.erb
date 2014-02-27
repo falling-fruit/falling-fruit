@@ -1,11 +1,15 @@
 <%= f.label :foraging_range %><br />
-<span class="subtext">Click on the map to define the area you generally forage in.</span>
-<div style="width:600px;text-align:right;">
+<span class="subtext">Use the map to define the area you generally forage in.</span>
+<div style="width:600px;display:table;">
+  <div style="display: table-cell">
   <input type="text" value="Zoom to address..." onclick="this.value='';" name="address" id="address">
-  <button type="button" onclick="recenter_map_to_address();return false;">Zoom</button>
-  <button type="button" onclick="overlay.setMap(null);overlay=undefined;return false;">Clear</button>
-  <div id="map" style="width:600px;height:400px;"></div>
+  <button type="button" onclick="recenter_range_map_to_address();return false;">Zoom</button>
+  </div>
+  <div style="display: table-cell; text-align: right;">
+  <button type="button" onclick="clear_range_overlays();return false;">Clear Map</button>
+  </div>
 </div>
+<div id="map" style="width:600px;height:400px;"></div>
 
 <% content_for :page_scripts do %>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=drawing&amp;sensor=false"></script>
@@ -14,11 +18,13 @@
 <%= javascript_include_tag "mapcommon" %>
 <script type="text/javascript">
 
-overlay = undefined;
-geocoder = undefined;
-map = undefined;
+var overlay = undefined;
+var geocoder = undefined;
+var map = undefined;
+var drawingManager = undefined;
 
 function initialize() {
+
   var mapOptions = {
     center: new google.maps.LatLng(-34.397, 150.644),
     zoom: 8,
@@ -26,8 +32,7 @@ function initialize() {
   };
 
   map = new google.maps.Map(document.getElementById('map'),mapOptions);
-
-  var drawingManager = new google.maps.drawing.DrawingManager({
+  drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: google.maps.drawing.OverlayType.POLYGON,
     drawingControl: true,
     drawingControlOptions: {
@@ -65,6 +70,7 @@ function initialize() {
     var wkt = new Wkt.Wkt();
     wkt.fromObject(overlay);
     document.getElementById('user_range').value = wkt.write();
+    drawingManager.setOptions({ drawingControl: false });
   });
 
   geocoder = new google.maps.Geocoder();
@@ -72,13 +78,22 @@ function initialize() {
   drawingManager.setMap(map);
 
   <% if user_signed_in? and !current_user.range.nil? %>
-  draw_and_zoom_to_range('<%= current_user.range %>');
+  var obj = draw_and_zoom_to_range('<%= current_user.range %>',false);
+  obj.setEditable(true);
+  overlay = obj;
+  drawingManager.setOptions({ drawingControl: false });
   <% end %>
 
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function recenter_map_to_address() {
+function clear_range_overlays(){
+  overlay.setMap(null);
+  overlay=undefined;
+  drawingManager.setOptions({ drawingControl: true });
+}
+
+function recenter_range_map_to_address() {
   geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       map.setZoom(13)
