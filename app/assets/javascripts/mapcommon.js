@@ -624,7 +624,7 @@ function open_tab_3() {
     	// (doing this on map-click and close-click is not enough, marker-click is sufficient)
     	pano_tab = null;
       if (openMarker === marker) return;
-      if (openInfoWindow != null) openInfoWindow.close()
+      if (openInfoWindow != null) openInfoWindow.close();
       var requestHtml = $.ajax({
         type: 'GET',
         url: '/locations/' + id + '/infobox',
@@ -1032,6 +1032,19 @@ function zoom_to_marker() {
   map.setZoom(maxZoom);
   if (openInfoWindow != null && openMarker != null) {
     openInfoWindow.open(map, openMarker);
+  }
+}
+
+function sidebar_pan_to_location(lid,lat,lng){
+  z = map.getZoom();
+  if(z >= 13){
+    if (openInfoWindow != null) openInfoWindow.close()
+    map.panTo(new google.maps.LatLng(lat,lng));
+    open_marker_by_id(lid);
+  }else{
+    map.panTo(new google.maps.LatLng(lat,lng))
+    map.setZoom(13);
+    open_marker_by_id(lid);
   }
 }
 

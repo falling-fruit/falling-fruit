@@ -10,9 +10,9 @@
   <!-- ACTIVITY TAB -->
   <div id="sidebar-tab-1">
     <% if current_user.range.nil? %>
-      You haven't setup your foraging range. <%= link_to "Click here", edit_user_path(current_user) %> to do that.
+      You haven't setup your foraging range. <%= link_to "Click here", '/users/edit' %> to do that.
     <% else %>
-      Changes in your <%= link_to "foraging range", edit_user_path(current_user) %>:
+      Changes in your <%= link_to "foraging range", '/users/edit' %>:
     <% end %>
     <br/><br/>
     <%
@@ -28,18 +28,20 @@
          }
          c["days_ago"] = c["days_ago"].to_i
          lab = nil
+         mday = Time.zone.today.day
+         wday = Time.zone.today.wday
          if c["days_ago"] <= 0
            lab = "Last 24 hours"
-         elsif c["days_ago"] <= 7
+         elsif c["days_ago"] <= wday
            lab = "This week"
-         elsif c["days_ago"] <= 30
+         elsif c["days_ago"] <= mday
            lab = "This month"
-         elsif c["days_ago"] <= 60
+         elsif c["days_ago"] <= mday+30
            lab = "Last month"
          else
-           lab = "#{(c["days_ago"]/30).to_i} months ago"
+           lab = "#{((c["days_ago"]-mday)/30).to_i} months ago"
          end
-         if last_lab.nil? or lab != lab
+         if last_lab.nil? or last_lab != lab
            if last_lab.nil?
              header = lab + "<blockquote>"
            else
@@ -50,7 +52,7 @@
     %>
       <%= raw header %>
       <% unless c["location_id"].nil? %>
-        <a href="/locations/<%= c["location_id"] %>">
+        <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;">
           <%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %></a> <%= c["description"] %>
         <% unless c["city"].nil? %>
           in <%= c["city"] %>
@@ -58,7 +60,7 @@
       <% else %>
         <%= c["description"] %>
       <% end %>
-      <br>
+      <br/>
     <% end %>
     <% if @changes.length > 0 %>
       </blockquote>
@@ -71,7 +73,9 @@
     <br/><br/>
     <% @mine.each do |o| %>
       <div class="favorite">
-        <%= link_to o.location.title, location_path(o.location) %><br/>
+        <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;">
+          <%= o.location.title %>
+        </a><br/>
         Last visited <%= time_ago_in_words(o.created_at) %> ago.
       </div>
     <% end %>
