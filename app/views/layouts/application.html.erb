@@ -15,6 +15,9 @@
 
   <!-- Scripts & Styles -->
   <%= stylesheet_link_tag "application" %>
+  <% if @freegan %>
+    <%= stylesheet_link_tag "freegan" %>
+  <% end %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
@@ -27,6 +30,7 @@
     // Mobile state variable
     var mobile = false;
   </script>
+
 </head>
 <body>
 
@@ -53,7 +57,7 @@
  <% end %>
 
 <!-- Logo Bar -->
-<div id="logobar">
+<div id="logobar"> 
 
  <!-- AddThis Buttons -->
 	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
@@ -80,8 +84,12 @@
 	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
  
  <!-- Title -->
- <a id="falling_fruit" href="/">FallingFruit.org</a><a href="/?mobile=1"><img style="height:1.7em;position:relative;top:0.1em;left:0.5em;" src="/mobile.png" title="Mobile site"/></a><span id="subtitle"> Mapping the urban harvest!</span>
- 
+ <a id="falling_fruit" href="/">FallingFruit.org</a><a href="/?mobile=1"><img style="height:1.7em;position:relative;top:0.1em;left:0.5em;" src="/mobile.png" title="Mobile site"/></a><span id="subtitle">
+ <% unless @freegan %>
+   Mapping the urban harvest!</span>
+ <% else %>
+   Feed people, not landfills!</span>
+ <% end %>
 </div>
 
 <!-- Menu Bar -->

@@ -1,18 +1,19 @@
+<div id="sidebar_container">
 <div id="sidebar">
   <!-- Tab Menu -->
   <ul>
-    <li id="activity"><a href="#sidebar-tab-1"><span>Activity</span></a></li>
+    <li id="activity-tab"><a href="#sidebar-tab-1"><span>Activity</span></a></li>
     <li id="review-tab"><a href="#sidebar-tab-2"><span>Favorites</span></a></li>
     <li id="routes-tab"><a href="#sidebar-tab-3"><span>Routes</span></a></li>
-    <li><div style="text-align: right;"><a href="#" onclick="$('#mainmap_container').css('left','0px');$('#sidebar_button').show();"><span>◀</span></a></div></li>
+    <li id="close-arrow"><a href="#" class="sidebar_arrow" onclick="$('#mainmap_container').css('left','0px'); $('#sidebar_button').show(); google.maps.event.trigger(map, 'resize');"><span>◀</span></a></li>
   </ul>
 
   <!-- ACTIVITY TAB -->
   <div id="sidebar-tab-1">
     <% if current_user.range.nil? %>
-      You haven't setup your foraging range. <%= link_to "Click here", '/users/edit' %> to do that.
+      You haven't defined a foraging range. <%= link_to "Click here", '/users/edit' %> to do that now.
     <% else %>
-      Changes in your <%= link_to "foraging range", '/users/edit' %>:
+      Changes within your <%= link_to "foraging range", '/users/edit' %>:
     <% end %>
     <br/><br/>
     <%
@@ -52,7 +53,7 @@
     %>
       <%= raw header %>
       <% unless c["location_id"].nil? %>
-        <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;">
+        <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();">
           <%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %></a> <%= c["description"] %>
         <% unless c["city"].nil? %>
           in <%= c["city"] %>
@@ -70,10 +71,10 @@
   <!-- FAVORITES TAB -->
   <div id="sidebar-tab-2">
     Locations added or reviewed by you (while logged in):
-    <br/><br/>
+    <br/>
     <% @mine.each do |o| %>
       <div class="favorite">
-        <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;">
+        <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
           <%= o.location.title %>
         </a><br/>
         Last visited <%= time_ago_in_words(o.created_at) %> ago.
@@ -96,24 +97,26 @@
           <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<%= route.is_public ? 'public' : 'private' %>)
           <br/>
           <%= lcounts[route.id] %> locations.
-          For <%= route.transport_type %>. Last updated <%= time_ago_in_words(route.updated_at) %> ago.
+          <%= route.transport_type %>. Last updated <%= time_ago_in_words(route.updated_at) %> ago.
         </div>
       <% end %>
       </ul>
   <% else %>
-    You haven't made any foraging routes yet.
+    You haven't defined any foraging routes yet.
     <% end %>
   </div>
 </div>
+</div> <!-- sidebar_container -->
 <div id="sidebar_button">
-  <a href="#" onclick="$('#sidebar_button').hide();$('#mainmap_container').css('left','300px');">▶</a>
+  <a href="#" onclick="$('#sidebar_button').hide(); $('#mainmap_container').css('left','300px'); google.maps.event.trigger(map, 'resize');">▶</a>
 </div>
 
 <% content_for(:page_scripts) do %>
 <script type="text/javascript">
 jQuery(document).ready(function(){
-  $("#sidebar").tabs();
   $("#mainmap_container").css('left','300px');
+  $("#sidebar").tabs();
+  $("#sidebar").show();
 });
 </script>
 <% end %>

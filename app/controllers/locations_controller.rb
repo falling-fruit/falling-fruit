@@ -277,8 +277,9 @@ class LocationsController < ApplicationController
   # GET /dumpsters
   def freegan_index
     @freegan = true
-    @type = Type.find(843)
+    @type = Type.find(182)
     params[:f] = @type.id
+    params[:t] = 'toner-lite'
     index and return
   end
 
