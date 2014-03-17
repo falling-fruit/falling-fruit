@@ -126,10 +126,9 @@
     var wkt = new Wkt.Wkt();
     wkt.read(range_string);
     obj = wkt.toObject({
-      strokeColor: '#000099',
+      strokeColor: '#666',
       strokeWeight: 5,
       strokeOpacity: 0.5,
-      //fillColor: '#EEFFCC',
       fillOpacity: 0,
       clickable: false
     });
