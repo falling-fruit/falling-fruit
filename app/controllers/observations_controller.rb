@@ -30,7 +30,7 @@ class ObservationsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @obs, 
                                                        :message => "ReCAPCHA error!")
       if test and @obs.save
-        log_changes(@obs.location,"visited")
+        log_changes(@obs.location,"visited",@obs)
         format.html { redirect_to @obs.location, notice: 'You review was added successfully.' }
         format.mobile { redirect_to @obs.location, notice: 'You review was added successfully.' }
       else

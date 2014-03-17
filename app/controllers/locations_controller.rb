@@ -278,9 +278,8 @@ class LocationsController < ApplicationController
   # GET /freegan
   def freegan_index
     @freegan = true
-    @type = Type.find(182)
+    @type = Type.find_by_name('Freegan')
     params[:f] = @type.id
-    params[:t] = 'toner-lite'
     index and return
   end
 
@@ -415,6 +414,10 @@ class LocationsController < ApplicationController
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
 
+    # compute diff/patch so we can undo later
+    dmp = DiffMatchPatch.new
+    patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description))
+
     p = 0
     lts = []
     @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
@@ -439,8 +442,7 @@ class LocationsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
       if test and @location.update_attributes(params[:location]) and lt_update_okay
-        
-        log_changes(@location,"edited")
+        log_changes(@location,"edited",nil,params[:author],patch)
         ApplicationController.cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
@@ -462,7 +464,6 @@ class LocationsController < ApplicationController
       lt.destroy
     }
     expire_things
-    log_changes(nil,"1 location deleted")
     respond_to do |format|
       format.html { redirect_to locations_url }
       format.mobile { redirect_to locations_url }
@@ -478,6 +479,7 @@ class LocationsController < ApplicationController
       @route.user = current_user
       @route.access_key = Digest::MD5.hexdigest(rand.to_s)
       @route.is_public = true
+      @route.transport_type = Route::TransportTypes.index("Walking")
       @route.save
       lr = LocationsRoute.new
       lr.route = @route
@@ -506,13 +508,14 @@ class LocationsController < ApplicationController
     rangeq = current_user.range.nil? ? "" : "AND ST_INTERSECTS(l.location,(SELECT range FROM users u2 WHERE u2.id=#{current_user.id}))"
     r = ActiveRecord::Base.connection.execute("SELECT string_agg(coalesce(t.name,lt.type_other),',') as type_title,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state,
-      l.country, l.lat, l.lng, l.description as location_description, array_agg(lt.position) as positions
+      l.country, l.lat, l.lng, l.description as location_description, array_agg(lt.position) as positions, c.author as change_author
       FROM changes c, locations l, locations_types lt left outer join types t on lt.type_id=t.id
       WHERE lt.location_id=l.id AND l.id=c.location_id #{rangeq}
-      GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at ORDER BY c.created_at DESC LIMIT 100");
+      GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at, c.author ORDER BY c.created_at DESC LIMIT 100");
     @changes = r.collect{ |row| row }
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
-      where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").order('observations.created_at desc')
+      where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
+      order('observations.created_at desc')
     @routes = Route.where("user_id = ?",current_user.id)
     @zoom_to_polygon = current_user.range.nil? ? nil : current_user.range
     @zoom_to_circle = nil

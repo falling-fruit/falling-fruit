@@ -55,6 +55,8 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.1)
+    diff_match_patch_native (1.0.2)
+      rice (>= 1.4.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (1.4.0)
@@ -124,6 +126,7 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.20)
+    rice (1.6.0)
     role_model (0.8.1)
     rspec-core (2.13.0)
     rspec-expectations (2.13.0)
@@ -183,6 +186,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   comma (~> 3.0)
   devise
+  diff_match_patch_native
   faker
   geocoder
   gmaps4rails

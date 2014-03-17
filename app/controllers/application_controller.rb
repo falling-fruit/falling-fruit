@@ -126,12 +126,24 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cluster_seed
 
-  def log_changes(location,description)
+  def log_changes(location,description,observation=nil,author=nil,description_patch=nil)
     c = Change.new
     c.location = location
     c.description = description
     c.remote_ip = request.remote_ip
     c.user = current_user if user_signed_in?
+    c.observation = observation
+    c.description_patch = description_patch
+    # adding an observation
+    if author.nil? and not observation.nil?
+      c.author = observation.author
+    # adding a location
+    elsif author.nil? and observation.nil? and description == "added"
+      c.author = location.author
+    # editing a location
+    elsif not author.nil?
+      c.author = author
+    end
     c.save
   end
   helper_method :log_changes
