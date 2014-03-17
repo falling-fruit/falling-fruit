@@ -129,23 +129,21 @@ jQuery(document).ready(function(){
   </div>
   
   <!-- Author (new) -->
-  <% if @current_action == "new" or @current_action == "create" %>
-  	<div class="field">
-			<%= f.label :author %><br />
-			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
-			<% if !user_signed_in? or (user_signed_in? and current_user.add_anonymously?) %>
-				<%= f.text_field :author %>
-			<% elsif user_signed_in? and !current_user.add_anonymously? %>
-				<%= f.text_field :author, :value => current_user.name %>
-			<% end %>
-			</span>
-  	</div>
-  <% end %>
+  <div class="field">
+    <%= f.label :your_name %><br />
+    <span class="subtext">Leave blank if you prefer to remain anonymous.</span><br />
+    <% if @current_action == "new" or @current_action == "create" %>
+      <%= f.text_field :author, :value => ((user_signed_in? and not current_user.add_anonymously?) ? current_user.name : "") %>
+    <% else %>
+      <%= text_field_tag :author, ((user_signed_in? and not current_user.add_anonymously?) ? current_user.name : "") %>
+    <% end %>
+    </span>
+  </div>
   
   <!-- Author (edit: admin only) -->
   <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
   	<div class="field">
-			<%= f.label :author %><br />
+			<%= f.label :original_author %><br />
 			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
 			<%= f.text_field :author %>
 			</span>

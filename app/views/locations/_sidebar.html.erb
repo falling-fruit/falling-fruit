@@ -60,7 +60,12 @@
       <% else %>
         <%= c["description"] %>
       <% end %>
+      <!-- <%= c["location_description"] %> -->
+      <% unless c["change_author"].blank? %>
+        by <%= c["change_author"] %>
+      <% end %>
       <br/>
+
     <% end %>
     <% if @changes.length > 0 %>
       </blockquote>

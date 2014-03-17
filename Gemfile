@@ -52,3 +52,6 @@ gem 'cancan'
 gem 'role_model'
 
 gem 'shadowbox-rails'
+
+# For diffing/patching descriptions
+gem 'diff_match_patch_native'
