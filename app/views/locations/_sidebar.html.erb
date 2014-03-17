@@ -10,9 +10,9 @@
   <!-- ACTIVITY TAB -->
   <div id="sidebar-tab-1">
     <% if current_user.range.nil? %>
-      You haven't setup your foraging range. <%= link_to "Click here", edit_user_path(current_user) %> to do that.
+      You haven't setup your foraging range. <%= link_to "Click here", '/users/edit' %> to do that.
     <% else %>
-      Changes in your <%= link_to "foraging range", edit_user_path(current_user) %>:
+      Changes in your <%= link_to "foraging range", '/users/edit' %>:
     <% end %>
     <br/><br/>
     <%
