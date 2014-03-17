@@ -28,4 +28,4 @@ public/data.yml.bz2
 config/create.log
 
 # Ignore Mac OS
-**/.DS_Store
+.DS_Store

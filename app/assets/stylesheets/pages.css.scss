@@ -230,17 +230,17 @@ div#mainmap_container {
   left: 0;
   right: 0;
   z-index: -1;  /* So that if search bar controls wrap, they display above map. */
-  div#sidebar{
-    background: #eeeeee;
+}
+
+div#sidebar{
+    background: #EEE;
     position: absolute;
-    z-index: 1;
-    width: 210px;
+    z-index: -2;
+    width: 300px;
     left: 0;
-    bottom: 0;
-    right: 0;
     height: 100%;
     ul{
-      background: #c9c9c9;
+      background: #D3D3D3;
       padding: 0;
       margin-bottom: 1em;
       li{
@@ -258,20 +258,20 @@ div#mainmap_container {
         }
       }
     }
-    #tab-1{
+    #sidebar-tab-1{
       padding-left: 0.5em;
       blockquote{
         margin-left: 2em;
         margin-right: 1em;
       }
     }
-    #tab-2{
+    #sidebar-tab-2{
       padding-left: 0.5em;
       div.favorite{
         padding: 1em;
       }
     }
-    #tab-3{
+    #sidebar-tab-3{
       padding-left: 0.5em;
       div.route{
         padding: 1em;
@@ -285,25 +285,23 @@ div#mainmap_container {
     overflow: auto;
   }
   div#sidebar_button{
-    font-size: 8pt;
-    font-weight: bold;
-    background: #c9c9c9;
     position: absolute;
-    z-index: 1;
-    width: 2em;
-    border-radius: 0 0 5px 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    line-height: 3em;
-    height: 3em;
-    padding-left: 1em;
-    a{ color: #a0a0a0; }
+    left: 0px;
+    font-size: 10px;
+    font-weight: bold;
+    background: #FFF;
+    border: 1px solid #DDD;
     display: none;
+    a{
+      color: #a0a0a0;
+      padding: 5px;
+      display: block;
+    }
+    a:hover{
+      color: #666;
+    }
   }
-  div#map{}
-}
+
 
 /**********************************************************/
 /******************* /locations/{edit,new} ****************/

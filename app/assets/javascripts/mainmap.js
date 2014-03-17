@@ -23,20 +23,20 @@ function update_permalink(){
   $('#permalink').attr('href',permalink);
 }
 
-function update_url(object) {
-  window.history.pushState(undefined, "", $(object).attr('href'));
-}
+// function update_url(object) {
+//   window.history.pushState(undefined, "", $(object).attr('href'));
+// }
 
 // Force url updates before leaving page (does not work on refresh)
 // better?: http://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page/3354511#3354511
-$(window).unload(function () {
-	if ($('#location_link').length > 0) {
-		update_url('#location_link');
-	} else if ($('#permalink').length > 0) {
-		update_permalink();
-		update_url('#permalink');
-	}
-});
+// $(window).unload(function () {
+// 	if ($('#location_link').length > 0) {
+// 		update_url('#location_link');
+// 	} else if ($('#permalink').length > 0) {
+// 		update_permalink();
+// 		update_url('#permalink');
+// 	}
+// });
 
 function show_embed_html(object){
   var center = map.getCenter();

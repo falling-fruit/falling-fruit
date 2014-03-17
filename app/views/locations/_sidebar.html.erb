@@ -3,8 +3,8 @@
   <ul>
     <li id="activity"><a href="#sidebar-tab-1"><span>Activity</span></a></li>
     <li id="review-tab"><a href="#sidebar-tab-2"><span>Favorites</span></a></li>
-    <li id="streetview-tab"><a href="#sidebar-tab-3"><span>Routes</span></a></li>
-    <li><div style="text-align: right;"><a href="#" onclick="$('#sidebar').toggle('slide');$('#map').css('left','0px');$('#sidebar_button').show();"><span>◄</span></a></div></li>
+    <li id="routes-tab"><a href="#sidebar-tab-3"><span>Routes</span></a></li>
+    <li><div style="text-align: right;"><a href="#" onclick="$('#mainmap_container').css('left','0px');$('#sidebar_button').show();"><span>◀</span></a></div></li>
   </ul>
 
   <!-- ACTIVITY TAB -->
@@ -102,14 +102,14 @@
   </div>
 </div>
 <div id="sidebar_button">
-  <a href="#" onclick="$('#sidebar_button').hide();$('#map').css('left','210px');$('#sidebar').toggle('slide');">▶</a>
+  <a href="#" onclick="$('#sidebar_button').hide();$('#mainmap_container').css('left','300px');">▶</a>
 </div>
 
 <% content_for(:page_scripts) do %>
 <script type="text/javascript">
 jQuery(document).ready(function(){
   $("#sidebar").tabs();
-  $("#map").css('left','210px');
+  $("#mainmap_container").css('left','300px');
 });
 </script>
 <% end %>

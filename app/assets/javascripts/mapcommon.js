@@ -364,8 +364,8 @@
 				}
         return(true);
       } else {
-        $("#streetview-tab").remove();
         $("#tab-3").remove();
+        $("#streetview-tab").remove();
         $("#streetview-toggle").remove();
         return(false);
       }

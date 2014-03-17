@@ -8,10 +8,10 @@
 
 <%= render 'searchbar' %>
 
+<% unless @show_sidebar.nil? or not @show_sidebar %>
+  <%= render 'sidebar' %>
+<% end %>
 <div id="mainmap_container">
-  <% unless @show_sidebar.nil? or not @show_sidebar %>
-    <%= render 'sidebar' %>
-  <% end %>
   <div id="map"></div>
   <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
 </div>
