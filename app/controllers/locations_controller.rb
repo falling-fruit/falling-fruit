@@ -277,9 +277,8 @@ class LocationsController < ApplicationController
   # GET /dumpsters
   def freegan_index
     @freegan = true
-    @type = Type.find(182)
+    @type = Type.find_by_name('Freegan')
     params[:f] = @type.id
-    params[:t] = 'toner-lite'
     index and return
   end
 
@@ -479,6 +478,7 @@ class LocationsController < ApplicationController
       @route.user = current_user
       @route.access_key = Digest::MD5.hexdigest(rand.to_s)
       @route.is_public = true
+      @route.transport_type = Route::TransportTypes.index("Walking")
       @route.save
       lr = LocationsRoute.new
       lr.route = @route
