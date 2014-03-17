@@ -185,7 +185,7 @@
   // Draw foraging range on map
   function add_range(range_string) {
     var wkt = new Wkt.Wkt();
-    wkt.read(wkt_string);
+    wkt.read(range_string);
     obj = wkt.toObject({
       strokeColor: '#666',
       strokeWeight: 5,

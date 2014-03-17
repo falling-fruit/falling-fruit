@@ -75,10 +75,10 @@
   
   function initialize() {
   
-    <% unless @zoom_to_polygon.nil? %>
+    <% if @zoom_to_polygon.nil? %>
       basemap(lat,lng,zoom,type);
     <% else %>
-      // Maybe check that bounds were returned?
+      // Hmm, maybe check first that bounds are returned?
       var bounds = wkt_to_bounds('<%= @zoom_to_polygon %>');
       basemap(undefined,undefined,undefined,type,bounds);
       add_range('<%= @zoom_to_polygon %>');
