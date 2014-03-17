@@ -281,6 +281,12 @@ class LocationsController < ApplicationController
     index and return
   end
 
+  # GET /locations/home
+  def home
+    prepare_for_sidebar if user_signed_in? and current_user.is? :admin
+    index
+  end
+
   # GET /locations
   # GET /locations.json
   def index
@@ -294,7 +300,6 @@ class LocationsController < ApplicationController
     unless @freegan
       @type = params[:f].present? ? Type.find(params[:f]) : nil
     end
-    prepare_for_sidebar if user_signed_in? and current_user.is? :admin
     respond_to do |format|
       format.html { render "index" }# index.html.erb
       format.json { render json: @locations }
@@ -508,6 +513,7 @@ class LocationsController < ApplicationController
     @routes = Route.where("user_id = ?",current_user.id)
     @zoom_to_polygon = current_user.range.nil? ? nil : current_user.range
     @zoom_to_circle = nil
+    @show_sidebar = true
     # FIXME: zoom circle!
   end
 end

@@ -98,7 +98,12 @@
     <ul>
     
     <!-- Map -->
-    <li><%= link_to('Map', root_path, :id => "maplink", :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path)) ? "currentpage" : "notcurrentpage") %></li>
+    <% unless user_signed_in? %>
+      <li><%= link_to('Map', root_path, :id => "maplink", :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path)) ? "currentpage" : "notcurrentpage") %></li>
+    <% else %>
+      <li><%= link_to('Home', home_locations_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to('World', root_path, :id => "maplink", :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path)) ? "currentpage" : "notcurrentpage") %></li>
+    <% end %>
     
     <!-- About -->
     <li><%= link_to('About', '/about', :class => (['/about','/datasets','/sharing','/press'].include?(path)) ? "currentpage" : "notcurrentpage") %>
@@ -110,7 +115,6 @@
     </ul>
     <li><%= link_to('Data', '/data', :class => (path == '/data') ? "currentpage" : "notcurrentpage") %></li>
     <li><%= link_to('Changes', '/changes', :class => (path == '/changes') ? "currentpage" : "notcurrentpage") %></li>
-    <li><%= link_to('Add Source', new_location_path, :class => (path == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- Routes -->
 		<% if user_signed_in? %>
@@ -143,7 +147,8 @@
 			<% end %>
 		<% end %>
     </ul>
-    
+
+    <li><%= link_to('+ Add Source', new_location_path, :class => (path == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
     <!-- Click on map! -->
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
 				<span>(or right-click on map)</span>
