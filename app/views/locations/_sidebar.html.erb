@@ -73,7 +73,9 @@
     <br/><br/>
     <% @mine.each do |o| %>
       <div class="favorite">
-        <%= link_to o.location.title, location_path(o.location) %><br/>
+        <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;">
+          <%= o.location.title %>
+        </a><br/>
         Last visited <%= time_ago_in_words(o.created_at) %> ago.
       </div>
     <% end %>
