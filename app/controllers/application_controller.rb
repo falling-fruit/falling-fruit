@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  def after_sign_in_path_for(user)
+    home_locations_path
+  end
+
   # http://railscasts.com/episodes/199-mobile-devices
   def mobile_device?
     if session[:mobile_param]

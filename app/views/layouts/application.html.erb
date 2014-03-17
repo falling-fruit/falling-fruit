@@ -148,11 +148,12 @@
 		<% end %>
     </ul>
 
-    <li><%= link_to('+ Add Source', new_location_path, :class => (path == new_location_path) ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to('+ Add Source', new_location_path, :class => (path == new_location_path) ? "currentpage" : "notcurrentpage") %>
     <!-- Click on map! -->
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
 				<span>(or right-click on map)</span>
 			<% end %>
+    </li>
 
  </div>
 </div>

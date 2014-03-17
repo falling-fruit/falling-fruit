@@ -12,11 +12,11 @@
     <% if current_user.range.nil? %>
       You haven't setup your foraging range. <%= link_to "Click here", edit_user_path(current_user) %> to do that.
     <% else %>
-      Changes in your foraging range:
+      Changes in your <%= link_to "foraging range", edit_user_path(current_user) %>:
     <% end %>
     <br/><br/>
     <%
-       last_days_ago = nil
+       last_lab = nil
        @changes.each do |c|
          reordered_type_title = []
          c["positions"] = $1.split(/,/).collect{ |e| e.to_i } if c["positions"] =~ /\{(.*)\}/
@@ -27,21 +27,32 @@
            reordered_type_title[p] = t
          }
          c["days_ago"] = c["days_ago"].to_i
-         if last_days_ago.nil? or c["days_ago"] > last_days_ago
-           header = (c["days_ago"] <= 0) ? "Last 24 hours" : ((c["days_ago"] == 1) ? "1 day ago" : "#{c["days_ago"]} days ago")
-           if last_days_ago.nil?
-             header = header + "<blockquote>"
+         lab = nil
+         if c["days_ago"] <= 0
+           lab = "Last 24 hours"
+         elsif c["days_ago"] <= 7
+           lab = "This week"
+         elsif c["days_ago"] <= 30
+           lab = "This month"
+         elsif c["days_ago"] <= 60
+           lab = "Last month"
+         else
+           lab = "#{(c["days_ago"]/30).to_i} months ago"
+         end
+         if last_lab.nil? or lab != lab
+           if last_lab.nil?
+             header = lab + "<blockquote>"
            else
-             header = "</blockquote>#{header}<blockquote>"
+             header = "</blockquote>#{lab}<blockquote>"
            end
-           last_days_ago = c["days_ago"]
+           last_lab = lab
          end
     %>
       <%= raw header %>
       <% unless c["location_id"].nil? %>
         <a href="/locations/<%= c["location_id"] %>">
           <%= c["type_title"].nil? ? "Unknown" : reordered_type_title.join(" · ") %></a> <%= c["description"] %>
-        <% unless c["country"].nil? %>
+        <% unless c["city"].nil? %>
           in <%= c["city"] %>
         <% end %>
       <% else %>
