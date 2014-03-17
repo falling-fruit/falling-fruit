@@ -29,6 +29,7 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery_mobile_rails'
+gem 'jquery-cookie-rails'
 gem 'validates_timeliness'
 gem 'timeliness'
 gem 'select2-rails', '~> 3.4.2'
@@ -47,6 +48,7 @@ gem 'comma', '~> 3.0'
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
 
+# Authentication stuff
 # http://www.phase2technology.com/blog/authentication-permissions-and-roles-in-rails-with-devise-cancan-and-role-model/
 gem 'cancan'
 gem 'role_model'
