@@ -458,23 +458,25 @@
     });
   }
   
-  // Tab 1 (info, the default) uses its original height.
-  function open_tab_1() {	
-    openInfoWindowHeaderHeight = $('.ui-tabs-nav')[0].scrollHeight + parseFloat($('.ui-tabs-nav').css('margin-bottom'));
-    var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
-    if (max_height < ($('#tab-1').height() - 1)) {
-      $('#tab-1').height(max_height);
-    }
-		if (pano.getVisible()) {
-            	openInfoWindow.open(pano, openMarker);
-          	} else {
-            	openInfoWindow.open(map, openMarker);
-          	}
+// Tab 1 (info, the default) uses its original height.
+function open_tab_1() {	
+  p = $('#location_infowindow');
+  openInfoWindowHeaderHeight = p.children('.ui-tabs-nav')[0].scrollHeight + parseFloat(p.children('.ui-tabs-nav').css('margin-bottom'));
+  var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
+  if (max_height < ($('#tab-1').height() - 1)) {
+    $('#tab-1').height(max_height);
   }
+  if (pano.getVisible()) {
+            openInfoWindow.open(pano, openMarker);
+          } else {
+            openInfoWindow.open(map, openMarker);
+          }
+}
 
 // Tab 2 (reviews) tries to get as close as possible to its content height.
 function open_tab_2() {
-	$('#tab-2').width($('.ui-tabs').width());
+  p = $('#location_infowindow');
+	$('#tab-2').width(p.parent().width());
 	var new_height = Math.min(0.75 * $('#map').height() - openInfoWindowHeaderHeight, Math.max($('#tab-1').height(), $('#tab-2').height()));
 	$('#tab-2').height(new_height);
 	if (pano.getVisible()) {
@@ -489,13 +491,14 @@ function open_tab_2() {
 
 // Tab 3 (street view) requires a minimum height to be useful.
 function open_tab_3() {
+  p = $('#location_infowindow');
   if ($("#tab-1").hasClass('ui-tabs-hide')) {
   	var starting_height = $('#tab-2').height();
   } else {
   	var starting_height = $('#tab-1').height();
   }
   var previous_height = $('#tab-3').height()
-	var current_width = $('.ui-tabs').width();
+	var current_width = p.parent().width();
 	$('#tab-3').width(current_width);
 	var new_height = Math.max(starting_height, Math.min(400, 0.75 * $('#map').height() - openInfoWindowHeaderHeight));
 	$('#tab-3').height(new_height);
@@ -512,11 +515,12 @@ function open_tab_3() {
 }
 
   function setup_tabs(marker, infowindow) {
+    p = $('#location_infowindow');
     //originalTab1Height = $('#tab-1').height();
     //originalTab2Height = $('#tab-2').height();
     // Hack: Avoids error when request arrives before DOM ready?
-    if ($('.ui-tabs-nav')[0] != undefined) {
-			openInfoWindowHeaderHeight = $('.ui-tabs-nav')[0].scrollHeight + parseFloat($('.ui-tabs-nav').css('margin-bottom'));
+    if (p.children('.ui-tabs-nav')[0] != undefined) {
+			openInfoWindowHeaderHeight = p.children('.ui-tabs-nav')[0].scrollHeight + parseFloat(p.children('.ui-tabs-nav').css('margin-bottom'));
 			var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
 			if (max_height < ($('#tab-1').height() - 1)) {
 				$('#tab-1').height(max_height);
