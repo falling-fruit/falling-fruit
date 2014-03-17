@@ -14,6 +14,7 @@ FallingfruitWebapp::Application.routes.draw do
       get 'enroute'
     end
     collection do
+      get 'home'
       get 'import'
       post 'import'
       get 'cluster'
@@ -43,7 +44,9 @@ FallingfruitWebapp::Application.routes.draw do
   match 'press' => 'pages#press'
   match 'data' => 'pages#data'
   match 'dumpsters' => 'locations#freegan_index'
+  match 'freegan' => 'locations#freegan_index'
   match 'imports/bibliography' => 'pages#datasets'
+  match 'home' => 'locations#home'
   
   # Replaced by pages#datasets (unused)
   match 'maps' => 'pages#maps'

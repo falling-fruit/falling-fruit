@@ -9,7 +9,7 @@
 <%= render 'searchbar' %>
 
 <div id="mainmap_container">
-  <% if user_signed_in? and current_user.is? :admin %>
+  <% unless @show_sidebar.nil? or not @show_sidebar %>
     <%= render 'sidebar' %>
   <% end %>
   <div id="map"></div>

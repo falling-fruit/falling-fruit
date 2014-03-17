@@ -113,7 +113,8 @@
       strokeWeight: 5,
       strokeOpacity: 0.5,
       //fillColor: '#EEFFCC',
-      fillOpacity: 0
+      fillOpacity: 0,
+      clickable: false
     });
     obj.setMap(map);
     if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
@@ -132,16 +133,6 @@
           map.panTo(obj.getPosition());
         }
       }
-    }
-    if(!(infobox == undefined) && infobox){
-      google.maps.event.addListener(obj,'click',function(event){
-        // FIXME: tolerance (0.001) is in lat/lng but would be more meaningful in pixels
-        if(google.maps.geometry.poly.isLocationOnEdge(event.latLng,obj,0.001)){
-          var i = new google.maps.InfoWindow({content:'This is your foraging range. <a href="/users/edit">Click here</a> to edit it.'});
-          i.setPosition(event.latLng);
-          i.setMap(map);
-        }
-      });
     }
     return obj;
   }
@@ -944,7 +935,7 @@ function apply_geocode(latlng,bounds,zoom) {
 				map: map,
 				draggable: false,
 				clickable: false,
-				zIndex: -9999, // so that it draws beneath any overlapping marker
+				zIndex: -9999 // so that it draws beneath any overlapping marker
 			});
 		}
 	}
