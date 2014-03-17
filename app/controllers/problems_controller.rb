@@ -3,6 +3,7 @@ class ProblemsController < ApplicationController
   #before_filter :prepare_for_mobile, :except => []
   authorize_resource :only => [:index]
 
+
   def new
     @problem = Problem.new
     @problem.location_id = params[:location_id]
