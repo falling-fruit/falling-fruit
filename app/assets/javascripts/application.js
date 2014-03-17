@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.cookie
+//= require jquery-outside-events
 //= require select2
 //= require sprintf
 //= require dataTables/jquery.dataTables
