@@ -63,7 +63,7 @@
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       <% unless @zoom_to_polygon.nil? %>
-      draw_and_zoom_to_range('<%= @zoom_to_polygon %>');
+        draw_and_zoom_to_range('<%= @zoom_to_polygon %>');
       <% end %>
       update_display(true,zoom);
       if($("#labels").is(":checked")) labelize_markers();

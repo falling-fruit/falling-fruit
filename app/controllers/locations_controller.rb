@@ -275,6 +275,7 @@ class LocationsController < ApplicationController
   end
 
   # GET /dumpsters
+  # GET /freegan
   def freegan_index
     @freegan = true
     @type = Type.find(182)
