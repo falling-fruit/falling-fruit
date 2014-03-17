@@ -49,7 +49,15 @@
   // ================= functions =================
   
   function initialize() {
-    basemap(lat,lng,zoom,type);
+  
+    <% unless @zoom_to_polygon.nil? %>
+      basemap(lat,lng,zoom,type);
+    <% else %>
+      // Maybe check that bounds were returned?
+      var bounds = wkt_to_bounds('<%= @zoom_to_polygon %>');
+      basemap(undefined,undefined,undefined,type,bounds);
+      add_range('<%= @zoom_to_polygon %>');
+    <% end %>
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
       update_permalink();
@@ -62,9 +70,6 @@
     });
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      <% unless @zoom_to_polygon.nil? %>
-        draw_and_zoom_to_range('<%= @zoom_to_polygon %>');
-      <% end %>
       update_display(true,zoom);
       if($("#labels").is(":checked")) labelize_markers();
       // Ensures that labels come on again if labels = true and zoom <= 12

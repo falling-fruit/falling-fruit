@@ -122,9 +122,70 @@
     return undefined;
   }
 
-  function draw_and_zoom_to_range(range_string,infobox){
+//   function draw_and_zoom_to_range(range_string,infobox){
+//     var wkt = new Wkt.Wkt();
+//     wkt.read(range_string);
+//     obj = wkt.toObject({
+//       strokeColor: '#666',
+//       strokeWeight: 5,
+//       strokeOpacity: 0.5,
+//       fillOpacity: 0,
+//       clickable: false
+//     });
+//     obj.setMap(map);
+//     if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
+//       // For objects that have defined bounds or a way to get them
+//       map.fitBounds(obj.getBounds());
+//     } else {
+//       if (obj.getPath !== undefined && typeof obj.getPath === 'function') {
+//         // For Polygons and Polylines
+//         var b = new google.maps.LatLngBounds();
+//         for(var i = 0; i < obj.getPath().length;i++){
+//           b.extend(obj.getPath().getAt(i));
+//         }
+//         map.fitBounds(b);
+//       } else { // But points (Markers) are different
+//         if (obj.getPosition !== undefined && typeof obj.getPosition === 'function') {
+//           map.panTo(obj.getPosition());
+//         }
+//       }
+//     }
+//     return obj;
+//   }
+  
+  // Convert WKT shape to map bounds
+  function wkt_to_bounds(wkt_string) {
     var wkt = new Wkt.Wkt();
-    wkt.read(range_string);
+    wkt.read(wkt_string);
+    obj = wkt.toObject({
+      strokeColor: '#666',
+      strokeWeight: 5,
+      strokeOpacity: 0.5,
+      fillOpacity: 0,
+      clickable: false
+    });
+    if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
+      // For objects that have defined bounds or a way to get them
+      return obj.getBounds();
+    } else if (obj.getPath !== undefined && typeof obj.getPath === 'function') {
+      // For Polygons and Polylines
+      var b = new google.maps.LatLngBounds();
+      for (var i = 0; i < obj.getPath().length;i++) {
+        b.extend(obj.getPath().getAt(i));
+      }
+      return b;
+    }
+    //} else if (obj.getPosition !== undefined && typeof obj.getPosition === 'function') {
+    //    return obj.getPosition();
+    //  }
+    //}
+    return false;
+  }
+  
+  // Draw foraging range on map
+  function add_range(range_string) {
+    var wkt = new Wkt.Wkt();
+    wkt.read(wkt_string);
     obj = wkt.toObject({
       strokeColor: '#666',
       strokeWeight: 5,
@@ -133,24 +194,6 @@
       clickable: false
     });
     obj.setMap(map);
-    if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
-      // For objects that have defined bounds or a way to get them
-      map.fitBounds(obj.getBounds());
-    } else {
-      if (obj.getPath !== undefined && typeof obj.getPath === 'function') {
-        // For Polygons and Polylines
-        var b = new google.maps.LatLngBounds();
-        for(var i = 0; i < obj.getPath().length;i++){
-          b.extend(obj.getPath().getAt(i));
-        }
-        map.fitBounds(b);
-      } else { // But points (Markers) are different
-        if (obj.getPosition !== undefined && typeof obj.getPosition === 'function') {
-          map.panTo(obj.getPosition());
-        }
-      }
-    }
-    return obj;
   }
 
   // will avoid adding duplicate markers (using location id)
