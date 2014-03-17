@@ -2,6 +2,7 @@
 
   var map;
   var pano;
+  var pointer;
   var pano_tab = null;
   var panoClient = new google.maps.StreetViewService();
   var elevationClient = new google.maps.ElevationService();
@@ -81,6 +82,22 @@
     
     // Key Drag Zoom
     keyDragZoom(map);
+    
+    // Pointer
+    pointer = new google.maps.Marker({
+      position: map.getCenter(),
+      map: map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 10,
+        strokeWeight: 4,
+        strokeColor: '#ff666e'
+      },
+      draggable: false,
+      clickable: false,
+      visible: false,
+      zIndex: 9999 // STILL below clusters!
+    });
   
     // Close open location infowindow when map is clicked
     google.maps.event.addListener(map, 'click', function(event) {
@@ -1046,6 +1063,16 @@ function sidebar_pan_to_location(lid,lat,lng){
     map.setZoom(13);
     open_marker_by_id(lid);
   }
+}
+
+// Add a marker with an open infowindow
+function show_pointer(lat, lng) {
+  pointer.setPosition(new google.maps.LatLng(lat,lng));
+  pointer.setVisible(true);
+}
+
+function hide_pointer() {
+  pointer.setVisible(false);
 }
 
 /**********************************************************/

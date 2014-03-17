@@ -164,7 +164,7 @@ div#content_container div#footer {
 div#searchbar {
   line-height: 3em;
   background-color: #FFF;
-  border-bottom: 2px solid #CCC;
+  border-bottom: 0.15em solid #CCC;
   width: 100%;
 }
 
@@ -225,27 +225,40 @@ div#searchbar input[type=checkbox] {
 
 div#mainmap_container {
   position: absolute;
-  top: 7.75em;
+  top: 8em;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: -1;  /* So that if search bar controls wrap, they display above map. */
 }
 
+div#sidebar_container {
+  position: absolute;
+  top: 8em;
+  bottom: 0;
+  left: 0;
+  width: 293px;
+  z-index: -2;
+  padding: 2px 0 0 5px;
+  background: #EEE;
+  border-right: 2px solid #CCC;
+}
+
 div#sidebar{
-    background: #EEE;
-    position: absolute;
-    z-index: -2;
-    width: 300px;
-    left: 0;
+    background: #FFF;
     height: 100%;
-    ul{
-      background: #D3D3D3;
+    font-size: 12px;
+    overflow: auto;
+    display: none;
+    > ul{
+      background: #EEE ! important;
       padding: 0;
-      margin-bottom: 1em;
+      border-bottom: 1px solid transparent;
       li{
         padding: 0;
         margin: 0;
+        border: 1px solid transparent;
+        border-radius: 0px;
         a{
           padding-right: 5px;
           padding-left: 5px;
@@ -253,55 +266,60 @@ div#sidebar{
           padding-bottom: 0px;
           cursor: pointer;
           span{
-            font-size: 8pt;
+            font-size: inherit;
           }
         }
       }
-    }
-    #sidebar-tab-1{
-      padding-left: 0.5em;
-      blockquote{
-        margin-left: 2em;
-        margin-right: 1em;
+      li#close-arrow {
+        float: right;
+      }
+      li.ui-tabs-selected {
+        background: #FFF;
+      }
+      a.sidebar_arrow:hover span {
+        color: #000 ! important;
       }
     }
-    #sidebar-tab-2{
-      padding-left: 0.5em;
-      div.favorite{
-        padding: 1em;
-      }
-    }
-    #sidebar-tab-3{
-      padding-left: 0.5em;
-      div.route{
-        padding: 1em;
-        a{
-          text-decoration: underline;
-        }
-
-      }
-    }
-    font-size: 8pt;
-    overflow: auto;
-  }
-  div#sidebar_button{
-    position: absolute;
-    left: 0px;
-    font-size: 10px;
-    font-weight: bold;
-    background: #FFF;
-    border: 1px solid #DDD;
-    display: none;
-    a{
-      color: #a0a0a0;
-      padding: 5px;
-      display: block;
-    }
-    a:hover{
+    > div {
+      padding: 1em 0.5em 0.5em 0.5em;
       color: #666;
+      a {
+        color: #999;
+        text-decoration: underline;
+      }
+      a:hover {
+        color: #333;
+      }
+      blockquote{
+        margin-left: 1em;
+        margin-right: 1em;
+        padding-left: 1em;
+        border-left: 1px solid #EEE;
+      }
+      div.favorite,
+      div.route {
+        margin: 1em 0 0 1em;
+      }
     }
   }
-
+  
+div#sidebar_button{
+  position: absolute;
+  left: 0px;
+  font-size: 10px;
+  font-weight: bold;
+  background: #FFF;
+  border: 1px solid #DDD;
+  display: none;
+  a{
+    color: #A0A0A0;
+    padding: 5px;
+    display: block;
+  }
+  a:hover{
+    color: #666;
+  }
+}
 
 /**********************************************************/
 /******************* /locations/{edit,new} ****************/
