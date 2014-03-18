@@ -10,6 +10,7 @@
 	  <th>Anonymous</th>
     <th>Range</th>
     <th>Updates</th>
+    <th>Announcements</th>
     <th>Created</th>
     <th>Confirmed</th>
     <th>Delete</th>
@@ -25,6 +26,7 @@
     <td><%= user.add_anonymously ? "x" : "" %></td>
     <td><%= user.range.blank? ? "" : "x" %></td>
     <td><%= user.range_updates_email ? "x" : "" %></td>
+    <td><%= user.announcements_email ? "x" : "" %></td>
     <td><%= user.created_at %></td>
     <td><%= user.confirmed_at %></td>
     <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -32,6 +34,9 @@
 <% end %>
 </tbody>
 </table>
+
+<br/><br/>
+Announcements BCC List: <%= User.select("email").where("announcements_email").collect{ |u| u.email }.join(",") %>
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){

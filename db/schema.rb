@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140317143110) do
+ActiveRecord::Schema.define(:version => 20140318211550) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(:version => 20140317143110) do
     t.integer  "roles_mask"
     t.boolean  "range_updates_email",                                                                  :default => false, :null => false
     t.boolean  "add_anonymously",                                                                      :default => false, :null => false
+    t.boolean  "announcements_email",                                                                  :default => true
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
