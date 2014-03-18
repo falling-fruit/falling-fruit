@@ -650,6 +650,12 @@ div#slider{
 .ui-dialog .ui-dialog-content {
   padding: 1em;
   color: #666;
+  a {
+    color: #0476D4;
+  }
+  a:hover {
+    color: #E35809;
+  }
 }
 
 .ui-dialog .ui-dialog-titlebar-close {

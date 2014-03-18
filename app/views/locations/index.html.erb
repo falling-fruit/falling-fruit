@@ -7,28 +7,27 @@
 %>
 
 <div id="welcome_modal" style="display:none;">
-  <img src="/fb-avatar.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="180" title="One afternoon's harvest in Boulder, Colorado, USA">
+  <img src="/fb-avatar.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="180" title="One afternoon's harvest in Boulder, Colorado, USA.">
   Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of
   foragers, foresters, and freegans everywhere, the map already points to over a half
   million food-producing locations around the world (from plants and fungi to
-  water wells and dumpsters). Our rapidly growing user base is actively exploring,
+  water wells and dumpsters). Our rapidly growing user community is actively exploring,
   editing, and adding to the map.
   <br/><br/>
-  Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or sign up for
+  Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for
   an account to access additional features.
 </div>
 
 <div id="freegan_modal" style="display:none;">
-  <img src="/dumpster-score.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" title="Some recovered food">
-  Welcome to Falling Fruit's Freegan Map! In addition to <%= link_to "our
-  efforts mapping food-bearing species growing in urban environments", root_path %>,
-  we are setting out to map the world's food-bearing dumpsters.
+  <img src="/dumpster-score.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" title="Food recovered from a dumpster in Boulder, Colorado, USA.">
+  In addition to our efforts mapping the <%= link_to "edible plants growing in cities", root_path %>,
+  we've set out to map the world's food-bearing dumpsters.
   Nearly 50% of all food produced in the developed world is thrown out.
   We're hoping to raise awareness around this issue, facilitate the liberation
-  of discarded food, and encourage businesses to <a href=”/sharing”>donate the food</a> instead.
+  of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.
   <br><br>
-  In support of a lower waste lifestyle, we are also encouraging the mapping of
-  dumpsters, markets, and other locations with discarded items, whether edible or otherwise.
+  In support of a lower-waste lifestyle, we are encouraging the mapping of
+  all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
 </div>
 
 <%= render 'searchbar' %>
@@ -82,6 +81,7 @@
       var bounds = wkt_to_bounds('<%= @zoom_to_polygon %>');
       basemap(undefined,undefined,undefined,type,bounds);
       add_range('<%= @zoom_to_polygon %>');
+      zoom = undefined; // for update display call
     <% end %>
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
@@ -126,7 +126,7 @@
     <% if @freegan %>
       if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });
-        $('#freegan_modal').dialog({modal:true,width:600,title:'Welcome!',resizable:false});
+        $('#freegan_modal').dialog({modal:true,width:650,title:"Welcome to Falling Fruit's freegan map!",resizable:false,draggable:false});
         $("#freegan_modal").bind( "clickoutside", function(event){
           $(this).dialog('close');
         });
@@ -134,7 +134,7 @@
     <% else %>
       if ($.cookie('welcome_modal_shown') == null) {
         $.cookie('welcome_modal_shown', 'yes', { expires: 365, path: '/' });
-        $('#welcome_modal').dialog({modal:true,width:600,title:'Welcome!',resizable:false});
+        $('#welcome_modal').dialog({modal:true,width:600,title:'Welcome to Falling Fruit!',resizable:false,draggable:false});
         $("#welcome_modal").bind( "clickoutside", function(event){
           $(this).dialog('close');
         });

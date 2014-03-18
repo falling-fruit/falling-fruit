@@ -157,13 +157,7 @@
   function wkt_to_bounds(wkt_string) {
     var wkt = new Wkt.Wkt();
     wkt.read(wkt_string);
-    obj = wkt.toObject({
-      strokeColor: '#666',
-      strokeWeight: 5,
-      strokeOpacity: 0.5,
-      fillOpacity: 0,
-      clickable: false
-    });
+    obj = wkt.toObject();
     if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
       // For objects that have defined bounds or a way to get them
       return obj.getBounds();

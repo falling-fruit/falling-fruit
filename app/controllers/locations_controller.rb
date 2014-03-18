@@ -280,6 +280,7 @@ class LocationsController < ApplicationController
     @freegan = true
     @type = Type.find_by_name('Freegan')
     params[:f] = @type.id
+    params[:t] = 'toner-lite'
     index and return
   end
 
