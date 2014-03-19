@@ -79,7 +79,9 @@ function initialize() {
   drawingManager.setMap(map);
 
   <% if user_signed_in? and !current_user.range.nil? %>
-  var obj = draw_and_zoom_to_range('<%= current_user.range %>',false);
+  var bounds = wkt_to_bounds('<%= current_user.range %>');
+  map.fitBounds(bounds);
+  var obj = add_range('<%= current_user.range %>');
   obj.setEditable(true);
   overlay = obj;
   drawingManager.setOptions({ drawingControl: false });
