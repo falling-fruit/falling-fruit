@@ -121,37 +121,6 @@
     }
     return undefined;
   }
-
-//   function draw_and_zoom_to_range(range_string,infobox){
-//     var wkt = new Wkt.Wkt();
-//     wkt.read(range_string);
-//     obj = wkt.toObject({
-//       strokeColor: '#666',
-//       strokeWeight: 5,
-//       strokeOpacity: 0.5,
-//       fillOpacity: 0,
-//       clickable: false
-//     });
-//     obj.setMap(map);
-//     if (obj.getBounds !== undefined && typeof obj.getBounds === 'function') {
-//       // For objects that have defined bounds or a way to get them
-//       map.fitBounds(obj.getBounds());
-//     } else {
-//       if (obj.getPath !== undefined && typeof obj.getPath === 'function') {
-//         // For Polygons and Polylines
-//         var b = new google.maps.LatLngBounds();
-//         for(var i = 0; i < obj.getPath().length;i++){
-//           b.extend(obj.getPath().getAt(i));
-//         }
-//         map.fitBounds(b);
-//       } else { // But points (Markers) are different
-//         if (obj.getPosition !== undefined && typeof obj.getPosition === 'function') {
-//           map.panTo(obj.getPosition());
-//         }
-//       }
-//     }
-//     return obj;
-//   }
   
   // Convert WKT shape to map bounds
   function wkt_to_bounds(wkt_string) {
@@ -188,6 +157,7 @@
       clickable: false
     });
     obj.setMap(map);
+    return obj;
   }
 
   // will avoid adding duplicate markers (using location id)
