@@ -286,7 +286,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/home
   def home
-    prepare_for_sidebar if user_signed_in? and current_user.is? :admin
+    prepare_for_sidebar if user_signed_in?
     index
   end
 
@@ -517,6 +517,7 @@ class LocationsController < ApplicationController
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
       where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
       order('observations.created_at desc')
+    @mine.uniq!{ |o| o.location_id }
     @routes = Route.where("user_id = ?",current_user.id)
     @zoom_to_polygon = current_user.range.nil? ? nil : current_user.range
     @zoom_to_circle = nil
