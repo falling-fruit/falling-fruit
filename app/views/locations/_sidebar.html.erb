@@ -75,15 +75,20 @@
 
   <!-- FAVORITES TAB -->
   <div id="sidebar-tab-2">
-    Locations added or reviewed by you (while logged in):
-    <br/>
-    <% @mine.each do |o| %>
-      <div class="favorite">
-        <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
-          <%= o.location.title %>
-        </a><br/>
-        Last visited <%= time_ago_in_words(o.created_at) %> ago.
-      </div>
+    <% if @mine.empty? %>
+      You haven't added or reviewed anything (while logged in).
+      <%= link_to "Click here", new_location_path %> to add something.
+    <% else %>
+      Locations added or reviewed by you (while logged in):
+      <br/>
+      <% @mine.each do |o| %>
+        <div class="favorite">
+          <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
+            <%= o.location.title %>
+          </a><br/>
+          Last visited <%= time_ago_in_words(o.created_at) %> ago.
+        </div>
+      <% end %>
     <% end %>
   </div>
 
@@ -107,7 +112,7 @@
       <% end %>
       </ul>
   <% else %>
-    You haven't defined any foraging routes yet.
+    You haven't defined any foraging routes yet. Click on a source and then click 'routes' to get started making a route.
     <% end %>
   </div>
 </div>
