@@ -144,6 +144,7 @@
   
   $(window).resize(function() {
     resize_map();
+    google.maps.event.trigger(map,'resize');
   });
 </script>
 <%= javascript_include_tag "maplabel" %>
