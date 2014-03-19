@@ -10,17 +10,14 @@ class UsersController < ApplicationController
     end
   end
 
-  #def edit
-  #  @user = User.find(params[:id])
-  #end
-
-  #def new
-  #  @user = User.new
-  #  respond_to do |format|
-  #    format.html # new.html.erb
-  #    format.json { render json: @user }
-  #  end
-  #end
+  # switch to a particular user
+  def switch
+    user = User.find(params[:id].to_i)
+    sign_out(current_user)
+    sign_in(user)
+    flash[:notice] = "Successfully switched to user #{current_user.name}."
+    redirect_to after_sign_in_path_for(current_user)
+  end
 
   def destroy
     @user = User.find(params[:id])

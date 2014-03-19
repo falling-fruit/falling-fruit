@@ -1,7 +1,11 @@
 FallingfruitWebapp::Application.routes.draw do
 
   devise_for :users
-  resources :users
+  resources :users do
+    member do
+      get 'switch'
+    end
+  end
 
   resources :routes do
     collection do
