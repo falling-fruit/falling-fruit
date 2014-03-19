@@ -2,12 +2,17 @@
 /************************* Header *************************/
 /**********************************************************/
 
+$logobarHeight: 2.75em;
+$menubarHeight: 2em;
+$searchbarHeight: 3em;
+$searchbarBorder: 0.15em;
+
 /*** Logo ***/
 
 div#logobar {
   background-color: #1F5F92;
   padding: 0 5px;
-  height: 2.75em;
+  height: $logobarHeight;
 }
 
 div#logobar a#falling_fruit {
@@ -49,7 +54,7 @@ div#menubar {
 div#menubar a, 
 div#menu span {
   color: #666;
-  line-height: 2em;
+  line-height: $menubarHeight;
   padding: 0em 8px;
   display: inline-block;
 }
@@ -162,9 +167,9 @@ div#content_container div#footer {
 /*** Searchbar ***/
 
 div#searchbar {
-  line-height: 3em;
+  line-height: $searchbarHeight;
   background-color: #FFF;
-  border-bottom: 0.15em solid #CCC;
+  border-bottom: $searchbarBorder solid #CCC;
   width: 100%;
 }
 
@@ -223,9 +228,11 @@ div#searchbar input[type=checkbox] {
 
 /*** Map ***/
 
+$headerHeight: $logobarHeight + $menubarHeight + $searchbarHeight + $searchbarBorder;
+
 div#mainmap_container {
   position: absolute;
-  top: 8em;
+  top: $headerHeight;
   bottom: 0;
   left: 0;
   right: 0;
@@ -234,7 +241,7 @@ div#mainmap_container {
 
 div#sidebar_container {
   position: absolute;
-  top: 8em;
+  top: $headerHeight;
   bottom: 0;
   left: 0;
   width: 293px;

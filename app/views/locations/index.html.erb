@@ -22,7 +22,7 @@
   <img src="/dumpster-score.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" title="Food recovered from a dumpster in Boulder, Colorado, USA.">
   In addition to our efforts mapping the <%= link_to "edible plants growing in cities", root_path %>,
   we've set out to map the world's food-bearing dumpsters.
-  Nearly 50% of all food produced in the developed world is thrown out.
+  Nearly 50% of all food produced in the developed world is never eaten.
   We're hoping to raise awareness around this issue, facilitate the liberation
   of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.
   <br><br>
@@ -140,6 +140,10 @@
         });
       }
     <% end %>
+  });
+  
+  $(window).resize(function() {
+    resize_map();
   });
 </script>
 <%= javascript_include_tag "maplabel" %>

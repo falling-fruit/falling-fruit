@@ -113,27 +113,30 @@ function update_display(force,force_zoom,force_bounds){
 }
 
 function hide_map_controls() {
-    $('#hidden_controls').hide();
-    $('#export_data').hide();
-    if (!mobile) {
-			if (document.getElementById('searchbar') != undefined) {
-				var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + 
-										 document.getElementById('logobar').offsetHeight;
-				document.getElementById('mainmap_container').style.top = height + 'px';
-			}
+  $('#hidden_controls').hide();
+  $('#export_data').hide();
+  if (!mobile) {
+		resize_map();
   }
 }
 
 function show_map_controls() {
-    $('#get_data_link').attr('href',data_link());
-    $('#hidden_controls').show();
-    $('#export_data').show();
-    if (!mobile) {
-			if (document.getElementById('searchbar') != undefined) {
-				var height = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
-				document.getElementById('mainmap_container').style.top = height + 'px';
-			}
-		}
+  $('#get_data_link').attr('href',data_link());
+  $('#hidden_controls').show();
+  $('#export_data').show();
+  if (!mobile) {
+		resize_map();
+	}
+}
+
+function resize_map() {
+  var headerHeight = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
+	if (document.getElementById('mainmap_container') != undefined) {
+		document.getElementById('mainmap_container').style.top = headerHeight + 'px';
+	}
+	if (document.getElementById('sidebar_container') != undefined) {
+		document.getElementById('sidebar_container').style.top = headerHeight + 'px';
+	}
 }
 
 function update_display_embedded(force, force_zoom, muni) {
