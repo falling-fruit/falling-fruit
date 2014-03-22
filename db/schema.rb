@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318211550) do
+ActiveRecord::Schema.define(:version => 20140321171442) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -199,11 +199,18 @@ ActiveRecord::Schema.define(:version => 20140318211550) do
     t.boolean  "range_updates_email",                                                                  :default => false, :null => false
     t.boolean  "add_anonymously",                                                                      :default => false, :null => false
     t.boolean  "announcements_email",                                                                  :default => true
+    t.spatial  "location",               :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.text     "address"
+    t.decimal  "lat"
+    t.decimal  "lng"
+    t.decimal  "range_radius"
+    t.string   "range_radius_unit"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["location"], :name => "index_users_on_location", :spatial => true
   add_index "users", ["range"], :name => "index_users_on_range", :spatial => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

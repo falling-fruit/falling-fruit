@@ -53,8 +53,8 @@ en:
       failure: 'Could not authenticate you from %{kind} because "%{reason}".'
     mailer:
       confirmation_instructions:
-        subject: 'Confirmation instructions'
+        subject: 'Confirmation instructions | Falling Fruit'
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: 'Reset password instructions | Falling Fruit'
       unlock_instructions:
-        subject: 'Unlock Instructions'
+        subject: 'Unlock Instructions | Falling Fruit'

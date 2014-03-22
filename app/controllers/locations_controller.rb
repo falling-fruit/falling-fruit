@@ -519,7 +519,7 @@ class LocationsController < ApplicationController
       order('observations.created_at desc')
     @mine.uniq!{ |o| o.location_id }
     @routes = Route.where("user_id = ?",current_user.id)
-    @zoom_to_polygon = current_user.range.nil? ? nil : current_user.range
+    @zoom_to_polygon = current_user.range
     @zoom_to_circle = nil
     @show_sidebar = true
     # FIXME: zoom circle!

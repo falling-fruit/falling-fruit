@@ -19,16 +19,46 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :email_confirmation, :password, :password_confirmation, :remember_me, :range,
                   :name, :bio, :roles, :roles_mask, :remember_me, :add_anonymously,
-                  :range_updates_email, :announcements_email
+                  :range_updates_email, :announcements_email, :address, :lat, :lng, :range_radius,
+                  :location, :range_radius_unit
 
   validates :email, confirmation: true
-  
+
+  geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
+  before_validation { |record|
+    begin
+      record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?)
+    rescue
+      # if geocoding throws an error, ignore it
+    end
+  }
+  before_validation { |record|
+    if !record.range_radius.nil? and record.range_radius_unit == "miles"
+      record.range_radius = record.range_radius * 1.60934
+      record.range_radius_unit = "km"
+    end
+  }
+  # manually update postgis location object
+  after_validation { |record|
+    record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? }
+  }
+  after_update{ |record| create_range_from_radius(record) }
+  after_create{ |record| create_range_from_radius(record) }
+
   roles_attribute :roles_mask
   roles :admin, :forager, :partner, :guest
 
   # https://github.com/ryanb/cancan/wiki/Role-Based-Authorization
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  def get_range
+    return self.range unless range.nil?
+    unless self.location.nil? or self.range_radius.nil?
+
+    end
+    return nil
   end
 
   def roles
@@ -49,6 +79,12 @@ class User < ActiveRecord::Base
 
     def current_user
       Thread.current[:current_user]
+    end
+  end
+
+  def create_range_from_radius(record)
+    if record.range.nil? and not record.range_radius.nil? and not record.location.nil?
+      ActiveRecord::Base.connection.execute("UPDATE users SET range=ST_Buffer_Meters(location::geometry,range_radius*1000.0) WHERE id=#{record.id}")
     end
   end
 

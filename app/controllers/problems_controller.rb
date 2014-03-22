@@ -15,7 +15,12 @@ class ProblemsController < ApplicationController
 
   def create
     @problem = Problem.new(params[:problem])
-    @problem.reporter = current_user if user_signed_in?
+    if user_signed_in?
+      @problem.reporter = current_user
+      @problem.email = current_user.email
+      @problem.name = current_user.name
+    end
+
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @problem, 
                                                        :message => "ReCAPCHA error!")

@@ -1,15 +1,23 @@
 <%= f.label :foraging_range %><br />
-<span class="subtext">Use the polygon or rectangle tool in the map below to define the area you generally forage in.</span>
-<div style="width:600px;display:table;">
-  <div style="display: table-cell">
+<span class="subtext">Use the polygon (any shape) or rectangle tool in the map below to define the area you generally forage in. When
+using the polygon tool make sure to 'close' your polygon by connecting the final point to the first point.</span><br/>
   <input type="text" value="Zoom to address..." onclick="this.value='';" name="address" id="address">
   <button type="button" onclick="recenter_range_map_to_address();return false;">Zoom</button>
-  </div>
-  <div style="display: table-cell; text-align: right;">
   <button type="button" onclick="clear_range_overlays();return false;">Clear Map</button>
-  </div>
+<div id="map" style="width:100%;height:400px;"></div>
+
+<div class="field">
+  <%= f.label :address %><br/>
+  <span class="subtext">The center of your foraging range (likely your home address)</span><br />
+  <%= f.text_area :address, :size => "40x6" %>
 </div>
-<div id="map" style="width:600px;height:400px;"></div>
+<div class="field">
+  <%= f.label :foraging_range_radius %><br/>
+  <span class="subtext">Radius of your foraging range from the address above (as an alternative to drawing a shape on the map)</span><br />
+  <%= f.text_field :range_radius, :size => 10 %>
+  <%= f.select(:range_radius_unit,options_for_select(["km","miles"])) %>
+</div>
+
 
 <% content_for :page_scripts do %>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=drawing&amp;sensor=false"></script>
@@ -32,16 +40,27 @@ function initialize() {
   };
 
   map = new google.maps.Map(document.getElementById('map'),mapOptions);
+
+  <% if user_signed_in? and current_user.range.nil? %>
+  // Attempt geolocation
+  navigator.geolocation.getCurrentPosition(function(position){
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    var latlng = new google.maps.LatLng(lat,lng)
+    map.panTo(latlng);
+  }, function(error) {
+    //use error.code to determine what went wrong
+  });
+  <% end %>
+
   drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: google.maps.drawing.OverlayType.POLYGON,
     drawingControl: true,
     drawingControlOptions: {
       position: google.maps.ControlPosition.TOP_CENTER,
       drawingModes: [
-        //google.maps.drawing.OverlayType.MARKER,
         //google.maps.drawing.OverlayType.CIRCLE, // Wicket library doesn't support Circle deconstruction (yet)
         google.maps.drawing.OverlayType.POLYGON,
-        //google.maps.drawing.OverlayType.POLYLINE,
         google.maps.drawing.OverlayType.RECTANGLE
       ]
     },
@@ -66,12 +85,10 @@ function initialize() {
     if(overlay != undefined){
       overlay.setMap(null);
     }
-    overlay = event.overlay;
-    var wkt = new Wkt.Wkt();
-    wkt.fromObject(overlay);
-    document.getElementById('user_range').value = wkt.write();
     drawingManager.setOptions({ drawingControl: false });
     drawingManager.setDrawingMode(null);
+    save_overlay_to_dom();
+    setup_overlay_listeners();
   });
 
   geocoder = new google.maps.Geocoder();
@@ -86,8 +103,9 @@ function initialize() {
   overlay = obj;
   drawingManager.setOptions({ drawingControl: false });
   drawingManager.setDrawingMode(null);
+  save_overlay_to_dom();
+  setup_overlay_listeners();
   <% end %>
-
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -95,6 +113,7 @@ function clear_range_overlays(){
   overlay.setMap(null);
   overlay=undefined;
   drawingManager.setOptions({ drawingControl: true });
+  document.getElementById('user_range').value = '';
 }
 
 function recenter_range_map_to_address() {
@@ -114,6 +133,23 @@ function recenter_range_map_to_address() {
   });
 }
 
+function save_overlay_to_dom(event){
+  var wkt = new Wkt.Wkt();
+  wkt.fromObject(overlay);
+  document.getElementById('user_range').value = wkt.write();
+}
+
+function setup_overlay_listeners(){
+  if (overlay.getPath !== undefined && typeof overlay.getPath === 'function') {
+    // For Polygons and Polylines
+    google.maps.event.addListener(overlay.getPath(), 'set_at', save_overlay_to_dom);
+    google.maps.event.addListener(overlay.getPath(), 'remove_at', save_overlay_to_dom);
+    google.maps.event.addListener(overlay.getPath(), 'insert_at', save_overlay_to_dom);
+  }else{
+    google.maps.event.addListener(overlay, 'bounds_changed', save_overlay_to_dom);
+  }
+}
+
 // avoid having 'Enter' submit the form, instead do recenter
 $("#address").keydown(function (e) { 
   if(e.which == 13){
@@ -124,4 +160,5 @@ $("#address").keydown(function (e) {
 
 </script>
 <% end %>
+
 <%= f.hidden_field :range %>

@@ -2,10 +2,11 @@ class Problem < ActiveRecord::Base
   belongs_to :reporter, class_name: "User"
   belongs_to :responder, class_name: "User"
   belongs_to :location
-  attr_accessible :comment, :problem_code, :reporter_id, :resolution_code, :responder_id, :response, :reporter, :responder, :id, :location_id, :name, :email
+  attr_accessible :comment, :problem_code, :reporter_id, :resolution_code, :responder_id,
+                  :response, :reporter, :responder, :id, :location_id, :name, :email
 
   validates :problem_code, :numericality => { :only_integer => true }, :allow_nil => false
-  validates :email, :presence => true
+  validates :email, presence: true, unless: "user_signed_in?"
 
   Codes = ["Location is spam",
            "Location does not exist",

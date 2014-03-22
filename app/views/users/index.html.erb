@@ -39,7 +39,7 @@
 </table>
 
 <br/><br/>
-Announcements BCC List: <%= User.select("email").where("announcements_email").collect{ |u| u.email }.join(",") %>
+Announcements BCC List:  <%= @announcements_list.join(", ") %>
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){

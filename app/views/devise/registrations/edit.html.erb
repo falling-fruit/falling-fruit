@@ -14,10 +14,11 @@
   </div>
 
   <div class="field">
-    <%= f.label :bio %><br/>
+    <%= f.label :about_you %><br/>
     <span class="subtext">Optionally, a bit about you.</span><br />
     <%= f.text_area :bio, :size => "40x6" %>
   </div>
+
   <br/>
   <%= render :partial => "range_map", :locals => {:f => f} %>
 
@@ -36,7 +37,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %><br />
+    <strong><%= f.label :current_password %></strong><br />
     <span class="subtext">We need your current password to apply your changes.</span><br />
     <%= f.password_field :current_password %>
   </div>
