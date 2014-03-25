@@ -10,7 +10,8 @@ class Type < ActiveRecord::Base
   belongs_to :parent, class_name: "Type"
   has_many :children, class_name: "Type", foreign_key: "parent_id"
 
-  Ranks={0 => "Species", 1 => "Genus", 2 => "Family", 3 => "Order", 4 => "Class", 5 => "Phylum", 6 => "Kingdom"}
+  Ranks={0 => "Polyphyletic", 1 => "Kingdom", 2 => "Phylum", 3 => "Class", 4 => "Order", 5 => "Family",
+         6 => "Genus", 7 => "Multispecies", 8 => "Species", 9 => "Subspecies"}
   Edabilities={-1 => "Not worth it (or toxic)", 1 => "Include", 2 => "Maybe Include"}
 
   def all_children
