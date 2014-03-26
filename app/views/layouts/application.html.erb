@@ -22,17 +22,20 @@
   <%= csrf_meta_tags %>
 	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript">
+    // captcha
     function show_recaptcha(element) {
       Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
     }
-  </script>
-  <script>
+    // window resize
+    $(window).resize(function() {
+      resize_content();
+    });
     // Mobile state variable
     var mobile = false;
   </script>
 
 </head>
-<body>
+<body onload="resize_content();">
 
  <div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->
 

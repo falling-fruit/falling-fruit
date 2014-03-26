@@ -23,9 +23,9 @@ function update_permalink(){
   $('#permalink').attr('href',permalink);
 }
 
-// function update_url(object) {
-//   window.history.pushState(undefined, "", $(object).attr('href'));
-// }
+function update_url(object) {
+  window.history.pushState(undefined, "", $(object).attr('href'));
+}
 
 // Force url updates before leaving page (does not work on refresh)
 // better?: http://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page/3354511#3354511
@@ -116,7 +116,7 @@ function hide_map_controls() {
   $('#hidden_controls').hide();
   $('#export_data').hide();
   if (!mobile) {
-		resize_map();
+		resize_content();
   }
 }
 
@@ -125,17 +125,7 @@ function show_map_controls() {
   $('#hidden_controls').show();
   $('#export_data').show();
   if (!mobile) {
-		resize_map();
-	}
-}
-
-function resize_map() {
-  var headerHeight = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
-	if (document.getElementById('mainmap_container') != undefined) {
-		document.getElementById('mainmap_container').style.top = headerHeight + 'px';
-	}
-	if (document.getElementById('sidebar_container') != undefined) {
-		document.getElementById('sidebar_container').style.top = headerHeight + 'px';
+		resize_content();
 	}
 }
 
