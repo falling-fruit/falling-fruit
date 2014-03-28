@@ -38,10 +38,12 @@ Sources are marked as unverified if their identity, location, or existence is di
   var lng = -49.57030500000002;
   var zoom = 2;
   var type = google.maps.MapTypeId.ROADMAP;
+  var cats = undefined;
   <% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
 	<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
 	<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
 	<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
+  <% unless @perma[:cats].nil? %>cats = '<%= @perma[:cats] %>';<% end %>
   var muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>; // this seems wrong!?
   var labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var center_marker = <%= (!@perma[:center_mark].nil? and @perma[:center_mark]) ? "true" : "false" %>;

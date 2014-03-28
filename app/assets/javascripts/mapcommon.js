@@ -692,19 +692,23 @@ function open_tab_3() {
     });
   }
 
-  function do_markers(bounds,skip_ids,muni,type_filter) {
+  function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     if(markersArray.length >= markersMax) return;
     var bstr = bounds_to_query_string(bounds);
     mstr = 0;
     if(muni) mstr = 1;
     var tstr = '';
+    var cstr = '';
     if (type_filter != undefined) {
       tstr = '&t='+type_filter;
+    }
+    if (cats != undefined) {
+      cstr = '&c='+cats;
     }
     if(pb != null) pb.start(200);
     var request = $.ajax({
       type: 'GET',
-      url: '/locations/markers.json?muni=' + mstr + '&' + bstr + tstr,
+      url: '/locations/markers.json?muni=' + mstr + '&' + bstr + tstr + cstr,
       dataType: 'json'
     });
     request.done(function(json){
