@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140325153906) do
+ActiveRecord::Schema.define(:version => 20140327194704) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(:version => 20140325153906) do
 
   create_table "types", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "marker_file_name"
     t.string   "marker_content_type"
     t.integer  "marker_file_size"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20140325153906) do
     t.string   "es_name"
     t.string   "he_name"
     t.string   "pl_name"
+    t.integer  "category_mask",       :default => 1
   end
 
   create_table "users", :force => true do |t|
