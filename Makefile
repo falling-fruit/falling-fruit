@@ -4,7 +4,9 @@ bounce:
 	git pull
 	bundle --deployment
 	bundle exec rake db:migrate
+	sudo chmod -R 777 tmp
 	bundle exec rake assets:precompile
+	sudo chown -R www-data:www-data tmp
 	sudo /etc/init.d/thin restart
 
 export:
