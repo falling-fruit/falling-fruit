@@ -87,12 +87,14 @@ class TypesController < ApplicationController
   # GET /types/1/edit
   def edit
     @type = Type.find(params[:id])
+    @categories = mask_to_array(@type.category_mask,Type::Categories)
   end
 
   # POST /types
   # POST /types.json
   def create
     @type = Type.new(params[:type])
+    @type.category_mask = array_to_mask(params["categories"],Type::Categories)
     respond_to do |format|
       if @type.save
         andtext = ""
@@ -127,7 +129,7 @@ class TypesController < ApplicationController
   # PUT /types/1.json
   def update
     @type = Type.find(params[:id])
-
+    params[:type][:category_mask] = array_to_mask(params["categories"],Type::Categories)
     respond_to do |format|
       if @type.update_attributes(params[:type])
         format.html { redirect_to types_path, notice: 'Type was successfully updated.' }

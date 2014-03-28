@@ -78,6 +78,11 @@
     <%= f.label :edibility %><br />
     <%= f.select(:edability, Type::Edabilities.collect{ |k,v| [v,k] }, :include_blank => true) %>
   </div>
+
+  <div class="field">
+    <%= f.label :categories %><br />
+    <%= select_tag(:categories, options_for_select(Type::Categories.each_with_index.collect{ |v,i| [v.capitalize,v] },@categories),:multiple => true) %>
+  </div>
   
   <!-- Custom marker (unused)
   <div class="field">
