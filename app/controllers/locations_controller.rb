@@ -10,6 +10,7 @@ class LocationsController < ApplicationController
 
 	# Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
+    cat_mask = array_to_mask(["human","freegan"],Type::Categories)
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
       mfilter = ""
@@ -27,7 +28,7 @@ class LocationsController < ApplicationController
     end
     types = {}
     Cluster.select("type_id, parent_id, SUM(count) as count").joins(:type).group("type_id,parent_id").
-                        where("zoom = #{g} AND type_id IS NOT NULL #{mfilter} #{bound}").each{ |t|
+                        where("zoom = #{g} AND type_id IS NOT NULL AND (category_mask & #{cat_mask})>0 #{mfilter} #{bound}").each{ |t|
       types[t.type_id] = 0 if types[t.type_id].nil?
       types[t.type_id] += t.count
       # FIXME: doesn't deal properly with more than a single generation, would need to find our parents' parents
@@ -107,6 +108,11 @@ class LocationsController < ApplicationController
   # Unverified no longer has its own color.
   def markers
     max_n = 1000
+    if params[:c].blank?
+      cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    else
+      cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+    end
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     tfilter = nil
     sorted = "1 as sort"
@@ -131,7 +137,7 @@ class LocationsController < ApplicationController
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
       array_agg(t.parent_id) as parent_types, string_agg(coalesce(t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
       locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
-      WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} 
+      WHERE lt.location_id=l.id AND (category_mask & #{cat_mask})>0 AND #{[bound,ifilter].compact.join(" AND ")}
       GROUP BY l.id, l.lat, l.lng, l.unverified ORDER BY sort LIMIT #{max_n}");
     @markers = r.collect{ |row|
       if row["name"].nil? or row["name"].strip == ""
@@ -191,6 +197,7 @@ class LocationsController < ApplicationController
 
   def data
     max_n = 500
+    cat_mask = array_to_mask(["human","freegan"],Type::Categories)
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
@@ -201,7 +208,7 @@ class LocationsController < ApplicationController
              select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
                      author, import_id, locations.created_at, locations.updated_at, muni').
-             where([bound,mfilter].compact.join(" AND ")).
+             where([bound,mfilter,"(category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|
       format.json { render json: @locations }
@@ -281,6 +288,7 @@ class LocationsController < ApplicationController
     @type = Type.find_by_name('Freegan')
     params[:f] = @type.id
     params[:t] = 'toner-lite'
+    params[:c] = 'human,freegan'
     index and return
   end
 
@@ -300,6 +308,7 @@ class LocationsController < ApplicationController
     @perma[:muni] = params[:m] == "true" if params[:m].present?
     @perma[:labels] = params[:l] == "true" if params[:l].present?
     @perma[:type] = params[:t] if params[:t].present?
+    @perma[:cats] = params[:c] if params[:c].present?
     unless @freegan
       @type = params[:f].present? ? Type.find(params[:f]) : nil
     end

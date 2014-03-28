@@ -8,6 +8,7 @@
  <th>ID</th>
  <th>Common name</th>
  <th>Scientific name</th>
+ <th>Categories</th>
  <th>W</th>
  <th>USDA</th>
  <th>ETW</th>
@@ -31,6 +32,7 @@
  <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
 </td>
 <td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.blank? %></td>
+<td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
 <td style="text-align:center;"><% if type.wikipedia_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
 <td style="text-align:center;"><%= raw !type.usda_symbol.blank? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "" %></td>
 <td style="text-align:center;"><% if type.eat_the_weeds_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.eat_the_weeds_url %>" target="_blank">...</a><% end %></td>
