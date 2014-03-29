@@ -20,7 +20,7 @@ class AddHoneybeeTypes < ActiveRecord::Migration
         n_new += 1
       else
         match.each{ |t|
-          t.category_mask = (t.category_mask & (1<<bee_bit))
+          t.category_mask = (t.category_mask | (1<<bee_bit))
           t.save
           $stderr.puts "~ #{cname_norm} - #{lname_norm}"
           n_existing += 1
