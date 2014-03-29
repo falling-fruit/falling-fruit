@@ -31,7 +31,12 @@
 		<% end %>
 	<% end %>
 </td>
-<td><a href="/locations/<%= problem.location.id %>"><%= problem.location.id %></a></td>
+<td><% if problem.location.nil? %>
+    Removed
+    <% else %>
+    <a href="/locations/<%= problem.location.id %>"><%= problem.location.id %></a>
+    <% end %>
+    </td>
 <td><%= Problem::Codes[problem.problem_code] %>
     <% unless problem.comment.blank? %>
     <br><em><%= problem.comment %></em>
