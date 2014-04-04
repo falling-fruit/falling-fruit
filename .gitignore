@@ -29,3 +29,6 @@ config/create.log
 
 # Ignore Mac OS
 .DS_Store
+
+# Ignore RubyMine
+.idea/
