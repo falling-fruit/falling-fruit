@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
+  
+  <% host = request.local? ? "localhost" : "fallingfruit.org" %>
+  
   <!-- Metadata -->
   <title>Falling Fruit</title>
-  <meta name="description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
-  <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, agriculture, community, Falling Fruit, Ethan Welty, Caleb Phillips" />
-
-  <!-- Facebook OpenGraph Tags -->
-  <% host = request.local? ? "localhost" : "fallingfruit.org" %>
+  <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, agriculture, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips" />
+  
   <% if @freegan %>
     <meta property="og:title" content="World Dumpster Map" />
     <meta property="og:site_name" content="Falling Fruit" />
     <meta property="og:url" content="http://fallingfruit.org/dumpsters" />
-    <meta property="og:description" content="" />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/dumpster-bw.png" />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/dumpster-sticker-01.jpg" />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/dumpster-haul.jpg" />
+    <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker.png" />
+    <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker-01.jpg" />
+    <meta property="og:image" content="http://fallingfruit.org/og/dumpster-haul.jpg" />
+    <meta property="og:description" content="By mapping the world's food-bearing dumpsters, we hope to raise food waste awareness, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
+    <meta name="description" content="By mapping the world's food-bearing dumpsters, we hope to raise food waste awareness, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
+    
   <% else %>
     <meta property="og:title" content="Falling Fruit" />
     <meta property="og:site_name" content="Falling Fruit" />
     <meta property="og:url" content="http://fallingfruit.org/" />
+    <meta property="og:image" content="http://fallingfruit.org/og/amittai.jpg" />
+    <meta property="og:image" content="http://fallingfruit.org/og/apple-haul.jpg" />
     <meta property="og:description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/feet-ethan.jpg" />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/amittai.jpg" />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/apple-tree-jeff.jpg" />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/apple-haul-jeff.jpg" />
-    <meta property="og:image" content="http://fallingfruit.org/opengraph/apple-haul.jpg" />
+    <meta name="description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
   <% end %>
   
   <!-- Scripts & Styles -->
