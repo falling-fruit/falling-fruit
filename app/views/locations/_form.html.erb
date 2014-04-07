@@ -137,16 +137,14 @@ jQuery(document).ready(function(){
     <% else %>
       <%= text_field_tag :author, ((user_signed_in? and not current_user.add_anonymously?) ? current_user.name : "") %>
     <% end %>
-    </span>
   </div>
   
   <!-- Author (edit: admin only) -->
   <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
   	<div class="field">
-			<%= f.label :original_author %><br />
-			<span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
-			<%= f.text_field :author %>
-			</span>
+    <%= f.label :original_author %><br />
+    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+    <%= f.text_field :author %>
   	</div>
   <% end %>
 
@@ -234,4 +232,3 @@ jQuery(document).ready(function(){
   </div>
   
 <% end %>
-</form>
