@@ -303,6 +303,7 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
+    prepare_from_permalink
     respond_to do |format|
       format.html
       format.mobile

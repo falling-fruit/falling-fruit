@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   def self.cluster_increment(location,tids=nil)
     found = {}
     tids = location.locations_types.collect{ |lt|
-      [lt.type_id] + lt.type.all_children.collect{ |ct| ct.id }
+      [lt.type_id] + (lt.type.nil? ? [] : lt.type.all_children.collect{ |ct| ct.id })
     }.flatten.uniq.compact if tids.nil?
     muni = (location.import.nil? or (not location.import.muni)) ? false : true
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as xp, ST_Y(ST_TRANSFORM(location::geometry,900913)) as yp").where("id=?",location.id).first
@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
   # assumes not muni, increments the not muni clusters
   def self.cluster_decrement(location,tids=nil)
     tids = location.locations_types.collect{ |lt|
-      [lt.type_id] + lt.type.all_children.collect{ |ct| ct.id }
+      [lt.type_id] + (lt.type.nil? ? [] : lt.type.all_children.collect{ |ct| ct.id })
     }.flatten.uniq.compact if tids.nil?
     muni = (location.import.nil? or (not location.import.muni)) ? false : true
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
