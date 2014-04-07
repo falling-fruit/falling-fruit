@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_user!, :only => [:destroy,:enroute,:home]
-  before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
+  #before_filter :prepare_for_mobile, :except => [:cluster,:markers,:marker,:data,:infobox]
   authorize_resource :only => [:destroy,:enroute]
 
   def expire_things
