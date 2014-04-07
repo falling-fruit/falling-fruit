@@ -15,7 +15,8 @@ class Location < ActiveRecord::Base
   validates :access, :numericality => { :only_integer => true }, :allow_nil => true
 	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
-                  :no_season, :unverified, :access, :locations_types, :import_id, :photo_url, :user, :user_id
+                  :no_season, :unverified, :access, :locations_types, :import_id, :photo_url, :user, :user_id,
+                  :category_mask
   attr_accessor :import_link
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   reverse_geocoded_by :lat, :lng do |obj,results|
@@ -35,6 +36,8 @@ class Location < ActiveRecord::Base
   }
   # manually update postgis location object
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
+  # manually update type mask
+  after_validation { |record| record.category_mask = record.types.collect{ |t| t.category_mask }.inject(:|) }
 
   public 
 

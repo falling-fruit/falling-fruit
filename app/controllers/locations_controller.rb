@@ -113,14 +113,13 @@ class LocationsController < ApplicationController
     else
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
+    cfilter = "(l.category_mask & #{cat_mask})>0"
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
-    tfilter = nil
     sorted = "1 as sort"
     # FIXME: would be easy to allow t to be an array of types
     if params[:t].present?
       type = Type.find(params[:t])
       tids = ([type.id] + type.all_children.collect{ |c| c.id }).compact.uniq
-      tfilter = "AND type_id IN (#{tids.join(",")})"
       sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{tids.join(",")}] THEN 0 ELSE 1 END as sort"
     end
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
@@ -132,12 +131,12 @@ class LocationsController < ApplicationController
       ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     end
     r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l
-      WHERE #{[bound,ifilter].compact.join(" AND ")}");
+      WHERE #{[cfilter,bound,ifilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil? 
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
       array_agg(t.parent_id) as parent_types, string_agg(coalesce(t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
       locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
-      WHERE lt.location_id=l.id AND (category_mask & #{cat_mask})>0 AND #{[bound,ifilter].compact.join(" AND ")}
+      WHERE lt.location_id=l.id AND #{[cfilter,bound,ifilter].compact.join(" AND ")}
       GROUP BY l.id, l.lat, l.lng, l.unverified ORDER BY sort LIMIT #{max_n}");
     @markers = r.collect{ |row|
       if row["name"].nil? or row["name"].strip == ""
@@ -323,7 +322,7 @@ class LocationsController < ApplicationController
       @location.lat = @lat
       @location.lng = @lng
     end
-    @cats = params[:c].to_i if params[:c].present?
+    @cats = params[:c].split(/,/) if params[:c].present?
     respond_to do |format|
       format.html # new.html.erb
       format.mobile
@@ -525,7 +524,7 @@ class LocationsController < ApplicationController
     @perma[:muni] = params[:m] == "true" if params[:m].present?
     @perma[:labels] = params[:l] == "true" if params[:l].present?
     @perma[:type] = params[:t] if params[:t].present?
-    @perma[:cats] = params[:c].to_i if params[:c].present?
+    @perma[:cats] = params[:c] if params[:c].present?
     @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
     @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
     unless @freegan
