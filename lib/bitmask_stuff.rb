@@ -12,4 +12,9 @@ module BitmaskStuff
   end
   module_function :array_to_mask
 
+  def full_mask(options)
+    array_to_mask(options,options)
+  end
+  module_function :full_mask
+
 end

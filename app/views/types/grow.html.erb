@@ -11,9 +11,7 @@
 </thead>
 <tbody>
 
-<% types_list = Type.order("name").collect{ |t| [t.name,t.id] } %>
-
-<% @type_others.each do |name,lts| 
+<% @type_others.each do |name,lts|
   @type = Type.new
   @type.name = name
 %>
@@ -23,16 +21,16 @@
 <td width="25%"><%= lts.length %><br/><br/>
 
 [
-<% lts.each do |ltid| lt = LocationsType.find(ltid) %>        
-<%= link_to lt.location.id, edit_location_path(lt.location.id) unless lt.location.nil? %>
+<% lts.each do |lt| %>
+<%= link_to lt.location_id, edit_location_path(lt.location_id) unless lt.location_id.nil? %>
 <% end %>
 ]
 
 </td>
 <td style="padding-bottom:1em;"><%= render :partial => 'form', :object => @type, :locals => {:lts => lts} %></td>
 <td><form action="/types/merge">
-    <%= hidden_field_tag 'lts', lts.join(":") %>
-    <%= select_tag(:into_id,options_for_select(types_list),:class=>"select2") %>
+    <%= hidden_field_tag 'lts', lts.collect{ |lt| lt.id }.join(":") %>
+    <%= hidden_field_tag(:into_id,'',:id=>"intoselect2") %>
     <%= submit_tag "Merge" %>
 </form>
 </td>
@@ -44,13 +42,19 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-  jQuery('.select2').select2({width:'element'});
-});
-jQuery(document).ready(function(){
-    jQuery('#type_others_table').dataTable({
+  jQuery('#type_others_table').dataTable({
       "aaSorting": [],
       "bPaginate": false
     });
+  var all_types_data = <%= Type.full_list_with_ids(Type::Categories).to_json.html_safe %>;
+  $(".parentselect2").select2({
+    width: "20em",
+    data: all_types_data
+  });
+  $("#intoselect2").select2({
+    width: "20em",
+    data: all_types_data
+  });
 });
 </script>
 <% end %>

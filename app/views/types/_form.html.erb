@@ -42,7 +42,7 @@
   </div>
   <div class="field">
     <%= f.label :parent %><br/>
-    <%= f.select(:parent_id,Type.all.collect{ |t| [t.name,t.id] },:include_blank=>true) %>
+    <%= f.hidden_field(:parent_id,{:class=>"parentselect2"}) %>
   </div>
   <div class="field">
     <%= f.label :taxonomic_rank %><br/>
@@ -94,20 +94,9 @@
   
   <br />
   <% unless not(defined? lts) or lts.nil? %>
-    <%= hidden_field_tag 'lts', lts.join(":") %>
+    <%= hidden_field_tag 'lts', lts.collect{ |lt| lt.id }.join(":") %>
   <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>
-
-<% content_for :form_scripts do %>
-  <script type="text/javascript" charset="utf-8">
-    jQuery(document).ready(function(){
-      // Parent
-      $("#type_parent_id").select2({
-        width: "20em"
-      });
-    });
-  </script>
 <% end %>

@@ -15,10 +15,10 @@ class TypesController < ApplicationController
 
   def grow
     @type_others = {}
-    LocationsType.where("type_id IS NULL and type_other IS NOT NULL").each{ |lt|
+    LocationsType.select('type_other,id,location_id').where("type_id IS NULL and type_other IS NOT NULL").each{ |lt|
       safer_type = lt.type_other.tr('^A-Za-z- \'','').capitalize
       @type_others[safer_type] = [] if @type_others[safer_type].nil?
-      @type_others[safer_type].push(lt.id)
+      @type_others[safer_type].push(lt)
     }
     respond_to do |format|
       format.html
@@ -68,7 +68,7 @@ class TypesController < ApplicationController
         n += 1
       }
       respond_to do |format|
-        format.html { redirect_to grow_types_url, :notice => "Type #{to.id} absorbed #{n} locations" }
+        format.html { redirect_to grow_types_url, :notice => "Type #{to.id} absorbed #{n} location-types" }
         format.json { head :no_content }
       end
     end
@@ -106,7 +106,7 @@ class TypesController < ApplicationController
             lt.type_other = nil
             lt.type = @type
             lt.save
-            locs << lt.location
+            locs << lt.location unless lt.location.nil?
           }
           locs.uniq.each{ |loc|
             n += 1

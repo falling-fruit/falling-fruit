@@ -64,6 +64,13 @@ class Type < ActiveRecord::Base
     end
   end
 
+  def Type.full_list_with_ids(cats=DefaultCategories)
+    cat_mask = array_to_mask(cats,Categories)
+    #Rails.cache.fetch('types_full_list' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      Type.where("(category_mask & ?)>0",cat_mask).order(:name).collect{ |t| {:id => t.id, :text => t.full_name} }
+    #end
+  end
+
   def Type.sorted_with_parents
     Type.joins("LEFT OUTER JOIN types parents_types ON types.parent_id = parents_types.id").
       select("array_to_string(ARRAY[parents_types.name,types.name],'::') as sortme, parents_types.name as parent_name, types.*").
