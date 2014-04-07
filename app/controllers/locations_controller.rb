@@ -281,6 +281,7 @@ class LocationsController < ApplicationController
     params[:f] = @type.id
     params[:t] = 'toner-lite'
     params[:c] = 'human,freegan'
+    params[:m] = 'false'
     index and return
   end
 

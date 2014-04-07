@@ -52,10 +52,10 @@ FallingfruitWebapp::Application.routes.draw do
   match 'imports/bibliography' => 'pages#datasets'
   match 'home' => 'locations#home'
   
-  # Replaced by pages#datasets (unused)
-  match 'maps' => 'pages#maps'
-  match 'inventories' => 'pages#inventories'
-  
+  # Replaced by pages#datasets (unused, but kept for posterity)
+  match 'maps' => 'pages#datasets'
+  match 'inventories' => 'pages#datasets'
+
   # Still used by /imports/show. Consider redirecting to /datasets.
   resources :imports
 
