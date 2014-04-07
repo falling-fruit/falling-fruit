@@ -20,6 +20,9 @@ function update_permalink(){
   if (type_filter != undefined) {
   	permalink = permalink + "&f=" + type_filter + "&c=" + cats;
   }
+  if (cats != undefined){
+    permalink = permalink + "&c=" + cats;
+  }
   $('#permalink').attr('href',permalink);
 }
 
@@ -135,6 +138,7 @@ function show_map_controls() {
 }
 
 function resize_map() {
+  if(document.getElementById('searchbar') == undefined) return;
   var headerHeight = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
 	if (document.getElementById('mainmap_container') != undefined) {
 		document.getElementById('mainmap_container').style.top = headerHeight + 'px';

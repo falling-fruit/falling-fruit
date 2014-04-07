@@ -126,18 +126,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cluster_seed
 
-  def mask_to_array(mask,options)
-    options.each_with_index.collect{ |v,i| (mask & 1<<i) > 0 ? v : nil }.compact
-  end
-  helper_method :mask_to_array
-
-  def array_to_mask(values,options)
-    r = 0
-    options.each_with_index.each{ |v,i| r = r | 1<<i unless values.index(v).nil? }
-    r
-  end
-  helper_method :array_to_mask
-
   def log_changes(location,description,observation=nil,author=nil,description_patch=nil)
     c = Change.new
     c.location = location

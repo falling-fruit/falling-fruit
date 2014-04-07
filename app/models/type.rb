@@ -14,6 +14,7 @@ class Type < ActiveRecord::Base
          6 => "Genus", 7 => "Multispecies", 8 => "Species", 9 => "Subspecies"}
   Edabilities={-1 => "Not worth it (or toxic)", 1 => "Include", 2 => "Maybe Include"}
   Categories=["human","freegan","honeybee"]
+  DefaultCategories=["human","freegan"]
 
   def all_children
     c = []
@@ -37,20 +38,30 @@ class Type < ActiveRecord::Base
     self.scientific_name.to_s == '' ? n : (n + " [" + self.scientific_name + "]")
   end
 
-  def Type.hash_tree
-    Rails.cache.fetch('types_hash_tree',:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+  def Type.hash_tree(cats=DefaultCategories)
+    cat_mask = array_to_mask(cats,Categories)
+    Rails.cache.fetch('types_hash_tree' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
       $seen = {}
-      Type.where("parent_id is NULL").order(:name).collect{ |t| t.to_hash }
+      Type.where("parent_id is NULL AND (category_mask & ?)>0",cat_mask).order(:name).collect{ |t| t.to_hash }
     end
   end
 
-  def to_hash
+  def to_hash(cats=DefaultCategories)
+    cat_mask = array_to_mask(cats,Categories)
     $seen = {} if $seen.nil?
     return nil unless $seen[self.id].nil?
     $seen[self.id] = true
     ret = {"id" => self.id, "name" => self.full_name}
-    ret["children"] = self.children.collect{ |c| c.to_hash }.compact unless self.children.empty?
+    cs = Type.where("parent_id=? AND (category_mask & ?)>0",self.id,cat_mask)
+    ret["children"] = cs.collect{ |c| c.to_hash }.compact unless cs.empty?
     ret
+  end
+
+  def Type.full_list(cats=DefaultCategories)
+    cat_mask = array_to_mask(cats,Categories)
+    Rails.cache.fetch('types_full_list' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      Type.where("(category_mask & ?)>0",cat_mask).order(:name).collect{ |t| t.full_name }
+    end
   end
 
   def Type.sorted_with_parents

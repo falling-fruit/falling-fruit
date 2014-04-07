@@ -47,13 +47,15 @@
       if (document.getElementById('content_container') != undefined) {
         document.getElementById('content_container').style.top = siteHeaderHeight + 'px';
       } else {
-        var mapHeaderHeight = siteHeaderHeight + document.getElementById('searchbar').offsetHeight;
-        if (document.getElementById('mainmap_container') != undefined) {
-          document.getElementById('mainmap_container').style.top = mapHeaderHeight + 'px';
-          google.maps.event.trigger(map,'resize');
-        }
-        if (document.getElementById('sidebar_container') != undefined) {
-          document.getElementById('sidebar_container').style.top = mapHeaderHeight + 'px';
+        if(document.getElementById('searchbar') != undefined){
+          var mapHeaderHeight = siteHeaderHeight + document.getElementById('searchbar').offsetHeight;
+          if (document.getElementById('mainmap_container') != undefined) {
+            document.getElementById('mainmap_container').style.top = mapHeaderHeight + 'px';
+            google.maps.event.trigger(map,'resize');
+          }
+          if (document.getElementById('sidebar_container') != undefined) {
+            document.getElementById('sidebar_container').style.top = mapHeaderHeight + 'px';
+          }
         }
       }
     }

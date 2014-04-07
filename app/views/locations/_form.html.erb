@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
   // Type selector
   $('#typeselect2').select2({
   	tokenSeparators: [","],
-    tags:[<%= raw Type.order("name").collect{ |t| '"'+t.full_name+'"' }.join(",") %>] 
+    tags: <%= Type.full_list(@cats.nil? ? Type::DefaultCategories : mask_to_array(@cats,Type::Categories)).to_json.html_safe %>
   });
   $("#typeselect2").select2("container").find("ul.select2-choices").sortable({
     containment: 'parent',

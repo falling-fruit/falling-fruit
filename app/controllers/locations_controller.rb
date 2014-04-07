@@ -264,16 +264,7 @@ class LocationsController < ApplicationController
   end
 
   def embed
-    @perma = {}
-    @perma[:zoom] = params[:z].to_i if params[:z].present?
-    @perma[:lat] = params[:y].to_f if params[:y].present?
-    @perma[:lng] = params[:x].to_f if params[:x].present?
-    @perma[:muni] = params[:m] == "true" if params[:m].present?
-    @perma[:labels] = params[:l] == "true" if params[:l].present?
-    @perma[:type] = params[:t] if params[:t].present?
-    @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
-    @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
-    @perma[:cats] = params[:c] if params[:c].present?
+    prepare_from_permalink
     @type = params[:f].present? ? Type.find(params[:f]) : nil
     @width = params[:width].present? ? params[:width].to_i : 640
     @height = params[:height].present? ? params[:height].to_i : 600
@@ -302,17 +293,7 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @perma = {}
-    @perma[:zoom] = params[:z].to_i if params[:z].present?
-    @perma[:lat] = params[:y].to_f if params[:y].present?
-    @perma[:lng] = params[:x].to_f if params[:x].present?
-    @perma[:muni] = params[:m] == "true" if params[:m].present?
-    @perma[:labels] = params[:l] == "true" if params[:l].present?
-    @perma[:type] = params[:t] if params[:t].present?
-    @perma[:cats] = params[:c] if params[:c].present?
-    unless @freegan
-      @type = params[:f].present? ? Type.find(params[:f]) : nil
-    end
+    prepare_from_permalink
     respond_to do |format|
       format.html { render "index" }# index.html.erb
       format.json { render json: @locations }
@@ -340,6 +321,7 @@ class LocationsController < ApplicationController
       @location.lat = @lat
       @location.lng = @lng
     end
+    @cats = params[:c].to_i if params[:c].present?
     respond_to do |format|
       format.html # new.html.erb
       format.mobile
@@ -530,8 +512,23 @@ class LocationsController < ApplicationController
     @mine.uniq!{ |o| o.location_id }
     @routes = Route.where("user_id = ?",current_user.id)
     @zoom_to_polygon = current_user.range
-    @zoom_to_circle = nil
     @show_sidebar = true
-    # FIXME: zoom circle!
   end
+
+  def prepare_from_permalink
+    @perma = {}
+    @perma[:zoom] = params[:z].to_i if params[:z].present?
+    @perma[:lat] = params[:y].to_f if params[:y].present?
+    @perma[:lng] = params[:x].to_f if params[:x].present?
+    @perma[:muni] = params[:m] == "true" if params[:m].present?
+    @perma[:labels] = params[:l] == "true" if params[:l].present?
+    @perma[:type] = params[:t] if params[:t].present?
+    @perma[:cats] = params[:c].to_i if params[:c].present?
+    @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
+    @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
+    unless @freegan
+      @type = params[:f].present? ? Type.find(params[:f]) : nil
+    end
+  end
+
 end

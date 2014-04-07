@@ -13,7 +13,7 @@
     <a href="<%= request.fullpath.gsub('locations/embed', '') %>" id="falling_fruit">fallingfruit.org </a>
 		<div class="hr-like"></div>
     <span>mini</span>
-    <a href="/locations/new" id="add_source">Add source</a>
+    <a href="/locations/new<%= @perma[:cats].nil? ? "" : "?c=" + @perma[:cats].to_s %>" id="add_source">Add source</a>
   </div>
 </div>
 
@@ -56,7 +56,7 @@ Sources are marked as unverified if their identity, location, or existence is di
   <% end %>
   
   // state variable used to leave out certain info_window features (report)
-  <% $embed = not(request.fullpath.match('/locations/embed[.]*').nil?) %>
+  <% $embed = (not request.fullpath.match('/locations/embed[.]*').nil?) %>
 
   // ================= functions =================
 
