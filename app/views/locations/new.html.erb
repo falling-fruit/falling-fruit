@@ -43,14 +43,12 @@
       }, function(error) {
         //use error.code to determine what went wrong
       });
-      var watchID = navigator.geolocation.watchPosition(function(position) {
+
+      watchID = navigator.geolocation.watchPosition(function(position) {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         var latlng = new google.maps.LatLng(lat,lng)
-        if (marker != null) {
-        	// Chrome was complaining of marker being null
-					marker.setPosition(latlng);
-				}
+        if (marker != null) marker.setPosition(latlng);
 				map.panTo(latlng);
         $('#location_lat').val(lat);
         $('#location_lng').val(lng);
@@ -73,10 +71,10 @@
       var lng = $("#location_lng").val();
       var zoom = 15;
       basemap(lat,lng,zoom,type);
-      place_edit_marker(lat,lng)
+      place_edit_marker(lat,lng,watchID)
     }
-  
-		// Update markers once we're done panning and zooming
+
+    // Update markers once we're done panning and zooming
 		google.maps.event.addListenerOnce(map, 'idle', function() {
 				do_markers(map.getBounds(),null,true);
 		});

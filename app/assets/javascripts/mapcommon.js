@@ -30,7 +30,7 @@
   markersLoadedEvent.initEvent("markersloaded",true,true);
   var markersMax = 5000; // maximum markers that will display at one time...
   var markersPartial = false;
-
+  var watchID = null; // navigator/geolocation watchID
 
   // ================= functions =================
 
@@ -1107,12 +1107,15 @@ function update_marker_address() {
 			map.setZoom(15);
 			if (marker != null) {
 				marker.setPosition(latlng);
-			} else {
+        if(watchID != undefined){
+          navigator.geolocation.clearWatch(watchID);
+          watchID = null;
+        }
+      } else {
 				nag = initialize_marker(lat,lng);
+        nag.open(map,marker);
+        nagOpen = true;
 			}
-			nag.open(map,marker);
-			nagOpen = true;
-			
 		// Otherwise, return geocoding errors
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
@@ -1122,11 +1125,11 @@ function update_marker_address() {
 
 // Update marker position from user-provided latitude and longitude
 function update_marker_latlng() {
-	var lat = $("#location_lat").val();
-	var lng = $("#location_lng").val();
+	var lat = parseFloat($("#location_lat").val());
+	var lng = parseFloat($("#location_lng").val());
 
-	// If empty, do nothing
-	if (lat == "" || lng == "" ) return;
+	// If bogus, do nothing
+	if (isNaN(lat) || isNaN(lng)) return;
 	
 	// If latitude > 85, return error
 	// Google Maps cannot display lat > 85 properly, and lat > 85 breaks clusters.
@@ -1137,23 +1140,20 @@ function update_marker_latlng() {
 	
 	// Otherwise, and if numeric, move marker
 	// If out of range, longitude is converted to [-180, 180]
-	var latlng = new google.maps.LatLng(lat,lng, false)
-	if (!isNaN(latlng.mb) && !isNaN(latlng.nb)) {
-	  $("#location_lng").val(latlng.nb);
-	  map.panTo(latlng);
-		map.setZoom(15);
-		if (marker != null) {
-			marker.setPosition(latlng);
-		} else {
-		  nag = initialize_marker(lat,lng);
-		}
-		nag.open(map,marker);
-		nagOpen = true;
-		
-	// Otherwise, return error
-	} else {
-		alert("Latitude and longitude must both be numbers.");
-	}
+	var latlng = new google.maps.LatLng(lat,lng, false);
+  map.panTo(latlng);
+  map.setZoom(15);
+  if (marker != null) {
+    marker.setPosition(latlng);
+    if(watchID != undefined){
+      navigator.geolocation.clearWatch(watchID);
+      watchID = null;
+    }
+  } else {
+    nag = initialize_marker(lat,lng);
+    nag.open(map,marker);
+    nagOpen = true;
+  }
 }
 
 // Initialize map marker (marker) and infowindow (nag)
@@ -1168,6 +1168,15 @@ function place_edit_marker(lat,lng) {
 		map: map,
 		draggable: true
 	});
+
+  // remove geolocation watcher when marker is dragged
+  if(watchID != undefined){
+    google.maps.event.addListenerOnce(marker, 'dragend', function() {
+      navigator.geolocation.clearWatch(watchID);
+      watchID = null;
+      alert('cleared');
+    });
+  }
 	
 	// Infowindow
 	var html = $('<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>');
