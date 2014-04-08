@@ -30,7 +30,7 @@
 <td style="padding-bottom:1em;"><%= render :partial => 'form', :object => @type, :locals => {:lts => lts} %></td>
 <td><form action="/types/merge">
     <%= hidden_field_tag 'lts', lts.collect{ |lt| lt.id }.join(":") %>
-    <%= hidden_field_tag(:into_id,'',:id=>"intoselect2") %>
+    <%= hidden_field_tag(:into_id,'',:class=>"intoselect2") %>
     <%= submit_tag "Merge" %>
 </form>
 </td>
@@ -51,7 +51,7 @@ jQuery(document).ready(function(){
     width: "20em",
     data: all_types_data
   });
-  $("#intoselect2").select2({
+  $(".intoselect2").select2({
     width: "20em",
     data: all_types_data
   });
