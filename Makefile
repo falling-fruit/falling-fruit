@@ -23,6 +23,10 @@ clusters:
 devserver:
 	bundle exec thin -e development start
 
+syncfrombackup:
+	scp erichtho:/var/www/falling-fruit/db/backups/fallingfruit.1.sql ./
+	bash util/load_backup.sh fallingfruit.1.sql
+
 shapes:
 	pgsql2shp -u fallingfruit_user -h localhost -f $(DATETIME)_cluster_polygon.shp fallingfruit_db 'SELECT zoom, muni, count, created_at, updated_at, ST_TRANSFORM(ST_SETSRID(polygon,900913),4326) FROM clusters ORDER BY zoom ASC, muni ASC'
 		pgsql2shp -u fallingfruit_user -h localhost -f $(DATETIME)_cluster_point.shp fallingfruit_db 'SELECT zoom, muni, count, created_at, updated_at, ST_TRANSFORM(ST_SETSRID(cluster_point,900913),4326) FROM clusters ORDER BY zoom ASC, muni ASC'
