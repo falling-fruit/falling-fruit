@@ -6,7 +6,7 @@ class Problem < ActiveRecord::Base
                   :response, :reporter, :responder, :id, :location_id, :name, :email
 
   validates :problem_code, :numericality => { :only_integer => true }, :allow_nil => false
-  validates :email, presence: true, unless: "user_signed_in?"
+  validates :email, presence: true
 
   Codes = ["Location is spam",
            "Location does not exist",

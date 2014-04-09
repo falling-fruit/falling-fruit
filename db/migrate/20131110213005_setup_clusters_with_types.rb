@@ -6,7 +6,8 @@ class SetupClustersWithTypes < ActiveRecord::Migration
     gsize_init = 2.0*Math::PI*earth_radius
     xo = -gsize_init/2.0
     yo = gsize_init/2.0
-    type_ids = ([type.id] + type.all_children.collect{ |ct| ct.id }).flatten.uniq.compact
+    #type_ids = ([type.id] + type.all_children.collect{ |ct| ct.id }).flatten.uniq.compact
+    type_ids = [type.id]
 
     (0..12).each{ |z|
       z2 = (z > 3) ? z + 1 : z
