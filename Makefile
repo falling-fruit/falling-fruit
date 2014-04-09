@@ -18,7 +18,7 @@ export:
 	bzip2 public/data.csv
 
 clusters:
-	rake db:migrate:redo VERSION=20131110213005
+	bundle exec rake db:migrate:redo VERSION=20131110213005
 
 devserver:
 	bundle exec thin -e development start

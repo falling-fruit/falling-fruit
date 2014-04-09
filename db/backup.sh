@@ -12,5 +12,5 @@ for i in $(seq $num_pg_backups -1 1);do
   fi
 done
 rm -f $prefix.$(($num_pg_backups+1)).sql
-pg_dump -h localhost -U fallingfruit_user -Fc -b -v -f $prefix.1.sql fallingfruit_db
+pg_dump -h localhost -U fallingfruit_user -Fc -b -v -f $prefix.1.sql fallingfruit_new_db
 popd
