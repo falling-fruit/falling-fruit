@@ -22,7 +22,7 @@ class ProblemsController < ApplicationController
     end
 
     respond_to do |format|
-      test = user_signed_in? ? true : verify_recaptcha(:model => @problem, 
+      test = user_signed_in? ? true : verify_recaptcha(:model => @problem,
                                                        :message => "ReCAPCHA error!")
       if test and @problem.save
         format.html { render :text => 'Thank you for letting us know!' }

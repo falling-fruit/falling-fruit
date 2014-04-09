@@ -59,7 +59,7 @@
 
 <% content_for :page_scripts do %>
 <script type="text/javascript">
-  var base_type_data = <%= Type.hash_tree(@perma[:cats].nil? ? Type::DefaultCategories : @perma[:cats].split(/,/)).to_json.html_safe %>;
+  var base_type_data = <%= Type.hash_tree((@perma.nil? or @perma[:cats].nil?) ? Type::DefaultCategories : @perma[:cats].split(/,/)).to_json.html_safe %>;
   function filter_by_types_hash(children){
     var mp = markersPartial ? "+" : "";
     var ret = children.filter(function(obj){ return types_hash[obj["id"]] != undefined; })
