@@ -21,12 +21,16 @@ to submit upstream, send a pull request from your fork. Cool? Cool.
 == How do I run it?
 
 Something like this will start it on your local machine, assuming you have the various
-pre-requisites installed (ruby, rvm, postgis, etc.)
+pre-requisites installed (ruby 1.9.3, rvm, postgis 2.1, etc.)
 
   caleb@krige:~$ bash --login
   caleb@krige:~$ rvm use 1.9.3
   Using /home/caleb/.rvm/gems/ruby-1.9.3-p392
   caleb@krige:~$ cd Checkouts/fallingfruit-webapp/
+  caleb@krige:~$ cp config/database.yml.dist config/database.yml
+  caleB@krige:~$ cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle install
   caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle exec rake db:migrate
   caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle exec thin start
+  
+You'll want to change config/database.yml and config/intializers/secret_token.rb too.
