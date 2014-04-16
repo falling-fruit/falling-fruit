@@ -109,11 +109,13 @@ class Location < ActiveRecord::Base
 
   def title
     lt = self.locations_types
-    if lt.length == 2
+    if lt.empty?
+      nil
+    elsif lt.length == 2
       "#{lt[0].name} & #{lt[1].name}"
     elsif lt.length > 2
       "#{lt[0].name} & Others"
-    else
+    elsif lt.length == 1
       lt[0].name
     end
   end

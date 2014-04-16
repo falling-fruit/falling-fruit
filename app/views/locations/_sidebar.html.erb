@@ -81,7 +81,9 @@
     <% else %>
       Locations added or reviewed by you (while logged in):
       <br/>
-      <% @mine.each do |o| %>
+      <% @mine.each do |o|
+        next if o.location.title.nil?
+      %>
         <div class="favorite">
           <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
             <%= o.location.title %>

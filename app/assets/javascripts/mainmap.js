@@ -18,7 +18,7 @@ function update_permalink(){
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
      typeid + '&l=' + $('#labels').is(":checked");
   if (type_filter != undefined) {
-  	permalink = permalink + "&f=" + type_filter + "&c=" + cats;
+  	permalink = permalink + "&f=" + type_filter;
   }
   if (cats != undefined){
     permalink = permalink + "&c=" + cats;
