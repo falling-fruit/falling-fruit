@@ -16,7 +16,7 @@
       <li>
           <%= hidden_field_tag('route_location_id',lr.id) %>
           <a href="#" onclick="sidebar_pan_to_location(<%= lr.location.id %>,<%= lr.location.lat %>,<%= lr.location.lng %>);return false;" onmouseover="show_pointer(<%= lr.location.lat %>,<%= lr.location.lng %>);" onmouseout="hide_pointer();">
-            <%= lr.location.title %> <%= lr.position %>
+            <%= lr.location.title %>
           </a>
     <% } %>
     </ol>
