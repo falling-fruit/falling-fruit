@@ -1,9 +1,9 @@
 <%= render :partial => '/locations/searchbar' %>
 
 <div id="directions_panel">
-<div id="travel_mode">
+  <div id="travel_mode">
   <b>Mode of travel: </b>
-  <select id="travel_mode_select" onchange="calculate_route();">
+  <select id="travel_mode_select" onchange="calculate_route(all_waypoints.slice(0));">
     <option value="WALKING">Walking</option>
     <option value="BICYCLING">Bicycling</option>
     <!--<option value="TRANSIT">Transit</option>-->
@@ -11,6 +11,16 @@
   </select>
   </div>
   <div id="directions">
+    <ol id="directions_list">
+    <% @route_locations.each{ |lr| %>
+      <li>
+        <div class="favorite">
+          <a href="#" onclick="sidebar_pan_to_location(<%= lr.location.id %>,<%= lr.location.lat %>,<%= lr.location.lng %>);return false;" onmouseover="show_pointer(<%= lr.location.lat %>,<%= lr.location.lng %>);" onmouseout="hide_pointer();">
+            <%= lr.location.title %>
+          </a>
+        </div>
+    <% } %>
+    </ol>
   </div>
 </div>
 <div id="mainmap_container" style="left: 310px;">
@@ -25,40 +35,59 @@
 <script type="text/javascript" charset="utf-8">
 
   // ================= globals ==================
-  
-  var directionsDisplay;
+
+  var directionsOverlays = [];
   var directionsService = new google.maps.DirectionsService();
   //var skip_ids = [<%= @route_locations.collect{ |lr| lr.location.id }.join(",") %>];
   var skip_ids = null;
   var route_step_ids = [<%= @route_locations.collect{ |l| l.location.id }.join(",") %>];
-  <% if @route_locations.length > 2 %>
-    var waypoints = [<%= (1..@route_locations.length-2).collect{ |i|
-                     "{location: new google.maps.LatLng(#{@route_locations[i].location.lat},#{@route_locations[i].location.lng})}" }.join(",")
+  var all_waypoints = [<%= @route_locations.collect{ |lr|
+                     "{location: new google.maps.LatLng(#{lr.location.lat},#{lr.location.lng})}" }.join(",")
                 %>];
-  <% else %>
-    var waypoints = [];
-  <% end %>
-  var origin = new google.maps.LatLng(<%= @start_location.lat %>,<%= @start_location.lng %>);
-  var destination = new google.maps.LatLng(<%= @stop_location.lat %>,<%= @stop_location.lng %>);
   var type = google.maps.MapTypeId.ROADMAP;
   var travelMode = '<%= @route.transport_type.upcase %>';
   var bounds = new google.maps.LatLngBounds();
   <% @route_locations.each{ |lr| %>
     bounds.extend(new google.maps.LatLng(<%= lr.location.lat %>,<%= lr.location.lng %>));
   <% } %>
+  var cats = undefined;
   
   // ================= functions =================
   
   // Enable the visual refresh
   google.maps.visualRefresh = true;
-  
+
   function initialize() {
     
     basemap(undefined,undefined,undefined,type,bounds);
     var zoom = map.getZoom();
     
     geocoder = new google.maps.Geocoder();
-    directionsDisplay = new google.maps.DirectionsRenderer();
+
+    google.maps.event.addListener(map, 'rightclick', function(event) {
+      remove_add_marker();
+      place_add_marker(event.latLng);
+    });
+
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) { 
+      calculate_route(all_waypoints.slice(0));
+    });
+    
+    google.maps.event.addListener(map, 'idle', function(){
+        update_display(false);
+        //var len = markersArray.length;
+        // tries to discolor non-route points, but doesn't work when map is panned
+        /*for (var i = 0; i < len; i++) {
+          if (route_step_ids.indexOf(parseInt(markersArray[i].id)) == -1) {
+            markersArray[i].marker.setZIndex(99);
+            markersArray[i].marker.setIcon({url: "/icons/smdot_t1_white_a50.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
+          }
+        }*/
+    });
+  }
+
+  function create_renderer(){
+    var directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setOptions({
       suppressMarkers: true,
       draggable: true,
@@ -67,60 +96,64 @@
         strokeColor: '#2d97ec',
         strokeOpacity: 0.8,
         strokeWeight: 6
-        }
-      });
+      }
+    });
     directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById('directions'));
-    
-    // default is labels on
-    //labelize_markers();
-    //$("#labels").prop('checked',true);
-    
-    google.maps.event.addListener(map, 'rightclick', function(event) {
-      remove_add_marker();
-      place_add_marker(event.latLng);
-    });
-
-    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) { 
-      calculate_route();
-
-      // draw the markers and whatnot
-//       google.maps.event.addListenerOnce(map, 'idle', function(){
-//         update_display(true,zoom,bounds);
-//       });
-     });
-    
-    google.maps.event.addListener(map, 'idle', function(){
-        update_display(false);
-        var len = markersArray.length;
-        for (var i = 0; i < len; i++) {
-          if (route_step_ids.indexOf(parseInt(markersArray[i].id)) == -1) {
-            markersArray[i].marker.setZIndex(99);
-            markersArray[i].marker.setIcon({url: "/icons/smdot_t1_white_a50.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
-          }
-       }
-    });
+    //directionsDisplay.setPanel(document.getElementById('directions'));
+    return directionsDisplay;
   }
-  
-  function calculate_route() {
-    travelMode = document.getElementById('travel_mode_select').value;
-     var request = {
-       origin: origin,
-       destination: destination,
-       waypoints: waypoints,
-       travelMode: google.maps.TravelMode[travelMode]
-     };
-     // Route the directions and pass the response to a
-     // function to create markers for each step.
-     directionsService.route(request, function(response, status) {
-       if (status == google.maps.DirectionsStatus.OK) {
+
+  function clear_directions(){
+    for(var i = 0; i < directionsOverlays.length; i++){
+      directionsOverlays[i].setMap(null);
+    }
+    directionsOverlays = [];
+  }
+
+  function calculate_route(waypoints) {
+     if(waypoints.length < 2) return;
+     travelMode = document.getElementById('travel_mode_select').value;
+    clear_directions();
+     var orig;
+     var dest;
+     var chunk = [];
+     orig = waypoints.splice(0,1).shift();
+     if(waypoints.length <= 8){
+       if(waypoints.length > 1) chunk = waypoints.splice(0,waypoints.length-1);
+       else chunk = [];
+     }else{
+       chunk = waypoints.splice(0,8);
+     }
+     dest = waypoints.splice(0,1).shift();
+     while(chunk.length > 0 || waypoints.length > 0){
+       var request = {
+         origin: orig.location,
+         destination: dest.location,
+         waypoints: chunk,
+         travelMode: google.maps.TravelMode[travelMode]
+       };
+       // Route the directions and pass the response to a
+       // function to create markers for each step.
+       directionsService.route(request, function(response, status) {
+         var directionsDisplay = create_renderer();
+         directionsOverlays.push(directionsDisplay);
+         if (status == google.maps.DirectionsStatus.OK) {
+           directionsDisplay.setDirections(response);
+         } else {
+           directionsDisplay.setDirections(response);
+         }
          //var warnings = document.getElementById('warnings_panel');
          //warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
-         directionsDisplay.setDirections(response);
-       } else {
-         directionsDisplay.setDirections(response);
+       });
+       orig = dest;
+       if(waypoints.length <= 8){
+         if(waypoints.length > 1) chunk = waypoints.splice(0,waypoints.length-1);
+         else chunk = [];
+       }else{
+         chunk = waypoints.splice(0,8);
        }
-     });
+       dest = waypoints.splice(0,1).shift();
+     }
    }
 
 

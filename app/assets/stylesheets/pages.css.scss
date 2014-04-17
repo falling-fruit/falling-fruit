@@ -557,12 +557,22 @@ table#type_summary img.link_icon {
   padding: 1em 5px 5px 5px;
 }
 
+
+
 #directions {
   overflow: auto;
   position: absolute;
   bottom: 0;
   top: 3em;
   width: 300px;
+  ol {
+    list-style-type: decimal;
+    li{
+      display: list-item;
+      list-style-type: decimal;
+      margin-bottom: 1em;
+    }
+  }
 }
 
 #travel_mode {
