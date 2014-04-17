@@ -11,7 +11,7 @@ class Ability
     elsif user.is? :forager or user.is? :guest
       # let them edit themselves and their routes...
       can :update, User, :id => user.id
-      can [:read, :create, :update], Route, :user_id => user.id
+      can [:read, :create, :update, :reposition], Route, :user_id => user.id
     end
 
     # Things everyone can do

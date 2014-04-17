@@ -20,6 +20,34 @@ class RoutesController < ApplicationController
     end
   end
 
+  def reposition
+    @route = Route.find(params[:id])
+    @route_location = LocationsRoute.find(params[:lrid])
+    new_position = params[:pos].to_i
+    @route_location.position ||= 0
+    checks = []
+    if new_position > @route_location.position
+      # move everything behind new_position and ahead of old position down
+      LocationsRoute.where("route_id = ? AND position > ? AND position <= ?",@route.id,@route_location.position,new_position).each{ |lr|
+        lr.position -= 1
+        checks << lr.save
+      }
+    else
+      # move everything ahead of new position and behind old position up
+      LocationsRoute.where("route_id = ? AND position >= ? AND position < ?",@route.id,new_position,@route_location.position).each{ |lr|
+        lr.position += 1
+        checks << lr.save
+      }
+    end
+    @route_location.position = new_position
+    if @route_location.save and checks.all?
+      flash[:notice] = "Order updated!"
+    else
+      flash[:notice] = "Problems updating order!"
+    end
+    redirect_to route_path(@route)
+  end
+
   # DELETE /types/1
   # DELETE /types/1.json
   def destroy

@@ -477,6 +477,7 @@ class LocationsController < ApplicationController
       lr = LocationsRoute.new
       lr.route = @route
       lr.location = @location
+      lr.position = 0
       lr.save
     else
       @route = Route.find(params[:route_id])
@@ -485,6 +486,8 @@ class LocationsController < ApplicationController
         lr = LocationsRoute.new
         lr.route = @route
         lr.location_id = @location.id
+        max = LocationsRoute.select("MAX(position) as max").where("route_id = ?",@route.id).first.max
+        lr.position = max.nil? ? 0 : max.to_i+1
         lr.save
       else
         lr.each{ |e| e.destroy }

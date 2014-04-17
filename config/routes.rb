@@ -11,6 +11,9 @@ FallingfruitWebapp::Application.routes.draw do
     collection do
       post 'multiupdate'
     end
+    member do
+      get 'reposition'
+    end
   end
 
   resources :locations do

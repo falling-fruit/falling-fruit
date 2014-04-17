@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140407232224) do
+ActiveRecord::Schema.define(:version => 20140417205031) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"

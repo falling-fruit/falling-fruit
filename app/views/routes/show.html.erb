@@ -14,11 +14,10 @@
     <ol id="directions_list">
     <% @route_locations.each{ |lr| %>
       <li>
-        <div class="favorite">
+          <%= hidden_field_tag('route_location_id',lr.id) %>
           <a href="#" onclick="sidebar_pan_to_location(<%= lr.location.id %>,<%= lr.location.lat %>,<%= lr.location.lng %>);return false;" onmouseover="show_pointer(<%= lr.location.lat %>,<%= lr.location.lng %>);" onmouseout="hide_pointer();">
-            <%= lr.location.title %>
+            <%= lr.location.title %> <%= lr.position %>
           </a>
-        </div>
     <% } %>
     </ol>
   </div>
@@ -57,11 +56,22 @@
   // Enable the visual refresh
   google.maps.visualRefresh = true;
 
+  jQuery(document).ready(function(){
+    $( "#directions_list" ).sortable({
+      update: function(event,ui){
+        var lrid = ui.item.find("#route_location_id").val();
+        var pos = ui.item.index();
+        window.location = '/routes/<%= @route.id %>/reposition?lrid=' + lrid + '&pos=' + pos;
+      }
+    });
+    $( "#directions_list" ).disableSelection();
+  });
+
   function initialize() {
     
     basemap(undefined,undefined,undefined,type,bounds);
     var zoom = map.getZoom();
-    
+
     geocoder = new google.maps.Geocoder();
 
     google.maps.event.addListener(map, 'rightclick', function(event) {
