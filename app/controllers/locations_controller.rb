@@ -363,11 +363,15 @@ class LocationsController < ApplicationController
 
     # create an observation if necessary
     @obs = nil
-    if params[:quality_rating].present? or params[:yield_rating].present?
+    if params[:quality_rating].present? or params[:yield_rating].present? or params[:fruiting] or params[:photo] or params[:comment]
       @obs = Observation.new
       @obs.quality_rating = params[:quality_rating].to_i unless params[:quality_rating].blank?
       @obs.yield_rating = params[:yield_rating].to_i unless params[:yield_rating].blank?
       @obs.fruiting = params[:fruiting].to_i unless params[:fruiting].blank?
+      @obs.comment = params[:comment] unless params[:comment].blank?
+      unless params[:photo].blank?
+      	@obs.photo_caption = params[:photo_caption].to_i unless params[:photo_caption].blank?
+      end
       if params[:observed_on].empty?
         @obs.observed_on = Date.today
       else

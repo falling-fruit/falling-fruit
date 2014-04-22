@@ -109,22 +109,17 @@
 		<a class="addthis_button_compact" addthis:url="http://www.FallingFruit.org">
 			<img src="/social/addthis.png" />
 		</a>
-
-		<!-- Facebook like
-		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="http://www.facebook.com/FallingFruit"></a> --> 	
-		<!-- Twitter follow
-		<a class="addthis_button_twitter_follow_native" tw:screen_name="Falling_Fruit" tw:show-count="false" tw:show-screen-name="false" />-->
 	</div>
 	
 	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
  
  <!-- Title -->
- <a id="falling_fruit" href="/">FallingFruit.org</a><!--<a href="/?mobile=1"><img style="height:1.7em;position:relative;top:0.1em;left:0.5em;" src="/mobile.png" title="Mobile site"/></a>-->
+ <a id="falling_fruit" href="/">fallingfruit.org</a>
  <span id="subtitle">
  <% unless @freegan %>
-   Mapping the urban harvest!
+   &ndash; Mapping the urban harvest!
  <% else %>
-   Feed people, not landfills!
+   &ndash; Feed people, not landfills!
  <% end %>
  </span>
 </div>
@@ -144,10 +139,10 @@
     
     <!-- Map -->
     <% unless user_signed_in? %>
-      <li><%= link_to('Map', root_path, :id => "maplink", :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path)) ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to('Map', root_path, :id => "maplink", :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
     <% else %>
       <li><%= link_to('Home', '/home', :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
-      <li><%= link_to('World', root_path, :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path)) ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to('World', root_path, :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
     <% end %>
     
     <!-- About -->
@@ -207,6 +202,11 @@
 <!-- Unverified? -->
 <div id="unverified_help" style="display:none;">
 Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
+</div>
+
+<!-- Pending Types -->
+<div id="pending_types_help" style="display:none;">
+We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted as pending until they are either approved as a new type or merged with an existing type in the taxonomy. In rare instances when the submission is either too random or vague to warrant its own type, it persists on the map in an unapproved state.
 </div>
    
 <!-- Content -->

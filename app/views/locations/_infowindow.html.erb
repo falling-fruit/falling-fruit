@@ -21,9 +21,15 @@
 			</li>
 	<% end %>
  <% @location.locations_types.each{ |d| %>
- <li>
+ <% if d.type.nil? %>
+   <li style="background-color:#FCE7E4;">
+ <% else %>
+   <li>
+ <% end %>
  <%= d.name.nil? ? "Unknown" : d.name %>
- <% unless d.type.nil? %>
+ <% if d.type.nil? %> 
+   <span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_pending_types_help_modal();">[?]</span>
+ <% else %>
 	 <% unless d.type.wikipedia_url.blank? %>
 		<a href="<%= d.type.wikipedia_url %>" target="_blank" title="Wikipedia"><img class="type_icon" src="/wikipedia_icon.png"></a>
 	 <% end %>

@@ -70,8 +70,32 @@ jQuery(document).ready(function(){
   <%= f.hidden_field :id %>
   <%= f.hidden_field :location_id %>
 
-  <!-- Quality Rating -->
+  <!-- Date -->
+  <div class="field">
+    <%= f.label :visited_on %><br />
+    <span class="subtext">Date of your visit (if not today)</span><br />
+    <%= f.text_field(:observed_on) %>
+  </div>
+  
+  <!-- Comments -->
+  <div class="field">
+    <%= f.label :comments %><br />
+    <span class="subtext">Updates, access issues, plant health...</span><br />
+    <%= f.text_area :comment, :size => "40x3" %>
+  </div>
+  
+  <hr />
+
+  <!-- Fruiting -->
   <div class="field first">
+    <%= f.label :fruiting_status %><br />
+    <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
+    <%= f.select(:fruiting,Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+  </div>
+  
+  <!-- Quality Rating -->
+  <div class="field">
     <%= f.label :quality_rating %><br />
     <span class="subtext">Rate the tastiness of this source.</span><br />
     <%= f.select(:quality_rating,Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] },:include_blank => true) %>
@@ -86,21 +110,6 @@ jQuery(document).ready(function(){
     <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
   </div>
 
-  <!-- Fruiting -->
-  <div class="field">
-    <%= f.label :current_status %><br />
-    <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
-    <%= f.select(:fruiting,Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] },:include_blank => true) %>
-    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
-  </div>
-  
-  <!-- Date -->
-  <div class="field">
-    <%= f.label :visited_on %>
-    <span class="subtext">Date of your visit (if not today)</span><br />
-    <%= f.text_field(:observed_on) %>
-  </div>
-
   <% if @obs.location.unverified %>
   <!-- Verify -->
   <div class="field">
@@ -109,8 +118,8 @@ jQuery(document).ready(function(){
   </div>
   <% end %>
 
-	<hr>
-
+	<hr />
+  
   <!-- Photo -->
   <div class="field">
    <%= f.label :photo %><br />
@@ -121,20 +130,14 @@ jQuery(document).ready(function(){
   <!-- Caption -->
   <div class="field">
     <%= f.label :photo_caption %><br />
-    <%= f.text_field :photo_caption, :size => "40x3" %>
+    <%= f.text_field :photo_caption, :size => "40" %>
   </div>
-
-
-  <!-- Comments -->
-  <div class="field">
-    <%= f.label :comments %><br />
-    <span class="subtext">Updates, access issues, plant health...</span><br />
-    <%= f.text_area :comment, :size => "40x3" %>
-  </div>
+  
+  <hr />
 
   <!-- Author (if new or admin) -->
   <div class="field">
-    <%= f.label :author %><br />
+    <%= f.label :your_name %><br />
     <span class="subtext">Leave blank if you prefer to remain anonymous.</span><br />
     <% if (user_signed_in? and !current_user.add_anonymously?) %>
     	<%= f.text_field :author, :value => current_user.name %>
@@ -143,8 +146,7 @@ jQuery(document).ready(function(){
     <% end %>
     </span>
   </div>
-	
-  <hr />
+  <br/>
   
   <!-- Captcha -->
   <% unless user_signed_in? %>

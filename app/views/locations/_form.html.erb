@@ -104,6 +104,14 @@ jQuery(document).ready(function(){
   <%= f.hidden_field :id %>
   <%= f.hidden_field :client, :value => 'web' %>
   
+  <!-- Observations! -->
+  <% if @current_action == "edit" %>
+    <p style="border:1px solid #ddd;background-color:#FCE7E4;padding:0.5em;font-size:95%;line-height:125%;">
+      Edit the location below, or
+      <a href="/observations/new?location_id=<%= @location.id %>" data-ajax="false" rel="external" title="Review this location">use this form</a> to review, comment, and post photos.
+    </p>
+  <% end %>
+
   <!-- Type -->
   <div class="field first" id="types">
     *<%= f.label :types %><br />
@@ -180,39 +188,44 @@ jQuery(document).ready(function(){
   <!-- Observations -->
   <% if @current_action == "new" or @current_action == "create" %>
   <hr />
+  
+  <details>
+    <summary>Have you visited this location?</summary>
 
-  <!-- Quality Rating -->
-  <div class="field">
-    <%= f.label :quality %><br />
-    <span class="subtext">Rate the tastiness of this source (if applicable)</span><br />
-    <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
-    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
-  </div>
+    <!-- Date -->
+    <div class="field">
+      <%= f.label :date_visited %><br />
+      <span class="subtext">Date of the reported fruiting status (if not today)</span><br />
+      <%= text_field_tag(:observed_on) %>
+    </div>
   
-  <!-- Yield Rating -->
-  <div class="field">
-    <%= f.label :yield %><br />
-    <span class="subtext">Rate the productivity of this source (if applicable)</span><br />
-    <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
-    <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
-  </div>
+    <!-- Fruiting -->
+    <div class="field">
+      <%= f.label :fruiting_status %><br />
+      <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
+      <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
+      <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+    </div>
   
-  <!-- Fruiting -->
-  <div class="field">
-    <%= f.label :fruiting_status %><br />
-    <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
-    <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
-    <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
-  </div>
+    <!-- Quality Rating -->
+    <div class="field">
+      <%= f.label :quality %><br />
+      <span class="subtext">Rate the tastiness of this source (if applicable)</span><br />
+      <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
+      <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+    </div>
   
-  <!-- Date -->
-  <div class="field">
-    <%= f.label :date_visited %><br />
-    <span class="subtext">Date of the reported fruiting status (if not today)</span><br />
-    <%= text_field_tag(:observed_on) %>
-  </div>
+    <!-- Yield Rating -->
+    <div class="field">
+      <%= f.label :yield %><br />
+      <span class="subtext">Rate the productivity of this source (if applicable)</span><br />
+      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
+      <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+    </div>
+
+  </details>
   <% end %>
-
+    
   <hr />
   
   <!-- Captcha -->
