@@ -71,7 +71,7 @@ jQuery(document).ready(function(){
   <%= f.hidden_field :location_id %>
 
   <!-- Date -->
-  <div class="field">
+  <div class="field first">
     <%= f.label :visited_on %><br />
     <span class="subtext">Date of your visit (if not today)</span><br />
     <%= f.text_field(:observed_on) %>
@@ -87,7 +87,7 @@ jQuery(document).ready(function(){
   <hr />
 
   <!-- Fruiting -->
-  <div class="field first">
+  <div class="field">
     <%= f.label :fruiting_status %><br />
     <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
     <%= f.select(:fruiting,Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] },:include_blank => true) %>
