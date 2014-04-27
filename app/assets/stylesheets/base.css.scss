@@ -3,7 +3,7 @@
 /**********************************************************/
 
 html, body {
-  font-family: Verdana,Arial,sans-serif;
+  font-family: Verdana, Arial, sans-serif;
   font-size: 0.925em;
   color: #666;
   margin: 0;
@@ -82,6 +82,15 @@ hr {
 div#captcha {
   position: relative;  /* Widget has slight left margin */
   left: -2px;
+}
+
+summary {
+  font-style: italic;
+  padding: 0.3em 0.5em;
+  border: 1px solid #DDD;
+  border-radius: 1px;
+  background-color: #F3F3F3;
+  cursor: pointer;
 }
 
 /**********************************************************/
@@ -328,10 +337,6 @@ div#tab-2 label {
 /**********************************************************/
 /********************* Template: Tabs *********************/
 /**********************************************************/
-
-/*.gm-style-iw {
-  top: -24px ! important;
-}*/
 
 .ui-tabs,
 .ui-tabs > div {

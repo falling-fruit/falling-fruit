@@ -2,10 +2,10 @@
 /************************* Header *************************/
 /**********************************************************/
 
-$logobarHeight: 2.75em;
-$menubarHeight: 2em;
-$searchbarHeight: 3em;
-$searchbarBorder: 0.15em;
+$logobarHeight: 38px;
+$menubarHeight: 27px;
+$searchbarHeight: 43px;
+$searchbarBorder: 2px;
 
 /*** Logo ***/
 
@@ -16,19 +16,18 @@ div#logobar {
 }
 
 div#logobar a#falling_fruit {
-  font-size: 2.4em;
-  font-family: helvetica, arial, verdana, sans-serif;
-  font-variant: small-caps;
+  font-size: 2.2em;
+  font-family: 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
   font-weight: bold;
   color: #FFF;
   margin-left: 4px;
+  letter-spacing: 1px;
 }
 
 div#logobar span#subtitle {
   color: #FFF;
   font-style: italic;
   font-size: 1.25em;
-  margin-left: 1em;
 }
 
 div#logobar img#logo {
@@ -332,18 +331,23 @@ div#sidebar_button{
 /******************* /locations/{edit,new} ****************/
 /**********************************************************/
 
+$editformWidth: 383px;
+$editformPadding: 20px;
+$editformBorder: 2px;
+$editformTotalWidth: $editformWidth + 2 * $editformPadding + $editformBorder;
+
 /*** Form ***/
 
 form#editsource {
-  padding: 20px 1.5em 10px 1.5em;
-  width: 28em;
+  padding: 20px $editformPadding 10px $editformPadding;
+  width: 383px;
   position: absolute;
-  top: 4.75em;
+  top: $logobarHeight + $menubarHeight;
   bottom: 0;
   left: 0;
   overflow-y: auto;
   line-height: 1em;
-  border-right: 2px solid #DDD;
+  border-right: $editformBorder solid #DDD;
 }
 
 form#editsource label {
@@ -397,9 +401,9 @@ form#editsource input[type=submit] {
 
 div#editmap_container {
   position: absolute;
-  top: 4.75em;
+  top: $logobarHeight + $menubarHeight;
   bottom: 0;
-  left: 31em;
+  left: $editformTotalWidth;
   right: 0;
 }
 
@@ -556,8 +560,6 @@ table#type_summary img.link_icon {
   width: 310px;
   padding: 1em 5px 5px 5px;
 }
-
-
 
 #directions {
   overflow: auto;

@@ -481,6 +481,17 @@
     });
   }
   
+  function open_pending_types_help_modal(){
+    $('#pending_types_help').dialog({
+      autoOpen:true, 
+      title:'Pending types', 
+      width:500, 
+      modal:true, 
+      resizable:false, 
+      draggable:false
+    });
+  }
+  
 // Tab 1 (info, the default) uses its original height.
 function open_tab_1() {	
   p = $('#location_infowindow');

@@ -100,3 +100,15 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<% content_for :form_scripts do %>
+  <script type="text/javascript" charset="utf-8">
+    jQuery(document).ready(function(){
+      // Parent
+      $(".parentselect2").select2({
+        width: "20em",
+        data: <%= Type.full_list_with_ids(Type::Categories).to_json.html_safe %>
+      });
+    });
+  </script>
+<% end %>
