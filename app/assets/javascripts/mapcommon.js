@@ -1024,7 +1024,7 @@ function keyDragZoom(map) {
 			visualPosition: google.maps.ControlPosition.LEFT,
 			visualPositionOffset: new google.maps.Size(35, 0),
 			visualPositionIndex: null,
-			visualSprite: "http://maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
+			visualSprite: "//maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
 			visualSize: new google.maps.Size(20, 20),
 			visualTips: {
 			 off: "Turn on drag-zoom (or hold 'Shift' key)",
