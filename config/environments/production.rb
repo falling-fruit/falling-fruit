@@ -1,6 +1,11 @@
 FallingfruitWebapp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # force ssl for devise stuff
+  config.to_prepare { Devise::SessionsController.force_ssl }
+  config.to_prepare { Devise::RegistrationsController.force_ssl }
+  config.to_prepare { Devise::PasswordsController.force_ssl }
+
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'fallingfruit.org' }
