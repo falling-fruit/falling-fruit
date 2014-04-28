@@ -1,0 +1,90 @@
+---
+
+- hosts: fallingfruit2
+  user: root
+  sudo: yes
+  gather_facts: no
+
+  tasks:
+  # stupid
+  - name: Install python-pycurl
+    apt: pkg=python-pycurl state=present
+
+  - name: Install add-apt-repository tool and other deps
+    apt: pkg={{ item }} state=installed update-cache=yes
+    with_items:
+    - software-properties-common
+    - build-essential
+
+  - name: Add Postgresql repository to sources
+    action: apt_repository repo='deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main' state=present
+
+  - name: Add Postgresql repository keys
+    apt_key: url='https://www.postgresql.org/media/keys/ACCC4CF8.asc' state=present
+
+  - name: ensure latest postgres & postgis packages are latest
+    apt: pkg={{ item }} update_cache=yes state=latest
+    with_items:
+    - postgresql-server-dev-9.1
+    - postgresql-contrib-9.1
+    - phppgadmin
+    - python-psycopg2
+    - libproj-dev
+    - libgdal1-dev
+
+  - name: get geos sources
+    get_url: url=http://download.osgeo.org/geos/geos-3.4.2.tar.bz2 dest=/tmp/
+
+  - name: Untar and uncompress (g-zip compression) the geos tarball
+    command: tar xfj geos-3.4.2.tar.bz2 chdir=/tmp/
+    register: geos-tar
+
+  - name: get postGIS 2.1 source
+    get_url: url=http://download.osgeo.org/postgis/source/postgis-2.1.2.tar.gz dest=/tmp/
+
+  - name: Untar and uncompress (b-zip compression) the postGIS tarball
+    command: tar xfz postgis-2.1.2.tar.gz chdir=/tmp/
+    register: postgis-tar
+
+  - name: Ensure geos is installed
+    command: $item chdir=/tmp/geos-3.4.2
+    with_items:
+    - ./configure
+    - make
+    - sudo make install
+
+  - name: Ensure postgis is installed
+    command: $item chdir=/tmp/postgis-2.1.2
+    with_items:
+    - ./configure
+    - make
+    - sudo make install
+    - sudo ldconfig
+    - sudo make comments-install
+
+  - name: update postgres db configuration
+    action: copy src=files/postgresql.conf dest=/etc/postgresql/9.1/main/postgresql.conf
+    notify:
+    - restart postgresql
+
+  - name: update postgres client configuration
+    action: copy src=files/pg_hba.conf dest=/etc/postgresql/9.1/main/pg_hba.conf
+    notify:
+    - restart postgresql
+
+  handlers:
+  - name: restart postgresql
+    action: service name=postgresql state=restarted
+
+- hosts: fallingfruit
+  user: root
+  sudo: yes
+  sudo_user: postgres
+
+  tasks:
+  - name: create ff db
+    postgresql_db: name=fallingfruit_db
+    
+  - name: install falling fruit user
+    postgresql_user: name=fallingfruit_user db=fallingfruit_db encrypted=yes password=md5fc6f620bc62a797d6c46ee1292fb13e3 role_attr_flags=SUPERUSER,REPLICATION priv=ALL
+
