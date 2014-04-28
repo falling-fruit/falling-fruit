@@ -1,0 +1,15 @@
+development: &postgis
+ adapter: postgis
+ database: fallingfruit_db
+ username: fallingfruit_user
+ password: fjsf73jysststsu899990
+ host: localhost
+ pool: 5
+ timeout: 5000
+ postgis_extension: true
+ script_dir: /usr/share/postgresql/9.1/contrib/postgis-2.0
+production:
+ <<: *postgis
+test:
+ <<: *postgis
+ database: fallingfruit_test_db
