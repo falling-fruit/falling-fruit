@@ -6,8 +6,11 @@ CLIENT_ID = 'wsUidZ0x7MzvUK2IyQ9v2'
 API_KEY = 'e9ed43def04bd29c37aed0a5e6d9c5c9'
 
 if __name__ == '__main__':
+<<<<<<< HEAD
   print sys.argv[1]
   exit()
+=======
+>>>>>>> a25882d0592f66f4d6053fed0cda381e059aa754
   client = Client(CLIENT_ID, API_KEY)
   #create a droplet
   conf = {'name': sys.argv[1], 

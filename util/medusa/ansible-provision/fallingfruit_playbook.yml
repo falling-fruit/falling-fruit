@@ -8,6 +8,8 @@
   vars:
     username: fallingfruit_user
     ffhome: /home/{{ username }}/fallingfruit
+    dbpass: fjsf73jysststsu899990
+    dbuser: fallingfruit_user
 
   tasks:
   - name: Install dependencies
@@ -32,12 +34,22 @@
     - libffi-dev
     - bundler
     - lighttpd
+    - postfix
 
   - name: fetch fallingfruit webapp from github
     git: repo=https://github.com/somerandomsequence/falling-fruit.git dest={{ ffhome }}
 
   - name: update database.yml file
     action: copy src=files/database.yml dest={{ ffhome }}/config/database.yml
+
+  - name: update lighttpd.conf file
+    template: src=files/lighttpd.conf dest=/etc/lighttpd/lighttpd.conf
+    
+  - name: create crypto directory
+    file: path=/etc/lighttpd/crypto owner=www-data group=www-data mode=0700 state=directory
+
+  - name: install ssl key
+    action: copy src=files/https.pem dest=/etc/lighttpd/crypto/ff-https.pem
     
   - name: update thin.yml file
     template: src=files/thin.yml dest={{ ffhome }}/config/thin.yml

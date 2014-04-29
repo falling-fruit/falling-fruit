@@ -1,8 +1,8 @@
 development: &postgis
  adapter: postgis
  database: fallingfruit_db
- username: fallingfruit_user
- password: fjsf73jysststsu899990
+ username: {{ dbuser }}
+ password: {{ dbpass }}
  host: localhost
  pool: 5
  timeout: 5000
