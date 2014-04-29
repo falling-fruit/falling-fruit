@@ -43,6 +43,7 @@
     action: copy src=files/database.yml dest={{ ffhome }}/config/database.yml
 
   - name: update lighttpd.conf file
+    tags: topology
     template: src=files/lighttpd.conf dest=/etc/lighttpd/lighttpd.conf
     
   - name: create crypto directory
@@ -50,6 +51,10 @@
 
   - name: install ssl key
     action: copy src=files/https.pem dest=/etc/lighttpd/crypto/ff-https.pem
+
+  - name: reload lighttpd config
+    tags: topology
+    service: name=lighttpd state=reloaded
     
   - name: update thin.yml file
     template: src=files/thin.yml dest={{ ffhome }}/config/thin.yml

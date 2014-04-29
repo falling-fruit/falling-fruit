@@ -5,6 +5,10 @@
   sudo: yes
   gather_facts: no
 
+  vars:
+    dbmd5pass: md5fc6f620bc62a797d6c46ee1292fb13e3
+    dbuser: fallingfruit_user
+
   tasks:
   # stupid
   - name: Install python-pycurl
@@ -31,6 +35,7 @@
     - python-psycopg2
     - libproj-dev
     - libgdal1-dev
+    - pgpool2
 
   - name: get geos sources
     get_url: url=http://download.osgeo.org/geos/geos-3.4.2.tar.bz2 dest=/tmp/
@@ -72,9 +77,28 @@
     notify:
     - restart postgresql
 
+  - name: update pgpool.conf file
+    tags: topology
+    template: src=files/pgpool.conf dest=/etc/pgpool2/pgpool.conf
+
+  - name: update pool_hba.conf file
+    tags: topology
+    template: src=files/pool_hba.conf dest=/etc/pgpool2/pool_hba.conf
+
+  - name: update pg_hba.conf file
+    tags: topology
+    template: src=files/pg_hba.conf dest=/etc/pgpool2/pg_hba.conf
+
+  - name: install pool_passwd file
+    template: src=files/pool_passwd dest=/etc/pgpool2/pool_passwd
+
   handlers:
   - name: restart postgresql
     action: service name=postgresql state=restarted
+
+  - name: restart pgpool
+    tags: topology
+    action: service name=pgpool2 state=restarted
 
 - hosts: fallingfruit
   user: root
@@ -86,5 +110,5 @@
     postgresql_db: name=fallingfruit_db
     
   - name: install falling fruit user
-    postgresql_user: name=fallingfruit_user db=fallingfruit_db encrypted=yes password=md5fc6f620bc62a797d6c46ee1292fb13e3 role_attr_flags=SUPERUSER,REPLICATION priv=ALL
+    postgresql_user: name={{ dbuser }} db=fallingfruit_db encrypted=yes password={{ dbmd5pass }} role_attr_flags=SUPERUSER,REPLICATION priv=ALL
 
