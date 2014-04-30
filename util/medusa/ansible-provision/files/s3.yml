@@ -1,0 +1,4 @@
+access_key_id: {{ s3id }}
+secret_access_key: {{ s3secret }}
+bucket: fallingfruit-production
+

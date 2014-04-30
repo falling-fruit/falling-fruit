@@ -1,0 +1,4 @@
+username: fallingfruit_user
+ffhome: /home/{{ username }}/fallingfruit
+dbuser: fallingfruit_user
+!include secret_vars.yml

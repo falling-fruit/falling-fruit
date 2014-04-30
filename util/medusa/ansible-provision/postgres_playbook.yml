@@ -1,13 +1,10 @@
 ---
-
 - hosts: fallingfruit2
   user: root
   sudo: yes
   gather_facts: no
 
-  vars:
-    dbmd5pass: md5fc6f620bc62a797d6c46ee1292fb13e3
-    dbuser: fallingfruit_user
+  vars: !include common_vars.yml
 
   tasks:
   # stupid

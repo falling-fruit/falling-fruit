@@ -1,15 +1,10 @@
 ---
-
 - hosts: fallingfruit
   user: root
   sudo: yes
   gather_facts: no
 
-  vars:
-    username: fallingfruit_user
-    ffhome: /home/{{ username }}/fallingfruit
-    dbpass: fjsf73jysststsu899990
-    dbuser: fallingfruit_user
+  vars: !include common_vars.yml
 
   tasks:
   - name: Install dependencies
@@ -35,12 +30,25 @@
     - bundler
     - lighttpd
     - postfix
+    - s3cmd
 
   - name: fetch fallingfruit webapp from github
     git: repo=https://github.com/somerandomsequence/falling-fruit.git dest={{ ffhome }}
 
   - name: update database.yml file
-    action: copy src=files/database.yml dest={{ ffhome }}/config/database.yml
+    template: src=files/database.yml dest={{ ffhome }}/config/database.yml
+
+  - name: install s3cmd config
+    template: src=files/s3cmd dest=~/.s3cmd
+
+  - name: update logrotate for fallingfruit
+    template: src=files/fallingfruit.logrotate.conf dest=/etc/logrotate.d/fallingfruit
+
+  - name: update logrotate for lighttpd
+    template: src=files/lighttpd.logrotate.conf dest=/etc/logrotate.d/lighttpd
+
+  - name: install s3 config into webapp
+    template: src=files/fallingfruit.logrotate.conf dest={{ ffhome }}/config/s3.yml
 
   - name: update lighttpd.conf file
     tags: topology
