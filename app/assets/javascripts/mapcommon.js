@@ -803,12 +803,7 @@ function open_tab_3() {
     infowindow.open(map,marker);
     // Listen to drag & drop
     google.maps.event.addListener(marker, 'dragend', function() {
-    	var html = '<div id="newmarker"><a href="/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng() + 
-                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>';
-      var infowindow = new google.maps.InfoWindow({
-          content: html[0]
-        });
-        infowindow.open(map,marker);
+    	$('#newmarker').children('a').attr('href', '/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng());
     });
     google.maps.event.addListener(infowindow,'closeclick',function(){
       remove_add_marker();
