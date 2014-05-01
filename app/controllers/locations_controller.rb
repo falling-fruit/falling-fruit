@@ -206,7 +206,7 @@ class LocationsController < ApplicationController
              select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
                      author, import_id, locations.created_at, locations.updated_at, muni').
-             where([bound,mfilter,"(locations.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
+             where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|
       format.json { render json: @locations }
