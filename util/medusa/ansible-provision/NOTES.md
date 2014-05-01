@@ -31,11 +31,14 @@ edit your '/etc/ansible/hosts' file to contain your new machine
 
 Falling Fruit Config update
 ---------------------------
-1. update config/database.yml.dist -> config/database.yml
-2. update config/initializers/secret_token.rb.example to secret_token.rb with new secret_key for rails app
+1. update files/http-ssl.pem.example ->files/ http-ssl.pem (or decrypt files http-ssl.pem.asc if it exists)
+2. update secret_vars.yml.example -> secret_vars.yml (or decrypt secret_vars.yml.asc if it exists)
 
 setup table
 -----------
+
+FIXME: this is out of date
+
 ```bash
 $ bundle exec rake db:setup
 ```

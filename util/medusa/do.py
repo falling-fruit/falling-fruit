@@ -1,23 +1,17 @@
 from dop.client import Client
 import time
 import sys
-
-CLIENT_ID = 'wsUidZ0x7MzvUK2IyQ9v2'
-API_KEY = 'e9ed43def04bd29c37aed0a5e6d9c5c9'
+import yaml
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-  print sys.argv[1]
-  exit()
-=======
->>>>>>> a25882d0592f66f4d6053fed0cda381e059aa754
-  client = Client(CLIENT_ID, API_KEY)
+  yaml = yaml.load(open('ansible-provision/secret_vars.yml','r'))
+  client = Client(yaml['doid'], yaml['dokey'])
   #create a droplet
   conf = {'name': sys.argv[1], 
       'size_id': 66,
       'image_id': 3101918,
       'region_id': 3,
-      'ssh_key_ids': ['111705', '115854']}
+      'ssh_key_ids': ['20319']}
   droplet = client.create_droplet(**conf)
   is_active = False
   while not is_active:
