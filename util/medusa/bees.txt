@@ -1,0 +1,76 @@
+caleb@krige:~/Checkouts/fallingfruit-webapp/util/medusa$ bees attack -n 1000 -c 10 -u http://fallingfruit.org/
+Read 1 bees from the roster.
+Connecting to the hive.
+Assembling bees.
+Each of 1 bees will fire 1000 rounds, 10 at a time.
+Stinging URL so it will be cached for the attack.
+Organizing the swarm.
+Bee 0 is joining the swarm.
+Bee 0 is firing his machine gun. Bang bang!
+Bee 0 is out of ammo.
+Offensive complete.
+     Complete requests:		1000
+     Requests per second:	21.280000 [#/sec] (mean)
+     Time per request:		469.907000 [ms] (mean)
+     50% response time:		443.000000 [ms] (mean)
+     90% response time:		598.000000 [ms] (mean)
+Mission Assessment: Target crushed bee offensive.
+The swarm is awaiting new orders.
+
+
+caleb@krige:~/Checkouts/fallingfruit-webapp/util/medusa$ bees attack -n 10000 -c 100 -u http://fallingfruit.org/
+Read 4 bees from the roster.
+Connecting to the hive.
+Assembling bees.
+Each of 4 bees will fire 2500 rounds, 25 at a time.
+Stinging URL so it will be cached for the attack.
+Organizing the swarm.
+Bee 0 is joining the swarm.
+Bee 1 is joining the swarm.
+Bee 2 is joining the swarm.
+Bee 3 is joining the swarm.
+Bee 2 is firing his machine gun. Bang bang!
+Bee 0 is firing his machine gun. Bang bang!
+Bee 3 is firing his machine gun. Bang bang!
+Bee 1 is firing his machine gun. Bang bang!
+Bee 2 is out of ammo.
+Bee 0 is out of ammo.
+Bee 1 is out of ammo.
+Bee 3 is out of ammo.
+Offensive complete.
+     Complete requests:		10000
+     Requests per second:	27.610000 [#/sec] (mean)
+     Time per request:		3621.117500 [ms] (mean)
+     50% response time:		3505.500000 [ms] (mean)
+     90% response time:		4384.250000 [ms] (mean)
+Mission Assessment: Swarm annihilated target.
+The swarm is awaiting new orders.
+
+
+caleb@krige:~/Checkouts/fallingfruit-webapp/util/medusa$ bees attack -n 10000 -c 100 -u 'http://fallingfruit.org/?z=17&y=37.41030&x=-122.12955&m=true&t=roadmap&l=false'
+Read 4 bees from the roster.
+Connecting to the hive.
+Assembling bees.
+Each of 4 bees will fire 2500 rounds, 25 at a time.
+Stinging URL so it will be cached for the attack.
+Organizing the swarm.
+Bee 0 is joining the swarm.
+Bee 1 is joining the swarm.
+Bee 2 is joining the swarm.
+Bee 3 is joining the swarm.
+Bee 1 is firing his machine gun. Bang bang!
+Bee 2 is firing his machine gun. Bang bang!
+Bee 0 is firing his machine gun. Bang bang!
+Bee 3 is firing his machine gun. Bang bang!
+Bee 1 is out of ammo.
+Bee 0 is out of ammo.
+Bee 3 is out of ammo.
+Bee 2 is out of ammo.
+Offensive complete.
+     Complete requests:		10000
+     Requests per second:	27.530000 [#/sec] (mean)
+     Time per request:		3632.046750 [ms] (mean)
+     50% response time:		3395.500000 [ms] (mean)
+     90% response time:		4513.250000 [ms] (mean)
+Mission Assessment: Swarm annihilated target.
+The swarm is awaiting new orders.
