@@ -31,8 +31,8 @@ edit your '/etc/ansible/hosts' file to contain your new machine
 
 Falling Fruit Config update
 ---------------------------
-1. update files/http-ssl.pem.example ->files/ http-ssl.pem (or decrypt files http-ssl.pem.asc if it exists)
-2. update secret_vars.yml.example -> secret_vars.yml (or decrypt secret_vars.yml.asc if it exists)
+1. update files/https.pem.example ->files/https.pem (or decrypt files https.pem.asc if it exists with gpg -d https.pem.asc)
+2. update secret_vars.yml.example -> secret_vars.yml (or decrypt secret_vars.yml.asc if it exists with gpg -d secret_vars.yml.asc)
 
 setup table
 -----------
