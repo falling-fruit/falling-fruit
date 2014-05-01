@@ -1,0 +1,5 @@
+- name: installs deps
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - pgpool2
+    - libpgpool0

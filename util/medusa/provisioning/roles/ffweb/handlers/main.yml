@@ -1,0 +1,2 @@
+- name: reload lighttpd
+  service: name=lighttpd state=reloaded

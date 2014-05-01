@@ -1,0 +1,15 @@
+# the defaults in this file reflect original postgres defaults
+# found in postgres.conf
+
+
+# general defaults
+port: 5432
+
+# replication related
+# comments reflect hot_standby configuration
+max_wal_senders: 0            # 1 
+hot_standby: 'off'            # 'on'
+wal_level: "minimal"          # 'hot_standby'
+archive_mode: 'off'           # 'on'
+archive_command: ''           # 'cd .'
+listen_addresses: 'localhost' # 'localhost,<IP_ADDRESS_OF_THIS_NODE>'

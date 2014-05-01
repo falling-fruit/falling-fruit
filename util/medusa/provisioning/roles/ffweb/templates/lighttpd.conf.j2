@@ -1,0 +1,60 @@
+server.modules = (
+            "mod_access",
+            "mod_alias",
+            "mod_accesslog",
+            "mod_auth",
+            "mod_cgi",
+            "mod_rewrite",
+            "mod_redirect",
+            "mod_proxy"
+)
+
+server.document-root        = "/var/www/default"
+server.upload-dirs          = ( "/var/cache/lighttpd/uploads" )
+server.errorlog             = "/var/log/lighttpd/error.log"
+server.pid-file             = "/var/run/lighttpd.pid"
+server.username             = "{{ web_user }}"
+server.groupname            = "{{ web_group }}"
+
+index-file.names            = ( "index.html",
+                                "index.htm", "default.htm",
+                               " index.lighttpd.html" )
+
+url.access-deny             = ( "~", ".inc" )
+
+static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
+
+## Use ipv6 if available
+#include_shell "/usr/share/lighttpd/use-ipv6.pl"
+
+dir-listing.encoding        = "utf-8"
+server.dir-listing          = "enable"
+
+compress.cache-dir          = "/var/cache/lighttpd/compress/"
+compress.filetype           = ( "application/x-javascript", "text/css", "text/html", "text/plain" )
+
+include_shell "/usr/share/lighttpd/create-mime.assign.pl"
+include_shell "/usr/share/lighttpd/include-conf-enabled.pl"
+
+####################### Falling Fruit #########################
+
+$SERVER["socket"] == ":443" {
+     ssl.engine                  = "enable" 
+     ssl.pemfile                 = "/etc/lighttpd/crypto/ff-https.pem" 
+}
+
+$HTTP["host"] =~ "(^www\.|^)fallingfruit.org$" {
+        proxy.balance = "fair"
+        proxy.server = ( "" => ( 
+{% for host in hosts %}
+                       ( "host" => "{{ host }}", "port" => "3000" ),
+                       ( "host" => "{{ host }}", "port" => "3001" ),
+{% endfor %}
+        )
+}
+
+$HTTP["host"] =~ "boulder.urbanedibles.org|(.*).fallingfruit.org" {
+    url.redirect = (
+       "^/(.*)$" => "http://fallingfruit.org/$1"
+    )
+}

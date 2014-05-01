@@ -1,0 +1,13 @@
+ffhome: '~'
+
+web_user: 'www-data'
+web_group: 'www-data'
+
+db_user: ''
+db_pass: ''
+db_host: ''
+db_name: ''
+
+s3id: ''
+s3secret: ''
+s3cmdgpgpass: ''

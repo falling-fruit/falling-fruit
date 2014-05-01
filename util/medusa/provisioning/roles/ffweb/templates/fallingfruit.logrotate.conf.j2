@@ -1,0 +1,15 @@
+{{ ffhome }}/log/*.log {
+  daily
+  missingok
+  rotate 7
+  compress
+  notifempty
+  copytruncate
+  create 0660 www-data ubuntu
+  lastaction
+    BUCKET=fallingfruit-logs
+    HOST=`hostname`
+    TS=`date +%Y%m%d%H%M%S`
+    /usr/bin/s3cmd put {{ ffhome }}/log/production.log.1.gz s3://$BUCKET/$HOST.production.$TS.log.gz
+  endscript
+}
