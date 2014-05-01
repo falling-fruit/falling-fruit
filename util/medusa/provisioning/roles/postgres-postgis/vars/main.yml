@@ -1,0 +1,9 @@
+
+# dowload directory to download deps
+dldir: /tmp
+
+# geos version for postgres dep
+geos_version: geos-3.4.2
+
+# postgis version to install from source
+postgis_version: postgis-2.1.2

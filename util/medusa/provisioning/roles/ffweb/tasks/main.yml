@@ -1,0 +1,88 @@
+- name: Install dependencies
+  apt: pkg={{ item }} state=installed update-cache=yes
+  with_items:
+    - curl
+    - git-core
+    - bundler
+    - s3-cmd
+
+- name: fetch fallingfruit webapp from github
+  git: repo={{ fallingfruit_repo_url }} dest={{ ffhome }}
+  tags: webapp
+
+- name: update database.yml file
+  template: src=database.yml.j2 dest={{ ffhome }}/config/database.yml
+  tags: webapp
+
+- name: update thin.yml file
+  template: src=thin.yml.j2 dest={{ ffhome }}/config/thin.yml
+  tags:
+    - webapp
+
+- name: make log and tmp directory for rails app
+  file: path={{ ffhome }}/log owner={{ web_user }} group={{ web_group }} mode=0755 state=directory
+  with_items:
+    - {{ ffhome }}/log
+    - {{ ffhome }}/tmp
+  tags:
+    - webapp
+
+# change to use ansible-vault
+- name: make secret token
+  shell: chdir={{ ffhome }} echo "FallingfruitWebapp::Application.config.secret_token = '`rake secret`'" > config/initializers/secret_token.rb
+
+- name: change ownership of dir to fallingfruit_user
+  command: chown -R www-data:www-data {{ ffhome }}
+  tags:
+    - webapp
+
+- name: change permissions
+  command: chmod -R o+rx {{ ffhome }}
+  tags:
+    - webapp
+
+- name: bundle install
+  shell: chdir={{ ffhome }} bundle install
+  tags:
+    - webapp
+
+- name: start fallingfruit
+  shell: chdir={{ ffhome }} bundle exec thin -e production -C config/thin.yml start
+  tags:
+    - webapp
+    - launch
+
+- name: update logrotate for fallingfruit
+  template: src=fallingfruit.logrotate.conf.j2 dest=/etc/logrotate.d/fallingfruit
+  tags:
+    - webapp
+    - logrotate
+
+- name: update logrotate for lighttpd
+  copy: src=lighttpd.logrotate.conf dest=/etc/logrotate.d/lighttpd
+  tags:
+    - lighttpd
+    - logrotate
+
+- name: update lighttpd.conf file
+  template: src=lighttpd.conf.j2 dest=/etc/lighttpd/lighttpd.conf
+  tags:
+    - lighttpd
+
+- name: create crypto directory
+  file: path=/etc/lighttpd/crypto owner={{ web_user }} group={{ web_group }} mode=0700 state=directory
+  tags: lighttpd
+
+- name: install ssl key
+  copy: src=https.pem dest=/etc/lighttpd/crypto/ff-https.pem
+  tags: lighttpd
+
+- name: install s3cmd config
+  template: src=s3cmd.j2 dest=~/.s3cmd
+  tags: s3
+
+- name: install s3 config into webapp
+  template: src=s3.yml.j2 dest={{ ffhome }}/config/s3.yml
+  tags:
+    - webapp
+    - s3

@@ -1,0 +1,5 @@
+- name: restart pgpool
+  service: name=pgpool state=restarted
+
+- name: reload pgpool
+  service: name=pgpool state=reloaded
