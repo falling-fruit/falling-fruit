@@ -1,0 +1,11 @@
+---
+
+- hosts: masters
+  user: root
+  sudo: yes
+
+  roles:
+#    - common
+#    - postgres-postgis
+#    - pgpool
+    - ffweb

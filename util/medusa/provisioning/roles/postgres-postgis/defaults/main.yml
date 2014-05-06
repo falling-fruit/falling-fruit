@@ -6,10 +6,10 @@
 port: 5432
 
 # replication related
-# comments reflect hot_standby configuration
-max_wal_senders: 0            # 1 
-hot_standby: 'off'            # 'on'
-wal_level: "minimal"          # 'hot_standby'
-archive_mode: 'off'           # 'on'
-archive_command: ''           # 'cd .'
-listen_addresses: 'localhost' # 'localhost,<IP_ADDRESS_OF_THIS_NODE>'
+# all are ignored when streaming_replication is 'off'
+streaming_replication: 'off' # or 'on'
+streaming_master_ip: 'localhost' # or hostvars[groups['masters'][0]]['ansible_eth0']['ipv4']['address']
+archive_command: 'cd .'
+sr_mode: 'master' # or 'slave'
+replicator_user: 'replicator'
+replicator_pass: 'replication'

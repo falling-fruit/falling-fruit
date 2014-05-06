@@ -4,7 +4,8 @@
     - curl
     - git-core
     - bundler
-    - s3-cmd
+    - s3cmd
+    - postgresql-client
 
 - name: fetch fallingfruit webapp from github
   git: repo={{ fallingfruit_repo_url }} dest={{ ffhome }}
@@ -22,8 +23,8 @@
 - name: make log and tmp directory for rails app
   file: path={{ ffhome }}/log owner={{ web_user }} group={{ web_group }} mode=0755 state=directory
   with_items:
-    - {{ ffhome }}/log
-    - {{ ffhome }}/tmp
+    - "{{ ffhome }}/log"
+    - "{{ ffhome }}/tmp"
   tags:
     - webapp
 
@@ -39,6 +40,22 @@
 - name: change permissions
   command: chmod -R o+rx {{ ffhome }}
   tags:
+    - webapp
+
+- name: create fallingfruit db
+  postgresql_db: name={{ db_name }}
+  sudo: yes
+  sudo_user: postgres
+  tags:
+    -db
+    -webapp
+
+- name: create fallingfruit user in db
+  postgresql_user: name={{ db_user }} db={{ db_name }} encrypted=no password={{ db_pass }} role_attr_flags=SUPERUSER priv=ALL
+  sudo: yes
+  sudo_user: postgres
+  tags:
+    - db
     - webapp
 
 - name: bundle install

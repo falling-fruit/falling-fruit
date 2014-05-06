@@ -75,6 +75,19 @@
   when: postgis_installed.stdout != 'true'
   tags: postgis
 
+- name: add postgres replication user
+  postgresql_user:
+    state: present
+    name: '{{ replicator_name }}'
+    encrypted: no 
+    password: '{{ replicator_pass }}'
+    role_attr_flags: REPLICATION
+  when: streaming_replication == 'on'
+
+- name: add recovery.conf file for standby node in case of failover
+  template: src=recovery.conf.j2 dest=/var/lib/postgresql/9.1/main/recovery.conf
+  when: sr_mode == 'slave'
+
 - name: update postgres config based on template
   template: src=postgresql.conf.j2 dest=/etc/postgresql/9.1/main/postgresql.conf
   notify:
