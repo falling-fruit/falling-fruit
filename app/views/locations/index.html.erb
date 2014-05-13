@@ -32,8 +32,10 @@
 
 <div id="barnraiser_modal" style="display:none; text-align: center;">
   <iframe src="//player.vimeo.com/video/93179994?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br/><br/>
-  <span style="font-weight: bold;font-size:12pt;"><a href="http://www.barnraiser.us/projects/fallingfruit-org-mobilize-the-urban-harvest">Click Here to View our Project on Barnraiser
-  </a></span>
+  <span style="font-size:120%;display:block;margin-bottom:0.5em;">
+    <a href="http://www.barnraiser.us/projects/fallingfruit-org-mobilize-the-urban-harvest"><b>Donate to our crowdfunding campaign</b></a><br/>
+    and tell your friends. We need your help to go mobile!
+    </span>
 </div>
 
 <%= render 'searchbar' %>
@@ -132,9 +134,18 @@
     });
     if ($.cookie('barnraiser_modal_shown') == null) {
      $.cookie('barnraiser_modal_shown', 'yes', { expires: 7, path: '/' });
-     $('#barnraiser_modal').dialog({modal:true,width:525,title:'Help Us Make a Mobile App!',resizable:false,draggable:false});
-     $("#barnraiser_modal").bind( "clickoutside", function(event){
-      $(this).dialog('close');
+     $('#barnraiser_modal').dialog({
+       modal:true,
+       width:530,
+       title:'Help us make a mobile app!',
+       resizable:false,
+       draggable:false
+      });
+     $("#barnraiser_modal").bind("clickoutside", function(event){
+      $(this).remove(); /* keeps playing video otherwise */
+     });
+     $("#barnraiser_modal").bind("dialogclose", function(event){
+      $(this).remove(); /* keeps playing video otherwise */
      });
     }
     <% if @freegan %>
