@@ -132,6 +132,7 @@ class TypesController < ApplicationController
     params[:type][:category_mask] = array_to_mask(params["categories"],Type::Categories)
     respond_to do |format|
       if @type.update_attributes(params[:type])
+
         format.html { redirect_to types_path, notice: 'Type was successfully updated.' }
         format.json { head :no_content }
       else
@@ -140,6 +141,11 @@ class TypesController < ApplicationController
       end
     end
   end
+
+  #def update_location_category_mask(type)
+  #  Location.joins(:locations_types,:types).select("bit_or(types.category_mask), locations.id").
+  #    where("type_id = ?",type.id). SELECT bit_or(t.category_mask) AS category_mask, location_id AS id INTO TEMPORARY TABLE temp
+  #  FROM locations l, locations_types lt, types t WHERE lt.location_id=l.id AND lt.type_id=t.id GROUP BY location_id;
 
   # DELETE /types/1
   # DELETE /types/1.json

@@ -36,8 +36,6 @@ class Location < ActiveRecord::Base
   }
   # manually update postgis location object
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
-  # manually update type mask
-  after_validation { |record| record.category_mask = record.types.collect{ |t| t.category_mask }.inject(:|) }
 
   public 
 
