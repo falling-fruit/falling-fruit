@@ -10,7 +10,7 @@
   <div id="map"></div>
   <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
   <div id="embed_branding">
-    <a href="<%= request.fullpath.gsub('locations/embed', '') %>" id="falling_fruit">fallingfruit.org</a>
+    <a href="<%= request.fullpath.gsub('locations/embed', '') %>" id="falling_fruit">falling fruit</a>
 		<div class="hr-like"></div>
     <span>mini</span>
     <a href="/locations/new<%= @perma[:cats].nil? ? "" : "?c=" + @perma[:cats].to_s %>" id="add_source">Add source</a>
