@@ -2,6 +2,7 @@ DATETIME = $(shell date +%Y%m%d%H%M%S)
 
 bounce:
 	git pull
+	bundle install
 	bundle --deployment
 	bundle exec rake db:migrate
 	sudo chmod -R 777 tmp
