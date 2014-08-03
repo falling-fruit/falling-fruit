@@ -8,36 +8,26 @@
 
 <div id="welcome_modal" style="display:none;">
   <img src="/fb-avatar.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="180" title="One afternoon's harvest in Boulder, Colorado, USA.">
-  Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of
+  <%= I18n.t("locations.index.splash_html", :default => "Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of
   foragers, foresters, and freegans everywhere, the map already points to over a half
   million food-producing locations around the world (from plants and fungi to
   water wells and dumpsters). Our rapidly growing user community is actively exploring,
   editing, and adding to the map.
   <br/><br/>
-  Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for
-  an account to access additional features.
+  Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href=\"/users/sign_up\">sign up</a> for
+  an account to access additional features.".html_safe) %>
 </div>
 
 <div id="freegan_modal" style="display:none;">
   <img src="/dumpster-score.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" title="Food recovered from a dumpster in Boulder, Colorado, USA.">
-  In addition to our efforts mapping the <%= link_to "edible plants growing in cities", root_path %>,
+  <%= I18n.t("locations.index.freegan_splash_html", :default => "In addition to our efforts mapping the <a href=\"/\">edible plants growing in cities</a>,
   we've set out to map the world's food-bearing dumpsters.
   Nearly 50% of all food produced in the developed world is never eaten.
   We're hoping to raise awareness around this issue, facilitate the liberation
-  of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.
+  of discarded food, and encourage businesses to <a href=\"/sharing\">donate the food</a> instead.
   <br><br>
   In support of a lower-waste lifestyle, we are encouraging the mapping of
-  all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
-</div>
-
-<div id="barnraiser_modal" style="display:none; text-align: center;">
-  <iframe src="//player.vimeo.com/video/93179994?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br/><br/>
-  <span style="font-size:120%;display:block;margin-bottom:0.5em;">
-    There are only <b><%= (Date.new(2014,05,31)-Time.zone.today).to_i %></b> days left!
-      <a href="http://www.barnraiser.us/projects/fallingfruit-org-mobilize-the-urban-harvest"><br>
-        <b>Donate to our crowdfunding campaign</b></a><br/>
-    and tell your friends. We need your help!
-    </span>
+  all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.".html_safe) %>
 </div>
 
 <%= render 'searchbar' %>
@@ -47,7 +37,9 @@
 <% end %>
 <div id="mainmap_container">
   <div id="map"></div>
-  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+  <p id="stamen_attribution" style="display:none;">
+    <%= I18n.t("locations.index.stamen_html", :default => "Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>. Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.") %>
+  </p>
 </div>
 
 <% content_for :page_scripts do %>
@@ -134,22 +126,38 @@
     navigator.geolocation.getCurrentPosition(function(position){},function(error){
       $('#recenter_button').hide();
     });
+    if ($.cookie('barnraiser_modal_shown') == null) {
+     $.cookie('barnraiser_modal_shown', 'yes', { expires: 7, path: '/' });
+     $('#barnraiser_modal').dialog({
+       modal:true,
+       width:530,
+       title:'Help us make a mobile app!',
+       resizable:false,
+       draggable:false
+      });
+     $("#barnraiser_modal").bind("clickoutside", function(event){
+      $(this).remove(); /* keeps playing video otherwise */
+     });
+     $("#barnraiser_modal").bind("dialogclose", function(event){
+      $(this).remove(); /* keeps playing video otherwise */
+     });
+    }
     <% if @freegan %>
-      if ($.cookie('freegan_modal_shown') == null) {
+      /*if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });
         $('#freegan_modal').dialog({modal:true,width:650,title:"Welcome to Falling Fruit's freegan map!",resizable:false,draggable:false});
         $("#freegan_modal").bind( "clickoutside", function(event){
           $(this).dialog('close');
         });
-      }
+      }*/
     <% else %>
-      if ($.cookie('welcome_modal_shown') == null) {
+      /*if ($.cookie('welcome_modal_shown') == null) {
         $.cookie('welcome_modal_shown', 'yes', { expires: 365, path: '/' });
         $('#welcome_modal').dialog({modal:true,width:600,title:'Welcome to Falling Fruit!',resizable:false,draggable:false});
         $("#welcome_modal").bind( "clickoutside", function(event){
           $(this).dialog('close');
         });
-      }
+      }*/
     <% end %>
   });
   
