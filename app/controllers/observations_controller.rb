@@ -40,8 +40,6 @@ class ObservationsController < ApplicationController
     end
   end
 
-  # DELETE /locations/1
-  # DELETE /locations/1.json
   def destroy
     @obs = Observation.find(params[:id])
     @obs.destroy
