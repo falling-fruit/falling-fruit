@@ -472,9 +472,10 @@ div.profile:after {
 
 div#countries {
   font-size: inherit;
+  color: #666;
   
   > ul li {
-    font-size: 125%;
+    font-size: 120%;
     font-variant: small-caps;
   }
 }
@@ -484,6 +485,8 @@ div#countries > div {
   @import "base.css.scss";
   @extend body;
   margin: 1em .75em .5em .75em;
+
+  color: #666;
   
   > ul {
     margin-left: 5px;
@@ -521,14 +524,15 @@ div#countries > div {
   }
 
   li.inactive {
-    opacity: 0.5;
+    /*opacity: 0.5;*/
+    text-decoration: line-through;
   }
   
   img.social {
     height: 1em;
     opacity: 0.75;
     vertical-align: top;
-    border-top: 2px solid transparent
+    border-top: 2px solid transparent;
   }
   
   a:hover img.social {
