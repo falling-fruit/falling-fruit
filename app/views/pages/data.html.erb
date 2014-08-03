@@ -1,39 +1,39 @@
 <p>
-Falling Fruit is built on public data and the generosity of urban foragers willing to share their finds with others.
+<%= I18n.t("pages.data.intro", :default => "Falling Fruit is built on public data and the generosity of urban foragers willing to share their finds with others.
 We want urban food sources to reach as many people as possible, and we believe that everyone should have
-equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database:
+equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database:") %>
 </p>
 
 <% if File.exists?(Rails.root.join("public","data.csv.bz2")) %>
 		<blockquote>
 		<a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-		<i>last updated <%= File.mtime(Rails.root.join("public","data.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+		<i><%= I18n.t("pages.data.last_updated", :default => "last updated") %> <%= File.mtime(Rails.root.join("public","data.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 		</blockquote>
 <% else %>
 		<blockquote>
-		<em>Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.</em>
+		<em><%= I18n.t("pages.data.data_unavailable_html", :default => 'Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.'.html_safe ) %></em>
 		</blockquote>
 <% end %>
 
 <p>
-But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.
+<%= I18n.t("pages.data.beware_html", :default => 'But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it\'s entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.'.html_safe) %>
 </p>
 
 <p>
-If you are interested in using the data in your own project, especially for commercial applications, we suggest you
+<%= I18n.t("pages.data.license_html", :default => 'If you are interested in using the data in your own project, especially for commercial applications, we suggest you
 contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). When not otherwise specified,
 data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative
 Commons (Attribution, Non-commercial, Share-alike)</a> license. This means that you are free to use and
 distribute the data so long as you preserve the original author/source attribution and do not use it
 (without permission) for commercial applications. The source code for Falling Fruit is also open. More
-details on that can be found on <a href="https://github.com/somerandomsequence/falling-fruit">our github repository</a>.
+details on that can be found on <a href="https://github.com/somerandomsequence/falling-fruit">our github repository</a>.'.html_safe) %>
 </p>
 
 <p>
-It should go without saying that we take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
+<%= I18n.t("pages.data.caveat_emptor_html", :default => 'It should go without saying that we take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!'.html_safe) %>
 </p>
 
-<h2>Summary of Sources</h2>
+<h2><%= I18n.t("pages.data.summary_of_sources", :default => 'Summary of Sources') %></h2>
 
 <% 
 cache 'pages_data_type_summary_table' do
@@ -44,17 +44,20 @@ cache 'pages_data_type_summary_table' do
 %>
 
 <p>
-The database currently contains <%= number_to_human(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. For each type, the following table lists English common name(s), scientific name(s), links to outside references, and total count.
+<%= I18n.t("pages.data.license_html", :default => 'The database currently contains #{types} different types of
+edibles (most, but not all, are plant species) distributed over #{locations}
+locations. For each type, the following table lists English common name(s), scientific name(s), links to
+outside references, and total count.', :types => number_to_human(@types.length), :locations =>number_with_delimiter(@lt_count)) %>
 </p>
 <br/>
 
 <table id="type_summary">
 <thead>
 <tr>
- <th>Common name</th>
- <th>Scientific name</th>
- <th>Links</th>
- <th>Count</th>
+ <th><%= I18n.t("pages.data.common_name", :default => "Common name") %></th>
+ <th><%= I18n.t("pages.data.scientific_name", :default => "Scientific name") %></th>
+ <th><%= I18n.t("pages.data.links", :default => "Links") %></th>
+ <th><%= I18n.t("pages.data.count", :default => "Count") %></th>
 </tr>
 </thead>
 <tbody>
