@@ -482,12 +482,12 @@ div#countries {
 
 div#countries > div {
   
+  /* f'ing jquery! */
   @import "base.css.scss";
   @extend body;
+  color: #666; 
   margin: 1em .75em .5em .75em;
 
-  color: #666;
-  
   > ul {
     margin-left: 5px;
     margin-bottom: 1em;

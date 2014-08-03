@@ -1,116 +1,111 @@
 ##################################################################################
-# City / Location
+# City
 # Name
 # URL
-# Comments
+# Notes
 # License
 
-## Set working directory
-setwd("~/sites/falling-fruit-data/muni/")
-
-## Import
+## Initialize
+root = "~/sites/falling-fruit-data/muni/"
 file = ""
 author = ""
-if (grepl("\\.csv",file)) {
-	dt = read.csv(file, stringsAsFactors=F)
-} else if (grepl("\\.dbf",file)) {
-	library(foreign)
-	dt = read.dbf(file,as.is=T)
-} else if (grepl("\\.shp",file)) {
-  library(rgdal)
-  shp = readOGR(file, layer = ogrListLayers(file)[1])
-  shp = spTransform(shp, CRS("+proj=longlat +ellps=WGS84"))
-  dt = shp@data
-  i = sapply(dt, is.factor)
-  dt[i] = lapply(dt[i], as.character)
-  dt$Lng = shp@coords[,1]
-  dt$Lat = shp@coords[,2]
-}
+setwd(root)
+dt = load.data(file)
 
 
 ####
-## Filtering: Manual
+## Filter: Common name
 
-# export a csv with unique species field combinations for manual review
-# Type, Description, and Unverified columns must be added and completed as needed for desired species
-speciesfile = ''
-speciesfield = c()
-if (!file.exists(speciesfile)) {
-  write.csv(unique(dt[,speciesfield]), speciesfile, row.names = F)
-}
+# format Common
+dt$Common = format.field(dt$COMMON)
+dt$Common = capwords(dt$Common, strict = T, first = T)
 
-# apply species filter
-species = read.csv(speciesfile, stringsAsFactors=F)
-species = species[species$Type != "",]
-speciesString = apply(dt[,speciesfield], 1, paste, collapse = " ")
-for (i in 1:nrow(species)) {
-  ind = speciesString == apply(species[i,speciesfield], 1, paste, collapse = " ")
-	dt$Type[ind] = species$Type[i]
-	dt$Unverified[ind] = species$Unverified[i]
-	dt$Description[ind] = species$Description[i]
-}
-dt = dt[!is.na(dt$Type),]
+# review
+ddply(ddply(dt, .(Common), summarise, Count = length(Common)), .(Common))
 
-# remove species
-# NA: none, "": all, "|": list by type
-tier2 = NA
-tier2 = paste("^", tier2, "$", sep = "", collapse = "|")
-ind = grepl(tier2, dt$Type, ignore.case = T)
-dt = dt[!ind,]
-table(dt$Type)
+# apply key (auto)
+temp = filter.data.common(dt)
+
 
 ####
-## Filtering: Species Key
+## Filter: Latin name
 
-## Format fields
+# format Common
+dt$Common = format.field(dt$COMMON)
+dt$Common = capwords(dt$Common, strict = T, first = T)
 
-# prepare Common
-dt$Common = format.field(dt$Common.Name)
+# format Scientific
+dt$Scientific = format.field(dt$SCIENTIFIC, 'species')
 
-# prepare Scientific
-dt$Scientific = format.field(dt$Scientific.Name,'species')
-
-# finalize fields
+# standardize Scientific
 dt$Scientific_ori = dt$Scientific
-dt$Scientific = gsub("[ ]+[a-z][ ]+"," ",dt$Scientific,ignore.case=T)
-dt = dt[order(dt$Scientific),]
-unique(dt[intersect(c("Scientific","Common"),names(dt))])
+# remove hybrid x (Genus 'x' species)
+dt$Scientific = gsub("[ ]+[a-z][ ]+", " ", dt$Scientific, ignore.case=T)
+# remove quotes around variety names
+dt$Scientific = gsub("'($|[^s])", "\\1", dt$Scientific)
 
-# apply key
+# review
+ddply(ddply(dt, intersect(names(dt), c("Common", "Scientific")), summarise, Count = length(Scientific)), .(Scientific))
+
+# apply key (auto)
 temp = filter.data(dt, genus = T)
-fields = intersect(c("Scientific_ori","Common","Type","Rating"), names(temp))
-ddply(temp[fields], fields, summarise, Count = length(Type))
 
-# upgrade tier 2 species
-# NA: none, "": all, "|": list by type
-tier2 = NA
-tier2 = paste("^", tier2, "$", sep = "", collapse = "|")
-temp$Rating[grepl(tier2, temp$Type, ignore.case = T) & temp$Rating == 2] = 1
-table(temp$Type[temp$Rating == 1])
-table(temp$Type[temp$Rating == 2])
 
-# commit choices
-dt = temp[temp$Rating == 1 & !is.na(temp$Type) & temp$Type != "",]
+####
+## Filter: Manual
+
+keyfile = paste(dirname(file), '/', 'species.csv', sep  = '')
+initialize.manual.key(temp, keyfile)
+#temp = load.manual.key(temp, keyfile)
+
+
+####
+## Evaluate
+fields = intersect(c("Scientific_ori","Scientific","Common","Type","Rating","Tag"), names(temp))
+
+# missing info
+ddply(temp[(temp["Type"] == "" & temp["Rating"] != -1) | (grepl("http", temp$Type, ignore.case = T)) | is.na(temp["Type"]),], fields, summarise, Count = length(Type))
+# review
+ddply(temp[temp["Rating"] == 1 & temp["Tag"] != 'bee',], fields, summarise, Count = length(Type))
+ddply(temp[temp["Rating"] == 2 & temp["Tag"] != 'bee',], fields, summarise, Count = length(Type))
+ddply(temp[temp["Rating"] > 0 & temp["Tag"] == 'bee',], fields, summarise, Count = length(Type))
+ddply(temp[temp["Rating"] == -1,], fields, summarise, Count = length(Type))
+ddply(temp, fields, summarise, Count = length(Type))
+
+# trim
+dt = temp[!is.na(temp$Type) & temp$Type != "" & !is.na(temp$Rating) & temp$Rating > 0,]
+ddply(dt[fields], fields, summarise, Count = length(Type))
 
 
 ####
 ## Format fields
-
-# format: description
-if (all(c("Common","Scientific_ori") %in% names(dt))) {
-	dt$Description = paste(dt$Common," (",dt$Scientific_ori,")",sep="")
-} else {
-	field = intersect(names(dt),c("Scientific_ori","Common"))
-	dt$Description = dt[[field]]
-}
-sort(unique(dt$Description))
 
 # format: unverified
-dt$Unverified = ""
-ind = grepl("[ ]+sp$",dt$Scientific,ignore.case=T)
-dt$Unverified[ind] = "x"
-fields = intersect(c("Scientific_ori","Common","Type","Unverified"),names(dt))
+if ("Unverified" %in% names(dt)) {
+  ind = is.na(dt$Unverified) | dt$Unverified == ""
+} else {
+  ind = !vector(length = nrow(dt))
+}
+dt$Unverified[ind] = ""
+uind = grepl("[ ]+sp$",dt$Scientific[ind],ignore.case=T)
+nind = dt$Human[ind] == 1 | dt$Human[ind] == -1
+dt$Unverified[ind][uind & !nind] = "x"
+fields = intersect(c("Scientific_ori","Common","Scientific","Type","Unverified","Human"),names(dt))
 unique(dt[order(dt$Unverified,decreasing=T),fields])
+
+# format: description
+if ("Description" %in% names(dt)) {
+  ind = is.na(dt$Description) | dt$Description == ""
+} else {
+  ind = !vector(length = nrow(dt))
+}
+if (all(c("Common","Scientific_ori") %in% names(dt))) {
+	dt$Description[ind] = paste(dt$Common[ind]," (",dt$Scientific_ori[ind],")",sep="")
+} else {
+	field = intersect(names(dt),c("Scientific_ori","Common"))
+	dt$Description[ind] = dt[ind, field]
+}
+sort(unique(dt$Description))
 
 # format: access
 dt$Access = NA
@@ -118,23 +113,18 @@ dt$Access = NA
 # format: author
 dt$Author = author
 
-# format: coordinates
-lngCol = ""
-latCol = ""
-names(dt)[names(dt) == lngCol] = "Lng"
-names(dt)[names(dt) == latCol] = "Lat"
+# format: notes
+dt$Notes = NA
+sort(unique(dt$Notes))
 
 # format: address
 addressCol = ""
 streetCol = ""
 cityString = ""
 dt$Street = format.field(dt[,streetCol], 'address')
-dt$Address = paste(dt[,streetCol], " ", dt$Street, ", ", cityString, sep = "")
+dt$Address = paste(dt[,addressCol], " ", dt$Street, ", ", cityString, sep = "")
 sort(unique(dt$Address))
 
-# format: notes
-dt$Notes = NA
-sort(unique(dt$Notes))
 
 ####
 ## Flatten
@@ -146,6 +136,9 @@ unique(fdt[c("Type","Description")])
 export.data(fdt, file, dropfields = T)
 
 ####
-## Summary
-fields = intersect(c("Scientific","Common","Type"),names(dt))
-ddply(dt[fields], fields, summarise, Count = length(Type))
+## Summary (human)
+ind = dt$Human > 0
+fields = intersect(c("Scientific","Type","Human"),names(dt))
+sdt = ddply(ddply(dt[ind, fields], fields, summarise, Count = length(Type)), .(Human)); sdt
+shfile = paste(dirname(file), '/', 'summary_human.csv', sep  = '')
+write.csv(sdt, shfile, row.names = F)

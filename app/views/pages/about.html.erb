@@ -3,7 +3,7 @@
 </div>
 
 <p class="announcement">
-We're an all-volunteer 501(c)3 nonprofit. We count on donations from our users to fund the project.  If you'd like to lend a hand please consider contributing as you're able:
+We are an all-volunteer, tax-exempt nonprofit, and rely on donations from our users to operate. If you are willing and able, please consider making a financial contribution. Donations within the United States are tax deductible.
 </p>
 
 	<blockquote>
@@ -29,7 +29,7 @@ We're an all-volunteer 501(c)3 nonprofit. We count on donations from our users t
 	</blockquote>
 
 <p class="announcement">
-This website was built by and for foragers. We want it to be the best tool it can be for your needs. Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, we would love to hear from you!
+This website was built by and for foragers &ndash; we want it to be the best tool available to the contemporary forager. Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, we would love to hear from you!
 </p>
 
 <!--
@@ -55,18 +55,14 @@ Falling Fruit is a celebration of the overlooked culinary bounty of our city str
 %>
 
 <p>
-Our map of urban edibles is not the first of its kind, but we aspire to be the world's most comprehensive. While our users explore, edit, and add locations of their own, we comb the internet for any pre-existing knowledge, hoping to unite the mapping efforts of foragers, foresters, and freegans everywhere. The <a href="/datasets">imported datasets</a> range from small neighborhood foraging maps to vast professionally-compiled tree inventories. This so far amounts to <%= number_with_delimiter(@types.length) %> different types of edibles (most, but not all, are plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
+Our map of urban edibles is not the first of its kind, but we aspire to be the world's most comprehensive. While our users contibute locations of their own, we comb the internet for pre-existing knowledge, seeking to unite the efforts of foragers, foresters, and freegans everywhere. The <a href="/datasets">imported datasets</a> range from community foraging maps to city-wide tree inventories. This so far amounts to <%= number_with_delimiter(@types.length) %> different types of edibles (most, but not all, plant species) distributed over <%= number_with_delimiter(@lt_count) %> locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
 </p>
 
 <!-- cache end -->
 <% end %>
 
 <p>
-Join us in celebrating the local and edible! The <a href="/">map</a> is open for anyone to edit, the entire database can be <a href="/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">our code</a> is open-source.<!-- If you think it's cool and want to say thanks, consider making a donation to help cover our substantial server costs:
-</p>
-
-<p>
-Finally,--> If you pick more than you can use or are overwhelmed by the bumper crop from your private trees, we encourage you to donate the surplus produce to charity or your neighbors with the help of local <a href="/sharing">food redistribution programs</a>.
+Join us in celebrating the local and edible! The <a href="/">map</a> is open for anyone to edit, the database can be <a href="/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">the code</a> is open-source. You are similarly encouraged to share the bounty with your fellow human beings. Our <a href="/sharing">sharing page</a> lists hundreds of local organizations planting food forests and public orchards, picking leftover fruits and vegetables from city trees and farmers' fields, and swapping with and giving to neighbors and the needy.
 </p>
 
 <h2>About Us</h2>
@@ -116,20 +112,18 @@ Finally,--> If you pick more than you can use or are overwhelmed by the bumper c
 <h2>Closing Remarks</h2>
 
 <p>
-Falling Fruit is a 501(c)3 (tax-exempt) non-profit organization registered in Boulder, Colorado, USA. Within the United States,
-donations are tax deductible. If you wish, you can inspect our <a href="/501c3.pdf">letter of exemption from the IRS</a> or
-check our standing on <a href="http://apps.irs.gov/app/eos/">IRS Publication 78</a> or the <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do">Colorado Secretary of State</a>.
-Our official mailing address is PO Box 284, Boulder, CO, 80306. An up to date copy of our governing bylaws are available
-<a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">here</a>, and
-public board meeting minutes are <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">available as well</a>.
+Falling Fruit is a 501(c)3 (tax-exempt) nonprofit organization registered in Boulder, Colorado. As a result, donations within the United States are tax deductible. You may review our <a href="/501c3.pdf">letter of exemption</a> from the IRS and
+verify our standing with the <a href="http://www.sos.state.co.us/biz/BusinessEntityDetail.do?quitButtonDestination=BusinessEntityResults&nameTyp=ENT&entityId2=20141104200&srchTyp=ENTITY&fileId=20141104200&masterFileId=20141104200">Colorado Secretary of State</a>.<!-- Not yet listed <a href="http://apps.irs.gov/app/eos/">IRS Publication 78</a> --> Also available are our current governing <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">bylaws</a> and
+public board meeting <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">minutes</a>. Our official mailing address is PO Box 284, Boulder, CO, 80306, USA. 
 </p>
 
+ 
 <p>
 Harvesting food in an urban setting comes with certain practical and moral considerations. For an introduction to the ethics of urban foraging, we recommend the excellent summary on our sibling site - Portland, Oregon's <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
 </p>
 
 <p>
-Most of the foraging maps migrated to Falling Fruit were hosted on public Google Maps pages on which it was all too easy to accidentally move markers. If an address provided in a description disagrees with the location on the map, the marker was likely moved accidentally on the original map. Please update the locations of these markers accordingly whenever your scouting determines the address (and not the mapped location) to be correct.
+Most of the foraging maps migrated to Falling Fruit were hosted on public Google Maps pages on which it was all too easy to accidentally move markers. If an address provided in a description disagrees with the location on the map, the marker was likely moved accidentally on the original map. Please update the locations of these markers accordingly whenever field inspection determines the address (and not the mapped location) to be correct.
 </p>
 
 <p>
