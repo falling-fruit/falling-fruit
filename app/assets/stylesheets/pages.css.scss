@@ -469,43 +469,72 @@ div.profile:after {
 /********* /pages/{inventories,maps,sharing} **************/
 /**********************************************************/
 
-div.country_column {
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 20px;
+div#countries {
+  font-size: inherit;
+  
+  > ul li {
+    font-size: 125%;
+    font-variant: small-caps;
+  }
 }
 
-div.country_column div.country {
-  display: block;
+div#countries > div {
+  
+  @import "base.css.scss";
+  @extend body;
+  margin: 1em .75em .5em .75em;
+  
+  > ul {
+    margin-left: 5px;
+    margin-bottom: 1em;
+  }
+  
+  b {
+    display: inline-block;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+  }
+  
+  li {
+    margin-left: 3px;
+  }
+  
+  ul {
+    font-weight: bold;
+    ul,li {
+      font-weight: normal;
+    }
+  }
+  
+  ul li {
+    margin-left: 9px;
+  }
+  
+  ul ul {
+    margin-left: 9px;
+    /*font-style: italic;*/
+    li {
+      margin-left: 15px;
+      /*font-style: normal;*/
+    }
+  }
+
+  li.inactive {
+    opacity: 0.5;
+  }
+  
+  img.social {
+    height: 1em;
+    opacity: 0.75;
+    vertical-align: top;
+    border-top: 2px solid transparent
+  }
+  
+  a:hover img.social {
+    border-top: 2px solid #E35809;
+  }
 }
 
-div.country {
-  display: inline-block;
-}
-
-div.country b {
-  line-height: 3em;
-}
-
-div.datalist {
-  margin-left: 25px;
-  padding: 0px 5px;
-  border-left: 1px solid #EEE;
-  display: inline-block;
-  vertical-align: top;
-}
-
-div.datalist ul {
-  margin-left: 3px;
-}
-
-div.datalist ul li {
-  margin-left: 10px;
-}
-
-div.datalist li {
-  margin-left: 13px;
-}
 
 /**********************************************************/
 /******************* /pages/press *************************/
