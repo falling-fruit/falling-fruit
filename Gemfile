@@ -58,3 +58,7 @@ gem 'shadowbox-rails'
 
 # For diffing/patching descriptions
 gem 'diff_match_patch_native'
+
+# For internationalization
+gem 'i15r'
+gem 'missing_t'
