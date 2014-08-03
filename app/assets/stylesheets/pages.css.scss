@@ -38,11 +38,12 @@ div#logobar img#logo {
 div#share_controls {
   float: right;
   margin: 0.3em 0 0 0;
+  
+  img {
+    height: 2.15em;
+  }
 }
 
-div#share_controls img {
-  height: 2.15em;
-}
 
 /*** Menu ***/
 
