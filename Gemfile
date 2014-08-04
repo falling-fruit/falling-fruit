@@ -61,4 +61,5 @@ gem 'diff_match_patch_native'
 
 # For internationalization
 gem 'i15r'
-gem 'missing_t'
+gem 'i18n-tasks', '~> 0.7.2'
+gem 'devise-i18n'

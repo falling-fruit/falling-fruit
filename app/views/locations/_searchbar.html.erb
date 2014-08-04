@@ -3,8 +3,8 @@
  
  	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map">Link</a> | 
-   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML">Embed</a>
+   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map"><%= I18n.t("locations.searchbar.link", :default => "Link") %></a> |
+   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML"><%= I18n.t("locations.searchbar.embed", :default => "Embed") %></a>
    <div id="embed" style="display:none;" title="Embeddable iFrame HTML"></div>
   </span>
   

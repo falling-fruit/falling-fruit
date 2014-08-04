@@ -2,12 +2,11 @@
 
 <div id="directions_panel">
   <div id="travel_mode">
-  <b>Mode of travel: </b>
+  <b><%= I18n.t("routes.show.mode_of_travel", :default => "Mode of travel: ") %></b>
   <select id="travel_mode_select" onchange="calculate_route(all_waypoints.slice(0));">
-    <option value="WALKING">Walking</option>
-    <option value="BICYCLING">Bicycling</option>
-    <!--<option value="TRANSIT">Transit</option>-->
-    <option value="DRIVING">Driving</option>
+    <option value="WALKING"><%= I18n.t("routes.show.walking", :default => "Walking") %></option>
+    <option value="BICYCLING"><%= I18n.t("routes.show.bicycling", :default => "Bicycling") %></option>
+    <option value="DRIVING"><%= I18n.t("routes.show.driving", :default => "Driving") %></option>
   </select>
   </div>
   <div id="directions">
@@ -24,7 +23,9 @@
 </div>
 <div id="mainmap_container" style="left: 310px;">
   <div id="map"></div>
-  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+  <p id="stamen_attribution" style="display:none;">
+    <%= I18n.t("locations.index.stamen_html", :default => "Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>. Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.") %>
+  </p>
 </div>
 
 <% content_for :page_scripts do %>

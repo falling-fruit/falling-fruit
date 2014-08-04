@@ -1,0 +1,208 @@
+---
+en:
+  !binary "aGVscGVycw==":
+    !binary "ZmFzdGVyX3RpbWVfYWdvX2luX3dvcmRz":
+      !binary "bGVzc190aGFuXzI0X2hvdXJz": less than 24 hours
+      !binary "ZGF5cw==": days
+      !binary "bGFzdF9tb250aA==": last month
+      !binary "bW9udGhzX2Fnbw==": months ago
+      !binary "bGFzdF95ZWFy": last year
+      !binary "eWVhcnNfYWdv": years ago
+  !binary "Y2hhbmdlcw==":
+    !binary "aW5kZXg=":
+      !binary "cmVjZW50X2NoYW5nZXM=": Recent Changes
+      !binary "bGFzdF8yNF9ob3Vycw==": Last 24 hours
+      !binary "MV9kYXlfYWdv": 1 day ago
+      !binary "bl9kYXlzX2Fnbw==": "%{n} days ago"
+      !binary "dXNlcg==": User
+  !binary "bGF5b3V0cw==":
+    !binary "YXBwbGljYXRpb24=":
+      !binary "bWFwcGluZ190aGVfdXJiYW5faGFydmVzdA==": Mapping the urban harvest!
+      !binary "ZmVlZF9wZW9wbGVfbm90X2xhbmRmaWxscw==": Feed people, not landfills!
+      !binary "bWVudQ==":
+        !binary "YWNjb3VudA==": Account
+        !binary "bG9nb3V0": Logout
+        !binary "bG9naW4=": Login
+        !binary "bWFw": Map
+        !binary "aG9tZQ==": Home
+        !binary "d29ybGQ=": World
+        !binary "YWJvdXQ=": About
+        !binary "dGhlX3Byb2plY3Q=": The Project
+        !binary "aW1wb3J0ZWRfZGF0YXNldHM=": Imported Datasets
+        !binary "c2hhcmluZ190aGVfaGFydmVzdA==": Sharing the Harvest
+        !binary "aW5fdGhlX3ByZXNz": In the Press
+        !binary "ZGF0YQ==": Data
+        !binary "Y2hhbmdlcw==": Changes
+        !binary "cm91dGVz": Routes
+        !binary "dHJvdWJsZQ==": Trouble
+        !binary "dHlwZXM=": Types
+        !binary "YXBwcm92ZWRfdHlwZXM=": Approved types
+        !binary "cGVuZGluZ190eXBlcw==": Pending types
+        !binary "bmV3X3R5cGU=": New Type
+        !binary "aW1wb3J0cw==": Imports
+        !binary "bGlzdF9pbXBvcnRz": List Imports
+        !binary "bmV3X2ltcG9ydA==": New Import
+        !binary "dXNlcnM=": Users
+        !binary "YWRkX3NvdXJjZQ==": Add source
+      !binary "b3JfcmlnaHQtY2xpY2tfb25fbWFw": (or right-click on map)
+      !binary "dW52ZXJpZmllZF9oZWxw": Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
+      !binary "cGVuZGluZ190eXBlc19oZWxw": We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted as pending until they are either approved as a new type or merged with an existing type in the taxonomy. In rare instances when the submission is either too random or vague to warrant its own type, it persists on the map in an unapproved state.
+      !binary "Y29weWxlZnQ=": Copyleft
+  !binary "bG9jYXRpb25z":
+    !binary "aW5mb3dpbmRvdw==":
+      !binary "dGFicw==":
+        !binary "aW5mbw==": Info
+        !binary "cmV2aWV3cw==": Reviews
+        !binary "c3RyZWV0X3ZpZXc=": Street View
+      !binary "dW52ZXJpZmllZA==": Unverified
+      !binary "cXVhbGl0eQ==": Quality
+      !binary "eWllbGQ=": Yield
+      !binary "c2Vhc29u": Season
+      !binary "Zmxvd2Vy": Flower
+      !binary "ZnJ1aXQ=": Fruit
+      !binary "cmlwZQ==": Ripe
+      !binary "amFudWFyeV90b19kZWNlbWJlcg==": January - December
+      !binary "cmV2aWV3": + review
+      !binary "cmVwb3J0": report
+      !binary "em9vbQ==": zoom
+      !binary "c3RyZWV0": street
+      !binary "bGluaw==": link
+      !binary "ZWRpdA==": edit
+      !binary "cm91dGVz": routes
+      !binary "ZGVsZXRl": delete
+      !binary "Ynk=": by
+      !binary "YW5vbnltb3Vz": Anonymous
+      !binary "c291cmNl": source
+      !binary "YWRkX3RvX3JlbW92ZV9mcm9t": Add to / remove from
+      !binary "bmV3X3JvdXRl": New Route
+      !binary "aGF2ZV95b3VfdmlzaXRlZF9odG1s": Have you visited this source? Add a <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a>
+      !binary "ZGVsZXRlX2NvbW1lbnQ=": Delete comment
+      !binary "eF9waG90bw==": x photo
+      !binary "c3RhdHVz": Status
+    !binary "c2VhcmNoYmFy":
+      !binary "bGluaw==": Link
+      !binary "ZW1iZWQ=": Embed
+      !binary "YWRkcmVzcw==": Address
+      !binary "dHlwZV9hbmRfcHJlc3NfZW50ZXI=": Type and press enter
+      !binary "em9vbV90b19jdXJyZW50X2xvY2F0aW9u": Zoom to current location
+      !binary "em9vbV90b19tZQ==": Zoom to Me
+      !binary "ZmlsdGVy": Filter
+      !binary "bGFiZWxz": Labels
+      !binary "dHJlZV9pbnZlbnRvcmllcw==": Tree inventories
+      !binary "dHJlZV9pbnZlbnRvcmllc19tb2RhbA==": Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. You can help us map your neighborhood by asking your city or university if a tree inventory exists and whether  it can be shared with Falling Fruit.
+      !binary "ZG93bmxvYWQ=": Download
+      !binary "c2VsZWN0X2VkaWJsZV90eXBl": Select edible type
+    !binary "c2lkZWJhcg==":
+      !binary "YWN0aXZpdHk=": Activity
+      !binary "ZmF2b3JpdGVz": Favorites
+      !binary "cm91dGVz": Routes
+      !binary "eW91X2hhdmVudF9kZWZpbmVkX2h0bWw=": You haven't defined a foraging range. <a href="/users/edit">Click here</a> to do that now
+      !binary "Y2hhbmdlZF93aXRoaW5faHRtbA==": Changes within your <a href="/users/edit">foraging range</a>
+      !binary "bGFzdF8yNF9ob3Vycw==": Last 24 hours
+      !binary "dGhpc193ZWVr": This week
+      !binary "dGhpc19tb250aA==": This month
+      !binary "bGFzdF9tb250aA==": Last month
+      !binary "bW9udGhzX2Fnbw==": Months ago
+      !binary "dW5rbm93bg==": Unknown
+      !binary "aW4=": in
+      !binary "Ynk=": by
+      ? !binary |-
+        eW91X2hhdmVudF9hZGRlZF9vcl9yZXZpZXdlZF9hbnl0aGluZ193aGlsZV9s
+        b2dnZWRfaW4=
+      : You haven''t added or reviewed anything (while logged in)
+      !binary "Y2xpY2tfaGVyZQ==": Click here
+      ? !binary |-
+        bG9jYXRpb25zX2FkZGVkX29yX3Jldmlld2VkX2J5X3lvdV93aGlsZV9sb2dn
+        ZWRfaW4=
+      : Locations added or reviewed by you (while logged in)
+      !binary "bGFzdF92aXNpdGVk": Last visited
+      !binary "Y2xpY2tfaGVyZV90b19tYW5hZ2VfeW91cl9yb3V0ZXNfaHRtbA==": Click <a href="%{routes_path}">here</a> to manage your routes
+      !binary "cHVibGlj": public
+      !binary "bG9jYXRpb25z": locations
+      !binary "bGFzdF91cGRhdGVk": Last updated
+      !binary "YWdv": ago
+      ? !binary |-
+        eW91X2hhdmVudF9kZWZpbmVkX2FueV9mb3JhZ2luZ19yb3V0ZXNfeWV0X2Ns
+        aWNrX29uX2Ffc291cmNlX2FuZF90aGVuX2NsaWNrX3JvdXRlc190b19nZXRf
+        c3RhcnRlZF9tYWtpbmdfYV9yb3V0ZQ==
+      : You haven''t defined any foraging routes yet. Click on a source and then click ''routes'' to get started making a route.
+    !binary "aW5kZXg=":
+      !binary "c3BsYXNoX2h0bWw=": Splash html
+      !binary "ZnJlZWdhbl9zcGxhc2hfaHRtbA==": Freegan splash html
+      !binary "c3RhbWVuX2h0bWw=": Stamen html
+  !binary "cGFnZXM=":
+    !binary "YWJvdXQ=":
+      !binary "Z2l2ZV91c19tb25leQ==": Give us money
+      !binary "Y29udGFjdF91c19odG1s": Contact us html
+      !binary "YWJvdXRfdGhlX3NpdGU=": About the site
+      !binary "Y2VsZWJyYXRpb24=": Celebration
+      !binary "bW9yZV9hYm91dF9odG1s": More about html
+      !binary "am9pbl91c19odG1s": Join us html
+      !binary "YWJvdXRfdXM=": About us
+      !binary "Y2FsZWJfYmlvX2h0bWw=": Caleb bio html
+      !binary "ZXRoYW5fYmlvX2h0bWw=": Ethan bio html
+      !binary "amVmZl9iaW9faHRtbA==": Jeff bio html
+      !binary "Y2xvc2luZ19yZW1hcmtz": Closing remarks
+      !binary "Y2xvc2luZ19yZW1hcmtzX3BhcmExX2h0bWw=": Closing remarks para1 html
+      !binary "Y2xvc2luZ19yZW1hcmtzX3BhcmEyX2h0bWw=": Closing remarks para2 html
+      !binary "Y2xvc2luZ19yZW1hcmtzX3BhcmEzX2h0bWw=": Closing remarks para3 html
+      !binary "Y2xvc2luZ19yZW1hcmtzX3BhcmE0X2h0bWw=": Closing remarks para4 html
+    !binary "ZGF0YQ==":
+      !binary "aW50cm8=": Intro
+      !binary "bGFzdF91cGRhdGVk": Last updated
+      !binary "ZGF0YV91bmF2YWlsYWJsZV9odG1s": Data unavailable html
+      !binary "YmV3YXJlX2h0bWw=": Beware html
+      !binary "bGljZW5zZV9odG1s": License html
+      !binary "Y2F2ZWF0X2VtcHRvcl9odG1s": Caveat emptor html
+      !binary "c3VtbWFyeV9vZl9zb3VyY2Vz": Summary of sources
+      !binary "Y29tbW9uX25hbWU=": Common name
+      !binary "c2NpZW50aWZpY19uYW1l": Scientific name
+      !binary "bGlua3M=": Links
+      !binary "Y291bnQ=": Count
+    !binary "ZGF0YXNldHM=":
+      !binary "aW50cm9faHRtbA==": Intro html
+      !binary "aW1wb3J0ZWRfZGF0YXNldHM=": Imported datasets
+      !binary "dHlwZXNfb2ZfZGF0YQ==": Types of data
+      !binary "dGFibGVfaW5mbw==": Table info
+      !binary "ZGV0YWlscw==": Details
+      !binary "dHlwZQ==": Type
+      !binary "bmFtZQ==": Name
+      !binary "bG9jYXRpb25z": Locations
+      !binary "ZGF0ZV9pbXBvcnRlZA==": Date imported
+      !binary "Z29vZ2xlX21hcA==": Google map
+      !binary "Z29vZ2xlX2Z1c2lvbl90YWJsZQ==": Google fusion table
+      !binary "Z29vZ2xlX21hcHNfZW5naW5l": Google maps engine
+      !binary "dHJlZV9pbnZlbnRvcnk=": Tree inventory
+      !binary "Y29tbXVuaXR5X21hcA==": Community map
+      !binary "aW1wb3J0ZWQ=": Imported
+      !binary "bm9fbGljZW5zZQ==": No license
+    !binary "c2hhcmluZw==":
+      !binary "Z3Jvd19waWNrX2FuZF9kaXN0cmlidXRl": Grow pick and distribute
+      !binary "aW50cm9faHRtbA==": Intro html
+      !binary "Z2xvYmFs": Global
+      !binary "YXVzdHJhbGlh": Australia
+      !binary "Y2FuYWRh": Canada
+      !binary "ZmlqaQ==": Fiji
+      !binary "ZnJhbmNl": France
+      !binary "dW5pdGVkX2tpbmdkb20=": United kingdom
+      !binary "dW5pdGVkX3N0YXRlcw==": United states
+      !binary "Zm9vZF9iYW5rcw==": Food banks
+      !binary "Zm9vZF9iYW5rc19pbnRybw==": Food banks intro
+  !binary "cm91dGVz":
+    !binary "aW5kZXg=":
+      !binary "cm91dGVz": Routes
+      !binary "bGluaw==": Link
+      !binary "bmFtZQ==": Name
+      !binary "bG9jYXRpb25z": Locations
+      !binary "dHJhdmVsX21vZGU=": Travel mode
+      !binary "cHVibGlj": Public
+      !binary "ZGVsZXRl": Delete
+      !binary "dXBkYXRlZA==": Updated
+      !binary "c2hvdw==": Show
+      !binary "YWdv": Ago
+      !binary "c2F2ZV9jaGFuZ2Vz": Save changes
+    !binary "c2hvdw==":
+      !binary "bW9kZV9vZl90cmF2ZWw=": Mode of travel
+      !binary "d2Fsa2luZw==": Walking
+      !binary "YmljeWNsaW5n": Bicycling
+      !binary "ZHJpdmluZw==": Driving

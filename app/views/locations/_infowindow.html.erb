@@ -170,13 +170,13 @@
 <!-- Routes -->
 <% if !mobile_device? and user_signed_in? %>
 <div id="route_controls" style="display:none;border-top:1px solid #F0F0F0;margin-top:0.75em;padding-top:0.75em;width:100%;">
-  <%= I18n.t("locations.infowindow.add_to_remove_from", :default => "Add to / remove from:") %>
+  <%= I18n.t("locations.infowindow.add_to_remove_from", :default => "Add to / remove from") %>:
 <form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">
 	<select id="route_id" name="route_id" style="font-size:85%;">
 		<% Route.where("user_id = ?",current_user.id).each do |r| %>
  			<option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
 		<% end %>
- 		<option value="-1"><%= I18n.t("locations.infowindow.new_route", :default => "-- New Route --") %></option>
+ 		<option value="-1">-- <%= I18n.t("locations.infowindow.new_route", :default => "New Route") %> --</option>
 	</select>
 	<input type="submit" value="+ / -" style="padding:0.2em 0.3em;line-height:85%;">
 </form>
@@ -196,7 +196,7 @@
 
 <div id="observation_list">
   <div style="margin: 0 0 1em 0.25em;">
-    <i><%= I18n.t("locations.infowindow.have_you_visited_html", :default => 'Have you visited this source? Add a <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a>'.html_safe, :id => location.id) %></i>.
+    <i><%= I18n.t("locations.infowindow.have_you_visited_html", :default => 'Have you visited this source? Add a <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a>', :id => location.id).html_safe %></i>.
   </div>
 	<% location.observations.reverse_order.each{ |o| %>
 	
