@@ -48,15 +48,15 @@ Import.all.each do |import| %>
 		Done (<%= link_to 'CSV', "/import/#{import.id}_done.csv" %>)<%= "," if File.exists? efile %>
 	<% end %>
 	<% if File.exists? efile %> 
-		<span style="color:red;">Error</span> (<%= link_to 'CSV', "/import/#{import.id}_error.csv" %>)
+		<span style="color:red;"><%= I18n.t("imports.index.error") %></span> (<%= link_to 'CSV', "/import/#{import.id}_error.csv" %>)
 	<% end %>
 	<% if !File.exists? ofile and !File.exists? ifile and !File.exists? efile  %>
 		Done (Legacy)
 	<% end %>
     </td>
     <td><%= import.created_at %></td>
-    <td><%= link_to 'Edit', edit_import_path(import) %></td>
-    <td><%= link_to 'Delete', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to I18n.t("imports.index.edit"), edit_import_path(import) %></td>
+    <td><%= link_to I18n.t("imports.index.delete"), import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </tbody>

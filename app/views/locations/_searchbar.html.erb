@@ -3,33 +3,32 @@
  
  	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map"><%= I18n.t("locations.searchbar.link", :default => "Link") %></a> |
-   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML"><%= I18n.t("locations.searchbar.embed", :default => "Embed") %></a>
+   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map"><%= I18n.t("locations.searchbar.link") %></a> |
+   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML"><%= I18n.t("locations.searchbar.embed") %></a>
    <div id="embed" style="display:none;" title="Embeddable iFrame HTML"></div>
   </span>
   
   <span class="nowrap">  
    <!-- Address -->
-   <b><%= I18n.t("locations.searchbar.address", :default => "Address") %></b>
-   <input id="address" name="address" placeholder="<%= I18n.t("locations.searchbar.type_and_press_enter", :default => "Type and press Enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
+   <b><%= I18n.t("locations.searchbar.address", ) %></b>
+   <input id="address" name="address" placeholder="<%= I18n.t("locations.searchbar.type_and_press_enter") %>">
     <span id="recenter_button">
     	&middot;
-    	<button onclick="recenter_map()" title="<%= I18n.t("locations.searchbar.zoom_to_current_location", :default => "Zoom to current location") %>"><%= I18n.t("locations.searchbar.zoom_to_me", :default => "Zoom to Me") %></button>
+    	<button onclick="recenter_map()" title="<%= I18n.t("locations.searchbar.zoom_to_current_location") %>"><%= I18n.t("locations.searchbar.zoom_to_me") %></button>
     </span>
     &middot; 
   </span>
   
   <!-- Type Filter -->
   <span class="nowrap">
-    <b><%= I18n.t("locations.searchbar.filter", :default => "Filter") %></b>
-    <%= text_field_tag(:type_filter) %>
-    &middot;
+    <b><%= I18n.t("locations.searchbar.filter") %></b>
+    <%= text_field_tag(:type_filter) %>&middot;
   </span>
   
 	 <!-- Labels -->
    <span id="hidden_controls" style="display:none;">
      <span class="nowrap">
-      <b><%= I18n.t("locations.searchbar.labels", :default => "Labels") %></b>
+      <b><%= I18n.t("locations.searchbar.labels") %></b>
       <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %> title="Toggle location labels"> 
       &middot;
      </span>
@@ -37,20 +36,20 @@
 
    <!-- Tree inventories -->
    <span class="nowrap">
-     <b><%= I18n.t("locations.searchbar.tree_inventories", :default => "Tree inventories") %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
+     <b><%= I18n.t("locations.searchbar.tree_inventories") %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
 
      <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> title="Toggle city and campus tree inventories">
    </span>
    <div id="tree_inventories_help" style="display:none;">
      <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Example tree inventory data for Palo Alto, California">
-     <%= I18n.t("locations.searchbar.tree_inventories_modal", :default => "Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. You can help us map your neighborhood by asking your city or university if a tree inventory exists and whether  it can be shared with Falling Fruit.") %>
+     <%= I18n.t("locations.searchbar.tree_inventories_modal") %>
    </div>
    
    <!-- Download -->
    <span id="export_data" style="display: none;">
     &middot;
     <span class="nowrap">
-     <a href="#" id="get_data_link" title="Download map as a text file"><%= I18n.t("locations.searchbar.download", :default => "Download") %></a>
+     <a href="#" id="get_data_link" title="Download map as a text file"><%= I18n.t("locations.searchbar.download") %></a>
     </span>
    </span>
    
@@ -74,7 +73,7 @@
 jQuery(document).ready(function(){
   $('#type_filter').select2({
     <% if @type.nil? %>
-    	placeholder: <%= I18n.t("locations.searchbar.select_edible_type", :default => "Select edible type") %>,
+    	placeholder: "<%= I18n.t("locations.searchbar.select_edible_type") %>",
     <% else %>
     	placeholder: "<%= @type.full_name %>",
     <% end %>
@@ -86,7 +85,7 @@ jQuery(document).ready(function(){
   });
   $('#s2id_type_filter').select2('disable', true);
   $('#type_filter').on("change",function() {
-    $('#type_filter').attr("placeholder", <%= I18n.t("locations.searchbar.select_edible_type", :default => "Select edible type") %>);
+    $('#type_filter').attr("placeholder", "<%= I18n.t("locations.searchbar.select_edible_type") %>");
     if ($("#type_filter").val() == "") {
       type_filter = undefined;
       if (map.getZoom() <= 12) { // getZoom is critical!

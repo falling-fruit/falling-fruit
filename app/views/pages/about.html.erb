@@ -3,7 +3,7 @@
 </div>
 
 <p class="announcement">
-  <%= I18n.t("pages.about.give_us_money", :default => "We are an all-volunteer, tax-exempt nonprofit, and rely on donations from our users to operate. If you are willing and able, please consider making a financial contribution. Donations within the United States are tax deductible.") %>
+  <%= I18n.t("pages.about.give_us_money") %>
 </p>
 
 	<blockquote>
@@ -29,7 +29,7 @@
 	</blockquote>
 
 <p class="announcement">
-  <%= I18n.t("pages.about.contact_us_html", :default => "This website was built by and for foragers &ndash; we want it to be the best tool available to the contemporary forager. Write us at <a href=\"mailto:feedback@fallingfruit.org\">feedback@fallingfruit.org</a>, we would love to hear from you!").html_safe %>
+  <%= I18n.t("pages.about.contact_us_html").html_safe %>
 </p>
 
 <!--
@@ -40,10 +40,10 @@
 </blockquote>
 -->
 
-<h2><%= I18n.t("pages.about.about_the_site", :default => "About the Site") %></h2>
+<h2><%= I18n.t("pages.about.about_the_site") %></h2>
 
 <p>
-  <%= I18n.t("pages.about.celebration", :default => "Falling Fruit is a celebration of the overlooked culinary bounty of our city streets. By quantifying this resource on a map, we hope to facilitate intimate connections between people, food, and the natural organisms growing in our neighborhoods. Not just a free lunch! Foraging in the 21st century is an opportunity for urban exploration, to fight the scourge of stained sidewalks, and to reconnect with the botanical origins of food.") %>
+  <%= I18n.t("pages.about.celebration").html_safe %>
 </p>
 
 <%
@@ -55,14 +55,7 @@
 %>
 
 <p>
-  <%= I18n.t("pages.about.more_about_html", :default => "Our map of urban edibles is not the first of its kind, but we aspire
-  to be the world's most comprehensive. While our users contribute locations of their own, we comb the
-  internet for pre-existing knowledge, seeking to unite the efforts of foragers, foresters,
-  and freegans everywhere. The <a href=\"/datasets\">imported datasets</a> range from small neighborhood
-  foraging maps to vast professionally-compiled tree inventories. This so far amounts to #{types} different types
-  of edibles (most, but not all, plant species) distributed over #{locations} locations. Beyond the cultivated
-  and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants,
-  foraging in your neighborhood is a journey through time and across cultures.",
+  <%= I18n.t("pages.about.more_about_html",
       :types => number_with_delimiter(@types.length),
       :locations => number_with_delimiter(@lt_count)).html_safe %>
 </p>
@@ -71,10 +64,10 @@
 <% end %>
 
 <p>
-  <%= I18n.t("pages.about.join_us_html", :default => "Join us in celebrating the local and edible! The <a href=\"/\">map</a> is open for anyone to edit, the database can be <a href=\"/data\">downloaded</a> with just one click, and <a href=\"https://github.com/somerandomsequence/falling-fruit\">the code</a> is open-source. You are likewise encouraged to share the bounty with your fellow human beings. Our <a href=\"/sharing\">sharing page</a> lists hundreds of local organizations planting food forests and public orchards, picking otherwise-wasted fruits and vegetables from city trees and farmers' fields, and swapping with and giving to neighbors and the needy.").html_safe %>
+  <%= I18n.t("pages.about.join_us_html").html_safe %>
 </p>
 
-<h2><%= I18n.t("pages.about.about_us", :default => "About Us") %></h2>
+<h2><%= I18n.t("pages.about.about_us") %></h2>
 
 <!-- Caleb -->
 <div class="profile">
@@ -84,7 +77,7 @@
   <a href="mailto:caleb@fallingfruit.org">caleb@fallingfruit.org</a><br>
   Palo Alto, CA<br>
   <p>
-    <%= I18n.t("pages.about.caleb_bio_html", :default => "Caleb is a featherless bipedal humanoid passionate about food justice and finding creative ways to use technology to address social issues. When he's not biking around gawking at trees, he balances his efforts between his day job as a computer science professor at the <a href=\"http://cs.colorado.edu\">University of Colorado</a> where he does research, as a consultant mostly in the field of mapping wireless network coverage, and as a worker bee for a number of nonprofit organizations (<a href=\"http://www.growbiointensive.org/\">Ecology Action</a> in the San Francisco Bay Area, <a href=\"http://boulderfoodrescue.org\">Boulder Food Rescue</a> in Boulder, Colorado). Besides all that work stuff, he likes to climb rocks, run trails, ride bikes, and generally be outdoors as much as possible.").html_safe %>
+    <%= I18n.t("pages.about.caleb_bio_html").html_safe %>
   </p>
  </div>
 </div>
@@ -98,7 +91,7 @@
   <a href="mailto:ethan@fallingfruit.org">ethan@fallingfruit.org</a><br>
   Boulder, CO<br>
   <p>
-    <%= I18n.t("pages.about.ethan_bio_html", :default => "From apple ciders and fruit beers to jams and <a href=\"http://en.wikipedia.org/wiki/Rumtopf\">Rumtopf</a>, Ethan looks to his database of neighborhood trees (and his rickety apple press) for culinary inspiration. While at home in Boulder, he geeks out over maps, data, and time-lapse of retreating glaciers for his PhD at the <a href=\"http://instaar.colorado.edu/people/ethan-welty/\">University of Colorado</a>, but he often leaves his local orbit to walk, talk, eat, and photograph his way across continents.").html_safe %>
+    <%= I18n.t("pages.about.ethan_bio_html").html_safe %>
   </p>
  </div>
 </div>
@@ -112,29 +105,27 @@
     <a href="mailto:jeff@fallingfruit.org">jeff@fallingfruit.org</a><br>
     Denver, CO<br>
     <p>
-      <%= I18n.t("pages.about.jeff_bio_html", :default => "Since harvesting black and blueberries with family as a child and, more recently, noticing the wealth of public fruit trees throughout Colorado, Jeff has developed a deep appreciation for the abundance of fruit growing in our cities. His first mission for Falling Fruit was to comb Boulder and Salt Lake City, paper maps in-hand, to record fruiting trees. When not working to improve building energy efficiency, he is usually helping out in the community or moving quickly over mountains by foot, ski, or bicycle.".html_safe) %>
+      <%= I18n.t("pages.about.jeff_bio_html".html_safe) %>
     </p>
   </div>
 </div>
 
 
-<h2><%= I18n.t("pages.about.closing_remarks", :default => "Closing Remarks") %></h2>
+<h2><%= I18n.t("pages.about.closing_remarks") %></h2>
 
 <p>
-<%= I18n.t("pages.about.closing_remarks_para1_html", :default => "Falling Fruit is a 501(c)3 (tax-exempt) nonprofit organization registered in Boulder, Colorado. As a result, donations within the United States are tax deductible. You may review our <a href=\"/501c3.pdf\">letter of exemption</a> from the IRS and
-verify our standing with the <a href=\"http://www.sos.state.co.us/biz/BusinessEntityDetail.do?quitButtonDestination=BusinessEntityResults&nameTyp=ENT&entityId2=20141104200&srchTyp=ENTITY&fileId=20141104200&masterFileId=20141104200\">Colorado Secretary of State</a>. Also available are our current governing <a href=\"https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing\">bylaws</a> and
-public board meeting <a href=\"https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing\">minutes</a>. Our official mailing address is PO Box 284, Boulder, CO, 80306, USA.").html_safe %>
+<%= I18n.t("pages.about.closing_remarks_para1_html").html_safe %>
 </p>
 <!-- Not yet listed <a href="http://apps.irs.gov/app/eos/">IRS Publication 78</a> -->
  
 <p>
-<%= I18n.t("pages.about.closing_remarks_para2_html", :default => "Harvesting food in an urban setting comes with certain practical and moral considerations. For an introduction to the ethics of urban foraging, we recommend the excellent summary on our sibling site - Portland, Oregon's <a href=\"http://urbanedibles.org/project/ethics\">Urban Edibles</a>.").html_safe %>
+<%= I18n.t("pages.about.closing_remarks_para2_html").html_safe %>
 </p>
 
 <p>
-<%= I18n.t("pages.about.closing_remarks_para3_html", :default => "Most of the foraging maps migrated to Falling Fruit were hosted on public Google Maps pages on which it was all too easy to accidentally move markers. If an address provided in a description disagrees with the location on the map, the marker was likely moved accidentally on the original map. Please update the locations of these markers accordingly whenever field inspection determines the address (and not the mapped location) to be correct.".html_safe) %>
+<%= I18n.t("pages.about.closing_remarks_para3_html".html_safe) %>
 </p>
 
 <p>
-<%= I18n.t("pages.about.closing_remarks_para4_html", :default => "Municipal tree inventories are updated only gradually (if at all) as trees are visited for maintenance. User-contributed and municipal data may be several years old or plain wrong, so be prepared to encounter puzzling inaccuracies in the field. Ultimately, it is your responsibility to determine the identity, edibility, and location of a plant.".html_safe) %>
+<%= I18n.t("pages.about.closing_remarks_para4_html".html_safe) %>
 </p>

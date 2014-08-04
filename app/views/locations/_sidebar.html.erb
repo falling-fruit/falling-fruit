@@ -2,9 +2,9 @@
 <div id="sidebar">
   <!-- Tab Menu -->
   <ul>
-    <li id="activity-tab"><a href="#sidebar-tab-1"><span><%= I18n.t("locations.sidebar.activity", :default => "Activity") %></span></a></li>
-    <li id="review-tab"><a href="#sidebar-tab-2"><span><%= I18n.t("locations.sidebar.favorites", :default => "Favorites") %></span></a></li>
-    <li id="routes-tab"><a href="#sidebar-tab-3"><span><%= I18n.t("locations.sidebar.routes", :default => "Routes") %></span></a></li>
+    <li id="activity-tab"><a href="#sidebar-tab-1"><span><%= I18n.t("locations.sidebar.activity") %></span></a></li>
+    <li id="review-tab"><a href="#sidebar-tab-2"><span><%= I18n.t("locations.sidebar.favorites") %></span></a></li>
+    <li id="routes-tab"><a href="#sidebar-tab-3"><span><%= I18n.t("locations.sidebar.routes") %></span></a></li>
     <li id="close-arrow"><a href="#" class="sidebar_arrow" onclick="$('#mainmap_container').css('left','0px'); $('#sidebar_button').show(); google.maps.event.trigger(map, 'resize');"><span>◀</span></a></li>
   </ul>
 
@@ -32,13 +32,13 @@
          mday = Time.zone.today.day
          wday = Time.zone.today.wday
          if c["days_ago"] <= 0
-           lab = I18n.t("locations.sidebar.last_24_hours", :default => "Last 24 hours")
+           lab = I18n.t("locations.sidebar.last_24_hours")
          elsif c["days_ago"] <= wday
-           lab = I18n.t("locations.sidebar.this_week", :default => "This week")
+           lab = I18n.t("locations.sidebar.this_week")
          elsif c["days_ago"] <= mday
-           lab = I18n.t("locations.sidebar.this_month", :default => "This month")
+           lab = I18n.t("locations.sidebar.this_month")
          elsif c["days_ago"] <= mday+30
-           lab = I18n.t("locations.sidebar.last_month", :default => "Last month")
+           lab = I18n.t("locations.sidebar.last_month")
          else
            lab = I18n.t("locations.sidebar.months_ago", :default => '%{months_ago} months ago', :months_ago => (c["days_ago"]-mday)/30)
          end
@@ -54,16 +54,16 @@
       <%= raw header %>
       <% unless c["location_id"].nil? %>
         <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();">
-          <%= c["type_title"].nil? ? I18n.t("locations.sidebar.unknown", :default => "Unknown") : reordered_type_title.join(" · ") %></a> <%= c["description"] %>
+          <%= c["type_title"].nil? ? I18n.t("locations.sidebar.unknown") : reordered_type_title.join(" · ") %></a> <%= c["description"] %>
         <% unless c["city"].nil? %>
-          <%= I18n.t("locations.sidebar.in", :default => "in") %> <%= c["city"] %>
+          <%= I18n.t("locations.sidebar.in") %> <%= c["city"] %>
         <% end %>
       <% else %>
         <%= c["description"] %>
       <% end %>
       <!-- <%= c["location_description"] %> -->
       <% unless c["change_author"].blank? %>
-        <%= I18n.t("locations.sidebar.by", :default => "by") %> <%= c["change_author"] %>
+        <%= I18n.t("locations.sidebar.by") %> <%= c["change_author"] %>
       <% end %>
       <br/>
 
@@ -76,10 +76,10 @@
   <!-- FAVORITES TAB -->
   <div id="sidebar-tab-2">
     <% if @mine.empty? %>
-      <%= I18n.t("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in", :default => "You haven't added or reviewed anything (while logged in).") %>
-      <%= link_to I18n.t("locations.sidebar.click_here", :default => "Click here"), new_location_path %> to add something.
+      <%= I18n.t("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in") %>
+      <%= link_to I18n.t("locations.sidebar.click_here"), new_location_path %> to add something.
     <% else %>
-      <%= I18n.t("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in", :default => "Locations added or reviewed by you (while logged in):") %>
+      <%= I18n.t("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %>
       <br/>
       <% @mine.each do |o|
         next if o.location.title.nil?
@@ -88,7 +88,7 @@
           <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
             <%= o.location.title %>
           </a><br/>
-          <%= I18n.t("locations.sidebar.last_visited", :default => "Last visited ") %><%= time_ago_in_words(o.created_at) %> ago.
+          <%= I18n.t("locations.sidebar.last_visited") %><%= time_ago_in_words(o.created_at) %> ago.
         </div>
       <% end %>
     <% end %>
@@ -97,7 +97,7 @@
   <!-- ROUTES TAB -->
   <div id="sidebar-tab-3">
     <% if @routes.length > 0 %>
-      <%= I18n.t("locations.sidebar.click_here_to_manage_your_routes_html", :default => "Click <a href=\"%{routes_path}\">here</a> to manage your routes", :routes_path => routes_path).htouml_safe %>.
+      <%= I18n.t("locations.sidebar.click_here_to_manage_your_routes_html", :routes_path => routes_path).html_safe %>.
       <br/>
       <%
          lcounts = {}
@@ -106,15 +106,15 @@
          }
          @routes.each do |route| %>
         <div class="route">
-          <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<%= route.is_public ? I18n.t("locations.sidebar.public", :default => "public") : I18n.t("locations.sidebar.in", :default => "private") %>)
+          <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<%= route.is_public ? I18n.t("locations.sidebar.public") : I18n.t("locations.sidebar.in") %>)
           <br/>
-          <%= lcounts[route.id] %> <%= I18n.t("locations.sidebar.locations", :default => "locations") %>.
-          <%= route.transport_type %>. <%= I18n.t("locations.sidebar.last_updated", :default => "Last updated") %> <%= time_ago_in_words(route.updated_at) %> <%= I18n.t("locations.sidebar.ago", :default => "ago") %>.
+          <%= lcounts[route.id] %> <%= I18n.t("locations.sidebar.locations") %>.
+          <%= route.transport_type %>. <%= I18n.t("locations.sidebar.last_updated") %> <%= time_ago_in_words(route.updated_at) %> <%= I18n.t("locations.sidebar.ago") %>.
         </div>
       <% end %>
       </ul>
   <% else %>
-    <%= I18n.t("locations.sidebar.you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route", :default => "You haven't defined any foraging routes yet. Click on a source and then click 'routes' to get started making a route.") %>
+    <%= I18n.t("locations.sidebar.you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route") %>
     <% end %>
   </div>
 </div>
