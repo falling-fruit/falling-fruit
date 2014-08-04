@@ -131,9 +131,10 @@ class LocationsController < ApplicationController
     end
     r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l, locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} GROUP BY l.id HAVING #{[cfilter].compact.join(" AND ")}");
-    found_n = r["count"].to_i unless r.nil? 
+    found_n = r["count"].to_i unless r.nil?
+    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
-      array_agg(t.parent_id) as parent_types, string_agg(coalesce(t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
+      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
       locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
       WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n}");
@@ -165,9 +166,10 @@ class LocationsController < ApplicationController
 
   def marker
      id = params[:id].to_i
+     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
       array_agg(t.parent_id) as parent_types,
-      string_agg(coalesce(t.name,lt.type_other),',') as name from locations l, 
+      string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') as name from locations l,
       locations_types lt left outer join types t on lt.type_id=t.id
       WHERE lt.location_id=l.id AND l.id=#{id}
       GROUP BY l.id, l.lat, l.lng, l.unverified");
@@ -200,12 +202,13 @@ class LocationsController < ApplicationController
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
+    i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     @locations = Location.joins("INNER JOIN locations_types ON locations_types.location_id=locations.id").
              joins("LEFT OUTER JOIN types ON locations_types.type_id=types.id").
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
-             select('ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id, 
+             select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name,locations_types.type_other)) as name, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
-                     author, import_id, locations.created_at, locations.updated_at, muni').
+                     author, import_id, locations.created_at, locations.updated_at, muni").
              where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|

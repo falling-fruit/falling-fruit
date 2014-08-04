@@ -33,8 +33,8 @@ class Type < ActiveRecord::Base
     self.usda_symbol.nil? ? nil : "http://plants.usda.gov/java/profile?symbol=#{usda_symbol}"
   end
 
-  def full_name(lang=nil)
-    n = lang.nil? ? self.i18n_name : ([self["#{lang}_name"],self.i18n_name].compact.first)
+  def full_name
+    n = self.i18n_name
     self.scientific_name.to_s == '' ? n : (n + " [" + self.scientific_name + "]")
   end
 
