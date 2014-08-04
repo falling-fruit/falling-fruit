@@ -65,9 +65,9 @@ search:
   #  - "^\\s*[#/](?!\\si18n-tasks-use)"
 
 ## Google Translate
-# translation:
+translation:
 #   # Get an API key and set billing info at https://code.google.com/apis/console to use Google Translate
-#   api_key: "AbC-dEf5"
+  api_key: "AIzaSyD164CQsaTxj4BoQEoyTvwTEGYO_Jwvd1Y"
 
 ## Consider these keys not missing
 # ignore_missing:
