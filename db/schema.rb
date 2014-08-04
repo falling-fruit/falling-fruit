@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140513173219) do
+ActiveRecord::Schema.define(:version => 20140804172708) do
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
@@ -155,6 +155,9 @@ ActiveRecord::Schema.define(:version => 20140513173219) do
     t.string   "he_name"
     t.string   "pl_name"
     t.integer  "category_mask",       :default => 1
+    t.string   "fr_name"
+    t.string   "pt_br_name"
+    t.string   "de_name"
   end
 
   create_table "users", :force => true do |t|

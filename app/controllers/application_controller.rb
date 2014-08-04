@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   def set_locale
-    new_locale = extract_locale_from_subdomain || set_locale_from_param
+    new_locale = extract_locale_from_subdomain || extract_locale_from_url
     unless new_locale and SupportedLocales.include? new_locale
       I18n.locale = I18n.default_locale
     else
@@ -23,16 +23,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Get locale code from request subdomain (like http://it.application.local:3000)
-  # You have to put something like:
-  #   127.0.0.1 gr.application.local
-  # in your /etc/hosts file to try this out locally
   def extract_locale_from_subdomain
-    parsed_locale = request.subdomains.first
-    I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
+    host_parts = request.host.split(/\./)
+    if (host_parts.length == 3 and host_parts[1] == "fallingfruit") or
+       (host_parts.length == 2 and host_parts[1] == "localhost")
+      I18n.available_locales.map(&:to_s).include?(host_parts.first) ? host_parts.first : nil
+    else
+      nil
+    end
   end
 
-  def set_locale_from_param
+  def extract_locale_from_url
     return nil unless params.has_key? :locale
     I18n.available_locales.map(&:to_s).include?(params[:locale]) ? params[:locale] : nil
   end

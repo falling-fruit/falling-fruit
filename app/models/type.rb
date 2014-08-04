@@ -34,7 +34,7 @@ class Type < ActiveRecord::Base
   end
 
   def full_name(lang=nil)
-    n = lang.nil? ? self.name : ([self["#{lang}_name"],self.name].compact.first)
+    n = lang.nil? ? self.i18n_name : ([self["#{lang}_name"],self.i18n_name].compact.first)
     self.scientific_name.to_s == '' ? n : (n + " [" + self.scientific_name + "]")
   end
 
@@ -77,10 +77,8 @@ class Type < ActiveRecord::Base
       order(:sortme)
   end
 
-  # http://www.i18nguy.com/unicode/language-identifiers.html
-  Languages = {"en-us" => "English (US)","la" => "Latin"}
-  def il8n_name(lang="en-us")
-    return self.name if lang == "en-us" or lang == "en" or lang.nil?
+  def i18n_name
+    lang = I18n.locale.to_s.tr("-","_")
     lang = "scientific" if lang == "la"
     return ([self["#{lang}_name"],self.name].compact.first)
   end

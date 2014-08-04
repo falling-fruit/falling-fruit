@@ -222,13 +222,14 @@ class LocationsController < ApplicationController
           	yield_rating = Location.find(l.id).mean_yield_rating
           	
             csv << [l.id,l.lat,l.lng,l.unverified,l.description,
-            				l.season_start.nil? ? nil : Location::Months[l.season_start],
-                    l.season_stop.nil? ? nil : Location::Months[l.season_stop],
+            				l.season_start.nil? ? nil : I18n.t("date.month_names")[l.season_start+1],
+                    l.season_stop.nil? ? nil : I18n.t("date.month_names")[l.season_stop+1],
                     l.no_season,
-                    quality_rating.nil? ? nil : Location::Ratings[quality_rating],
-                    yield_rating.nil? ? nil : Location::Ratings[yield_rating],
+                    quality_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[quality_rating],
+                    yield_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[yield_rating],
                     l.author,l.address,l.created_at,l.updated_at,
-                    l.access.nil? ? nil : Location::AccessShort[l.access],l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
+                    l.access.nil? ? nil : I18n.t("locations.infowindow.access_short")[l.access],
+                    l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
                     l.import_id.nil? ? false : (l.muni ? true : false), 
                     l.name]
           }

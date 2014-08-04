@@ -167,8 +167,8 @@ jQuery(document).ready(function(){
   <div class="field">
     <%= f.label :season %><br />
     <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
-    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
-    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
+    <%= f.select(:season_start,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %> to
+    <%= f.select(:season_stop,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %>, or
     <%= f.check_box(:no_season) %> No Season
   </div>
   
@@ -176,7 +176,7 @@ jQuery(document).ready(function(){
   <div class="field">
     <%= f.label :access %><br />
     <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br />
-    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
+    <%= f.select(:access,I18n.t("locations.infowindow.access_mode").collect{ |r| [r,I18n.t("locations.infowindow.access_mode").index(r)] },:include_blank => true) %>
   </div>
   
   <!-- Unverified -->
@@ -203,24 +203,24 @@ jQuery(document).ready(function(){
     <div class="field">
       <%= f.label :fruiting_status %><br />
       <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
-      <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
-      <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+      <%= select_tag(:fruiting,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] })) %>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div><%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[2] %></div><div><%= I18n.t("locations.infowindow.fruiting")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[4] %></div></div>
     </div>
   
     <!-- Quality Rating -->
     <div class="field">
       <%= f.label :quality %><br />
       <span class="subtext">Rate the tastiness of this source (if applicable)</span><br />
-      <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
-      <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+      <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
   
     <!-- Yield Rating -->
     <div class="field">
       <%= f.label :yield %><br />
       <span class="subtext">Rate the productivity of this source (if applicable)</span><br />
-      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
-      <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
 
   </details>

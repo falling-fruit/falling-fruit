@@ -55,6 +55,35 @@ fr:
         !binary "cmV2aWV3cw==": Reviews
         !binary "c3RyZWV0X3ZpZXc=": Street View
       !binary "dW52ZXJpZmllZA==": Unverified
+      unsure: Unsure
+      access:
+        - This source was added by the property owner.
+        - The owner of this source asked that it be added.
+        - This source is on public land.
+        - This source is on private property but may overhang public land. Please pick with discretion.
+        - This source is on private property. Please ask for permission before you pick.
+      rating:
+        - Poor
+        - Fair
+        - Good
+        - Very Good
+        - Excellent
+      fruiting:
+        - Flowering
+        - Fruiting
+        - Ripe
+      access_short:
+        - Added by owner
+        - Permitted by owner
+        - Public
+        - Private but overhanging
+        - Private
+      access_mode:
+        - I own this source
+        - I have permission from the owner to add this source
+        - Source is on public land
+        - Source is on private property but overhangs public land
+        - Source is on private property (ask before you pick)
       !binary "cXVhbGl0eQ==": Quality
       !binary "eWllbGQ=": Yield
       !binary "c2Vhc29u": Season

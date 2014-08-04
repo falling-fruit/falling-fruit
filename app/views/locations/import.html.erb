@@ -25,15 +25,15 @@ Errors:
   <p><b>No Season:</b> Whether season does not apply (eg. Rosemary). Mark 'x', 't', or 'true' if true (no season), otherwise leave blank.</p>
   <p><b>Access:</b> Access status of the location, on a scale from 1 to 5:</p>
     <blockquote>
-    <% Location::AccessModes.each_index{ |i| %>
-    <li><%= i + 1 %>: <%= Location::AccessModes[i] %>
+    <% I18n.t("location.infowindow.access_mode").each_index{ |i| %>
+    <li><%= i + 1 %>: <%= I18n.t("location.infowindow.access_mode")[i] %>
     <% } %>
     </blockquote>
   <p><b>Unverified:</b> Whether the location or identity of one or more of the sources at the location have not been verified. Mark 'x', 't', or 'true' if true (unverified), otherwise leave blank.</p>
   <p><b>Yield/Quality Rating:</b> The productivity and tastiness of the sources at the location, on a scale from 1 to 5:</p>
     <blockquote>
-    <% Location::Ratings.each_index{ |i| %>
-    <li><%= i + 1 %>: <%= Location::Ratings[i] %>
+    <% I18n.t("location.infowindow.rating").each_index{ |i| %>
+    <li><%= i + 1 %>: <%= I18n.t("location.infowindow.rating")[i] %>
     <% } %>
     </blockquote>
   <p><b>Author:</b> Author of the location, as displayed on the map. If left blank, the author is "Anonymous".</p>
