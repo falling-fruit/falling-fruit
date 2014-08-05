@@ -40,7 +40,7 @@ class Type < ActiveRecord::Base
 
   def Type.hash_tree(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
-    Rails.cache.fetch('types_hash_tree' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+    Rails.cache.fetch('types_hash_tree' + cat_mask.to_s + I18n.locale.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
       $seen = {}
       Type.where("parent_id is NULL AND (category_mask & ?)>0",cat_mask).order(:name).collect{ |t| t.to_hash }
     end

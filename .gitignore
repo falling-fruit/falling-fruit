@@ -18,6 +18,7 @@ db/data.yml
 config/database.yml
 config/initializers/secret_token.rb
 config/initializers/secret_token.rb.example
+config/i18n-tasks.yml
 
 # Other stuff
 db/backups/*.sql
