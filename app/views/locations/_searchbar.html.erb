@@ -3,8 +3,8 @@
  
  	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="URL to the current map"><%= I18n.t("locations.searchbar.link") %></a> |
-   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="Embed HTML"><%= I18n.t("locations.searchbar.embed") %></a>
+   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= I18n.t("locations.searchbar.url_to_the_current_map") %>"><%= I18n.t("locations.searchbar.link") %></a> |
+   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="<%= I18n.t("locations.searchbar.embed_html") %>"><%= I18n.t("locations.searchbar.embed") %></a>
    <div id="embed" style="display:none;" title="Embeddable iFrame HTML"></div>
   </span>
   

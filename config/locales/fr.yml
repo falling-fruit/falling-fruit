@@ -43,7 +43,7 @@ fr:
         !binary "bGlzdF9pbXBvcnRz": List Imports
         !binary "bmV3X2ltcG9ydA==": New Import
         !binary "dXNlcnM=": Users
-        !binary "YWRkX3NvdXJjZQ==": Add source
+        !binary "YWRkX3NvdXJjZQ==": + Add source
       !binary "b3JfcmlnaHQtY2xpY2tfb25fbWFw": (or right-click on map)
       !binary "dW52ZXJpZmllZF9oZWxw": Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
       !binary "cGVuZGluZ190eXBlc19oZWxw": We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted as pending until they are either approved as a new type or merged with an existing type in the taxonomy. In rare instances when the submission is either too random or vague to warrant its own type, it persists on the map in an unapproved state.
@@ -57,33 +57,33 @@ fr:
       !binary "dW52ZXJpZmllZA==": Unverified
       unsure: Unsure
       access:
-        - This source was added by the property owner.
-        - The owner of this source asked that it be added.
-        - This source is on public land.
-        - This source is on private property but may overhang public land. Please pick with discretion.
-        - This source is on private property. Please ask for permission before you pick.
+      - This source was added by the property owner.
+      - The owner of this source asked that it be added.
+      - This source is on public land.
+      - This source is on private property but may overhang public land. Please pick with discretion.
+      - This source is on private property. Please ask for permission before you pick.
       rating:
-        - Poor
-        - Fair
-        - Good
-        - Very Good
-        - Excellent
+      - Poor
+      - Fair
+      - Good
+      - Very Good
+      - Excellent
       fruiting:
-        - Flowering
-        - Fruiting
-        - Ripe
+      - Flowering
+      - Fruiting
+      - Ripe
       access_short:
-        - Added by owner
-        - Permitted by owner
-        - Public
-        - Private but overhanging
-        - Private
+      - Added by owner
+      - Permitted by owner
+      - Public
+      - Private but overhanging
+      - Private
       access_mode:
-        - I own this source
-        - I have permission from the owner to add this source
-        - Source is on public land
-        - Source is on private property but overhangs public land
-        - Source is on private property (ask before you pick)
+      - I own this source
+      - I have permission from the owner to add this source
+      - Source is on public land
+      - Source is on private property but overhangs public land
+      - Source is on private property (ask before you pick)
       !binary "cXVhbGl0eQ==": Quality
       !binary "eWllbGQ=": Yield
       !binary "c2Vhc29u": Season
@@ -99,6 +99,17 @@ fr:
       !binary "ZWRpdA==": edit
       !binary "cm91dGVz": routes
       !binary "ZGVsZXRl": delete
+      review_this_location: Review this location
+      report_a_problem: Report a problem
+      zoom_to_this_location: Zoom to this location
+      see_this_location_in_streetview: See this location in streetview
+      url_for_this_location: URL for this location
+      edit_this_location: Edit this location
+      toggle_route_countrols: Toggle route controls
+      delete_this_location: Delete this location
+      are_you_sure: Are you sure?
+      citation_to_the_original_source: Citation to the original source
+      delete_photo: Delete photo
       !binary "Ynk=": by
       !binary "YW5vbnltb3Vz": Anonymous
       !binary "c291cmNl": source
@@ -108,9 +119,13 @@ fr:
       !binary "ZGVsZXRlX2NvbW1lbnQ=": Delete comment
       !binary "eF9waG90bw==": x photo
       !binary "c3RhdHVz": Status
+      !binary "dW5zdXJlX290aGVy": Unsure other
+      !binary "dG9nZ2xlX3JvdXRlX2NvbnRyb2xz": Toggle route controls
     !binary "c2VhcmNoYmFy":
       !binary "bGluaw==": Link
       !binary "ZW1iZWQ=": Embed
+      url_to_the_current_map: URL to the current map
+      embed_html: Embed HTML
       !binary "YWRkcmVzcw==": Address
       !binary "dHlwZV9hbmRfcHJlc3NfZW50ZXI=": Type and press enter
       !binary "em9vbV90b19jdXJyZW50X2xvY2F0aW9u": Zoom to current location
@@ -161,6 +176,50 @@ fr:
       !binary "c3RhbWVuX2h0bWw=": Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
     !binary "ZW1iZWQ=":
       !binary "YWRkX3NvdXJjZQ==": Add source
+    form:
+      form_error: An error prohibited this location from being saved
+      form_intro_html: Edit the location below, or <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Review this location">use this form</a> to review, comment, and post photos.
+      types_subtext: Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.
+      location: Location
+      location_subtext: Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.
+      move_marker: Move marker to coordinates
+      move_marker_address: Move marker to address
+      address_subtext_html: Address <span class="subtext-inline">can be used to quickly position the marker. Adjust as needed before submitting.</span>
+      name_subtext: Leave blank if you prefer to remain anonymous.
+      your_name: Your name
+      author_subtext: Displayed on map. Leave blank if you prefer to remain anonymous.
+      description_subtext: Location details, access issues, plant health...
+      season_subtext: When can the source be harvested? Leave blank if you don't know.
+      no_season: No season
+      access_subtext: Access status of this source. Leave blank if you don''t know.
+      description: Description
+      season: Season
+      access: Access
+      unverified: Unverified
+      unverified_subtext: If you doubt the existence, location, or identity of this source.
+      have_you: Have you visited this location?
+      date_visited: Date visited
+      date_subtext: Date of the reported fruiting status (if not today)
+      fruiting_status: Fruiting status
+      fruiting_subtext: What is the fruit doing right now? (if applicable)
+      quality: Quality
+      quality_subtext: Rate the tastiness of this source (if applicable)
+      yield_subtext: Rate the productivity of this source (if applicable)
+      yield: Yield
+      submit: Submit
+      create_another: Create another
+      visited_on: Visited on
+      visited_on_subtext: Date of your visit (if not today)
+      comments: Comments
+      comments_subtext: Updates, access issues, plant health...
+      verify: Verify
+      verify_subtext: This location has been previously flagged as Unverified
+      photo: Photo
+      photo_subtext: Optionally, upload a photo of the source. If it is someone else''s photo, please ensure that you have the necessary permissions and credit the photographer in the caption.
+      photo_caption: Photo caption
+      !binary "dmlzdGVkX29u": Visted on
+    !binary "bG9jYXRpb25zX3R5cGU=":
+      !binary "b3I=": Or
   !binary "cGFnZXM=":
     !binary "YWJvdXQ=":
       !binary "Z2l2ZV91c19tb25leQ==": We are an all-volunteer, tax-exempt nonprofit, and rely on donations from our users to operate. If you are willing and able, please consider making a financial contribution. Donations within the United States are tax deductible.
@@ -182,7 +241,7 @@ fr:
       !binary "aW50cm8=": Falling Fruit is built on public data and the generosity of urban foragers willing to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database
       !binary "bGFzdF91cGRhdGVk": last updated
       !binary "ZGF0YV91bmF2YWlsYWJsZV9odG1s": Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.
-      !binary "YmV3YXJlX2h0bWw=": But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in its entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.
+      !binary "YmV3YXJlX2h0bWw=": But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it\'s entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.
       !binary "bGljZW5zZV9odG1s": If you are interested in using the data in your own project, especially for commercial applications, we suggest you contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). When not otherwise specified, data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons (Attribution, Non-commercial, Share-alike)</a> license. This means that you are free to use and distribute the data so long as you preserve the original author/source attribution and do not use it (without permission) for commercial applications. The source code for Falling Fruit is also open. More details on that can be found on <a href="https://github.com/somerandomsequence/falling-fruit">our github repository</a>.
       !binary "Y2F2ZWF0X2VtcHRvcl9odG1s": It should go without saying that we take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
       !binary "c3VtbWFyeV9vZl9zb3VyY2Vz": Summary of sources

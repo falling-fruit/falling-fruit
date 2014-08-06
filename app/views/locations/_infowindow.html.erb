@@ -134,34 +134,34 @@
 	<tr>
  		<td id="controls">
  		<!-- Observation -->
-		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review"><%= I18n.t("locations.infowindow.review") %></a>
+		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.review_this_location") %>" id="add_review"><%= I18n.t("locations.infowindow.review") %></a>
 		<% if not(!defined?($embed).nil? and $embed) %>
 		  <!-- Problem -->
-      <a href="#" title="Report a problem" id="problem_link" onclick="open_problem_modal(<%= location.id %>);"><%= I18n.t("locations.infowindow.report") %></a>
+      <a href="#" title="<%= I18n.t("locations.infowindow.report_a_problem") %>" id="problem_link" onclick="open_problem_modal(<%= location.id %>);"><%= I18n.t("locations.infowindow.report") %></a>
     <% end %>
 		<!-- Zoom -->
- 		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location"><%= I18n.t("locations.infowindow.zoom") %></a>
+ 		<a href="javascript:zoom_to_marker();" data-ajax="false" title="<%= I18n.t("locations.infowindow.zoom_to_this_location") %>"><%= I18n.t("locations.infowindow.zoom") %></a>
  		<!-- Street View -->
  		<% if user_signed_in? and current_user.is? :admin %>
- 		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="See this location in Street View"><%= I18n.t("locations.infowindow.street") %></a>
+ 		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="<%= I18n.t("locations.infowindow.see_this_location_in_streetview") %>"><%= I18n.t("locations.infowindow.street") %></a>
  		<% end %>
  		<!-- Link -->
- 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location"><%= I18n.t("locations.infowindow.link") %></a>
+ 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="<%= I18n.t("locations.infowindow.url_for_this_location") %>"><%= I18n.t("locations.infowindow.link") %></a>
     <!-- Edit -->
-    <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location"><%= I18n.t("locations.infowindow.edit") %></a>
+    <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.edit_this_location") %>"><%= I18n.t("locations.infowindow.edit") %></a>
     <!-- Routes -->
  		<% if !mobile_device? and user_signed_in? %>
- 			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="Toggle route controls"><%= I18n.t("locations.infowindow.routes") %></a>
+ 			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="<%= I18n.t("locations.infowindow.toggle_route_controls") %>"><%= I18n.t("locations.infowindow.routes") %></a>
  		<% end %>
  		<!-- Delete -->
  		<% if user_signed_in? and current_user.is? :admin %>
-  			<%= link_to(I18n.t("locations.infowindow.delete"), location, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete this location') %>
+  			<%= link_to(I18n.t("locations.infowindow.delete"), location, method: :delete, data: { confirm: I18n.t("locations.infowindow.are_you_sure") }, title: I18n.t("locations.infowindow.delete_this_location")) %>
  		<% end %>
  		</td>	
  		<!-- Author (source) -->
   	<td id="added_by"><%= I18n.t("locations.infowindow.by") %> <i style="padding-right:0.5em;"><%= (location.author.nil? or (location.author.strip.length == 0)) ? I18n.t("locations.infowindow.anonymous") : location.author %></i>
   	<% unless location.import.nil? %>
-			(<a href="/imports/<%= location.import.id %>" title="Citation to the original source"><%= I18n.t("locations.infowindow.source") %></a>)
+			(<a href="/imports/<%= location.import.id %>" title="<%= I18n.t("locations.infowindow.citation_to_the_original_source") %>"><%= I18n.t("locations.infowindow.source") %></a>)
   	<% end %>
 		</td>
  	</tr>
@@ -206,7 +206,7 @@
 				<div style="float: right;">
 					<%= link_to('x', o, method: :delete, data: { confirm: 'Are you sure?' }, title: I18n.t("locations.infowindow.delete_comment")) %>
 					<% unless o.photo_file_size.nil? %> 
-						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="Delete photo"><%= I18n.t("locations.infowindow.x_photo") %></a>
+						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.delete_photo") %>"><%= I18n.t("locations.infowindow.x_photo") %></a>
 					<% end %>
 				</div>
 			<% end %>
