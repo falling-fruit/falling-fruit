@@ -44,6 +44,7 @@ es:
         new_import: Nueva importación
         users: Usuarios
         add_source: + Añadir fuente
+        sign_up: Contratar
       or_right-click_on_map: (O haga clic en el mapa)
       unverified_help: Las fuentes se marcan como sin verificar si su identidad, ubicación o existencia es disputado. Muchas fuentes importadas de inventarios de árboles se marcan como no verificada porque su comestibilidad es incierta (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los usuarios están invitados a viajar a estos lugares y reportar sus hallazgos.
       pending_types_help: Aplicamos una taxonomía de tipos de comestibles para mantener el mapa organizada y realizar búsquedas. Nuevos tipos enviados por los usuarios se destacan como pendiente hasta que sean aprobados, ya sea como un nuevo tipo o se fusionaron con un tipo existente en la taxonomía. En raras ocasiones, cuando la presentación es demasiado aleatorio o vaga como para justificar su propio tipo, que persiste en el mapa en un estado no aprobado.

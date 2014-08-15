@@ -44,6 +44,7 @@ de:
         new_import: Neue Import
         users: Benutzer
         add_source: + Quelle hinzufügen
+        sign_up: Anmeldung
       or_right-click_on_map: (Oder der rechten Maustaste auf Karte)
       unverified_help: Quellen werden als unbestätigte markiert, wenn ihre Identität, Ort, oder die Existenz ist umstritten. Viele von Baum Vorräte importiert Quellen werden als unbestätigte markiert, weil ihre Genießbarkeit ist unsicher (zum Beispiel könnte "Birne" entweder eine essbare oder dekorative Vielfalt sein). Benutzer werden aufgefordert, zu diesen Orten reisen und ihre Ergebnisse.
       pending_types_help: Wir setzen eine Taxonomie von essbaren Arten, die Karte organisiert und durchsuchbar zu halten. Neuartige von den Benutzern eingereicht werden als schwebende, bis sie entweder als eine neue Art zugelassen oder mit einem vorhandenen Typ in der Taxonomie verschmolzen hervorgehoben. In seltenen Fällen, wenn die Vorlage entweder zu zufälligen oder vage, seine eigene Art zu rechtfertigen, bleibt es auf der Karte in einer nicht genehmigten Zustand.

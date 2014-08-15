@@ -44,6 +44,7 @@ fr:
         new_import: Nouvelle importation
         users: Utilisateurs
         add_source: + Ajouter une source
+        sign_up: Signer
       or_right-click_on_map: (Ou cliquez droit sur la carte)
       unverified_help: Les sources sont marqués comme non vérifiée si leur identité, l'adresse, ou l'existence est contestée. Beaucoup de sources importées à partir d'inventaires d'arbres sont marqués comme non vérifiée parce que leur comestibilité est incertain (par exemple, "poire" pourrait être soit une variété comestible ou décorative). Les utilisateurs sont invités à se rendre à ces endroits et de faire rapport de leurs constatations.
       pending_types_help: Nous appliquons une taxonomie des types comestibles de garder la carte organisée et consultable. Types nouveaux soumis par les utilisateurs sont mis en évidence comme étant en attente jusqu'à ce qu'elles soient approuvées comme un nouveau type ou fusionné avec un type existant dans la taxonomie. Dans les rares cas où la soumission est trop aléatoire ou vague pour justifier son propre type, il persiste sur la carte dans un état non approuvé.

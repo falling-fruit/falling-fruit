@@ -44,6 +44,7 @@ pl:
         new_import: Nowy importu
         users: Użytkowników
         add_source: + Dodaj źródło
+        sign_up: Zarejestruj się
       or_right-click_on_map: (Lub kliknij prawym przyciskiem myszy na mapie)
       unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
       pending_types_help: Wspieramy taksonomii typów jadalnych zachować mapę zorganizowaną i przeszukiwania. Nowe typy złożone przez użytkowników są wyróżnione jako czasu do czasu są one albo zatwierdzony jako nowy typ lub połączone z istniejącym typu w taksonomii. W rzadkich przypadkach, gdy wniosek składany jest zbyt losowe lub niejasne, aby uzasadnić swój typ, to utrzymuje się na mapie w stanie niezatwierdzonych.
