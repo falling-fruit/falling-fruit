@@ -8,18 +8,20 @@
 
 <div id="mainmap_container">
   <div id="map"></div>
-  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+  <p id="stamen_attribution" style="display:none;">
+    <%= I18n.t("locations.index.stamen_html").html_safe %>
+  </p>
   <div id="embed_branding">
     <a href="<%= request.fullpath.gsub('locations/embed', '') %>" id="falling_fruit">falling fruit</a>
 		<div class="hr-like"></div>
     <span>mini</span>
-    <a href="/locations/new<%= @perma[:cats].nil? ? "" : "?c=" + @perma[:cats].to_s %>" id="add_source">Add source</a>
+    <a href="/locations/new<%= @perma[:cats].nil? ? "" : "?c=" + @perma[:cats].to_s %>" id="add_source"><%= I18n.t("locations.embed.add_source") %></a>
   </div>
 </div>
 
 <!-- Unverified? -->
 <div id="unverified_help" style="display:none;">
-Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
+ <%= I18n.t("locations.infowindow.unverified") %>
 </div>
 
 <script>

@@ -3,9 +3,9 @@
 
 <!-- Tab Menu -->
 <ul>
- <li id="info-tab"><a href="#tab-1" onclick="open_tab_1();"><span>Info</span></a></li>
- <li id="review-tab"><a href="#tab-2" onclick="open_tab_2();"><span>Reviews (<%= location.observations.length %>)</span></a></li>
- <li id="streetview-tab"><a href="#tab-3" onclick="open_tab_3();"><span>Street View</span></a></li>
+ <li id="info-tab"><a href="#tab-1" onclick="open_tab_1();"><span><%= I18n.t("locations.infowindow.tabs.info") %></span></a></li>
+ <li id="review-tab"><a href="#tab-2" onclick="open_tab_2();"><span><%= I18n.t("locations.infowindow.tabs.reviews") %> (<%= location.observations.length %>)</span></a></li>
+ <li id="streetview-tab"><a href="#tab-3" onclick="open_tab_3();"><span><%= I18n.t("locations.infowindow.tabs.street_view") %></span></a></li>
 </ul>
 
 <!-- Info Tab -->
@@ -17,7 +17,7 @@
 <!-- Types -->
 <div id="type_list">
 	<% if location.unverified %>
-		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">UNVERIFIED<% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span><% end %>
+		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;"><%= I18n.t("locations.infowindow.unverified") %><% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span><% end %>
 			</li>
 	<% end %>
  <% @location.locations_types.each{ |d| %>
@@ -56,14 +56,14 @@
 <!-- Quality -->
 <% unless location.mean_quality_rating.nil? %>
 	<% ratings = "true" %>
- 	<label>Quality</label> <%= Location::Ratings[location.mean_quality_rating] %>
+ 	<label><%= I18n.t("locations.infowindow.quality") %></label> <%= I18n.t("locations.infowindow.rating#{location.mean_quality_rating}") %>
  	<span class="observation_count">(<%= location.observations.reject{ |o| o.quality_rating.nil? }.length %>)</span>
 <% end %>
 
 <!-- Yield -->
 <% unless location.mean_yield_rating.nil? %>
 	<% ratings = "true" %>
-	<label>Yield</label> <%= Location::Ratings[location.mean_yield_rating] %>
+	<label><%= I18n.t("locations.infowindow.yield") %></label> <%= I18n.t("locations.infowindow.rating#{location.mean_yield_rating}") %>
 	<span class="observation_count">(<%= location.observations.reject{ |o| o.yield_rating.nil? }.length %>)</span>
 <% end %>
 <% unless ratings.nil? %>
@@ -84,28 +84,28 @@
 		season_class = "in_season" if (!location.season_start.nil? and !location.season_stop.nil? and 
 																		location.season_stop < location.season_start and 
 																		(current > location.season_start or current < location.season_stop))
-		pretty_start = location.season_start.nil? ? "?" : Location::Months[location.season_start]
-		pretty_stop = location.season_stop.nil? ? "?" : Location::Months[location.season_stop]
+		pretty_start = location.season_start.nil? ? "?" : I18n.t("date.month_names")[location.season_start+1]
+		pretty_stop = location.season_stop.nil? ? "?" : I18n.t("date.month_names")[location.season_stop+1]
 		pretty_season = (pretty_start == pretty_stop) ? pretty_start : pretty_start + " - " + pretty_stop
 	%>
-  	<label>Season</label> <span class="<%= season_class %>"><%= pretty_season %></span><br/>
+  	<label><%= I18n.t("locations.infowindow.season") %></label> <span class="<%= season_class %>"><%= pretty_season %></span><br/>
   <% else %>
   <!-- Observation table -->
   	<% unless location.observations.length == 0 %>
 			<% unless location.nobs_months_flowering.length == 0 %>
-				<label>Flower</label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + Location::Months[v[0]] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+				<label><%= I18n.t("locations.infowindow.flower") %></label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
 			<% end %>
 			<% unless location.nobs_months_fruiting.length == 0 %>
-				<label>Fruit</label> <%= location.nobs_months_fruiting.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + Location::Months[v[0]] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+				<label><%= I18n.t("locations.infowindow.fruit") %></label> <%= location.nobs_months_fruiting.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
 			<% end %>
 			<% unless location.nobs_months_ripe.length == 0 %>
-				<label>Ripe</label> <%= location.nobs_months_ripe.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + Location::Months[v[0]] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+				<label><%= I18n.t("locations.infowindow.ripe") %></label> <%= location.nobs_months_ripe.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + Location::Months[v[0]] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
 			<% end %>
 		<% end %>
   <% end %>
 <!-- No Season -->
 <% else %>
-	<label>Season</label> <span class="in_season">January - December</span><br/>
+	<label><%= I18n.t("locations.infowindow.season") %></label> <span class="in_season"><%= I18n.t("locations.infowindow.january_to_december") %></span><br/>
 <% end %>
 
 <!-- Text Description -->
@@ -117,7 +117,7 @@
 </p>
 <!-- Access Statement -->
 <% unless location.access.nil? %>
-	<p><span style="font-style: italic; color: #a9a9a9;"><%= Location::AccessStatements[location.access] %></span></p>
+	<p><span style="font-style: italic; color: #a9a9a9;"><%= I18n.t("locations.infowindow.access")[location.access] %></span></p>
 <% end %>
 <!-- Last updated (words) -->
 <!--<p><span class="subtext" style="color: #a9a9a9;">Updated <%= distance_of_time_in_words_to_now(location.updated_at) %> ago</span></p>-->
@@ -134,35 +134,34 @@
 	<tr>
  		<td id="controls">
  		<!-- Observation -->
-		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">+ review</a>
+		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.review_this_location") %>" id="add_review"><%= I18n.t("locations.infowindow.review") %></a>
 		<% if not(!defined?($embed).nil? and $embed) %>
 		  <!-- Problem -->
-      <a href="#" title="Report a problem" id="problem_link" onclick="open_problem_modal(<%= location.id %>);">report</a>
-      <!--<a href="#" title="Report a problem" id="problem_toggle" onclick="toggle_problem_controls(<%= location.id %>);">report</a>-->
+      <a href="#" title="<%= I18n.t("locations.infowindow.report_a_problem") %>" id="problem_link" onclick="open_problem_modal(<%= location.id %>);"><%= I18n.t("locations.infowindow.report") %></a>
     <% end %>
 		<!-- Zoom -->
- 		<a href="javascript:zoom_to_marker();" data-ajax="false" title="Zoom to this location">zoom</a>
+ 		<a href="javascript:zoom_to_marker();" data-ajax="false" title="<%= I18n.t("locations.infowindow.zoom_to_this_location") %>"><%= I18n.t("locations.infowindow.zoom") %></a>
  		<!-- Street View -->
  		<% if user_signed_in? and current_user.is? :admin %>
- 		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="See this location in Street View">street</a>
+ 		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="<%= I18n.t("locations.infowindow.see_this_location_in_streetview") %>"><%= I18n.t("locations.infowindow.street") %></a>
  		<% end %>
  		<!-- Link -->
- 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="URL for this location">link</a>
+ 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="<%= I18n.t("locations.infowindow.url_for_this_location") %>"><%= I18n.t("locations.infowindow.link") %></a>
     <!-- Edit -->
-    <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="Edit this location">edit</a>
+    <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.edit_this_location") %>"><%= I18n.t("locations.infowindow.edit") %></a>
     <!-- Routes -->
  		<% if !mobile_device? and user_signed_in? %>
- 			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="Toggle route controls">routes</a>
+ 			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="<%= I18n.t("locations.infowindow.toggle_route_controls") %>"><%= I18n.t("locations.infowindow.routes") %></a>
  		<% end %>
  		<!-- Delete -->
  		<% if user_signed_in? and current_user.is? :admin %>
-  			<%= link_to('delete', location, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete this location') %>
+  			<%= link_to(I18n.t("locations.infowindow.delete"), location, method: :delete, data: { confirm: I18n.t("locations.infowindow.are_you_sure") }, title: I18n.t("locations.infowindow.delete_this_location")) %>
  		<% end %>
  		</td>	
  		<!-- Author (source) -->
-  	<td id="added_by">by <i style="padding-right:0.5em;"><%= (location.author.nil? or (location.author.strip.length == 0)) ? "Anonymous" : location.author %></i>
+  	<td id="added_by"><%= I18n.t("locations.infowindow.by") %> <i style="padding-right:0.5em;"><%= (location.author.nil? or (location.author.strip.length == 0)) ? I18n.t("locations.infowindow.anonymous") : location.author %></i>
   	<% unless location.import.nil? %>
-			(<a href="/imports/<%= location.import.id %>" title="Citation to the original source">source</a>)
+			(<a href="/imports/<%= location.import.id %>" title="<%= I18n.t("locations.infowindow.citation_to_the_original_source") %>"><%= I18n.t("locations.infowindow.source") %></a>)
   	<% end %>
 		</td>
  	</tr>
@@ -171,13 +170,13 @@
 <!-- Routes -->
 <% if !mobile_device? and user_signed_in? %>
 <div id="route_controls" style="display:none;border-top:1px solid #F0F0F0;margin-top:0.75em;padding-top:0.75em;width:100%;">
-Add to / remove from: 
+  <%= I18n.t("locations.infowindow.add_to_remove_from") %>:
 <form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">
 	<select id="route_id" name="route_id" style="font-size:85%;">
 		<% Route.where("user_id = ?",current_user.id).each do |r| %>
  			<option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
 		<% end %>
- 		<option value="-1">-- New Route --</option>
+ 		<option value="-1">-- <%= I18n.t("locations.infowindow.new_route") %> --</option>
 	</select>
 	<input type="submit" value="+ / -" style="padding:0.2em 0.3em;line-height:85%;">
 </form>
@@ -197,7 +196,7 @@ Add to / remove from:
 
 <div id="observation_list">
   <div style="margin: 0 0 1em 0.25em;">
-    <i>Have you visited this source? Add a <a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a></i>.
+    <i><%= I18n.t("locations.infowindow.have_you_visited_html", :id => location.id).html_safe %></i>.
   </div>
 	<% location.observations.reverse_order.each{ |o| %>
 	
@@ -205,9 +204,9 @@ Add to / remove from:
 		  <!-- Delete controls -->
 			<% if user_signed_in? and current_user.is? :admin %>
 				<div style="float: right;">
-					<%= link_to('x', o, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete comment') %> 
+					<%= link_to('x', o, method: :delete, data: { confirm: 'Are you sure?' }, title: I18n.t("locations.infowindow.delete_comment")) %>
 					<% unless o.photo_file_size.nil? %> 
-						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="Delete photo">x photo</a>
+						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.delete_photo") %>"><%= I18n.t("locations.infowindow.x_photo") %></a>
 					<% end %>
 				</div>
 			<% end %>
@@ -235,21 +234,21 @@ Add to / remove from:
 			<% unless o.yield_rating.nil? and o.quality_rating.nil? and o.fruiting.nil? %>
 				<span style="color: #666; font-size: 90%;">
 					<% unless o.yield_rating.nil? %>
-						<label>Yield</label> <%= Location::Ratings[o.yield_rating] %>
+						<label><%= I18n.t("locations.infowindow.yield") %></label> <%= I18n.t("locations.infowindow.rating")[o.yield_rating] %>
 						<% unless o.quality_rating.nil? %>&middot;<% end %>
 					<% end %>
 					<% unless o.quality_rating.nil? %>
-						<label>Quality</label> <%= Location::Ratings[o.quality_rating] %>
+						<label><%= I18n.t("locations.infowindow.quality") %>y</label> <%= I18n.t("locations.infowindow.rating")[o.quality_rating] %>
 						<% unless o.fruiting.nil? %>&middot;<% end %>
 					<% end %>
 					<% unless o.fruiting.nil? %>
-						<label>Status</label> <%= Location::Fruiting[o.fruiting] %>
+						<label><%= I18n.t("locations.infowindow.status") %></label> <%= I18n.t("locations.infowindow.fruiting")[o.fruiting] %>
 					<% end %>
 					<br />
 				</span>
 			<% end %>
 			<!-- Author -->
-			<span style="color: #999; font-size: 85%;">by <%= o.author.blank? ? "Anonymous" : o.author %>
+			<span style="color: #999; font-size: 85%;">by <%= o.author.blank? ? I18n.t("locations.infowindow.anonymous") : o.author %>
 				<% unless o.observed_on.nil? %>
 				  <% if o.observed_on.year == DateTime.now.year %>
 					  | <%= o.observed_on.strftime('%B %-d') %>

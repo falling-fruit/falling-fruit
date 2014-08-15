@@ -20,6 +20,50 @@ registerDoSNOW(cl)
 ####
 ## FUNCTIONS
 
+####
+## Load
+
+## Load Dataset
+load.data = function(file, latlng = c("Lat","Lng")) {
+  
+  # Read file
+  if (grepl("\\.csv",file)) {
+    dt = read.csv(file, stringsAsFactors=F)
+  } else if (grepl("\\.dbf",file)) {
+    library(foreign)
+    dt = read.dbf(file,as.is=T)
+  } else if (grepl("\\.shp",file)) {
+    library(rgdal)
+    shp = readOGR(file, layer = ogrListLayers(file)[1])
+    shp = spTransform(shp, CRS("+proj=longlat +ellps=WGS84"))
+    dt = shp@data
+    ind = sapply(dt, is.factor)
+    dt[ind] = lapply(dt[ind], as.character)
+    dt$Lng = shp@coords[,1]
+    dt$Lat = shp@coords[,2]
+  } else if (grepl("\\.kml",file)) {
+    # get layer name from ogrinfo
+    shp = readOGR(file, "Features")
+    shp = spTransform(shp, CRS("+proj=longlat +ellps=WGS84"))
+    dt = shp@data
+    ind = sapply(dt, is.factor)
+    dt[ind] = lapply(dt[ind], as.character)
+    dt$Lng = shp@coords[,1]
+    dt$Lat = shp@coords[,2]
+  }
+  
+  # Standardize lat,lng to "Lat","Lng"
+  if (all(latlng %in% names(dt))) {
+    names(dt)[names(dt) == latlng[1]] = "Lat"
+    names(dt)[names(dt) == latlng[2]] = "Lng"
+  } else {
+    warning('No coordinates available!')
+  }
+  
+  # return
+  return(dt)
+}
+
 ## Load Template
 # see: http://fallingfruit.org/locations/import
 load.template = function() {
@@ -33,17 +77,16 @@ load.template = function() {
 # Builds the standard format used for filtering databases of species names. Expects a UTF-8 tab delimited file that includes the following fields...
 # Common : Common name of the plant, must be the same as Falling Fruit type
 # Scientific : Scientific name of the plant, as Genus or Genus species
-# Rating : -1 = avoid, 1 = include, 2 = maybe include
+# Rating : -1 = avoid, 1 = include, 2 = include (but maybe disable in database), 3 = research further
 load.key = function(keyfile = NULL) {
   if (is.null(keyfile)) {
-    keyfile = '~/sites/falling-fruit/data/species_key.tab'
+    keyfile = '~/sites/falling-fruit/data/species_key.csv'
   }
-	key = read.table(keyfile, sep = "\t", stringsAsFactors=F, header=T, encoding="UTF-8")
-	key$Common = gsub("  "," ",key$Common)
+	key = read.csv(keyfile, stringsAsFactors=F)
+	key$Common = gsub("[ ]+"," ",key$Common)
 	key$Common = gsub("[ ]+$|^[ ]+","",key$Common)
-	key$Common = tolower(key$Common)
-	key$Common = gsub("^([a-zA-Z])","\\U\\1",key$Common,perl=T)
-	key$Scientific = gsub("  "," ",key$Scientific)
+	key$Common = capwords(key$Common, strict = T, first = T)
+	key$Scientific = gsub("[ ]+"," ",key$Scientific)
 	key$Scientific = gsub("[ ]+$|^[ ]+","",key$Scientific)
 	temp = strsplit(key$Scientific," ")
 	for (i in 1:length(temp)) {
@@ -56,20 +99,29 @@ load.key = function(keyfile = NULL) {
 	}
 	key$ScientificSP[key$Species == ""] = paste(key$Scientific[key$Species == ""],"sp",sep=" ")
 	key$ScientificSP[key$Species != ""] = key$Scientific[key$Species != ""]
-	key
+	return(key)
 }
 
+####
+## Format
+
 ## Capitalize first letter of each word
-capwords = function(s, strict = FALSE) {
+capwords = function(s, strict = FALSE, first = FALSE) {
 	cap = function(s) {
 		paste(toupper(substring(s,1,1)), {s = substring(s,2); if(strict) tolower(s) else s}, sep = "", collapse = " " )
 	}
-	s = sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
-	gsub("([/\\(])([a-z])", "\\1\\U\\2", s, perl=T)	# Capitalize letter proceeding (,/
-	gsub("'([a-z])([a-z])", "'\\U\\1\\L\\2", s, perl=T)	# Capitalize letter proceeding '
+	if (first) {
+	  s = sapply(s, cap, USE.NAMES = !is.null(names(s))) # Capitalize first character
+	  s = gsub("^([^a-zA-Z]*)([a-zA-Z])", "\\1\\U\\2", s, perl = T)
+	} else {
+	  s = sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s))) # Capitalize letter proceeding " "
+	  s = gsub("(,|\\.|/|\\()([a-z])", "\\1\\U\\2", s, perl=T)	# Capitalize letter proceeding (,/
+	  s = gsub("'([a-z])([a-z])", "'\\U\\1\\L\\2", s, perl=T)	# Capitalize letter proceeding ' if followed by letter
+	}
+	return(s)
 }
 
-## Format Scientific
+## Format specialty string fields (scientific name, address)
 format.field = function(x,types='') {
 	x = gsub("^[ ]+|[ ]+$","",x)	# remove trailing spaces
 	x = gsub("[ ]+"," ",x)	# remove duplicate spaces
@@ -89,53 +141,172 @@ format.field = function(x,types='') {
 	}
 	if ('species' %in% types) {
 		x = gsub("\\.","",x)	# remove periods
-		x = gsub("species|spp( |$)|ssp( |$)|sp( |$)","sp\\1",x,ignore.case=T) # species -> sp
+		x = gsub(" species| spp( |$)| ssp( |$)| sp( |$)"," sp\\1",x,ignore.case=T) # species -> sp
 		x = gsub("(^[a-zA-Z]+$)","\\1 sp",x) # Genus -> add sp
-		x = gsub("^([a-z])","\\U\\1",x,perl=T)
+		x = capwords(x, strict = F, first = T)
 	}
 	return(x)
 }
 
 ####
 ## Filter
-filter.data = function(data, genus = TRUE) {
+filter.data = function(dt, genus = TRUE) {
 
 	# load key
 	key = load.key()
+	# remove common name synonyms and multi-species
+	key = key[key$Tag != "cyn" & key$Tag != "msp",]
 	
 	# pre-filter (genus)
 	if (genus) {
-		ind = grepl(paste(unique(key$Genus[key$Rating > 0]),collapse=" |^"),data$Scientific,ignore.case=T)
-		data = data[ind,]
+		ind = grepl(paste(unique(key$Genus[key$Rating > 0]),collapse="|^"),dt$Scientific,ignore.case=T)
+		dt = dt[ind,]
 	}
 		
 	# filter (species)
-	data$Type = NA
-	data$Rating = NA
+	dt$Type = NA
+	dt$Rating = NA
+	dt$Human = NA
+	dt$Tag = NA
 	CPU = 6
 	blocks = CPU
-	N = nrow(data)
+	N = nrow(dt)
 	starts = seq(1,N,round(N/CPU))
 	stops = c(starts[-1]-1,N)
-	data = foreach(i=1:length(starts),.combine = rbind) %dopar% { 
-		cdata = data[starts[i]:stops[i],]
-		cropind = rep(TRUE,nrow(cdata))
+	dt = foreach(i=1:length(starts),.combine = rbind) %dopar% { 
+		cdt = dt[starts[i]:stops[i],]
+		cropind = rep(TRUE,nrow(cdt))
 		for (i in 1:nrow(key)) {
-			ind = grepl(key$ScientificSP[i],cdata$Scientific[cropind],ignore.case=T)
+			ind = grepl(paste(key$ScientificSP[i],"( |$)",sep=""),cdt$Scientific[cropind],ignore.case=T)
 			if (sum(ind) > 0) {
-				cdata$Type[cropind][ind] = key$Common[i]
-				cdata$Rating[cropind][ind] = key$Rating[i]
+				cdt$Type[cropind][ind] = key$Common[i]
+				cdt$Rating[cropind][ind] = key$Rating[i]
+				cdt$Human[cropind][ind] = key$Human[i]
+				cdt$Tag[cropind][ind] = key$Tag[i]
 				cropind[cropind][ind] = FALSE
 			}
 		}
-		cdata
+		cdt
 	}
 }
+
+filter.data.common = function(dt) {
+
+	# load key
+	key = load.key()
+	# remove latin synonyms, misspelled latin names, and empty common names
+	key = key[key$Tag != "syn" & key$Tag != "mis" & key$Common != "",]
+
+	# filter
+	dt$Type = NA
+	dt$Scientific = NA
+	dt$Rating = NA
+	dt$Human = NA
+	dt$Tag = NA
+	CPU = 6
+	blocks = CPU
+	N = nrow(dt)
+	starts = seq(1,N,round(N/CPU))
+	stops = c(starts[-1]-1,N)
+	dt = foreach(i=1:length(starts),.combine = rbind) %dopar% { 
+		cdt = dt[starts[i]:stops[i],]
+		cropind = rep(TRUE,nrow(cdt))
+		for (i in 1:nrow(key)) {
+			ind = grepl(paste("^",key$Common[i],"$",sep=""),cdt$Common[cropind],ignore.case=T)
+			if (sum(ind) > 0) {
+				cdt$Type[cropind][ind] = key$Common[i]
+				cdt$Scientific[cropind][ind] = key$ScientificSP[i]
+				cdt$Rating[cropind][ind] = key$Rating[i]
+				cdt$Human[cropind][ind] = key$Human[i]
+				cdt$Tag[cropind][ind] = key$Tag[i]
+				cropind[cropind][ind] = FALSE
+			}
+		}
+		cdt
+	}
+	
+	# switch out common name synonyms
+  ind = !is.na(dt$Tag) & dt$Tag == "cyn"
+  if (sum(ind) > 0) {
+    dt = rbind(dt[!ind,], filter.data(dt[ind,], genus = F))
+  }
+  
+  return(dt)
+}
+
+# export a csv with unique species field combinations for manual review
+initialize.manual.key = function(dt, keyfile, speciesfields = intersect(names(dt),c("Common","Scientific_ori")), manualfields = c("Scientific","Type","Unverified","Description"), sortfield = ifelse("Scientific_ori" %in% names(dt), "Scientific_ori", "Common")) {
+  if (!file.exists(keyfile)) {
+    inc = dt[is.na(dt$Type), c(speciesfields), drop = F]
+    inc = inc[order(inc[sortfield]), , drop = F]
+    inc[manualfields] = ""
+    write.csv(unique(inc), keyfile, row.names = F)
+  } else {
+    warning('File already exists!')
+  }
+}
+
+# load manually entered matches
+load.manual.key = function(dt, keyfile, speciesfields = c("Common","Scientific_ori")) {
+  if (file.exists(keyfile)) {
+   
+    # prepare key
+    species = read.csv(keyfile, stringsAsFactors=F)
+    speciesfields = names(species)[names(species) %in% speciesfields]
+    manualfields = names(species)[!names(species) %in% speciesfields]
+    ind = rowSums(is.na(species[, manualfields]) | species[, manualfields] == "") < length(manualfields)
+    species = species[ind,]
+    if ("Scientific" %in% manualfields) {
+      species$Scientific = format.field(species$Scientific, 'species')
+    }
+    if ("Common" %in% manualfields) {
+      species$Common = species$Common
+    }
+    
+    # apply key
+    speciesString = apply(dt[,speciesfields, drop = F], 1, paste, collapse = " ")
+    dt[manualfields[!manualfields %in% names(dt)]] = NA
+    for (i in 1:nrow(species)) {
+      ind = speciesString == apply(species[i,speciesfields, drop = F], 1, paste, collapse = " ")
+      dt[ind, manualfields] = species[i, manualfields]
+    }
+
+    # update from latin name
+    ind = (is.na(dt$Type) | dt$Type == "") & !is.na(dt$Scientific)
+    if (sum(ind) > 0) {
+      temp = filter.data(dt[ind,], genus = T)
+      dt = rbind(dt[!ind,], temp)
+    }
+
+    # update from common name
+    ind = (!is.na(dt$Type) & dt$Type != "") & (is.na(dt$Rating) | is.na(dt$Scientific) | dt$Scientific == "")
+    if (sum(ind) > 0) {
+      temp = dt[ind,]
+      temp$Common = temp$Type
+      temp = filter.data.common(temp)
+      temp$Common = dt$Common[ind]
+      ddply(temp[fields], fields, summarise, Count = length(Type))
+      dt = rbind(dt[!ind,], temp)
+    }
+
+    # switch out common name synonyms
+    ind = !is.na(dt$Tag) & dt$Tag == "cyn"
+    if (sum(ind) > 0) {
+      dt = rbind(dt[!ind,], filter.data(dt[ind,], genus = F))
+    }
+    
+    return(dt)
+    
+  } else {
+    error('File does not exist!')
+  }
+}
+
 
 ####
 ## Flatten
 # requires: Lat Lng | Address, Type, (Description), (Notes), (Unverified), (Author)
-flatten.data = function(data, notesep = " @ ") {
+flatten.data = function(data, notesep = ". ") {
 	
 	# dpply parameters
 	parallel = FALSE
@@ -163,8 +334,8 @@ flatten.data = function(data, notesep = " @ ") {
 		stop(paste("Location incorrectly defined: ",paste(posfields,collapse=", ")))
 	} else if (length(posfields) == 2 & !all(posfields %in% c("Lat","Lng"))) {
 		stop(paste("Location incorrectly defined: ",paste(posfields,collapse=", ")))
-	} else if (length(posfields) > 2) {
-		stop(paste("Location over-defined: ",paste(posfields,collapse=", ")))
+	} else if (length(posfields) > 2 & all(posfields %in% c("Lat","Lng"))) {
+		warning(paste("Using Lat & Lng, but location over-defined: ",paste(posfields,collapse=", ")))
 	} else if (length(posfields) == 0) {
 	  stop("No location fields (either Lat & Lng, or Address) found.")
 	}
@@ -180,7 +351,7 @@ flatten.data = function(data, notesep = " @ ") {
 	# flatten overlapping data
 	if (sum(dind) > 0) {
 		ddata = data[dind,]
-		ddata = ddply(ddata, c(posfields,typefields), summarize, Description = paste("[",length(Type),"x] ",Description[1],sep=""), Notes = unique.na(Notes), Unverified = max(Unverified,na.rm=T), Access = unique.na(Access), Author = Author[1], .progress = progress, .parallel = parallel)
+		ddata = ddply(ddata, c(posfields,typefields), summarize, Description = paste("[",length(Type),"x] ",Description[1],sep=""), Notes = unique.na(Notes), Unverified = max(Unverified,na.rm=T), Access = unique.na(Access), Author = unique.na(Author), .progress = progress, .parallel = parallel)
 		ddata = ddply(ddata, posfields, summarize, Type = paste(unique(Type), collapse=","), Description = paste(Description, collapse=", "), Notes = unique.na(Notes), Unverified = max(Unverified,na.rm=T), Access = unique.na(Access), Author = Author[1], .progress = progress, .parallel = parallel)
 	}
 	

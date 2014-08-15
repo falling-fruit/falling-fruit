@@ -33,14 +33,14 @@ class Type < ActiveRecord::Base
     self.usda_symbol.nil? ? nil : "http://plants.usda.gov/java/profile?symbol=#{usda_symbol}"
   end
 
-  def full_name(lang=nil)
-    n = lang.nil? ? self.name : ([self["#{lang}_name"],self.name].compact.first)
+  def full_name
+    n = self.i18n_name
     self.scientific_name.to_s == '' ? n : (n + " [" + self.scientific_name + "]")
   end
 
   def Type.hash_tree(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
-    Rails.cache.fetch('types_hash_tree' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+    Rails.cache.fetch('types_hash_tree' + cat_mask.to_s + I18n.locale.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
       $seen = {}
       Type.where("parent_id is NULL AND (category_mask & ?)>0",cat_mask).order(:name).collect{ |t| t.to_hash }
     end
@@ -77,10 +77,8 @@ class Type < ActiveRecord::Base
       order(:sortme)
   end
 
-  # http://www.i18nguy.com/unicode/language-identifiers.html
-  Languages = {"en-us" => "English (US)","la" => "Latin"}
-  def il8n_name(lang="en-us")
-    return self.name if lang == "en-us" or lang == "en" or lang.nil?
+  def i18n_name
+    lang = I18n.locale.to_s.tr("-","_")
     lang = "scientific" if lang == "la"
     return ([self["#{lang}_name"],self.name].compact.first)
   end

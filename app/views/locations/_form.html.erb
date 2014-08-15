@@ -92,7 +92,7 @@ jQuery(document).ready(function(){
   <!-- Errors -->
   <% if @location.errors.any? %>
     <div id="error_explanation">
-      <strong><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</strong>
+      <strong><%= I18n.t("locations.form.form_error") %>:</strong>
         <ul>
       <% @location.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -107,39 +107,38 @@ jQuery(document).ready(function(){
   <!-- Observations! -->
   <% if @current_action == "edit" %>
     <p style="border:1px solid #ddd;background-color:#FCE7E4;padding:0.5em;font-size:95%;line-height:125%;">
-      Edit the location below, or
-      <a href="/observations/new?location_id=<%= @location.id %>" data-ajax="false" rel="external" title="Review this location">use this form</a> to review, comment, and post photos.
+      <%= I18n.t("locations.form.form_intro_html",:location_id => @location.id).html_safe %>
     </p>
   <% end %>
 
   <!-- Type -->
   <div class="field first" id="types">
     *<%= f.label :types %><br />
-    <span class="subtext">Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.</span><br />
+    <span class="subtext"><%= I18n.t("locations.form.types_subtext") %></span><br />
     <%= hidden_field_tag('types', @location.locations_types.collect{ |lt| lt.type.nil? ? lt.type_other : lt.type.name }.join(","), :id=>"typeselect2") %>
   </div>
  
   <!-- Location -->
   <div class="field">
-    *<label for="location_address">Location</label><br>
-    <span class="subtext">Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.</span><br />
+    *<label for="location_address"><%= I18n.t("locations.form.location") %></label><br>
+    <span class="subtext"><%= I18n.t("locations.form.location_subtext") %></span><br />
     Lat, Lng <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br />
-    <a href="#" onclick="update_marker_latlng();">>> Move marker to coordinates</a>
+    <a href="#" onclick="update_marker_latlng();">>> <%= I18n.t("locations.form.move_marker") %></a>
     
   	<!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
       <div style="margin-top:0.25em;">
-      	Address <span class="subtext-inline">can be used to quickly position the marker. Adjust as needed before submitting.</span>
+        <%= I18n.t("locations.form.address_subtext_html").html_safe %>
       </div>
       <%= f.text_area :address %><br />
-      <a href="#" onclick="update_marker_address();">>> Move marker to address</a>
+      <a href="#" onclick="update_marker_address();">>> <%= I18n.t("locations.form.move_marker_address") %></a>
     <% end %>
   </div>
   
   <!-- Author (new) -->
   <div class="field">
-    <%= f.label :your_name %><br />
-    <span class="subtext">Leave blank if you prefer to remain anonymous.</span><br />
+    <%= f.label I18n.t("locations.form.your_name") %><br />
+    <span class="subtext"><%= I18n.t("locations.form.name_subtext") %></span><br />
     <% if @current_action == "new" or @current_action == "create" %>
       <%= f.text_field :author, :value => ((user_signed_in? and not current_user.add_anonymously?) ? current_user.name : "") %>
     <% else %>
@@ -151,38 +150,38 @@ jQuery(document).ready(function(){
   <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
   	<div class="field">
     <%= f.label :original_author %><br />
-    <span class="subtext">Displayed on map. Leave blank if you prefer to remain anonymous.</span><br />
+    <span class="subtext"><%= I18n.t("locations.form.author_subtext") %></span><br />
     <%= f.text_field :author %>
   	</div>
   <% end %>
 
   <!-- Description -->
   <div class="field">
-    <%= f.label :description %><br />
-    <span class="subtext">Location details, access issues, plant health...</span><br />
+    <%= f.label I18n.t("locations.form.description") %><br />
+    <span class="subtext"><%= I18n.t("locations.form.description_subtext") %></span><br />
     <%= f.text_area :description %>
   </div>
   
   <!-- Season -->
   <div class="field">
-    <%= f.label :season %><br />
-    <span class="subtext">When can the source be harvested? Leave blank if you don't know.</span><br />
-    <%= f.select(:season_start,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %> to 
-    <%= f.select(:season_stop,Location::Months.collect{ |m| [m,Location::Months.index(m)] },:include_blank => true) %>, or
-    <%= f.check_box(:no_season) %> No Season
+    <%= f.label I18n.t("locations.form.season") %><br />
+    <span class="subtext"><%= I18n.t("locations.form.season_subtext") %></span><br />
+    <%= f.select(:season_start,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %> to
+    <%= f.select(:season_stop,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %>, or
+    <%= f.check_box(:no_season) %> <%= I18n.t("locations.form.no_season") %>
   </div>
   
     <!-- Access -->
   <div class="field">
-    <%= f.label :access %><br />
-    <span class="subtext">Access status of this source. Leave blank if you don't know.</span><br />
-    <%= f.select(:access,Location::AccessModes.collect{ |r| [r,Location::AccessModes.index(r)] },:include_blank => true) %>
+    <%= f.label I18n.t("locations.form.access") %><br />
+    <span class="subtext"><%= I18n.t("locations.form.access_subtext") %></span><br />
+    <%= f.select(:access,I18n.t("locations.infowindow.access_mode").collect{ |r| [r,I18n.t("locations.infowindow.access_mode").index(r)] },:include_blank => true) %>
   </div>
   
   <!-- Unverified -->
   <div class="field">
-    <label>Unverified</label> <%= f.check_box(:unverified) %><br />
-    <span class="subtext">If you doubt the existence, location, or identity of this source.</span>
+    <label><%= I18n.t("locations.form.unverified") %></label> <%= f.check_box(:unverified) %><br />
+    <span class="subtext"><%= I18n.t("locations.form.unverified_subtext") %></span>
   </div>
   
   <!-- Observations -->
@@ -190,37 +189,37 @@ jQuery(document).ready(function(){
   <hr />
   
   <details>
-    <summary>Have you visited this location?</summary>
+    <summary><%= I18n.t("locations.form.have_you") %></summary>
 
     <!-- Date -->
     <div class="field">
-      <%= f.label :date_visited %><br />
-      <span class="subtext">Date of the reported fruiting status (if not today)</span><br />
+      <%= f.label I18n.t("locations.form.date_visited") %><br />
+      <span class="subtext"><%= I18n.t("locations.form.date_subtext") %></span><br />
       <%= text_field_tag(:observed_on) %>
     </div>
   
     <!-- Fruiting -->
     <div class="field">
-      <%= f.label :fruiting_status %><br />
-      <span class="subtext">What is the fruit doing right now? (if applicable)</span><br />
-      <%= select_tag(:fruiting,options_for_select([[nil,nil]] + Location::Fruiting.collect{ |r| [r,Location::Fruiting.index(r)] })) %>
-      <div class="slider-legend"><div>Unsure/Other</div><div>&nbsp;Flowering</div><div style="text-align:right;">Fruiting</div><div style="text-align:right;">Ripe</div></div>
+      <%= f.label I18n.t("locations.form.fruiting_status") %><br />
+      <span class="subtext"><%= I18n.t("locations.form.fruiting_subtext") %></span><br />
+      <%= select_tag(:fruiting,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] })) %>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div><%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[2] %></div><div><%= I18n.t("locations.infowindow.fruiting")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[4] %></div></div>
     </div>
   
     <!-- Quality Rating -->
     <div class="field">
-      <%= f.label :quality %><br />
-      <span class="subtext">Rate the tastiness of this source (if applicable)</span><br />
-      <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
-      <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+      <%= f.label I18n.t("locations.form.quality") %><br />
+      <span class="subtext"><%= I18n.t("locations.form.quality_subtext") %></span><br />
+      <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
   
     <!-- Yield Rating -->
     <div class="field">
-      <%= f.label :yield %><br />
-      <span class="subtext">Rate the productivity of this source (if applicable)</span><br />
-      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + Location::Ratings.collect{ |r| [r,Location::Ratings.index(r)] })) %>
-      <div class="slider-legend"><div>Unsure</div><div>Poor</div><div>&nbsp;&nbsp;&nbsp;Fair</div><div>&nbsp;&nbsp;&nbsp;&nbsp;Good</div><div>Very Good</div><div style="text-align:right;">Excellent</div></div>
+      <%= f.label I18n.t("locations.form.yield") %><br />
+      <span class="subtext"><%= I18n.t("locations.form.yield_subtext") %></span><br />
+      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
 
   </details>
@@ -238,9 +237,9 @@ jQuery(document).ready(function(){
   
   <!-- Submit -->
   <div class="actions">
-    <%= f.submit "Submit" %>
+    <%= f.submit I18n.t("locations.form.submit") %>
     <% if @current_action == "new" or @current_action == "create" %>
-    <%= check_box_tag(:create_another, '1', false) %> Create another<br>
+    <%= check_box_tag(:create_another, '1', false) %> <%= I18n.t("locations.form.create_another") %><br>
     <% end %>
   </div>
   

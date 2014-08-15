@@ -1,16 +1,16 @@
-<h1>Routes</h1>
+<h1><%= I18n.t("routes.index.routes") %></h1>
 
 <%= form_tag("/routes/multiupdate") do %>
 <table id="route_list">
 <thead>
   <tr>
-    <th>Link</th>
-    <th>Name</th>
-    <th>Locations</th>
-    <th>Travel mode</th>
-    <th>Public</th>
-    <th>Delete</th>
-    <th>Updated</th>
+    <th><%= I18n.t("routes.index.link") %></th>
+    <th><%= I18n.t("routes.index.name") %></th>
+    <th><%= I18n.t("routes.index.locations") %></th>
+    <th><%= I18n.t("routes.index.travel_mode") %></th>
+    <th><%= I18n.t("routes.index.public") %></th>
+    <th><%= I18n.t("routes.index.delete") %></th>
+    <th><%= I18n.t("routes.index.updated") %></th>
   </tr>
 </thead>
 <tbody>
@@ -21,20 +21,20 @@ LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where
 }
 @routes.each do |route| %>
   <tr>
-    <td><%= route.is_public ? link_to('Show', route) : link_to('Show', route_path(route) + "?k=#{route.access_key}") %>
+    <td><%= route.is_public ? link_to(I18n.t("routes.index.show"), route) : link_to(I18n.t("routes.index.show"), route_path(route) + "?k=#{route.access_key}") %>
     <td><%= text_field_tag "route[#{route.id}[name]", route.name %></td>
     <td><%= lcounts[route.id] %></td>
     <td><%= select_tag "route[#{route.id}][transport_type]", options_for_select(Route::TransportTypes,route.transport_type) %>
     <td><%= check_box_tag "route[#{route.id}][is_public]", '1', route.is_public %>
-    <td><%= link_to 'Delete', route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <td><span style="display:none;"><%= route.updated_at %></span><%= time_ago_in_words(route.updated_at) %> ago</td>
+    <td><%= link_to I18n.t("routes.index.delete", :default => 'Delete'), route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><span style="display:none;"><%= route.updated_at %></span><%= time_ago_in_words(route.updated_at) %> <%= I18n.t("routes.index.ago") %></td>
   </tr>
 <% end %>
 </tbody>
 </table>
 
 <br><br>
-<%= submit_tag 'Save Changes' %>
+<%= submit_tag I18n.t("routes.index.save_changes", :default => 'Save Changes') %>
 
 <% end %>
 

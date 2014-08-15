@@ -6,6 +6,6 @@ class LocationsType < ActiveRecord::Base
   validates_associated :type, :allow_nil => true
 
   def name
-    self.type.nil? ? self.type_other : self.type.name
+    self.type.nil? ? self.type_other : self.type.i18n_name
   end
 end

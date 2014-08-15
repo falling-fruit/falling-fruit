@@ -39,21 +39,6 @@ class Location < ActiveRecord::Base
 
   public 
 
-  Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-  Ratings = ["Poor","Fair","Good","Very Good","Excellent"]
-  Fruiting = ["Flowering","Fruiting","Ripe"]
-  AccessShort = ["Added by owner","Permitted by owner","Public","Private but overhanging","Private"]
-  AccessModes = ["I own this source",
-                 "I have permission from the owner to add this source",
-                 "Source is on public land",
-                 "Source is on private property but overhangs public land",
-                 "Source is on private property (ask before you pick)"]
-  AccessStatements = ["This source was added by the property owner.",
-                      "The owner of this source asked that it be added.",
-                      "This source is on public land.",
-                      "This source is on private property but may overhang public land. Please pick with discretion.",
-                      "This source is on private property. Please ask for permission before you pick."]
-
   # csv support
   comma do
     scsv_types

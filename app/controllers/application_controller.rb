@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  SupportedLocales = ['pt-br','en','es','fr','de','he','pl']
+
   protect_from_forgery
 
   private
@@ -10,10 +12,30 @@ class ApplicationController < ActionController::Base
       @current_controller = controller_name
   end
 
-  before_filter :set_current_user
+  before_filter :set_locale
 
-  def set_current_user
-    #User.current_user = current_user
+  def set_locale
+    new_locale = extract_locale_from_subdomain || extract_locale_from_url
+    unless new_locale and SupportedLocales.include? new_locale
+      I18n.locale = I18n.default_locale
+    else
+      I18n.locale = new_locale
+    end
+  end
+
+  def extract_locale_from_subdomain
+    host_parts = request.host.split(/\./)
+    if (host_parts.length == 3 and host_parts[1] == "fallingfruit") or
+       (host_parts.length == 2 and host_parts[1] == "localhost")
+      I18n.available_locales.map(&:to_s).include?(host_parts.first) ? host_parts.first : nil
+    else
+      nil
+    end
+  end
+
+  def extract_locale_from_url
+    return nil unless params.has_key? :locale
+    I18n.available_locales.map(&:to_s).include?(params[:locale]) ? params[:locale] : nil
   end
 
   # catch all perms errors and punt to root

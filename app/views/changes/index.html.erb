@@ -1,5 +1,5 @@
 <p>
-<b>Recent changes</b>
+<b><%= I18n.t("changes.index.recent_changes",:default=>"Recent changes") %></b>
 </p>
 
 <% 
@@ -15,7 +15,15 @@ last_days_ago = nil
   }
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
-    header = (c["days_ago"] <= 0) ? "Last 24 hours" : ((c["days_ago"] == 1) ? "1 day ago" : "#{c["days_ago"]} days ago")
+    if c["days_ago"] <= 0
+      header = I18n.t("changes.index.last_24_hours")
+    else
+      if c["days_ago"] == 1
+        header = I18n.t("changes.index.1_day_ago")
+      else
+        header = I18n.t("changes.index.n_days_ago",:n => c["days_ago"])
+      end
+    end
     if last_days_ago.nil? 
       header = header + "<blockquote>"
     else
@@ -45,7 +53,7 @@ last_days_ago = nil
   <% if c["user_id"].nil? %>
     &nbsp;<%= c["remote_ip"] %>
   <% else %>
-    &nbsp;User #<%= c["user_id"] %>
+    &nbsp;<%= I18n.t("changes.index.user",:default=>"User") %> #<%= c["user_id"] %>
   <% end %>
   </span>
 <% end %>

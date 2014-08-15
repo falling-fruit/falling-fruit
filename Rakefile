@@ -107,13 +107,13 @@ namespace :export do
          yield_rating = Location.find(row["id"]).mean_yield_rating
 
          csv << [row["id"],row["lat"],row["lng"],row["unverified"],row["description"],
-                 row["season_start"].nil? ? nil : Location::Months[row["season_start"].to_i],
-                 row["season_stop"].nil? ? nil : Location::Months[row["season_stop"].to_i],
+                 row["season_start"].nil? ? nil : I18n.t("date.month_names")[row["season_start"].to_i+1],
+                 row["season_stop"].nil? ? nil : I18n.t("date.month_names")[row["season_stop"].to_i+1],
                  row["no_season"],row["author"],
                  row["address"],row["created_at"],row["updated_at"],
-                 quality_rating.nil? ? nil : Location::Ratings[quality_rating],
-                 yield_rating.nil? ? nil : Location::Ratings[yield_rating],
-                 row["access"].nil? ? nil : Location::AccessShort[row["access"].to_i],
+                 quality_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[quality_rating],
+                 yield_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[yield_rating],
+                 row["access"].nil? ? nil : I18n.t("locations.infowindow.access_short")[row["access"].to_i],
                  row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}",
                  row["import_id"].nil? ? 'f' : (Import.find(row["import_id"]).muni ? 't' : 'f'),
                  row["name"]]
@@ -131,6 +131,45 @@ namespace :export do
     end
   end
 
+end
+
+task(:import_type_translations => :environment) do
+  ApplicationController::SupportedLocales.each do |l|
+    next unless File.exists? "data/#{l}_types.csv"
+    n = 0
+    id_col = nil
+    trans_cols = []
+    puts l
+    CSV.foreach("data/#{l}_types.csv") do |row|
+      if n == 0
+        row.each_with_index do |d,i|
+          if d =~ /ID/
+            id_col = i
+          elsif d =~ /Translated Name/
+            trans_cols.push i
+          end
+        end
+      else
+        id = row[id_col].to_i
+        trans = trans_cols.collect{ |i| row[i] }.compact.first
+        trans = trans.split(/,/).first unless trans.nil? or trans.index(",").nil?
+        begin
+          t = Type.find(id)
+          if t["#{l}_name"].nil? and not trans.nil?
+            t["#{l}_name"] = trans
+            t.save
+            print "+"
+          else
+            print "."
+          end
+        rescue
+          $stderr.puts "Error: Type #{id} defined in #{l} CSV, but not in DB!"
+        end
+      end
+      n += 1
+    end
+    puts
+  end
 end
 
 task(:import => :environment) do

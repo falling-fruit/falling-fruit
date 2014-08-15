@@ -58,3 +58,9 @@ gem 'shadowbox-rails'
 
 # For diffing/patching descriptions
 gem 'diff_match_patch_native'
+
+# For internationalization
+gem 'i15r'
+gem 'i18n-tasks', '~> 0.7.2'
+gem 'devise-i18n'
+gem 'rails-i18n'
