@@ -152,7 +152,7 @@ task(:import_type_translations => :environment) do
       else
         id = row[id_col].to_i
         trans = trans_cols.collect{ |i| row[i] }.compact.first
-        trans = trans.split(/,/).first unless trans.index(",").nil?
+        trans = trans.split(/,/).first unless trans.nil? or trans.index(",").nil?
         begin
           t = Type.find(id)
           if t["#{l}_name"].nil? and not trans.nil?
