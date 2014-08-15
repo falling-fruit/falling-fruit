@@ -9,7 +9,7 @@ module BitmaskStuff
   def array_to_mask(values,options)
     return 0 if values.nil? or (values.kind_of? Array and values.empty?)
     r = 0
-    options.each_with_index.each{ |v,i| r = r | 1<<i unless vals.index(v).nil? }
+    options.each_with_index.each{ |v,i| r = r | 1<<i unless values.index(v).nil? }
     r
   end
   module_function :array_to_mask
