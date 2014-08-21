@@ -133,6 +133,7 @@ class Location < ActiveRecord::Base
         if types.count == 0
           nt = Type.new
           nt.name = safer_type
+          nt.category_mask = 0 # default is no category per Ethan's request
           nt.save
           typehash[nt.name] = nt
           

@@ -367,7 +367,7 @@ class LocationsController < ApplicationController
 
     # create an observation if necessary
     @obs = nil
-    if params[:quality_rating].present? or params[:yield_rating].present? or params[:fruiting] or params[:photo] or params[:comment]
+    if [:quality_rating,:yield_rating,:fruiting,:photo,:comment].collect{ |k| params[k].present? }.any?
       @obs = Observation.new
       @obs.quality_rating = params[:quality_rating].to_i unless params[:quality_rating].blank?
       @obs.yield_rating = params[:yield_rating].to_i unless params[:yield_rating].blank?

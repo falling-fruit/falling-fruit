@@ -11,23 +11,23 @@
   <% if @freegan %>
     <meta property="og:title" content="World Dumpster Map" />
     <meta property="og:site_name" content="Falling Fruit" />
-    <meta property="og:url" content="//fallingfruit.org/dumpsters" />
-    <meta property="og:image" content="//fallingfruit.org/og/dumpster-sticker.png" />
-    <meta property="og:image" content="//fallingfruit.org/og/dumpster-sticker-01.jpg" />
-    <meta property="og:image" content="//fallingfruit.org/og/dumpster-haul.jpg" />
+    <meta property="og:url" content="https://fallingfruit.org/dumpsters" />
+    <meta property="og:image" content="https://fallingfruit.org/og/dumpster-sticker.png" />
+    <meta property="og:image" content="https://fallingfruit.org/og/dumpster-sticker-01.jpg" />
+    <meta property="og:image" content="https://fallingfruit.org/og/dumpster-haul.jpg" />
     <meta property="og:description" content="By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
     <meta name="description" content="By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
     
   <% else %>
     <meta property="og:title" content="Falling Fruit" />
     <meta property="og:site_name" content="Falling Fruit" />
-    <meta property="og:url" content="//fallingfruit.org/" />
-    <meta property="og:image" content="//fallingfruit.org/og/amittai.jpg" />
-    <meta property="og:image" content="//fallingfruit.org/og/apple-haul.jpg" />
+    <meta property="og:url" content="https://fallingfruit.org/" />
+    <meta property="og:image" content="https://fallingfruit.org/og/amittai.jpg" />
+    <meta property="og:image" content="https://fallingfruit.org/og/apple-haul.jpg" />
     <meta property="og:description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
     <meta name="description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
   <% end %>
-  
+
   <!-- Scripts & Styles -->
   <%= stylesheet_link_tag "application" %>
   <% if @freegan %>
@@ -92,7 +92,7 @@
  <% end %>
 
 <!-- Logo Bar -->
-<div id="logobar"> 
+<div id="logobar">
 
  <!-- AddThis Buttons -->
 	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
@@ -109,16 +109,15 @@
 		<a class="addthis_button_google_follow" addthis:url="https://plus.google.com/114324461382595896953/about">
 			<img src="/social/gplus.svg" />
 		</a>
-		<a class="addthis_button_compact" addthis:url="http://www.FallingFruit.org">
+		<a class="addthis_button_compact" addthis:url="https://fallingfruit.org">
 			<img src="/social/addthis.png" />
 		</a>
 	</div>
-	
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
+  
 	<!-- Google+ Linking -->
-	<div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></di>
-	
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
- 
+	<div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></div>	
+  
  <!-- Title -->
  <a id="falling_fruit" href="/">falling fruit</a>
  <span id="subtitle">
@@ -140,7 +139,7 @@
      <%= link_to(I18n.t("layouts.application.menu.account"), edit_user_registration_path, :class => (path == '/users/edit') ? 'currentpage' : 'notcurrentpage') %>
      <%= link_to(I18n.t("layouts.application.menu.logout"), destroy_user_session_path, :method => :delete) %>
 		<% else %>
-			<%= link_to(I18n.t("layouts.application.menu.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to('Sign Up', new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
+			<%= link_to(I18n.t("layouts.application.menu.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(I18n.t("layouts.application.menu.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
 		<% end %>
  </div>
  <div id="menu">
