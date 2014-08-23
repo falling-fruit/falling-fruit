@@ -56,14 +56,14 @@
 <!-- Quality -->
 <% unless location.mean_quality_rating.nil? %>
 	<% ratings = "true" %>
- 	<label><%= I18n.t("locations.infowindow.quality") %></label> <%= I18n.t("locations.infowindow.rating#{location.mean_quality_rating}") %>
+ 	<label><%= I18n.t("locations.infowindow.quality") %></label> <%= I18n.t("locations.infowindow.rating")[location.mean_quality_rating] %>
  	<span class="observation_count">(<%= location.observations.reject{ |o| o.quality_rating.nil? }.length %>)</span>
 <% end %>
 
 <!-- Yield -->
 <% unless location.mean_yield_rating.nil? %>
 	<% ratings = "true" %>
-	<label><%= I18n.t("locations.infowindow.yield") %></label> <%= I18n.t("locations.infowindow.rating#{location.mean_yield_rating}") %>
+	<label><%= I18n.t("locations.infowindow.yield") %></label> <%= I18n.t("locations.infowindow.rating")[location.mean_yield_rating] %>
 	<span class="observation_count">(<%= location.observations.reject{ |o| o.yield_rating.nil? }.length %>)</span>
 <% end %>
 <% unless ratings.nil? %>
@@ -233,13 +233,13 @@
 			<!-- Ratings -->
 			<% unless o.yield_rating.nil? and o.quality_rating.nil? and o.fruiting.nil? %>
 				<span style="color: #666; font-size: 90%;">
+					<% unless o.quality_rating.nil? %>
+						<label><%= I18n.t("locations.infowindow.quality") %></label> <%= I18n.t("locations.infowindow.rating")[o.quality_rating] %>
+						<% unless o.fruiting.nil? %>&middot;<% end %>
+					<% end %>
 					<% unless o.yield_rating.nil? %>
 						<label><%= I18n.t("locations.infowindow.yield") %></label> <%= I18n.t("locations.infowindow.rating")[o.yield_rating] %>
 						<% unless o.quality_rating.nil? %>&middot;<% end %>
-					<% end %>
-					<% unless o.quality_rating.nil? %>
-						<label><%= I18n.t("locations.infowindow.quality") %>y</label> <%= I18n.t("locations.infowindow.rating")[o.quality_rating] %>
-						<% unless o.fruiting.nil? %>&middot;<% end %>
 					<% end %>
 					<% unless o.fruiting.nil? %>
 						<label><%= I18n.t("locations.infowindow.status") %></label> <%= I18n.t("locations.infowindow.fruiting")[o.fruiting] %>
