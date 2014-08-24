@@ -1,7 +1,7 @@
 // ================= functions =================
   
 function data_link(){
-  var muni = $('#muni').is(':checked'); 
+  var muni = $('#muni').is(':checked');
   var bounds = map.getBounds();
   var bstr = 'nelat=' + bounds.getNorthEast().lat() + '&nelng=' + bounds.getNorthEast().lng() +
          '&swlat=' + bounds.getSouthWest().lat() + '&swlng=' + bounds.getSouthWest().lng();

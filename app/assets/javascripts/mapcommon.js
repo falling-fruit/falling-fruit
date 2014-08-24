@@ -295,7 +295,7 @@
       if(pb != null) pb.start(200);
       var request = $.ajax({
         type: 'GET',
-        url: '/locations/cluster.json?' + mstr + gstr + '&' + bstr + tstr,
+        url: '/api/locations/cluster.json?' + mstr + gstr + '&' + bstr + tstr,
         dataType: 'json'
       });
       request.done(function(json){
@@ -319,7 +319,7 @@
 		else mstr = 'muni=0&';
 		var request = $.ajax({
 			type: 'GET',
-			url: '/locations/cluster_types.json?' + mstr + gstr + '&' + bstr,
+			url: '/api/locations/cluster_types.json?' + mstr + gstr + '&' + bstr,
 			dataType: 'json'
 		});
 		request.done(function(json){		    
@@ -606,7 +606,7 @@ function open_tab_3() {
     // didn't find it, manually fetch & add it
     var requestJson = $.ajax({
       type: 'GET',
-      url: '/locations/marker.json?id=' + id,
+      url: '/api/locations/marker.json?id=' + id,
       dataType: 'json'
     });
     requestJson.done(function(json){
@@ -719,7 +719,7 @@ function open_tab_3() {
     if(pb != null) pb.start(200);
     var request = $.ajax({
       type: 'GET',
-      url: '/locations/markers.json?muni=' + mstr + '&' + bstr + tstr + cstr,
+      url: '/api/locations/markers.json?muni=' + mstr + '&' + bstr + tstr + cstr,
       dataType: 'json'
     });
     request.done(function(json){

@@ -24,10 +24,6 @@ FallingfruitWebapp::Application.routes.draw do
       get 'home'
       get 'import'
       post 'import'
-      get 'cluster'
-      get 'markers'
-      get 'marker'
-      get 'cluster_types'
       get 'data'
       get 'embed'
     end
@@ -73,6 +69,18 @@ FallingfruitWebapp::Application.routes.draw do
   resources :problems
 
   match 'locations/:id/infobox' => 'locations#infobox'
+
+  namespace :api do
+    resources :locations do
+      collection do
+        get 'cluster'
+        get 'markers'
+        get 'marker'
+        get 'cluster_types'
+      end
+    end
+
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
