@@ -11,7 +11,7 @@
   <span class="nowrap">  
    <!-- Address -->
    <b><%= I18n.t("locations.searchbar.address", ) %></b>
-   <input id="address" name="address" placeholder="<%= I18n.t("locations.searchbar.type_and_press_enter") %>">
+   <input id="address" name="address" placeholder="<%= I18n.t("locations.searchbar.type_and_press_enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
     <span id="recenter_button">
     	&middot;
     	<button onclick="recenter_map()" title="<%= I18n.t("locations.searchbar.zoom_to_current_location") %>"><%= I18n.t("locations.searchbar.zoom_to_me") %></button>
