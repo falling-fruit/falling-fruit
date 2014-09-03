@@ -17,8 +17,8 @@ es:
       user: Usuario
   layouts:
     application:
-      mapping_the_urban_harvest: Mapeo de la cosecha urbana!
-      feed_people_not_landfills: La gente la comida, no los vertederos!
+      mapping_the_urban_harvest: Mapeando la cosecha urbana!
+      feed_people_not_landfills: Alimenta la gente, no los vertederos!
       menu:
         account: Cuenta
         logout: Salir
@@ -34,14 +34,14 @@ es:
         data: Datos
         changes: Cambios
         routes: Rutas
-        trouble: Trouble
+        trouble: Problema
         types: Tipos
         approved_types: Tipos aprobados
-        pending_types: A la espera de los tipos
-        new_type: Nuevo tipo
+        pending_types: Tipos pendiente
+        new_type: Tipo nuevo
         imports: Importaciones
         list_imports: Importaciones Lista
-        new_import: Nueva importación
+        new_import: Importación nueva
         users: Usuarios
         add_source: + Añadir fuente
         sign_up: Contratar
@@ -100,7 +100,7 @@ es:
       edit: edición
       routes: rutas
       delete: eliminar
-      review_this_location: Opina sobre este lugar
+      review_this_location: Opinar sobre este lugar
       report_a_problem: Informar sobre un problema
       zoom_to_this_location: Zoom a esta ubicación
       see_this_location_in_streetview: Ver esta ubicación en streetview
@@ -108,7 +108,7 @@ es:
       edit_this_location: Editar esta ubicación
       toggle_route_countrols: Controles de ruta Toggle
       delete_this_location: Eliminar esta ubicación
-      are_you_sure: Estás seguro?
+      are_you_sure: Está seguro?
       citation_to_the_original_source: Cita a la fuente original
       delete_photo: Eliminar foto
       by: por
