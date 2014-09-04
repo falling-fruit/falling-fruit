@@ -50,7 +50,7 @@ en:
       !binary "cGVuZGluZ190eXBlc19oZWxw": We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted as pending until they are either approved as a new type or merged with an existing type in the taxonomy. In rare instances when the submission is either too random or vague to warrant its own type, it persists on the map in an unapproved state.
       !binary "Y29weWxlZnQ=": Copyleft
   !binary "bG9jYXRpb25z":
-    !binary "aW5mb3dpbmRvdw==":
+    infowindow:
       !binary "dGFicw==":
         !binary "aW5mbw==": Info
         !binary "cmV2aWV3cw==": Reviews
@@ -88,9 +88,9 @@ en:
       !binary "cXVhbGl0eQ==": Quality
       !binary "eWllbGQ=": Yield
       !binary "c2Vhc29u": Season
-      !binary "Zmxvd2Vy": Flower
-      !binary "ZnJ1aXQ=": Fruit
-      !binary "cmlwZQ==": Ripe
+      flower: Flower
+      fruit: Fruit
+      ripe: Ripe
       !binary "amFudWFyeV90b19kZWNlbWJlcg==": January - December
       !binary "cmV2aWV3": + review
       !binary "cmVwb3J0": report
@@ -119,8 +119,8 @@ en:
       !binary "aGF2ZV95b3VfdmlzaXRlZF9odG1s": Have you visited this source? Add a <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a>
       !binary "ZGVsZXRlX2NvbW1lbnQ=": Delete comment
       !binary "eF9waG90bw==": x photo
-      !binary "c3RhdHVz": Status
-      !binary "dW5zdXJlX290aGVy": Unsure other
+      status: Status
+      !binary "dW5zdXJlX290aGVy": Unsure/Other
       !binary "dG9nZ2xlX3JvdXRlX2NvbnRyb2xz": Toggle route controls
     !binary "c2VhcmNoYmFy":
       !binary "bGluaw==": Link
@@ -216,9 +216,9 @@ en:
       verify: Verify
       verify_subtext: This location has been previously flagged as Unverified
       photo: Photo
-      photo_subtext: Optionally, upload a photo of the source. If it is someone else''s photo, please ensure that you have the necessary permissions and credit the photographer in the caption.
+      photo_subtext: Optionally, upload a photo of the source. If it is someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.
       photo_caption: Photo caption
-      !binary "dmlzdGVkX29u": Visted on
+      !binary "dmlzdGVkX29u": Visited on
     !binary "bG9jYXRpb25zX3R5cGU=":
       !binary "b3I=": Or
   !binary "cGFnZXM=":

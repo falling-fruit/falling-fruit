@@ -203,7 +203,15 @@ jQuery(document).ready(function(){
       <%= f.label I18n.t("locations.form.fruiting_status") %><br />
       <span class="subtext"><%= I18n.t("locations.form.fruiting_subtext") %></span><br />
       <%= select_tag(:fruiting,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] })) %>
-      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div><%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[2] %></div><div><%= I18n.t("locations.infowindow.fruiting")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[4] %></div></div>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div>&nbsp;<%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[2] %></div></div>
+    </div>
+    
+    <!-- Yield Rating -->
+    <div class="field">
+      <%= f.label I18n.t("locations.form.yield") %><br />
+      <span class="subtext"><%= I18n.t("locations.form.yield_subtext") %></span><br />
+      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
   
     <!-- Quality Rating -->
@@ -211,14 +219,6 @@ jQuery(document).ready(function(){
       <%= f.label I18n.t("locations.form.quality") %><br />
       <span class="subtext"><%= I18n.t("locations.form.quality_subtext") %></span><br />
       <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
-      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
-    </div>
-  
-    <!-- Yield Rating -->
-    <div class="field">
-      <%= f.label I18n.t("locations.form.yield") %><br />
-      <span class="subtext"><%= I18n.t("locations.form.yield_subtext") %></span><br />
-      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
       <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
 

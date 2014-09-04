@@ -25,9 +25,9 @@ def getLatLng(address, sensor = 'false', key = 'AIzaSyBB8Abarc_SZdsJoK1C0xAJoXcN
 	geocode_args = {'address': address, 'sensor': sensor}
 	url = GEOCODE_BASE_URL + '?' + urllib.urlencode(geocode_args)
 	response = json.load(urllib.urlopen(url))
-	
+
 	# Parse results
-	print response
+	print str(response['results'][0]["geometry"]["location"]["lat"]) + '\t' + str(response['results'][0]["geometry"]["location"]["lng"])
 
 # Send single location requests
 # (pause inserted to avoid being booted by Google servers)

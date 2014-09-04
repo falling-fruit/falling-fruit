@@ -97,23 +97,11 @@ summary {
 /******************** Template: Maps **********************/
 /**********************************************************/
 
-/* Fixes scrollbar issues */
-.gm-style-iw {
-  overflow: hidden !important;
-} 
-
 div#map {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-div#newmarker {
-  font-size: 1.1em;
-  padding: 0.1em 0.1em;
-  height: 3.25em;
-  width: 13em;
 }
 
 /*** Map Controls ***/
@@ -159,51 +147,71 @@ p#stamen_attribution a {
 }
 
 /**********************************************************/
-/********************** Infowindow ************************/
+/********************** Infowindows ***********************/
 /**********************************************************/
+
+/* Fixes scrollbar issues */
+.gm-style-iw {
+  overflow: hidden !important;
+}
+
+/*** ADD NEW ***/
+
+div#newmarker {
+  font-size: 1.1em;
+  padding: 0.1em 0.1em;
+  height: 3.25em;
+  width: 13em;
+}
+
+/*** LOCATION ***/
 
 div#location_infowindow {
   min-width: 30em;
   max-width: 40em;
+  color: #333;
+  padding: 0 0 0.5em 0;
+  overflow: auto;
+  
+  .ui-tabs-nav a {
+  	font-weight: 300;
+  }
+  
+  .ui-tabs-panel a {
+  	text-decoration: none;
+		border-bottom: 1px solid #DDD;
+		color: #999;
+	}
+	
+	.ui-tabs-panel a:hover {
+		border-color: #999;
+  	color: #333;
+	}
 }
+
+/*** Info Tab Only ***/
 
 div#tab-1 {
   overflow: auto;
 }
 
-div#tab-1,
-div#tab-2,
-div#tab-3 {
-  color: #333;
-  padding: 0 0 0.5em 0;
-  overflow: auto;
-}
-
-div#tab-1 a,
-div#tab-2 a {
-  text-decoration: underline;
-}
-
-/*** Info Tab Only ***/
-
-
 /* Types */
 
 div#tab-1 div#type_list {
   margin-bottom: 0.4em;
-}
-
-div#tab-1 div#type_list li {
-  list-style: none;
-  margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
-  display: inline-block;
-  background-color: #EEE;
-  padding: 0.1em 0.4em;
-  font-size: 1.15em;
-}
-
-div#tab-1 div#type_list img.type_icon {
-  height: 0.9em;
+  
+  li {
+		list-style: none;
+		margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
+		display: inline-block;
+		background-color: #EEE;
+		padding: 0.1em 0.4em;
+		font-size: 1.15em;
+	}
+	
+	img.type_icon {
+  	height: 0.9em;
+	}
 }
 
 /* Description */
@@ -250,27 +258,18 @@ div#tab-1 table#footer td#controls {
   white-space: nowrap;
 }
 
-div#tab-1 table#footer a {
-  color: #999;
-}
-
-div#tab-1 table#footer a:hover {
-  color: #333;
-}
-
 div#tab-1 table#footer #controls a {
-  padding-right: 0.75em;
+  margin-right: 0.75em;
 }
 
 div#tab-1 table#footer td#added_by {
   padding-left: 1em;
-  border-left: 1px solid #555;
+  border-left: 1px solid #666;
 }
 
 div#tab-1 table#footer a#add_review {
   border: 1px solid #DDD;
-  padding: 0.1em 0.4em;
-  text-decoration: none;
+  padding: 0 0.4em;
   margin-right: 0.5em;
   color: #555;
 }
@@ -284,6 +283,10 @@ div#tab-1 table#footer a#add_review:hover {
 div.observation {
   border-top: 1px solid #EEE;
   padding: 0.75em 0;
+  
+  a { /* 'x' visible to admins */
+  	border-bottom: none !important;
+  }
 }
 
 div.observation_text {
@@ -292,15 +295,6 @@ div.observation_text {
 
 div.observation:last-of-type {
   padding-bottom: 0;
-}
-
-div#observation_list a {
-  text-decoration: underline;
-  color: #999;
-}
-
-div#observation_list a:hover {
-  color: #333;
 }
 
 div.obsphoto {
@@ -344,6 +338,8 @@ div#tab-2 label {
   border-radius: 0px ! important;
   padding: 0;
   margin: 0;
+  font-family: inherit;
+  font-size: inherit;
 } 
 .ui-tabs .ui-tabs-panel {
   padding: 0;

@@ -10,7 +10,7 @@
 	  <th>Anonymous</th>
     <th>Range</th>
     <th>Updates</th>
-    <th>Announcements</th>
+    <th>News</th>
     <th>Created</th>
     <th>Confirmed</th>
     <th></th>
@@ -27,10 +27,11 @@
     <td><%= user.range.blank? ? "" : "x" %></td>
     <td><%= user.range_updates_email ? "x" : "" %></td>
     <td><%= user.announcements_email ? "x" : "" %></td>
-    <td><%= user.created_at %></td>
-    <td><%= user.confirmed_at %></td>
+    <td><%= user.created_at.strftime('%Y-%m-%d') %></td>
+    <td><%= user.confirmed_at.strftime('%Y-%m-%d') %></td>
     <td>
       <%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+      |
       <%= link_to 'Switch', switch_user_path(user) %>
     </td>
   </tr>
@@ -44,7 +45,7 @@ Announcements BCC List:  <%= @announcements_list.join(", ") %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
     jQuery('#user_list').dataTable({
-      "aaSorting": [[7,"desc"]],
+      "aaSorting": [[0,"desc"]],
       "bPaginate": false
     });
 });
