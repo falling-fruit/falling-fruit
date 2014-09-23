@@ -72,11 +72,17 @@ FallingfruitWebapp::Application.routes.draw do
 
   namespace :api do
     resources :locations do
+      member do
+        get 'reviews'
+      end
       collection do
         get 'cluster'
         get 'markers'
         get 'marker'
         get 'cluster_types'
+        get 'mine'
+        get 'favorite'
+        get 'nearby'
       end
     end
 

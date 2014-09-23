@@ -1,5 +1,48 @@
 class Api::LocationsController < ApplicationController
 
+  before_filter :authenticate_user!, :only => [:mine,:favorite]
+
+  def mine
+    @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
+      where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
+      order('observations.created_at desc')
+    @mine.uniq!{ |o| o.location_id }
+    @mine.each_index{ |i|
+      loc = @mine[i].location
+      @mine[i] = loc.attributes
+      @mine[i]["title"] = loc.title
+      @mine[i].delete("user_id")
+    }
+    respond_to do |format|
+      format.json { render json: @mine }
+    end
+  end
+
+  def show
+    @location = Location.find(params[:id])
+    @location[:title] = @location.title
+    @location[:photos] = @location.observations.collect{ |o|
+      o.photo_file_name.nil? ? nil : { :updated_at => o.photo_updated_at, :url => o.photo.url }
+    }.compact
+    respond_to do |format|
+      format.json { render json: @location }
+    end
+  end
+
+  def reviews
+    @location = Location.find(params[:id])
+    @obs = @location.observations
+    @obs.each_index{ |i|
+      @obs[i][:photo_url] = @obs[i].photo_file_name.nil? ? nil : @obs[i].photo.url
+      @obs[i] = @obs[i].attributes
+      @obs[i].delete("user_id")
+      @obs[i].delete("remote_ip")
+    }
+    respond_to do |format|
+      format.json { render json: @location.observations }
+    end
+  end
+
   # Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
     cat_mask = array_to_mask(["human","freegan"],Type::Categories)
@@ -93,6 +136,68 @@ class Api::LocationsController < ApplicationController
     }
     respond_to do |format|
       format.json { render json: @clusters }
+    end
+  end
+
+  def nearby
+    max_n = 100
+    offset_n = params[:offset].present? ? params[:offset].to_i : 0
+    if params[:c].blank?
+      cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    else
+      cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+    end
+    cfilter = "(bit_or(t.category_mask) & #{cat_mask})>0"
+    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
+    sorted = "1 as sort"
+    # FIXME: would be easy to allow t to be an array of types
+    if params[:t].present?
+      type = Type.find(params[:t])
+      tids = ([type.id] + type.all_children.collect{ |c| c.id }).compact.uniq
+      sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{tids.join(",")}] THEN 0 ELSE 1 END as sort"
+    end
+    unless params[:lat].present? and params[:lng].present?
+      # error!
+      return
+    end
+    dist = "ST_DISTANCE(ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326),l.location)"
+    max_distance = 100000
+    dfilter = "#{dist} < #{max_distance}" # must be within 100k!
+    if (Import.count == 0)
+      ifilter = "(import_id IS NULL)"
+    else
+      ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
+    end
+    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
+      #{dist} as distance, l.description, l.author,
+      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') AS name,
+      #{sorted} FROM locations l,
+      locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
+      WHERE lt.location_id=l.id AND #{[dfilter,ifilter].compact.join(" AND ")}
+      GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
+      LIMIT #{max_n} OFFSET #{offset_n}");
+    @markers = r.collect{ |row|
+      if row["name"].nil? or row["name"].strip == ""
+        name = "Unknown"
+      else
+        t = row["name"].split(/,/)
+        if t.length == 2
+          name = "#{t[0]} & #{t[1]}"
+        elsif t.length > 2
+          name = "#{t[0]} & Others"
+        else
+          name = t[0]
+        end
+      end
+      {:title => name, :location_id => row["id"].to_i,
+       :lat => row["lat"].to_f, :lng => row["lng"].to_f,
+       :distance => row["distance"].to_f.round,
+       :description => row["description"], :author => row["author"]
+      }
+    } unless r.nil?
+    respond_to do |format|
+      format.json { render json: @markers }
     end
   end
 
