@@ -39,11 +39,12 @@
 </p>
 
 <%
-  cache 'pages_about_stats' do
-  @types = LocationsType.joins("LEFT OUTER JOIN types ON types.id=locations_types.type_id").
-  select("COALESCE(types.name,locations_types.type_other) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
+  cache "pages_about_stats_#{I18n.locale}" do
+  i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+  @types = Location.joins("LEFT OUTER JOIN types ON types.id=ANY(locations.type_ids)").
+  select("COALESCE(#{i18n_name_field}types.name) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
   group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
-  @lt_count = LocationsType.count
+  @lt_count = Location.sum("array_length(type_ids,1)+array_length(type_others,1)")
 %>
 
 <p>

@@ -15,10 +15,9 @@ class LocationsController < ApplicationController
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-    @locations = Location.joins("INNER JOIN locations_types ON locations_types.location_id=locations.id").
-             joins("LEFT OUTER JOIN types ON locations_types.type_id=types.id").
+    @locations = Location.joins("INNER JOIN types ON t.id=ANY(locations.type_ids)").
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
-             select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name,locations_types.type_other)) as name, locations.id as id,
+             select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, type_others, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
                      author, import_id, locations.created_at, locations.updated_at, muni").
              where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
@@ -46,7 +45,7 @@ class LocationsController < ApplicationController
                     l.access.nil? ? nil : I18n.t("locations.infowindow.access_short")[l.access],
                     l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
                     l.import_id.nil? ? false : (l.muni ? true : false), 
-                    l.name]
+                    l.title]
           }
         end
         send_data(csv_data,:type => 'text/csv; charset=utf-8; header=present', :filename => 'data.csv')
@@ -70,10 +69,6 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     respond_to do |format|
       format.html { render :partial => "/locations/infowindow", :locals => {:location => @location} }
-      format.json { 
-        @location["types"] = @location.locations_types
-        render json: @location 
-      }
     end
   end
 
@@ -158,23 +153,15 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    p = 0
-    lts = []
-     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
-      lt = LocationsType.new
+    @location = Location.new(params[:location])
+    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
       if t.nil? 
-        lt.type_other = type_name
+        @location.type_others.push type_name
       else
-        lt.type = t
+        @location.type_ids.push t.id
       end
-      lt.position = p
-      p += 1
-      lts.push lt
     } if params[:types].present?
-
-    @location = Location.new(params[:location])
-    @location.locations_types += lts
     @location.user = current_user if user_signed_in?
 
     # create an observation if necessary
@@ -233,22 +220,17 @@ class LocationsController < ApplicationController
 
     p = 0
     lts = []
-    @location.locations_types.collect{ |lt| LocationsType.delete(lt.id) }
+    @location.type_ids = []
+    @location.type_others = []
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
-      lt = LocationsType.new
       t = Type.where("name = ?",type_name).first
       if t.nil? 
-        lt.type_other = type_name
+        @location.type_others.push type_name
       else
-        lt.type = t
+        @location.type_ids.push t.id
       end
-      lt.position = p
-      lt.location_id = @location.id
-      p += 1
-      lts.push lt
     } if params[:types].present?
-
-    lt_update_okay = lts.collect{ |lt| lt.save }.all?
+    lt_update_okay = @location.save
 
     ApplicationController.cluster_decrement(@location)
     respond_to do |format|
@@ -273,9 +255,6 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     ApplicationController.cluster_decrement(@location)
     @location.destroy
-    LocationsType.where("location_id=#{params[:id]}").each{ |lt|
-      lt.destroy
-    }
     expire_things
     respond_to do |format|
       format.html { redirect_to locations_url }
@@ -321,12 +300,13 @@ class LocationsController < ApplicationController
   private
 
   def prepare_for_sidebar
+    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     rangeq = current_user.range.nil? ? "" : "AND ST_INTERSECTS(l.location,(SELECT range FROM users u2 WHERE u2.id=#{current_user.id}))"
-    r = ActiveRecord::Base.connection.execute("SELECT string_agg(coalesce(t.name,lt.type_other),',') as type_title,
+    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),' - ') as type_title, array_to_string(type_others,' - ') as type_others,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state,
-      l.country, l.lat, l.lng, l.description as location_description, array_agg(lt.position) as positions, c.author as change_author
-      FROM changes c, locations l, locations_types lt left outer join types t on lt.type_id=t.id
-      WHERE lt.location_id=l.id AND l.id=c.location_id #{rangeq}
+      l.country, l.lat, l.lng, l.description as location_description, c.author as change_author, l.id
+      FROM changes c, locations l, types t
+      WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id #{rangeq}
       GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at, c.author ORDER BY c.created_at DESC LIMIT 100");
     @changes = r.collect{ |row| row }
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').

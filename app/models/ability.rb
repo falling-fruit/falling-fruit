@@ -15,7 +15,7 @@ class Ability
     end
 
     # Things everyone can do
-    can [:read, :create, :update, :enroute], [Location, LocationsType]
+    can [:read, :create, :update, :enroute], [Location]
     can :read, [Type, Change] 
     can [:read, :bibliography], Import
     can :read, Route, :is_public => true

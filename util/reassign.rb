@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# WARNING: doesn't work w/current schema
 require 'csv'
 puts "BEGIN;"
 CSV.open(ARGV[0],"r"){ |csv|

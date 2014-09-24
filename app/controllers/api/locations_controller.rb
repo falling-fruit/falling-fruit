@@ -169,19 +169,23 @@ class Api::LocationsController < ApplicationController
       ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     end
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
-      #{dist} as distance, l.description, l.author,
-      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') AS name,
-      #{sorted} FROM locations l,
-      locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
-      WHERE lt.location_id=l.id AND #{[dfilter,ifilter].compact.join(" AND ")}
+    # FIXME: name doesn't include other types
+    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types,
+      #{dist} as distance, l.description, l.author, l.type_others,
+      array_agg(t.parent_id) as parent_types,
+      string_agg(coalesce(#{i18n_name_field}t.name),',') AS name,
+      #{sorted} FROM locations l, types t
+      WHERE t.id=ANY(l.type_ids) AND #{[dfilter,ifilter].compact.join(" AND ")}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
       LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
+      row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
+      row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
+      row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       if row["name"].nil? or row["name"].strip == ""
         name = "Unknown"
       else
-        t = row["name"].split(/,/)
+        t = row["name"].split(/,/) + row["type_others"]
         if t.length == 2
           name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2
@@ -227,20 +231,22 @@ class Api::LocationsController < ApplicationController
     else      
       ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     end
-    r = ActiveRecord::Base.connection.select_one("SELECT count(*) from locations l, locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
-      WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")} GROUP BY l.id HAVING #{[cfilter].compact.join(" AND ")}");
+    r = ActiveRecord::Base.connection.select_one("SELECT count(*) FROM locations l, types t WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")} GROUP BY l.id HAVING #{[cfilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil?
-    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
-      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') AS name, #{sorted} FROM locations l,
-      locations_types lt LEFT OUTER JOIN types t ON lt.type_id=t.id
-      WHERE lt.location_id=l.id AND #{[bound,ifilter].compact.join(" AND ")}
+    i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, l.type_others,
+      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name),',') AS name, #{sorted}
+      FROM locations l, types t
+      WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n}");
     @markers = r.collect{ |row|
+      row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
+      row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
+      row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       if row["name"].nil? or row["name"].strip == ""
         name = "Unknown"
       else
-        t = row["name"].split(/,/)
+        t = row["name"].split(/,/) + row["type_others"]
         if t.length == 2
           name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2
@@ -249,10 +255,10 @@ class Api::LocationsController < ApplicationController
           name = t[0]
         end
       end
-      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
+      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"],
        :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17,
-       :marker_anchor => [0,0], :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i },
-       :parent_types => row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
+       :marker_anchor => [0,0], :types => row["types"],
+       :parent_types => row["parent_types"]
       }
     } unless r.nil?
     @markers.unshift(max_n)
@@ -266,16 +272,19 @@ class Api::LocationsController < ApplicationController
      id = params[:id].to_i
      i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
-      array_agg(t.parent_id) as parent_types,
-      string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') as name from locations l,
-      locations_types lt left outer join types t on lt.type_id=t.id
-      WHERE lt.location_id=l.id AND l.id=#{id}
+      array_agg(t.parent_id) as parent_types, l.type_others,
+      string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') as name
+      FROM locations l, types t
+      WHERE t.id=ANY(l.type_ids) AND l.id=#{id}
       GROUP BY l.id, l.lat, l.lng, l.unverified");
     @markers = r.collect{ |row|
+      row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
+      row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
+      row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       if row["name"].nil? or row["name"].strip == ""
         name = "Unknown"
       else
-        t = row["name"].split(/,/)
+        t = row["name"].split(/,/) + row["type_others"]
         if t.length == 2
           name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2
@@ -285,8 +294,8 @@ class Api::LocationsController < ApplicationController
         end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17, :parent_types => row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i },
-       :marker_anchor => [0,0], :n => 1, :types => row["types"].tr('{}','').split(/,/).collect{ |e| e.to_i } }
+       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17, :parent_types => row["parent_types"],
+       :marker_anchor => [0,0], :n => 1, :types => row["types"]}
     } unless r.nil?
     respond_to do |format|
       format.json { render json: @markers }

@@ -1,21 +1,19 @@
 class Location < ActiveRecord::Base
   include ActionView::Helpers::TextHelper # for word_wrap
 
-  has_many :locations_types, :order => 'locations_types.position ASC'
-  has_many :types, :through => :locations_types, :order => 'locations_types.position ASC'
   has_many :observations
   has_many :changes, :dependent => :delete_all
   belongs_to :import
   belongs_to :user
 
-  validates_associated :locations_types
-  validates :locations_types, :presence => true
+  validates :type_ids, :presence => true, :if => proc{|o| o.type_others.empty? }
+  validates :type_others, :presence => true, :if => proc{|o| o.type_ids.empty? }
   validates :lat, numericality: {greater_than_or_equal_to: -85.0, less_than_or_equal_to: 85.0, allow_nil: false}
   validates :lat, numericality: {greater_than_or_equal_to: -180.0, less_than_or_equal_to: 180.0, allow_nil: false}
   validates :access, :numericality => { :only_integer => true }, :allow_nil => true
 	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
-                  :no_season, :unverified, :access, :locations_types, :import_id, :photo_url, :user, :user_id,
+                  :no_season, :unverified, :access, :type_ids, :type_others, :import_id, :photo_url, :user, :user_id,
                   :category_mask
   attr_accessor :import_link
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
@@ -26,7 +24,8 @@ class Location < ActiveRecord::Base
       obj.country = geo.country
     end
   end
-  before_validation { |record| 
+  after_initialize :default_values
+  before_validation { |record|
     begin
       record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) 
       record.reverse_geocode unless record.lat.nil? or record.lng.nil?  
@@ -90,27 +89,47 @@ class Location < ActiveRecord::Base
     }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
 
+  def types
+    # FIXME: cache this result?
+    unless self.type_ids.nil? or self.type_ids.empty?
+      Type.where("id IN (#{self.type_ids.join(",")})")
+    else
+      []
+    end
+  end
+
+  def type_names
+    (self.types.collect{ |t| t.name }.compact + self.type_others.compact)
+  end
+
   def title
-    lt = self.locations_types
+    lt = self.type_names
     if lt.empty?
       nil
     elsif lt.length == 2
-      "#{lt[0].name} & #{lt[1].name}"
+      "#{lt[0]} & #{lt[1]}"
     elsif lt.length > 2
-      "#{lt[0].name} & Others"
+      "#{lt[0]} & Others"
     elsif lt.length == 1
-      lt[0].name
+      lt[0]
     end
   end
 
   def scsv_types
-    self.locations_types.collect{ |lt| lt.type.nil? ? nil : lt.type.name }.compact.join(";")
+    self.types.collect{ |t| t.name }.compact.join(";")
   end
 
   def scsv_type_others
-    self.locations_types.collect{ |lt| lt.type_other }.compact.join(";")
+    self.type_others.compact.join(";")
   end
-  
+
+  def default_values
+    self["type_ids"] ||= []
+    self["type_others"] ||= []
+  end
+
+  #### CLASS METHODS ####
+
   def self.csv_header
     ["Type","Type Other","Description","Lat","Lng","Address","Season Start","Season Stop",
      "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
@@ -121,7 +140,6 @@ class Location < ActiveRecord::Base
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
     loc = Location.new
-
     unless type.nil? or type.strip.length == 0
       type.split(/[;,:]/).each{ |t|
         safer_type = t.squish.tr('^A-Za-z- \'','').capitalize
@@ -136,26 +154,17 @@ class Location < ActiveRecord::Base
           nt.category_mask = 0 # default is no category per Ethan's request
           nt.save
           typehash[nt.name] = nt
-          
-          lt = LocationsType.new
-          lt.type = nt
-          lt.save
-
-          loc.locations_types.push lt
+          loc.type_ids.push nt.id
         else
-          lt = LocationsType.new
-          lt.type = types.shift
-          lt.save
-          loc.locations_types.push lt
+          loc.type_ids.push types.shift.id
         end
+        loc.type_ids.uniq!
       }
     end
 
     type_other.split(/[;,:]/).each{ |to|
-      lt = LocationsType.new
-      lt.type_other = to
-      lt.save          
-      loc.locations_types.push lt
+      loc.type_others.push to
+      loc.type_others.uniq!
     } unless type_other.nil? or type_other.strip.length == 0
 
     unless lat.blank? or lng.blank?

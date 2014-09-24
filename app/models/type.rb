@@ -5,8 +5,6 @@ class Type < ActiveRecord::Base
                   :es_name, :pl_name, :he_name, :taxonomic_rank, :category_mask
   has_attached_file :marker
   validates :name, :presence => true
-  has_many :locations_types
-  has_many :locations, :through => :locations_types
   belongs_to :parent, class_name: "Type"
   has_many :children, class_name: "Type", foreign_key: "parent_id"
 

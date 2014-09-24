@@ -11,25 +11,26 @@
 </thead>
 <tbody>
 
-<% @type_others.each do |name,lts|
+<% @type_others.each do |name,locs|
   @type = Type.new
   @type.name = name
 %>
 
 <tr>
 <td><%= name %></td>
-<td width="25%"><%= lts.length %><br/><br/>
+<td width="25%"><%= locs.length %><br/><br/>
 
 [
-<% lts.each do |lt| %>
-<%= link_to lt.location_id, edit_location_path(lt.location_id) unless lt.location_id.nil? %>
+<% locs.each do |l| %>
+<%= link_to l.id, edit_location_path(l.id) unless l.id.nil? %>
 <% end %>
 ]
 
 </td>
-<td style="padding-bottom:1em;"><%= render :partial => 'form', :object => @type, :locals => {:lts => lts} %></td>
+<td style="padding-bottom:1em;"><%= render :partial => 'form', :object => @type, :locals => {:locs => locs,:type_other => name} %></td>
 <td><form action="/types/merge">
-    <%= hidden_field_tag 'lts', lts.collect{ |lt| lt.id }.join(":") %>
+    <%= hidden_field_tag 'locs', locs.collect{ |l| l.id }.join(":") %>
+    <%= hidden_field_tag 'type_other', name %>
     <%= hidden_field_tag(:into_id,'',:class=>"intoselect2") %>
     <%= submit_tag "Merge" %>
 </form>

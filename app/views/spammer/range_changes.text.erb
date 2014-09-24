@@ -5,8 +5,8 @@ This week on Falling Fruit, there were <%= @changes.length %> changes in your fo
 <% 
   hist = {}
   @changes.each{ |c| 
-    c.location.locations_types.each{ |lt|
-      t = lt.type.nil? ? lt.type_other : lt.type.name 
+    c.location.types.each{ |t|
+      t = t.name
       hist[t] = 0 if hist[t].nil?
       hist[t] += 1
     }

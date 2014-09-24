@@ -19,14 +19,7 @@
     <%
        last_lab = nil
        @changes.each do |c|
-         reordered_type_title = []
-         c["positions"] = $1.split(/,/).collect{ |e| e.to_i } if c["positions"] =~ /\{(.*)\}/
-         c["type_title"] = c["type_title"].split(/,/)
-         c["positions"].each_index{ |i|
-           t = c["type_title"][i]
-           p = c["positions"][i]
-           reordered_type_title[p] = t
-         }
+         pretty_title = (c["type_title"] + c["type_others"]).split(/,/).join(', ')
          c["days_ago"] = c["days_ago"].to_i
          lab = nil
          mday = Time.zone.today.day
@@ -54,7 +47,7 @@
       <%= raw header %>
       <% unless c["location_id"].nil? %>
         <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();">
-          <%= c["type_title"].nil? ? I18n.t("locations.sidebar.unknown") : reordered_type_title.join(" · ") %></a> <%= c["description"] %>
+          <%= c["type_title"].nil? ? I18n.t("locations.sidebar.unknown") : pretty_title %></a> <%= c["description"] %>
         <% unless c["city"].nil? %>
           <%= I18n.t("locations.sidebar.in") %> <%= c["city"] %>
         <% end %>

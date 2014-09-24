@@ -24,8 +24,7 @@ describe Location do
       :lat => 180.0*rand,
       :lng => 180.0*rand,
       :author => Faker.name,
-      :address => [Faker::Address.street_address,Faker::Address.city,Faker::Address.state,Faker::Address.zip_code].join(", "),
-      :locations_types => [LocationsType.new({:type => Type.new({:name => Faker.name}),:type_other => Faker.name})],
+      :address => [Faker::Address.street_address,Faker::Address.city,Faker::Address.state,Faker::Address.zip_code].join(", ")
     }
   end
   it "should geocode an address" do

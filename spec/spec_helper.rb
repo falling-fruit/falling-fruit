@@ -35,4 +35,14 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # Mix in factory girl
+  config.include FactoryGirl::Syntax::Methods
+
+  # For fixture_file_upload
+  config.include ActionDispatch::TestProcess
+
+  # Mixin devise stuff
+  # https://github.com/plataformatec/devise#test-helpers
+  config.include Devise::TestHelpers, type: :controller
 end

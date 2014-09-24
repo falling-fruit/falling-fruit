@@ -19,11 +19,19 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :test, :development do
-  gem "rspec-rails", "~> 2.0"
+# Development
+group :development do
   gem 'faker'
   gem 'better_errors'
   gem 'binding_of_caller'
+end
+
+# Testing
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'rack-test'
 end
 
 gem 'jquery-rails'
@@ -64,3 +72,5 @@ gem 'i15r'
 gem 'i18n-tasks', '~> 0.7.2'
 gem 'devise-i18n'
 gem 'rails-i18n'
+
+gem 'postgres_ext'

@@ -93,8 +93,9 @@
   -->
   
   <br />
-  <% unless not(defined? lts) or lts.nil? %>
-    <%= hidden_field_tag 'lts', lts.collect{ |lt| lt.id }.join(":") %>
+  <% unless not(defined? locs) or locs.nil? %>
+    <%= hidden_field_tag 'locs', locs.collect{ |l| l.id }.join(":") %>
+    <%= hidden_field_tag 'type_other', type_other %>
   <% end %>
   <div class="actions">
     <%= f.submit %>

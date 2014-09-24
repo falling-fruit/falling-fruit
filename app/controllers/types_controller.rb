@@ -15,10 +15,12 @@ class TypesController < ApplicationController
 
   def grow
     @type_others = {}
-    LocationsType.select('type_other,id,location_id').where("type_id IS NULL and type_other IS NOT NULL").each{ |lt|
-      safer_type = lt.type_other.tr('^A-Za-z- \'','').capitalize
-      @type_others[safer_type] = [] if @type_others[safer_type].nil?
-      @type_others[safer_type].push(lt)
+    Location.select("type_others").where("type_others IS NOT NULL and array_length(type_others,1)>0").collect{ |l|
+      l.type_others.compact.each{ |lt|
+        safer_type = lt.tr('^A-Za-z- \'','').capitalize
+        @type_others[safer_type] = [] if @type_others[safer_type].nil?
+        @type_others[safer_type].push(l)
+      }
     }
     respond_to do |format|
       format.html
@@ -48,8 +50,9 @@ class TypesController < ApplicationController
           c.destroy
         end 
       }
-      LocationsType.where("type_id = ?",from.id).each{ |lt|
-        lt.type = to
+      Locations.where("ANY(type_ids)=?",from.id).each{ |l|
+        l.type_ids = l.type_ids.collect{ |e| e == from.id ? nil : e }.compact
+        l.type_ids.push to
         lt.save
       }
       from.destroy
@@ -57,14 +60,16 @@ class TypesController < ApplicationController
         format.html { redirect_to types_url, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
         format.json { head :no_content }
       end
-    elsif params[:lts].present?
+    elsif params[:locs].present? and params[:type_other].present?
       to = Type.find(params[:into_id].to_i)
       n = 0
-      params[:lts].split(/:/).each{ |ltid|
-        lt = LocationsType.find(ltid)
-        lt.type_other = nil
-        lt.type = to
-        lt.save
+      params[:locs].split(/:/).each{ |lid|
+        l = Location.find(lid)
+        l.type_ids.push to
+        l.type_others = l.type_others.collect{ |e|
+          e.tr('^A-Za-z- \'','').capitalize == params[:type_other] ? nil : e
+        }.compact
+        l.save
         n += 1
       }
       respond_to do |format|
@@ -98,15 +103,14 @@ class TypesController < ApplicationController
     respond_to do |format|
       if @type.save
         andtext = ""
-        if params[:lts].present?
+        if params[:locs].present?
           n = 0
           locs = []
-          params[:lts].split(/:/).each{ |ltid|
-            lt = LocationsType.find(ltid.to_i)
-            lt.type_other = nil
-            lt.type = @type
-            lt.save
-            locs << lt.location unless lt.location.nil?
+          params[:locs].split(/:/).each{ |lid|
+            l = Locations.find(lid)
+            l.type_ids.push @type.id
+            l.save
+            locs << l unless l.nil?
           }
           locs.uniq.each{ |loc|
             n += 1
@@ -141,11 +145,6 @@ class TypesController < ApplicationController
       end
     end
   end
-
-  #def update_location_category_mask(type)
-  #  Location.joins(:locations_types,:types).select("bit_or(types.category_mask), locations.id").
-  #    where("type_id = ?",type.id). SELECT bit_or(t.category_mask) AS category_mask, location_id AS id INTO TEMPORARY TABLE temp
-  #  FROM locations l, locations_types lt, types t WHERE lt.location_id=l.id AND lt.type_id=t.id GROUP BY location_id;
 
   # DELETE /types/1
   # DELETE /types/1.json
