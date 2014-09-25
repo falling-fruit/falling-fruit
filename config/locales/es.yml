@@ -240,6 +240,7 @@ es:
       scientific_name: Nombre científico
       links: Enlaces
       count: Cuente
+      summary_description: La base de datos contiene actualmente %{types} diferentes tipos de comestibles (la mayoría, pero no todos, son especies de plantas) distribuidas en %{locations} ubicaciones. Para cada tipo, la siguiente tabla se enumeran Inglés nombre común (s), nombre científico (s), enlaces a referencias externas, y el recuento total.
     datasets:
       intro_html: Falling Fruit aspira a ser el mundo del 'conjunto de datos geográficos más completa y abierta de comestibles urbanas. Mientras que nuestros usuarios explorar, editar y añadir ubicaciones usando nuestro <a href=\"/\">mapa</a> , peinamos el universo conocido para los pre-existentes de datos e importamos directamente en la <a href=\"/data\">base de datos</a> , uniendo los esfuerzos de cosechadoras de forraje, silvicultores y freegans todas partes. Si usted sabe de un conjunto de datos PD Tuve que perdió, por favor <a href=\"mailto:info@fallingfruit.org\">háganoslo saber</a> ! También nos puede ayudar con el proceso de importación por el formato de los datos utilizando la <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">plantilla de importación</a> . Tenga en cuenta que, dado que las importaciones deben realizarse manualmente, más cambios en los datos originales no se reflejan en la caída de la fruta.
       imported_datasets: Conjuntos de datos importados

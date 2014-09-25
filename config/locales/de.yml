@@ -240,6 +240,7 @@ de:
       scientific_name: Wissenschaftlicher Name
       links: Links
       count: Zählen
+      summary_description: Die Datenbank enthält derzeit %{types} verschiedene Arten von Esswaren (die meisten, aber nicht alle, sind Pflanzenarten) über %{locations} Standorte verteilt. Für jeden Typ der folgenden Tabelle sind dem englischen Common Name (n), wissenschaftliche Name (n), Links zu externen Referenzen, und die Gesamtzahl.
     datasets:
       intro_html: Fallende Frucht strebt der weltweit umfassendsten und offenen geographischen Datenbestand des städtischen Esswaren sein. Während unserer Nutzer zu erforschen, zu bearbeiten, und fügen Standorten über unsere <a href=\"/\">Karte</a> , kämmen wir das bekannte Universum für bereits vorhandene Datensätze und importieren Sie sie direkt in die <a href=\"/data\">Datenbank</a> , die Vereinigung der Anstrengungen der Sammlerinnen, Förster, und freegans überall. Wenn Sie von einem Datensatz we''ve verpasst wissen, bitte <a href=\"mailto:info@fallingfruit.org\">lassen Sie uns wissen</a> ! Sie können uns auch helfen, mit dem Importvorgang durch das Formatieren die Daten mit der <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">Import-Vorlage</a> . Beachten Sie, dass da die Einfuhren muss manuell durchgeführt werden, weitere Änderungen an den Originaldaten werden nicht auf fallenden Früchte wider.
       imported_datasets: Importierte Datensätze

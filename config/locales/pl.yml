@@ -240,6 +240,7 @@ pl:
       scientific_name: Nazwa naukowa
       links: Linki
       count: Liczyć
+      summary_description: Baza danych zawiera obecnie %{types} różnych rodzajów spożywczymi (większość, ale nie wszystkie, to gatunki roślin) rozmieszczone na %{locations} miejscach. Dla każdego typu, poniższa tabela zawiera angielskiego wspólną nazwę (y), nazwa naukowa (e), linki do odniesienia na zewnątrz, oraz całkowitą liczbę.
     datasets:
       intro_html: Falling Fruit chce być światowym najbardziej kompleksowy i otwarty zbiór danych geograficznych z spożywczymi miejskich. Podczas gdy nasi użytkownicy zbadać, edytować i dodawać lokalizacje przy użyciu naszej <a href=\"/\">mapy</a> , możemy przeczesać znanego wszechświata dla wcześniej istniejących zbiorów danych i zaimportować je bezpośrednio do <a href=\"/data\">bazy danych</a> , jednocząc wysiłki paszowe, leśników i freegans wszędzie. Jeśli wiesz, że w zbiorze danych we''ve brakowało, proszę <a href=\"mailto:info@fallingfruit.org\">daj nam znać</a> ! Możesz też pomóc nam w procesie importu przez formatowania danych przy użyciu <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">szablonu importu</a> . Należy pamiętać, że od importu muszą być wykonywane ręcznie, dalsze zmiany oryginalnych danych nie są widoczne na Falling Fruit.
       imported_datasets: Importowane zestawy danych

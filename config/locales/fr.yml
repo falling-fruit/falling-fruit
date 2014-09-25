@@ -240,6 +240,7 @@ fr:
       scientific_name: Nom scientifique
       links: Links
       count: Compter
+      summary_description: La base de données contient actuellement %{types} différents types de produits comestibles (la plupart, mais pas tous, sont des espèces végétales) répartis sur %{locations} endroits. Pour chaque type, le tableau ci-dessous répertorie anglais nom commun (s), nom scientifique (s), des liens vers des références extérieures, et nombre total.
     datasets:
       intro_html: Tomber fruits aspire à être données géographique la plus large et ouverte du monde »de comestibles urbaines. Alors que nos utilisateurs d'explorer, éditer et ajouter des emplacements à l'aide de notre <a href=\"/\">carte</a> , nous sillonnons l'univers connu pour des jeux de données pré-existantes et les importer directement dans la <a href=\"/data\">base de données</a> , en unissant les efforts des butineuses, les forestiers et les freegans partout. Si vous connaissez d'un ensemble de données we''ve manqué, s'il vous plaît <a href=\"mailto:info@fallingfruit.org\">laissez-nous savoir</a> ! Vous pouvez également nous aider avec le processus d'importation par le formatage des données en utilisant le <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">modèle d'importation</a> . Notez que puisque les importations doivent être effectuées manuellement, d'autres modifications aux données d'origine ne sont pas reflétés sur Tomber fruits.
       imported_datasets: Ensembles de données importées
