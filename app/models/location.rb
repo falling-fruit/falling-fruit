@@ -91,8 +91,8 @@ class Location < ActiveRecord::Base
 
   def types
     # FIXME: cache this result?
-    unless self.type_ids.nil? or self.type_ids.empty?
-      Type.where("id IN (#{self.type_ids.join(",")})")
+    unless self.type_ids.nil? or self.type_ids.compact.empty?
+      Type.where("id IN (#{self.type_ids.compact.join(",")})")
     else
       []
     end
