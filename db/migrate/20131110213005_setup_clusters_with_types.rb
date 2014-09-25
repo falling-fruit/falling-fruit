@@ -38,9 +38,6 @@ class SetupClustersWithTypes < ActiveRecord::Migration
   end
 
   def up
-    # per-type clusters
-    Type.all.each{ |t| add_type_clusters(t) }
-
     $stderr.puts "All types!"
 
     # all types clusters
@@ -72,6 +69,9 @@ class SetupClustersWithTypes < ActiveRecord::Migration
        import_id IN (SELECT id FROM imports WHERE muni)) GROUP BY grid_point) AS subq;
       SQL
     }
+
+    # per-type clusters
+    Type.all.each{ |t| add_type_clusters(t) }
   end
 
   def down
