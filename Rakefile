@@ -204,12 +204,18 @@ task(:import => :environment) do
        location = Location.build_from_csv(row,typehash)
        location.import = import
        location.client = 'import'
-       if location.lat.nil? or location.lng.nil? and (!location.address.nil? and (!location.address.length == 0))
+
+       if (location.lat.nil? or location.lng.nil?) and !location.address.blank?
+         print "G"
          location.geocode
        end
        if location.valid?
          ok_count += 1
-         location.save and ApplicationController.cluster_increment(location)
+         print "S"
+         if location.save and import.auto_cluster == true
+           print "C"
+           ApplicationController.cluster_increment(location)
+         end
        else
          text_errs << location.errors
          errs << row

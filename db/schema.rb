@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140925170731) do
+ActiveRecord::Schema.define(:version => 20140925191944) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -57,11 +57,12 @@ ActiveRecord::Schema.define(:version => 20140925170731) do
     t.string   "url"
     t.string   "name"
     t.text     "comments"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "autoload",   :default => true,  :null => false
-    t.boolean  "muni",       :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "autoload",     :default => true,  :null => false
+    t.boolean  "muni",         :default => false
     t.text     "license"
+    t.boolean  "auto_cluster", :default => false
   end
 
   create_table "locations", :force => true do |t|

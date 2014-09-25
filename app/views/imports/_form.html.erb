@@ -33,6 +33,12 @@
   <div class="field">
     <%= f.check_box :muni %> <%= f.label :municipal %>
   </div>
+  <div class="field">
+    <%= f.check_box :auto_cluster %> <%= f.label :increment_clusters_now %>
+  </div>
+  <div class="field">
+    <%= f.check_box :reverse_geocode %> <%= f.label :reverse_geocode %>
+  </div>
   <br />
   <div class="actions">
     <%= f.submit %>

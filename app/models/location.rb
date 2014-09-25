@@ -28,7 +28,7 @@ class Location < ActiveRecord::Base
   before_validation { |record|
     begin
       record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) 
-      record.reverse_geocode unless record.lat.nil? or record.lng.nil?  
+      record.reverse_geocode unless record.lat.nil? or record.lng.nil? or (!record.import.nil? and record.import.reverse_geocode == false)
     rescue
       # if geocoding throws an error, ignore it
     end
