@@ -217,6 +217,9 @@ class LocationsController < ApplicationController
     # compute diff/patch so we can undo later
     dmp = DiffMatchPatch.new
     patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description))
+    former_type_ids = @location.type_ids
+    former_type_others = @location.type_others
+    former_location = @location.location
 
     p = 0
     lts = []
@@ -237,7 +240,7 @@ class LocationsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
       if test and @location.update_attributes(params[:location]) and lt_update_okay
-        log_changes(@location,"edited",nil,params[:author],patch)
+        log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_type_others,former_location)
         ApplicationController.cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
