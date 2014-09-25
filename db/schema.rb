@@ -60,12 +60,13 @@ ActiveRecord::Schema.define(:version => 20140925201738) do
     t.string   "url"
     t.string   "name"
     t.text     "comments"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "autoload",     :default => true,  :null => false
-    t.boolean  "muni",         :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "autoload",        :default => true,  :null => false
+    t.boolean  "muni",            :default => false
     t.text     "license"
-    t.boolean  "auto_cluster", :default => false
+    t.boolean  "auto_cluster",    :default => false
+    t.boolean  "reverse_geocode", :default => false
   end
 
   create_table "locations", :force => true do |t|
@@ -88,8 +89,8 @@ ActiveRecord::Schema.define(:version => 20140925201738) do
     t.string   "state"
     t.string   "country"
     t.integer  "user_id"
-    t.integer  "type_ids",                                                                                                    :array => true
-    t.string   "type_others",                                                                                                 :array => true
+    t.integer  "type_ids",                                                                 :default => [],                    :array => true
+    t.string   "type_others",                                                              :default => [],                    :array => true
   end
 
   create_table "locations_routes", :force => true do |t|
