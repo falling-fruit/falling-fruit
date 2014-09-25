@@ -45,4 +45,10 @@ RSpec.configure do |config|
   # Mixin devise stuff
   # https://github.com/plataformatec/devise#test-helpers
   config.include Devise::TestHelpers, type: :controller
+
+  # Mix in Rack Test
+  config.include Rack::Test::Methods
+  def app
+    Rails.application
+  end
 end

@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+         :confirmable, :token_authenticatable
 
   include RoleModel
 
@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   }
   after_update{ |record| create_range_from_radius(record) }
   after_create{ |record| create_range_from_radius(record) }
+  before_save :ensure_authentication_token
 
   roles_attribute :roles_mask
   roles :admin, :forager, :partner, :guest
@@ -87,5 +88,4 @@ class User < ActiveRecord::Base
       ActiveRecord::Base.connection.execute("UPDATE users SET range=ST_Buffer_Meters(location::geometry,range_radius*1000.0) WHERE id=#{record.id}")
     end
   end
-
 end

@@ -20,7 +20,7 @@ class ReplaceLocationsTypesWithAnArray < ActiveRecord::Migration
   end
 
   def down
-    remove_column :locations, :type_ids
-    remove_column :locations, :type_others
+    # Feeling too lazy to write a reversion
+    raise ActiveRecord::IrreversibleMigration
   end
 end

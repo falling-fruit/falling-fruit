@@ -245,7 +245,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   comma (~> 3.0)
-  devise
+  devise (~> 2.1.2)
   devise-i18n
   diff_match_patch_native
   factory_girl_rails

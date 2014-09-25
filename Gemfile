@@ -44,7 +44,9 @@ gem 'select2-rails', '~> 3.4.2'
 gem 'jquery-datatables-rails'
 
 gem 'geocoder'
-gem 'devise'
+# we use token_authenticable and some other things that
+# got changed in devise 3 so it's important to stick to devise 2 for now
+gem 'devise', "~> 2.1.2"
 gem 'thin', "~> 1.6.0"
 #gem 'thin'
 gem 'pg'
