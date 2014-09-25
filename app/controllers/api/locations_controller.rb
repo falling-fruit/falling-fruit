@@ -13,6 +13,7 @@ class Api::LocationsController < ApplicationController
       @mine[i]["title"] = loc.title
       @mine[i].delete("user_id")
     }
+    log_api_request("api/locations/mine",@mine.length)
     respond_to do |format|
       format.json { render json: @mine }
     end
@@ -24,6 +25,7 @@ class Api::LocationsController < ApplicationController
     @location[:photos] = @location.observations.collect{ |o|
       o.photo_file_name.nil? ? nil : { :updated_at => o.photo_updated_at, :url => o.photo.url }
     }.compact
+    log_api_request("api/locations/show",1)
     respond_to do |format|
       format.json { render json: @location }
     end
@@ -38,6 +40,7 @@ class Api::LocationsController < ApplicationController
       @obs[i].delete("user_id")
       @obs[i].delete("remote_ip")
     }
+    log_api_request("api/locations/reviews",@obs.length)
     respond_to do |format|
       format.json { render json: @location.observations }
     end
@@ -71,6 +74,7 @@ class Api::LocationsController < ApplicationController
       types[t.parent_id] = 0 if types[t.parent_id].nil?
       types[t.parent_id] += t.count
     }
+    log_api_request("api/locations/cluster_types",types.length)
     respond_to do |format|
       format.json { render json: types.collect{ |id,n| {:id => id, :n => n} } }
     end
@@ -134,6 +138,7 @@ class Api::LocationsController < ApplicationController
       v[:pct] = pct 
       v
     }
+    log_api_request("api/locations/cluster",@clusters.length)
     respond_to do |format|
       format.json { render json: @clusters }
     end
@@ -200,6 +205,7 @@ class Api::LocationsController < ApplicationController
        :description => row["description"], :author => row["author"]
       }
     } unless r.nil?
+    log_api_request("api/locations/nearby",@markers.length)
     respond_to do |format|
       format.json { render json: @markers }
     end
@@ -263,6 +269,7 @@ class Api::LocationsController < ApplicationController
     } unless r.nil?
     @markers.unshift(max_n)
     @markers.unshift(found_n)
+    log_api_request("api/locations/markers",@markers.length-2)
     respond_to do |format|
       format.json { render json: @markers }
     end
@@ -297,6 +304,7 @@ class Api::LocationsController < ApplicationController
        :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17, :parent_types => row["parent_types"],
        :marker_anchor => [0,0], :n => 1, :types => row["types"]}
     } unless r.nil?
+    log_api_request("api/locations/marker",1)
     respond_to do |format|
       format.json { render json: @markers }
     end

@@ -168,6 +168,18 @@ class ApplicationController < ActionController::Base
   end
   helper_method :log_changes
 
+  def log_api_request(endpoint,n)
+    a = ApiLog.new
+    a.n = n
+    a.endpoint = endpoint
+    a.params = Base64.encode64(Marshal.dump(params))
+    a.request_method = request.request_method
+    a.ip_address = request.remote_ip
+    a.api_key = params[:api_key] if params[:api_key].present?
+    a.save
+  end
+  helper_method :log_api_request
+
   def number_to_human(n)
     if n > 999 and n <= 999999
       (n/1000.0).round.to_s + "K"

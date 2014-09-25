@@ -11,10 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140924145737) do
+ActiveRecord::Schema.define(:version => 20140925170731) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
+
+  create_table "api_logs", :force => true do |t|
+    t.integer  "n"
+    t.string   "endpoint"
+    t.string   "request_method"
+    t.text     "params"
+    t.string   "ip_address"
+    t.string   "api_key"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "changes", :force => true do |t|
     t.integer  "location_id"
