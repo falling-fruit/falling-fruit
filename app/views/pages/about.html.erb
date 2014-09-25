@@ -45,7 +45,7 @@
   select("COALESCE(#{i18n_name_field}types.name) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms, count(*)").
   group("cname,types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, name, synonyms").order("cname")
   #@lt_count = Location.sum("array_length(type_ids,1)+array_length(type_others,1)")
-  @lt_count = Loction.count # above is better but is slow
+  @lt_count = Location.count # above is better but is slow
 %>
 
 <p>
