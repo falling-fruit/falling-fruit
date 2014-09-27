@@ -34,11 +34,10 @@
     <td><%= user.range.blank? ? "" : "x" %></td>
     <td><%= user.range_updates_email ? "x" : "" %></td>
     <td><%= user.announcements_email ? "x" : "" %></td>
-    <td><%= user.created_at.strftime('%Y-%m-%d') %></td>
-    <td><%= user.confirmed_at ? user.confirmed_at.strftime('%Y-%m-%d') : "" %></td>
+    <td><%= user.created_at.strftime('%Y%m%d') %></td>
+    <td><%= user.confirmed_at ? user.confirmed_at.strftime('%Y%m%d') : "" %></td>
     <td>
       <%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %>
-      |
       <%= link_to 'Switch', switch_user_path(user) %>
     </td>
   </tr>
