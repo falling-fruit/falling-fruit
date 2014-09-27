@@ -140,32 +140,27 @@ class Location < ActiveRecord::Base
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
     loc = Location.new
-    unless type.nil? or type.strip.length == 0
+    unless type.blank?
       type.split(/[;,:]/).each{ |t|
         safer_type = t.squish.tr('^A-Za-z- \'','').capitalize
-        if typehash.nil?
-          types = Type.where("name=?",safer_type)
-        else
-          types = [typehash[safer_type]].compact
-        end
+        types = Type.where("name=?",safer_type)
         if types.count == 0
           nt = Type.new
           nt.name = safer_type
           nt.category_mask = 0 # default is no category per Ethan's request
           nt.save
-          typehash[nt.name] = nt
-          loc.type_ids.push nt.id
+          loc.type_ids.push(nt.id)
         else
-          loc.type_ids.push types.shift.id
+          loc.type_ids.push(types.shift.id)
         end
-        loc.type_ids.uniq!
       }
     end
+    loc.type_ids.uniq!
 
     type_other.split(/[;,:]/).each{ |to|
       loc.type_others.push to
-      loc.type_others.uniq!
-    } unless type_other.nil? or type_other.strip.length == 0
+    } unless type_other.blank?
+    loc.type_others.uniq!
 
     unless lat.blank? or lng.blank?
       loc.lat = lat.to_f
