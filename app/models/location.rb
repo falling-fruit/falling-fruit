@@ -24,7 +24,6 @@ class Location < ActiveRecord::Base
       obj.country = geo.country
     end
   end
-  after_initialize :default_values
   before_validation { |record|
     begin
       record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) 
@@ -89,7 +88,7 @@ class Location < ActiveRecord::Base
     }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
 
-  def types
+  def get_types
     # FIXME: cache this result?
     unless self.type_ids.nil? or self.type_ids.compact.empty?
       Type.where("id IN (#{self.type_ids.compact.join(",")})")
@@ -99,7 +98,7 @@ class Location < ActiveRecord::Base
   end
 
   def type_names
-    (self.types.collect{ |t| t.name }.compact + self.type_others.compact)
+    (self.get_types.collect{ |t| t.name }.compact + self.type_others.compact)
   end
 
   def title
@@ -116,16 +115,11 @@ class Location < ActiveRecord::Base
   end
 
   def scsv_types
-    self.types.collect{ |t| t.name }.compact.join(";")
+    self.get_types.collect{ |t| t.name }.compact.join(";")
   end
 
   def scsv_type_others
     self.type_others.compact.join(";")
-  end
-
-  def default_values
-    self["type_ids"] ||= []
-    self["type_others"] ||= []
   end
 
   #### CLASS METHODS ####

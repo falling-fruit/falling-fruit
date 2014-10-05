@@ -8,7 +8,7 @@ bounce:
 	sudo chmod -R 777 tmp
 	bundle exec rake assets:precompile
 	sudo chown -R www-data:www-data tmp
-	sudo /etc/init.d/thin restart
+	sudo /etc/init.d/thin -C /etc/thin1.9.1/fallingfruit.yml restart
 
 export:
 	#cp export_csv.sql /tmp/
