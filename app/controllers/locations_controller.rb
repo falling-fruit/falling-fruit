@@ -124,6 +124,8 @@ class LocationsController < ApplicationController
   # GET /locations/new.json
   def new
     @location = Location.new
+    @location.type_ids = []
+    @location.type_others = []
     @lat = nil
     @lng = nil
     unless params[:lat].nil? or params[:lng].nil?

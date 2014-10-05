@@ -135,6 +135,8 @@ class Location < ActiveRecord::Base
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
     loc = Location.new
+    loc.type_ids = []
+    loc.type_others = []
     unless type.blank?
       type.split(/[;,:]/).each{ |t|
         safer_type = t.squish.tr('^A-Za-z- \'','').capitalize
