@@ -62,7 +62,7 @@ es:
       - El propietario de esta fuente pidió que se añadió.
       - Esta fuente es en terrenos públicos.
       - Esta fuente está en la propiedad privada, pero puede sobresalir de la tierra pública. Por favor recoja con discreción.
-      - Esta fuente está en la propiedad privada. Por favor, pedir permiso antes de elegir.
+      - Esta fuente está en la propiedad privada. Por favor, pedir permiso antes de coger.
       rating:
       - Pobre
       - Fair
@@ -84,7 +84,7 @@ es:
       - Tengo permiso del propietario para añadir esta fuente
       - Fuente está en suelo público
       - Fuente está en la propiedad privada, pero domina la tierra pública
-      - Fuente está en propiedad privada (preguntar antes de elegir)
+      - Fuente está en propiedad privada (preguntar antes de coger)
       quality: Calidad
       yield: Rendimiento
       season: Temporada
@@ -116,7 +116,7 @@ es:
       source: fuente
       add_to_remove_from: Añadir / eliminar de
       new_route: Nueva Ruta
-      have_you_visited_html: ¿Has visitado esta fuente? Añadir un <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Opina sobre este lugar" id="add_review">comentario</a>
+      have_you_visited_html: ¿Ha visitado esta fuente? Añada un <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Opina sobre este lugar" id="add_review">comentario</a>
       delete_comment: Eliminar comentario
       x_photo: x foto
       status: Estado
@@ -151,7 +151,7 @@ es:
       unknown: Desconocido
       in: en
       by: por
-      you_havent_added_or_reviewed_anything_while_logged_in: Usted haven''t añadido o ha revisado nada (mientras está conectado)
+      you_havent_added_or_reviewed_anything_while_logged_in: Usted no ha añadido o ha revisado nada (mientras está conectado)
       click_here: Haga clic aquí
       locations_added_or_reviewed_by_you_while_logged_in: Ubicaciones añadidos o revisados ​​por usted (mientras está conectado)
       last_visited: Último visitado
@@ -180,9 +180,9 @@ es:
       your_name: Su nombre
       author_subtext: Se muestra en el mapa. Dejar en blanco si prefiere permanecer en el anonimato.
       description_subtext: Detalles de ubicación, problemas de acceso, fitosanitarios ...
-      season_subtext: Cuando se puede cosechar la fuente? Dejar en blanco si no sabes.
+      season_subtext: Cuando se puede cosechar la fuente? Dejar en blanco si no sabe.
       no_season: No temporada
-      access_subtext: Estado de acceso de esta fuente. Dejar en blanco si don''t sabe.
+      access_subtext: Estado de acceso de esta fuente. Dejar en blanco si no sabe.
       description: Descripción
       season: Temporada
       access: Acceso
@@ -208,7 +208,7 @@ es:
       photo: Foto
       photo_subtext: Opcionalmente, subir una foto de la fuente. Si se trata de alguien más "la foto, por favor, asegúrese de que tiene los permisos necesarios y el crédito del fotógrafo en el rubro.
       photo_caption: Pie de foto
-      visted_on: Visitamos en
+      visted_on: Visitó en
     locations_type:
       or: O
   pages:
