@@ -70,6 +70,10 @@ FallingfruitWebapp::Application.routes.draw do
 
   match 'locations/:id/infobox' => 'locations#infobox'
 
+  # these two methods are part of the API but actually live in the normal API controller to keep things DRY
+  match 'api/locations/:id' => 'locations#update', via: [:put]
+  match 'api/locations' => 'locations#create', via: [:post]
+
   namespace :api do
     resources :locations do
       member do
@@ -85,7 +89,6 @@ FallingfruitWebapp::Application.routes.draw do
         get 'nearby'
       end
     end
-
   end
 
   # The priority is based upon order of creation:

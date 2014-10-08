@@ -1,5 +1,8 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_user!, :only => [:destroy,:enroute,:home]
+  before_filter(:only => [:update,:create]) do |controller|
+    authenticate_user! if controller.request.format.json?
+  end
   authorize_resource :only => [:destroy,:enroute]
 
   def expire_things
@@ -197,13 +200,16 @@ class LocationsController < ApplicationController
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
           format.mobile { redirect_to new_location_path, notice: 'Location was successfully created.' }
+          format.json { render json: {"status" => 0, "id" => @location.id} }
         else
           format.html { redirect_to @location, notice: 'Location was successfully created.' }
           format.mobile { redirect_to @location, notice: 'Location was successfully created.' }
+          format.json { render json: {"status" => 0, "id" => @location.id} }
         end
       else
         format.html { render action: "new" }
         format.mobile { render action: "new" }
+        format.json { render json: {"status" => 2, "error" => "Failed to create: #{@location.errors.full_messages.join(";")}" } }
       end
     end
   end
@@ -247,9 +253,11 @@ class LocationsController < ApplicationController
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.mobile { redirect_to @location, notice: 'Location was successfully updated.' }
+        format.json { render json: {"status" => 0} }
       else
         format.html { render action: "edit" }
         format.mobile { render action: "edit" }
+        format.json { render json: {"status" => 2, "error" => "Failed to update" } }
       end
     end
   end

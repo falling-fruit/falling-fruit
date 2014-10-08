@@ -1,6 +1,6 @@
 class Api::LocationsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:mine,:favorite]
+  before_filter :authenticate_user!, :only => [:mine,:favorite,:update]
 
   def mine
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
