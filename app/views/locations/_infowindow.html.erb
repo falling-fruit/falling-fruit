@@ -71,21 +71,24 @@
 <% end %>
 
 <!-- Season -->
-<!-- (use ? to denote nil, brown out of season, green in season) -->
+<!-- (use ? to denote nil [old] or -1 [new], brown out of season, green in season) -->
 <% unless location.no_season %>
-	<% current = Date.today.month.to_i - 1 %>
-	<% season_class = "out_season"	%>
-	<!-- Start - Stop -->
-	<% unless ((location.season_start.nil? or location.season_start < 0) and (location.season_stop.nil? or location.season_start < 0))
+	<% current = Date.today.month.to_i - 1
+	   season_class = "out_season"
+	   start_defined = !(location.season_start.nil? or location.season_start < 0)
+	   stop_defined = !(location.season_stop.nil? or location.season_stop < 0)
+	%>
+	<!-- Start - Stop -->	
+	<% unless (!start_defined and !stop_defined)
 		season_class = "in_season" if (current == location.season_start) or (current == location.season_stop)
-		season_class = "in_season" if (!location.season_start.nil? and !location.season_stop.nil? and 
+		season_class = "in_season" if (start_defined and stop_defined and 
 																		location.season_stop > location.season_start and 
 																		current > location.season_start and current < location.season_stop)
-		season_class = "in_season" if (!location.season_start.nil? and !location.season_stop.nil? and 
+		season_class = "in_season" if (start_defined and stop_defined and 
 																		location.season_stop < location.season_start and 
 																		(current > location.season_start or current < location.season_stop))
-		pretty_start = location.season_start.nil? ? "?" : I18n.t("date.month_names")[location.season_start+1]
-		pretty_stop = location.season_stop.nil? ? "?" : I18n.t("date.month_names")[location.season_stop+1]
+		pretty_start = start_defined ? I18n.t("date.month_names")[location.season_start+1] : "?"
+		pretty_stop = stop_defined ? I18n.t("date.month_names")[location.season_stop+1] : "?"
 		pretty_season = (pretty_start == pretty_stop) ? pretty_start : pretty_start + " - " + pretty_stop
 	%>
   	<label><%= I18n.t("locations.infowindow.season") %></label> <span class="<%= season_class %>"><%= pretty_season %></span><br/>
