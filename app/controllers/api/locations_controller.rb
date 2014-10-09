@@ -130,12 +130,6 @@ class Api::LocationsController < ApplicationController
       end
       v[:n] = c.count
       v[:title] = number_to_human(c.count)
-      v[:marker_anchor] = [0,0]
-      pct = [[(Math.log10(c.count).round+2)*10,30].max,100].min
-      v[:picture] = "/icons/orangedot#{pct}.png"
-      v[:width] = pct
-      v[:height] = pct
-      v[:pct] = pct 
       v
     }
     log_api_request("api/locations/cluster",@clusters.length)
@@ -262,9 +256,7 @@ class Api::LocationsController < ApplicationController
         end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"],
-       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17,
-       :marker_anchor => [0,0], :types => row["types"],
-       :parent_types => row["parent_types"]
+       :types => row["types"],:parent_types => row["parent_types"]
       }
     } unless r.nil?
     @markers.unshift(max_n)
@@ -301,8 +293,7 @@ class Api::LocationsController < ApplicationController
         end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17, :parent_types => row["parent_types"],
-       :marker_anchor => [0,0], :n => 1, :types => row["types"]}
+       :parent_types => row["parent_types"],:n => 1, :types => row["types"]}
     } unless r.nil?
     log_api_request("api/locations/marker",1)
     respond_to do |format|

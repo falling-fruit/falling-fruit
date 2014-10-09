@@ -190,6 +190,7 @@ class LocationsController < ApplicationController
       @obs.author = @location.author
     end
 
+    log_api_request("api/locations/create",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
@@ -244,6 +245,7 @@ class LocationsController < ApplicationController
     lt_update_okay = @location.save
 
     ApplicationController.cluster_decrement(@location)
+    log_api_request("api/locations/update",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
