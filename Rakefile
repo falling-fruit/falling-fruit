@@ -231,6 +231,7 @@ task(:import => :environment) do
          errs.each {|row| csv << row}
        end
      end
+     #FIXME _done should only contain locations imported successfully
      FileUtils.mv "public/import/#{l}", "public/import/#{import_id}_done.csv"
      puts
    } 
