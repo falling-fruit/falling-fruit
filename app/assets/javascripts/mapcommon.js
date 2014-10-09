@@ -168,8 +168,8 @@
       if((skip_ids != undefined) && (skip_ids.indexOf(parseInt(lid)) >= 0)) continue;
       if((lid != undefined) && (find_marker(lid) != undefined)) continue;
       if(!rich){
-        var w = mdata[i]["width"];
-        var h = mdata[i]["height"];
+        var w = 17;
+        var h = 17;
         var wo = parseInt(w/2,10);
         var ho = parseInt(h/2,10);
         if(openMarkerId == lid){
@@ -177,7 +177,7 @@
         }else{
           var m = new google.maps.Marker({
             icon: {
-              url: mdata[i]["picture"],
+              url: '/icons/smdot_t1_red.png',
               size: new google.maps.Size(w,h),
               origin: new google.maps.Point(0,0),
               // by convention, icon center is at ~40%
@@ -201,12 +201,14 @@
           else types_hash[tid] += 1;
         }
       } else {
-        var w = mdata[i]["width"];
-        var h = mdata[i]["height"];
+        var pct = Math.min(Math.max((Math.round(Math.log(mdata[i]["n"])/Math.log(10))+2)*10,30),100);
+        var picture = "/icons/orangedot" + pct + ".png";
+        var w = pct;
+        var h = pct;
         var wo = parseInt(w/2,10);
         var ho = parseInt(h/2,10);
         var m = new RichMarker({
-            content: '<div style="color:black;background:url(' + mdata[i]["picture"] + ');height:'+h+
+            content: '<div style="color:black;background:url(' + picture + ');height:'+h+
                      'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
                      'text-align: center;position:absolute;'+
                      'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+mdata[i]["title"]+'</div>',

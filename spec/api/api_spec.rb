@@ -103,13 +103,60 @@ describe 'api' do
 
   ### THESE METHODS NEED AN AUTHENTICATED USER
 
-  it "can create a location"
-  it "can edit a location"
+  it "can edit a location" do
+    u = create(:user)
+    auth_params = get_auth_params(u)
+    params = {:location => {:description => "this is a test update"},:types => "Apple,Potato,Grapefruit"}
+    put "/api/locations/#{a_location.id}.json", params.merge(auth_params).to_json, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_a(Hash)
+    json["status"].should eq(0)
+    a_location.reload
+    a_location.description.should eq(params[:location][:description])
+    a_location.types.length.should eq(3)
+  end
+
+  it "prevents editing when not authenticated" do
+    params = {:location => {:description => "this is a test update"},:types => "Apple,Potato,Grapefruit"}
+    put "/api/locations/#{a_location.id}.json", params.to_json, json_headers
+    expect(last_response.status).to_not eq(200)
+  end
+
+  it "can create a location" do
+    u = create(:user)
+    auth_params = get_auth_params(u)
+    params = {:location => {:description => "this is a test create",:lat => 41.133745, :lng => -71.524588},
+              :types => "Apple,Potato,Grapefruit"}
+    post "/locations.json", params.merge(auth_params).to_json, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_a(Hash)
+    puts json
+    json["status"].should eq(0)
+    id = json["id"].to_i
+    loc = Location.find(id)
+    loc.description.should eq(params[:location][:description])
+    loc.types.length.should eq(3)
+  end
+
+  it "prevents creation when not authenticated" do
+    params = {:location => {:description => "this is a test update"},:types => "Apple,Potato,Grapefruit"}
+    post "/api/locations.json", params.to_json, json_headers
+    expect(last_response.status).to_not eq(200)
+  end
 
   it "can get info for a users' locations" do
     u = create(:user)
+    a_location.observations.each{ |o| o.user = u }
+    a_location.user = u
+    a_location.save
     auth_params = get_auth_params(u)
     get "/api/locations/mine.json", auth_params, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_an(Array)
+    json.length.should eq(1)
   end
 
   it "can get info for a users' favorite locations"

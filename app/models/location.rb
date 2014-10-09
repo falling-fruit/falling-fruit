@@ -9,7 +9,7 @@ class Location < ActiveRecord::Base
   validates :type_ids, :presence => true, :if => proc{|o| o.type_others.empty? }
   validates :type_others, :presence => true, :if => proc{|o| o.type_ids.empty? }
   validates :lat, numericality: {greater_than_or_equal_to: -85.0, less_than_or_equal_to: 85.0, allow_nil: false}
-  validates :lat, numericality: {greater_than_or_equal_to: -180.0, less_than_or_equal_to: 180.0, allow_nil: false}
+  validates :lng, numericality: {greater_than_or_equal_to: -180.0, less_than_or_equal_to: 180.0, allow_nil: false}
   validates :access, :numericality => { :only_integer => true }, :allow_nil => true
 	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
