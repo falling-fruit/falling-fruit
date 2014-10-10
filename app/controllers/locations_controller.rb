@@ -119,7 +119,6 @@ class LocationsController < ApplicationController
     prepare_from_permalink
     respond_to do |format|
       format.html
-      format.mobile
     end
   end
 
@@ -140,7 +139,6 @@ class LocationsController < ApplicationController
     @cats = params[:c].split(/,/) if params[:c].present?
     respond_to do |format|
       format.html # new.html.erb
-      format.mobile
     end
   end
 
@@ -151,7 +149,6 @@ class LocationsController < ApplicationController
     @lng = @location.lng
     respond_to do |format|
       format.html
-      format.mobile
     end
   end
 
@@ -200,16 +197,13 @@ class LocationsController < ApplicationController
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
-          format.mobile { redirect_to new_location_path, notice: 'Location was successfully created.' }
           format.json { render json: {"status" => 0, "id" => @location.id} }
         else
           format.html { redirect_to @location, notice: 'Location was successfully created.' }
-          format.mobile { redirect_to @location, notice: 'Location was successfully created.' }
           format.json { render json: {"status" => 0, "id" => @location.id} }
         end
       else
         format.html { render action: "new" }
-        format.mobile { render action: "new" }
         format.json { render json: {"status" => 2, "error" => "Failed to create: #{@location.errors.full_messages.join(";")}" } }
       end
     end
@@ -254,11 +248,9 @@ class LocationsController < ApplicationController
         ApplicationController.cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
-        format.mobile { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { render json: {"status" => 0} }
       else
         format.html { render action: "edit" }
-        format.mobile { render action: "edit" }
         format.json { render json: {"status" => 2, "error" => "Failed to update" } }
       end
     end
@@ -273,7 +265,6 @@ class LocationsController < ApplicationController
     expire_things
     respond_to do |format|
       format.html { redirect_to locations_url }
-      format.mobile { redirect_to locations_url }
     end
   end
 

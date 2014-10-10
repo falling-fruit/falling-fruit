@@ -1,7 +1,7 @@
 class Api::LocationsController < ApplicationController
 
   before_filter :authenticate_user!, :only => [:mine,:favorite,:update]
-  before_filter :lookup_api_key
+  before_filter :check_api_key!
 
   def mine
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
@@ -321,10 +321,6 @@ class Api::LocationsController < ApplicationController
     respond_to do |format|
       format.json { render json: @markers }
     end
-  end
-
-  def lookup_api_key
-    @api_key = ApiKey.find_it(params["api_key"])
   end
 
 end

@@ -1,6 +1,5 @@
 class ObservationsController < ApplicationController
   before_filter :authenticate_user!, :only => [:destroy,:delete_photo]
-  #before_filter :prepare_for_mobile, :except => []
   authorize_resource :only => [:destroy,:delete_photo]
 
   def new
@@ -8,7 +7,6 @@ class ObservationsController < ApplicationController
     @obs.location_id = params[:location_id]
     respond_to do |format|
       format.html # new.html.erb
-      format.mobile
     end
   end
 
@@ -32,10 +30,8 @@ class ObservationsController < ApplicationController
       if test and @obs.save
         log_changes(@obs.location,"visited",@obs)
         format.html { redirect_to @obs.location, notice: 'You review was added successfully.' }
-        format.mobile { redirect_to @obs.location, notice: 'You review was added successfully.' }
       else
         format.html { render action: "new" }
-        format.mobile { render action: "new" }
       end
     end
   end
@@ -45,7 +41,6 @@ class ObservationsController < ApplicationController
     @obs.destroy
     respond_to do |format|
       format.html { redirect_to :back }
-      format.mobile { redirect_to :back }
     end
   end
 
@@ -56,7 +51,6 @@ class ObservationsController < ApplicationController
     @obs.save
     respond_to do |format|
       format.html { redirect_to :back }
-      format.mobile { redirect_to :back }
     end
   end
 

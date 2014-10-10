@@ -58,9 +58,8 @@ class ApplicationController < ActionController::Base
   end
   helper_method :mobile_device?
 
-  def prepare_for_mobile
-    session[:mobile_param] = params[:mobile] if params[:mobile].present? and params[:mobile]
-    request.format = :mobile if mobile_device?
+  def check_api_key!
+    @api_key = ApiKey.find_it(params["api_key"])
   end
 
   # assumes not muni increments the not muni clusters
