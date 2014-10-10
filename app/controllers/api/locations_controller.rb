@@ -1,9 +1,10 @@
 class Api::LocationsController < ApplicationController
 
+  respond_to :json
   before_filter :authenticate_user!, :only => [:mine,:favorite,:update]
-  before_filter :check_api_key!
 
   def mine
+    return unless check_api_key!("api/locations/mine")
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
       where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
       order('observations.created_at desc')
@@ -21,6 +22,7 @@ class Api::LocationsController < ApplicationController
   end
 
   def show
+    return unless check_api_key!("api/locations/show")
     @location = Location.find(params[:id])
     @location[:title] = @location.title
     @location[:photos] = @location.observations.collect{ |o|
@@ -33,6 +35,7 @@ class Api::LocationsController < ApplicationController
   end
 
   def reviews
+    return unless check_api_key!("api/locations/reviews")
     @location = Location.find(params[:id])
     @obs = @location.observations
     @obs.each_index{ |i|
@@ -49,6 +52,7 @@ class Api::LocationsController < ApplicationController
 
   # Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
+    return unless check_api_key!("api/locations/cluster_types")
     # Muni API is locked to muni & human
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
@@ -87,6 +91,7 @@ class Api::LocationsController < ApplicationController
   end
 
   def cluster
+    return unless check_api_key!("api/locations/cluster")
     # Muni API is locked to muni & human
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
@@ -150,6 +155,7 @@ class Api::LocationsController < ApplicationController
   end
 
   def nearby
+    return unless check_api_key!("api/locations/nearby")
     # Muni API is locked to muni & human
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
@@ -224,6 +230,7 @@ class Api::LocationsController < ApplicationController
   # Currently keeps max_n markers, and displays filtered out markers as translucent grey.
   # Unverified no longer has its own color.
   def markers
+    return unless check_api_key!("api/locations/markers")
     max_n = 1000
     # Muni API is locked to muni & human
     if !@api_key.nil? and @api_key.api_type == "muni"
@@ -290,6 +297,7 @@ class Api::LocationsController < ApplicationController
   end
 
   def marker
+    return unless check_api_key!("api/locations/marker")
      id = params[:id].to_i
      i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
@@ -297,7 +305,7 @@ class Api::LocationsController < ApplicationController
       string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') as name
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=#{id}
-      GROUP BY l.id, l.lat, l.lng, l.unverified");
+      GROUP BY l.id, l.lat, l.lng, l.unverified")
     @markers = r.collect{ |row|
       row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }

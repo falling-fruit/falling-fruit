@@ -1,9 +1,13 @@
 class LocationsController < ApplicationController
+  respond_to :html
+  respond_to :json, only: [:update,:create]
+
   before_filter :authenticate_user!, :only => [:destroy,:enroute,:home]
   before_filter(:only => [:update,:create]) do |controller|
     authenticate_user! if controller.request.format.json?
   end
   authorize_resource :only => [:destroy,:enroute]
+
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"
@@ -155,6 +159,7 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
+    check_api_key!("api/locations/create") if request.format.json?
     @location = Location.new(params[:location])
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
@@ -212,6 +217,7 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.json
   def update
+    check_api_key!("api/locations/update") if request.format.json?
     @location = Location.find(params[:id])
 
     # prevent normal users from changing author
