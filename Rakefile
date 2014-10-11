@@ -49,7 +49,6 @@ task(:fix_ratings => :environment) do
 end
 
 task(:geocode => :environment) do
-  Geocoder.configure({:always_raise => :all})	
   n = Location.where("lat is null and lng is null").count
   Location.where("lat is null and lng is null").each{ |l|
     begin

@@ -9,7 +9,7 @@ class ApiKey < ActiveRecord::Base
     return true if self.api_type == "internal"
     return true if self.api_type == "muni" and ["api/locations/cluster","api/locations/nearby",
                                                 "api/locations/markers","api/locations/marker","api/locations/show",
-                                                "api/locations/cluster_types"].include? endpoint
+                                                "api/locations/cluster_types","api/locations/types"].include? endpoint
     return false
   end
 

@@ -87,6 +87,7 @@ FallingfruitWebapp::Application.routes.draw do
         get 'mine'
         get 'favorite'
         get 'nearby'
+        get 'types'
       end
     end
   end

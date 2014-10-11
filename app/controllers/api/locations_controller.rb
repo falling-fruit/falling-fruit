@@ -3,6 +3,23 @@ class Api::LocationsController < ApplicationController
   respond_to :json
   before_filter :authenticate_user!, :only => [:mine,:favorite,:update]
 
+  def types
+    if !@api_key.nil? and @api_key.api_type == "muni"
+      params[:c] = "human"
+    end
+    if params[:c].blank?
+      cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    else
+      cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+    end
+    cfilter = "(category_mask & #{cat_mask})>0"
+    @types = Type.select("id,name").where(cfilter)
+    log_api_request("api/locations/types",@types.length)
+    respond_to do |format|
+      format.json { render json: @types }
+    end
+  end
+
   def mine
     return unless check_api_key!("api/locations/mine")
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
@@ -28,6 +45,11 @@ class Api::LocationsController < ApplicationController
     @location[:photos] = @location.observations.collect{ |o|
       o.photo_file_name.nil? ? nil : { :updated_at => o.photo_updated_at, :url => o.photo.url }
     }.compact unless @api_key.api_type == "muni"
+    if @api_key.api_type == "muni" and not @location.import.nil?
+      @location[:source] = {:license => @location.import.license,
+                            :name => @location.import.name,
+      }
+    end
     log_api_request("api/locations/show",1)
     respond_to do |format|
       format.json { render json: @location }
