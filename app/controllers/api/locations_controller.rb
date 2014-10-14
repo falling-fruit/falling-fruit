@@ -280,7 +280,7 @@ class Api::LocationsController < ApplicationController
      i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
       array_agg(t.parent_id) as parent_types, l.type_others,
-      string_agg(coalesce(#{i18n_name_field}t.name,lt.type_other),',') as name
+      string_agg(coalesce(#{i18n_name_field}t.name),',') as name    
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=#{id}
       GROUP BY l.id, l.lat, l.lng, l.unverified");

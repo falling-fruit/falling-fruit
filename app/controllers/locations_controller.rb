@@ -15,7 +15,7 @@ class LocationsController < ApplicationController
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-    @locations = Location.joins("INNER JOIN types ON t.id=ANY(locations.type_ids)").
+    @locations = Location.joins("INNER JOIN types ON types.id=ANY(locations.type_ids)").
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, type_others, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
