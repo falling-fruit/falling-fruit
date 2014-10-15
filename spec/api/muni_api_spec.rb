@@ -1,0 +1,100 @@
+require 'spec_helper'
+
+describe 'mobile_api' do
+
+  ### AUTHENTICATION STUFF
+
+  def json_headers
+    {format: :json, 'CONTENT_TYPE' => 'application/json', 'HTTPS' => 'on' }
+  end
+
+  subject(:a_location) { create(:location_with_observation) }
+
+  it "can get type cluster data" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    bounds = 'nelat=70.95969447189823&nelng=128.67188250000004&swlat=-23.241353692881138&swlng=132.18750749999998&'
+    get "/api/locations/cluster_types.json?grid=4&#{bounds}&api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_an(Array)
+  end
+
+  it "can get data for one location" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    get "/api/locations/#{a_location.id}.json&api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_a(Hash)
+  end
+
+  it "can get cluster data" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    bounds = 'nelat=70.95969447189823&nelng=128.67188250000004&swlat=-23.241353692881138&swlng=132.18750749999998'
+    get "/api/locations/cluster.json?method=grid&grid=2&#{bounds}&api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_an(Array)
+  end
+
+  it "can get marker data" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    bounds = 'nelat=39.995268865220254&nelng=-105.2207126204712&swlat=39.98579953528965&swlng=-105.26422877952882'
+    get "/api/locations/markers.json?muni=1&#{bounds}&api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_an(Array)
+  end
+
+  it "can get info for nearby locations" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    loc = 'lat=39.991106&lng=-105.247455'
+    get "/api/locations/nearby.json?#{loc}&api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_an(Array)
+  end
+
+  it "can get subsequent pages of nearby locations" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    loc = 'lat=39.991106&lng=-105.247455'
+    get "/api/locations/nearby.json?#{loc}&api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_an(Array)
+    # check that pagination does something
+    get "/api/locations/nearby.json?#{loc}&offset=100&api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json2 = JSON.parse(last_response.body)
+    json2.should be_an(Array)
+    #json[0][:id].should_not eq(json2[0][:id])
+  end
+
+  # NEGATIVE TESTS
+
+  it "cannot get review info for a location" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    get "/api/locations/#{a_location.id}/reviews.json?api_key=#{api_key.api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_a(Hash)
+    json["error"].should_not be_nil
+  end
+
+  it "cannot get marker data with a bad key" do
+    api_key = "FOOBAR"
+    bounds = 'nelat=39.995268865220254&nelng=-105.2207126204712&swlat=39.98579953528965&swlng=-105.26422877952882'
+    get "/api/locations/markers.json?muni=1&#{bounds}&api_key=#{api_key}", {}, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_a(Hash)
+    json["error"].should_not be_nil
+  end
+
+  it "prevents creation when not authenticated" do
+    api_key = ApiKey.find_by_name('Hummingbird')
+    params = {:location => {:description => "this is a test update"},:types => "Apple,Potato,Grapefruit"}
+    post "/api/locations.json?api_key=#{api_key.api_key}", params.to_json, json_headers
+    expect(last_response.status).to_not eq(200)
+  end
+
+end

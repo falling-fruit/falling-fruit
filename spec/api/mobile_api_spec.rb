@@ -172,33 +172,4 @@ describe 'mobile_api' do
 
   it "can get info for a users' favorite locations"
 
-  # ex.:
-
-  #it 'can add a picture' do
-  #  auth_params = get_auth_params(driver)
-  #  donation = driver.routes.first.donations.first
-  #  file = File.open(Rails.root.join('spec', 'fixtures', 'test.jpg'))
-  #  params = {photos:[{data:"FOO,"+Base64.encode64(file.read),receipt_worthy:true,name:'test.jpg',type:'image/jpg'}]}
-  #  file.close
-  #  post "/donations/#{donation.id}/add_photos.json", params.merge(auth_params).to_json, json_headers
-  #  last_response.should be_ok
-  #  json = JSON.parse(last_response.body)
-  #  json["status"].should eq(0)
-  #  donation.photos.length.should eq(1)
-  #end
-
-  #it 'can update a drop' do
-  #  auth_params = get_auth_params(driver)
-  #  drop = driver.routes.first.drops.first
-  #  params = {rescuer_released_at:"10am",route_final_position:42,lat:100.0,lng:120.0}
-  #  put "/drops/#{drop.id}.json", params.merge(auth_params).to_json, json_headers
-  #  last_response.should be_ok
-  #  json = JSON.parse(last_response.body)
-  #  json["status"].should eq(0)
-  #
-  #  drop = Drop.find(drop.id)
-  #  drop.route_final_position.should eq(42)
-  #  drop.rescuer_released_at.strftime("%H%M").should eq(DateTime.parse("10am").strftime("%H%M"))
-  #end
-
 end
