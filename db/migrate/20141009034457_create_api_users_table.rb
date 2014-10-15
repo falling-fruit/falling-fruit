@@ -7,7 +7,7 @@ class CreateApiUsersTable < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
-    [["internal","WebApp","EEQRBBUB"],["internal","MobileApp","PHKSXDIO"],["muni","Hummingbird","ZSOIPVFX"]].each{ |type,name,key|
+    [["internal","WebApp","EEQRBBUB"],["internal","MobileApp",nil],["muni","Hummingbird",nil]].each{ |type,name,key|
       k = ApiKey.new
       k.api_type = type
       k.name = name
