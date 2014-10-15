@@ -3,6 +3,7 @@ class Api::LocationsController < ApplicationController
   respond_to :json
   before_filter :authenticate_user!, :only => [:mine,:favorite,:update]
 
+  # API endpoint to give access to types list
   def types
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:c] = "human"
