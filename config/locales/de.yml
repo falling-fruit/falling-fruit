@@ -46,8 +46,8 @@ de:
         add_source: + Quelle hinzufügen
         sign_up: Anmelden
       or_right-click_on_map: (order Rechtsklick auf der Karte)
-      unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, die von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
-      pending_types_help: Wir bewerten alle Arten auf ihre Essbarkeit, um die Karte strukturiert und durchsuchbar zu halten. Neuartige, von den Benutzern ergänzte Arten werden sind hängig markiert, bis sie entweder als eine neue Art zugelassen oder einer in der Taxonomie vorhandenen Art zugeordnet werden. In seltenen Fällen, wenn die Eingabe entweder zu zufällige oder vage ist um eine eigene Art zu rechtfertigen, bleibt der Eintrag auf der Karte in einem nicht genehmigten Zustand.
+      unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, insbesondere wenn sie von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
+      pending_types_help: Wir bewerten alle Arten auf ihre Geniessbarkeit, um die Karte strukturiert und durchsuchbar zu halten. Neuartige, von den Benutzern ergänzte Arten werden sind als 'hängig' markiert, bis sie entweder als eine neue Art zugelassen oder einer in der Taxonomie vorhandenen Art zugeordnet werden. In seltenen Fällen, wenn die Eingabe entweder zu willkürlich oder vage ist um eine eigene Art zu rechtfertigen, bleibt der Eintrag auf der Karte in einem nicht genehmigten Zustand.
       copyleft: Copyleft
   locations:
     infowindow:
@@ -61,8 +61,8 @@ de:
       - Diese Quelle wurde von dem Eigentümer hinzugefügt.
       - Der Besitzer dieser Quelle erlaubt, dass sie hinzugefügt wird.
       - Diese Quelle ist auf öffentlichem Grund.
-      - Diese Quelle ist auf einem privaten Grundstück, kann aber öffentliche Flächen überragen. Bitte ernte mit Zurückhaltung.
-      - Diese Quelle ist auf einem privaten Grundstück. Bitte frag um Erlaubnis, bevor du erntest.
+      - Diese Quelle ist auf einem privaten Grundstück, kann aber öffentliche Flächen überragen. Bitte pflücke mit Zurückhaltung.
+      - Diese Quelle ist auf einem privaten Grundstück. Bitte frag um Erlaubnis, bevor du pflückst.
       rating:
       - Schlecht
       - Mässig
@@ -84,7 +84,7 @@ de:
       - Ich habe die Erlaubnis des Eigentümers, diese Quelle hinzufügen
       - Quelle ist auf öffentlichem Grund
       - Quelle ist auf einem privaten Grundstück, überragt aber öffentlichen Flächen
-      - Quelle ist auf einem privaten Grundstück (bitte um Erlaubnis fragen)
+      - Quelle ist auf einem privaten Grundstück (zum Pflücken um Erlaubnis fragen)
       quality: Qualität
       yield: Ausbeute
       season: Saison
@@ -116,12 +116,12 @@ de:
       source: Quelle
       add_to_remove_from: Hinzufügen / entfernen
       new_route: Neue Route
-      have_you_visited_html: Hast du diese Quelle besucht? Ein In <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Bewerten Sie diesen Standort" id="add_review">Kritik</a>
+      have_you_visited_html: Hast du diese Quelle besucht? Füge eine <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Bewerten Sie diesen Standort" id="add_review">Füge eine Bewertung </a> hinzu.
       delete_comment: Kommentar löschen
       x_photo: x Foto
       status: Status
       unsure_other: Unklar/Anderes
-      toggle_route_controls: Toggle Route Kontrollen
+      toggle_route_controls: Routen-Kontrolle umschalten
     searchbar:
       link: Link
       embed: Embed
@@ -133,37 +133,37 @@ de:
       zoom_to_me: Zoom zu mir
       filter: Filter
       labels: Etiketten
-      tree_inventories: Baumbestände
-      tree_inventories_modal: Bauminverntare werden durch in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden in der Regel durch ausgebildetes Personal gesammelt und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich unserer Karte hinzu. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
+      tree_inventories: Bauminventare
+      tree_inventories_modal: Bauminverntare werden in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden meistens durch ausgebildetes Personal erhoben und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich in unsere Karte ein. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
       download: Download
       select_edible_type: Wähle essbare Art
     sidebar:
       activity: Aktivität
       favorites: Favoriten
       routes: Routen
-      you_havent_defined_html: Du hast noch keinen persönlichen Ernte-Radius definiert. <a href="/users/edit">Klicken Sie hier</a> , um das jetzt zu tun
+      you_havent_defined_html: Du hast noch keinen persönlichen Ernte-Radius definiert. Klicke <a href="/users/edit">hier</a> um das jetzt zu tun.
       changed_within_html: Veränderungen in deinem <a href="/users/edit">Ernte-Radius</a>
       last_24_hours: Letzte 24 Stunden
       this_week: Diese Woche
-      this_month: Dieser Monat
+      this_month: Diesen Monat
       last_month: Im letzten Monat
       months_ago: Vor wenigen Monaten
       unknown: Unbekannt
       in: in
       by: durch
-      you_havent_added_or_reviewed_anything_while_logged_in: Du hast nicht geändert oder überprüft (während du eingeloggt warst)
+      you_havent_added_or_reviewed_anything_while_logged_in: Du hast nichts geändert oder überprüft (während du eingeloggt warst)
       click_here: Klicke hier
       locations_added_or_reviewed_by_you_while_logged_in: Hinzugefügte oder von dir überprüfte Standorte (während du eingeloggt warst)
       last_visited: Zuletzt besucht
-      click_here_to_manage_your_routes_html: Klicke hier <a href="%{routes_path}">hier</a> , um deine Routen zu verwalten
+      click_here_to_manage_your_routes_html: Klicke <a href="%{routes_path}">hier</a> , um deine Routen zu verwalten
       public: Öffentlich
       locations: Standorte
       last_updated: Zuletzt aktualisiert
       ago: vor
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Du hast noch keine Ernte-Routen hinzugefügt. Klicke auf eine Quelle und klicke dann auf '' Strecken '' um eine Route zu erstellen.
     index:
-      splash_html: Falling Fruit ist eine riesige, user-generierte Karte der urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler' zeigt unsere Karte weltweit zu bereits einer halben Million Standorten, an denen Essbares wächst oder gratis erhältlich ist (von Pflanzen und Pilzen zu Brunnen und Müllcontainern). Unsere stetig wachsende User-Community ist unermüdlich dabei, wertvolle Standorte zu erkunden oder zu bearbeiten, um sie der Karte hinzuzufügen. <br/><br/> Hilf uns, den vernachlässigten Reichtum an unseren Strassen zu Leben zu erwecken! Verwende die Website anonym oder <a href="/users/sign_up">melde dich</a> als Benutzer an, um sämtliche Funktionen nutzen zu können.
-      freegan_splash_html: Zusätzlich zu unseren Bemühungen, <a href="/"> die essbaren Pflanzen der Städte zu kartieren</a>, möchten wir am liebsten auch alle Container erfassen, in denen so oft noch verwendbare Lebensmittel landen. Fast 50% aller in der entwickelten Welt produzierten Lebensmittel werden nie gegessen. Wir hoffen, mit unseren Bemühungen das Bewusstsein um dieses Problem zu erhöhen und die Rettung von übeflüssig weggeworfenen Nahrungsmitteln zu erleichtern. Zudem möchten wir Unternehmen dazu ermutigen <a href=\"/sharing\">, solche Nahrungsmittel gemeinnützigen Organisation zu spenden</a> statt sie in der Mülltonne zu deponieren. <br><br> Und weil wir weiter überzeugt sind, dass allgemein weniger weggeworfen werden sollte, ermutigen wir die Kartierung aller Standorte, an denen weggeworfene aber noch brauchbare Güter erhältlich sind (Müllcontainer, Gratis-zum-Mitnehmen Kisten etc.). Essbar oder nicht! 
+      splash_html: Falling Fruit ist eine riesige, user-generierte Karte der urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler' zeigt unsere Karte weltweit bereits zu einer halben Million Standorten, an denen Essbares wächst oder gratis erhältlich ist (von Pflanzen und Pilzen zu Brunnen und Müllcontainern). Unsere stetig wachsende User-Community ist unermüdlich dabei, wertvolle Standorte zu erkunden oder zu bearbeiten, um sie der Karte hinzuzufügen. <br/><br/> Hilf uns, den vernachlässigten Reichtum an unseren Strassen zum Leben zu erwecken! Verwende die Website anonym oder melde dich als <a href="/users/sign_up">Benutzer</a> an, um sämtliche Funktionen nutzen zu können.
+      freegan_splash_html: Zusätzlich zu unseren Bemühungen, <a href="/"> alle essbaren Pflanzen in den Städten </a> zu kartieren, möchten wir am liebsten auch alle Container erfassen, in denen so oft noch brauchbare Lebensmittel landen. Fast 50% aller in der entwickelten Welt produzierten Lebensmittel werden nie gegessen. Wir hoffen, mit unseren Bemühungen das Bewusstsein um dieses Problem zu erhöhen und die Rettung von übeflüssig weggeworfenen Nahrungsmitteln zu erleichtern. Zudem möchten wir Unternehmen dazu ermutigen, solche Nahrungsmittel <a href=\"/sharing\">gemeinnützigen Organisation zu spenden</a> statt sie in der Mülltonne zu deponieren. <br><br> Und weil wir weiter überzeugt sind, dass allgemein weniger weggeworfen werden sollte, ermutigen wir die Kartierung aller Standorte, an denen weggeworfene aber noch brauchbare Güter erhältlich sind (Müllcontainer, Gratis-zum-Mitnehmen Kisten etc.). Essbar oder nicht! 
       stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> . Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a> .
     embed:
       add_source: Quelle hinzufügen
@@ -214,40 +214,42 @@ de:
   pages:
     about:
       give_us_money: Wir sind eine komplett auf frewilliger Basis betriebene gemeinnützige Organisation und sind auf Spenden angewiesen, um diese Seite aufrecht zu halten. Falls du die Möglichkeit hast einen finanziellen Beitrag zu leisten, sind wir dir herzlich dankbar!
-      contact_us_html: Diese Website wurde von und für Sammlerinnen gebaut - wir wollen, das es das beste Werkzeug für den urbanen Jäger und Sammler wird. Schreib uns! <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a> wir würden uns freuen, von dir zu hören!
+      contact_us_html: >
+                     Diese Website wurde von und für Sammlerinnen gebaut - wir wollen, das es das beste Werkzeug für den urbanen Jäger und Sammler wird. Schreib uns: <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a> Wir freuen uns, von dir zu hören!
       about_the_site: Über diese Seite
       celebration: >
                  Falling Fruit zelebriert den vergessenen Reichtum auf den Strassen der Städte weltweit. Wir wollen diese Ressource quantifizieren - um auch in den urbanen Lebensräumen wieder eine nähere Verbindung der Menschen mit ihrer natürlichen Umgebung herzustellen. Es geht nicht nur um ein kostenloses Mittagessen! Nahrungssuche im 21. Jahrhundert ist eine Chance, unser urbanes Umfeld zu erforschen, den grauen Betonwüsten den Kampf anzusagen und sich mit der botanischen Herkunft unserer Lebensmittel auseinander zu setzen.
       join_us_html: >
-                  Wir setzen auf lokal und essbar - mach mit! Die <a href="/">Karte</a> kann von jederman und jederfrau bearbeitet werden, die Datenbank kannst <a href="/data">du mit </a> nur einem Klick herunterladen und <a href="https://github.com/somerandomsequence/falling-fruit">der Code</a> ist Open-Source. Wir wollen dich auch dazu ermutigen, deine Ernte mit Anderen zu teilen. Unsere <a href="/sharing">Sharing Seite</a> listet hunderte von lokalen Organisationen auf, die sich eine Bessere Verteilung von Lebensmitteln zum Ziel gesetzt hat: Weltweit werden Gemeinschaftsgärten aufgebaut, Lebensmittel eingesammelt, die sonst weggeworfen würden, Früchte in privaten Gärten geerntet, wo die Besitzer keine Lust dazu haben. Teile mit deinen Nachbarn und Bedürftigen!
-      more_about_html: Unsere Karte der urbanen Ernte ist nicht die Erste ihrer Art, aber wir haben uns zum Ziel gesetzt, die weltweit umfassenste Datenbank zu bieten. Während unsere Nutzer täglich eigene Standorte hinzufügen, durchsuchen wir das Internet nach bereits bestehenden Datenquellen. Nur so können wir das Wissen Aller vereinen! Die <a href=\"/datasets\">importierten Datensätzen</a> reichen von kleinen Quartier-Datensätzen zu riesigen Zusammenstellungen von Bauminventaren ganzer Städte. Bis heute sind so %{types} verschiedene essbare Arten (die meisten - aber nicht alle - pflanzlich) an über %{locations} Standorten zusammengekommen. Vom Kultivierten und Alltäglichen zu exotischen ausländischen Pflanzen oder den längst vergessenen Verwendungen einheimischer Pflanzen - die Suche nach Nahrungsmitteln in unseren urbanen Lebensräumen ist nicht selten auch einfach eine ganz spannende Reise durch verschiedene Kulturen und Zeiten.
+                  Wir setzen auf lokal und essbar - mach mit! Die <a href="/">Karte</a> kann von jederman und jederfrau bearbeitet werden,die <a href="/data">Datenbank</a> kannst du mit nur einem Klick herunterladen und <a href="https://github.com/somerandomsequence/falling-fruit">unser Code</a> ist Open-Source. Wir wollen dich auch dazu ermutigen, deine Ernte mit Anderen zu teilen. Unsere <a href="/sharing">Sharing-Seite</a> listet hunderte von lokalen Organisationen, die sich eine Bessere Verteilung von Lebensmitteln zum Ziel gesetzt haben: Weltweit werden Gemeinschaftsgärten aufgebaut, Lebensmittel eingesammelt, die sonst weggeworfen würden, Früchte in privaten Gärten geerntet, wo die Besitzer keine Lust dazu haben. Teile mit deinen Nachbarn und Bedürftigen!
+      more_about_html: Unsere Karte der urbanen Ernte ist nicht die Erste ihrer Art, aber wir haben uns zum Ziel gesetzt, die weltweit umfassenste Datenbank zu bieten. Während unsere Nutzer täglich eigene Standorte hinzufügen, durchsuchen wir das Internet nach bereits bestehenden Datenquellen. Nur so können wir das Wissen Aller vereinen! Die <a href=\"/datasets\">importierten Datensätze</a> reichen von kleinen Quartier-Datensätzen bis zu riesigen Zusammenstellungen von Bauminventaren ganzer Städte. Bis heute sind so %{types} verschiedene essbare Arten (die meisten - aber nicht alle - pflanzlich) an über %{locations} Standorten zusammengekommen. Vom Kultivierten und Alltäglichen zu exotischen ausländischen Pflanzen oder den längst vergessenen Verwendungen einheimischer Pflanzen - die Suche nach Nahrungsmitteln in unseren urbanen Lebensräumen ist nicht selten auch einfach eine ganz spannende Reise durch verschiedene Kulturen und Zeiten.
       about_us: Über uns
-      caleb_bio_html: Caleb ist ein federloser, humanoider Zweibeiner der sein Leben dazu verschrieben hat, mehr Gerechtigkeit in die Nahrungsmittel-Verteilung zu bringen und stets versucht, mit modernsten Technologien auf kreative Art und Weise auf soziale Themen aufmerksam zu machen. Wenn er nicht gerade mit seinem Rad durch die Geographie kurvt und Bäume beäugt, teilt er seine Zeit zwischen der <a href="http://cs.colorado.edu">Universität von Colorado</a> , wo er als Informatik Professor arbeitet - hauptsächlich als Berater für die Kartierung von Mobilnetz Abdeckungen - und verschiedenen anderen gemeinnützigen Organisationen auf ( <a href="http://www.growbiointensive.org/">Ökologie-Aktion</a> in der San Francisco Bay Area, <a href="http://boulderfoodrescue.org">Boulder Lebensmittel-Rettung</a> in Boulder, Colorado). Neben dem ganzen Arbeits-Zeugs mag er es am liebsten, wenn Fels unter die Finger kriegt, Wanderwegen entlang rennen kann, Zeit zum Radfahren findet oder mindestens den Kopf an die frische Luft bringt.
-      ethan_bio_html: Von Apfelweinen zu Fruchtbieren, von Marmelade zu <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> , Ethan findet in der Datenbank aller Bäume und Büsche in seiner Nachbarschaft (und seiner klapprigen Apfelpresse) stets neue kulinarische Inspirationen. Wohnhaft in Boulder, wo er seine Zeit im Rahmen seiner Doktorarbeit an der -<a href="http://instaar.colorado.edu/people/ethan-welty/">Universität von Colorado</a> Karten, Daten und Zeitraffersequenzen schmelzender Gletscher widmet, trifft man ihn nicht selten weit weg von zu Hause an, wenn er sich auf einer neuen Reise irgendwo quer durch die Landschaft plaudert, wandert, isst und fotografiert.
-      jeff_bio_html: Seit der Ernte schwarz und Blaubeeren mit der Familie als Kind und, in jüngerer Zeit, zu bemerken, den Reichtum der öffentlichen Obstbäumen in ganz Colorado, hat Jeff eine tiefe Wertschätzung für die Fülle der Obstanbau in unseren Städten entwickelt. Seine erste Mission für Falling Obst war, Boulder und Salt Lake City, Papierkarten in Hand kämmen, um Obstbäume zu erfassen. Wenn er nicht arbeitet, um Energieeffizienz von Gebäuden zu verbessern, wird er in der Regel helfen, die in der Gemeinde oder schnell bewegt über Berge zu Fuß, mit Ski oder Fahrrad.
-      closing_remarks: Schlusswort
-      closing_remarks_para1_html: Fallende Frucht ist eine 501 (c) 3 (steuerfrei) gemeinnützige Organisation in Boulder, Colorado registriert. Als Ergebnis, Spenden innerhalb der Vereinigten Staaten sind steuerlich absetzbar. Sie können unsere überprüfen <a href="/501c3.pdf">Brief von Befreiung</a> von der IRS und überprüfen unsere Position mit der <a href="http://www.sos.state.co.us/biz/BusinessEntityDetail.do?quitButtonDestination=BusinessEntityResults&nameTyp=ENT&entityId2=20141104200&srchTyp=ENTITY&fileId=20141104200&masterFileId=20141104200">Colorado Staatssekretär</a> . Ebenfalls erhältlich sind unsere aktuellen EZB- <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">Satzung</a> und der öffentlichen Vorstandssitzung <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">Minuten</a> . Unsere offizielle Postanschrift Postfach 284, Boulder, CO, 80306, USA.
-      closing_remarks_para2_html: Ernte Essen in einem städtischen Umfeld kommt mit gewissen praktischen und moralischen Überlegungen. Eine Einführung in die Ethik der städtischen Nahrungssuche, empfehlen wir die ausgezeichnete Zusammenfassung auf unserer Website Geschwister - Portland, Oregon "s <a href="http://urbanedibles.org/project/ethics">Stadt Edibles</a> .
-      closing_remarks_para3_html: Die meisten der Futtersuche Karten wanderten in fallenden Früchte wurden auf öffentlichen Google Maps Seiten, auf denen es viel zu leicht versehentlich bewegen Marker gehostet. Wenn eine Adresse in einer Beschreibung versehen nicht mit der Lage auf der Karte, der Marker wurde wahrscheinlich versehentlich auf die ursprüngliche Karte verschoben. Bitte aktualisieren Sie die Standorte dieser Marker entsprechend, wenn die Feldbesichtigung bestimmt die Adresse (und nicht der abgebildete Ort) korrekt zu sein.
-      closing_remarks_para4_html: Kommunale Baumbestände werden erst nach und nach aktualisiert werden (wenn überhaupt) als Bäume werden für die Wartung besucht. Nutzer-und Gemeindedaten können mehrere Jahre alt oder schlicht falsch, so vorbereitet, um rätselhafte Ungenauigkeiten im Bereich begegnen werden. Letztlich liegt es in Ihrer Verantwortung, um die Identität, Genießbarkeit, und die Lage einer Anlage zu bestimmen.
+      caleb_bio_html: Caleb ist ein federloser Wandervogel der sich seit jeher für eine fairere Verteilung von Lebensmitteln engagiert und immer darauf bedacht ist, mit moderner Technologie und kreativen Methoden auf soziale Themen aufmerksam zu machen. Wenn er nicht gerade mit seinem Rad durch die Geographie kurvt und Bäume beäugt, teilt er seine Zeit zwischen seiner Informatik Professur an der <a href="http://cs.colorado.edu">Universität von Colorado</a>, seiner Tätigkeit als Berater in Sachen Kartierung von Mobilnetzabdeckungen und verschiedenen gemeinnützigen Organisationen auf. ( <a href="http://www.growbiointensive.org/">Ecology Action</a> in der San Francisco Bay Area, <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> in Boulder, Colorado). Neben dem ganzen Arbeits-Zeugs mag er es am liebsten, wenn Fels unter die Finger kriegt, Wanderwegen entlang rennen kann, Zeit zum Radfahren findet oder mindestens den Kopf an die frische Luft strecken kann.
+      ethan_bio_html: Von Apfelweinen zum Fruchtbier, von der Marmelade zum <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> , Ethan findet in der Datenbank aller Bäume und Büsche in seiner Nachbarschaft (und seiner klapprigen Apfelpresse) stets neue kulinarische Inspirationen. Er lebt in Boulder,Co, wo er seine Zeit im Rahmen seiner Doktorarbeit an der <a href="http://instaar.colorado.edu/people/ethan-welty/">Universität von Colorado</a> unmengen von Daten, Karten und Zeitraffersequenzen schmelzender Gletscher widmet. Man trifft ihn aber häufig weit weg von zu Hause an, wenn er sich auf einer neuen Reise irgendwo quer durch die Landschaft plaudert, wandert, isst und fotografiert.
+      jeff_bio_html: Auf der Suche nach Heidelbeeren, Himbeeren und Brombeeren durfte Jeff schon als Kind stundenlang durch die Wälder streuen. Seit geraumer Zeit hat er sich nun den urbaneren Standorten gewidmet und für Falling Fruit tagelang die Strassen von Boulder und Salt Lake City auf der Suche nach Obstbäumen und Beerensträuchern abgeklappert. Am Schreibtisch widmet er sich der Verbesserung der Energieeffizienz von Gebäuden, nebenher investiert er gerne viel Zeit in gemmeinnützige Öffentlichkeitsarbeit oder überquert zu Fuss, zu Rad oder zu Ski die Berge in seiner Umgebung. 
+      closing_remarks: Abschliessende Bemerkungen
+      closing_remarks_para1_html: > 
+                                Falling Fruit ist als steuerfreie gemeinnützige Organisation in Boulder, Colorado registriert(nach Amerikanischem Recht: 501(c)3 (steuerfrei)). Spenden innerhalb der Vereinigten Staaten können von den Steuern abgezogen werden. Überprüfe unsere <a href="/501c3.pdf">Steuerbefreiung</a> von der IRS. Weitere Details sind auch beim <a href="http://www.sos.state.co.us/biz/BusinessEntityDetail.do?quitButtonDestination=BusinessEntityResults&nameTyp=ENT&entityId2=20141104200&srchTyp=ENTITY&fileId=20141104200&masterFileId=20141104200">Staatssekretär</a> von Colorado einsehbar. Unsere <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">Statuten</a> und die <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">Protokolle</a> der Vorstandssitzungen sind ebenfalls öffentlich. Unsere offizielle Postanschrift ist Falling Fruit PO Box 284, Boulder, CO, 80306, USA.
+      closing_remarks_para2_html: In urbanen Räumen Essbares zu Ernten verlangt gewisse praktische und moralische Überlegungen. Eine ausgezeichnete Zusammenfassung zu diesem Thema findest du bei unserer Schwester-Organisation aus Portland, Oregon <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
+      closing_remarks_para3_html: Viele der Daten die in unsere Homepage integriert wurden, wurden ursprünglich auf öffentlichen Google Maps Seiten erstellt. Darauf war das versehentliche Verschieben eines Markers sehr einfach. Falls du Standorte entdeckst, dessen Adresse nicht mit dem Standort des Markers übereinstimmt bitten wir dich, falls du die Situation vor Ort überprüfen kannst, dies auf unserer Karte zu korrigieren!
+      closing_remarks_para4_html: Kommunale oder staatliche Bauminventare werden in der Regel nur langsam aktualisiert (wenn überhaupt). Sowohl Gemeinde- als auch User-generierte Daten können mehrere Jahre alt oder schlicht falsch sein, es kann also immer sein, dass du im Feld nicht das antriffst, was du vermutet hattest. Letztlich liegt es in deiner Verantwortung, die Identität, Genießbarkeit und den Standort einer Quelle zu bestimmen.
     data:
-      intro: Fallende Obst auf öffentliche Daten und der Großzügigkeit der Stadtsammlerinnen bereit sind, ihre Funde mit anderen zu teilen gebaut. Wir wollen städtische Nahrungsquellen, so viele Menschen wie möglich zu erreichen, und wir glauben, dass jeder den gleichen Zugang zu den Früchten unserer Tarif haben. Im Geiste der Open Data, siehe! Die gesamte Datenbank
+      intro: Falling Fruit baut auf öffentliche Daten und der Großzügigkeit der urbanen Jäger und Sammler, die bereit sind, ihre Quellen mit einer breiten Öffentlichkeit zu teilen. Wir wollen städtische Nahrungsquellen so vielen Menschen wie möglich zugänglich machen, und wir glauben, dass jeder den gleichen Zugang zu den Früchten unserer Arbeit haben sollte. Ein hoch auf Open Source Daten!  Die gesamte Datenbank
       last_updated: zuletzt aktualisiert
-      data_unavailable_html: Derzeit Daten nicht verfügbar ist. Prüfen Sie später wieder oder <a href="mailto:info@fallingfruit.org">kontaktieren Sie uns</a> .
-      beware_html: Aber Vorsicht. Sobald unkomprimiert, wird die Daten eine riesige Datei, die die meisten Tabellenkalkulationssoftware zu implodieren verursacht. Nur die Interessenten in die Manipulation der Daten in es''s Gesamtheit müssen diesen Weg zu gehen. Für die meisten ist eine bessere Alternative, um selektiv Sehenswürdigkeiten mit Hilfe der in den integrierten Download-Tool abrufen <a href="/">Karte</a> .
-      license_html: Wenn Sie Interesse an der Nutzung der Daten in das eigene Projekt, insbesondere für kommerzielle Anwendungen sind, empfehlen wir Ihnen, uns (Kontaktadresse <a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a> ). Wenn nicht anders angegeben, werden die Daten unter einer Lizenz <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons (Namensnennung, nicht-kommerziellen, Share-Alike)</a> -Lizenz. Dies bedeutet, dass Sie frei zu verwenden und zu verbreiten, die Daten so lange, wie Sie den ursprünglichen Autor / Quelle honorar erhalten und verwenden Sie es nicht (ohne Genehmigung) für kommerzielle Anwendungen. Der Quellcode für Falling Fruit ist auch offen. Weitere Details auf, dass kann auch gefunden werden <a href="https://github.com/somerandomsequence/falling-fruit">unsere Github-Repository</a> .
-      caveat_emptor_html: Es sollte selbstverständlich, dass wir keine Verantwortung für die Richtigkeit der Daten gehen - ist vorgesehen, wie es ist, <i>Gewährleistungsausschluss.</i> Wenn Sie etwas cool mit den Daten zu tun, bitte <a href="mailto:feedback@fallingfruit.org">lassen Sie uns wissen</a> !
-      summary_of_sources: Zusammenfassung der Quellen
-      common_name: Gemeinsamen Namen
+      data_unavailable_html: Daten zurzeit nicht verfügbar. Schau später wieder vorbei oder <a href="mailto:info@fallingfruit.org">schreib uns</a> .
+      beware_html: Aber Vorsicht! Sobald die Daten nicht mehr komprimiert sind, impolideren die meisten Tabellen-Softwares ab der Datenmenge! Nur wer daran interessiert ist, mit der gesammten Datenmenge zu arbeiten, sollte diesen Weg gehen. Für die meisten ist es eine bessere Alternative, selektiv die gewünschten Daten mit Hilfe des in die <a href="/">Karte</a> integrierten Download-Tools herunter zu laden.
+      license_html: Wenn du die Daten für ein eigenes Projekt nutzen möchtest, insbesondere für kommerzielle Anwendungen, bitten wir dich uns zu kontaktieren (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a> ). Wenn nicht anders angegeben, sind die Daten unter einer <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons (Attribution, Non-commercial, Share-alike)</a> -Lizenz lizensiert. Dies bedeutet, dass sie frei verwendet und verbreitet werden können, solange der ursprünglichen Autor / Quelle dafür entschadigt wird und die Daten nicht (ohne Genehmigung) für kommerzielle Zwecke eingesetzt werden. Der Quellcode für Falling Fruit ist ebenfalls öffentlich. Weitere Details können auf unserem <a href="https://github.com/somerandomsequence/falling-fruit"> Github-Repository</a> gefunden werden.
+      caveat_emptor_html: Es ist in der Natur der Sache, dass wir für die Richtigkeit der Daten nicht garantieren können, <i>Gewährleistungsausschluss.</i> Wenn du etwas cooles mit den Daten machst, dann <a href="mailto:feedback@fallingfruit.org">sag uns doch Bescheid</a> !
+      summary_of_sources: Zusammenfassung aller Quellen
+      common_name: Umgangssprachlier Name
       scientific_name: Wissenschaftlicher Name
       links: Links
       count: Zählen
-      summary_description: Die Datenbank enthält derzeit %{types} verschiedene Arten von Esswaren (die meisten, aber nicht alle, sind Pflanzenarten) über %{locations} Standorte verteilt. Für jeden Typ der folgenden Tabelle sind dem englischen Common Name (n), wissenschaftliche Name (n), Links zu externen Referenzen, und die Gesamtzahl.
+      summary_description: Die Datenbank enthält derzeit %{types} verschiedene essbare Arten (die meisten, aber nicht alle, sind pflanzlich) über %{locations} Standorte verteilt. In der Folgenden Tabelle sind die umgangssprachlichen (n) und wissenschaftlichen Namen (n) sowie Links zu externen Referenzen und die Gesamtzahl angegeben.
     datasets:
-      intro_html: Fallende Frucht strebt der weltweit umfassendsten und offenen geographischen Datenbestand des städtischen Esswaren sein. Während unserer Nutzer zu erforschen, zu bearbeiten, und fügen Standorten über unsere <a href=\"/\">Karte</a> , kämmen wir das bekannte Universum für bereits vorhandene Datensätze und importieren Sie sie direkt in die <a href=\"/data\">Datenbank</a> , die Vereinigung der Anstrengungen der Sammlerinnen, Förster, und freegans überall. Wenn Sie von einem Datensatz we''ve verpasst wissen, bitte <a href=\"mailto:info@fallingfruit.org\">lassen Sie uns wissen</a> ! Sie können uns auch helfen, mit dem Importvorgang durch das Formatieren die Daten mit der <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">Import-Vorlage</a> . Beachten Sie, dass da die Einfuhren muss manuell durchgeführt werden, weitere Änderungen an den Originaldaten werden nicht auf fallenden Früchte wider.
+      intro_html: Das Ziel von Falling Fruit ist es, den weltweit umfassendsten und offenen geographischen Datensatz der urbanen Ernte bieten zu können. Während unsere Nutzer unserer <a href=\"/\">Karte</a> täglich eigene Standorte hinzufügen, durchsuchen wir das Internet nach bereits bestehenden Datenquellen. Nur so können wir das Wissen Aller vereinen! Wenn du von einem Datensatz weisst, den wir verpasst haben dann <a href=\"mailto:info@fallingfruit.org\">schreib uns</a>! Falls du selber zugriff auf nützliche Daten hasst, kannst du unsere <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">Import-Vorlage</a> nutzen, um uns den Improt zu erleichtern. Beachte, dass alle Imports manuell durchgeführt werden müssen. Spätere Änderungen am Original-Datensatz werden daher nicht auf der Hompage wiedergegeben.
       imported_datasets: Importierte Datensätze
-      types_of_data: Datensätze zu fallenden Früchte importiert in zwei Hauptkategorien fallen. "Gemeinschaftskarten" werden von Sammlerinnen und freegans gebaut, wie sie ihre Umgebung für Dinge zu essen, lesen. Wir danken den fleißigen Bürger-Kartographen, die diese Daten zusammengetragen haben. "Baum Vorräte" durch Städte, Universitäten und anderen Institutionen, die besser Dokument für ihre Bäume zusammengestellt und Pflege. Wir gewinnen diese riesigen Datenmengen zur Lebensmittelerzeugung Arten und fügen Sie sie auf der Karte. Die uns helfen Ihrer Nähe auf der Karte, wenden Sie sich Schule oder Stadt forderte sie auf, ihren Baum Inventar mit uns zu teilen.
-      table_info: Jeder Datensatz wird aufgeführt mit Namen, Anzahl der Standorte und Datum importiert. Ausbau jede Zeile verrät weitere Details zu den Originaldaten des Importvorgangs und die Lizenz über, wie die Daten verwendet werden.
+      types_of_data: Datensätze die von Falling Fruit importiert werden, fallen in zwei Hauptkategorien. "Gemeinschaftskarten" werden von Sammlerinnen und Freeganern aufgebaut, indem sie in ihrem Umfeld öffentliche Nahrungsmittel-Quellen suchen und kartieren. ein Riesiges Dankeschön geht an alle, die tagtäglich auf der Suche sind und uns ihre Daten übermitteln. "Bauminventare" werden durch Städte, Universitäten oder andere Institutionen zusammengestellt, die ihren Baumbestand überblicken und erhalten möchten. Wir filtern aus diesen riesigen Datenmengen die essbaren Arten heraus und fügen sie unserer Karte hinzu. Wenn deine Nachbarschaft auf der Karte noch fehlt, dann kontaktiere deine Stadt oder deine Gemeinde und fordere sie auf, allfällig vorhandene Daten mit uns zu teilen! Wir sind für jede Hilfe dankbar!
+      table_info: Jeder Datensatz wird mit Namen, Anzahl der Standorte und Import-Datum aufgelistet. Wenn du die Zeile expandierst, sind zudem weitere Details über die Original-Daten, den Improt oder Lizenz-Informationen aufgeführt.
       details: Details
       type: Art
       name: Name
@@ -256,13 +258,13 @@ de:
       google_map: Google Map
       google_fusion_table: Google Fusion Tabelle
       google_maps_engine: Google Maps Engine
-      tree_inventory: Baumbestands
-      community_map: Community Map
+      tree_inventory: Bauminventar
+      community_map: Gemeinschaftskarte
       imported: Importiert
-      no_license: Keine Lizenz angegeben ist, davon ausgehen, <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> Creative Commons (Namensnennung, nicht-kommerziellen, Share-Alike) </a>
+      no_license: Keine Lizenz angegeben, nehme an, dass die <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> Creative Commons (Attribution, nicht-kommerziellen, Share-Alike) </a> Lizenz gilt.
     sharing:
-      grow_pick_and_distribute: Wachsen, Auswahl, & amp; Verteilen
-      intro_html: Im Folgenden sind lokale Organisationen, die Lebensmittel (Lebensmittel Wäldern und Obstgärten öffentlichen) wachsen, nehmen Nahrung (städtische Nahrungssuche und Land Nachlese), oder anders verteilen Essen (Swaps und Spenden). Organisationen werden von Land, Bundesland, Stadt und aufgelistet. Solche mit ausgeblendeten Namen angenommen inaktiv. Wenn Sie von anderen, die auf dieser Liste sein sollten wissen, <a href="mailto:info@fallingfruit.org">kontaktieren Sie uns</a> !
+      grow_pick_and_distribute: pflanze, ernte, & verteile
+      intro_html: Im Folgenden sind lokale Organisationen aufgeführt, die Lebensmittel anpflanzen (z.B. in Gemeinschaftsgärten), ernten (z.B. 'urban gardening'), oder auf andere Art und Weise Essen verteilen und teilen. Organisationen werden nach Land, Bundesland/Kanton und Stadt aufgeführt. Organisationen mit durchgestrichenem Namen sind zur Zeit vermutlich inaktiv. Wenn du Organisationen kennst, die auf dieser Liste auftauchen müssten, dann <a href="mailto:info@fallingfruit.org">sag uns Bescheid</a> !
       global: Weltweit
       australia: Australien
       canada: Kanada
@@ -271,25 +273,25 @@ de:
       united_kingdom: Vereinigtes Königreich
       united_states: Vereinigte Staaten
       food_banks: Food Banks
-      food_banks_intro: Sammlerinnen und private Baumbesitzer von ihrer Ernte überwältigt werden ermutigt, ihre Überschüsse für wohltätige Zwecke zu spenden. Betrachten Sie die Partnerschaft mit Gruppen wie die oben aufgeführten, oder spendet direkt an lokale Organisationen Fütterung in Ihrer Gemeinde die Hungrigen. Die großen Nahrungsmittelbank Netzwerke sind unten aufgelistet; Obdachlosenheime, Schulen und Seniorenzentren in Ihrer Nähe sind auch eine Überlegung wert.
+      food_banks_intro: Wer aus dem eigenen Garten oder von anderen Quellen (auch selber gesammelt) überschüssige Nahrungsmittel hat, wird aufgefordert, die Überschsse für wohltätige Zwecke zu spenden. Überlege dir doch eine Partnerschaft mit Gruppen wie die oben aufgeführten, oder spendet direkt an lokale Organisationen die in deiner Gemeinde Essen an Bedürftige verteilen. Die großen Nahrungsmittelbank-Netzwerke sind unten aufgelistet; Obdachlosenheime, Schulen und Seniorenzentren in deiner Nähe sind aber häufig auch dankbar, wenn sie etwas Frisches bekommen!
   routes:
     index:
       routes: Routen
       link: Link
       name: Name
       locations: Standorte
-      travel_mode: Reisemodus
-      public: Öffentlichkeit
-      delete: Löschen
-      updated: Aktualisiert
-      show: Show
+      travel_mode: Fortbewegungsmittel
+      public: öffentlich
+      delete: löschen
+      updated: aktualisiert
+      show: zeige
       ago: vor
       save_changes: Änderungen speichern
     show:
-      mode_of_travel: Art der Reise
-      walking: Wandern
-      bicycling: Radfahren
-      driving: Fahren
+      mode_of_travel: Fortbewegungsmittel
+      walking: zu Fuss
+      bicycling: Velo
+      driving: Auto
   imports:
     index:
       error: Fehler
