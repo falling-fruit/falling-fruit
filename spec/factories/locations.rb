@@ -5,6 +5,7 @@ FactoryGirl.define do
     author "Some Dood"
     description "Hella sweet apple trees"
     address "440 S 45th St., Boulder, CO, 80305" #  fixme: randomize location
+    type_ids [1,4,5]
 
     factory :location_with_observation do
       after(:create) do |location|

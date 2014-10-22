@@ -1,8 +1,28 @@
 class Api::LocationsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:mine,:favorite]
+  respond_to :json
+  before_filter :authenticate_user!, :only => [:mine,:favorite,:update]
+
+  # API endpoint to give access to types list
+  def types
+    if !@api_key.nil? and @api_key.api_type == "muni"
+      params[:c] = "human"
+    end
+    if params[:c].blank?
+      cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    else
+      cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+    end
+    cfilter = "(category_mask & #{cat_mask})>0"
+    @types = Type.select("id,name").where(cfilter)
+    log_api_request("api/locations/types",@types.length)
+    respond_to do |format|
+      format.json { render json: @types }
+    end
+  end
 
   def mine
+    return unless check_api_key!("api/locations/mine")
     @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
       where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
       order('observations.created_at desc')
@@ -20,11 +40,17 @@ class Api::LocationsController < ApplicationController
   end
 
   def show
+    return unless check_api_key!("api/locations/show")
     @location = Location.find(params[:id])
     @location[:title] = @location.title
     @location[:photos] = @location.observations.collect{ |o|
       o.photo_file_name.nil? ? nil : { :updated_at => o.photo_updated_at, :url => o.photo.url }
-    }.compact
+    }.compact unless @api_key.api_type == "muni"
+    if @api_key.api_type == "muni" and not @location.import.nil?
+      @location[:source] = {:license => @location.import.license,
+                            :name => @location.import.name,
+      }
+    end
     log_api_request("api/locations/show",1)
     respond_to do |format|
       format.json { render json: @location }
@@ -32,6 +58,7 @@ class Api::LocationsController < ApplicationController
   end
 
   def reviews
+    return unless check_api_key!("api/locations/reviews")
     @location = Location.find(params[:id])
     @obs = @location.observations
     @obs.each_index{ |i|
@@ -48,6 +75,12 @@ class Api::LocationsController < ApplicationController
 
   # Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
+    return unless check_api_key!("api/locations/cluster_types")
+    # Muni API is locked to muni & human
+    if !@api_key.nil? and @api_key.api_type == "muni"
+      params[:muni] = 1
+      params[:c] = "human"
+    end
     cat_mask = array_to_mask(["human","freegan"],Type::Categories)
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
@@ -81,6 +114,12 @@ class Api::LocationsController < ApplicationController
   end
 
   def cluster
+    return unless check_api_key!("api/locations/cluster")
+    # Muni API is locked to muni & human
+    if !@api_key.nil? and @api_key.api_type == "muni"
+      params[:muni] = 1
+      params[:c] = "human"
+    end
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
       mfilter = ""
@@ -130,12 +169,6 @@ class Api::LocationsController < ApplicationController
       end
       v[:n] = c.count
       v[:title] = number_to_human(c.count)
-      v[:marker_anchor] = [0,0]
-      pct = [[(Math.log10(c.count).round+2)*10,30].max,100].min
-      v[:picture] = "/icons/orangedot#{pct}.png"
-      v[:width] = pct
-      v[:height] = pct
-      v[:pct] = pct 
       v
     }
     log_api_request("api/locations/cluster",@clusters.length)
@@ -145,6 +178,12 @@ class Api::LocationsController < ApplicationController
   end
 
   def nearby
+    return unless check_api_key!("api/locations/nearby")
+    # Muni API is locked to muni & human
+    if !@api_key.nil? and @api_key.api_type == "muni"
+      params[:muni] = 1
+      params[:c] = "human"
+    end
     max_n = 100
     offset_n = params[:offset].present? ? params[:offset].to_i : 0
     if params[:c].blank?
@@ -214,7 +253,14 @@ class Api::LocationsController < ApplicationController
   # Currently keeps max_n markers, and displays filtered out markers as translucent grey.
   # Unverified no longer has its own color.
   def markers
+    return unless check_api_key!("api/locations/markers")
     max_n = 1000
+    # Muni API is locked to muni & human
+    if !@api_key.nil? and @api_key.api_type == "muni"
+      params[:muni] = 1
+      params[:c] = "human"
+      max_n = 100
+    end
     if params[:c].blank?
       cat_mask = array_to_mask(["human","freegan"],Type::Categories)
     else
@@ -262,9 +308,7 @@ class Api::LocationsController < ApplicationController
         end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"],
-       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17,
-       :marker_anchor => [0,0], :types => row["types"],
-       :parent_types => row["parent_types"]
+       :types => row["types"],:parent_types => row["parent_types"]
       }
     } unless r.nil?
     @markers.unshift(max_n)
@@ -276,6 +320,7 @@ class Api::LocationsController < ApplicationController
   end
 
   def marker
+    return unless check_api_key!("api/locations/marker")
      id = params[:id].to_i
      i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
@@ -283,7 +328,7 @@ class Api::LocationsController < ApplicationController
       string_agg(coalesce(#{i18n_name_field}t.name),',') as name    
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=#{id}
-      GROUP BY l.id, l.lat, l.lng, l.unverified");
+      GROUP BY l.id, l.lat, l.lng, l.unverified")
     @markers = r.collect{ |row|
       row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
@@ -301,8 +346,7 @@ class Api::LocationsController < ApplicationController
         end
       end
       {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
-       :picture => "/icons/smdot_t1_red.png",:width => 17, :height => 17, :parent_types => row["parent_types"],
-       :marker_anchor => [0,0], :n => 1, :types => row["types"]}
+       :parent_types => row["parent_types"],:n => 1, :types => row["types"]}
     } unless r.nil?
     log_api_request("api/locations/marker",1)
     respond_to do |format|

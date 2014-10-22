@@ -13,7 +13,6 @@ class RoutesController < ApplicationController
       @stop_location = @route_locations[@route_locations.length-1].location
       respond_to do |format|
         format.html
-        format.mobile
       end
     else
       redirect_to root_path, notice: "You do not have permission to view that route."

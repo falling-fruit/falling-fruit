@@ -1,6 +1,5 @@
 class ProblemsController < ApplicationController
   before_filter :authenticate_user!, :only => [:index]
-  #before_filter :prepare_for_mobile, :except => []
   authorize_resource :only => [:index]
 
 

@@ -1,8 +1,8 @@
 class ReplaceLocationsTypesWithAnArray < ActiveRecord::Migration
   def up
     change_table :locations do |t|
-      t.integer :type_ids, :array => true, :default => []
-      t.string :type_others, :array => true, :default => []
+      t.integer :type_ids, :array => true
+      t.string :type_others, :array => true
     end
     execute <<-SQL
     WITH type_info AS (

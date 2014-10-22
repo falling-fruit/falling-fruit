@@ -50,7 +50,7 @@ class TypesController < ApplicationController
           c.destroy
         end 
       }
-      Locations.where("ANY(type_ids)=?",from.id).each{ |l|
+      Location.where("? = ANY (type_ids)", from.id).each{ |l|
         l.type_ids = l.type_ids.collect{ |e| e == from.id ? nil : e }.compact
         l.type_ids.push to
         lt.save

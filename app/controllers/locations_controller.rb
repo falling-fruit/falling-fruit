@@ -1,6 +1,13 @@
 class LocationsController < ApplicationController
+  respond_to :html
+  respond_to :json, only: [:update,:create]
+
   before_filter :authenticate_user!, :only => [:destroy,:enroute,:home]
+  before_filter(:only => [:update,:create]) do |controller|
+    authenticate_user! if controller.request.format.json?
+  end
   authorize_resource :only => [:destroy,:enroute]
+
 
   def expire_things
     expire_fragment "pages_data_type_summary_table"
@@ -116,7 +123,6 @@ class LocationsController < ApplicationController
     prepare_from_permalink
     respond_to do |format|
       format.html
-      format.mobile
     end
   end
 
@@ -137,7 +143,6 @@ class LocationsController < ApplicationController
     @cats = params[:c].split(/,/) if params[:c].present?
     respond_to do |format|
       format.html # new.html.erb
-      format.mobile
     end
   end
 
@@ -148,13 +153,13 @@ class LocationsController < ApplicationController
     @lng = @location.lng
     respond_to do |format|
       format.html
-      format.mobile
     end
   end
 
   # POST /locations
   # POST /locations.json
   def create
+    check_api_key!("api/locations/create") if request.format.json?
     @location = Location.new(params[:location])
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
@@ -187,6 +192,7 @@ class LocationsController < ApplicationController
       @obs.author = @location.author
     end
 
+    log_api_request("api/locations/create",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
@@ -196,14 +202,14 @@ class LocationsController < ApplicationController
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
-          format.mobile { redirect_to new_location_path, notice: 'Location was successfully created.' }
+          format.json { render json: {"status" => 0, "id" => @location.id} }
         else
           format.html { redirect_to @location, notice: 'Location was successfully created.' }
-          format.mobile { redirect_to @location, notice: 'Location was successfully created.' }
+          format.json { render json: {"status" => 0, "id" => @location.id} }
         end
       else
         format.html { render action: "new" }
-        format.mobile { render action: "new" }
+        format.json { render json: {"status" => 2, "error" => "Failed to create: #{@location.errors.full_messages.join(";")}" } }
       end
     end
   end
@@ -211,6 +217,7 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.json
   def update
+    check_api_key!("api/locations/update") if request.format.json?
     @location = Location.find(params[:id])
 
     # prevent normal users from changing author
@@ -238,6 +245,7 @@ class LocationsController < ApplicationController
     lt_update_okay = @location.save
 
     ApplicationController.cluster_decrement(@location)
+    log_api_request("api/locations/update",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
@@ -246,10 +254,10 @@ class LocationsController < ApplicationController
         ApplicationController.cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
-        format.mobile { redirect_to @location, notice: 'Location was successfully updated.' }
+        format.json { render json: {"status" => 0} }
       else
         format.html { render action: "edit" }
-        format.mobile { render action: "edit" }
+        format.json { render json: {"status" => 2, "error" => "Failed to update" } }
       end
     end
   end
@@ -263,7 +271,6 @@ class LocationsController < ApplicationController
     expire_things
     respond_to do |format|
       format.html { redirect_to locations_url }
-      format.mobile { redirect_to locations_url }
     end
   end
 

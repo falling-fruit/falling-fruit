@@ -38,6 +38,17 @@ class ApplicationController < ActionController::Base
     I18n.available_locales.map(&:to_s).include?(params[:locale]) ? params[:locale] : nil
   end
 
+  def check_api_key!(endpoint)
+    @api_key = ApiKey.find_it(params["api_key"])
+    unless !@api_key.nil? and @api_key.can?(endpoint)
+      respond_to do |format|
+        format.json { render json: {"error" => "Not authorized :/"} }
+      end
+      return false
+    end
+    return true
+  end
+
   # catch all perms errors and punt to root
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -57,11 +68,6 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :mobile_device?
-
-  def prepare_for_mobile
-    session[:mobile_param] = params[:mobile] if params[:mobile].present? and params[:mobile]
-    request.format = :mobile if mobile_device?
-  end
 
   # assumes not muni increments the not muni clusters
   def self.cluster_increment(location,tids=nil)
