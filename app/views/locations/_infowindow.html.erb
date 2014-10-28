@@ -51,7 +51,10 @@
  <% end %>
  </li>
  <% } %>
-</div>
+ <% @location.type_others.compact.each{ |to| %>
+ <li><%= to %></li>
+ <% } %>
+ </div>
 
 <!-- Quality -->
 <% unless location.mean_quality_rating.nil? %>
