@@ -89,10 +89,10 @@ class Location < ActiveRecord::Base
     }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
 
-  def types
+  def types(filter=nil)
     # FIXME: cache this result?
     unless self.type_ids.nil? or self.type_ids.compact.empty?
-      Type.where("id IN (#{self.type_ids.compact.join(",")})")
+      Type.where("id IN (#{self.type_ids.compact.join(",")})" + (filter.nil? ? "" : "AND #{filter}"))
     else
       []
     end

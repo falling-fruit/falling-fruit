@@ -74,8 +74,14 @@ class LocationsController < ApplicationController
 
   def infobox
     @location = Location.find(params[:id])
+    if params[:c].blank?
+      @cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    else
+      @cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+    end
+    @cat_filter = "(category_mask & #{@cat_mask})>0"
     respond_to do |format|
-      format.html { render :partial => "/locations/infowindow", :locals => {:location => @location} }
+      format.html { render :partial => "/locations/infowindow", :locals => {:location => @location,:cat_filter=>@cat_filter} }
     end
   end
 

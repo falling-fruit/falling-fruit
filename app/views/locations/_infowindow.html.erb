@@ -20,7 +20,7 @@
 		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;"><%= I18n.t("locations.infowindow.unverified") %><% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span><% end %>
 			</li>
 	<% end %>
- <% @location.types.each{ |t| %>
+ <% @location.types(@cat_filter).each{ |t| %>
  <% if t.nil? %>
    <li style="background-color:#FCE7E4;">
  <% else %>

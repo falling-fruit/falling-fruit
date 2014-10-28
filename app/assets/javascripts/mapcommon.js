@@ -571,11 +571,15 @@ function open_tab_3() {
   }
 
   function open_marker_by_id(id) {
+    var cstr = '';
+    if (cats != undefined) {
+      cstr = 'c='+cats;
+    }
     for (var i = 0; i < markersArray.length; i++) {
       if (markersArray[i].id == id) {
         var requestHtml = $.ajax({
           type: 'GET',
-          url: '/locations/' + id + '/infobox',
+          url: '/locations/' + id + '/infobox?' + cstr,
           dataType: 'html'
         });
         requestHtml.done(function(html){
@@ -619,9 +623,13 @@ function open_tab_3() {
       if(labelsOn) labelize_markers();
       search_filter(last_search);
       // open infobox
+      var cstr = '';
+      if (cats != undefined) {
+        cstr = 'c='+cats;
+      }
       var requestHtml = $.ajax({
         type: 'GET',
-        url: '/locations/' + id + '/infobox',
+        url: '/locations/' + id + '/infobox?' + cstr,
         dataType: 'html'
       });
       requestHtml.done(function(html){
@@ -661,9 +669,13 @@ function open_tab_3() {
     	pano_tab = null;
       if (openMarker === marker) return;
       if (openInfoWindow != null) openInfoWindow.close();
+      var cstr = '';
+      if (cats != undefined) {
+        cstr = 'c='+cats;
+      }
       var requestHtml = $.ajax({
         type: 'GET',
-        url: '/locations/' + id + '/infobox',
+        url: '/locations/' + id + '/infobox?' + cstr,
         dataType: 'html'
       });
       requestHtml.done(function(html) {
