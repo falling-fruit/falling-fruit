@@ -9,12 +9,12 @@
 		</blockquote>
 <% else %>
 		<blockquote>
-		<em><%= I18n.t("pages.data.data_unavailable_html", :default => 'Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.').html_safe %></em>
+		<em><%= I18n.t("pages.data.data_unavailable_html").html_safe %></em>
 		</blockquote>
 <% end %>
 
 <p>
-<%= I18n.t("pages.data.beware_html", :default => 'But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it\'s entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.').html_safe %>
+<%= I18n.t("pages.data.beware_html").html_safe %>
 </p>
 
 <p>
@@ -22,10 +22,10 @@
 </p>
 
 <p>
-<%= I18n.t("pages.data.caveat_emptor_html", :default => 'It should go without saying that we take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!').html_safe %>
+<%= I18n.t("pages.data.caveat_emptor_html").html_safe %>
 </p>
 
-<h2><%= I18n.t("pages.data.summary_of_sources", :default => 'Summary of Sources').html_safe %></h2>
+<h2><%= I18n.t("pages.data.summary_of_sources").html_safe %></h2>
 
 <%
 
@@ -39,7 +39,7 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 %>
 
 <p>
-<%= I18n.t("pages.data.summary_description", :types => number_to_human(@types.length), :locations =>number_with_delimiter(@lt_count)) %>
+<%= I18n.t("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)) %>
 </p>
 <br/>
 

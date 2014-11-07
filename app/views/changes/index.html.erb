@@ -5,7 +5,7 @@
 <% 
 last_days_ago = nil 
 @changes.each do |c|
-  pretty_title = (c["type_title"] + c["type_others"]).split(/,/).join(', ')
+  pretty_title = (c["type_title"] + "," + c["type_others"]).split(/,/).join(', ')
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
     if c["days_ago"] <= 0

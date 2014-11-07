@@ -151,26 +151,16 @@ en:
       unknown: Unknown
       in: in
       by: by
-      ? !binary |-
-        eW91X2hhdmVudF9hZGRlZF9vcl9yZXZpZXdlZF9hbnl0aGluZ193aGlsZV9s
-        b2dnZWRfaW4=
-      : You haven't added or reviewed anything (while logged in)
+      you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed anything (while logged in)
       click_here: Click here
-      ? !binary |-
-        bG9jYXRpb25zX2FkZGVkX29yX3Jldmlld2VkX2J5X3lvdV93aGlsZV9sb2dn
-        ZWRfaW4=
-      : Locations added or reviewed by you (while logged in)
+      locations_added_or_reviewed_by_you_while_logged_in: Locations added or reviewed by you (while logged in)
       last_visited: Last visited
       click_here_to_manage_your_routes_html: Click <a href="%{routes_path}">here</a> to manage your routes
       public: public
       locations: locations
       last_updated: Last updated
       ago: ago
-      ? !binary |-
-        eW91X2hhdmVudF9kZWZpbmVkX2FueV9mb3JhZ2luZ19yb3V0ZXNfeWV0X2Ns
-        aWNrX29uX2Ffc291cmNlX2FuZF90aGVuX2NsaWNrX3JvdXRlc190b19nZXRf
-        c3RhcnRlZF9tYWtpbmdfYV9yb3V0ZQ==
-      : You haven't defined any foraging routes yet. Click on a source and then click 'routes' to get started making a route.
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any foraging routes yet. Click on a source and then click 'routes' to get started making a route.
     index:
       splash_html: Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of foragers, foresters, and freegans everywhere, the map already points to over a half million food-producing locations around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for an account to access additional features.
       freegan_splash_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly 50% of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.<br><br>In support of a lower-waste lifestyle, we are encouraging the mapping of all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
@@ -242,7 +232,8 @@ en:
       craig_durkin_bio_html: Founder of Atlanta-based fruit rescue organization <a href="//www.concrete-jungle.org/">Concrete Jungle</a>
       cristina_rubke_bio_html: Attorney at San Francisco law firm <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis Friese LLP</a>
       david_craft_bio_html: Author of <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging</a> (download it free <a href="/docs/David Craft - Urban Foraging.pdf">here</a>)
-      tristram_stuart_bio_html: Author of <a href="//tristramstuart.co.uk">Waste&#58 Uncovering the Global Food Scandal</a> &middot; Founder of international food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> &middot; National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>
+      tristram_stuart_bio_html: >
+        Author of <a href="//tristramstuart.co.uk">Waste: Uncovering the Global Food Scandal</a> &middot; Founder of international food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> &middot; National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>
       closing_remarks: Closing remarks
       closing_remarks_para1_html: Falling Fruit is a 501(c)(3) (tax-exempt) public charity registered in Boulder, Colorado. As a result, donations within the United States are tax deductible. You may review our <a href="/501c3.pdf">letter of exemption</a> from the IRS and verify our standing with <a href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS Publication 78</a> or the <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Colorado Secretary of State</a>. Also available are our governing <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">bylaws</a> and public board meeting <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">minutes</a>.<blockquote>Falling Fruit<br/>PO Box 284, Boulder, CO, 80306, USA<br/>EIN&colon; 46-5363428</blockquote>
       closing_remarks_para2_html: Harvesting food in an urban setting comes with certain practical and moral considerations. For an introduction to the ethics of urban foraging, we recommend the excellent summary on our sibling site - Portland, Oregon's <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
@@ -252,7 +243,7 @@ en:
       intro: Falling Fruit is built on public data and the generosity of urban foragers willing to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database
       last_updated: last updated
       data_unavailable_html: Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.
-      beware_html: But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it\'s entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.
+      beware_html: But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.
       license_html: If you are interested in using the data in your own project, especially for commercial applications, we suggest you contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). When not otherwise specified, data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons (Attribution, Non-commercial, Share-alike)</a> license. This means that you are free to use and distribute the data so long as you preserve the original author/source attribution and do not use it (without permission) for commercial applications. The source code for Falling Fruit is also open. More details on that can be found on <a href="https://github.com/somerandomsequence/falling-fruit">our github repository</a>.
       caveat_emptor_html: It should go without saying that we take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
       summary_of_sources: Summary of sources
