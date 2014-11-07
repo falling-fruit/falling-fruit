@@ -33,3 +33,5 @@ config/create.log
 
 # Ignore RubyMine
 .idea/
+
+.localeapp
