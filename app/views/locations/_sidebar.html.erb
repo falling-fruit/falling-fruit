@@ -72,7 +72,7 @@
       <%= I18n.t("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in") %>
       <%= link_to I18n.t("locations.sidebar.click_here"), new_location_path %> to add something.
     <% else %>
-      <%= I18n.t("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %>
+      <%= I18n.t("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %>:
       <br/>
       <% @mine.each do |o|
         next if o.location.title.nil?
@@ -81,7 +81,7 @@
           <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
             <%= o.location.title %>
           </a><br/>
-          <%= I18n.t("locations.sidebar.last_visited") %><%= time_ago_in_words(o.created_at) %> ago.
+          <%= I18n.t("locations.sidebar.last_visited") %> <%= time_ago_in_words(o.created_at) %> ago.
         </div>
       <% end %>
     <% end %>
@@ -101,8 +101,8 @@
         <div class="route">
           <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<%= route.is_public ? I18n.t("locations.sidebar.public") : I18n.t("locations.sidebar.in") %>)
           <br/>
-          <%= lcounts[route.id] %> <%= I18n.t("locations.sidebar.locations") %>.
-          <%= route.transport_type %>. <%= I18n.t("locations.sidebar.last_updated") %> <%= time_ago_in_words(route.updated_at) %> <%= I18n.t("locations.sidebar.ago") %>.
+          <%= lcounts[route.id] %> <%= I18n.t("locations.sidebar.locations") %> &middot;
+          <%= route.transport_type.nil? route.transport_type + "&middot;" : "" %> <%= I18n.t("locations.sidebar.last_updated") %> <%= time_ago_in_words(route.updated_at) %> <%= I18n.t("locations.sidebar.ago") %>.
         </div>
       <% end %>
       </ul>

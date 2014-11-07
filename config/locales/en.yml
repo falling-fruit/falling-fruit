@@ -154,7 +154,7 @@ en:
       ? !binary |-
         eW91X2hhdmVudF9hZGRlZF9vcl9yZXZpZXdlZF9hbnl0aGluZ193aGlsZV9s
         b2dnZWRfaW4=
-      : You haven''t added or reviewed anything (while logged in)
+      : You haven't added or reviewed anything (while logged in)
       click_here: Click here
       ? !binary |-
         bG9jYXRpb25zX2FkZGVkX29yX3Jldmlld2VkX2J5X3lvdV93aGlsZV9sb2dn
@@ -170,16 +170,17 @@ en:
         eW91X2hhdmVudF9kZWZpbmVkX2FueV9mb3JhZ2luZ19yb3V0ZXNfeWV0X2Ns
         aWNrX29uX2Ffc291cmNlX2FuZF90aGVuX2NsaWNrX3JvdXRlc190b19nZXRf
         c3RhcnRlZF9tYWtpbmdfYV9yb3V0ZQ==
-      : You haven''t defined any foraging routes yet. Click on a source and then click ''routes'' to get started making a route.
+      : You haven't defined any foraging routes yet. Click on a source and then click 'routes' to get started making a route.
     index:
       splash_html: Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of foragers, foresters, and freegans everywhere, the map already points to over a half million food-producing locations around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for an account to access additional features.
-      freegan_splash_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we''ve set out to map the world's food-bearing dumpsters. Nearly 50% of all food produced in the developed world is never eaten. We''re hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href=\"/sharing\">donate the food</a> instead.<br><br>In support of a lower-waste lifestyle, we are encouraging the mapping of all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
+      freegan_splash_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly 50% of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.<br><br>In support of a lower-waste lifestyle, we are encouraging the mapping of all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
       stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
     embed:
       add_source: Add source
     form:
       form_error: An error prohibited this location from being saved
       form_intro_html: Edit the location below, or <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Review this location">use this form</a> to review, comment, and post photos.
+      types: Types
       types_subtext: Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.
       location: Location
       location_subtext: Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.
@@ -192,7 +193,7 @@ en:
       description_subtext: Location details, access issues, plant health...
       season_subtext: When can the source be harvested? Leave blank if you don't know.
       no_season: No season
-      access_subtext: Access status of this source. Leave blank if you don''t know.
+      access_subtext: Access status of this source. Leave blank if you don't know.
       description: Description
       season: Season
       access: Access
@@ -218,25 +219,33 @@ en:
       photo: Photo
       photo_subtext: Optionally, upload a photo of the source. If it is someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.
       photo_caption: Photo caption
-      visted_on: Visited on
+      visited_on: Visited on
+      to: to
+      or: or
     locations_type:
       or: Or
   pages:
     about:
       give_us_money: We are a volunteer-run nonprofit and rely on donations to operate. If you are willing and able, please consider making a financial contribution. Thanks to our 501(c)(3) status, donations within the United States are tax deductible.
+      give_paypal: Donate via Paypal
+      give_gittip: Tip via Gittip
       contact_us_html: Falling Fruit is built by and for foragers &ndash; we want it to be the best tool available to the contemporary forager. Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, we would love to hear from you!
       about_the_site: About the site
       celebration: Falling Fruit is a celebration of the overlooked culinary bounty of our city streets. By quantifying this resource on a map, we hope to facilitate intimate connections between people, food, and the natural organisms growing in our neighborhoods. Not just a free lunch! Foraging in the 21st century is an opportunity for urban exploration, to fight the scourge of stained sidewalks, and to reconnect with the botanical origins of food.
       join_us_html: Join us in celebrating the local and edible! The <a href="/">map</a> is open for anyone to edit, the database can be <a href="/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">the code</a> is open-source. You are likewise encouraged to share the bounty with your fellow humans. Our <a href="/sharing">sharing page</a> lists hundreds of local organizations - planting public orchards and food forests, picking otherwise-wasted fruits and vegetables from city trees and farmers' fields, and sharing with neighbors and the needy.
-      more_about_html: Our map of urban edibles is not the first of its kind, but we aspire to be the world''s most comprehensive. While our users contribute locations of their own, we comb the internet for pre-existing knowledge, seeking to unite the efforts of foragers, foresters, and freegans everywhere. The <a href=\"/datasets\">imported datasets</a> range from small neighborhood foraging maps to vast professionally-compiled tree inventories. This so far amounts to %{types} different types of edibles (most, but not all, plant species) distributed over %{locations} locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
-      about_us: About us
-      caleb_bio_html: Caleb is a featherless bipedal humanoid passionate about food justice and finding creative ways to use technology to address social issues. When he''s not biking around gawking at trees, he balances his efforts between his day job as a data scientist at the <a href="http://nrel.gov">National Renewable Energy Laboratory</a> in Golden Colorado, an adjunct professor of computer science at the <a href="http://cs.colorado.edu">University of Colorado</a>, and as a worker bee for a number of nonprofit organizations (<a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> in Denver and <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> in Boulder, Colorado). Besides all that work stuff, he likes to climb rocks, run trails, ride bikes, and generally be outdoors as much as possible.
-      ethan_bio_html: From apple ciders and fruit beers to jams and <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan looks to his database of neighborhood trees (and his rickety apple press) for culinary inspiration. While at home in Boulder, he geeks out over maps, data, and time-lapse of retreating glaciers for his PhD at the <a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a>, but he often leaves his local orbit to walk, talk, eat, and photograph his way across continents.
+      more_about_html: Our map of urban edibles is not the first of its kind, but we aspire to be the world's most comprehensive. While our users contribute locations of their own, we comb the internet for pre-existing knowledge, seeking to unite the efforts of foragers, foresters, and freegans everywhere. The <a href="/datasets">imported datasets</a> range from small neighborhood foraging maps to vast professionally-compiled tree inventories. This so far amounts to %{types} different types of edibles (most, but not all, plant species) distributed over %{locations} locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
+      about_us: Board of directors
+      caleb_bio_html: Caleb is a featherless bipedal humanoid passionate about food justice and finding <a href="http://smallwhitecube.com">creative ways to use technology</a> to address social issues. When he's not biking around gawking at trees, he balances his efforts between his day job as a data scientist at the <a href="http://nrel.gov">National Renewable Energy Laboratory</a> in Golden Colorado, an adjunct professor of computer science at the <a href="http://cs.colorado.edu">University of Colorado</a>, and as a worker bee for a number of nonprofit organizations (<a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> in Denver and <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> in Boulder, Colorado). Besides all that work stuff, he likes to climb rocks, run trails, ride bikes, and generally be outdoors as much as possible.
+      ethan_bio_html: From apple ciders and fruit beers to jams and <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan looks to his database of neighborhood trees (and his rickety apple press) for culinary inspiration. While at home in Boulder, he geeks out over maps, data, and time-lapse of retreating glaciers for his PhD at the <a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a>, but he often leaves his local orbit to walk, talk, eat, and <a href="http://www.weltyphotography.com">photograph</a> his way across continents.
       jeff_bio_html: Since harvesting black and blueberries with his family as a child and, more recently, noticing the wealth of public fruit trees throughout Colorado, Jeff has developed a deep appreciation for the abundance of fruit growing in our cities. His first mission for Falling Fruit was to comb Boulder and Salt Lake City, paper maps in-hand, to record fruiting trees. When not working to improve building energy efficiency, he is usually helping out in the community or moving quickly over mountains by foot, ski, or bicycle.
       advisory_board: Board of advisors
-      closing_remarks: Closing Remarks
+      craig_durkin_bio_html: Founder of Atlanta-based fruit rescue organization <a href="//www.concrete-jungle.org/">Concrete Jungle</a>
+      cristina_rubke_bio_html: Attorney at San Francisco law firm <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis Friese LLP</a>
+      david_craft_bio_html: Author of <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging</a> (download it free <a href="/docs/David Craft - Urban Foraging.pdf">here</a>)
+      tristram_stuart_bio_html: Author of <a href="//tristramstuart.co.uk">Waste&#58 Uncovering the Global Food Scandal</a> &middot; Founder of international food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> &middot; National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>
+      closing_remarks: Closing remarks
       closing_remarks_para1_html: Falling Fruit is a 501(c)(3) (tax-exempt) public charity registered in Boulder, Colorado. As a result, donations within the United States are tax deductible. You may review our <a href="/501c3.pdf">letter of exemption</a> from the IRS and verify our standing with <a href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS Publication 78</a> or the <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Colorado Secretary of State</a>. Also available are our governing <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">bylaws</a> and public board meeting <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">minutes</a>.<blockquote>Falling Fruit<br/>PO Box 284, Boulder, CO, 80306, USA<br/>EIN&colon; 46-5363428</blockquote>
-      closing_remarks_para2_html: Harvesting food in an urban setting comes with certain practical and moral considerations. For an introduction to the ethics of urban foraging, we recommend the excellent summary on our sibling site - Portland, Oregon''s <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
+      closing_remarks_para2_html: Harvesting food in an urban setting comes with certain practical and moral considerations. For an introduction to the ethics of urban foraging, we recommend the excellent summary on our sibling site - Portland, Oregon's <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
       closing_remarks_para3_html: Most of the foraging maps migrated to Falling Fruit were hosted on public Google Maps pages on which it was all too easy to accidentally move markers. If an address provided in a description disagrees with the location on the map, the marker was likely moved accidentally on the original map. Please update the locations of these markers accordingly whenever field inspection determines the address (and not the mapped location) to be correct.
       closing_remarks_para4_html: Municipal tree inventories are updated only gradually (if at all) as trees are visited for maintenance. User-contributed and municipal data may be several years old or plain wrong, so be prepared to encounter puzzling inaccuracies in the field. Ultimately, it is your responsibility to determine the identity, edibility, and location of a plant.
     data:
@@ -253,7 +262,7 @@ en:
       links: Links
       count: Count
     datasets:
-      intro_html: Falling Fruit aspires to be the world''s most comprehensive and open geographic dataset of urban edibles. While our users explore, edit, and add locations using our <a href=\"/\">map</a>, we comb the known universe for pre-existing datasets and import them directly into the <a href=\"/data\">database</a>, uniting the efforts of foragers, foresters, and freegans everywhere. If you know of a dataset we''ve missed, please <a href=\"mailto:info@fallingfruit.org\">let us know</a>! You can also help us with the import process by formatting the data using the <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">import template</a>. Note that since imports must be performed manually, further changes to the original data are not reflected on Falling Fruit.
+      intro_html: Falling Fruit aspires to be the world's most comprehensive and open geographic dataset of urban edibles. While our users explore, edit, and add locations using our <a href="/">map</a>, we comb the known universe for pre-existing datasets and import them directly into the <a href="/data">database</a>, uniting the efforts of foragers, foresters, and freegans everywhere. If you know of a dataset we've missed, please <a href="mailto:info@fallingfruit.org">let us know</a>! You can also help us with the import process by formatting the data using the <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">import template</a>. Note that since imports must be performed manually, further changes to the original data are not reflected on Falling Fruit.
       imported_datasets: Imported datasets
       types_of_data: Datasets imported to Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their surroundings for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us get your neighborhood on the map, contact your school or city urging them to share their tree inventory with us.
       table_info: Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the original data, the import process, and the license governing how the data may be used.

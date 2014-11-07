@@ -113,7 +113,7 @@ jQuery(document).ready(function(){
 
   <!-- Type -->
   <div class="field first" id="types">
-    *<%= f.label :types %><br />
+    *<%= f.label I18n.t("locations.form.types") %><br />
     <span class="subtext"><%= I18n.t("locations.form.types_subtext") %></span><br />
     <%= hidden_field_tag('types', @location.type_names.join(","), :id=>"typeselect2") %>
   </div>
@@ -166,8 +166,8 @@ jQuery(document).ready(function(){
   <div class="field">
     <%= f.label I18n.t("locations.form.season") %><br />
     <span class="subtext"><%= I18n.t("locations.form.season_subtext") %></span><br />
-    <%= f.select(:season_start,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %> to
-    <%= f.select(:season_stop,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %>, or
+    <%= f.select(:season_start,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %> <%= I18n.t("to") %>
+    <%= f.select(:season_stop,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %>, <%= I18n.t("or") %>
     <%= f.check_box(:no_season) %> <%= I18n.t("locations.form.no_season") %>
   </div>
   
@@ -203,7 +203,7 @@ jQuery(document).ready(function(){
       <%= f.label I18n.t("locations.form.fruiting_status") %><br />
       <span class="subtext"><%= I18n.t("locations.form.fruiting_subtext") %></span><br />
       <%= select_tag(:fruiting,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] })) %>
-      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div><%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[2] %></div><div><%= I18n.t("locations.infowindow.fruiting")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[4] %></div></div>
+      <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[2] %></div></div>
     </div>
   
     <!-- Quality Rating -->

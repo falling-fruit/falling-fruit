@@ -72,8 +72,8 @@ jQuery(document).ready(function(){
 
   <!-- Date -->
   <div class="field first">
-    <%= f.label I18n.t("locations.form.visted_on") %><br />
-    <span class="subtext"><%= I18n.t("locations.form.visted_on") %></span><br />
+    <%= f.label I18n.t("locations.form.visited_on") %><br />
+    <span class="subtext"><%= I18n.t("locations.form.visited_on_subtext") %></span><br />
     <%= f.text_field(:observed_on) %>
   </div>
   
@@ -91,7 +91,7 @@ jQuery(document).ready(function(){
     <%= f.label I18n.t("locations.form.fruiting_status") %><br />
     <span class="subtext"><%= I18n.t("locations.form.fruiting_subtext") %></span><br />
     <%= f.select(:fruiting,I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] },:include_blank => true) %>
-    <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div>&nbsp;<%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[2] %></div></div>
+    <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[2] %></div></div>
   </div>
   
   <!-- Yield Rating -->

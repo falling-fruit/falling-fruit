@@ -27,11 +27,7 @@ last_days_ago = nil
 %>
 <%= raw header %>
 <% unless c["location_id"].nil? %>
-  <% if user_signed_in? and current_user.is? :admin %>
-    <a href="/locations/<%= c["location_id"] %>/edit">
-  <% else %>
-    <a href="/locations/<%= c["location_id"] %>">
-  <% end %>
+  <a href="/locations/<%= c["location_id"] %>">
   <%= c["type_title"].nil? ? "Unknown" : pretty_title %>
     </a>
     (#<%= c["location_id"] %>) <%= c["description"] %>
