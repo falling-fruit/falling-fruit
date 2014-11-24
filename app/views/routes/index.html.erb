@@ -25,16 +25,20 @@ LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where
     <td><%= text_field_tag "route[#{route.id}[name]", route.name %></td>
     <td><%= lcounts[route.id] %></td>
     <td><%= select_tag "route[#{route.id}][transport_type]", options_for_select(Route::TransportTypes,route.transport_type) %>
+    <!--FIXME <td><%= select_tag "route[#{route.id}][transport_type]", options_for_select(I18n.t("routes.show.modes_of_travel")) %></td>-->
     <td><%= check_box_tag "route[#{route.id}][is_public]", '1', route.is_public %>
-    <td><%= link_to I18n.t("routes.index.delete", :default => 'Delete'), route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <td><span style="display:none;"><%= route.updated_at %></span><%= time_ago_in_words(route.updated_at) %> <%= I18n.t("routes.index.ago") %></td>
+    <td><%= link_to I18n.t("routes.index.delete"), route, method: :delete, data: { confirm: I18n.t("routes.index.delete_confirmation") } %></td>
+    <td>
+      <span style="display:none;"><%= route.updated_at %></span> 
+      <%= I18n.t("routes.index.time_ago", :time => time_ago_in_words(route.updated_at)) %>
+    </td>
   </tr>
 <% end %>
 </tbody>
 </table>
 
 <br><br>
-<%= submit_tag I18n.t("routes.index.save_changes", :default => 'Save Changes') %>
+<%= submit_tag I18n.t("routes.index.save_changes") %>
 
 <% end %>
 

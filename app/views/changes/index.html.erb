@@ -1,11 +1,22 @@
 <p>
-<b><%= I18n.t("changes.index.recent_changes",:default=>"Recent changes") %></b>
+<b><%= I18n.t("changes.index.recent_changes") %></b>
 </p>
 
 <% 
 last_days_ago = nil 
 @changes.each do |c|
-  pretty_title = (c["type_title"] + "," + c["type_others"]).split(/,/).join(', ')
+  types = (c["type_title"] + "," + c["type_others"]).split(/,/).join(', ')
+  unless c["country"].nil?
+    city = [c["city"],c["state"],c["country"]].compact.join(", ")
+  end
+  case c["description"]
+    when "added"
+      action = I18n.t("changes.type.added")
+    when "edited"
+      action = I18n.t("changes.type.edited")
+    when "visited"
+      action = I18n.t("changes.type.visited")
+  end
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
     if c["days_ago"] <= 0
@@ -28,26 +39,26 @@ last_days_ago = nil
 <%= raw header %>
 <% unless c["location_id"].nil? %>
   <a href="/locations/<%= c["location_id"] %>">
-  <%= c["type_title"].nil? ? "Unknown" : pretty_title %>
-    </a>
-    (#<%= c["location_id"] %>) <%= c["description"] %>
-  <% unless c["country"].nil? %>
-    in <%= [c["city"],c["state"],c["country"]].compact.join(", ") %>
-  <% end %>
-<% else %>
-    <%= c["description"] %>
-<% end %>
-<% if user_signed_in? and current_user.is? :admin %>
-  <span style="color: #E35809;">
-  <% if c["user_id"].nil? %>
-    &nbsp;<%= c["remote_ip"] %>
+    <%= types.nil? ? I18n.t("locations.sidebar.unknown") : types %>
+  </a>
+  (#<%= c["location_id"] %>)
+  <% unless city.nil? %>
+    <%= I18n.t("changes.index.change_in_city", :type => action, :city => city) %>
   <% else %>
-    &nbsp;<%= I18n.t("changes.index.user",:default=>"User") %> #<%= c["user_id"] %>
+    <%= action %>
   <% end %>
-  </span>
+  <% if user_signed_in? and current_user.is? :admin %>
+    &middot; <span style="color: #E35809;">
+    <% if c["user_id"].nil? %>
+      <%= c["remote_ip"] %>
+    <% else %>
+      <%= I18n.t("changes.index.user") %> #<%= c["user_id"] %>
+    <% end %>
+    </span>
+  <% end %>
+  <br>
 <% end %>
-<br>
 <% end %>
 <% if @changes.length > 0 %>
-</blockquote>
+  </blockquote>
 <% end %>
