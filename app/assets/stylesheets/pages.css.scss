@@ -552,6 +552,7 @@ div#countries > div {
 #press_list td.date {
   text-align: right;
   padding-right: 2em;
+  white-space: nowrap;
 }
 
 #press_list td.date span.year {

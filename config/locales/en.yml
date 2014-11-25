@@ -1,309 +1,386 @@
----
 en:
+  changes:
+    type:
+      added: added
+      visited: visited
+      edited: edited
+    index:
+      recent_changes: Recent changes
+      user: User
+      change_in_city: ! '%{type} in %{city}'
+      1_day_ago: 1 day ago
+      last_24_hours: Last 24 hours
+      n_days_ago: ! '%{n} days ago'
+  devise:
+    confirmations:
+      confirmed: Your account was successfully confirmed. You are now signed in.
+      send_instructions: You will receive an email with instructions about how to confirm your account in a few minutes.
+      send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.
+    failure:
+      already_authenticated: You are already signed in.
+      inactive: Your account was not activated yet.
+      invalid: Invalid email or password.
+      invalid_token: Invalid authentication token.
+      locked: Your account is locked.
+      not_approved: Your account has not been approved by your administrator yet.
+      timeout: Your session expired, please sign in again to continue.
+      unauthenticated: You need to sign in or sign up before continuing.
+      unconfirmed: You have to confirm your account before continuing.
+    mailer:
+      confirmation_instructions:
+        subject: Confirmation instructions | Falling Fruit
+      reset_password_instructions:
+        subject: Reset password instructions | Falling Fruit
+      unlock_instructions:
+        subject: Unlock Instructions | Falling Fruit
+    omniauth_callbacks:
+      failure: Could not authenticate you from %{kind} because "%{reason}".
+      success: Successfully authenticated from %{kind} account.
+    passwords:
+      no_token: You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided.
+      send_instructions: You will receive an email with instructions on how to reset your password in a few minutes.
+      send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
+      updated: Your password was changed successfully. You are now signed in.
+      updated_not_active: Your password was changed successfully.
+    registrations:
+      destroyed: Bye! Your account was successfully cancelled. We hope to see you again soon.
+      signed_up: Welcome to Falling Fruit! You have signed up successfully.
+      signed_up_but_inactive: You have signed up successfully. However, we could not sign you in because your account is not yet activated.
+      signed_up_but_locked: You have signed up successfully. However, we could not sign you in because your account is locked.
+      signed_up_but_not_approved: You have signed up successfully but your account has not yet been approved by an administrator.
+      signed_up_but_unconfirmed: A confirmation link has been sent to your email address. Please open the link to activate your account.
+      update_needs_confirmation: You updated your account successfully, but we need to verify your new email address. A confirmation link has been sent to your new email address. Click on this link to finalize confirming your new email address.
+      updated: You updated your account successfully.
+    sessions:
+      signed_in: Signed in successfully.
+      signed_out: Signed out successfully.
+    unlocks:
+      send_instructions: You will receive an email with instructions about how to unlock your account in a few minutes.
+      send_paranoid_instructions: If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.
+      unlocked: Your account has been unlocked successfully. Please sign in to continue.
+  errors:
+    messages:
+      after: must be after %{restriction}
+      already_confirmed: was already confirmed, please try signing in
+      before: must be before %{restriction}
+      expired: has expired, please request a new one
+      invalid_date: is not a valid date
+      invalid_datetime: is not a valid datetime
+      invalid_time: is not a valid time
+      is_at: must be at %{restriction}
+      not_found: not found
+      not_locked: was not locked
+      not_saved:
+        one: ! '1 error prohibited this %{resource} from being saved:'
+        other: ! '%{count} errors prohibited this %{resource} from being saved:'
+      on_or_after: must be on or after %{restriction}
+      on_or_before: must be on or before %{restriction}
   helpers:
     faster_time_ago_in_words:
-      less_than_24_hours: less than 24 hours
       days: days
       last_month: last month
-      months_ago: months ago
       last_year: last year
+      less_than_24_hours: less than 24 hours
+      months_ago: months ago
       years_ago: years ago
-  changes:
+  imports:
     index:
-      recent_changes: Recent Changes
-      last_24_hours: Last 24 hours
-      1_day_ago: 1 day ago
-      n_days_ago: ! '%{n} days ago'
-      user: User
+      delete: Delete
+      edit: Edit
+      error: Error
+    show:
+      edit: edit
+      imported: Imported
   layouts:
     application:
-      mapping_the_urban_harvest: Mapping the urban harvest!
-      feed_people_not_landfills: Feed people, not landfills!
-      menu:
-        account: Account
-        logout: Logout
-        login: Login
-        map: Map
-        home: Home
-        world: World
-        about: About
-        the_project: The Project
-        imported_datasets: Imported Datasets
-        sharing_the_harvest: Sharing the Harvest
-        in_the_press: In the Press
-        data: Data
-        changes: Changes
-        routes: Routes
-        trouble: Trouble
-        types: Types
-        approved_types: Approved types
-        pending_types: Pending types
-        new_type: New Type
-        imports: Imports
-        list_imports: List Imports
-        new_import: New Import
-        users: Users
-        add_source: + Add source
-        sign_up: Sign Up
-      or_right-click_on_map: (or right-click on map)
-      unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
-      pending_types_help: We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted as pending until they are either approved as a new type or merged with an existing type in the taxonomy. In rare instances when the submission is either too random or vague to warrant its own type, it persists on the map in an unapproved state.
       copyleft: Copyleft
+      feed_people_not_landfills: Feed people, not landfills!
+      mapping_the_urban_harvest: Mapping the urban harvest!
+      menu:
+        about: About
+        account: Account
+        add_source: + Add source
+        approved_types: Approved types
+        changes: Changes
+        data: Data
+        home: Home
+        imported_datasets: Imported datasets
+        imports: Imports
+        in_the_press: In the press
+        list_imports: List imports
+        login: Login
+        logout: Logout
+        map: Map
+        new_import: New import
+        new_type: New type
+        pending_types: Pending types
+        routes: Routes
+        sharing_the_harvest: Sharing the harvest
+        sign_up: Sign up
+        the_project: The project
+        trouble: Problems
+        types: Types
+        users: Users
+        world: World
+      or_right-click_on_map: (or right-click on map)
+      pending_types_help: We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted on the map as pending until they are either added to the taxonomy or merged with an existing type. In rare instances, the proposed type is either too weird or ambiguous and it remains unapproved indefinitely.
+      unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
   locations:
-    infowindow:
-      tabs:
-        info: Info
-        reviews: Reviews
-        street_view: Street View
+    embed:
+      add_source: Add source
+    form:
+      access: Access
+      access_subtext: Access status of this source. Leave blank if you don't know.
+      address_subtext_html: Address <span class="subtext-inline">can be used to quickly position the marker. Adjust as needed before submitting.</span>
+      author_subtext: Displayed on map. Leave blank if you prefer to remain anonymous.
+      comments: Comments
+      comments_subtext: Updates, access issues, plant health...
+      create_another: Create another
+      date_subtext: Date of the reported fruiting status (if not today)
+      date_visited: Date visited
+      description: Description
+      description_subtext: Location details, access issues, plant health ...
+      form_error: An error prohibited this location from being saved
+      form_intro_html: Edit the location below, or <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Review this location">use this form</a> to review, comment, and post photos.
+      fruiting_status: Fruiting status
+      fruiting_subtext: What is the fruit doing right now? (if applicable)
+      have_you: Have you visited this location?
+      location: Location
+      location_subtext: Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.
+      move_marker: Move marker to coordinates
+      move_marker_address: Move marker to address
+      name_subtext: Leave blank if you prefer to remain anonymous.
+      no_season: No season
+      or: or
+      photo: Photo
+      photo_caption: Photo caption
+      photo_subtext: Optionally, upload a photo of the source. If it is someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.
+      quality: Quality
+      quality_subtext: Rate the tastiness of this source (if applicable)
+      season: Season
+      season_subtext: When can the source be harvested? Leave blank if you don't know.
+      submit: Submit
+      to: to
+      types: Types
+      types_subtext: Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.
       unverified: Unverified
-      unsure: Unsure
+      unverified_subtext: If you doubt the existence, location, or identity of this source.
+      verify: Verify
+      verify_subtext: This location has been previously flagged as Unverified
+      visited_on: Visited on
+      visited_on_subtext: Date of your visit (if not today)
+      yield: Yield
+      yield_subtext: Rate the productivity of this source (if applicable)
+      your_name: Your name
+    index:
+      freegan_splash_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly 50% of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.<br><br>In support of a lower-waste lifestyle, we are encouraging the mapping of all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
+      splash_html: Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of foragers, foresters, and freegans everywhere, the map already points to over a half million food-producing locations around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for an account to access additional features.
+      stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+    infowindow:
       access:
       - This source was added by the property owner.
       - The owner of this source asked that it be added.
       - This source is on public land.
       - This source is on private property but may overhang public land. Please pick with discretion.
       - This source is on private property. Please ask for permission before you pick.
-      rating:
-      - Poor
-      - Fair
-      - Good
-      - Very Good
-      - Excellent
-      fruiting:
-      - Flowering
-      - Fruiting
-      - Ripe
-      access_short:
-      - Added by owner
-      - Permitted by owner
-      - Public
-      - Private but overhanging
-      - Private
       access_mode:
       - I own this source
       - I have permission from the owner to add this source
       - Source is on public land
       - Source is on private property but overhangs public land
       - Source is on private property (ask before you pick)
-      quality: Quality
-      yield: Yield
-      season: Season
+      access_short:
+      - Added by owner
+      - Permitted by owner
+      - Public
+      - Private but overhanging
+      - Private
+      add_to_remove_from: Add to / remove from
+      anonymous: Anonymous
+      are_you_sure: Are you sure?
+      by: by
+      citation_to_the_original_source: Citation to the original source
+      delete: delete
+      delete_comment: Delete comment
+      delete_photo: Delete photo
+      delete_this_location: Delete this location
+      edit: edit
+      edit_this_location: Edit this location
       flower: Flower
       fruit: Fruit
-      ripe: Ripe
-      january_to_december: January - December
-      review: + review
-      report: report
-      zoom: zoom
-      street: street
-      link: link
-      edit: edit
-      routes: routes
-      delete: delete
-      review_this_location: Review this location
-      report_a_problem: Report a problem
-      zoom_to_this_location: Zoom to this location
-      see_this_location_in_streetview: See this location in streetview
-      url_for_this_location: URL for this location
-      edit_this_location: Edit this location
-      toggle_route_countrols: Toggle route controls
-      delete_this_location: Delete this location
-      are_you_sure: Are you sure?
-      citation_to_the_original_source: Citation to the original source
-      delete_photo: Delete photo
-      by: by
-      anonymous: Anonymous
-      source: source
-      add_to_remove_from: Add to / remove from
-      new_route: New Route
+      fruiting:
+      - Flowering
+      - Fruiting
+      - Ripe
       have_you_visited_html: Have you visited this source? Add a <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Review this location" id="add_review">review</a>
-      delete_comment: Delete comment
-      x_photo: x photo
-      status: Status
-      unsure_other: Unsure/Other
-      toggle_route_controls: Toggle route controls
-    searchbar:
-      link: Link
-      embed: Embed
-      url_to_the_current_map: URL to the current map
-      embed_html: Embed HTML
-      address: Address
-      type_and_press_enter: Type and press enter
-      zoom_to_current_location: Zoom to current location
-      zoom_to_me: Zoom to Me
-      filter: Filter
-      labels: Labels
-      tree_inventories: Tree inventories
-      tree_inventories_modal: Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. You can help us map your neighborhood by asking your city or university if a tree inventory exists and whether  it can be shared with Falling Fruit.
-      download: Download
-      select_edible_type: Select edible type
-    sidebar:
-      activity: Activity
-      favorites: Favorites
-      routes: Routes
-      you_havent_defined_html: You haven't defined a foraging range. <a href="/users/edit">Click here</a> to do that now
-      changed_within_html: Changes within your <a href="/users/edit">foraging range</a>
-      last_24_hours: Last 24 hours
-      this_week: This week
-      this_month: This month
-      last_month: Last month
-      months_ago: Months ago
-      unknown: Unknown
-      in: in
-      by: by
-      you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed anything (while logged in)
-      click_here: Click here
-      locations_added_or_reviewed_by_you_while_logged_in: Locations added or reviewed by you (while logged in)
-      last_visited: Last visited
-      click_here_to_manage_your_routes_html: Click <a href="%{routes_path}">here</a> to manage your routes
-      public: public
-      locations: locations
-      last_updated: Last updated
-      ago: ago
-      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any foraging routes yet. Click on a source and then click 'routes' to get started making a route.
-    index:
-      splash_html: Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of foragers, foresters, and freegans everywhere, the map already points to over a half million food-producing locations around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for an account to access additional features.
-      freegan_splash_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly 50% of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.<br><br>In support of a lower-waste lifestyle, we are encouraging the mapping of all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
-      stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
-    embed:
-      add_source: Add source
-    form:
-      form_error: An error prohibited this location from being saved
-      form_intro_html: Edit the location below, or <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Review this location">use this form</a> to review, comment, and post photos.
-      types: Types
-      types_subtext: Choose from the dropdown list, submitting new names only if appropriate choices do not already exist.
-      location: Location
-      location_subtext: Determined from your current location (when available) or a marker you placed. Adjust the location by moving the map marker.
-      move_marker: Move marker to coordinates
-      move_marker_address: Move marker to address
-      address_subtext_html: Address <span class="subtext-inline">can be used to quickly position the marker. Adjust as needed before submitting.</span>
-      name_subtext: Leave blank if you prefer to remain anonymous.
-      your_name: Your name
-      author_subtext: Displayed on map. Leave blank if you prefer to remain anonymous.
-      description_subtext: Location details, access issues, plant health...
-      season_subtext: When can the source be harvested? Leave blank if you don't know.
-      no_season: No season
-      access_subtext: Access status of this source. Leave blank if you don't know.
-      description: Description
-      season: Season
-      access: Access
-      unverified: Unverified
-      unverified_subtext: If you doubt the existence, location, or identity of this source.
-      have_you: Have you visited this location?
-      date_visited: Date visited
-      date_subtext: Date of the reported fruiting status (if not today)
-      fruiting_status: Fruiting status
-      fruiting_subtext: What is the fruit doing right now? (if applicable)
+      january_to_december: January - December
+      link: link
+      new_route: New route
       quality: Quality
-      quality_subtext: Rate the tastiness of this source (if applicable)
-      yield_subtext: Rate the productivity of this source (if applicable)
+      rating:
+      - Poor
+      - Fair
+      - Good
+      - Very Good
+      - Excellent
+      report: report
+      report_a_problem: Report a problem
+      review: + review
+      review_this_location: Review this location
+      ripe: Ripe
+      routes: routes
+      season: Season
+      see_this_location_in_streetview: See this location in streetview
+      source: source
+      status: Status
+      street: street
+      tabs:
+        info: Info
+        reviews: Reviews
+        street_view: Street View
+      toggle_route_controls: Toggle route controls
+      toggle_route_countrols: Toggle route controls
+      unsure: Unsure
+      unsure_other: Unsure/Other
+      unverified: Unverified
+      url_for_this_location: URL for this location
+      x_photo: x photo
       yield: Yield
-      submit: Submit
-      create_another: Create another
-      visited_on: Visited on
-      visited_on_subtext: Date of your visit (if not today)
-      comments: Comments
-      comments_subtext: Updates, access issues, plant health...
-      verify: Verify
-      verify_subtext: This location has been previously flagged as Unverified
-      photo: Photo
-      photo_subtext: Optionally, upload a photo of the source. If it is someone else's photo, please ensure that you have the necessary permissions and credit the photographer in the caption.
-      photo_caption: Photo caption
-      visited_on: Visited on
-      to: to
-      or: or
+      zoom: zoom
+      zoom_to_this_location: Zoom to this location
     locations_type:
       or: Or
+    searchbar:
+      address: Address
+      download: Download
+      embed: Embed
+      embed_html: Embed HTML
+      filter: Filter
+      labels: Labels
+      link: Link
+      select_edible_type: Select edible type
+      tree_inventories: Tree inventories
+      tree_inventories_modal: Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. You can help us map your neighborhood by asking your city or university if a tree inventory exists and whether  it can be shared with Falling Fruit.
+      type_and_press_enter: Type and press enter
+      url_to_the_current_map: URL to the current map
+      zoom_to_current_location: Zoom to current location
+      zoom_to_me: Zoom to Me
+    sidebar:
+      activity: Activity
+      ago: ago
+      changed_within_html: Changes within your <a href="/users/edit">foraging range</a>
+      click_here: Click here
+      click_here_to_manage_your_routes_html: Click <a href="%{routes_path}">here</a> to manage your routes
+      favorites: Favorites
+      in: in
+      last_24_hours: Last 24 hours
+      last_month: Last month
+      last_updated: Last updated
+      last_visited: Last visited
+      locations: locations
+      locations_added_or_reviewed_by_you_while_logged_in: Locations added or reviewed by you (while logged in)
+      months_ago: ! '%{months} months ago'
+      public: public
+      routes: Routes
+      this_month: This month
+      this_week: This week
+      unknown: Unknown
+      you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed anything (while logged in)
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any foraging routes yet. Click on a source and then click 'routes' to get started making a route.
+      you_havent_defined_html: You haven't defined a foraging range. <a href="/users/edit">Click here</a> to do that now
+      by_author: by %{author}
   pages:
     about:
-      give_us_money: We are a volunteer-run nonprofit and rely on donations to operate. If you are willing and able, please consider making a financial contribution. Thanks to our 501(c)(3) status, donations within the United States are tax deductible.
-      give_paypal: Donate via Paypal
-      give_gittip: Tip via Gittip
-      contact_us_html: Falling Fruit is built by and for foragers &ndash; we want it to be the best tool available to the contemporary forager. Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, we would love to hear from you!
-      about_the_site: About the site
-      celebration: Falling Fruit is a celebration of the overlooked culinary bounty of our city streets. By quantifying this resource on a map, we hope to facilitate intimate connections between people, food, and the natural organisms growing in our neighborhoods. Not just a free lunch! Foraging in the 21st century is an opportunity for urban exploration, to fight the scourge of stained sidewalks, and to reconnect with the botanical origins of food.
-      join_us_html: Join us in celebrating the local and edible! The <a href="/">map</a> is open for anyone to edit, the database can be <a href="/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">the code</a> is open-source. You are likewise encouraged to share the bounty with your fellow humans. Our <a href="/sharing">sharing page</a> lists hundreds of local organizations - planting public orchards and food forests, picking otherwise-wasted fruits and vegetables from city trees and farmers' fields, and sharing with neighbors and the needy.
-      more_about_html: Our map of urban edibles is not the first of its kind, but we aspire to be the world's most comprehensive. While our users contribute locations of their own, we comb the internet for pre-existing knowledge, seeking to unite the efforts of foragers, foresters, and freegans everywhere. The <a href="/datasets">imported datasets</a> range from small neighborhood foraging maps to vast professionally-compiled tree inventories. This so far amounts to %{types} different types of edibles (most, but not all, plant species) distributed over %{locations} locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and the long-forgotten culinary uses of native plants, foraging in your neighborhood is a journey through time and across cultures.
+      about_the_site: About the project
       about_us: Board of directors
-      caleb_bio_html: Caleb is a featherless bipedal humanoid passionate about food justice and finding <a href="http://smallwhitecube.com">creative ways to use technology</a> to address social issues. When he's not biking around gawking at trees, he balances his efforts between his day job as a data scientist at the <a href="http://nrel.gov">National Renewable Energy Laboratory</a> in Golden Colorado, an adjunct professor of computer science at the <a href="http://cs.colorado.edu">University of Colorado</a>, and as a worker bee for a number of nonprofit organizations (<a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> in Denver and <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> in Boulder, Colorado). Besides all that work stuff, he likes to climb rocks, run trails, ride bikes, and generally be outdoors as much as possible.
-      ethan_bio_html: From apple ciders and fruit beers to jams and <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan looks to his database of neighborhood trees (and his rickety apple press) for culinary inspiration. While at home in Boulder, he geeks out over maps, data, and time-lapse of retreating glaciers for his PhD at the <a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a>, but he often leaves his local orbit to walk, talk, eat, and <a href="http://www.weltyphotography.com">photograph</a> his way across continents.
-      jeff_bio_html: Since harvesting black and blueberries with his family as a child and, more recently, noticing the wealth of public fruit trees throughout Colorado, Jeff has developed a deep appreciation for the abundance of fruit growing in our cities. His first mission for Falling Fruit was to comb Boulder and Salt Lake City, paper maps in-hand, to record fruiting trees. When not working to improve building energy efficiency, he is usually helping out in the community or moving quickly over mountains by foot, ski, or bicycle.
       advisory_board: Board of advisors
-      craig_durkin_bio_html: Founder of Atlanta-based fruit rescue organization <a href="//www.concrete-jungle.org/">Concrete Jungle</a>
-      cristina_rubke_bio_html: Attorney at San Francisco law firm <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis Friese LLP</a>
-      david_craft_bio_html: Author of <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging</a> (download it free <a href="/docs/David Craft - Urban Foraging.pdf">here</a>)
-      tristram_stuart_bio_html: >
-        Author of <a href="//tristramstuart.co.uk">Waste: Uncovering the Global Food Scandal</a> &middot; Founder of international food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> &middot; National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>
+      caleb_bio_html: Caleb is a featherless bipedal humanoid passionate about food justice and finding <a href="http://smallwhitecube.com">creative ways to use technology</a> to address social issues. When he's not biking around gawking at trees, he balances his efforts between his day job as a data scientist at the <a href="http://nrel.gov">National Renewable Energy Laboratory</a> in Golden, Colorado, an adjunct professor of computer science at the <a href="http://cs.colorado.edu">University of Colorado</a>, and as a worker bee for a number of nonprofit organizations (<a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> in Denver and <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> in Boulder, Colorado). Besides all that work stuff, he likes to climb rocks, run trails, ride bikes, and generally be outdoors as much as possible.
+      celebration: Falling Fruit is a celebration of the overlooked culinary bounty of our city streets. By quantifying this resource on an interactive map, we hope to facilitate intimate connections between people, food, and the natural organisms growing in our neighborhoods. Not just a free lunch! Foraging in the 21st century is an opportunity for urban exploration, to fight the scourge of stained sidewalks, and to reconnect with the botanical origins of food.
       closing_remarks: Closing remarks
-      closing_remarks_para1_html: Falling Fruit is a 501(c)(3) (tax-exempt) public charity registered in Boulder, Colorado. As a result, donations within the United States are tax deductible. You may review our <a href="/501c3.pdf">letter of exemption</a> from the IRS and verify our standing with <a href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS Publication 78</a> or the <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Colorado Secretary of State</a>. Also available are our governing <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">bylaws</a> and public board meeting <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">minutes</a>.<blockquote>Falling Fruit<br/>PO Box 284, Boulder, CO, 80306, USA<br/>EIN&colon; 46-5363428</blockquote>
+      closing_remarks_para1_html: ! 'Falling Fruit is a 501(c)(3) (tax-exempt) public charity based in Boulder, Colorado. As a result, donations within the United States are tax deductible. You may review our <a href="/501c3.pdf">letter of exemption</a> from the IRS and verify our standing with <a href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS Publication 78</a> or the <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Colorado Secretary of State</a>. Also available are our <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">by-laws</a> and board meeting <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">minutes</a>. <blockquote>Falling Fruit<br/>PO Box 284, Boulder, CO, 80306, USA<br/>EIN: 46-5363428</blockquote>'
       closing_remarks_para2_html: Harvesting food in an urban setting comes with certain practical and moral considerations. For an introduction to the ethics of urban foraging, we recommend the excellent summary on our sibling site - Portland, Oregon's <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
-      closing_remarks_para3_html: Most of the foraging maps migrated to Falling Fruit were hosted on public Google Maps pages on which it was all too easy to accidentally move markers. If an address provided in a description disagrees with the location on the map, the marker was likely moved accidentally on the original map. Please update the locations of these markers accordingly whenever field inspection determines the address (and not the mapped location) to be correct.
-      closing_remarks_para4_html: Municipal tree inventories are updated only gradually (if at all) as trees are visited for maintenance. User-contributed and municipal data may be several years old or plain wrong, so be prepared to encounter puzzling inaccuracies in the field. Ultimately, it is your responsibility to determine the identity, edibility, and location of a plant.
+      closing_remarks_para3_html: Information on Falling Fruit may be wrong or out of date. For example, many of the foraging maps migrated to Falling Fruit were hosted as public Google Maps on which markers were often moved accidentally, and municipal tree inventories are updated only (if ever) as trees are visited for maintenance. Be prepared to encounter inaccuracies in the field, and please edit the map as needed based on your discoveries. Ultimately, it is your responsibility to determine the identity, edibility, and location of a plant, and the responsibility of all to improve the quality of the map.
+      contact_us_html: Falling Fruit is built by and for foragers – we want it to be the best tool available to the contemporary forager. Write us at <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, we would love to hear from you!
+      craig_durkin_bio_html: Founder of Atlanta fruit rescue organization <a href="//www.concrete-jungle.org/">Concrete Jungle</a>
+      cristina_rubke_bio_html: Attorney at San Francisco law firm <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis Friese LLP</a>
+      david_craft_bio_html: Author of <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging</a> (<a href="/docs/David Craft - Urban Foraging.pdf">free download</a>)
+      ethan_bio_html: From apple ciders and fruit beers to jams and <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan looks to his database of neighborhood trees (and his cider press) for culinary inspiration. While at home in Boulder, he geeks out over maps, data, and time-lapse of retreating glaciers for his PhD at the <a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a>, but he often goes into orbit to walk, talk, eat, and <a href="http://www.weltyphotography.com">photograph</a> his way across continents.
+      give_gittip: Tip via Gittip
+      give_paypal: Donate via Paypal
+      give_us_money: We are a volunteer-run 501(c)(3) nonprofit and rely on donations to operate. If you are willing and able, please consider making a financial contribution. Donations within the United States are tax deductible.
+      jeff_bio_html: Since harvesting black and blueberries with his family as a child and, more recently, noticing the wealth of public fruit trees throughout Colorado, Jeff has developed a deep appreciation for the abundance of fruit growing in our cities. His first mission for Falling Fruit was to comb Boulder and Salt Lake City, paper maps in-hand, to record fruiting trees. When not working to improve building energy efficiency, he is usually helping out in the community or moving quickly over mountains by foot, ski, or bicycle.
+      join_us_html: Join us in celebrating hyper-local food! The <a href="/">map</a> is open for anyone to edit, the database can be <a href="/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">the code</a> is open-source. You are likewise encouraged to share the bounty with your fellow humans. Our <a href="/sharing">sharing page</a> lists hundreds of local organizations - planting public orchards and food forests, picking otherwise-wasted fruits and vegetables from city trees and farmers' fields, and sharing with neighbors and the needy.
+      more_about_html: Our edible map is not the first of its kind, but it aspires to be the world's most comprehensive. While our users contribute locations of their own, we comb the internet for pre-existing knowledge, seeking to unite the efforts of foragers, foresters, and freegans everywhere. The <a href="/datasets">imported datasets</a> range from small neighborhood foraging maps to vast professionally-compiled tree inventories. This so far amounts to %{types} different types of edibles (most, but not all, plant species) distributed over %{locations} locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and long-forgotten native plants, foraging in your neighborhood is a journey through time and across cultures.
+      tristram_stuart_bio_html: ! 'Author of <a href="//tristramstuart.co.uk">Waste: Uncovering the Global Food Scandal</a> &middot; Founder of international food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> &middot; National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>
+
+'
     data:
-      intro: Falling Fruit is built on public data and the generosity of urban foragers willing to share their finds with others. We want urban food sources to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database
-      last_updated: last updated
-      data_unavailable_html: Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.
-      beware_html: But beware. Once uncompressed, the data becomes a huge file that causes most spreadsheet software to implode. Only those interested in manipulating the data in it's entirety need to go this route. For most, a better alternative is to selectively retrieve points of interest using the download tool integrated into the <a href="/">map</a>.
-      license_html: If you are interested in using the data in your own project, especially for commercial applications, we suggest you contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). When not otherwise specified, data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons (Attribution, Non-commercial, Share-alike)</a> license. This means that you are free to use and distribute the data so long as you preserve the original author/source attribution and do not use it (without permission) for commercial applications. The source code for Falling Fruit is also open. More details on that can be found on <a href="https://github.com/somerandomsequence/falling-fruit">our github repository</a>.
-      caveat_emptor_html: It should go without saying that we take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
-      summary_of_sources: Summary of sources
-      summary_description: The database currently contains %{types} different types of edibles (most, but not all, are plant species) distributed over %{locations} locations. For each type, the following table lists English common name(s), scientific name(s), links to outside references, and total count.
+      beware_html: But beware! Once uncompressed, the data is a huge file that will crush most spreadsheet software. If you only need data for a small geographic region, try first retrieving the points of interest using the download tool integrated into the <a href="/">map</a>.
+      caveat_emptor_html: We take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
       common_name: Common name
-      scientific_name: Scientific name
-      links: Links
       count: Count
+      data_unavailable_html: Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.
+      intro: Falling Fruit is built on public data and the generosity of foragers willing to share their finds. We want urban foraging to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database
+      last_updated: last updated
+      license_html: If you are interested in using the data in your project, especially a commercial project, we suggest you contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Unless otherwise specified, data are licensed as <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike). This means that you are free to use and distribute the data so long as you preserve the original author/source attributions and do not use it (without permission) for commercial applications. The source code for Falling Fruit is also open, and available on <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
+      links: Links
+      scientific_name: Scientific name
+      summary_description: The database currently contains %{types} different types of edibles (most, but not all, are plant species) distributed over %{locations} locations. For each type, the following table lists English common name(s), scientific name(s), links to outside references, and total count.
+      summary_of_sources: Summary of sources
     datasets:
-      intro_html: Falling Fruit aspires to be the world's most comprehensive and open geographic dataset of urban edibles. While our users explore, edit, and add locations using our <a href="/">map</a>, we comb the known universe for pre-existing datasets and import them directly into the <a href="/data">database</a>, uniting the efforts of foragers, foresters, and freegans everywhere. If you know of a dataset we've missed, please <a href="mailto:info@fallingfruit.org">let us know</a>! You can also help us with the import process by formatting the data using the <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">import template</a>. Note that since imports must be performed manually, further changes to the original data are not reflected on Falling Fruit.
-      imported_datasets: Imported datasets
-      types_of_data: Datasets imported to Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their surroundings for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us get your neighborhood on the map, contact your school or city urging them to share their tree inventory with us.
-      table_info: Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the original data, the import process, and the license governing how the data may be used.
-      details: Details
-      type: Type
-      name: Name
-      locations: Locations
-      date_imported: Date imported
-      google_map: Google Map
-      google_fusion_table: Google Fusion Table
-      google_maps_engine: Google Maps Engine
-      tree_inventory: Tree Inventory
       community_map: Community Map
+      date_imported: Date imported
+      details: Details
+      google_fusion_table: Google Fusion Table
+      google_map: Google Map
+      google_maps_engine: Google Maps Engine
       imported: Imported
-      no_license: No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons (Attribution, Non-commercial, Share-alike)</a>
+      imported_datasets: Imported datasets
+      intro_html: Falling Fruit aspires to be the most comprehensive and open geographic dataset of urban edibles. While our users explore, edit, and add locations using our <a href="/">map</a>, we comb the known universe for pre-existing datasets and import them directly into the <a href="/data">database</a>, uniting the efforts of foragers, foresters, and freegans everywhere. If you know of a dataset we've missed, please <a href="mailto:info@fallingfruit.org">let us know</a>! You can also help us with the import process by formatting the data using the <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">import template</a>. Note that since imports must be performed manually, all changes to the original data made after the import are not reflected on Falling Fruit.
+      locations: Locations
+      name: Name
+      no_license: No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike).
+      table_info: Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the original data, the import process, and the license governing how the data may be used.
+      tree_inventory: Tree Inventory
+      type: Type
+      types_of_data: Datasets imported into Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their communities for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us map your neighborhood fruit trees, contact your school or city urging them to share their tree inventory with us.
     sharing:
-      grow_pick_and_distribute: Grow, Pick, & Distribute
-      intro_html: Listed below are local organizations that grow food (food forests and public orchards), pick food (urban foraging and farm gleaning), or otherwise redistribute food (swaps and donations). Organizations are listed by country, state, and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
-      global: Global
       australia: Australia
       canada: Canada
       fiji: Fiji
+      food_banks: Food Banks
+      food_banks_intro: Foragers and private tree owners are encouraged to donate their surplus produce to charity. Consider partnering with groups like those listed above, or donating directly to organizations feeding the hungry in your community. The major food bank networks are listed below; homeless shelters, schools, and senior centers are also worth considering.
       france: France
+      global: Global
+      grow_pick_and_distribute: Grow · Pick · Distribute
+      intro_html: Listed below are organizations that grow food in public urban spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (swaps, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
       united_kingdom: United Kingdom
       united_states: United States
-      food_banks: Food Banks
-      food_banks_intro: Foragers and private tree owners overwhelmed by their harvest are encouraged to donate their surplus produce to charity. Consider partnering with groups like those listed above, or donating directly to local organizations feeding the hungry in your community. The major food bank networks are listed below; homeless shelters, schools, and senior centers in your area are also worth considering.
   routes:
     index:
-      routes: Routes
-      link: Link
-      name: Name
-      locations: Locations
-      travel_mode: Travel mode
-      public: Public
       delete: Delete
-      updated: Updated
-      show: Show
-      ago: ago
+      link: Link
+      locations: Locations
+      name: Name
+      public: Public
+      routes: Routes
       save_changes: Save Changes
+      show: Show
+      travel_mode: Travel mode
+      updated: Updated
+      delete_confirmation: Are you sure?
+      time_ago: ! '%{time} ago'
     show:
-      mode_of_travel: Mode of Travel
-      walking: Walking
       bicycling: Bicycling
       driving: Driving
-  imports:
-    index:
-      error: Error
-      edit: Edit
-      delete: Delete
-    show:
-      edit: edit
-      imported: Imported
+      mode_of_travel: Mode of travel
+      walking: Walking
+      modes_of_travel:
+      - Walking
+      - Bicycling
+      - Driving
+  validates_timeliness:
+    error_value_formats:
+      date: ! '%Y-%m-%d'
+      datetime: ! '%Y-%m-%d %H:%M:%S'
+      time: ! '%H:%M:%S'

@@ -19,7 +19,15 @@
     <%
        last_lab = nil
        @changes.each do |c|
-         pretty_title = (c["type_title"] + c["type_others"]).split(/,/).join(', ')
+         types = (c["type_title"] + c["type_others"]).split(/,/).join(', ')
+         case c["description"]
+           when "added"
+             action = I18n.t("changes.type.added")
+           when "edited"
+             action = I18n.t("changes.type.edited")
+           when "visited"
+             action = I18n.t("changes.type.visited")
+         end
          c["days_ago"] = c["days_ago"].to_i
          lab = nil
          mday = Time.zone.today.day
@@ -33,7 +41,7 @@
          elsif c["days_ago"] <= mday+30
            lab = I18n.t("locations.sidebar.last_month")
          else
-           lab = I18n.t("locations.sidebar.months_ago", :default => '%{months_ago} months ago', :months_ago => (c["days_ago"]-mday)/30)
+           lab = I18n.t("locations.sidebar.months_ago", :months => (c["days_ago"]-mday)/30)
          end
          if last_lab.nil? or last_lab != lab
            if last_lab.nil?
@@ -47,20 +55,20 @@
       <%= raw header %>
       <% unless c["location_id"].nil? %>
         <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();">
-          <%= c["type_title"].nil? ? I18n.t("locations.sidebar.unknown") : pretty_title %></a> <%= c["description"] %>
+          <%= types.nil? ? I18n.t("locations.sidebar.unknown") : types %>
+        </a>
         <% unless c["city"].nil? %>
-          <%= I18n.t("locations.sidebar.in") %> <%= c["city"] %>
+          <%= I18n.t("changes.index.change_in_city", :type => action, :city => c["city"]) %>
+        <% else %>
+          <%= action %>
         <% end %>
-      <% else %>
-        <%= c["description"] %>
-      <% end %>
-      <!-- <%= c["location_description"] %> -->
-      <% unless c["change_author"].blank? %>
-        <%= I18n.t("locations.sidebar.by") %> <%= c["change_author"] %>
-      <% end %>
-      <br/>
-
+        <% unless c["change_author"].blank? %>
+          <%= I18n.t("locations.sidebar.by_author", :author => c["change_author"]) %>
+        <% end %>
+        <br/>
     <% end %>
+    <% end %>
+    
     <% if @changes.length > 0 %>
       </blockquote>
     <% end %>
@@ -81,7 +89,7 @@
           <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
             <%= o.location.title %>
           </a><br/>
-          <%= I18n.t("locations.sidebar.last_visited") %> <%= time_ago_in_words(o.created_at) %> ago.
+          <%= I18n.t("locations.sidebar.last_visited") %> <%= I18n.t("routes.index.time_ago", :time => time_ago_in_words(o.created_at)) %>.
         </div>
       <% end %>
     <% end %>
@@ -102,7 +110,7 @@
           <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<%= route.is_public ? I18n.t("locations.sidebar.public") : I18n.t("locations.sidebar.in") %>)
           <br/>
           <%= lcounts[route.id] %> <%= I18n.t("locations.sidebar.locations") %>.
-          <%= route.transport_type.nil? ? "" : route.transport_type + "." %> <%= I18n.t("locations.sidebar.last_updated") %> <%= time_ago_in_words(route.updated_at) %> <%= I18n.t("locations.sidebar.ago") %>.
+          <%= route.transport_type.nil? ? "" : route.transport_type + "." %> <%= I18n.t("locations.sidebar.last_updated") %> <%= I18n.t("routes.index.time_ago", :time => time_ago_in_words(route.updated_at)) %>.
         </div>
       <% end %>
       </ul>
