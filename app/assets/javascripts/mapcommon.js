@@ -448,8 +448,7 @@
 
   function open_problem_modal(id){
     $('#problem_modal').load('/problems/new?location_id='+id).dialog({
-      autoOpen:true, 
-      title:'Report a problem', 
+      autoOpen:true,
       width:425, 
       modal:true, 
       resizable:false, 
@@ -463,8 +462,7 @@
   
   function open_unverified_help_modal(){
     $('#unverified_help').dialog({
-      autoOpen:true, 
-      title:'Why Unverified?', 
+      autoOpen:true,
       width:500, 
       modal:true, 
       resizable:false, 
@@ -474,8 +472,7 @@
 
   function open_inventories_help_modal(){
     $('#tree_inventories_help').dialog({
-      autoOpen:true, 
-      title:'What is a tree inventory?', 
+      autoOpen:true,
       width:640, 
       modal:true, 
       resizable:false, 
@@ -486,7 +483,6 @@
   function open_pending_types_help_modal(){
     $('#pending_types_help').dialog({
       autoOpen:true, 
-      title:'Pending types', 
       width:500, 
       modal:true, 
       resizable:false, 
@@ -801,7 +797,7 @@ function open_tab_3() {
   }
 
   // Add a marker with an open infowindow
-  function place_add_marker(latlng) {
+  function place_add_marker(latlng, text) {
     var marker = new google.maps.Marker({
         position: latlng, 
         map: map,
@@ -809,15 +805,15 @@ function open_tab_3() {
     });
     markersArray.push({marker: marker, id: -1, type: "point"});
     // Set and open infowindow
-    var html = $('<div id="newmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + 
-                 '" data-ajax="false" rel="external">Click to add a source here</a><br><span class="subtext">You can drag this thing too</span></div>');
+    var html = $('<div id="addmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + 
+                 '" data-ajax="false" rel="external">' + decodeHtml(text) + '</div>');
     var infowindow = new google.maps.InfoWindow({
     	content: html[0]
     });
     infowindow.open(map,marker);
     // Listen to drag & drop
     google.maps.event.addListener(marker, 'dragend', function() {
-    	$('#newmarker').children('a').attr('href', '/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng());
+    	$('#addmarker').children('a').attr('href', '/locations/new?lat=' + this.getPosition().lat() + '&lng=' + this.getPosition().lng());
     });
     google.maps.event.addListener(infowindow,'closeclick',function(){
       remove_add_marker();
@@ -1176,8 +1172,15 @@ function update_marker_latlng() {
   }
 }
 
+// FIXME: Super hacky way to decode html coming in as variable for I18n support
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+
 // Initialize map marker (marker) and infowindow (nag)
-function place_edit_marker(lat,lng) {
+function place_edit_marker(lat,lng,text) {
 	
 	var latlng = new google.maps.LatLng(lat,lng)
 	
@@ -1197,9 +1200,8 @@ function place_edit_marker(lat,lng) {
       alert('cleared');
     });
   }
-	
 	// Infowindow
-	var html = $('<div id="editmarker"><b>Adjust the marker to change the position of the source.</b><br/><br/>Check the satellite view - the source may be visible from space!</div>');
+	var html = $('<div id="editmarker">' + decodeHtml(text) + '</div>');
 	var nag = new google.maps.InfoWindow({
 		content: html[0]
 	});

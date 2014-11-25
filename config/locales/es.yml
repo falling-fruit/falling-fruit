@@ -125,6 +125,9 @@ es:
       or_right-click_on_map: (O haga clic en el mapa)
       pending_types_help: Aplicamos una taxonomía de tipos de comestibles para mantener el mapa organizada y realizar búsquedas. Nuevos tipos enviados por los usuarios se destacan como pendiente hasta que sean aprobados, ya sea como un nuevo tipo o se fusionaron con un tipo existente en la taxonomía. En raras ocasiones, cuando la presentación es demasiado aleatorio o vaga como para justificar su propio tipo, que persiste en el mapa en un estado no aprobado.
       unverified_help: Las fuentes se marcan como sin verificar si su identidad, ubicación o existencia es disputado. Muchas fuentes importadas de inventarios de árboles se marcan como no verificada porque su comestibilidad es incierta (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los usuarios están invitados a viajar a estos lugares y reportar sus hallazgos.
+      pending_types_help_title: 
+      problem_modal_title: 
+      unverified_help_title: 
   locations:
     embed:
       add_source: Agregar fuente
@@ -173,9 +176,13 @@ es:
       yield_subtext: Valorar la productividad de esta fuente (si es aplicable)
       your_name: Su nombre
     index:
-      freegan_splash_html: Además de nuestros esfuerzos de mapeo las <a href="/">plantas comestibles que crecen en las ciudades</a>, PD Tuve que establecen para asignar los contenedores de basura de soporte de alimentos del mundo. Casi el 50% de todos los alimentos producidos en el mundo desarrollado no se come. We're con la esperanza de crear conciencia en torno a este tema, facilitar la liberación de los alimentos desechados, y alentar a las empresas a <a href="/sharing">donar la comida</a> en su lugar. <br><br> En apoyo de un estilo de vida más baja de los desechos, estamos alentando a la cartografía de todos los lugares (de los contenedores de basura a las cajas libres) con descartadas pero útiles mercancías, ya sea comestible o no.
-      splash_html: La caída de la fruta es un mapa enorme, en colaboración de la cosecha urbana. Uniendo los esfuerzos de los cazadores-recolectores, silvicultores y freegans por todas partes, el mapa ya apunta a más de medio millón de lugares productores de alimentos de todo el mundo (de las plantas y los hongos a los pozos de agua y contenedores de basura). Nuestra comunidad de usuarios en rápido crecimiento está explorando activamente, editar y agregar al mapa. <br/><br/> Únete a nosotros en la celebración de la generosidad de nuestros vecinos calles de la ciudad! Utilice el sitio de forma anónima o <a href="/users/sign_up">inscribirse</a> para una cuenta para acceder a funciones adicionales.
       stamen_html: Mapa azulejos por <a href="http://stamen.com">Stamen Design</a>, bajo <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Datos por <a href="http://openstreetmap.org">OpenStreetMap</a>, bajo <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      freegan_modal_html: Además de nuestros esfuerzos de mapeo las <a href="/">plantas comestibles que crecen en las ciudades</a>, PD Tuve que establecen para asignar los contenedores de basura de soporte de alimentos del mundo. Casi el 50% de todos los alimentos producidos en el mundo desarrollado no se come. We're con la esperanza de crear conciencia en torno a este tema, facilitar la liberación de los alimentos desechados, y alentar a las empresas a <a href="/sharing">donar la comida</a> en su lugar. <br><br> En apoyo de un estilo de vida más baja de los desechos, estamos alentando a la cartografía de todos los lugares (de los contenedores de basura a las cajas libres) con descartadas pero útiles mercancías, ya sea comestible o no.
+      freegan_modal_title: 
+      welcome_modal_html: La caída de la fruta es un mapa enorme, en colaboración de la cosecha urbana. Uniendo los esfuerzos de los cazadores-recolectores, silvicultores y freegans por todas partes, el mapa ya apunta a más de medio millón de lugares productores de alimentos de todo el mundo (de las plantas y los hongos a los pozos de agua y contenedores de basura). Nuestra comunidad de usuarios en rápido crecimiento está explorando activamente, editar y agregar al mapa. <br/><br/> Únete a nosotros en la celebración de la generosidad de nuestros vecinos calles de la ciudad! Utilice el sitio de forma anónima o <a href="/users/sign_up">inscribirse</a> para una cuenta para acceder a funciones adicionales.
+      welcome_modal_title: 
+      editmarker_html: 
+      addmarker_html: 
     infowindow:
       access:
       - Esta fuente fue añadida por el dueño de la propiedad.
@@ -254,7 +261,6 @@ es:
       address: Dirección
       download: Descargar
       embed: Insertar
-      embed_html: Insertar HTML
       filter: Filtro
       labels: Las etiquetas
       link: Enlace
@@ -262,9 +268,12 @@ es:
       tree_inventories: Inventarios de árboles
       tree_inventories_modal: Inventarios de árboles son compilados por instituciones que tratan de documentar mejor y la atención a sus árboles. Estos datos se recogen típicamente por arbolistas entrenados y son a la vez detallada y exhaustiva. Escogemos cuidadosamente las especies comestibles de estos inventarios y agregarlos al mapa para usted. Usted puede ayudarnos a Mapa de su vecindario pidiendo tu ciudad o universidad si existe un inventario de árboles y si puede ser compartida con la caída de la fruta.
       type_and_press_enter: Escriba y presione enter
-      url_to_the_current_map: URL al mapa actual
       zoom_to_current_location: Zoom a la ubicación actual
       zoom_to_me: Zoom a mí
+      tree_inventories_modal_title: 
+      embed_hover: Insertar HTML
+      embed_modal_title: 
+      link_hover: URL al mapa actual
     sidebar:
       activity: Actividad
       ago: Hace

@@ -166,8 +166,8 @@ jQuery(document).ready(function(){
   <div class="field">
     <%= f.label I18n.t("locations.form.season") %><br />
     <span class="subtext"><%= I18n.t("locations.form.season_subtext") %></span><br />
-    <%= f.select(:season_start,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %> <%= I18n.t("to") %>
-    <%= f.select(:season_stop,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %>, <%= I18n.t("or") %>
+    <%= f.select(:season_start,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %> <%= I18n.t("locations.form.to") %>
+    <%= f.select(:season_stop,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %>, <%= I18n.t("locations.form.or") %>
     <%= f.check_box(:no_season) %> <%= I18n.t("locations.form.no_season") %>
   </div>
   

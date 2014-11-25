@@ -378,3 +378,22 @@ pt:
       date: 
       datetime: 
       time: 
+pt-br:
+  layouts:
+    application:
+      pending_types_help_title: 
+      problem_modal_title: 
+      unverified_help_title: 
+  locations:
+    index:
+      freegan_modal_html: Além de nossos esforços mapeando as <a href="/">plantas comestíveis que crescem em cidades</a>, we've começou a mapear lixeiras de suporte de alimentos do mundo. Cerca de 50% de todos os alimentos produzidos no mundo desenvolvido é comido nunca. We're na esperança de aumentar a conscientização em torno desta questão, facilitar a liberação de alimentos descartados, e incentivar as empresas a <a href="/sharing">doar o alimento</a> em seu lugar. <br><br> Em apoio a um estilo de vida de baixo desperdício, estamos incentivando o mapeamento de todos os locais (de lixeiras para caixas livres) com descartados, mas útil bens, comestíveis ou não.
+      freegan_modal_title: 
+      welcome_modal_html: Queda de fruta é um enorme mapa colaborativo da colheita urbana. Unindo os esforços de forrageiras, florestais e freegans em todos os lugares, o mapa já aponta para mais de meio milhão locais para produção de alimentos em todo o mundo (a partir de plantas e fungos para poços de água e lixeiras). A nossa crescente comunidade de usuário está explorando ativamente, editar e adicionar ao mapa. <br/><br/> Junte-se a nós na celebração da generosidade esquecido de ruas da nossa cidade! Use o site anonimamente ou <a href="/users/sign_up">se inscrever</a> para uma conta para acessar recursos adicionais.
+      welcome_modal_title: 
+      editmarker_html: 
+      addmarker_html: 
+    searchbar:
+      tree_inventories_modal_title: 
+      embed_hover: Embed HTML
+      embed_modal_title: 
+      link_hover: URL para o mapa atual

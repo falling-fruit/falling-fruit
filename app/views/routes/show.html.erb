@@ -77,7 +77,7 @@
 
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
-      place_add_marker(event.latLng);
+      place_add_marker(event.latLng, '<%= I18n.t("locations.index.addmarker_html") %>');
     });
 
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) { 

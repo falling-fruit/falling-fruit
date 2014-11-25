@@ -3,9 +3,9 @@
  
  	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= I18n.t("locations.searchbar.url_to_the_current_map") %>"><%= I18n.t("locations.searchbar.link") %></a> |
-   <a href="#" id="embedlink" onclick="show_embed_html('#embed'); return false;" title="<%= I18n.t("locations.searchbar.embed_html") %>"><%= I18n.t("locations.searchbar.embed") %></a>
-   <div id="embed" style="display:none;" title="Embeddable iFrame HTML"></div>
+   <a href="/" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= I18n.t("locations.searchbar.link_hover") %>"><%= I18n.t("locations.searchbar.link") %></a> |
+   <a href="#" id="embedlink" onclick="show_embed_html('#embed_modal'); return false;" title="<%= I18n.t("locations.searchbar.embed_hover") %>"><%= I18n.t("locations.searchbar.embed") %></a>
+   <div id="embed_modal" style="display:none;" title="<%= I18n.t("locations.searchbar.embed_modal_title") %>"></div>
   </span>
   
   <span class="nowrap">  
@@ -41,7 +41,7 @@
 
      <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> title="Toggle city and campus tree inventories">
    </span>
-   <div id="tree_inventories_help" style="display:none;">
+   <div id="tree_inventories_help" style="display:none;" title="<%= I18n.t("locations.searchbar.tree_inventories_modal_title") %>">
      <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Example tree inventory data for Palo Alto, California">
      <%= I18n.t("locations.searchbar.tree_inventories_modal") %>
    </div>

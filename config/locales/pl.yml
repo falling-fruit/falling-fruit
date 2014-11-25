@@ -123,6 +123,9 @@ pl:
       or_right-click_on_map: (Lub kliknij prawym przyciskiem myszy na mapie)
       pending_types_help: Wspieramy taksonomii typów jadalnych zachować mapę zorganizowaną i przeszukiwania. Nowe typy złożone przez użytkowników są wyróżnione jako czasu do czasu są one albo zatwierdzony jako nowy typ lub połączone z istniejącym typu w taksonomii. W rzadkich przypadkach, gdy wniosek składany jest zbyt losowe lub niejasne, aby uzasadnić swój typ, to utrzymuje się na mapie w stanie niezatwierdzonych.
       unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
+      pending_types_help_title: 
+      problem_modal_title: 
+      unverified_help_title: 
   locations:
     embed:
       add_source: Dodaj źródło
@@ -171,9 +174,13 @@ pl:
       yield_subtext: Ocena wydajności tego źródła (jeśli dotyczy)
       your_name: Twoje imię i nazwisko
     index:
-      freegan_splash_html: Oprócz naszych wysiłków mapowania <a href="/">jadalnych roślin rosnących w miastach</a>, we've określone do mapy świata dumpsters jedzenie-łożyska. Prawie 50% całej żywności produkowanej w krajach rozwiniętych nie jest spożywane. We're nadzieję na zwiększenie świadomości tego problemu, ułatwiać wyzwolenie wyrzucić jedzenie, i zachęcać przedsiębiorców do <a href="/sharing">oddania jedzenie</a> zamiast. <br><br> W uzasadnieniu do życia niższe ilości odpadów, zachęcamy odwzorowanie wszystkich miejsc (od śmietników do wolnych pól) z odrzuconych ale przydatnych towarów, zarówno jadalne lub w inny sposób.
-      splash_html: Falling owoców jest ogromny, wspólny mapa zbiorów miejskiego. Jednocząc wysiłki paszowe, leśników i freegans wszędzie, mapa już wskazuje na ponad pół miliona miejsc produkcji żywności na całym świecie (z roślin i grzybów do studni i śmietników). Nasza szybko rosnąca społeczność użytkownik aktywnie bada, edycji i dodawania do mapy. <br/><br/> Dołącz do nas w celebracji wychodził bounty naszych ulicach miasta! Użyj witryny anonimowo lub <a href="/users/sign_up">zaloguj się</a> na konto, aby uzyskać dostęp do dodatkowych funkcji.
       stamen_html: Mapa płytki według <a href="http://stamen.com">Stamen projekt</a>, w ramach <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dane według <a href="http://openstreetmap.org">OpenStreetMap</a>, pod <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      freegan_modal_html: Oprócz naszych wysiłków mapowania <a href="/">jadalnych roślin rosnących w miastach</a>, we've określone do mapy świata dumpsters jedzenie-łożyska. Prawie 50% całej żywności produkowanej w krajach rozwiniętych nie jest spożywane. We're nadzieję na zwiększenie świadomości tego problemu, ułatwiać wyzwolenie wyrzucić jedzenie, i zachęcać przedsiębiorców do <a href="/sharing">oddania jedzenie</a> zamiast. <br><br> W uzasadnieniu do życia niższe ilości odpadów, zachęcamy odwzorowanie wszystkich miejsc (od śmietników do wolnych pól) z odrzuconych ale przydatnych towarów, zarówno jadalne lub w inny sposób.
+      freegan_modal_title: 
+      welcome_modal_html: Falling owoców jest ogromny, wspólny mapa zbiorów miejskiego. Jednocząc wysiłki paszowe, leśników i freegans wszędzie, mapa już wskazuje na ponad pół miliona miejsc produkcji żywności na całym świecie (z roślin i grzybów do studni i śmietników). Nasza szybko rosnąca społeczność użytkownik aktywnie bada, edycji i dodawania do mapy. <br/><br/> Dołącz do nas w celebracji wychodził bounty naszych ulicach miasta! Użyj witryny anonimowo lub <a href="/users/sign_up">zaloguj się</a> na konto, aby uzyskać dostęp do dodatkowych funkcji.
+      welcome_modal_title: 
+      editmarker_html: 
+      addmarker_html: 
     infowindow:
       access:
       - To źródło został dodany przez właściciela nieruchomości.
@@ -252,7 +259,6 @@ pl:
       address: Adres
       download: Pobierz
       embed: Embed
-      embed_html: Wstaw HTML
       filter: Filtr
       labels: Etykiety
       link: Link
@@ -260,9 +266,12 @@ pl:
       tree_inventories: Zapasy drzewo
       tree_inventories_modal: Zapasy drzewo sporządzane są przez instytucje pragnących lepszego dokumentu i opieki dla swoich drzew. Dane te są zazwyczaj zbierane przez wyszkolonych arborists i są zarówno szczegółowe i wyczerpujące. Starannie dobrać gatunki jadalne od tych zapasów i dodaj je do mapy dla Ciebie. Możesz pomóc nam mapę Twojej okolicy od swojego miasta lub uniwersytet, jeśli asortyment istnieje i czy drzewo to może być współdzielone z Falling Fruit.
       type_and_press_enter: Typ i naciśnij enter
-      url_to_the_current_map: Adres URL do aktualnej mapie
       zoom_to_current_location: Przybliżyć się do bieżącej lokalizacji
       zoom_to_me: Przybliżyć się do Mnie
+      tree_inventories_modal_title: 
+      embed_hover: Wstaw HTML
+      embed_modal_title: 
+      link_hover: Adres URL do aktualnej mapie
     sidebar:
       activity: Aktywność
       ago: temu

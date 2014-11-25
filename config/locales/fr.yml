@@ -114,7 +114,7 @@ fr:
         new_import: Nouvelle importation
         new_type: Nouveau type
         pending_types: Types en attente
-        routes: Itinéraires
+        routes: Parcours
         sharing_the_harvest: Partager la récolte
         sign_up: Créer un compte
         the_project: Le projet
@@ -122,130 +122,137 @@ fr:
         types: Types
         users: Utilisateurs
         world: Monde
-      or_right-click_on_map: (ou cliquez droit sur la carte)
-      pending_types_help: ! 'Nous imposons une taxonomie des types comestibles afin que la base de données reste organisée et consultable. Les nouveaux types proposés par nos utilisateurs sont mis en évidence sur la carte jusqu''à ce qu''elles soient ajoutées à la taxonomie ou fusionnées avec des types existants. Dans des rares, un type proposé est trop farfelu ou ambigu et persiste non approuvé indéfiniment. '
+      or_right-click_on_map: (ou cliquez-droit sur la carte)
+      pending_types_help: ! 'Nous imposons une taxonomie de types comestibles afin que la carte soit organisée et consultable. Les nouveaux types proposés par nos utilisateurs sont mis en évidence jusqu''à ce qu''ils soient ajoutés à la taxonomie ou fusionnés avec des types existants. Certains types proposés sont si uniques ou ambigus qu''ils persistent non approuvé indéfiniment. '
       unverified_help: Certaines sources sont mis en évidence comme non vérifiées si leur identités, emplacements, ou existences sont contestées. Beaucoup de sources provenant d'inventaires d'arbres sont marqués comme non vérifiées parce que leurs comestibilité est incertaine (par exemple, "Poire" pourrait soit être une variété comestible ou décorative). Nous encourageons nos utilisateurs de se rendre à ces endroits et mettre à jour la carte en fonction de leurs observations.
+      pending_types_help_title: Types en attente
+      problem_modal_title: Signaler un problème
+      unverified_help_title: Pourquoi Non vérifié?
   locations:
     embed:
       add_source: Ajouter une source
     form:
       access: Accès
-      access_subtext: statut de l'accès de cette source. Laissez ce champ vide si vous don't savoir.
-      address_subtext_html: Adresse <span class="subtext-inline">peut être utilisée pour positionner rapidement le marqueur. Ajustez au besoin avant de soumettre.</span>
-      author_subtext: Affichée sur la carte. Laissez ce champ vide si vous préférez garder l'anonymat.
+      access_subtext: Statut d'accès de la source. Laissez vide si vous ne savez pas.
+      address_subtext_html: Adresse <span class="subtext-inline">peut être utilisée pour positionner le marqueur. Ajustez-le si nécessaire avant de soumettre.</span>
+      author_subtext: Affiché sur la carte. Laissez vide si vous souhaitez garder l'anonymat.
       comments: Commentaires
       comments_subtext: Nouveaux développements, problèmes d'accès, condition des plantes ...
       create_another: Créer un autre
-      date_subtext: Date de l'état de la fructification signalé (si ce n'est pas aujourd'hui)
-      date_visited: Date de visite
+      date_subtext: Date de l'état des fruits signalé (si non aujourd'hui)
+      date_visited: Date visité
       description: Description
       description_subtext: Détails, problèmes d'accès, condition des plantes ...
-      form_error: Une erreur interdit ce lieu à l'enregistrement de
+      form_error: Une erreur a empêché cette source d'être enregistrée
       form_intro_html: Modifier l'endroit ci-dessous, ou <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Évaluer cet endroit">utiliser ce formulaire</a> pour y ajouter des commentaires et des photos.
-      fruiting_status: statut de fructification
-      fruiting_subtext: Quel est le fruit en ce moment? (Le cas échéant)
-      have_you: Vous avez visité ce lieu?
-      location: Emplacement
-      location_subtext: Déterminée à partir de votre position actuelle (si disponible) ou un marqueur que vous avez placé. Réglez l'emplacement en déplaçant le marqueur de carte.
-      move_marker: Déplacer marqueur de coordonnées
-      move_marker_address: Déplacer marqueur pour répondre
-      name_subtext: Laissez ce champ vide si vous préférez garder l'anonymat.
-      no_season: Pas de saison
+      fruiting_status: État des fruits
+      fruiting_subtext: Comment sont les fruits en ce moment? (le cas échéant)
+      have_you: Avez-vous visité ce lieu?
+      location: Position
+      location_subtext: Provenant de votre position actuelle (si disponible) ou le marqueur que vous avez placé. Ajustez-le en déplaçant le marqueur.
+      move_marker: Placer le marqeur aux coordonnées
+      move_marker_address: Placer le marqueur à l'adresse
+      name_subtext: Laissez vide si vous souhaitez garder l'anonymat.
+      no_season: Sans saison
       or: ou
       photo: Photo
-      photo_caption: Légende de la photo
-      photo_subtext: Eventuellement, télécharger une photo de la source. Si c'est quelqu'un d'autre "photo, s'il vous plaît vous assurer que vous disposez des autorisations nécessaires et de crédit du photographe dans la légende.
+      photo_caption: Légende photo
+      photo_subtext: Poster une photo de la source. Si elle n'est pas la votre, assurer vous d'avoir l'autorisation et de créditer le photographe dans la légende.
       quality: Qualité
-      quality_subtext: Noter la saveur de cette source (le cas échéant)
+      quality_subtext: Évaluez la qualité de la source (le cas échéant)
       season: Saison
-      season_subtext: Lorsque la source ne peut être récolté? Laissez ce champ vide si vous ne savez pas.
+      season_subtext: Quand récolter la source? Laissez vide si vous ne savez pas.
       submit: Soumettre
       to: à
       types: Types
-      types_subtext: Choisissez dans la liste déroulante, la présentation de nouveaux noms que si les choix appropriés n'existent pas déjà.
-      unverified: Non vérifié
-      unverified_subtext: Si vous doutez l'existence, l'emplacement ou l'identité de cette source.
+      types_subtext: Choisissez dans la liste déroulante, proposants de nouveaux types que si des choix appropriés n'existent pas déjà.
+      unverified: Non vérifiée
+      unverified_subtext: Si vous doutez l'existence, la position, ou l'identité de la source.
       verify: Vérifier
-      verify_subtext: Cette situation a déjà été marqué comme non vérifiée
-      visited_on: Visité le
-      visited_on_subtext: Date de votre visite (si ce n'est pas aujourd'hui)
-      yield: Rendement
-      yield_subtext: Évaluez la productivité de cette source (le cas échéant)
+      verify_subtext: La source est actuellement marqué comme "Non vérifiée"
+      visited_on: Date visité
+      visited_on_subtext: Laissez vide si visité aujourd'hui.
+      yield: Production
+      yield_subtext: Évaluez la productivité de la source (le cas échéant)
       your_name: Votre nom
     index:
-      freegan_splash_html: En plus de nos efforts cartographie des <a href="/">plantes comestibles qui poussent dans les villes</a>, we've mis en route pour cartographier les bennes alimentaire d'appui au monde. Près de 50% de tous les aliments produits dans le monde développé n'est jamais mangé. We're espérant sensibiliser autour de cette question, de faciliter la libération des aliments jetés, et encourager les entreprises à <a href="/sharing">donner de la nourriture</a> à la place. <br><br> À l'appui d'un mode de vie plus faible des déchets, nous encourageons la cartographie de tous les emplacements (à partir de bennes à boîtes libres) avec des produits mis au rebut, mais utiles, que ce soit comestible ou non.
-      splash_html: Tomber Fruit est une carte énorme collaboration de la récolte en milieu urbain. Unir les efforts de butineuses, les forestiers et les freegans partout, la carte pointe déjà à plus d'un demi-million de sites de production alimentaire dans le monde (à partir de plantes et de champignons sur les puits d'eau et des bennes à ordures). Notre communauté d'utilisateurs de plus en plus rapidement explore activement, l'édition, et d'ajouter à la carte. <br/><br/> Joignez-vous à nous pour célébrer la générosité vis à vis de nos rues! Utilisez le site de façon anonyme ou <a href="/users/sign_up">vous inscrire</a> pour un compte pour accéder à des fonctionnalités supplémentaires.
-      stamen_html: Plan tuiles par <a href="http://stamen.com">Étamine Conception</a>, sous <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/deed.fr">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">CC BY-SA</a>.
+      freegan_modal_html: En plus de nos efforts cartographie des <a href="/">plantes comestibles qui poussent dans les villes</a>, we've mis en route pour cartographier les bennes alimentaire d'appui au monde. Près de 50% de tous les aliments produits dans le monde développé n'est jamais mangé. We're espérant sensibiliser autour de cette question, de faciliter la libération des aliments jetés, et encourager les entreprises à <a href="/sharing">donner de la nourriture</a> à la place. <br><br> À l'appui d'un mode de vie plus faible des déchets, nous encourageons la cartographie de tous les emplacements (à partir de bennes à boîtes libres) avec des produits mis au rebut, mais utiles, que ce soit comestible ou non.
+      freegan_modal_title: Bienvenue sur la carte freegan de Falling Fruit!
+      welcome_modal_html: Falling Fruit est une carte énorme collaboration de la récolte en milieu urbain. Unir les efforts de butineuses, les forestiers et les freegans partout, la carte pointe déjà à plus d'un demi-million de sites de production alimentaire dans le monde (à partir de plantes et de champignons sur les puits d'eau et des bennes à ordures). Notre communauté d'utilisateurs de plus en plus rapidement explore activement, l'édition, et d'ajouter à la carte. <br/><br/> Joignez-vous à nous pour célébrer la générosité vis à vis de nos rues! Utilisez le site de façon anonyme ou <a href="/users/sign_up">vous inscrire</a> pour un compte pour accéder à des fonctionnalités supplémentaires.
+      welcome_modal_title: Bienvenue à Falling Fruit!
+      editmarker_html: <b>Déplacez moi à la position de la source.</b><br><br>Vérifiez la vue satellite - la source pourrait être visible depuis l'espace!
+      addmarker_html: Cliquez pour ajouter une source ici</a><br><span class="subtext">Vous pouvez aussi me déplacer</span>
     infowindow:
       access:
-      - Cette source a été ajouté par le propriétaire du bien.
-      - Le propriétaire de cette source a demandé qu'il soit ajouté.
-      - Cette source est sur des terres publiques.
-      - Cette source est sur une propriété privée mais peut surplomber les terres publiques. S'il vous plaît choisir avec discernement.
-      - Cette source est sur une propriété privée. S'il vous plaît demander la permission avant de décrocher.
+      - Cette source a été ajoutée par son propriétaire.
+      - Cette source a été ajoutée avec la permission de son propriétaire.
+      - Cette source est sur le domaine public.
+      - Cette source est sur une propriété privée mais peut surplomber le domaine public. Cueillez avec discrétion.
+      - Cette source est sur une propriété privée. Demandez la permission avant de cueillir.
       access_mode:
-      - Je possède cette source
-      - J'ai la permission du propriétaire pour ajouter cette source
-      - Source est sur les terres publiques
-      - Source est sur une propriété privée mais surplombe les terres publiques
-      - Source est sur une propriété privée (poser avant de choisir)
+      - La source m'appartient
+      - J'ai la permission du propriétaire d'ajouté la source
+      - La source est sur le domaine public
+      - La source est sur une propriété privée mais surplombe le domaine public
+      - La source est sur une propriété privée (poser avant de choisir)
       access_short:
       - Ajouté par le propriétaire
       - Autorisé par le propriétaire
       - Public
-      - Privé, mais en surplomb
+      - Privé mais en surplomb
       - Privé
-      add_to_remove_from: Ajouter / supprimer de
+      add_to_remove_from: Ajouter à / supprimer de
       anonymous: Anonyme
       are_you_sure: Êtes-vous sûr?
       by: par
-      citation_to_the_original_source: Référence à la source
+      citation_to_the_original_source: Citation de la source d'origine
       delete: supprimer
       delete_comment: Supprimer le commentaire
       delete_photo: Supprimer la photo
       delete_this_location: Supprimer cet endroit
-      edit: edit
+      edit: modifier
       edit_this_location: Modifier ce endroit
       flower: Fleur
       fruit: Fruit
       fruiting:
-      - Floraison
-      - Fructification
-      - Mûr
-      have_you_visited_html: Avez-vous visité cette source? Ajouter un <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Évaluer ce lieu" id="add_review">commentaire</a>
+      - En fleurs
+      - Fruits pas mûrs
+      - Fruits mûrs
+      have_you_visited_html: Avez-vous visité cette source? Laissez un <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Commenter sur cette source" id="add_review">commentaire</a>
       january_to_december: Janvier - Décembre
       link: lien
-      new_route: Nouvel itinéraire
+      new_route: Nouveau parcour
       quality: Qualité
       rating:
-      - Pauvres
-      - Juste
-      - Bon
-      - Très bon
+      - Faible
+      - Moyen
+      - Bien
+      - Très bien
       - Excellent
-      report: rapport
+      report: signaler
       report_a_problem: Signaler un problème
-      review: + commentaire
+      review: + commenter
       review_this_location: Évaluer cet endroit
       ripe: Mûr
-      routes: itinéraires
+      routes: parcours
       season: Saison
-      see_this_location_in_streetview: Voir cet endroit avec streetview
+      see_this_location_in_streetview: Voir ce lieu avec streetview
       source: source
       status: Statut
-      street: rue
+      street: streetview
       tabs:
         info: Infos
         reviews: Commentaires
         street_view: Street View
-      toggle_route_controls: Commandes de déplacement bascule
-      toggle_route_countrols: Commandes de déplacement bascule
+      toggle_route_controls: Basculer les contrôles de parcours
+      toggle_route_countrols: Basculer les contrôles de parcours
       unsure: Incertain
-      unsure_other: Incertain autre
+      unsure_other: Incertain/Autre
       unverified: Non vérifié
       url_for_this_location: URL pour cet endroit
       x_photo: x photo
-      yield: Rendement
+      yield: Production
       zoom: zoom
       zoom_to_this_location: Zoom sur ce lieu
     locations_type:
@@ -254,39 +261,41 @@ fr:
       address: Adresse
       download: Télécharger
       embed: Intégrer
-      embed_html: Intégrer le code HTML
       filter: Filtre
       labels: Étiquettes
       link: Lien
-      select_edible_type: Sélectionnez le type comestible
+      select_edible_type: Type comestible
       tree_inventories: Inventaires d'arbres
-      tree_inventories_modal: Les inventaires d'arbres sont compilées par les institutions qui cherchent à mieux documenter et prendre soin de leurs arbres. Ces données sont généralement recueillies par les arboriculteurs formés et sont à la fois détaillée et exhaustive. Nous choisissons soigneusement les espèces comestibles de ces inventaires et les ajouter à la carte pour vous. Vous pouvez nous aider à cerner votre quartier en demandant à votre ville ou à l'université si un inventaire des arbres existe et si elle peut être partagée avec chute de fruits.
-      type_and_press_enter: Tapez et appuyez sur Entrée
-      url_to_the_current_map: URL de la carte actuelle
-      zoom_to_current_location: Zoom sur l'emplacement actuel
+      tree_inventories_modal: Les inventaires d'arbres sont compilées par des institutions qui cherchent à mieux documenter et prendre soin de leurs arbres. Ces données sont généralement recueillies par des arboriculteurs formés et sont à la fois détaillées et exhaustives. Nous choisissons soigneusement les espèces comestibles de ces inventaires et les ajoutons à la carte pour vous. Aidez-nous à répertorier les sources comestibles de votre quartier en demandant à votre ville (ou université, canton, etc) si un inventaire d'arbres existe et s'il peut être partagé sur Falling Fruit.
+      type_and_press_enter: Tapez et appuyez sur entrée
+      zoom_to_current_location: Zoom sur ma position actuel
       zoom_to_me: Zoom sur moi
+      tree_inventories_modal_title: Qu'est-ce qu'un inventaire d'arbres?
+      embed_hover: Code d'intégration
+      embed_modal_title: Code d'intégration (iFrame HTML)
+      link_hover: URL de la carte actuelle
     sidebar:
       activity: Activité
       ago: il y a
       changed_within_html: Modifications dans votre <a href="/users/edit">zone de glanage</a>
       click_here: Cliquez ici
-      click_here_to_manage_your_routes_html: Cliquez <a href="%{routes_path}">ici</a> pour gérer vos itinéraires
+      click_here_to_manage_your_routes_html: Cliquez <a href="%{routes_path}">ici</a> pour gérer vos parcours
       favorites: Favoris
       in: à
       last_24_hours: 24 dernières heures
       last_month: Le mois dernier
-      last_updated: Dernière mise à jour
-      last_visited: Dernière visite
+      last_updated: Mise à jour
+      last_visited: Visité
       locations: endroits
-      locations_added_or_reviewed_by_you_while_logged_in: Endroits ajoutés ou révisés par vous (en étant connecté)
+      locations_added_or_reviewed_by_you_while_logged_in: Sources ajoutées ou modifiées par vous (en étant connecté)
       months_ago: Il y a %{months} mois
       public: public
-      routes: Itinéraires
-      this_month: Ce mois
+      routes: Parcours
+      this_month: Ce mois-ci
       this_week: Cette semaine
       unknown: Inconnu
-      you_havent_added_or_reviewed_anything_while_logged_in: Vous haven't ajouté ou relu tout (en étant connecté)
-      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Vous haven't défini encore de voies d'alimentation. Cliquez sur une source, puis cliquez sur 'routes' pour commencer à faire un itinéraire.
+      you_havent_added_or_reviewed_anything_while_logged_in: Vous n'avez pas encore ajouté ou modifié des sources (en étant connecté)
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Vous n'avez pas encore défini des parcours de glanage. Cliquez sur une source, puis sur "parcours", pour commencer à en faire un.
       you_havent_defined_html: Vous n'avez pas défini votre zone de glanage. <a href="/users/edit">Cliquez ici</a> pour le faire maintenant
       by_author: par %{author}
   pages:
@@ -319,7 +328,7 @@ fr:
       count: Nombre
       data_unavailable_html: Les données sont actuellement indisponibles. Revenez plus tard ou <a href="mailto:info@fallingfruit.org">contactez-nous</a>.
       intro: Falling Fruit dépends des données publiques et la générosité des glaneurs disposés à partager leurs trouvailles. Nous voulons que le plus grand nombre de personnes possible ait accès au glanage urbain, et nous croyons que tout le monde devrait avoir un accès égal au résultat d'un effort collectif. Dans l'esprit de l'"open data", voici la base de données entière
-      last_updated: dernière mise à jour
+      last_updated: mise à jour
       license_html: Si vous êtes intéressé à utiliser les données dans votre projet, en particulier un projet commercial, nous vous proposons de nous contacter (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Sauf indication contraire, les données sont distribué sous une licence <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr">CC BY-NC-SA</a> (Creative Commons – Attribution, Pas d’utilisation commerciale, Partage dans les mêmes conditions). Cela signifie que vous êtes libre d'utiliser et de distribuer les données aussi longtemps que vous conservez l'attribution aux auteurs/sources initiales et ne les utilisez pas (sans autorisation) dan des applications commerciales. Le code source de Falling Fruit est également ouvert, et disponible sur <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
       links: Liens
       scientific_name: Nom scientifique
@@ -361,7 +370,7 @@ fr:
       locations: Endroits
       name: Nom
       public: Public
-      routes: Itinéraires
+      routes: Parcours
       save_changes: Enregistrer vos modifications
       show: Afficher
       travel_mode: Moyen de transport

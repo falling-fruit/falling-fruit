@@ -69,7 +69,7 @@
 </head>
 <body onload="resize_content();">
 
- <div id="problem_modal"></div> <!-- Problems modal gets injected into this div. -->
+ <div id="problem_modal" title="<%= I18n.t("layouts.application.problem_modal_title") %>"></div> <!-- Problems modal gets injected into this div. -->
 
  <!-- Alerts -->
  <% if notice or alert %>
@@ -162,7 +162,7 @@
       <li><%= link_to(I18n.t("layouts.application.menu.in_the_press"), '/press', :class => (path == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
     </ul>
     <li><%= link_to(I18n.t("layouts.application.menu.data"), '/data', :class => (path == '/data') ? "currentpage" : "notcurrentpage") %></li>
-    <li><%= link_to(I18n.t("layouts.application.menu.changes"), '/changes', :class => (path == '/changes') ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to(I18n.t("locations.sidebar.activity"), '/changes', :class => (path == '/changes') ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- Routes -->
 		<% if user_signed_in? %>
@@ -208,12 +208,12 @@
 </div>
 
 <!-- Unverified? -->
-<div id="unverified_help" style="display:none;">
+<div id="unverified_help" style="display:none;" title="<%= I18n.t("layouts.application.unverified_help_title") %>">
 <%= I18n.t("layouts.application.unverified_help") %>
 </div>
 
 <!-- Pending Types -->
-<div id="pending_types_help" style="display:none;">
+<div id="pending_types_help" style="display:none;" title="<%= I18n.t("layouts.application.pending_types_help_title") %>">
 <%= I18n.t("layouts.application.pending_types_help") %>
 </div>
    
@@ -226,7 +226,8 @@
  
 	 <!-- Footer -->
 	 <div id="footer">
-		<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB"><%= I18n.t("layouts.application.copyleft") %></a> (c) <%= Time.now.year %> Falling Fruit
+	 <!-- FIXME: change language based on locale -->
+		<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en"><%= I18n.t("layouts.application.copyleft") %></a> (c) <%= Time.now.year %> Falling Fruit
 	 </div>
 	</div>
 </div>

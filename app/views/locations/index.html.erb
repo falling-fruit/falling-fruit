@@ -6,14 +6,14 @@
    end
 %>
 
-<div id="welcome_modal" style="display:none;">
-  <img src="/fb-avatar.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="180" title="One afternoon's harvest in Boulder, Colorado, USA.">
-  <%= I18n.t("locations.index.splash_html").html_safe %>
+<div id="welcome_modal" style="display:none;" title="<%= I18n.t("locations.index.welcome_modal_title") %>">
+  <img src="/fb-avatar.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="180">
+  <%= I18n.t("locations.index.welcome_modal_html").html_safe %>
 </div>
 
-<div id="freegan_modal" style="display:none;">
-  <img src="/dumpster-score.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" title="Food recovered from a dumpster in Boulder, Colorado, USA.">
-  <%= I18n.t("locations.index.freegan_splash_html").html_safe %>
+<div id="freegan_modal" style="display:none;" title="<%= I18n.t("locations.index.freegan_modal_title") %>">
+  <img src="/dumpster-score.jpg" style="float:right;margin:0.4em 0 0.5em 1em;">
+  <%= I18n.t("locations.index.freegan_modal_html").html_safe %>
 </div>
 
 <%= render 'searchbar' %>
@@ -77,7 +77,7 @@
 
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
-      place_add_marker(event.latLng);
+      place_add_marker(event.latLng, '<%= I18n.t("locations.index.addmarker_html") %>');
     });
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
@@ -108,7 +108,7 @@
     navigator.geolocation.getCurrentPosition(function(position){},function(error){
       $('#recenter_button').hide();
     });
-    if ($.cookie('barnraiser_modal_shown') == null) {
+    /*if ($.cookie('barnraiser_modal_shown') == null) {
      $.cookie('barnraiser_modal_shown', 'yes', { expires: 7, path: '/' });
      $('#barnraiser_modal').dialog({
        modal:true,
@@ -118,28 +118,28 @@
        draggable:false
       });
      $("#barnraiser_modal").bind("clickoutside", function(event){
-      $(this).remove(); /* keeps playing video otherwise */
+      $(this).remove();
      });
      $("#barnraiser_modal").bind("dialogclose", function(event){
-      $(this).remove(); /* keeps playing video otherwise */
+      $(this).remove();
      });
-    }
+    }*/
     <% if @freegan %>
-      /*if ($.cookie('freegan_modal_shown') == null) {
+      if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });
-        $('#freegan_modal').dialog({modal:true,width:650,title:"Welcome to Falling Fruit's freegan map!",resizable:false,draggable:false});
+        $('#freegan_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
         $("#freegan_modal").bind( "clickoutside", function(event){
           $(this).dialog('close');
         });
-      }*/
+      }
     <% else %>
-      /*if ($.cookie('welcome_modal_shown') == null) {
+      if ($.cookie('welcome_modal_shown') == null) {
         $.cookie('welcome_modal_shown', 'yes', { expires: 365, path: '/' });
-        $('#welcome_modal').dialog({modal:true,width:600,title:'Welcome to Falling Fruit!',resizable:false,draggable:false});
+        $('#welcome_modal').dialog({modal:true,width:600,resizable:false,draggable:false});
         $("#welcome_modal").bind( "clickoutside", function(event){
           $(this).dialog('close');
         });
-      }*/
+      }
     <% end %>
   });
   
