@@ -285,7 +285,7 @@ class Api::LocationsController < ApplicationController
     end
     r = ActiveRecord::Base.connection.select_one("SELECT count(*) FROM locations l, types t WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")} GROUP BY l.id HAVING #{[cfilter].compact.join(" AND ")}");
     found_n = r["count"].to_i unless r.nil?
-    i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, l.type_others,
       array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name),',') AS name, #{sorted}
       FROM locations l, types t
