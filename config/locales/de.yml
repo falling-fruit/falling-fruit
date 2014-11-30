@@ -32,6 +32,8 @@ de:
       bio: 
       bio_subtext: 
       change_password: 
+      clear_map: 
+      edit_account: 
       email: 
       foraging_radius: 
       foraging_radius_subtext: 
@@ -55,6 +57,7 @@ de:
       sign_in_with: 
       sign_up: 
       type_it_twice: 
+      zoom_to_address: 
     mailer:
       confirmation_instructions:
         subject: Aktivierungs-Anleitung | Falling Fruit

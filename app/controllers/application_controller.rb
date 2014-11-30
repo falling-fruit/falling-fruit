@@ -151,7 +151,7 @@ class ApplicationController < ActionController::Base
   def number_to_human(n)
     if n > 999 and n <= 999999
       (n/1000.0).round.to_s + "K"
-    elsif n >
+    elsif n > 999999
       (n/1000000.0).round.to_s + "M"
     else
       n.to_s

@@ -29,9 +29,11 @@ en:
     fallingfruit:
       address: Address
       address_subtext: The center of your foraging range (likely your home address)
-      bio: Bio
+      bio: About you
       bio_subtext: Optionally, a bit about you
       change_password: Change my password
+      clear_map: Clear map
+      edit_account: Edit account
       email: Email
       foraging_radius: Foraging radius
       foraging_radius_subtext: Radius of your foraging range from the address above (as an alternative to drawing a shape on the map)
@@ -55,6 +57,7 @@ en:
       sign_in_with: Sign in with %{provider}
       sign_up: Sign up
       type_it_twice: Type it in twice to confirm
+      zoom_to_address: Zoom to address
     mailer:
       confirmation_instructions:
         subject: Confirmation instructions | Falling Fruit

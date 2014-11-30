@@ -32,6 +32,8 @@ fr:
       bio: 
       bio_subtext: 
       change_password: 
+      clear_map: 
+      edit_account: 
       email: E-mail
       foraging_radius: 
       foraging_radius_subtext: 
@@ -55,6 +57,7 @@ fr:
       sign_in_with: Se connecter avec %{provider}
       sign_up: Créer un compte
       type_it_twice: 
+      zoom_to_address: 
     mailer:
       confirmation_instructions:
         subject: Confirmer votre compte | Falling Fruit
