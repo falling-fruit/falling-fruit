@@ -29,10 +29,15 @@ he:
     fallingfruit:
       address: 
       address_subtext: 
+      are_you_sure: 
       bio: 
       bio_subtext: 
       change_password: 
       clear_map: 
+      confirm_account: 
+      current_password: 
+      current_password_subtext: 
+      delete_account: 
       edit_account: 
       email: 
       foraging_radius: 
@@ -41,6 +46,8 @@ he:
       foraging_range_subtext: 
       forgot_password: 
       login: 
+      mailer:
+        confirmation_instructions_html: 
       name: 
       new_password: 
       options:
@@ -51,18 +58,15 @@ he:
       remember_me: 
       resend_confirmation_instructions: 
       resend_unlock_instructions: 
+      save_changes: 
       send: 
       send_password_instructions: 
       sign_in: 
       sign_in_with: 
       sign_up: 
       type_it_twice: 
+      unlock_account: 
       zoom_to_address: 
-      current_password: 
-      current_password_subtext: 
-      save_changes: 
-      delete_account: 
-      are_you_sure: 
     mailer:
       confirmation_instructions:
         subject: 

@@ -29,10 +29,15 @@ fr:
     fallingfruit:
       address: 
       address_subtext: 
+      are_you_sure: 
       bio: 
       bio_subtext: 
       change_password: 
       clear_map: 
+      confirm_account: 
+      current_password: Mot de passe actuel
+      current_password_subtext: 
+      delete_account: 
       edit_account: 
       email: E-mail
       foraging_radius: 
@@ -41,6 +46,8 @@ fr:
       foraging_range_subtext: 
       forgot_password: Vous avez oublié votre mot de passe?
       login: Connexion
+      mailer:
+        confirmation_instructions_html: 
       name: 
       new_password: Nouveau mot de passe
       options:
@@ -51,18 +58,15 @@ fr:
       remember_me: Rester connecté
       resend_confirmation_instructions: 
       resend_unlock_instructions: 
+      save_changes: 
       send: 
       send_password_instructions: 
       sign_in: Se connecter
       sign_in_with: Se connecter avec %{provider}
       sign_up: Créer un compte
       type_it_twice: 
+      unlock_account: 
       zoom_to_address: 
-      current_password: Mot de passe actuel
-      current_password_subtext: 
-      save_changes: 
-      delete_account: 
-      are_you_sure: 
     mailer:
       confirmation_instructions:
         subject: Confirmer votre compte | Falling Fruit
