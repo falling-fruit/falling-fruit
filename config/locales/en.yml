@@ -28,27 +28,43 @@ en:
       unconfirmed: You have to confirm your account before continuing.
     fallingfruit:
       address: Address
-      address_subtext: The center of your foraging range (likely your home address)
+      address_subtext: The center of your foraging range (your home address, for example)
       are_you_sure: Are you sure?
       bio: About you
-      bio_subtext: Optionally, a bit about you
       change_password: Change my password
       clear_map: Clear map
       confirm_account: Confirm my account
       current_password: Current password
-      current_password_subtext: We need your current password to apply your changes
-      delete_account: Delete my account
+      current_password_subtext: Required to make changes to your account
+      delete_account: Cancel my account
       edit_account: Edit account
       email: Email
       foraging_radius: Foraging radius
-      foraging_radius_subtext: Radius of your foraging range from the address above (as an alternative to drawing a shape on the map)
+      foraging_radius_subtext: Radius of a circular foraging range centered on the address above
       foraging_range: Foraging range
-      foraging_range_subtext: Use the polygon (any shape) or rectangle tool in the map below to define the area you generally forage in. When using the polygon tool make sure to 'close' your polygon by connecting the final point to the first point.
+      foraging_range_subtext: Use the polygon or rectangle tool in the map below to define your foraging range. If using the polygon tool, make sure to close your polygon by joining the last point to the first.
       forgot_password: Forget your password?
       login: Login
       mailer:
-        confirmation_instructions_html: ! "<p>Welcome to Falling Fruit,</p>\n<p>To activate your account, you need to first confirm your email (<%= @resource.email %>) by visiting the link below:\n<br/>%{link}\n</p>\n<p>\n Falling Fruit is a user-powered website, so if you have something to add or improve, please do. Happy foraging!\n</p>"
-        reset_password_instructions_html: 
+        confirmation_instructions_html: ! '<p>Welcome to Falling Fruit,</p>
+
+          <p>To activate your account, you need to first confirm your email (%{email}) by visiting the link below:
+
+          <br/>%{link}</p>
+
+          <p>Falling Fruit is a user-powered website, so if you have something to add or improve, please do. Happy foraging!</p>'
+        reset_password_instructions_html: ! '<p>Hello %{email},</p>
+
+          <p>Someone (most likely you) requested a link to change their password:
+
+          <br />%{link}</p>
+
+          <p>If you didn''t request this, you can safely ignore this email. Your password won''t change unless you visit the link above and create a new one.</p>'
+        unlock_instructions_html: ! '<p>Hello %{email},</p>
+
+          <p>Your account has been locked due to an excessive amount of unsuccessful sign in attempts:
+
+          <br />%{link}</p>'
       name: Name
       new_password: New password
       options:
@@ -68,6 +84,7 @@ en:
       type_it_twice: Type it in twice to confirm
       unlock_account: Unlock my account
       zoom_to_address: Zoom to address
+      miles: miles
     mailer:
       confirmation_instructions:
         subject: Confirmation instructions | Falling Fruit

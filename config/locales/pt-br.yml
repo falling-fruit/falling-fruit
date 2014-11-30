@@ -31,7 +31,6 @@ pt-br:
       address_subtext: 
       are_you_sure: 
       bio: 
-      bio_subtext: 
       change_password: 
       clear_map: 
       confirm_account: 
@@ -49,6 +48,7 @@ pt-br:
       mailer:
         confirmation_instructions_html: 
         reset_password_instructions_html: 
+        unlock_instructions_html: 
       name: 
       new_password: 
       options:
@@ -68,6 +68,7 @@ pt-br:
       type_it_twice: 
       unlock_account: 
       zoom_to_address: 
+      miles: 
     mailer:
       confirmation_instructions:
         subject: 

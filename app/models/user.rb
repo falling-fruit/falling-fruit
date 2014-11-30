@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   before_validation { |record|
     begin
-      record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?)
+      record.geocode unless record.address.nil?
     rescue
       # if geocoding throws an error, ignore it
     end
@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   end
 
   def create_range_from_radius(record)
-    if record.range.nil? and not record.range_radius.nil? and not record.location.nil?
+    unless record.range_radius.nil? or record.location.nil?
       ActiveRecord::Base.connection.execute("UPDATE users SET range=ST_Buffer_Meters(location::geometry,range_radius*1000.0) WHERE id=#{record.id}")
     end
   end

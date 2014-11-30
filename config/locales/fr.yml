@@ -14,7 +14,7 @@ fr:
   devise:
     confirmations:
       confirmed: Votre compte a été validé. Vous êtes maintenant connecté.
-      send_instructions: Vous allez recevoir les instructions nécessaires à la confirmation de votre compte dans quelques minutes.
+      send_instructions: Vous allez recevoir les instructions nécessaires à la validation de votre compte dans quelques minutes.
       send_paranoid_instructions: Si votre adresse email existe dans notre base de données, vous allez bientôt recevoir un email contenant les instructions de confirmation de votre compte.
     failure:
       already_authenticated: Vous êtes déjà connecté.
@@ -25,31 +25,31 @@ fr:
       not_approved: Votre compte n'a pas encore été activé par un administrateur.
       timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez confirmer votre compte pour continuer.
+      unconfirmed: Vous devez valider votre compte pour continuer.
     fallingfruit:
-      address: 
-      address_subtext: 
-      are_you_sure: 
-      bio: 
-      bio_subtext: 
-      change_password: 
+      address: Adresse
+      address_subtext: Le centre de votre zone de glanage (votre maison, par exemple)
+      are_you_sure: Êtes-vous sûr?
+      bio: Un peu sur vous
+      change_password: Modifier mon mot de passe
       clear_map: 
-      confirm_account: 
+      confirm_account: Valider mon compte
       current_password: Mot de passe actuel
-      current_password_subtext: 
-      delete_account: 
-      edit_account: 
+      current_password_subtext: Nécessaire pour modifier votre compte
+      delete_account: Annuler mon compte
+      edit_account: Modifier mon compte
       email: E-mail
-      foraging_radius: 
-      foraging_radius_subtext: 
-      foraging_range: 
-      foraging_range_subtext: 
+      foraging_radius: Rayon de glanage
+      foraging_radius_subtext: Rayon d'une zone de glanage circulaire centrée sur l'adresse ci-dessus
+      foraging_range: Zone de glanage
+      foraging_range_subtext: Utilisez l'outil polygone ou rectangle dans la carte ci-dessous pour définir votre zone de glanage. Si vous utilisez l'outil polygone, assurez-vous de fermer votre polygone en rejoignant le dernier point au premier.
       forgot_password: Vous avez oublié votre mot de passe?
       login: Connexion
       mailer:
         confirmation_instructions_html: 
         reset_password_instructions_html: 
-      name: 
+        unlock_instructions_html: 
+      name: Nom
       new_password: Nouveau mot de passe
       options:
         add_anonymously: 
@@ -57,9 +57,9 @@ fr:
         range_updates_email: 
       password: Mot de passe
       remember_me: Rester connecté
-      resend_confirmation_instructions: 
-      resend_unlock_instructions: 
-      save_changes: 
+      resend_confirmation_instructions: Renvoyer les instructions de validation
+      resend_unlock_instructions: Renvoyer les instructions de débloquer
+      save_changes: Enregistrer les modifications
       send: 
       send_password_instructions: 
       sign_in: Se connecter
@@ -68,6 +68,7 @@ fr:
       type_it_twice: 
       unlock_account: 
       zoom_to_address: 
+      miles: miles
     mailer:
       confirmation_instructions:
         subject: Confirmer votre compte | Falling Fruit
@@ -90,7 +91,7 @@ fr:
       signed_up_but_inactive: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter car votre compte n'est pas encore activé.
       signed_up_but_locked: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter car votre compte est bloqué.
       signed_up_but_not_approved: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter avant que votre compte soi validé par un administrateur.
-      signed_up_but_unconfirmed: Un lien de confirmation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte.
+      signed_up_but_unconfirmed: Un lien de validation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte.
       update_needs_confirmation: Votre compte a bien été mis à jour, mais nous devons vérifier votre nouvelle adresse email. Un lien de confirmation a été envoyé à cette nouvelle adresse email. Ouvrez ce lien pour confirmé votre nouvelle adresse email.
       updated: Votre compte a été modifié avec succès.
     sessions:
