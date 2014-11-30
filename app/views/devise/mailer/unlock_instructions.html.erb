@@ -1,7 +1,1 @@
-<p>Hello <%= @resource.email %>!</p>
-
-<p>Your account has been locked due to an excessive amount of unsuccessful sign in attempts.</p>
-
-<p>Click the link below to unlock your account:</p>
-
-<p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
+<%= I18n.t("devise.fallingfruit.mailer.unlock_instructions_html", :email => @resource.email, :link => link_to I18n.t("devise.fallingfruit.unlock_account"), unlock_url(@resource, :unlock_token => @resource.unlock_token)).html_safe %>

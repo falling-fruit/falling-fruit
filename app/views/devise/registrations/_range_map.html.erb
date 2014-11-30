@@ -4,12 +4,11 @@
 
   <!-- Tab Menu -->
   <ul>
-    <li><a href="#tab-1"><%= I18n.t("registrations.range_map.set_by_address",:default => "Address and Radius") %></a></li>
-    <li><a href="#tab-2"><%= I18n.t("registrations.range_map.set_by_drawing",:default => "Draw a Shape (Advanced)") %></a></li>
+    <li><a href="#range-radius"><%= I18n.t("registrations.range_map.set_by_address",:default => "Address and Radius") %></a></li>
+    <li><a href="#range-map"><%= I18n.t("registrations.range_map.set_by_drawing",:default => "Draw a Shape (Advanced)") %></a></li>
   </ul>
 
-  <!-- Info Tab -->
-  <div id="tab-1">
+  <div id="range-radius">
 
     <div class="field">
       <%= f.label :address, I18n.t("devise.fallingfruit.address") %><br/>
@@ -20,11 +19,11 @@
       <%= f.label :foraging_range_radius, I18n.t("devise.fallingfruit.foraging_radius") %><br/>
       <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_radius_subtext") %></span><br />
       <%= f.text_field :range_radius, :size => 10 %>
-      <%= f.select(:range_radius_unit,options_for_select(["km","miles"])) %>
+      <%= f.select(:range_radius_unit,options_for_select(["km", I18n.t("devise.fallingfruit.miles")])) %>
     </div>
 
   </div>
-  <div id="tab-2">
+  <div id="range-map">
 
     <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_range_subtext") %></span><br/>
       <input type="text" placeholder="<%= I18n.t("devise.fallingfruit.address") %>" name="address" id="address">
@@ -33,7 +32,6 @@
     <div id="map" style="width:100%;height:400px;"></div>
 
   </div>
-
 </div>
 
 <% content_for :page_scripts do %>
@@ -150,6 +148,7 @@ function recenter_range_map_to_address() {
         draggable: false
       });
     } else {
+      // FIXME (localize):
       alert("Geocode was not successful for the following reason: " + status);
     }
   });
