@@ -1,53 +1,53 @@
-<h2>Edit Account</h2>
+<h2><%= I18n.t("devise.fallingfruit.edit_account") %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, I18n.t("devise.fallingfruit.name") %><br />
     <%= f.text_field :name %>
   </div>
 
   <div class="field confirmation">
-    <%= f.label :email %>
+    <%= f.label :email, I18n.t("devise.fallingfruit.email") %>
     <%= f.email_field :email %>
   </div>
-
+  
   <div class="field">
-    <%= f.label :about_you %><br/>
-    <span class="subtext">Optionally, a bit about you.</span><br />
+    <%= f.label :about_you, I18n.t("devise.fallingfruit.bio") %><br/>
+    <span class="subtext"><%= I18n.t("devise.fallingfruit.bio_subtext") %></span><br />
     <%= f.text_area :bio, :size => "40x6" %>
   </div>
-
-  <br/>
-  <%= render :partial => "range_map", :locals => {:f => f} %>
-
+  
   <div class="field">
-    <%= f.label :options %><br />
-    <%= f.check_box :range_updates_email %> Receive a weekly email about changes in your foraging range (provided it is defined above)<br />
-    <%= f.check_box :announcements_email %> Receive announcements about new features and major developments at Falling Fruit<br/>
-    <%= f.check_box :add_anonymously %> Add points anonymously (even when logged in)
+    <%= f.label :options, I18n.t("devise.fallingfruit.options.label") %><br />
+    <%= f.check_box :range_updates_email %> <%= I18n.t("devise.fallingfruit.options.range_updates_email") %><br />
+    <%= f.check_box :add_anonymously %> <%= I18n.t("devise.fallingfruit.options.add_anonymously") %>
   </div>
 
+  <hr />
+  <%= render :partial => "range_map", :locals => {:f => f} %>
+  <hr />
+  
   <div class="field confirmation">
     <%= f.label :new_password %>
     <span class="subtext">Only if you want to change it. Type it in twice to confirm.</span>
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
   </div>
-
+  
   <div class="field">
-    <strong><%= f.label :current_password %></strong><br />
-    <span class="subtext">We need your current password to apply your changes.</span><br />
+    <b><%= f.label :current_password, I18n.t("devise.fallingfruit.current_password") %></b><br />
+    <span class="subtext"><%= I18n.t("devise.fallingfruit.current_password_subtext") %></span><br />
     <%= f.password_field :current_password %>
   </div>
 
   <div class="field">
-    <%= f.submit "Apply changes" %>
+    <%= f.submit I18n.t("devise.fallingfruit.save_changes") %>
   </div>
   
 <% end %>
 
 <p>
-Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.
+<%= link_to I18n.t("devise.fallingfruit.delete_account"), registration_path(resource_name), :data => { :confirm => I18n.t("devise.fallingfruit.are_you_sure") }, :method => :delete %>
 </p>

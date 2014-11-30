@@ -1,16 +1,16 @@
 fr:
   changes:
-    type:
-      added: ajouté
-      visited: visité
-      edited: modifié
     index:
       1_day_ago: Il y a 1 jour
+      change_in_city: ! '%{type} à %{city}'
       last_24_hours: Dernières 24 heures
       n_days_ago: Il y a %{n} jours
       recent_changes: Modifications récentes
       user: Utilisateur
-      change_in_city: ! '%{type} à %{city}'
+    type:
+      added: ajouté
+      edited: modifié
+      visited: visité
   devise:
     confirmations:
       confirmed: Votre compte a été validé. Vous êtes maintenant connecté.
@@ -26,6 +26,43 @@ fr:
       timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
       unconfirmed: Vous devez confirmer votre compte pour continuer.
+    fallingfruit:
+      address: 
+      address_subtext: 
+      are_you_sure: 
+      bio: 
+      bio_subtext: 
+      change_password: 
+      clear_map: 
+      current_password: Mot de passe actuel
+      current_password_subtext: 
+      delete_account: 
+      edit_account: 
+      email: E-mail
+      foraging_radius: 
+      foraging_radius_subtext: 
+      foraging_range: 
+      foraging_range_subtext: 
+      forgot_password: Vous avez oublié votre mot de passe?
+      login: Connexion
+      name: 
+      new_password: Nouveau mot de passe
+      options:
+        add_anonymously: 
+        label: 
+        range_updates_email: 
+      password: Mot de passe
+      remember_me: Rester connecté
+      resend_confirmation_instructions: 
+      resend_unlock_instructions: 
+      save_changes: 
+      send: 
+      send_password_instructions: 
+      sign_in: Se connecter
+      sign_in_with: Se connecter avec %{provider}
+      sign_up: Créer un compte
+      type_it_twice: 
+      zoom_to_address: 
     mailer:
       confirmation_instructions:
         subject: Confirmer votre compte | Falling Fruit
@@ -34,7 +71,7 @@ fr:
       unlock_instructions:
         subject: Débloquer votre compte | Falling Fruit
     omniauth_callbacks:
-      failure: ! 'Nous n''avons pas pu vous authentifier via %{kind} : %{reason}.'
+      failure: ! 'Nous n''avons pas pu vous authentifier via %{kind}: "%{reason}".'
       success: Authentifié avec succès via %{kind}.
     passwords:
       no_token: Vous ne pouvez accéder à cette page sans passer par un email de réinitialisation de mot de passe. Si vous êtes passé par un email de ce type, assurez-vous d'avoir utiliser l'URL complète.
@@ -109,14 +146,14 @@ fr:
         in_the_press: Dans la presse
         list_imports: Liste d'importations
         login: Connexion
-        logout: Déconnexion
+        logout: Déconnection
         map: Carte
         new_import: Nouvelle importation
         new_type: Nouveau type
         pending_types: Types en attente
         routes: Parcours
         sharing_the_harvest: Partager la récolte
-        sign_up: Créer un compte
+        sign_up: S'inscrire
         the_project: Le projet
         trouble: Problèmes
         types: Types
@@ -124,9 +161,9 @@ fr:
         world: Monde
       or_right-click_on_map: (ou cliquez-droit sur la carte)
       pending_types_help: ! 'Nous imposons une taxonomie de types comestibles afin que la carte soit organisée et consultable. Les nouveaux types proposés par nos utilisateurs sont mis en évidence jusqu''à ce qu''ils soient ajoutés à la taxonomie ou fusionnés avec des types existants. Certains types proposés sont si uniques ou ambigus qu''ils persistent non approuvé indéfiniment. '
-      unverified_help: Certaines sources sont mis en évidence comme non vérifiées si leur identités, emplacements, ou existences sont contestées. Beaucoup de sources provenant d'inventaires d'arbres sont marqués comme non vérifiées parce que leurs comestibilité est incertaine (par exemple, "Poire" pourrait soit être une variété comestible ou décorative). Nous encourageons nos utilisateurs de se rendre à ces endroits et mettre à jour la carte en fonction de leurs observations.
       pending_types_help_title: Types en attente
       problem_modal_title: Signaler un problème
+      unverified_help: Certaines sources sont mis en évidence comme non vérifiées si leur identités, emplacements, ou existences sont contestées. Beaucoup de sources provenant d'inventaires d'arbres sont marqués comme non vérifiées parce que leurs comestibilité est incertaine (par exemple, "Poire" pourrait soit être une variété comestible ou décorative). Nous encourageons nos utilisateurs de se rendre à ces endroits et mettre à jour la carte en fonction de leurs observations.
       unverified_help_title: Pourquoi Non vérifié?
   locations:
     embed:
@@ -138,7 +175,7 @@ fr:
       author_subtext: Affiché sur la carte. Laissez vide si vous souhaitez garder l'anonymat.
       comments: Commentaires
       comments_subtext: Nouveaux développements, problèmes d'accès, condition des plantes ...
-      create_another: Créer un autre
+      create_another: Créer une autre
       date_subtext: Date de l'état des fruits signalé (si non aujourd'hui)
       date_visited: Date visité
       description: Description
@@ -176,13 +213,13 @@ fr:
       yield_subtext: Évaluez la productivité de la source (le cas échéant)
       your_name: Votre nom
     index:
-      stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/deed.fr">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">CC BY-SA</a>.
+      addmarker_html: Cliquez pour ajouter une source ici</a><br><span class="subtext">Vous pouvez aussi me déplacer</span>
+      editmarker_html: <b>Déplacez moi à la position de la source.</b><br><br>Vérifiez la vue satellite - la source pourrait être visible depuis l'espace!
       freegan_modal_html: En plus de nos efforts cartographie des <a href="/">plantes comestibles qui poussent dans les villes</a>, we've mis en route pour cartographier les bennes alimentaire d'appui au monde. Près de 50% de tous les aliments produits dans le monde développé n'est jamais mangé. We're espérant sensibiliser autour de cette question, de faciliter la libération des aliments jetés, et encourager les entreprises à <a href="/sharing">donner de la nourriture</a> à la place. <br><br> À l'appui d'un mode de vie plus faible des déchets, nous encourageons la cartographie de tous les emplacements (à partir de bennes à boîtes libres) avec des produits mis au rebut, mais utiles, que ce soit comestible ou non.
       freegan_modal_title: Bienvenue sur la carte freegan de Falling Fruit!
+      stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/deed.fr">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">CC BY-SA</a>.
       welcome_modal_html: Falling Fruit est une carte énorme collaboration de la récolte en milieu urbain. Unir les efforts de butineuses, les forestiers et les freegans partout, la carte pointe déjà à plus d'un demi-million de sites de production alimentaire dans le monde (à partir de plantes et de champignons sur les puits d'eau et des bennes à ordures). Notre communauté d'utilisateurs de plus en plus rapidement explore activement, l'édition, et d'ajouter à la carte. <br/><br/> Joignez-vous à nous pour célébrer la générosité vis à vis de nos rues! Utilisez le site de façon anonyme ou <a href="/users/sign_up">vous inscrire</a> pour un compte pour accéder à des fonctionnalités supplémentaires.
       welcome_modal_title: Bienvenue à Falling Fruit!
-      editmarker_html: <b>Déplacez moi à la position de la source.</b><br><br>Vérifiez la vue satellite - la source pourrait être visible depuis l'espace!
-      addmarker_html: Cliquez pour ajouter une source ici</a><br><span class="subtext">Vous pouvez aussi me déplacer</span>
     infowindow:
       access:
       - Cette source a été ajoutée par son propriétaire.
@@ -261,22 +298,23 @@ fr:
       address: Adresse
       download: Télécharger
       embed: Intégrer
+      embed_hover: Code d'intégration
+      embed_modal_title: Code d'intégration (iFrame HTML)
       filter: Filtre
       labels: Étiquettes
       link: Lien
+      link_hover: URL de la carte actuelle
       select_edible_type: Type comestible
       tree_inventories: Inventaires d'arbres
       tree_inventories_modal: Les inventaires d'arbres sont compilées par des institutions qui cherchent à mieux documenter et prendre soin de leurs arbres. Ces données sont généralement recueillies par des arboriculteurs formés et sont à la fois détaillées et exhaustives. Nous choisissons soigneusement les espèces comestibles de ces inventaires et les ajoutons à la carte pour vous. Aidez-nous à répertorier les sources comestibles de votre quartier en demandant à votre ville (ou université, canton, etc) si un inventaire d'arbres existe et s'il peut être partagé sur Falling Fruit.
+      tree_inventories_modal_title: Qu'est-ce qu'un inventaire d'arbres?
       type_and_press_enter: Tapez et appuyez sur entrée
       zoom_to_current_location: Zoom sur ma position actuel
       zoom_to_me: Zoom sur moi
-      tree_inventories_modal_title: Qu'est-ce qu'un inventaire d'arbres?
-      embed_hover: Code d'intégration
-      embed_modal_title: Code d'intégration (iFrame HTML)
-      link_hover: URL de la carte actuelle
     sidebar:
       activity: Activité
       ago: il y a
+      by_author: par %{author}
       changed_within_html: Modifications dans votre <a href="/users/edit">zone de glanage</a>
       click_here: Cliquez ici
       click_here_to_manage_your_routes_html: Cliquez <a href="%{routes_path}">ici</a> pour gérer vos parcours
@@ -297,7 +335,6 @@ fr:
       you_havent_added_or_reviewed_anything_while_logged_in: Vous n'avez pas encore ajouté ou modifié des sources (en étant connecté)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Vous n'avez pas encore défini des parcours de glanage. Cliquez sur une source, puis sur "parcours", pour commencer à en faire un.
       you_havent_defined_html: Vous n'avez pas défini votre zone de glanage. <a href="/users/edit">Cliquez ici</a> pour le faire maintenant
-      by_author: par %{author}
   pages:
     about:
       about_the_site: À propos du projet
@@ -366,6 +403,7 @@ fr:
   routes:
     index:
       delete: Supprimer
+      delete_confirmation: Êtes-vous sur?
       link: Lien
       locations: Endroits
       name: Nom
@@ -373,19 +411,18 @@ fr:
       routes: Parcours
       save_changes: Enregistrer vos modifications
       show: Afficher
+      time_ago: il y a %{time}
       travel_mode: Moyen de transport
       updated: Mise à jour
-      delete_confirmation: Êtes-vous sur?
-      time_ago: il y a %{time}
     show:
       bicycling: Vélo
       driving: Voiture
       mode_of_travel: Moyen de transport
-      walking: À pieds
       modes_of_travel:
       - À pieds
       - Vélo
       - Voiture
+      walking: À pieds
   validates_timeliness:
     error_value_formats:
       date: ! '%Y-%m-%d'

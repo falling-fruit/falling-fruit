@@ -2,11 +2,11 @@ he:
   changes:
     index:
       1_day_ago: לפני יום 1
+      change_in_city: 
       last_24_hours: 24 שעות אחרונות
       n_days_ago: לפני ימי %{n}
       recent_changes: שינויים אחרונים
       user: משתמש
-      change_in_city: 
     type:
       added: 
       edited: 
@@ -26,6 +26,43 @@ he:
       timeout: 
       unauthenticated: 
       unconfirmed: 
+    fallingfruit:
+      address: 
+      address_subtext: 
+      are_you_sure: 
+      bio: 
+      bio_subtext: 
+      change_password: 
+      clear_map: 
+      current_password: 
+      current_password_subtext: 
+      delete_account: 
+      edit_account: 
+      email: 
+      foraging_radius: 
+      foraging_radius_subtext: 
+      foraging_range: 
+      foraging_range_subtext: 
+      forgot_password: 
+      login: 
+      name: 
+      new_password: 
+      options:
+        add_anonymously: 
+        label: 
+        range_updates_email: 
+      password: 
+      remember_me: 
+      resend_confirmation_instructions: 
+      resend_unlock_instructions: 
+      save_changes: 
+      send: 
+      send_password_instructions: 
+      sign_in: 
+      sign_in_with: 
+      sign_up: 
+      type_it_twice: 
+      zoom_to_address: 
     mailer:
       confirmation_instructions:
         subject: 
@@ -122,9 +159,9 @@ he:
         world: העולם
       or_right-click_on_map: (לחץ לחיצה ימנית או על המפה)
       pending_types_help: אנחנו לאכוף טקסונומיה של סוגי מאכל כדי לשמור על המפה המאורגנת וניתן לחיפוש. סוגי רומן שהוגשו על ידי משתמשים מודגשים ברגע שתלוי ועומד עד לאישורן או כסוג חדש או התמזג עם סוג קיימים בטקסונומיה. במקרים נדירים שבם ההגשה היא אקראית או מעורפל כדי להצדיק הסוג שלה מדי, היא נמשכת על המפה במדינה שאינה מאושרת.
-      unverified_help: מקורות מסומנים שכלא אומת אם הזהות, המיקום, או קיומם שנוי במחלוקת. מקורות רבים מיובאים ממלאי עץ מסומנים שכלא אומת, כי האכילות שלהם אינה ודאית (לדוגמא, "אגס" יכול להיות גם מגוון אכיל או דקורטיבי). משתמשים מוזמנים לנסוע למקומות אלה ומדווחים על ממצאיהם.
       pending_types_help_title: 
       problem_modal_title: 
+      unverified_help: מקורות מסומנים שכלא אומת אם הזהות, המיקום, או קיומם שנוי במחלוקת. מקורות רבים מיובאים ממלאי עץ מסומנים שכלא אומת, כי האכילות שלהם אינה ודאית (לדוגמא, "אגס" יכול להיות גם מגוון אכיל או דקורטיבי). משתמשים מוזמנים לנסוע למקומות אלה ומדווחים על ממצאיהם.
       unverified_help_title: 
   locations:
     embed:
@@ -174,13 +211,13 @@ he:
       yield_subtext: דרג את הפרודוקטיביות של מקור זה (אם רלוונטי)
       your_name: השם שלך
     index:
-      stamen_html: אריחי מפה על ידי <a href="http://stamen.com">אבקן עיצוב,</a> תחת <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0.</a> נתונים על ידי <a href="http://openstreetmap.org">OpenStreetMap,</a> תחת <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA.</a>
+      addmarker_html: 
+      editmarker_html: 
       freegan_modal_html: בנוסף למאמצינו למפות את <a href="/">הצמחים האכילים גדלו בערים,</a> we've יצא מפת פחי אשפת מזון נושאות בעולם. כמעט 50% ממיוצר בעולם המפותח כל המזון מעולם לא אכל. We're מקווה להעלות את המודעות סביב נושא זה, להקל על שחרורו של מזון מושלך, ולעודד עסקים <a href="/sharing">ללתרום מזון</a> במקום. <br><br> בתמיכה של אורח חיים נמוך פסולת, אנחנו מעודדים את המיפוי של כל המקומות (מפחי אשפה לתיבות חינם) עם מוצרים שהושלכו אך שימושיים, אם אכיל או אחר.
       freegan_modal_title: 
+      stamen_html: אריחי מפה על ידי <a href="http://stamen.com">אבקן עיצוב,</a> תחת <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0.</a> נתונים על ידי <a href="http://openstreetmap.org">OpenStreetMap,</a> תחת <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA.</a>
       welcome_modal_html: נפילת פירות היא מפה סיבית, שיתוף פעולה של היבול העירוני. מאחד את המאמצים של מלקטי מזון, יערנים, וfreegans בכל מקום, המפה כבר מצביעה על מעל חצי מיליון מקומות ייצור מזון בעולם (מצמחים ופטריות לבארות מים ופחי אשפה). קהילת המשתמשים גדלו במהירות שלנו באופן פעיל לחקור, עריכה, ולהוסיף למפה. <br/><br/> הצטרפו אלינו בחוגגים את השפע להתעלם מרחובות העיר שלנו! השתמש באתר בעילום שם או <a href="/users/sign_up">להירשם</a> לחשבון כדי לגשת לתכונות נוספות.
       welcome_modal_title: 
-      editmarker_html: 
-      addmarker_html: 
     infowindow:
       access:
       - מקור זה נוסף על ידי בעל הנכס.
@@ -259,22 +296,23 @@ he:
       address: כתובת
       download: הורדה
       embed: שבץ
+      embed_hover: שבץ HTML
+      embed_modal_title: 
       filter: מסנן
       labels: תוויות
       link: קישור
+      link_hover: כתובת אתר למפה הנוכחית
       select_edible_type: בחר את הסוג אכיל
       tree_inventories: מלאי עץ
       tree_inventories_modal: מלאי עץ מופקים על ידי מוסדות המבקשים מסמך טוב יותר וטיפול לעצים שלהם. נתונים אלה נאספים בדרך כלל על ידי arborists המאומן ושניהם מפורטים וממצים. אנחנו בוחרים בקפידה את מינים אכילים מהמלאי אלה ולהוסיף אותם למפה בשבילך. אתה יכול לעזור לנו מפת השכונה שלך על ידי לשאול העיר או באוניברסיטה שלך, אם מלאי עץ קיים והאם הוא יכול להיות משותף עם נפילת פירות.
+      tree_inventories_modal_title: 
       type_and_press_enter: הקלד ולחץ תנטר
       zoom_to_current_location: להחזיר את התצוגה למיקום נוכחי
       zoom_to_me: להחזיר את התצוגה לי
-      tree_inventories_modal_title: 
-      embed_hover: שבץ HTML
-      embed_modal_title: 
-      link_hover: כתובת אתר למפה הנוכחית
     sidebar:
       activity: פעילות
       ago: לפני
+      by_author: 
       changed_within_html: שינויים בתוכך <a href="/users/edit">מגוון הליקוט</a>
       click_here: לחץ כאן
       click_here_to_manage_your_routes_html: לחץ <a href="%{routes_path}">כאן</a> כדי לנהל את המסלולים שלך
@@ -295,7 +333,6 @@ he:
       you_havent_added_or_reviewed_anything_while_logged_in: אתה haven't הוסיף או סקורים שום דבר (תוך מחובר)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: אתה haven't מוגדר כל מסלולי ליקוט עדיין. לחץ על מקור ולאחר מכן לחץ על 'מסלולים' 'כדי להתחיל להרוויח מסלול.
       you_havent_defined_html: לא הגדיר טווח חיפוש אחר מזון. <a href="/users/edit">לחץ כאן</a> כדי לעשות את זה עכשיו
-      by_author: 
   pages:
     about:
       about_the_site: אודות האתר
@@ -364,6 +401,7 @@ he:
   routes:
     index:
       delete: מחק
+      delete_confirmation: 
       link: קישור
       locations: מיקומים
       name: שם
@@ -371,16 +409,15 @@ he:
       routes: מסלולים
       save_changes: על שמור שינויים
       show: הצג
+      time_ago: 
       travel_mode: מצב נסיעות
       updated: עדכון
-      delete_confirmation: 
-      time_ago: 
     show:
       bicycling: רכיבה על אופניים
       driving: נהיגה
       mode_of_travel: מצב של מסעות
-      walking: הליכה
       modes_of_travel: 
+      walking: הליכה
   validates_timeliness:
     error_value_formats:
       date: 

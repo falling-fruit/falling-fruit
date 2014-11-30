@@ -2,11 +2,11 @@ es:
   changes:
     index:
       1_day_ago: Hace 1 día
+      change_in_city: 
       last_24_hours: Últimas 24 horas
       n_days_ago: Hace días %{n}
       recent_changes: Cambios recientes
       user: Usuario
-      change_in_city: 
     type:
       added: 
       edited: 
@@ -26,6 +26,43 @@ es:
       timeout: Tu sesión expiró. Por favor, inicia sesión nuevamente para continuar.
       unauthenticated: Tienes que iniciar sesión o registrarte para poder continuar.
       unconfirmed: Tienes que confirmar tu cuenta para poder continuar.
+    fallingfruit:
+      address: 
+      address_subtext: 
+      are_you_sure: 
+      bio: 
+      bio_subtext: 
+      change_password: 
+      clear_map: 
+      current_password: 
+      current_password_subtext: 
+      delete_account: 
+      edit_account: 
+      email: 
+      foraging_radius: 
+      foraging_radius_subtext: 
+      foraging_range: 
+      foraging_range_subtext: 
+      forgot_password: 
+      login: 
+      name: 
+      new_password: 
+      options:
+        add_anonymously: 
+        label: 
+        range_updates_email: 
+      password: 
+      remember_me: 
+      resend_confirmation_instructions: 
+      resend_unlock_instructions: 
+      save_changes: 
+      send: 
+      send_password_instructions: 
+      sign_in: 
+      sign_in_with: 
+      sign_up: 
+      type_it_twice: 
+      zoom_to_address: 
     mailer:
       confirmation_instructions:
         subject: Instrucciones de confirmación | Falling Fruit
@@ -124,9 +161,9 @@ es:
         world: Mundial
       or_right-click_on_map: (O haga clic en el mapa)
       pending_types_help: Aplicamos una taxonomía de tipos de comestibles para mantener el mapa organizada y realizar búsquedas. Nuevos tipos enviados por los usuarios se destacan como pendiente hasta que sean aprobados, ya sea como un nuevo tipo o se fusionaron con un tipo existente en la taxonomía. En raras ocasiones, cuando la presentación es demasiado aleatorio o vaga como para justificar su propio tipo, que persiste en el mapa en un estado no aprobado.
-      unverified_help: Las fuentes se marcan como sin verificar si su identidad, ubicación o existencia es disputado. Muchas fuentes importadas de inventarios de árboles se marcan como no verificada porque su comestibilidad es incierta (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los usuarios están invitados a viajar a estos lugares y reportar sus hallazgos.
       pending_types_help_title: 
       problem_modal_title: 
+      unverified_help: Las fuentes se marcan como sin verificar si su identidad, ubicación o existencia es disputado. Muchas fuentes importadas de inventarios de árboles se marcan como no verificada porque su comestibilidad es incierta (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los usuarios están invitados a viajar a estos lugares y reportar sus hallazgos.
       unverified_help_title: 
   locations:
     embed:
@@ -176,13 +213,13 @@ es:
       yield_subtext: Valorar la productividad de esta fuente (si es aplicable)
       your_name: Su nombre
     index:
-      stamen_html: Mapa azulejos por <a href="http://stamen.com">Stamen Design</a>, bajo <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Datos por <a href="http://openstreetmap.org">OpenStreetMap</a>, bajo <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      addmarker_html: 
+      editmarker_html: 
       freegan_modal_html: Además de nuestros esfuerzos de mapeo las <a href="/">plantas comestibles que crecen en las ciudades</a>, PD Tuve que establecen para asignar los contenedores de basura de soporte de alimentos del mundo. Casi el 50% de todos los alimentos producidos en el mundo desarrollado no se come. We're con la esperanza de crear conciencia en torno a este tema, facilitar la liberación de los alimentos desechados, y alentar a las empresas a <a href="/sharing">donar la comida</a> en su lugar. <br><br> En apoyo de un estilo de vida más baja de los desechos, estamos alentando a la cartografía de todos los lugares (de los contenedores de basura a las cajas libres) con descartadas pero útiles mercancías, ya sea comestible o no.
       freegan_modal_title: 
+      stamen_html: Mapa azulejos por <a href="http://stamen.com">Stamen Design</a>, bajo <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Datos por <a href="http://openstreetmap.org">OpenStreetMap</a>, bajo <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: La caída de la fruta es un mapa enorme, en colaboración de la cosecha urbana. Uniendo los esfuerzos de los cazadores-recolectores, silvicultores y freegans por todas partes, el mapa ya apunta a más de medio millón de lugares productores de alimentos de todo el mundo (de las plantas y los hongos a los pozos de agua y contenedores de basura). Nuestra comunidad de usuarios en rápido crecimiento está explorando activamente, editar y agregar al mapa. <br/><br/> Únete a nosotros en la celebración de la generosidad de nuestros vecinos calles de la ciudad! Utilice el sitio de forma anónima o <a href="/users/sign_up">inscribirse</a> para una cuenta para acceder a funciones adicionales.
       welcome_modal_title: 
-      editmarker_html: 
-      addmarker_html: 
     infowindow:
       access:
       - Esta fuente fue añadida por el dueño de la propiedad.
@@ -261,22 +298,23 @@ es:
       address: Dirección
       download: Descargar
       embed: Insertar
+      embed_hover: Insertar HTML
+      embed_modal_title: 
       filter: Filtro
       labels: Las etiquetas
       link: Enlace
+      link_hover: URL al mapa actual
       select_edible_type: Seleccione el tipo de comestible
       tree_inventories: Inventarios de árboles
       tree_inventories_modal: Inventarios de árboles son compilados por instituciones que tratan de documentar mejor y la atención a sus árboles. Estos datos se recogen típicamente por arbolistas entrenados y son a la vez detallada y exhaustiva. Escogemos cuidadosamente las especies comestibles de estos inventarios y agregarlos al mapa para usted. Usted puede ayudarnos a Mapa de su vecindario pidiendo tu ciudad o universidad si existe un inventario de árboles y si puede ser compartida con la caída de la fruta.
+      tree_inventories_modal_title: 
       type_and_press_enter: Escriba y presione enter
       zoom_to_current_location: Zoom a la ubicación actual
       zoom_to_me: Zoom a mí
-      tree_inventories_modal_title: 
-      embed_hover: Insertar HTML
-      embed_modal_title: 
-      link_hover: URL al mapa actual
     sidebar:
       activity: Actividad
       ago: Hace
+      by_author: por %{author}
       changed_within_html: Los cambios dentro de su <a href="/users/edit">zona de alimentación</a>
       click_here: Haga clic aquí
       click_here_to_manage_your_routes_html: Haga clic <a href="%{routes_path}">aquí</a> para administrar sus rutas
@@ -297,7 +335,6 @@ es:
       you_havent_added_or_reviewed_anything_while_logged_in: Usted no ha añadido o ha revisado nada (mientras está conectado)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Usted haven't definido ninguna ruta de forrajeo todavía. Haga clic en una fuente y haga clic en 'rutas' para empezar a hacer una ruta.
       you_havent_defined_html: No ha definido una zona de alimentación. <a href="/users/edit">Haga clic aquí</a> para hacerlo ahora
-      by_author: por %{author}
   pages:
     about:
       about_the_site: Acerca del sitio
@@ -366,6 +403,7 @@ es:
   routes:
     index:
       delete: Eliminar
+      delete_confirmation: 
       link: Enlace
       locations: Ubicaciones
       name: Nombre
@@ -373,16 +411,15 @@ es:
       routes: Rutas
       save_changes: Guardar cambios
       show: Mostrar
+      time_ago: hace %{time}
       travel_mode: Modo de viajar
       updated: Actualizado
-      delete_confirmation: 
-      time_ago: hace %{time}
     show:
       bicycling: Bicicleta
       driving: Conducir
       mode_of_travel: Modo de viaje
-      walking: Caminar
       modes_of_travel: 
+      walking: Caminar
   validates_timeliness:
     error_value_formats:
       date: ! '%Y-%m-%d'

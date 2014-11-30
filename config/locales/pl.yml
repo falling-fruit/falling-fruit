@@ -2,11 +2,11 @@ pl:
   changes:
     index:
       1_day_ago: 1 dzień temu
+      change_in_city: 
       last_24_hours: Ostatnich 24 godzin
       n_days_ago: ! '%{n} dni temu'
       recent_changes: Ostatnie zmiany
       user: Użytkownik
-      change_in_city: 
     type:
       added: 
       edited: 
@@ -26,6 +26,43 @@ pl:
       timeout: 
       unauthenticated: 
       unconfirmed: 
+    fallingfruit:
+      address: 
+      address_subtext: 
+      are_you_sure: 
+      bio: 
+      bio_subtext: 
+      change_password: 
+      clear_map: 
+      current_password: 
+      current_password_subtext: 
+      delete_account: 
+      edit_account: 
+      email: 
+      foraging_radius: 
+      foraging_radius_subtext: 
+      foraging_range: 
+      foraging_range_subtext: 
+      forgot_password: 
+      login: 
+      name: 
+      new_password: 
+      options:
+        add_anonymously: 
+        label: 
+        range_updates_email: 
+      password: 
+      remember_me: 
+      resend_confirmation_instructions: 
+      resend_unlock_instructions: 
+      save_changes: 
+      send: 
+      send_password_instructions: 
+      sign_in: 
+      sign_in_with: 
+      sign_up: 
+      type_it_twice: 
+      zoom_to_address: 
     mailer:
       confirmation_instructions:
         subject: 
@@ -122,9 +159,9 @@ pl:
         world: Świat
       or_right-click_on_map: (Lub kliknij prawym przyciskiem myszy na mapie)
       pending_types_help: Wspieramy taksonomii typów jadalnych zachować mapę zorganizowaną i przeszukiwania. Nowe typy złożone przez użytkowników są wyróżnione jako czasu do czasu są one albo zatwierdzony jako nowy typ lub połączone z istniejącym typu w taksonomii. W rzadkich przypadkach, gdy wniosek składany jest zbyt losowe lub niejasne, aby uzasadnić swój typ, to utrzymuje się na mapie w stanie niezatwierdzonych.
-      unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
       pending_types_help_title: 
       problem_modal_title: 
+      unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
       unverified_help_title: 
   locations:
     embed:
@@ -174,13 +211,13 @@ pl:
       yield_subtext: Ocena wydajności tego źródła (jeśli dotyczy)
       your_name: Twoje imię i nazwisko
     index:
-      stamen_html: Mapa płytki według <a href="http://stamen.com">Stamen projekt</a>, w ramach <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dane według <a href="http://openstreetmap.org">OpenStreetMap</a>, pod <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      addmarker_html: 
+      editmarker_html: 
       freegan_modal_html: Oprócz naszych wysiłków mapowania <a href="/">jadalnych roślin rosnących w miastach</a>, we've określone do mapy świata dumpsters jedzenie-łożyska. Prawie 50% całej żywności produkowanej w krajach rozwiniętych nie jest spożywane. We're nadzieję na zwiększenie świadomości tego problemu, ułatwiać wyzwolenie wyrzucić jedzenie, i zachęcać przedsiębiorców do <a href="/sharing">oddania jedzenie</a> zamiast. <br><br> W uzasadnieniu do życia niższe ilości odpadów, zachęcamy odwzorowanie wszystkich miejsc (od śmietników do wolnych pól) z odrzuconych ale przydatnych towarów, zarówno jadalne lub w inny sposób.
       freegan_modal_title: 
+      stamen_html: Mapa płytki według <a href="http://stamen.com">Stamen projekt</a>, w ramach <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dane według <a href="http://openstreetmap.org">OpenStreetMap</a>, pod <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling owoców jest ogromny, wspólny mapa zbiorów miejskiego. Jednocząc wysiłki paszowe, leśników i freegans wszędzie, mapa już wskazuje na ponad pół miliona miejsc produkcji żywności na całym świecie (z roślin i grzybów do studni i śmietników). Nasza szybko rosnąca społeczność użytkownik aktywnie bada, edycji i dodawania do mapy. <br/><br/> Dołącz do nas w celebracji wychodził bounty naszych ulicach miasta! Użyj witryny anonimowo lub <a href="/users/sign_up">zaloguj się</a> na konto, aby uzyskać dostęp do dodatkowych funkcji.
       welcome_modal_title: 
-      editmarker_html: 
-      addmarker_html: 
     infowindow:
       access:
       - To źródło został dodany przez właściciela nieruchomości.
@@ -259,22 +296,23 @@ pl:
       address: Adres
       download: Pobierz
       embed: Embed
+      embed_hover: Wstaw HTML
+      embed_modal_title: 
       filter: Filtr
       labels: Etykiety
       link: Link
+      link_hover: Adres URL do aktualnej mapie
       select_edible_type: Wybierz rodzaj jadalnego
       tree_inventories: Zapasy drzewo
       tree_inventories_modal: Zapasy drzewo sporządzane są przez instytucje pragnących lepszego dokumentu i opieki dla swoich drzew. Dane te są zazwyczaj zbierane przez wyszkolonych arborists i są zarówno szczegółowe i wyczerpujące. Starannie dobrać gatunki jadalne od tych zapasów i dodaj je do mapy dla Ciebie. Możesz pomóc nam mapę Twojej okolicy od swojego miasta lub uniwersytet, jeśli asortyment istnieje i czy drzewo to może być współdzielone z Falling Fruit.
+      tree_inventories_modal_title: 
       type_and_press_enter: Typ i naciśnij enter
       zoom_to_current_location: Przybliżyć się do bieżącej lokalizacji
       zoom_to_me: Przybliżyć się do Mnie
-      tree_inventories_modal_title: 
-      embed_hover: Wstaw HTML
-      embed_modal_title: 
-      link_hover: Adres URL do aktualnej mapie
     sidebar:
       activity: Aktywność
       ago: temu
+      by_author: 
       changed_within_html: Zmiany w swoim <a href="/users/edit">zakresie żerowania</a>
       click_here: Kliknij tutaj
       click_here_to_manage_your_routes_html: Kliknij <a href="%{routes_path}">tutaj</a>, aby zarządzać swoimi tras
@@ -295,7 +333,6 @@ pl:
       you_havent_added_or_reviewed_anything_while_logged_in: Ci haven't dodane lub recenzja niczego (po zalogowaniu się)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Haven't zdefiniowano żadnych tras żerowania. Kliknij na źródło, a następnie kliknij przycisk ' drogi ', aby zacząć dokonywania trasę.
       you_havent_defined_html: Nie zdefiniowano szereg żerowania. <a href="/users/edit">Kliknij tutaj,</a> aby zrobić to teraz
-      by_author: 
   pages:
     about:
       about_the_site: O stronie
@@ -364,6 +401,7 @@ pl:
   routes:
     index:
       delete: Usuń
+      delete_confirmation: 
       link: Link
       locations: Lokalizacje
       name: Nazwa
@@ -371,16 +409,15 @@ pl:
       routes: Drogi
       save_changes: Zapisz zmiany
       show: Pokaż
+      time_ago: 
       travel_mode: Tryb podróży
       updated: Zaktualizowane
-      delete_confirmation: 
-      time_ago: 
     show:
       bicycling: Rower
       driving: Jazdy
       mode_of_travel: Tryb travel
-      walking: Pieszo
       modes_of_travel: 
+      walking: Pieszo
   validates_timeliness:
     error_value_formats:
       date: 

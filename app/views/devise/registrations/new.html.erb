@@ -1,43 +1,45 @@
-<h2>Sign up</h2>
+<h2><%= I18n.t("devise.fallingfruit.sign_up") %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
   
-  <%= render :partial => "range_map", :locals => {:f => f} %>
-
   <div class="field">
-    <%= f.label :options %><br />
-    <%= f.check_box :range_updates_email %> Receive a weekly email about changes in your foraging range (provided it is defined above)<br />
-    <%= f.check_box :add_anonymously %> Add points anonymously (even when logged in)
+    <%= f.label :name, I18n.t("devise.fallingfruit.name") %><br />
+    <%= f.text_field :name %>
   </div>
-
+  
   <div class="field confirmation">
-    <%= f.label :email %>
-    <span class="subtext">Type it in twice to confirm.</span>
+    <%= f.label :email, I18n.t("devise.fallingfruit.email") %>
+    <span class="subtext"><%= I18n.t("devise.fallingfruit.type_it_twice") %></span>
     <%= f.email_field :email %>
     <%= f.email_field :email_confirmation %>
   </div>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :bio %><br/>
-    <span class="subtext">Optionally, a bit about you.</span><br />
-    <%= f.text_area :bio, :size => "40x6" %>
-  </div>
-
+  
   <div class="field confirmation">
-    <%= f.label :password %>
-    <span class="subtext">Type it in twice to confirm.</span>
+    <%= f.label :password, I18n.t("devise.fallingfruit.password") %>
+    <span class="subtext"><%= I18n.t("devise.fallingfruit.type_it_twice") %></span>
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
   </div>
+    
+  <div class="field">
+    <%= f.label :about_you, I18n.t("devise.fallingfruit.bio") %><br/>
+    <span class="subtext"><%= I18n.t("devise.fallingfruit.bio_subtext") %></span><br />
+    <%= f.text_area :bio, :size => "40x6" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :options, I18n.t("devise.fallingfruit.options.label") %><br />
+    <%= f.check_box :range_updates_email %> <%= I18n.t("devise.fallingfruit.options.range_updates_email") %><br />
+    <%= f.check_box :add_anonymously %> <%= I18n.t("devise.fallingfruit.options.add_anonymously") %>
+  </div>
+  
+  <hr />
+  <%= render :partial => "range_map", :locals => {:f => f} %>
+  <hr />
 
   <div class="field">
-    <%= f.submit "Sign up" %>
+    <%= f.submit I18n.t("devise.fallingfruit.sign_up") %>
   </div>
 <% end %>
 

@@ -1,12 +1,12 @@
-pt:
+pt-br:
   changes:
     index:
       1_day_ago: 1 dia atrás
+      change_in_city: 
       last_24_hours: Nas últimas 24 horas
       n_days_ago: ! '%{n} dias atrás'
       recent_changes: Mudanças Recentes
       user: Usuário
-      change_in_city: 
     type:
       added: 
       edited: 
@@ -26,6 +26,43 @@ pt:
       timeout: 
       unauthenticated: 
       unconfirmed: 
+    fallingfruit:
+      address: 
+      address_subtext: 
+      are_you_sure: 
+      bio: 
+      bio_subtext: 
+      change_password: 
+      clear_map: 
+      current_password: 
+      current_password_subtext: 
+      delete_account: 
+      edit_account: 
+      email: 
+      foraging_radius: 
+      foraging_radius_subtext: 
+      foraging_range: 
+      foraging_range_subtext: 
+      forgot_password: 
+      login: 
+      name: 
+      new_password: 
+      options:
+        add_anonymously: 
+        label: 
+        range_updates_email: 
+      password: 
+      remember_me: 
+      resend_confirmation_instructions: 
+      resend_unlock_instructions: 
+      save_changes: 
+      send: 
+      send_password_instructions: 
+      sign_in: 
+      sign_in_with: 
+      sign_up: 
+      type_it_twice: 
+      zoom_to_address: 
     mailer:
       confirmation_instructions:
         subject: 
@@ -122,7 +159,10 @@ pt:
         world: Mundo
       or_right-click_on_map: (Ou clique com o botão direito no mapa)
       pending_types_help: Nós reforçamos uma taxonomia de tipos de comestíveis para manter o mapa organizado e pesquisável. Novos tipos apresentados pelos usuários são destacadas como pendente até que sejam aprovadas como um novo tipo ou fundiu-se com um tipo existente na taxonomia. Em casos raros, quando a apresentação é demasiado aleatório ou vaga para justificar seu próprio tipo, ele persiste no mapa em um estado não aprovado.
+      pending_types_help_title: 
+      problem_modal_title: 
       unverified_help: Fontes são marcados como não verificada se a sua identidade, localização ou existência é contestada. Muitas fontes importados a partir de inventários de árvores são marcadas como não verificadas porque a sua comestibilidade é incerto (por exemplo, "pera" poderia ser tanto uma variedade comestível ou decorativo). Os usuários são encorajados a viajar para esses locais e relatar suas descobertas.
+      unverified_help_title: 
   locations:
     embed:
       add_source: Adicionar fonte
@@ -171,9 +211,13 @@ pt:
       yield_subtext: Classifique a produtividade dessa fonte (se aplicável)
       your_name: Seu nome
     index:
-      freegan_splash_html: Além de nossos esforços mapeando as <a href="/">plantas comestíveis que crescem em cidades</a>, we've começou a mapear lixeiras de suporte de alimentos do mundo. Cerca de 50% de todos os alimentos produzidos no mundo desenvolvido é comido nunca. We're na esperança de aumentar a conscientização em torno desta questão, facilitar a liberação de alimentos descartados, e incentivar as empresas a <a href="/sharing">doar o alimento</a> em seu lugar. <br><br> Em apoio a um estilo de vida de baixo desperdício, estamos incentivando o mapeamento de todos os locais (de lixeiras para caixas livres) com descartados, mas útil bens, comestíveis ou não.
-      splash_html: Queda de fruta é um enorme mapa colaborativo da colheita urbana. Unindo os esforços de forrageiras, florestais e freegans em todos os lugares, o mapa já aponta para mais de meio milhão locais para produção de alimentos em todo o mundo (a partir de plantas e fungos para poços de água e lixeiras). A nossa crescente comunidade de usuário está explorando ativamente, editar e adicionar ao mapa. <br/><br/> Junte-se a nós na celebração da generosidade esquecido de ruas da nossa cidade! Use o site anonimamente ou <a href="/users/sign_up">se inscrever</a> para uma conta para acessar recursos adicionais.
+      addmarker_html: 
+      editmarker_html: 
+      freegan_modal_html: Além de nossos esforços mapeando as <a href="/">plantas comestíveis que crescem em cidades</a>, we've começou a mapear lixeiras de suporte de alimentos do mundo. Cerca de 50% de todos os alimentos produzidos no mundo desenvolvido é comido nunca. We're na esperança de aumentar a conscientização em torno desta questão, facilitar a liberação de alimentos descartados, e incentivar as empresas a <a href="/sharing">doar o alimento</a> em seu lugar. <br><br> Em apoio a um estilo de vida de baixo desperdício, estamos incentivando o mapeamento de todos os locais (de lixeiras para caixas livres) com descartados, mas útil bens, comestíveis ou não.
+      freegan_modal_title: 
       stamen_html: Mapa telhas por <a href="http://stamen.com">estame projeto</a>, sob <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dados de <a href="http://openstreetmap.org">OpenStreetMap</a>, sob <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      welcome_modal_html: Queda de fruta é um enorme mapa colaborativo da colheita urbana. Unindo os esforços de forrageiras, florestais e freegans em todos os lugares, o mapa já aponta para mais de meio milhão locais para produção de alimentos em todo o mundo (a partir de plantas e fungos para poços de água e lixeiras). A nossa crescente comunidade de usuário está explorando ativamente, editar e adicionar ao mapa. <br/><br/> Junte-se a nós na celebração da generosidade esquecido de ruas da nossa cidade! Use o site anonimamente ou <a href="/users/sign_up">se inscrever</a> para uma conta para acessar recursos adicionais.
+      welcome_modal_title: 
     infowindow:
       access:
       - Esta fonte foi acrescentado pelo proprietário do imóvel.
@@ -252,20 +296,23 @@ pt:
       address: Endereço
       download: Baixar
       embed: Embed
-      embed_html: Embed HTML
+      embed_hover: Embed HTML
+      embed_modal_title: 
       filter: Filtrar
       labels: Labels
       link: Ligação
+      link_hover: URL para o mapa atual
       select_edible_type: Selecione o tipo comestível
       tree_inventories: Inventários de árvores
       tree_inventories_modal: Inventários de árvores são compilados por instituições que procuram a melhor documento e cuidados para suas árvores. Esses dados são normalmente coletados por arborists treinados e estão ambos detalhada e exaustiva. Nós cuidadosamente escolher espécies comestíveis a partir desses inventários e adicioná-los ao mapa para você. Você pode nos ajudar a mapear seu bairro, pedindo sua cidade ou universidade se um inventário da arborização existe e se ele pode ser compartilhado com a queda de frutas.
+      tree_inventories_modal_title: 
       type_and_press_enter: Escreva e pressione enter
-      url_to_the_current_map: URL para o mapa atual
       zoom_to_current_location: Zoom para a atual localização
       zoom_to_me: Zoom to Me
     sidebar:
       activity: Atividade
       ago: atrás
+      by_author: 
       changed_within_html: Mudanças dentro da sua <a href="/users/edit">gama de forrageamento</a>
       click_here: Clique aqui
       click_here_to_manage_your_routes_html: Clique <a href="%{routes_path}">aqui</a> para gerenciar suas rotas
@@ -286,7 +333,6 @@ pt:
       you_havent_added_or_reviewed_anything_while_logged_in: Você haven't adicionado ou revisada nada (enquanto estiver conectado)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Você haven't definido quaisquer rotas de forrageamento ainda. Clique na fonte e clique em 'rotas' para começar a fazer uma rota.
       you_havent_defined_html: Você não definiu uma gama de forrageamento. <a href="/users/edit">Clique aqui</a> para fazer isso agora
-      by_author: 
   pages:
     about:
       about_the_site: Sobre o site
@@ -355,6 +401,7 @@ pt:
   routes:
     index:
       delete: Excluir
+      delete_confirmation: 
       link: Ligação
       locations: Locais
       name: Nome
@@ -362,38 +409,17 @@ pt:
       routes: Rotas
       save_changes: Salvar alterações
       show: Mostrar
+      time_ago: 
       travel_mode: Modo de viagem
       updated: Atualizado
-      delete_confirmation: 
-      time_ago: 
     show:
       bicycling: Bicycling
       driving: Condução
       mode_of_travel: Modo de viagens
-      walking: Andando
       modes_of_travel: 
-    modes_of_travel: 
+      walking: Andando
   validates_timeliness:
     error_value_formats:
       date: 
       datetime: 
       time: 
-pt-br:
-  layouts:
-    application:
-      pending_types_help_title: 
-      problem_modal_title: 
-      unverified_help_title: 
-  locations:
-    index:
-      freegan_modal_html: Além de nossos esforços mapeando as <a href="/">plantas comestíveis que crescem em cidades</a>, we've começou a mapear lixeiras de suporte de alimentos do mundo. Cerca de 50% de todos os alimentos produzidos no mundo desenvolvido é comido nunca. We're na esperança de aumentar a conscientização em torno desta questão, facilitar a liberação de alimentos descartados, e incentivar as empresas a <a href="/sharing">doar o alimento</a> em seu lugar. <br><br> Em apoio a um estilo de vida de baixo desperdício, estamos incentivando o mapeamento de todos os locais (de lixeiras para caixas livres) com descartados, mas útil bens, comestíveis ou não.
-      freegan_modal_title: 
-      welcome_modal_html: Queda de fruta é um enorme mapa colaborativo da colheita urbana. Unindo os esforços de forrageiras, florestais e freegans em todos os lugares, o mapa já aponta para mais de meio milhão locais para produção de alimentos em todo o mundo (a partir de plantas e fungos para poços de água e lixeiras). A nossa crescente comunidade de usuário está explorando ativamente, editar e adicionar ao mapa. <br/><br/> Junte-se a nós na celebração da generosidade esquecido de ruas da nossa cidade! Use o site anonimamente ou <a href="/users/sign_up">se inscrever</a> para uma conta para acessar recursos adicionais.
-      welcome_modal_title: 
-      editmarker_html: 
-      addmarker_html: 
-    searchbar:
-      tree_inventories_modal_title: 
-      embed_hover: Embed HTML
-      embed_modal_title: 
-      link_hover: URL para o mapa atual
