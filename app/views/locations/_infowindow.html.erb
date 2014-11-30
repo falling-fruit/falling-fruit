@@ -248,7 +248,7 @@
 					<% end %>
 					<% unless o.fruiting.nil? %>
 					  <% unless o.yield_rating.nil? and o.quality_rating.nil? %>&middot;<% end %>
-						<label><%= I18n.t("locations.infowindow.status") %></label> <%= I18n.t("locations.infowindow.fruiting")[o.fruiting] %>
+						<%= I18n.t("locations.infowindow.fruiting")[o.fruiting] %>
 					<% end %>
 					<br />
 				</span>

@@ -39,10 +39,10 @@ he:
       delete_account: 
       edit_account: 
       email: 
+      foraging_map_subtext: 
       foraging_radius: 
       foraging_radius_subtext: 
       foraging_range: 
-      foraging_range_subtext: 
       forgot_password: 
       login: 
       mailer:
@@ -57,6 +57,8 @@ he:
         label: 
         range_updates_email: 
       password: 
+      range_by_map: 
+      range_by_radius: 
       remember_me: 
       resend_confirmation_instructions: 
       resend_unlock_instructions: 
@@ -280,7 +282,6 @@ he:
       season: עונה
       see_this_location_in_streetview: ראה מיקום זה בStreetview
       source: מקור
-      status: סטטוס
       street: רחוב
       tabs:
         info: מידע

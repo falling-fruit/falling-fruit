@@ -39,11 +39,11 @@ en:
       delete_account: Cancel my account
       edit_account: Edit account
       email: Email
-      foraging_radius: Foraging radius
+      foraging_map_subtext: Use the polygon or rectangle tool in the map below to define your foraging range. If using the polygon tool, make sure to close your polygon by joining the last point to the first.
+      foraging_radius: Radius
       foraging_radius_subtext: Radius of a circular foraging range centered on the address above
       foraging_range: Foraging range
-      foraging_range_subtext: Use the polygon or rectangle tool in the map below to define your foraging range. If using the polygon tool, make sure to close your polygon by joining the last point to the first.
-      forgot_password: Forget your password?
+      forgot_password: Reset your password
       login: Login
       mailer:
         confirmation_instructions_html: ! '<p>Welcome to Falling Fruit,</p>
@@ -73,6 +73,8 @@ en:
         label: Options
         range_updates_email: Receive a weekly email reporting recent activity in your foraging range (defined below)
       password: Password
+      range_by_map: Draw on map
+      range_by_radius: Address and radius
       remember_me: Remember me
       resend_confirmation_instructions: Resend confirmation instructions
       resend_unlock_instructions: Resend unlock instructions
@@ -237,10 +239,10 @@ en:
     index:
       addmarker_html: Click to add a source here</a><br><span class="subtext">You can move me too</span>
       editmarker_html: <b>Move me to the position of the source.</b><br><br>Check the satellite view - the source may be visible from space!
-      freegan_modal_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly 50% of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.<br><br>In support of a lower-waste lifestyle, we are encouraging the mapping of all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
+      freegan_modal_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly half of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate food</a> rather than waste it.<br/><br/>In support of a lower-waste lifestyle, we are encouraging the mapping of all freegan sources (from dumpsters to free boxes) with discarded but useful goods, edible or otherwise.
       freegan_modal_title: Welcome to Falling Fruit's freegan map!
       stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/deed.en">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA</a>.
-      welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of foragers, foresters, and freegans everywhere, the map already points to over a half million food-producing locations around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for an account to access additional features.
+      welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and freegans everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> to access additional features.
       welcome_modal_title: Welcome to Falling Fruit!
     infowindow:
       access:
@@ -298,7 +300,6 @@ en:
       season: Season
       see_this_location_in_streetview: See this location in streetview
       source: source
-      status: Status
       street: streetview
       tabs:
         info: Info

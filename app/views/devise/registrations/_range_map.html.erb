@@ -1,11 +1,11 @@
-<%= f.label :foraging_range, I18n.t("devise.fallingfruit.foraging_range") %><br /><br/>
+<%= f.label :foraging_range, I18n.t("devise.fallingfruit.foraging_range") + ":" %><br/><br/>
 
-<div id="range_tabs">
+<div id="range_tabs" style="padding-bottom:1.5em;border-bottom:1px solid #ddd ! important;" >
 
   <!-- Tab Menu -->
   <ul>
-    <li><a href="#range-radius"><%= I18n.t("registrations.range_map.set_by_address",:default => "Address and Radius") %></a></li>
-    <li><a href="#range-map"><%= I18n.t("registrations.range_map.set_by_drawing",:default => "Draw a Shape (Advanced)") %></a></li>
+    <li><a href="#range-radius"><%= I18n.t("devise.fallingfruit.range_by_radius") %></a></li>
+    <li><a href="#range-map"><%= I18n.t("devise.fallingfruit.range_by_map") %></a></li>
   </ul>
 
   <div id="range-radius">
@@ -25,7 +25,7 @@
   </div>
   <div id="range-map">
 
-    <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_range_subtext") %></span><br/>
+    <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_map_subtext") %></span><br/>
       <input type="text" placeholder="<%= I18n.t("devise.fallingfruit.address") %>" name="address" id="address">
       <button type="button" onclick="recenter_range_map_to_address();return false;"><%= I18n.t("devise.fallingfruit.zoom_to_address") %></button>
       <button type="button" onclick="clear_range_overlays();return false;"><%= I18n.t("devise.fallingfruit.clear_map") %></button>

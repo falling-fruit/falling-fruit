@@ -32,18 +32,18 @@ fr:
       are_you_sure: Êtes-vous sûr?
       bio: Un peu sur vous
       change_password: Modifier mon mot de passe
-      clear_map: Dégager la carte
+      clear_map: Nettoyer la carte
       confirm_account: Valider mon compte
       current_password: Mot de passe actuel
       current_password_subtext: Nécessaire pour modifier votre compte
       delete_account: Annuler mon compte
       edit_account: Modifier mon compte
       email: E-mail
-      foraging_radius: Rayon de glanage
+      foraging_map_subtext: Utilisez l'outil polygone ou rectangle dans la carte ci-dessous pour définir votre zone de glanage. Si vous utilisez l'outil polygone, assurez-vous de fermer votre polygone en rejoignant le dernier point au premier.
+      foraging_radius: Rayon
       foraging_radius_subtext: Rayon d'une zone de glanage circulaire centrée sur l'adresse ci-dessus
       foraging_range: Zone de glanage
-      foraging_range_subtext: Utilisez l'outil polygone ou rectangle dans la carte ci-dessous pour définir votre zone de glanage. Si vous utilisez l'outil polygone, assurez-vous de fermer votre polygone en rejoignant le dernier point au premier.
-      forgot_password: Vous avez oublié votre mot de passe?
+      forgot_password: Réinitialiser votre mot de passe
       login: Connexion
       mailer:
         confirmation_instructions_html: ! '<p>Bienvenue sur Falling Fruit,</p>
@@ -71,8 +71,10 @@ fr:
       options:
         add_anonymously: Modifier la carte dans l'anonymat (même si connecter)
         label: Options
-        range_updates_email: Recevoir un email hebdomadaire déclarant l'activité récente dans votre zone de glanage (défini ci-dessous)
+        range_updates_email: Recevoir un email hebdomadaire avec l'activité récente dans votre zone de glanage (défini ci-dessous)
       password: Mot de passe
+      range_by_map: Tracer sur une carte
+      range_by_radius: Adresse et rayon
       remember_me: Rester connecté
       resend_confirmation_instructions: Renvoyer les instructions de validation
       resend_unlock_instructions: Renvoyer les instructions de déblocage
@@ -82,7 +84,7 @@ fr:
       sign_in: Se connecter
       sign_in_with: Se connecter avec %{provider}
       sign_up: Créer un compte
-      type_it_twice: Tapez-le deux fois pour le confirmer
+      type_it_twice: Tapez-le deux fois pour confirmer
       unlock_account: Débloquer mon compte
       zoom_to_address: Zoom sur l'adresse
     mailer:
@@ -237,10 +239,10 @@ fr:
     index:
       addmarker_html: Cliquez pour ajouter une source ici</a><br><span class="subtext">Vous pouvez aussi me déplacer</span>
       editmarker_html: <b>Déplacez moi à la position de la source.</b><br><br>Vérifiez la vue satellite - la source pourrait être visible depuis l'espace!
-      freegan_modal_html: En plus de nos efforts cartographie des <a href="/">plantes comestibles qui poussent dans les villes</a>, we've mis en route pour cartographier les bennes alimentaire d'appui au monde. Près de 50% de tous les aliments produits dans le monde développé n'est jamais mangé. We're espérant sensibiliser autour de cette question, de faciliter la libération des aliments jetés, et encourager les entreprises à <a href="/sharing">donner de la nourriture</a> à la place. <br><br> À l'appui d'un mode de vie plus faible des déchets, nous encourageons la cartographie de tous les emplacements (à partir de bennes à boîtes libres) avec des produits mis au rebut, mais utiles, que ce soit comestible ou non.
+      freegan_modal_html: En plus de nos efforts pour cartographier <a href="/">les plantes comestibles de nos villes</a>, nous avons entrepris de cartographier les poubelles du monde remplis de nourriture. Près de la moitié de tous les aliments produits dans le monde développé ne sont jamais consommés. Nous cherchons à sensibiliser le public à ce problème, faciliter la libération des aliments jetés, et encourager aux entreprises de <a href="/sharing">donner la nourriture</a> au lieu de la gaspiller.<br/><br/>En faveur d'un mode de vie sans gaspillage, nous encourageons la cartographie de tous emplacements freegans (poubelles à ordures, marchés gratuits, etc) avec des produits jetés mais utiles, qu'ils soit comestibles ou non.
       freegan_modal_title: Bienvenue sur la carte freegan de Falling Fruit!
       stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/deed.fr">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">CC BY-SA</a>.
-      welcome_modal_html: Falling Fruit est une carte énorme collaboration de la récolte en milieu urbain. Unir les efforts de butineuses, les forestiers et les freegans partout, la carte pointe déjà à plus d'un demi-million de sites de production alimentaire dans le monde (à partir de plantes et de champignons sur les puits d'eau et des bennes à ordures). Notre communauté d'utilisateurs de plus en plus rapidement explore activement, l'édition, et d'ajouter à la carte. <br/><br/> Joignez-vous à nous pour célébrer la générosité vis à vis de nos rues! Utilisez le site de façon anonyme ou <a href="/users/sign_up">vous inscrire</a> pour un compte pour accéder à des fonctionnalités supplémentaires.
+      welcome_modal_html: Falling Fruit est une carte immense et collaborative de la récolte urbaine. En unissant les efforts de glaneurs, freegans, et forestiers, la carte contient déjà plus d'un demi-million de sources comestibles à travers le monde (plantes et champignons aux puits d'eau et poubelles). Notre communauté d'utilisateurs, en croissance rapide, explore, modifie, et ajoute à la carte.<br/><br/>Célébrez avec nous la générosité alimentaires négligée de nos villes! Utilisez le site de façon anonyme ou <a href="/users/sign_up">inscrivez-vous</a> pour accéder à des fonctionnalités supplémentaires.
       welcome_modal_title: Bienvenue sur Falling Fruit!
     infowindow:
       access:
@@ -298,7 +300,6 @@ fr:
       season: Saison
       see_this_location_in_streetview: Voir ce lieu avec streetview
       source: source
-      status: Statut
       street: streetview
       tabs:
         info: Infos
