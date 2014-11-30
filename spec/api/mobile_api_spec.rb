@@ -23,6 +23,19 @@ describe 'mobile_api' do
     auth_params["auth_token"].should_not be_nil
   end
 
+  it 'can sign up' do
+    data = {:user => {:email => 'foo@bar.com', :password => 'FooBar',
+            :name => 'Foo Bar', :add_anonymously => false,
+            :announcements_email => false, :bio => 'Testing123', :roles_mask => 42}}
+    headers = {format: :json, 'CONTENT_TYPE' => 'application/json', 'HTTPS' => 'on' }
+    post '/users.json', data.to_json, headers
+    expect(last_response.status).to eq(201)
+    u = User.find_by_email('foo@bar.com')
+    u.should_not be_nil
+    # user shouldn't be able to set thier own role
+    u.roles_mask.should_not eq(42)
+  end
+
   it 'can sign out' do
     u = create(:user)
     auth_params = get_auth_params(u)

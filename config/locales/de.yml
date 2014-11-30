@@ -2,11 +2,11 @@ de:
   changes:
     index:
       1_day_ago: Vor einem Tag
+      change_in_city: 
       last_24_hours: In den letzten 24 Stunden
       n_days_ago: Vor %{n} Tagen
       recent_changes: Letzte Änderungen
       user: Benutzer
-      change_in_city: 
     type:
       added: 
       edited: 
@@ -26,6 +26,35 @@ de:
       timeout: Deine Sitzung ist abgelaufen, bitte melde dich erneut an.
       unauthenticated: ! 'Du musst dich anmelden oder ein Konto erstellen, bevor du weiterfahren kannst. '
       unconfirmed: ! 'Du musst dein Konto aktivieren, bevor du weiterfahren kannst. '
+    fallingfruit:
+      address: 
+      address_subtext: 
+      bio: 
+      bio_subtext: 
+      change_password: 
+      email: 
+      foraging_radius: 
+      foraging_radius_subtext: 
+      foraging_range: 
+      foraging_range_subtext: 
+      forgot_password: 
+      login: 
+      name: 
+      new_password: 
+      options:
+        add_anonymously: 
+        label: 
+        range_updates_email: 
+      password: 
+      remember_me: 
+      resend_confirmation_instructions: 
+      resend_unlock_instructions: 
+      send: 
+      send_password_instructions: 
+      sign_in: 
+      sign_in_with: 
+      sign_up: 
+      type_it_twice: 
     mailer:
       confirmation_instructions:
         subject: Aktivierungs-Anleitung | Falling Fruit
@@ -124,9 +153,9 @@ de:
         world: Welt
       or_right-click_on_map: (oder Rechtsklick in die Karte)
       pending_types_help: Wir bewerten alle Arten auf ihre Geniessbarkeit, um die Karte strukturiert und durchsuchbar zu halten. Neuartige, von den Benutzern ergänzte Arten werden sind als 'hängig' markiert, bis sie entweder als eine neue Art zugelassen oder einer in der Taxonomie vorhandenen Art zugeordnet werden. In seltenen Fällen, wenn die Eingabe entweder zu willkürlich oder vage ist um eine eigene Art zu rechtfertigen, bleibt der Eintrag auf der Karte in einem nicht genehmigten Zustand.
-      unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, insbesondere wenn sie von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
       pending_types_help_title: 
       problem_modal_title: 
+      unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, insbesondere wenn sie von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
       unverified_help_title: 
   locations:
     embed:
@@ -176,13 +205,13 @@ de:
       yield_subtext: Bewerte die Produktivität dieser Quelle (falls zutreffend)
       your_name: Dein Name
     index:
-      stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      addmarker_html: 
+      editmarker_html: 
       freegan_modal_html: Zusätzlich zu unseren Bemühungen, <a href="/"> alle essbaren Pflanzen in den Städten </a> zu kartieren, möchten wir am liebsten auch alle Container erfassen, in denen so oft noch brauchbare Lebensmittel landen. Fast 50% aller in der entwickelten Welt produzierten Lebensmittel werden nie gegessen. Wir hoffen, mit unseren Bemühungen das Bewusstsein um dieses Problem zu erhöhen und die Rettung von übeflüssig weggeworfenen Nahrungsmitteln zu erleichtern. Zudem möchten wir Unternehmen dazu ermutigen, solche Nahrungsmittel <a href="/sharing">gemeinnützigen Organisation zu spenden</a> statt sie in der Mülltonne zu deponieren. <br><br> Und weil wir weiter überzeugt sind, dass allgemein weniger weggeworfen werden sollte, ermutigen wir die Kartierung aller Standorte, an denen weggeworfene aber noch brauchbare Güter erhältlich sind (Müllcontainer, Gratis-zum-Mitnehmen Kisten etc.). Essbar oder nicht!
       freegan_modal_title: 
+      stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit ist eine riesige, user-generierte Karte der urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler' zeigt unsere Karte weltweit bereits zu einer halben Million Standorten, an denen Essbares wächst oder gratis erhältlich ist (von Pflanzen und Pilzen zu Brunnen und Müllcontainern). Unsere stetig wachsende User-Community ist unermüdlich dabei, wertvolle Standorte zu erkunden oder zu bearbeiten, um sie der Karte hinzuzufügen. <br/><br/> Hilf uns, den vernachlässigten Reichtum an unseren Strassen zum Leben zu erwecken! Verwende die Website anonym oder melde dich als <a href="/users/sign_up">Benutzer</a> an, um sämtliche Funktionen nutzen zu können.
       welcome_modal_title: 
-      editmarker_html: 
-      addmarker_html: 
     infowindow:
       access:
       - Diese Quelle wurde von dem Eigentümer hinzugefügt.
@@ -261,22 +290,23 @@ de:
       address: Adresse
       download: Download
       embed: Embed
+      embed_hover: Embed HTML
+      embed_modal_title: 
       filter: Filter
       labels: Etiketten
       link: Link
+      link_hover: URL der aktuellen Karte
       select_edible_type: Wähle essbare Art
       tree_inventories: Bauminventare
       tree_inventories_modal: Bauminverntare werden in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden meistens durch ausgebildetes Personal erhoben und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich in unsere Karte ein. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
+      tree_inventories_modal_title: 
       type_and_press_enter: Eingeben und Enter drücken
       zoom_to_current_location: Zoom auf aktuellen Standort
       zoom_to_me: Zoom zu mir
-      tree_inventories_modal_title: 
-      embed_hover: Embed HTML
-      embed_modal_title: 
-      link_hover: URL der aktuellen Karte
     sidebar:
       activity: Aktivität
       ago: vor
+      by_author: von %{author}
       changed_within_html: Veränderungen in deinem <a href="/users/edit">Ernte-Radius</a>
       click_here: Klicke hier
       click_here_to_manage_your_routes_html: Klicke <a href="%{routes_path}">hier</a>, um deine Routen zu verwalten
@@ -297,7 +327,6 @@ de:
       you_havent_added_or_reviewed_anything_while_logged_in: Du hast nichts geändert oder überprüft (während du eingeloggt warst)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Du hast noch keine Ernte-Routen hinzugefügt. Klicke auf eine Quelle und klicke dann auf 'Strecken' um eine Route zu erstellen.
       you_havent_defined_html: Du hast noch keinen persönlichen Ernte-Radius definiert. Klicke <a href="/users/edit">hier</a> um das jetzt zu tun.
-      by_author: von %{author}
   pages:
     about:
       about_the_site: Über diese Seite
@@ -374,6 +403,7 @@ de:
   routes:
     index:
       delete: löschen
+      delete_confirmation: 
       link: Link
       locations: Standorte
       name: Name
@@ -381,16 +411,15 @@ de:
       routes: Routen
       save_changes: Änderungen speichern
       show: zeige
+      time_ago: vor %{time}
       travel_mode: Fortbewegungsmittel
       updated: aktualisiert
-      delete_confirmation: 
-      time_ago: vor %{time}
     show:
       bicycling: Velo
       driving: Auto
       mode_of_travel: Fortbewegungsmittel
-      walking: zu Fuss
       modes_of_travel: 
+      walking: zu Fuss
   validates_timeliness:
     error_value_formats:
       date: ! '%Y-%m-%d'

@@ -1,16 +1,16 @@
 en:
   changes:
-    type:
-      added: added
-      visited: visited
-      edited: edited
     index:
-      recent_changes: Recent changes
-      user: User
-      change_in_city: ! '%{type} in %{city}'
       1_day_ago: 1 day ago
+      change_in_city: ! '%{type} in %{city}'
       last_24_hours: Last 24 hours
       n_days_ago: ! '%{n} days ago'
+      recent_changes: Recent changes
+      user: User
+    type:
+      added: added
+      edited: edited
+      visited: visited
   devise:
     confirmations:
       confirmed: Your account was successfully confirmed. You are now signed in.
@@ -26,6 +26,35 @@ en:
       timeout: Your session expired, please sign in again to continue.
       unauthenticated: You need to sign in or sign up before continuing.
       unconfirmed: You have to confirm your account before continuing.
+    fallingfruit:
+      address: Address
+      address_subtext: The center of your foraging range (likely your home address)
+      bio: Bio
+      bio_subtext: Optionally, a bit about you
+      change_password: Change my password
+      email: Email
+      foraging_radius: Foraging radius
+      foraging_radius_subtext: Radius of your foraging range from the address above (as an alternative to drawing a shape on the map)
+      foraging_range: Foraging range
+      foraging_range_subtext: Use the polygon (any shape) or rectangle tool in the map below to define the area you generally forage in. When using the polygon tool make sure to 'close' your polygon by connecting the final point to the first point.
+      forgot_password: Forget your password?
+      login: Login
+      name: Name
+      new_password: New password
+      options:
+        add_anonymously: Add points anonymously (even when logged in)
+        label: Options
+        range_updates_email: Receive a weekly email about changes in your foraging range (provided it is defined above)
+      password: Password
+      remember_me: Remember me
+      resend_confirmation_instructions: Resend confirmation instructions
+      resend_unlock_instructions: Resend unlock instructions
+      send: Send
+      send_password_instructions: Send password reset instructions
+      sign_in: Sign in
+      sign_in_with: Sign in with %{provider}
+      sign_up: Sign up
+      type_it_twice: Type it in twice to confirm
     mailer:
       confirmation_instructions:
         subject: Confirmation instructions | Falling Fruit
@@ -124,9 +153,9 @@ en:
         world: World
       or_right-click_on_map: (or right-click on map)
       pending_types_help: We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted on the map as pending until they are added to the taxonomy or merged with an existing type. Some proposed types are so unique or ambiguous that they persist as unapproved indefinitely.
-      unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
       pending_types_help_title: Pending types
       problem_modal_title: Report a problem
+      unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
       unverified_help_title: Why Unverified?
   locations:
     embed:
@@ -176,13 +205,13 @@ en:
       yield_subtext: Rate the productivity of the source (if applicable)
       your_name: Your name
     index:
-      stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/deed.en">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA</a>.
+      addmarker_html: Click to add a source here</a><br><span class="subtext">You can move me too</span>
+      editmarker_html: <b>Move me to the position of the source.</b><br><br>Check the satellite view - the source may be visible from space!
       freegan_modal_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly 50% of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate the food</a> instead.<br><br>In support of a lower-waste lifestyle, we are encouraging the mapping of all locations (from dumpsters to free boxes) with discarded but useful goods, whether edible or otherwise.
       freegan_modal_title: Welcome to Falling Fruit's freegan map!
+      stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/deed.en">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA</a>.
       welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. Uniting the efforts of foragers, foresters, and freegans everywhere, the map already points to over a half million food-producing locations around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> for an account to access additional features.
       welcome_modal_title: Welcome to Falling Fruit!
-      editmarker_html: <b>Move me to the position of the source.</b><br><br>Check the satellite view - the source may be visible from space!
-      addmarker_html: Click to add a source here</a><br><span class="subtext">You can move me too</span>
     infowindow:
       access:
       - This source was added by the property owner.
@@ -261,22 +290,23 @@ en:
       address: Address
       download: Download
       embed: Embed
+      embed_hover: Embed code
+      embed_modal_title: Embed code (iFrame HTML)
       filter: Filter
       labels: Labels
       link: Link
+      link_hover: URL to the current map
       select_edible_type: Edible type
       tree_inventories: Tree inventories
       tree_inventories_modal: Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. Help us map your neighborhood by asking your city (or university, canton, etc) if a tree inventory exists and whether it can be shared on Falling Fruit.
+      tree_inventories_modal_title: What is a tree inventory?
       type_and_press_enter: Type and press enter
       zoom_to_current_location: Zoom to current location
       zoom_to_me: Zoom to me
-      tree_inventories_modal_title: What is a tree inventory?
-      embed_hover: Embed code
-      embed_modal_title: Embed code (iFrame HTML)
-      link_hover: URL to the current map
     sidebar:
       activity: Activity
       ago: ago
+      by_author: by %{author}
       changed_within_html: Changes within your <a href="/users/edit">foraging range</a>
       click_here: Click here
       click_here_to_manage_your_routes_html: Click <a href="%{routes_path}">here</a> to manage your routes
@@ -297,7 +327,6 @@ en:
       you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed any sources yet (while logged in)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any foraging routes yet. Click on a source, then on "routes", to start making one.
       you_havent_defined_html: You haven't defined a foraging range. <a href="/users/edit">Click here</a> to do that now
-      by_author: by %{author}
   pages:
     about:
       about_the_site: About the project
@@ -368,6 +397,7 @@ en:
   routes:
     index:
       delete: Delete
+      delete_confirmation: Are you sure?
       link: Link
       locations: Locations
       name: Name
@@ -375,19 +405,18 @@ en:
       routes: Routes
       save_changes: Save Changes
       show: Show
+      time_ago: ! '%{time} ago'
       travel_mode: Travel mode
       updated: Updated
-      delete_confirmation: Are you sure?
-      time_ago: ! '%{time} ago'
     show:
       bicycling: Bicycling
       driving: Driving
       mode_of_travel: Mode of travel
-      walking: Walking
       modes_of_travel:
       - Walking
       - Bicycling
       - Driving
+      walking: Walking
   validates_timeliness:
     error_value_formats:
       date: ! '%Y-%m-%d'

@@ -1,53 +1,11 @@
 class ApplicationController < ActionController::Base
   SupportedLocales = ['pt-br','en','es','fr','de','he','pl']
 
-  protect_from_forgery
-
-  private
-
+  before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :instantiate_controller_and_action_names
- 
-  def instantiate_controller_and_action_names
-      @current_action = action_name
-      @current_controller = controller_name
-  end
-
   before_filter :set_locale
 
-  def set_locale
-    new_locale = extract_locale_from_subdomain || extract_locale_from_url
-    unless new_locale and SupportedLocales.include? new_locale
-      I18n.locale = I18n.default_locale
-    else
-      I18n.locale = new_locale
-    end
-  end
-
-  def extract_locale_from_subdomain
-    host_parts = request.host.split(/\./)
-    if (host_parts.length == 3 and host_parts[1] == "fallingfruit") or
-       (host_parts.length == 2 and host_parts[1] == "localhost")
-      I18n.available_locales.map(&:to_s).include?(host_parts.first) ? host_parts.first : nil
-    else
-      nil
-    end
-  end
-
-  def extract_locale_from_url
-    return nil unless params.has_key? :locale
-    I18n.available_locales.map(&:to_s).include?(params[:locale]) ? params[:locale] : nil
-  end
-
-  def check_api_key!(endpoint)
-    @api_key = ApiKey.find_it(params["api_key"])
-    unless !@api_key.nil? and @api_key.can?(endpoint)
-      respond_to do |format|
-        format.json { render json: {"error" => "Not authorized :/"} }
-      end
-      return false
-    end
-    return true
-  end
+  protect_from_forgery
 
   # catch all perms errors and punt to root
   rescue_from CanCan::AccessDenied do |exception|
@@ -193,7 +151,7 @@ class ApplicationController < ActionController::Base
   def number_to_human(n)
     if n > 999 and n <= 999999
       (n/1000.0).round.to_s + "K"
-    elsif n > 999999
+    elsif n >
       (n/1000000.0).round.to_s + "M"
     else
       n.to_s
@@ -201,5 +159,65 @@ class ApplicationController < ActionController::Base
   end
   helper_method :number_to_human
 
+  protected
+
+  # prevent a sneaky person from setting thier roles on creation
+  def configure_permitted_parameters
+    if self.controller_name == "registrations"
+      params["registration"]["user"].delete("roles_mask") if params["registration"].present? and params["user"].present?
+      params["user"].delete("roles_mask") if params["user"].present?
+    end
+  end
+
+  private
+
+  def instantiate_controller_and_action_names
+    @current_action = action_name
+    @current_controller = controller_name
+  end
+
+  def set_locale
+    new_locale = extract_locale_from_subdomain || extract_locale_from_url || extract_locale_from_session
+    unless new_locale and SupportedLocales.include? new_locale
+      I18n.locale = I18n.default_locale
+    else
+      I18n.locale = new_locale
+      session[:locale] = new_locale
+    end
+  end
+
+  def extract_locale_from_session
+    unless session[:locale].nil? or session[:locale].blank?
+      session[:locale]
+    else
+      nil
+    end
+  end
+
+  def extract_locale_from_subdomain
+    host_parts = request.host.split(/\./)
+    if (host_parts.length == 3 and host_parts[1] == "fallingfruit") or
+      (host_parts.length == 2 and host_parts[1] == "localhost")
+      I18n.available_locales.map(&:to_s).include?(host_parts.first) ? host_parts.first : nil
+    else
+      nil
+    end
+  end
+
+  def extract_locale_from_url
+    return nil unless params.has_key? :locale
+    I18n.available_locales.map(&:to_s).include?(params[:locale]) ? params[:locale] : nil
+  end
+
+  def check_api_key!(endpoint)
+    @api_key = ApiKey.find_it(params["api_key"])
+    unless !@api_key.nil? and @api_key.can?(endpoint)
+      respond_to do |format|
+        format.json { render json: {"error" => "Not authorized :/"} }
+      end
+      return false
+    end
+    return true
+  end
 
 end
