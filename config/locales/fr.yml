@@ -58,6 +58,11 @@ fr:
       sign_up: Créer un compte
       type_it_twice: 
       zoom_to_address: 
+      current_password: Mot de passe actuel
+      current_password_subtext: 
+      save_changes: 
+      delete_account: 
+      are_you_sure: 
     mailer:
       confirmation_instructions:
         subject: Confirmer votre compte | Falling Fruit

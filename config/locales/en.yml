@@ -58,6 +58,11 @@ en:
       sign_up: Sign up
       type_it_twice: Type it in twice to confirm
       zoom_to_address: Zoom to address
+      current_password: Current password
+      current_password_subtext: We need your current password to apply your changes
+      save_changes: Save changes
+      delete_account: Delete my account
+      are_you_sure: Are you sure?
     mailer:
       confirmation_instructions:
         subject: Confirmation instructions | Falling Fruit

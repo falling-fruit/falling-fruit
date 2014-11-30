@@ -58,6 +58,11 @@ pt-br:
       sign_up: 
       type_it_twice: 
       zoom_to_address: 
+      current_password: 
+      current_password_subtext: 
+      save_changes: 
+      delete_account: 
+      are_you_sure: 
     mailer:
       confirmation_instructions:
         subject: 
