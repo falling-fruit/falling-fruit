@@ -31,9 +31,9 @@ pt-br:
       address_subtext: 
       are_you_sure: 
       bio: 
-      bio_subtext: 
       change_password: 
       clear_map: 
+      confirm_account: 
       current_password: 
       current_password_subtext: 
       delete_account: 
@@ -45,6 +45,11 @@ pt-br:
       foraging_range_subtext: 
       forgot_password: 
       login: 
+      mailer:
+        confirmation_instructions_html: 
+        reset_password_instructions_html: 
+        unlock_instructions_html: 
+      miles: 
       name: 
       new_password: 
       options:
@@ -62,6 +67,7 @@ pt-br:
       sign_in_with: 
       sign_up: 
       type_it_twice: 
+      unlock_account: 
       zoom_to_address: 
     mailer:
       confirmation_instructions:

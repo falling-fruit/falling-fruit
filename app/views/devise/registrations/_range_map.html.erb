@@ -14,7 +14,8 @@
   <%= f.label :foraging_range_radius, I18n.t("devise.fallingfruit.foraging_radius") %><br/>
   <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_radius_subtext") %></span><br />
   <%= f.text_field :range_radius, :size => 10 %>
-  <%= f.select(:range_radius_unit,options_for_select(["km","miles"])) %>
+  <!-- FIXME (localize): -->
+  <%= f.select(:range_radius_unit,options_for_select(["km", I18n.t("devise.fallingfruit.miles")])) %>
 </div>
 
 
@@ -127,6 +128,7 @@ function recenter_range_map_to_address() {
         draggable: false
       });
     } else {
+      // FIXME (localize):
       alert("Geocode was not successful for the following reason: " + status);
     }
   });
