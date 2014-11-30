@@ -48,6 +48,7 @@ he:
       login: 
       mailer:
         confirmation_instructions_html: 
+        reset_password_instructions_html: 
       name: 
       new_password: 
       options:

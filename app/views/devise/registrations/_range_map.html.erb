@@ -1,19 +1,18 @@
-<%= f.label :foraging_range %><br />
-<span class="subtext">Use the polygon (any shape) or rectangle tool in the map below to define the area you generally forage in. When
-using the polygon tool make sure to 'close' your polygon by connecting the final point to the first point.</span><br/>
-  <input type="text" value="Zoom to address..." onclick="this.value='';" name="address" id="address">
-  <button type="button" onclick="recenter_range_map_to_address();return false;">Zoom</button>
-  <button type="button" onclick="clear_range_overlays();return false;">Clear Map</button>
+<%= f.label :foraging_range, I18n.t("devise.fallingfruit.foraging_range") %><br />
+<span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_range_subtext") %></span><br/>
+  <input type="text" placeholder="<%= I18n.t("devise.fallingfruit.address") %>" name="address" id="address">
+  <button type="button" onclick="recenter_range_map_to_address();return false;"><%= I18n.t("devise.fallingfruit.zoom_to_address") %></button>
+  <button type="button" onclick="clear_range_overlays();return false;"><%= I18n.t("devise.fallingfruit.clear_map") %></button>
 <div id="map" style="width:100%;height:400px;"></div>
 
 <div class="field">
-  <%= f.label :address %><br/>
-  <span class="subtext">The center of your foraging range (likely your home address)</span><br />
+  <%= f.label :address, I18n.t("devise.fallingfruit.address") %><br/>
+  <span class="subtext"><%= I18n.t("devise.fallingfruit.address_subtext") %></span><br />
   <%= f.text_area :address, :size => "40x6" %>
 </div>
 <div class="field">
-  <%= f.label :foraging_range_radius %><br/>
-  <span class="subtext">Radius of your foraging range from the address above (as an alternative to drawing a shape on the map)</span><br />
+  <%= f.label :foraging_range_radius, I18n.t("devise.fallingfruit.foraging_radius") %><br/>
+  <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_radius_subtext") %></span><br />
   <%= f.text_field :range_radius, :size => 10 %>
   <%= f.select(:range_radius_unit,options_for_select(["km","miles"])) %>
 </div>
