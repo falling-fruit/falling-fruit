@@ -94,9 +94,33 @@
 <!-- Logo Bar -->
 <div id="logobar">
 
+  <style>
+    div#locale{
+      float: right;
+      display: inline;
+    }
+    div#locale select{
+      margin-top: 3px;
+      margin-left: 5px;
+      border: none;
+      font-size: 14px;
+      height: 32px;
+      padding: 5px; /* If you add too much padding here, the options won't show in IE */
+    }
+  </style>
+
+  <div id="locale">
+    <select id="locale_select">
+      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>><%= I18n.t("locale.english",:default => "English") %></option>
+      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Francais</option>
+      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Espanol</option>
+      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
+    </select>
+  </div>
+
  <!-- AddThis Buttons -->
 	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
-		
+
 		<a class="addthis_button_facebook_follow" addthis:userid="FallingFruit">
 			<img src="/social/facebook.svg" />
 		</a>
@@ -237,6 +261,23 @@
 	<%= yield %>
 
 <% end %>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+
+    $("#locale_select").change(function(){
+      var val = $("#locale_select").val();
+      var url = window.location.href;
+      if(url.indexOf('?') > -1){
+        url += '&locale=' + val;
+      }else{
+        url += '?locale=' + val;
+      }
+      window.location.href = url;
+    });
+
+  });
+</script>
 
 <!-- Per Page Javascripts -->
 <%= yield :page_scripts %>

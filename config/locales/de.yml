@@ -39,6 +39,7 @@ de:
       delete_account: 
       edit_account: 
       email: 
+      foraging_map_subtext: 
       foraging_radius: 
       foraging_radius_subtext: 
       foraging_range: 
@@ -57,6 +58,8 @@ de:
         label: 
         range_updates_email: 
       password: 
+      range_by_map: 
+      range_by_radius: 
       remember_me: 
       resend_confirmation_instructions: 
       resend_unlock_instructions: 
@@ -282,7 +285,6 @@ de:
       season: Saison
       see_this_location_in_streetview: Sehen Sie diese Lage in streetview
       source: Quelle
-      status: Status
       street: Straße
       tabs:
         info: Info
