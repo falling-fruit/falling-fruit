@@ -49,6 +49,7 @@ de:
         confirmation_instructions_html: 
         reset_password_instructions_html: 
         unlock_instructions_html: 
+      miles: Meilen
       name: 
       new_password: 
       options:
@@ -68,7 +69,6 @@ de:
       type_it_twice: 
       unlock_account: 
       zoom_to_address: 
-      miles: Meilen
     mailer:
       confirmation_instructions:
         subject: Aktivierungs-Anleitung | Falling Fruit

@@ -49,6 +49,7 @@ he:
         confirmation_instructions_html: 
         reset_password_instructions_html: 
         unlock_instructions_html: 
+      miles: 
       name: 
       new_password: 
       options:
@@ -68,7 +69,6 @@ he:
       type_it_twice: 
       unlock_account: 
       zoom_to_address: 
-      miles: 
     mailer:
       confirmation_instructions:
         subject: 

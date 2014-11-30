@@ -65,6 +65,7 @@ en:
           <p>Your account has been locked due to an excessive amount of unsuccessful sign in attempts:
 
           <br />%{link}</p>'
+      miles: miles
       name: Name
       new_password: New password
       options:
@@ -84,7 +85,6 @@ en:
       type_it_twice: Type it in twice to confirm
       unlock_account: Unlock my account
       zoom_to_address: Zoom to address
-      miles: miles
     mailer:
       confirmation_instructions:
         subject: Confirmation instructions | Falling Fruit

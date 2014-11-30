@@ -49,6 +49,7 @@ fr:
         confirmation_instructions_html: 
         reset_password_instructions_html: 
         unlock_instructions_html: 
+      miles: miles
       name: Nom
       new_password: Nouveau mot de passe
       options:
@@ -58,9 +59,9 @@ fr:
       password: Mot de passe
       remember_me: Rester connecté
       resend_confirmation_instructions: Renvoyer les instructions de validation
-      resend_unlock_instructions: Renvoyer les instructions de débloquer
+      resend_unlock_instructions: Renvoyer les instructions de déblocage
       save_changes: Enregistrer les modifications
-      send: 
+      send: Envoyer
       send_password_instructions: 
       sign_in: Se connecter
       sign_in_with: Se connecter avec %{provider}
@@ -68,7 +69,6 @@ fr:
       type_it_twice: 
       unlock_account: 
       zoom_to_address: 
-      miles: miles
     mailer:
       confirmation_instructions:
         subject: Confirmer votre compte | Falling Fruit
