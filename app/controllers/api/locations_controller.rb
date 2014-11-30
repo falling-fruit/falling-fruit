@@ -283,7 +283,9 @@ class Api::LocationsController < ApplicationController
     else      
       ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     end
-    r = ActiveRecord::Base.connection.select_one("SELECT count(*) FROM locations l, types t WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")} GROUP BY l.id HAVING #{[cfilter].compact.join(" AND ")}");
+    r = ActiveRecord::Base.connection.select_one("SELECT COUNT(*)
+      FROM locations l, types t
+      WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}")
     found_n = r["count"].to_i unless r.nil?
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, l.type_others,

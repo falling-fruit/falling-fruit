@@ -46,7 +46,13 @@ fr:
       forgot_password: Vous avez oublié votre mot de passe?
       login: Connexion
       mailer:
-        confirmation_instructions_html: 
+        confirmation_instructions_html: ! '<p>Bienvenue sur Falling Fruit,</p>
+
+          <p>Pour activer votre compte, vous devez d''abord valider votre e-mail (%{email}) en visitant le lien ci-dessous:
+
+          <br/>%{link}</p>
+
+          <p>Falling Fruit est un site alimenté par l''utilisateur, donc si vous avez quelque chose à ajouter ou d''améliorer, se il vous plaît faire. Butinage heureux! </ P>'
         reset_password_instructions_html: 
         unlock_instructions_html: 
       miles: miles
@@ -62,13 +68,13 @@ fr:
       resend_unlock_instructions: Renvoyer les instructions de déblocage
       save_changes: Enregistrer les modifications
       send: Envoyer
-      send_password_instructions: 
+      send_password_instructions: Envoyer les instructions de réinitialisation de mot de passe
       sign_in: Se connecter
       sign_in_with: Se connecter avec %{provider}
       sign_up: Créer un compte
-      type_it_twice: 
-      unlock_account: 
-      zoom_to_address: 
+      type_it_twice: Tapez-le deux fois pour le confirmer
+      unlock_account: Débloquer mon compte
+      zoom_to_address: Zoom sur l'adresse
     mailer:
       confirmation_instructions:
         subject: Confirmer votre compte | Falling Fruit
@@ -87,7 +93,7 @@ fr:
       updated_not_active: Votre mot de passe a été changé avec succès.
     registrations:
       destroyed: Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt!
-      signed_up: Bienvenue à Falling Fruit! Vous êtes maintenant enregistré.
+      signed_up: Bienvenue sur Falling Fruit! Vous êtes maintenant enregistré.
       signed_up_but_inactive: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter car votre compte n'est pas encore activé.
       signed_up_but_locked: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter car votre compte est bloqué.
       signed_up_but_not_approved: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter avant que votre compte soi validé par un administrateur.
@@ -225,7 +231,7 @@ fr:
       freegan_modal_title: Bienvenue sur la carte freegan de Falling Fruit!
       stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/deed.fr">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">CC BY-SA</a>.
       welcome_modal_html: Falling Fruit est une carte énorme collaboration de la récolte en milieu urbain. Unir les efforts de butineuses, les forestiers et les freegans partout, la carte pointe déjà à plus d'un demi-million de sites de production alimentaire dans le monde (à partir de plantes et de champignons sur les puits d'eau et des bennes à ordures). Notre communauté d'utilisateurs de plus en plus rapidement explore activement, l'édition, et d'ajouter à la carte. <br/><br/> Joignez-vous à nous pour célébrer la générosité vis à vis de nos rues! Utilisez le site de façon anonyme ou <a href="/users/sign_up">vous inscrire</a> pour un compte pour accéder à des fonctionnalités supplémentaires.
-      welcome_modal_title: Bienvenue à Falling Fruit!
+      welcome_modal_title: Bienvenue sur Falling Fruit!
     infowindow:
       access:
       - Cette source a été ajoutée par son propriétaire.

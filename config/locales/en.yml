@@ -48,7 +48,7 @@ en:
       mailer:
         confirmation_instructions_html: ! '<p>Welcome to Falling Fruit,</p>
 
-          <p>To activate your account, you need to first confirm your email (%{email}) by visiting the link below:
+          <p>To activate your account, you must confirm your email (%{email}) by visiting the link below:
 
           <br/>%{link}</p>
 
@@ -82,7 +82,7 @@ en:
       sign_in: Sign in
       sign_in_with: Sign in with %{provider}
       sign_up: Sign up
-      type_it_twice: Type it in twice to confirm
+      type_it_twice: Type it twice to confirm
       unlock_account: Unlock my account
       zoom_to_address: Zoom to address
     mailer:
