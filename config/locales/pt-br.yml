@@ -171,9 +171,14 @@ pt-br:
       problem_modal_title: 
       unverified_help: Fontes são marcados como não verificada se a sua identidade, localização ou existência é contestada. Muitas fontes importados a partir de inventários de árvores são marcadas como não verificadas porque a sua comestibilidade é incerto (por exemplo, "pera" poderia ser tanto uma variedade comestível ou decorativo). Os usuários são encorajados a viajar para esses locais e relatar suas descobertas.
       unverified_help_title: 
+  locales:
+    english: Inglês
   locations:
     embed:
       add_source: Adicionar fonte
+    errors:
+      geocode_failed: 
+      latitude_too_large: 
     form:
       access: Acesso
       access_subtext: Acesso estatuto desta fonte. Deixe em branco se você don 't sabe.
@@ -340,6 +345,10 @@ pt-br:
       you_havent_added_or_reviewed_anything_while_logged_in: Você haven't adicionado ou revisada nada (enquanto estiver conectado)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Você haven't definido quaisquer rotas de forrageamento ainda. Clique na fonte e clique em 'rotas' para começar a fazer uma rota.
       you_havent_defined_html: Você não definiu uma gama de forrageamento. <a href="/users/edit">Clique aqui</a> para fazer isso agora
+  meta:
+    forager_description: 
+    freegan_description: 
+    freegan_title: 
   pages:
     about:
       about_the_site: Sobre o site
@@ -405,6 +414,10 @@ pt-br:
       intro_html: Abaixo estão listadas as organizações locais que crescem alimentos (florestas de alimentos e pomares públicos), escolher alimentos (forrageamento urbana e rabiscos fazenda), ou de outra forma redistribuir alimentos (swaps e doações). As organizações estão listados por país, estado e cidade. Aqueles com nomes desbotados-out são acreditados para ser inativo. Se você souber de outros que deveriam estar nesta lista, <a href="mailto:info@fallingfruit.org">entre em contato conosco</a> !
       united_kingdom: Reino Unido
       united_states: Estados Unidos
+  problems:
+    description_subtext: 
+    problem_type: 
+    your_contact_info: 
   routes:
     index:
       delete: Excluir

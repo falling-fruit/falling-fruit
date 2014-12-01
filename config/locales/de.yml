@@ -173,9 +173,14 @@ de:
       problem_modal_title: 
       unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, insbesondere wenn sie von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
       unverified_help_title: 
+  locales:
+    english: Englisch
   locations:
     embed:
       add_source: Quelle hinzufügen
+    errors:
+      geocode_failed: 
+      latitude_too_large: 
     form:
       access: Zugang
       access_subtext: Zugang zu diesem Standort. Freilassen, wenn du es nicht genau weisst.
@@ -342,6 +347,10 @@ de:
       you_havent_added_or_reviewed_anything_while_logged_in: Du hast nichts geändert oder überprüft (während du eingeloggt warst)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Du hast noch keine Ernte-Routen hinzugefügt. Klicke auf eine Quelle und klicke dann auf 'Strecken' um eine Route zu erstellen.
       you_havent_defined_html: Du hast noch keinen persönlichen Ernte-Radius definiert. Klicke <a href="/users/edit">hier</a> um das jetzt zu tun.
+  meta:
+    forager_description: 
+    freegan_description: 
+    freegan_title: 
   pages:
     about:
       about_the_site: Über diese Seite
@@ -415,6 +424,10 @@ de:
       intro_html: Im Folgenden sind lokale Organisationen aufgeführt, die Lebensmittel anpflanzen (z.B. in Gemeinschaftsgärten), ernten (z.B. 'urban gardening'), oder auf andere Art und Weise verteilen und teilen. Organisationen werden nach Land, Bundesland/Kanton und Stadt aufgeführt. Organisationen mit durchgestrichenem Namen sind zur Zeit vermutlich inaktiv. Wenn du Organisationen kennst, die auf dieser Liste auftauchen müssten, dann <a href="mailto:info@fallingfruit.org">sag uns Bescheid</a>!
       united_kingdom: Vereinigtes Königreich
       united_states: Vereinigte Staaten
+  problems:
+    description_subtext: 
+    problem_type: 
+    your_contact_info: 
   routes:
     index:
       delete: löschen

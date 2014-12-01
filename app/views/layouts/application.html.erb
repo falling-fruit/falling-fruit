@@ -6,38 +6,65 @@
   
   <!-- Metadata -->
   <title>Falling Fruit</title>
-  <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, agriculture, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
+  <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
+  <meta property="og:site_name" content="Falling Fruit" />
   
+  <!-- FIXME: Less hacky, and filter out active og:locale:alternate tags. Facebook is stupid for not allowing language only locales -->
+  <% if (I18n.locale == :en) %>
+    <meta property="og:locale" content="en_US" />
+  <% elsif (I18n.locale == :fr) %>
+    <meta property="og:locale" content="fr_FR" />
+  <% end %>
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+ 
   <% if @freegan %>
-    <meta property="og:title" content="World Dumpster Map" />
-    <meta property="og:site_name" content="Falling Fruit" />
+    <meta property="og:title" content="<%= I18n.t("meta.freegan_title") %>" />
     <meta property="og:url" content="https://fallingfruit.org/dumpsters" />
     <meta property="og:image" content="https://fallingfruit.org/og/dumpster-sticker.png" />
     <meta property="og:image" content="https://fallingfruit.org/og/dumpster-sticker-01.jpg" />
     <meta property="og:image" content="https://fallingfruit.org/og/dumpster-haul.jpg" />
-    <meta property="og:description" content="By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
-    <meta name="description" content="By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
+    <meta property="og:description" content="<%= I18n.t("meta.freegan_description") %>" />
+    <meta name="description" content="<%= I18n.t("meta.freegan_description") %>" />
     
   <% else %>
     <meta property="og:title" content="Falling Fruit" />
-    <meta property="og:site_name" content="Falling Fruit" />
     <meta property="og:url" content="https://fallingfruit.org/" />
     <meta property="og:image" content="https://fallingfruit.org/og/amittai.jpg" />
     <meta property="og:image" content="https://fallingfruit.org/og/apple-haul.jpg" />
-    <meta property="og:description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
-    <meta name="description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
+    <meta property="og:description" content="<%= I18n.t("meta.forager_description") %>" />
+    <meta name="description" content="<%= I18n.t("meta.forager_description") %>" />
   <% end %>
 
-  <!-- Scripts & Styles -->
+  <!-- Stylesheets -->
   <%= stylesheet_link_tag "application" %>
   <% if @freegan %>
     <%= stylesheet_link_tag "freegan" %>
   <% end %>
+  
+  <!-- Javascript -->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript">
+    // Mobile state variable
+    var mobile = false;
+		
+		// Load I18n locale into JS
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+
+    // resize content on header resize
+    $(window).resize(function() {
+      resize_content();
+    });
+  </script>
+  <!-- Load infowindow only after locale is set -->
+  <%= javascript_include_tag "shadowbox-i18n" %>
+  <%= javascript_include_tag "shadowbox-infowindow" %>
+  
+  <!-- Recaptcha -->
   <script type="text/javascript" src="//www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript">
-    // captcha
     function show_recaptcha(element) {
       Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
     }
@@ -59,17 +86,13 @@
         }
       }
     }
-    $(window).resize(function() {
-      resize_content();
-    });
-    // Mobile state variable
-    var mobile = false;
   </script>
 
 </head>
 <body onload="resize_content();">
 
- <div id="problem_modal" title="<%= I18n.t("layouts.application.problem_modal_title") %>"></div> <!-- Problems modal gets injected into this div. -->
+<!-- Problems modal -->
+ <div id="problem_modal" title="<%= I18n.t("layouts.application.problem_modal_title") %>"></div>
 
  <!-- Alerts -->
  <% if notice or alert %>
@@ -94,44 +117,37 @@
 <!-- Logo Bar -->
 <div id="logobar">
 
-  <style>
-    div#locale{
-      float: right;
-      display: inline;
-    }
-    div#locale select{
-      margin-top: 3px;
-      margin-left: 5px;
-      border: none;
-      font-size: 14px;
-      height: 32px;
-      padding: 5px; /* If you add too much padding here, the options won't show in IE */
-    }
-  </style>
-
+	<!-- Locale -->
+  <!-- FIXME: Replace locale tags with flag sprites -->
+  <!-- FIXME: Redirect as needed to /fallingfruit.org -->
   <div id="locale">
     <select id="locale_select">
-      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>><%= I18n.t("locale.english",:default => "English") %></option>
-      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Francais</option>
-      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Espanol</option>
-      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
+      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English (en)</option>
+      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français (fr)</option>
+      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch (de)</option>
+      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español (es)</option>
     </select>
   </div>
 
- <!-- AddThis Buttons -->
+ <!-- Sharing -->
+ 	<script type="text/javascript">
+		var addthis_config = {
+		  // list at http://support.addthis.com/customer/portal/articles/381240-languages
+			ui_language: I18n.locale.substring(0,2)
+		}
+	</script>
 	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
-
-		<a class="addthis_button_facebook_follow" addthis:userid="FallingFruit">
-			<img src="/social/facebook.svg" />
+		<a href="https://www.facebook.com/FallingFruit" title="Facebook" >
+			<img src="/social/facebook.svg" alt="Facebook" />
 		</a>
-		<a class="addthis_button_twitter_follow" addthis:userid="Falling_Fruit">
-			<img src="/social/twitter.svg" />
+		<a href="https://twitter.com/Falling_Fruit" title="Twitter">
+			<img src="/social/twitter.svg" alt="Twitter" />
 		</a>
-		<a class="addthis_button_instagram_follow" addthis:userid="fallingfruit">
-			<img src="/social/instagram.svg" />
+		<a href="http://instagram.com/fallingfruit" title="Instagram">
+			<img src="/social/instagram.svg" alt="Instagram" />
 		</a>
-		<a class="addthis_button_google_follow" addthis:url="https://plus.google.com/114324461382595896953/about">
-			<img src="/social/gplus.svg" />
+		<a href="https://plus.google.com/114324461382595896953/about" title="Google+">
+			<img src="/social/gplus.svg" alt="Google+"/>
 		</a>
 		<a class="addthis_button_compact" addthis:url="https://fallingfruit.org">
 			<img src="/social/addthis.png" />

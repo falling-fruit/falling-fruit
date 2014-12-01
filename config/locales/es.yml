@@ -162,7 +162,7 @@ es:
         routes: Rutas
         sharing_the_harvest: Compartiendo la cosecha
         sign_up: Contratar
-        the_project: El Proyecto
+        the_project: El proyecto
         trouble: Problema
         types: Tipos
         users: Usuarios
@@ -173,9 +173,14 @@ es:
       problem_modal_title: 
       unverified_help: Las fuentes se marcan como sin verificar si su identidad, ubicación o existencia es disputado. Muchas fuentes importadas de inventarios de árboles se marcan como no verificada porque su comestibilidad es incierta (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los usuarios están invitados a viajar a estos lugares y reportar sus hallazgos.
       unverified_help_title: 
+  locales:
+    english: Inglés
   locations:
     embed:
       add_source: Agregar fuente
+    errors:
+      geocode_failed: 
+      latitude_too_large: 
     form:
       access: Acceso
       access_subtext: Estado de acceso de esta fuente. Dejar en blanco si no sabe.
@@ -342,6 +347,10 @@ es:
       you_havent_added_or_reviewed_anything_while_logged_in: Usted no ha añadido o ha revisado nada (mientras está conectado)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Usted haven't definido ninguna ruta de forrajeo todavía. Haga clic en una fuente y haga clic en 'rutas' para empezar a hacer una ruta.
       you_havent_defined_html: No ha definido una zona de alimentación. <a href="/users/edit">Haga clic aquí</a> para hacerlo ahora
+  meta:
+    forager_description: 
+    freegan_description: 
+    freegan_title: 
   pages:
     about:
       about_the_site: Acerca del sitio
@@ -407,6 +416,10 @@ es:
       intro_html: A continuación se enumeran las organizaciones locales que cultivan alimentos (bosques de alimentos y huertos públicos), recoger alimentos (forrajeo urbana y rebusco granja), o de otra manera redistribuir los alimentos (swaps y donaciones). Las organizaciones están listadas por país, estado y ciudad. Las personas con nombres descoloridas de salida se cree que son inactivos. Si usted sabe de otros que deberían estar en esta lista, <a href="mailto:info@fallingfruit.org">póngase en contacto con nosotros</a> !
       united_kingdom: Reino Unido
       united_states: Estados Unidos
+  problems:
+    description_subtext: 
+    problem_type: 
+    your_contact_info: 
   routes:
     index:
       delete: Eliminar

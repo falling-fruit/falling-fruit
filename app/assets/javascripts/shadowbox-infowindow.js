@@ -1,6 +1,5 @@
 Shadowbox.init({
-  language: 'en', 
-  players: ['img', 'html', 'iframe'], 
+  players: ['img'], 
   skipSetup: true,
   cache: false,
   animate: false,

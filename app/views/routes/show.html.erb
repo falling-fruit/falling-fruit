@@ -29,9 +29,7 @@
 </div>
 
 <% content_for :page_scripts do %>
-<script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
-<%= javascript_include_tag "stamen" %>
-<script type="text/javascript" src="//google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/2.0.9/src/keydragzoom_packed.js"></script>
+<%= render :partial => "/locations/map_includes" %>
 <script type="text/javascript" charset="utf-8">
 
   // ================= globals ==================

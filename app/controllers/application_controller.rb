@@ -206,7 +206,8 @@ class ApplicationController < ActionController::Base
 
   def extract_locale_from_url
     return nil unless params.has_key? :locale
-    I18n.available_locales.map(&:to_s).include?(params[:locale]) ? params[:locale] : nil
+    locale = params[:locale].downcase.gsub('_','-')
+    I18n.available_locales.map(&:to_s).include?(locale) ? locale : (I18n.available_locales.map(&:to_s).include?(locale[0,2]) ? locale[0,2] : nil)
   end
 
   def check_api_key!(endpoint)

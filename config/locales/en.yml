@@ -189,9 +189,14 @@ en:
       problem_modal_title: Report a problem
       unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
       unverified_help_title: Why Unverified?
+  locales:
+    english: English
   locations:
     embed:
       add_source: Add source
+    errors:
+      geocode_failed: ! 'Your address search was not successful for the following reason:'
+      latitude_too_large: We do not support latitudes beyond ±85 degrees.
     form:
       access: Access
       access_subtext: Access status of the source. Leave blank if you don't know.
@@ -237,12 +242,12 @@ en:
       yield_subtext: Rate the productivity of the source (if applicable)
       your_name: Your name
     index:
-      addmarker_html: Click to add a source here</a><br><span class="subtext">You can move me too</span>
-      editmarker_html: <b>Move me to the position of the source.</b><br><br>Check the satellite view - the source may be visible from space!
-      freegan_modal_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly half of all food produced in the developed world is never eaten. We're hoping to raise awareness around this issue, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate food</a> rather than waste it.<br/><br/>In support of a lower-waste lifestyle, we are encouraging the mapping of all freegan sources (from dumpsters to free boxes) with discarded but useful goods, edible or otherwise.
+      addmarker_html: Add a source here</a><br><span class="subtext">You can move me too</span>
+      editmarker_html: <b>Move to the position of the source.</b><br><br>Check the satellite view - the source may be visible from space!
+      freegan_modal_html: In addition to our efforts mapping the <a href="/">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly half of all food produced in the developed world is never eaten. We're hoping to raise awareness around food waste, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing">donate their food</a> instead.<br/><br/>In support of a lower-waste lifestyle, we are encouraging the mapping of all freegan sources (from dumpsters to free boxes) with discarded but useful goods, edible or otherwise.
       freegan_modal_title: Welcome to Falling Fruit's freegan map!
       stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/deed.en">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA</a>.
-      welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and freegans everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> to access additional features.
+      welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and foresters everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up">sign up</a> to access additional features.
       welcome_modal_title: Welcome to Falling Fruit!
     infowindow:
       access:
@@ -358,6 +363,10 @@ en:
       you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed any sources yet (while logged in)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any foraging routes yet. Click on a source, then on "routes", to start making one.
       you_havent_defined_html: You haven't defined a foraging range. <a href="/users/edit">Click here</a> to do that now
+  meta:
+    forager_description: A massive, collaborative map of the urban harvest uniting the efforts of foragers, freegans, and foresters around the world. Explore and share information about the sources of free food in your neighborhood.
+    freegan_description: By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead.
+    freegan_title: World Dumpster Map
   pages:
     about:
       about_the_site: About the project
@@ -425,6 +434,10 @@ en:
       intro_html: Listed below are organizations that grow food in public urban spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (swaps, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
       united_kingdom: United Kingdom
       united_states: United States
+  problems:
+    description_subtext: Any information that can help us evaluate the problem
+    problem_type: Problem type
+    your_contact_info: Your contact info
   routes:
     index:
       delete: Delete

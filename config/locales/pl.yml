@@ -171,9 +171,14 @@ pl:
       problem_modal_title: 
       unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
       unverified_help_title: 
+  locales:
+    english: Angielski
   locations:
     embed:
       add_source: Dodaj źródło
+    errors:
+      geocode_failed: 
+      latitude_too_large: 
     form:
       access: Dostęp
       access_subtext: Dostęp statusu tego źródła. Pozostaw puste, jeśli don't wiem.
@@ -340,6 +345,10 @@ pl:
       you_havent_added_or_reviewed_anything_while_logged_in: Ci haven't dodane lub recenzja niczego (po zalogowaniu się)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Haven't zdefiniowano żadnych tras żerowania. Kliknij na źródło, a następnie kliknij przycisk ' drogi ', aby zacząć dokonywania trasę.
       you_havent_defined_html: Nie zdefiniowano szereg żerowania. <a href="/users/edit">Kliknij tutaj,</a> aby zrobić to teraz
+  meta:
+    forager_description: 
+    freegan_description: 
+    freegan_title: 
   pages:
     about:
       about_the_site: O stronie
@@ -405,6 +414,10 @@ pl:
       intro_html: Poniżej wymienione są lokalne organizacje, które rosną żywności (żywność i sady lasy publiczne), odebrać jedzenie (miejskiego żerowania i gleaning rolniczy), lub w inny sposób rozpowszechniać żywności (swapy i darowizn). Organizacje wymienione są kraje, państwa i miasta. Te z nazwami wyblakłych out są uważane za nieaktywne. Jeśli znasz inne, które powinny być na tej liście, <a href="mailto:info@fallingfruit.org">skontaktuj się z nami</a> !
       united_kingdom: Wielka Brytania
       united_states: Stany Zjednoczone
+  problems:
+    description_subtext: 
+    problem_type: 
+    your_contact_info: 
   routes:
     index:
       delete: Usuń
