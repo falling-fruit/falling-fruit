@@ -17,30 +17,29 @@
   <%= f.hidden_field :location_id %>
 
 	<!-- Problem -->
+	<!-- FIXME: Translate problem code -->
   <div class="field first">
-    <%= f.label :problem_type %><br />
-    <%= f.select(:problem_code,Problem::Codes.collect{ |r| [r,Problem::Codes.index(r)] },:include_blank => true) %>
+    <%= f.label :problem_type, I18n.t("problems.problem_type") %><br />
+    <%= f.select(:problem_code, Problem::Codes.collect{ |r| [r,Problem::Codes.index(r)] }, :include_blank => true) %>
   </div>
 
 	<!-- Explanation -->
   <div class="field">
-    <%= f.label :explanation %><br />
-    <span class="subtext">Any information that can help us evaluate the problem</span><br />
+    <%= f.label :description, I18n.t("locations.form.description") %><br />
+    <span class="subtext"><%= I18n.t("problems.description_subtext") %></span><br />
     <%= f.text_area(:comment) %>
   </div>
   
   <% unless user_signed_in? %>
   	<!-- Contact info -->
     <div class="field">
-   		<%= f.label :contact_info %><br />
-   		<span class="subtext">How to contact you</span><br />
-   		<%= f.text_field(:name, :placeholder=>'Name') %><br />
-   		<div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder=>'Email') %></div>
+   		<%= f.label :your_contact_info, I18n.t("problems.your_contact_info") %><br />
+   		<%= f.text_field(:name, :placeholder => I18n.t("devise.fallingfruit.name")) %><br />
+   		<div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder =>  I18n.t("devise.fallingfruit.email")) %></div>
   	</div>
 
    	<br />
   	<!-- Captcha -->
-  	<!-- Often doesn't load?! -->
   	<div id="captcha"></div>
   	<script type="text/javascript">
   			show_recaptcha("captcha");
@@ -57,7 +56,6 @@
 </form>
 
 <script type="text/javascript">
-show_recaptcha("captcha");
 function process_form(){
   $.ajax({
     type: 'POST',

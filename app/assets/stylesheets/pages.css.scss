@@ -44,6 +44,19 @@ div#share_controls {
   }
 }
 
+div#locale{
+  float: right;
+  display: inline;
+}
+div#locale select{
+  margin-top: 5px;
+  margin-left: 5px;
+  border: none;
+  font-size: inherit;
+  height: 28px;
+  padding: 5px; /* If you add too much padding here, the options won't show in IE */
+}
+
 /*** Menu ***/
 
 div#menubar {
@@ -615,4 +628,19 @@ table#type_summary img.link_icon {
   position: absolute;
   top: 1em;
   height: 2em;
+}
+
+/**********************************************************/
+/****************** /users/* ******************************/
+/**********************************************************/
+
+
+div#range_tabs {
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid #ddd ! important;
+  
+  div#map {
+    width: 100%;
+    height: 400px;
+  }
 }

@@ -37,7 +37,7 @@
         var lng = position.coords.longitude;
         var zoom = 15;
         basemap(lat,lng,zoom,type);
-        place_edit_marker(lat,lng,'<%= I18n.t("locations.index.editmarker_html") %>');
+        place_edit_marker(lat,lng);
       	$('#location_lat').val(lat);
         $('#location_lng').val(lng);
       }, function(error) {

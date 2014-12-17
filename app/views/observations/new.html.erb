@@ -1,12 +1,12 @@
 <div id="editmap_container">
   <div id="map"></div>
-  <p id="stamen_attribution" style="display:none;">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.</p>
+  <p id="stamen_attribution" style="display:none;">
+    <%= I18n.t("locations.index.stamen_html").html_safe %>
+  </p>
 </div>
 
 <% content_for :page_scripts do %>
-<script src="//maps.google.com/maps/api/js?v=3.8&amp;sensor=false&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=" type="text/javascript"></script>
-<%= javascript_include_tag "stamen" %>
-<script type="text/javascript" src="//google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/2.0.9/src/keydragzoom_packed.js"></script>
+<%= render :partial => "/locations/map_includes" %>
 <script type="text/javascript" charset="utf-8">
   
   // ================= globals ==================
