@@ -43,7 +43,6 @@ he:
       foraging_radius: 
       foraging_radius_subtext: 
       foraging_range: 
-      foraging_range_subtext: 
       forgot_password: 
       login: 
       mailer:
@@ -175,6 +174,9 @@ he:
   locations:
     embed:
       add_source: הוספת מקור
+    errors:
+      geocode_failed: 
+      latitude_too_large: 
     form:
       access: גישה
       access_subtext: מצב גישה של מקור זה. שאר ריק אם אתה don't יודע.
@@ -341,6 +343,10 @@ he:
       you_havent_added_or_reviewed_anything_while_logged_in: אתה haven't הוסיף או סקורים שום דבר (תוך מחובר)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: אתה haven't מוגדר כל מסלולי ליקוט עדיין. לחץ על מקור ולאחר מכן לחץ על 'מסלולים' 'כדי להתחיל להרוויח מסלול.
       you_havent_defined_html: לא הגדיר טווח חיפוש אחר מזון. <a href="/users/edit">לחץ כאן</a> כדי לעשות את זה עכשיו
+  meta:
+    forager_description: 
+    freegan_description: 
+    freegan_title: 
   pages:
     about:
       about_the_site: אודות האתר
@@ -402,10 +408,14 @@ he:
       food_banks_intro: מלקטי מזון ובעלי העץ פרטיים מוכרעים על ידי הקציר שלהם מוזמנים לתרום עודפי התוצרת שלהם לצדקה. לשקול שיתוף פעולה עם קבוצות כמו אלה שצוינו לעיל, או תרומה ישירות לארגונים מקומיים האכלה רעבה בקהילה שלך. רשתות בנק מזון העיקריות המפורטים להלן; מקלטים לחסרי בית, בתי ספר, ומרכזים בכירים באזור שלך הם גם שווים לשקול.
       france: צרפת
       global: גלובל
-      grow_pick_and_distribute: לגדול, פיק, וamp; הפץ
+      grow_pick_and_distribute: לגדול · פיק · הפץ
       intro_html: המפורטים להלן הם ארגונים מקומיים הגדלים מזון (יערות מזון ומטעי ציבור), לאסוף מזון (ליקוט עירוני ולקט החווה), או בדרך אחרת להפיץ מזון (עסקות החלף ותרומות). ארגונים רשומים לפי מדינה, מדינה, ועיר. אלה עם שמות דהויים ועזיבה הם האמינו להיות לא פעילים. אם ידוע לכם על אחרים שצריכה להיות ברשימה זו, <a href="mailto:info@fallingfruit.org">צור איתנו קשר!</a>
       united_kingdom: בריטניה
       united_states: ארצות הברית
+  problems:
+    description_subtext: 
+    problem_type: 
+    your_contact_info: 
   routes:
     index:
       delete: מחק

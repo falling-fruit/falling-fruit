@@ -178,6 +178,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     new_locale = extract_locale_from_subdomain || extract_locale_from_url || extract_locale_from_session
+    foo
     unless new_locale and SupportedLocales.include? new_locale
       I18n.locale = I18n.default_locale
     else

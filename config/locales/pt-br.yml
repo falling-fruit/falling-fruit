@@ -5,7 +5,7 @@ pt-br:
       change_in_city: 
       last_24_hours: Nas últimas 24 horas
       n_days_ago: ! '%{n} dias atrás'
-      recent_changes: Mudanças Recentes
+      recent_changes: Mudanças recentes
       user: Usuário
     type:
       added: 
@@ -43,7 +43,6 @@ pt-br:
       foraging_radius: 
       foraging_radius_subtext: 
       foraging_range: 
-      foraging_range_subtext: 
       forgot_password: 
       login: 
       mailer:
@@ -175,6 +174,9 @@ pt-br:
   locations:
     embed:
       add_source: Adicionar fonte
+    errors:
+      geocode_failed: 
+      latitude_too_large: 
     form:
       access: Acesso
       access_subtext: Acesso estatuto desta fonte. Deixe em branco se você don 't sabe.
@@ -341,6 +343,10 @@ pt-br:
       you_havent_added_or_reviewed_anything_while_logged_in: Você haven't adicionado ou revisada nada (enquanto estiver conectado)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Você haven't definido quaisquer rotas de forrageamento ainda. Clique na fonte e clique em 'rotas' para começar a fazer uma rota.
       you_havent_defined_html: Você não definiu uma gama de forrageamento. <a href="/users/edit">Clique aqui</a> para fazer isso agora
+  meta:
+    forager_description: 
+    freegan_description: 
+    freegan_title: 
   pages:
     about:
       about_the_site: Sobre o site
@@ -378,7 +384,7 @@ pt-br:
       summary_description: 
       summary_of_sources: Resumo das fontes
     datasets:
-      community_map: Comunidade Mapa
+      community_map: Comunidade mapa
       date_imported: Data importados
       details: Detalhes
       google_fusion_table: Google Fusion Table
@@ -391,21 +397,25 @@ pt-br:
       name: Nome
       no_license: Nenhuma licença especificada, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> Creative Commons (Atribuição, não-comercial, Share-alike) </a>
       table_info: Cada conjunto de dados é listado por nome, número de locais, e data de importação. Expandindo cada linha revela mais detalhes sobre os dados originais, o processo de importação, ea licença que rege como podem ser utilizados os dados.
-      tree_inventory: Inventário Árvore
+      tree_inventory: Inventário árvore
       type: Tipo
       types_of_data: Os conjuntos de dados importados a queda de frutas caem em duas categorias principais. "Mapas comunitários" são construídas por forrageiras e freegans enquanto examinam os arredores de coisas para comer. Estamos em dívida com os cidadãos-cartógrafos trabalhadoras que compilou os dados. "Inventários de árvores" são compilados por cidades, universidades e outras instituições que desejam documentar melhor e cuidar de suas árvores. Nós garimpar esses vastos conjuntos de dados para espécies produtoras de alimentos e adicioná-los ao mapa. Para nos ajudar a obter o seu bairro no mapa, entre em contato com sua escola ou cidade instando-os a partilhar o seu inventário de árvores com a gente.
     sharing:
       australia: Austrália
       canada: Canadá
       fiji: Fiji
-      food_banks: Bancos de Alimentos
+      food_banks: Bancos de alimentos
       food_banks_intro: Foragers e árvore proprietários privados oprimidos por sua colheita são incentivados a doar seus excedentes para a caridade. Considere parceria com grupos como os listados acima, ou doar diretamente para organizações locais que alimentam os famintos em sua comunidade. As grandes redes de bancos de alimentos estão listados abaixo; abrigos, escolas e centros de idosos em sua área são também vale a pena considerar.
       france: França
       global: Mundial
-      grow_pick_and_distribute: Crescer, Pick, & amp; Distribuir
+      grow_pick_and_distribute: Crescer · Pick · Distribuir
       intro_html: Abaixo estão listadas as organizações locais que crescem alimentos (florestas de alimentos e pomares públicos), escolher alimentos (forrageamento urbana e rabiscos fazenda), ou de outra forma redistribuir alimentos (swaps e doações). As organizações estão listados por país, estado e cidade. Aqueles com nomes desbotados-out são acreditados para ser inativo. Se você souber de outros que deveriam estar nesta lista, <a href="mailto:info@fallingfruit.org">entre em contato conosco</a> !
       united_kingdom: Reino Unido
       united_states: Estados Unidos
+  problems:
+    description_subtext: 
+    problem_type: 
+    your_contact_info: 
   routes:
     index:
       delete: Excluir
