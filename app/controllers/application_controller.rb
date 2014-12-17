@@ -178,13 +178,13 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     new_locale = extract_locale_from_subdomain || extract_locale_from_url || extract_locale_from_session
-    foo
-    unless new_locale and SupportedLocales.include? new_locale
-      I18n.locale = I18n.default_locale
-    else
+    if new_locale and SupportedLocales.include? new_locale
       I18n.locale = new_locale
       session[:locale] = new_locale
+    else
+      I18n.locale = I18n.default_locale
     end
+    #foo
   end
 
   def extract_locale_from_session
