@@ -18,11 +18,11 @@ en:
       send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.
     failure:
       already_authenticated: You are already signed in.
-      inactive: Your account was not activated yet.
+      inactive: Your account is not activated yet.
       invalid: Invalid email or password.
       invalid_token: Invalid authentication token.
       locked: Your account is locked.
-      not_approved: Your account has not been approved by your administrator yet.
+      not_approved: Your account has not yet been approved by an administrator.
       timeout: Your session expired, please sign in again to continue.
       unauthenticated: You need to sign in or sign up before continuing.
       unconfirmed: You have to confirm your account before continuing.
@@ -156,7 +156,7 @@ en:
     application:
       copyleft: Copyleft
       feed_people_not_landfills: Feed people, not landfills!
-      mapping_the_urban_harvest: Mapping the urban harvest!
+      mapping_the_urban_harvest: Map the urban harvest!
       menu:
         about: About
         account: Account
@@ -188,9 +188,7 @@ en:
       pending_types_help_title: Pending types
       problem_modal_title: Report a problem
       unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
-      unverified_help_title: Why Unverified?
-  locales:
-    english: English
+      unverified_help_title: Why unverified?
   locations:
     embed:
       add_source: Add source
@@ -389,9 +387,7 @@ en:
       jeff_bio_html: Since harvesting black and blueberries with his family as a child and, more recently, noticing the wealth of public fruit trees throughout Colorado, Jeff has developed a deep appreciation for the abundance of fruit growing in our cities. His first mission for Falling Fruit was to comb Boulder and Salt Lake City, paper maps in-hand, to record fruiting trees. When not working to improve building energy efficiency, he is usually helping out in the community or moving quickly over mountains by foot, ski, or bicycle.
       join_us_html: Join us in celebrating hyper-local food! The <a href="/">map</a> is open for anyone to edit, the database can be <a href="/data">downloaded</a> with just one click, and <a href="https://github.com/somerandomsequence/falling-fruit">the code</a> is open-source. You are likewise encouraged to share the bounty with your fellow humans. Our <a href="/sharing">sharing page</a> lists hundreds of local organizations - planting public orchards and food forests, picking otherwise-wasted fruits and vegetables from city trees and farmers' fields, and sharing with neighbors and the needy.
       more_about_html: Our edible map is not the first of its kind, but it aspires to be the world's most comprehensive. While our users contribute locations of their own, we comb the internet for pre-existing knowledge, seeking to unite the efforts of foragers, foresters, and freegans everywhere. The <a href="/datasets">imported datasets</a> range from small neighborhood foraging maps to vast professionally-compiled tree inventories. This so far amounts to %{types} different types of edibles (most, but not all, plant species) distributed over %{locations} locations. Beyond the cultivated and commonplace to the exotic flavors of foreign plants and long-forgotten native plants, foraging in your neighborhood is a journey through time and across cultures.
-      tristram_stuart_bio_html: ! 'Author of <a href="//tristramstuart.co.uk">Waste: Uncovering the Global Food Scandal</a> &middot; Founder of international food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> &middot; National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>
-
-'
+      tristram_stuart_bio_html: ! 'Author of <a href="//tristramstuart.co.uk">Waste: Uncovering the Global Food Scandal</a> · Founder of international food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> · National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>'
     data:
       beware_html: But beware! Once uncompressed, the data is a huge file that will crush most spreadsheet software. If you only need data for a small geographic region, try first retrieving the points of interest using the download tool integrated into the <a href="/">map</a>.
       caveat_emptor_html: We take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
@@ -406,7 +402,7 @@ en:
       summary_description: The database currently contains %{types} different types of edibles (most, but not all, are plant species) distributed over %{locations} locations. For each type, the following table lists English common name(s), scientific name(s), links to outside references, and total count.
       summary_of_sources: Summary of sources
     datasets:
-      community_map: Community Map
+      community_map: Community map
       date_imported: Date imported
       details: Details
       google_fusion_table: Google Fusion Table
@@ -419,14 +415,14 @@ en:
       name: Name
       no_license: No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike).
       table_info: Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the original data, the import process, and the license governing how the data may be used.
-      tree_inventory: Tree Inventory
+      tree_inventory: Tree inventory
       type: Type
       types_of_data: Datasets imported into Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their communities for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us map your neighborhood fruit trees, contact your school or city urging them to share their tree inventory with us.
     sharing:
       australia: Australia
       canada: Canada
       fiji: Fiji
-      food_banks: Food Banks
+      food_banks: Food banks
       food_banks_intro: Foragers and private tree owners are encouraged to donate their surplus produce to charity. Consider partnering with groups like those listed above, or donating directly to organizations feeding the hungry in your community. The major food bank networks are listed below; homeless shelters, schools, and senior centers are also worth considering.
       france: France
       global: Global
@@ -435,7 +431,7 @@ en:
       united_kingdom: United Kingdom
       united_states: United States
   problems:
-    description_subtext: Any information that can help us evaluate the problem
+    description_subtext: Any information that might help us evaluate the problem
     problem_type: Problem type
     your_contact_info: Your contact info
   routes:
@@ -447,7 +443,7 @@ en:
       name: Name
       public: Public
       routes: Routes
-      save_changes: Save Changes
+      save_changes: Save changes
       show: Show
       time_ago: ! '%{time} ago'
       travel_mode: Travel mode

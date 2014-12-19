@@ -171,8 +171,6 @@ pl:
       problem_modal_title: 
       unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
       unverified_help_title: 
-  locales:
-    english: Angielski
   locations:
     embed:
       add_source: Dodaj źródło
@@ -386,7 +384,7 @@ pl:
       summary_description: Baza danych zawiera obecnie %{types} różnych rodzajów spożywczymi (większość, ale nie wszystkie, to gatunki roślin) rozmieszczone na %{locations} miejscach. Dla każdego typu, poniższa tabela zawiera angielskiego wspólną nazwę (y), nazwa naukowa (e), linki do odniesienia na zewnątrz, oraz całkowitą liczbę.
       summary_of_sources: Zestawienie źródeł
     datasets:
-      community_map: Społeczność Mapa
+      community_map: Społeczność mapa
       date_imported: Data importowane
       details: Szczegóły
       google_fusion_table: Google Fusion Tabela
@@ -406,11 +404,11 @@ pl:
       australia: Australia
       canada: Kanada
       fiji: Fidżi
-      food_banks: Banki Żywności
+      food_banks: Banki żywności
       food_banks_intro: Paszowe i prywatni właściciele drzewo przytłoczeni ich zbiorów są zachęcani do oddawania nadwyżek produktów na cele charytatywne. Rozważyć współpracę z grup takich jak te wymienione powyżej, lub darowizny bezpośrednio do lokalnych organizacji karmienia głodnych w swojej społeczności. Główne sieci banków żywności są wymienione poniżej; schroniska dla bezdomnych, szkół i wyższych ośrodków w Twojej okolicy są warte rozważenia.
       france: Francja
       global: Globalny
-      grow_pick_and_distribute: Rosnąć, pick, i amp; Rozpowszechniać
+      grow_pick_and_distribute: Rosnąć · Pick · Rozpowszechniać
       intro_html: Poniżej wymienione są lokalne organizacje, które rosną żywności (żywność i sady lasy publiczne), odebrać jedzenie (miejskiego żerowania i gleaning rolniczy), lub w inny sposób rozpowszechniać żywności (swapy i darowizn). Organizacje wymienione są kraje, państwa i miasta. Te z nazwami wyblakłych out są uważane za nieaktywne. Jeśli znasz inne, które powinny być na tej liście, <a href="mailto:info@fallingfruit.org">skontaktuj się z nami</a> !
       united_kingdom: Wielka Brytania
       united_states: Stany Zjednoczone

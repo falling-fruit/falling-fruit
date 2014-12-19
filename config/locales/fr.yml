@@ -188,9 +188,7 @@ fr:
       pending_types_help_title: Types en attente
       problem_modal_title: Signaler un problème
       unverified_help: Certaines sources sont mis en évidence comme non vérifiées si leur identités, emplacements, ou existences sont contestées. Beaucoup de sources provenant d'inventaires d'arbres sont marqués comme non vérifiées parce que leurs comestibilité est incertaine (par exemple, "Poire" pourrait soit être une variété comestible ou décorative). Nous encourageons nos utilisateurs de se rendre à ces endroits et mettre à jour la carte en fonction de leurs observations.
-      unverified_help_title: Pourquoi Non vérifié?
-  locales:
-    english: Anglais
+      unverified_help_title: Pourquoi non vérifié?
   locations:
     embed:
       add_source: Ajouter une source
