@@ -99,13 +99,9 @@ namespace :export do
      CSV.open("public/locations.csv","wb") do |csv|
        cols = ["id","lat","lng","unverified","description","season_start","season_stop",
                "no_season","author","address","created_at","updated_at",
-               "quality_rating","yield_rating","access","import_link","muni","name"]
+               "quality_rating","yield_rating","access","import_link","name"]
        csv << cols
        r.each{ |row|
-
-         quality_rating = Location.find(row["id"]).mean_quality_rating
-         yield_rating = Location.find(row["id"]).mean_yield_rating
-
          csv << [row["id"],row["lat"],row["lng"],row["unverified"],row["description"],
                  row["season_start"].nil? ? nil : I18n.t("date.month_names")[row["season_start"].to_i+1],
                  row["season_stop"].nil? ? nil : I18n.t("date.month_names")[row["season_stop"].to_i+1],
@@ -113,7 +109,6 @@ namespace :export do
                  row["address"],row["created_at"],row["updated_at"],
                  row["access"].nil? ? nil : I18n.t("locations.infowindow.access_short")[row["access"].to_i],
                  row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}",
-                 row["import_id"].nil? ? 'f' : (Import.find(row["import_id"]).muni ? 't' : 'f'),
                  row["types"],row["type_others"]]
          }
      end
