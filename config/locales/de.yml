@@ -208,7 +208,7 @@ de:
       description: Beschreibung
       description_subtext: Details zu Standort, Zugang, Zustand der Pflanzen ...
       form_error: Ein Fehler hat verhindert, dass dieser Standort gespeichert werden konnte
-      form_intro_html: Bearbeite diesen Standort <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Bewerten Sie diesen Ort"> oder benutze dieses Formular</a>, um diesen Standort zu bewerten, kommentieren oder ein Photo hinzuzufügen.
+      form_intro_html: Bearbeite diesen Standort <a href="/observations/new?location_id=%{location_id}&locale=de" data-ajax="false" rel="external" title="Bewerten Sie diesen Ort"> oder benutze dieses Formular</a>, um diesen Standort zu bewerten, kommentieren oder ein Photo hinzuzufügen.
       fruiting_status: Fruchtstand
       fruiting_subtext: Was macht diese Pflanze gerade? (Falls zutreffend)
       have_you: Hast du diesen Ort besucht?
@@ -242,7 +242,7 @@ de:
     index:
       addmarker_html: Erstelle hier einen neuen Standort</a><br><span class="subtext">man kann mich auch bewegen</span>
       editmarker_html: <b>Gehe zum Standort dieser Quelle.</b><br><br>Satellitenansicht betrachten - der Standort könnte aus dem All sichtbar sein!
-      freegan_modal_html: Zusätzlich zu unseren Bemühungen, <a href="/"> alle essbaren Pflanzen in den Städten </a> zu kartieren, möchten wir am liebsten auch alle Container erfassen, in denen so oft noch brauchbare Lebensmittel landen. Fast 50% aller in der entwickelten Welt produzierten Lebensmittel werden nie gegessen. Wir hoffen, mit unseren Bemühungen das Bewusstsein um dieses Problem zu erhöhen und die Rettung von übeflüssig weggeworfenen Nahrungsmitteln zu erleichtern. Zudem möchten wir Unternehmen dazu ermutigen, solche Nahrungsmittel <a href="/sharing">gemeinnützigen Organisation zu spenden</a> statt sie in der Mülltonne zu deponieren. <br><br> Und weil wir weiter überzeugt sind, dass allgemein weniger weggeworfen werden sollte, ermutigen wir die Kartierung aller Standorte, an denen weggeworfene aber noch brauchbare Güter erhältlich sind (Müllcontainer, Gratis-zum-Mitnehmen Kisten etc.). Essbar oder nicht!
+      freegan_modal_html: Zusätzlich zu unseren Bemühungen, <a href="/?locale=de"> alle essbaren Pflanzen in den Städten </a> zu kartieren, möchten wir am liebsten auch alle Container erfassen, in denen so oft noch brauchbare Lebensmittel landen. Fast 50% aller in der entwickelten Welt produzierten Lebensmittel werden nie gegessen. Wir hoffen, mit unseren Bemühungen das Bewusstsein um dieses Problem zu erhöhen und die Rettung von übeflüssig weggeworfenen Nahrungsmitteln zu erleichtern. Zudem möchten wir Unternehmen dazu ermutigen, solche Nahrungsmittel <a href="/sharing?locale=de">gemeinnützigen Organisation zu spenden</a> statt sie in der Mülltonne zu deponieren. <br><br> Und weil wir weiter überzeugt sind, dass allgemein weniger weggeworfen werden sollte, ermutigen wir die Kartierung aller Standorte, an denen weggeworfene aber noch brauchbare Güter erhältlich sind (Müllcontainer, Gratis-zum-Mitnehmen Kisten etc.). Essbar oder nicht!
       freegan_modal_title: Willkommen zur Falling Fruit's Freegan Karte!
       stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit ist eine riesige, user-generierte Karte der urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler' zeigt unsere Karte weltweit bereits zu einer halben Million Standorten, an denen Essbares wächst oder gratis erhältlich ist (von Pflanzen und Pilzen zu Brunnen und Müllcontainern). Unsere stetig wachsende User-Community ist unermüdlich dabei, wertvolle Standorte zu erkunden oder zu bearbeiten, um sie der Karte hinzuzufügen. <br/><br/> Hilf uns, den vernachlässigten Reichtum an unseren Strassen zum Leben zu erwecken! Verwende die Website anonym oder melde dich als <a href="/users/sign_up">Benutzer</a> an, um sämtliche Funktionen nutzen zu können.
@@ -283,7 +283,7 @@ de:
       - Blüte
       - Frucht
       - Reif
-      have_you_visited_html: Hast du diese Quelle besucht? Füge eine <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Bewerten Sie diesen Standort" id="add_review">Füge eine Bewertung </a> hinzu.
+      have_you_visited_html: Hast du diese Quelle besucht? Füge eine <a href="/observations/new?location_id=%{id}&locale=de" data-ajax="false" rel="external" title="Bewerten Sie diesen Standort" id="add_review">Füge eine Bewertung </a> hinzu.
       january_to_december: Von Januar bis Dezember
       link: Link
       new_route: Neue Route
@@ -341,7 +341,7 @@ de:
       activity: Aktivität
       ago: vor
       by_author: von %{author}
-      changed_within_html: Veränderungen in deinem <a href="/users/edit">Ernte-Radius</a>
+      changed_within_html: Veränderungen in deinem <a href="/users/edit?locale=de">Ernte-Radius</a>
       click_here: Klicke hier
       click_here_to_manage_your_routes_html: Klicke <a href="%{routes_path}">hier</a>, um deine Routen zu verwalten
       favorites: Favoriten
@@ -360,7 +360,7 @@ de:
       unknown: Unbekannt
       you_havent_added_or_reviewed_anything_while_logged_in: Du hast nichts geändert oder überprüft (während du eingeloggt warst)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Du hast noch keine Ernte-Routen hinzugefügt. Klicke auf eine Quelle und klicke dann auf 'Strecken' um eine Route zu erstellen.
-      you_havent_defined_html: Du hast noch keinen persönlichen Ernte-Radius definiert. Klicke <a href="/users/edit">hier</a> um das jetzt zu tun.
+      you_havent_defined_html: Du hast noch keinen persönlichen Ernte-Radius definiert. Klicke <a href="/users/edit?locale=de">hier</a> um das jetzt zu tun.
   meta:
     forager_description: ! 'Eine riesige, gemeinschaftliche Karte der urbanen Ernte die die urbanen Jäger und Sammler weltweit vereinen soll! Teile Informationen über kostenlose Essensquellen in deiner Nachbarschaft und erkundige, was andere kartiert haben. '
     freegan_description: ! 'In dem wir weltweit essenshaltige Kontainer kartieren, möchten wir das Thema ''Foold Waste'' auf den Tisch und in die warmen Stuben bringen, die ''Rettung'' solcher Lebensmittel vereinfachen und Firmen dazu ermutigen, die Lebensmittel an Bedürftige zu spenden, statt zu verschwenden. '

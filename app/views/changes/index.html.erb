@@ -38,9 +38,9 @@ last_days_ago = nil
 %>
 <%= raw header %>
 <% unless c["location_id"].nil? %>
-  <a href="/locations/<%= c["location_id"] %>">
+  <%= link_to location_path(c["location_id"]) do %>
     <%= types.nil? ? I18n.t("locations.sidebar.unknown") : types %>
-  </a>
+  <% end %>
   (#<%= c["location_id"] %>)
   <% unless city.nil? %>
     <%= I18n.t("changes.index.change_in_city", :type => action, :city => city) %>

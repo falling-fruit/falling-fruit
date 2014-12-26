@@ -11,9 +11,9 @@
   <!-- ACTIVITY TAB -->
   <div id="sidebar-tab-1">
     <% if current_user.range.nil? %>
-      <%= I18n.t("locations.sidebar.you_havent_defined_html", :default => 'You haven\'t defined a foraging range. <a href="/users/edit">Click here</a> to do that now').html_safe %>.
+      <%= I18n.t("locations.sidebar.you_havent_defined_html").html_safe %>.
     <% else %>
-      <%= I18n.t("locations.sidebar.changed_within_html", :default => 'Changes within your <a href="/users/edit">foraging range</a>').html_safe %>:
+      <%= I18n.t("locations.sidebar.changed_within_html").html_safe %>:
     <% end %>
     <br/><br/>
     <%

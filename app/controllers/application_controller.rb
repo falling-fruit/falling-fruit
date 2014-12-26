@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  # app/controllers/application_controller.rb
+  # http://guides.rubyonrails.org/i18n.html
+  def default_url_options(options = {})
+    { locale: I18n.locale }.merge options
+  end
+
   # used by devise to determine where to send users after login
   def after_sign_in_path_for(user)
     home_locations_path

@@ -29,13 +29,13 @@ Import.all.each do |import| %>
     efile = File.join("public","import","#{import.id}_error.csv")
   %>
   <tr>
-  	<td style="text-align:right"><a href="/imports/<%= import.id %>/"><%= import.id %></a></td>
+  	<td style="text-align:right"><%= link_to import_path(import.id) do %><%= import.id %><% end %></td>
     <td>
     <% unless import.url.blank? %>
-		<a href="<%= import.url %>"><%= import.name %></a>
-	<% else %>
-		<%= import.name %>
-	<% end %>
+		  <%= link_to(import.name,import.url) %>
+	  <% else %>
+		  <%= import.name %>
+	  <% end %>
     </td>
     <td><%= lcounts[import.id] %></td>
     <td><%= import.autoload ? "x" : "" %></td>

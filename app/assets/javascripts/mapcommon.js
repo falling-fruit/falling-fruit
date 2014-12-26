@@ -803,7 +803,7 @@ function open_tab_3() {
     });
     markersArray.push({marker: marker, id: -1, type: "point"});
     // Set and open infowindow
-    var html = $('<div id="addmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + 
+    var html = $('<div id="addmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + '&locale=' + I18n.locale +
                  '" data-ajax="false" rel="external">' + I18n.t("locations.index.addmarker_html") + '</div>');
     var infowindow = new google.maps.InfoWindow({
     	content: html[0]

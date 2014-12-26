@@ -5,7 +5,7 @@
 	<td style="vertical-align:top;text-align:right;padding:2em 1.5em 0 0;">
 		#<%= @import.id %>
 		<% if user_signed_in? and current_user.is? :admin %>
-			<br/><a href="/imports/<%= @import.id %>/edit"><%= I18n.t("imports.show.edit") %></a>
+			<br/><%= link_to(I18n.t("imports.show.edit"),edit_import_path(@import.id)) %>
 		<% end %>
 	</td>
 	<td style="padding:2em;background-color:#fafafa;">
@@ -13,9 +13,9 @@
 	<!-- Name, Url -->
 	<b><%= @import.name %></b><br />
 	<% unless @import.url.blank? %>
-		<a href="<%= @import.url %>">
+		<%= link_to @import.url do %>
 		<%= !@import.url.match('google.com/maps|maps.google').nil? ? I18n.t("pages.datasets.google_map") : (!@import.url.match('google.com/fusiontables').nil? ? I18n.t("pages.datasets.google_fusion_table") : (!@import.url.match('mapsengine.google').nil? ? I18n.t("pages.datasets.google_maps_engine") : @import.url)) %>
-		</a><br />
+		<% end %><br />
 	<% end %>
 
 	<!-- Type, Date -->
