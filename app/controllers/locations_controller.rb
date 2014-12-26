@@ -203,7 +203,7 @@ class LocationsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
       if test and @location.save and (@obs.nil? or @obs.save)
-        ApplicationController.cluster_increment(@location)
+        cluster_increment(@location)
         log_changes(@location,"added")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
@@ -250,14 +250,14 @@ class LocationsController < ApplicationController
     } if params[:types].present?
     lt_update_okay = @location.save
 
-    ApplicationController.cluster_decrement(@location)
+    cluster_decrement(@location)
     log_api_request("api/locations/update",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
       if test and @location.update_attributes(params[:location]) and lt_update_okay
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_type_others,former_location)
-        ApplicationController.cluster_increment(@location)
+        cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { render json: {"status" => 0} }
@@ -272,7 +272,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
-    ApplicationController.cluster_decrement(@location)
+    cluster_decrement(@location)
     @location.destroy
     expire_things
     respond_to do |format|
