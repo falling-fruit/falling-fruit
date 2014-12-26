@@ -64,7 +64,8 @@ describe 'mobile_api' do
 
   it "can get data for one location" do
     api_key = ApiKey.find_by_name('MobileApp')
-    get "/api/locations/#{a_location.id}.json&api_key=#{api_key.api_key}", {}, json_headers
+    l = create(:location_with_observation)
+    get "/api/locations/#{l.id}.json?api_key=#{api_key.api_key}", {}, json_headers
     expect(last_response.status).to eq(200)
     json = JSON.parse(last_response.body)
     json.should be_a(Hash)
@@ -172,9 +173,10 @@ describe 'mobile_api' do
   it "can get info for a users' locations" do
     api_key = ApiKey.find_by_name('MobileApp')
     u = create(:user)
-    a_location.observations.each{ |o| o.user = u }
-    a_location.user = u
-    a_location.save
+    l = create(:location_with_observation)
+    l.observations.each{ |o| o.user = u; o.save }
+    l.user = u
+    l.save
     auth_params = get_auth_params(u)
     get "/api/locations/mine.json?api_key=#{api_key.api_key}", auth_params, json_headers
     expect(last_response.status).to eq(200)

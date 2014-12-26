@@ -177,6 +177,22 @@ class LocationsController < ApplicationController
     } if params[:types].present?
     @location.user = current_user if user_signed_in?
 
+    #unless params["photos"].nil? or params["photos"].empty?
+    #  params["photos"].each_with_index{ |p,i|
+    #    tempfile = Tempfile.new("fileupload")
+    #    tempfile.binmode
+    #    dc,data = p["data"].split(/,/)
+    #    tempfile.write(Base64.decode64(data))
+    #    tempfile.rewind
+    #    uploaded_file = ActionDispatch::Http::UploadedFile.new(
+    #      :tempfile => tempfile,
+    #      :filename => p["name"],
+    #      :type => p["type"]
+    #    )
+    #    @donation.photos << DonationPhoto.new(photo:uploaded_file,receipt_worthy:p["receipt_worthy"],donation_detail_id:@donation_detail.id)
+    #  }
+    #end
+
     # create an observation if necessary
     @obs = nil
     if [:quality_rating,:yield_rating,:fruiting,:photo,:comment].collect{ |k| params[k].present? }.any?
