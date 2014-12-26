@@ -4,8 +4,8 @@
 
   <!-- Tab Menu -->
   <ul>
-    <li><a href="#range-radius"><%= I18n.t("devise.fallingfruit.range_by_radius") %></a></li>
-    <li><a href="#range-map"><%= I18n.t("devise.fallingfruit.range_by_map") %></a></li>
+    <li><%= link_to '#range-radius' do %><%= I18n.t("devise.fallingfruit.range_by_radius") %><% end %></li>
+    <li><%= link_to '#range-map' do %><%= I18n.t("devise.fallingfruit.range_by_map") %><% end %></li>
   </ul>
 
   <div id="range-radius">

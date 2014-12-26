@@ -39,7 +39,7 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 %>
 
 <p>
-<%= I18n.t("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)) %>
+<%= I18n.t("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)).html_safe %>
 </p>
 <br/>
 

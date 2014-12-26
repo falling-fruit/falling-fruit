@@ -1,4 +1,6 @@
 FallingfruitWebapp::Application.configure do
+  default_url_options[:host] = "localhost:3000"
+
   # Settings specified here will take precedence over those in config/application.rb
   config.action_controller.perform_caching = true
   config.cache_store = :file_store, Rails.root.join('tmp', 'cache')

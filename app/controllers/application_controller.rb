@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  # app/controllers/application_controller.rb
+  # http://guides.rubyonrails.org/i18n.html
+  def default_url_options(options = {})
+    { locale: I18n.locale }.merge options
+  end
+
   # used by devise to determine where to send users after login
   def after_sign_in_path_for(user)
     home_locations_path
@@ -115,22 +121,13 @@ class ApplicationController < ActionController::Base
   #
 
   def set_locale
-    new_locale = extract_locale_from_subdomain || extract_locale_from_url || extract_locale_from_session
+    new_locale = extract_locale_from_subdomain || extract_locale_from_url
     if new_locale and SupportedLocales.include? new_locale
       I18n.locale = new_locale
-      session[:locale] = new_locale
     else
       I18n.locale = I18n.default_locale
     end
     #foo
-  end
-
-  def extract_locale_from_session
-    unless session[:locale].nil? or session[:locale].blank?
-      session[:locale]
-    else
-      nil
-    end
   end
 
   def extract_locale_from_subdomain
