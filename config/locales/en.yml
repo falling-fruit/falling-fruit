@@ -270,7 +270,7 @@ en:
       anonymous: Anonymous
       are_you_sure: Are you sure?
       by: by
-      citation_to_the_original_source: Citation to the original source
+      citation_to_the_original_source: Citation to the original data source
       delete: delete
       delete_comment: Delete comment
       delete_photo: Delete photo
@@ -309,7 +309,6 @@ en:
         reviews: Reviews
         street_view: Street View
       toggle_route_controls: Toggle route controls
-      toggle_route_countrols: Toggle route controls
       unsure: Unsure
       unsure_other: Unsure/Other
       unverified: Unverified

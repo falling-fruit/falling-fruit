@@ -285,13 +285,12 @@ pl:
       season: Sezon
       see_this_location_in_streetview: Zobacz tę lokalizację w Streetview
       source: źródło
-      street: ulica
+      street: 
       tabs:
         info: Informacje
         reviews: Recenzje
         street_view: Street View
       toggle_route_controls: Przełącz kontrole trasę
-      toggle_route_countrols: Przełącz kontrole trasę
       unsure: Niepewny
       unsure_other: Pewności, inne
       unverified: Niezweryfikowana
