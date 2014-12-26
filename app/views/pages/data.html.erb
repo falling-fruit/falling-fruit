@@ -2,10 +2,13 @@
 <%= I18n.t("pages.data.intro") %>:
 </p>
 
-<% if File.exists?(Rails.root.join("public","data.csv.bz2")) %>
+<% if File.exists?(Rails.root.join("public","locations.csv.bz2")) and File.exists?(Rails.root.join("public","types.csv.bz2")) %>
 		<blockquote>
-		<a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-		<i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","data.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+		<a href="/locations.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br>
+		<i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
+    <br>
+    <a href="/types.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024**2) %> MB)<br>
+    <i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 		</blockquote>
 <% else %>
 		<blockquote>

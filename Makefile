@@ -15,8 +15,10 @@ export:
 	#sudo su postgres -c "psql -f /tmp/export_csv.sql fallingfruit_db"
 	#cp /tmp/ff.csv.bz2 public/data.csv.bz2
 	time bundle exec rake export:data
-	rm -f public/data.csv.bz2
-	bzip2 public/data.csv
+	rm -f public/locations.csv.bz2
+	bzip2 public/locations.csv
+	rm -f public/types.csv.bz2
+	bzip2 public/types.csv
 
 clusters:
 	bundle exec rake db:migrate:redo VERSION=20131110213005

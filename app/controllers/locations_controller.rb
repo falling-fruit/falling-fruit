@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
 
   def data
     max_n = 500
-    cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    cat_mask = array_to_mask(Type::DefaultCategories,Type::Categories)
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
