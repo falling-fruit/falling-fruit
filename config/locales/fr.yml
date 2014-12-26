@@ -208,7 +208,7 @@ fr:
       description: Description
       description_subtext: Détails, problèmes d'accès, condition des plantes ...
       form_error: Une erreur a empêché cette source d'être enregistrée
-      form_intro_html: Modifier l'endroit ci-dessous, ou <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Évaluer cet endroit">utiliser ce formulaire</a> pour y ajouter des commentaires et des photos.
+      form_intro_html: Modifier l'endroit ci-dessous, ou <a href="/observations/new?location_id=%{location_id}&locale=fr" data-ajax="false" rel="external" title="Évaluer cet endroit">utiliser ce formulaire</a> pour y ajouter des commentaires et des photos.
       fruiting_status: État des fruits
       fruiting_subtext: Comment sont les fruits en ce moment? (le cas échéant)
       have_you: Avez-vous visité ce lieu?
@@ -242,10 +242,10 @@ fr:
     index:
       addmarker_html: Ajouter une source ici</a><br><span class="subtext">Vous pouvez aussi me déplacer</span>
       editmarker_html: <b>Déplacez à la position de la source.</b><br><br>Vérifiez la vue satellite - la source pourrait être visible depuis l'espace!
-      freegan_modal_html: En plus de nos efforts pour cartographier <a href="/">les plantes comestibles de nos villes</a>, nous avons entrepris de cartographier les poubelles du monde remplis de nourriture. Près de la moitié de tous les aliments produits dans le monde développé ne sont jamais consommés. Nous cherchons à sensibiliser le public au gaspillage alimentaire, faciliter la libération des aliments jetés, et encourager les entreprises de <a href="/sharing">donner leur nourriture</a> au lieu de la gaspiller.<br/><br/>En faveur d'un mode de vie sans gaspillage, nous encourageons la cartographie de tous emplacements freegans (poubelles à ordures, marchés gratuits, etc) avec des produits jetés mais utiles, qu'ils soit comestibles ou non.
+      freegan_modal_html: En plus de nos efforts pour cartographier <a href="/?locale=fr">les plantes comestibles de nos villes</a>, nous avons entrepris de cartographier les poubelles du monde remplis de nourriture. Près de la moitié de tous les aliments produits dans le monde développé ne sont jamais consommés. Nous cherchons à sensibiliser le public au gaspillage alimentaire, faciliter la libération des aliments jetés, et encourager les entreprises de <a href="/sharing?locale=fr">donner leur nourriture</a> au lieu de la gaspiller.<br/><br/>En faveur d'un mode de vie sans gaspillage, nous encourageons la cartographie de tous emplacements freegans (poubelles à ordures, marchés gratuits, etc) avec des produits jetés mais utiles, qu'ils soit comestibles ou non.
       freegan_modal_title: Bienvenue sur la carte freegan de Falling Fruit!
       stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/deed.fr">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">CC BY-SA</a>.
-      welcome_modal_html: Falling Fruit est une carte immense et collaborative du glanage urbain. En unissant les efforts de glaneurs, freegans, et forestiers, la carte contient déjà plus d'un demi-million de sources comestibles à travers le monde (plantes et champignons aux puits d'eau et poubelles). Notre communauté d'utilisateurs, en croissance rapide, explore, modifie, et ajoute à la carte.<br/><br/>Célébrez avec nous la générosité alimentaires négligée de nos villes! Utilisez le site de façon anonyme ou <a href="/users/sign_up">inscrivez-vous</a> pour accéder à des fonctionnalités supplémentaires.
+      welcome_modal_html: Falling Fruit est une carte immense et collaborative du glanage urbain. En unissant les efforts de glaneurs, freegans, et forestiers, la carte contient déjà plus d'un demi-million de sources comestibles à travers le monde (plantes et champignons aux puits d'eau et poubelles). Notre communauté d'utilisateurs, en croissance rapide, explore, modifie, et ajoute à la carte.<br/><br/>Célébrez avec nous la générosité alimentaires négligée de nos villes! Utilisez le site de façon anonyme ou <a href="/users/sign_up?locale=fr">inscrivez-vous</a> pour accéder à des fonctionnalités supplémentaires.
       welcome_modal_title: Bienvenue sur Falling Fruit!
     infowindow:
       access:
@@ -283,7 +283,7 @@ fr:
       - En fleurs
       - Fruits pas mûrs
       - Fruits mûrs
-      have_you_visited_html: Avez-vous visité cette source? Laissez un <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Commenter sur cette source" id="add_review">commentaire</a>
+      have_you_visited_html: Avez-vous visité cette source? Laissez un <a href="/observations/new?location_id=%{id}&locale=fr" data-ajax="false" rel="external" title="Commenter sur cette source" id="add_review">commentaire</a>
       january_to_december: Janvier - Décembre
       link: lien
       new_route: Nouveau parcour
@@ -309,7 +309,6 @@ fr:
         reviews: Commentaires
         street_view: Street View
       toggle_route_controls: Basculer les contrôles de parcours
-      toggle_route_countrols: Basculer les contrôles de parcours
       unsure: Incertain
       unsure_other: Incertain/Autre
       unverified: Non vérifié
@@ -341,7 +340,7 @@ fr:
       activity: Activité
       ago: il y a
       by_author: par %{author}
-      changed_within_html: Modifications dans votre <a href="/users/edit">zone de glanage</a>
+      changed_within_html: Modifications dans votre <a href="/users/edit?locale=fr">zone de glanage</a>
       click_here: Cliquez ici
       click_here_to_manage_your_routes_html: Cliquez <a href="%{routes_path}">ici</a> pour gérer vos parcours
       favorites: Favoris
@@ -360,7 +359,7 @@ fr:
       unknown: Inconnu
       you_havent_added_or_reviewed_anything_while_logged_in: Vous n'avez pas encore ajouté ou modifié des sources (en étant connecté)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Vous n'avez pas encore défini des parcours de glanage. Cliquez sur une source, puis sur "parcours", pour commencer à en faire un.
-      you_havent_defined_html: Vous n'avez pas défini votre zone de glanage. <a href="/users/edit">Cliquez ici</a> pour le faire maintenant
+      you_havent_defined_html: Vous n'avez pas défini votre zone de glanage. <a href="/users/edit?locale=fr">Cliquez ici</a> pour le faire maintenant
   meta:
     forager_description: Une carte immense et collaborative du glanage urbain unissant les efforts de glaneurs, freegans, et forestiers partout dans le monde. Explorer et partager des informations sur les sources de nourriture gratuite dans votre quartier.
     freegan_description: En mettant sur une carte les poubelles du monde remplis de nourriture, nous cherchons à sensibiliser le public au gaspillage alimentaire, faciliter la libération des aliments jetés, et encourager les entreprises de donner leur nourriture au lieu de la gaspiller.
@@ -385,11 +384,11 @@ fr:
       give_paypal: Faire un don Paypal
       give_us_money: Nous sommes une association bénévole à but non lucratif 501(c)(3); nous comptons sur les dons pour survivre. Si vous êtes capable, pensez faire une contribution financière. Les dons sont déductibles d'impôt par les personnes résidentes aux États-Unis.
       jeff_bio_html: Depuis les récoltes de mûres et de myrtilles en famille de son enfance, et plus récemment, depuis avoir remarqué la richesse des arbres fruitiers publiques du Colorado, Jeff a développé une profonde appréciation pour l'abondance des fruits qui pousse dans nos villes. Sa première mission pour Falling Fruit fut d'explorer, cartes en main, les arbres fruitiers de Boulder et Salt Lake City. Lorsqu'il ne travaille pas pour améliorer l'efficacité énergétique des bâtiments, il donne des coups de main à la communauté et se déplace rapidement à travers les montagnes à pied, à ski, ou en vélo.
-      join_us_html: Célébrez avec nous la nourriture hyper-locale! La <a href="/">carte</a> est ouverte à quiconque de modifier, la base de données peut être <a href="/data">téléchargé</a> en un seul clic, et <a href="https://github.com/somerandomsequence/falling-fruit">le code</a> est open-source. Vous êtes également invités à partager l'abondance avec d'autres êtres humains. Notre <a href="/sharing">pages du partage</a> répertorie des centaines d'associations locales dans les domaines de plantation de vergers et parc comestibles publics, glanage des fruits et légumes dans les ville et les champs, et la redistribution aux voisins et aux pauvres.
-      more_about_html: Notre carte comestible n'est pas la première du genre, mais elle aspire à être la plus complète. Pendant que nos utilisateurs y contribuent leurs trouvailles, nous fouillons l'internet pour toute connaissance existante, cherchant à unir les efforts des glaneurs, forestiers et freegans du monde. Les <a href="/datasets">ensembles de données importées</a> comprennes petites cartes de glanages de quartier à de vastes inventaires professionnelles d'arbres d'alignements. Jusqu'à présent, la carte contient %{types} différents types comestible (la majorité des espèces végétales) répartis sur %{locations} repères. Au-delà du commun et cultivé aux saveurs exotiques de plantes étrangères ou oubliées, la recherche de nourriture dans votre quartier est un voyage à travers le temps et la culture.
+      join_us_html: Célébrez avec nous la nourriture hyper-locale! La <a href="/?locale=fr">carte</a> est ouverte à quiconque de modifier, la base de données peut être <a href="/data?locale=fr">téléchargé</a> en un seul clic, et <a href="https://github.com/somerandomsequence/falling-fruit">le code</a> est open-source. Vous êtes également invités à partager l'abondance avec d'autres êtres humains. Notre <a href="/sharing?locale=fr">pages du partage</a> répertorie des centaines d'associations locales dans les domaines de plantation de vergers et parc comestibles publics, glanage des fruits et légumes dans les ville et les champs, et la redistribution aux voisins et aux pauvres.
+      more_about_html: Notre carte comestible n'est pas la première du genre, mais elle aspire à être la plus complète. Pendant que nos utilisateurs y contribuent leurs trouvailles, nous fouillons l'internet pour toute connaissance existante, cherchant à unir les efforts des glaneurs, forestiers et freegans du monde. Les <a href="/datasets?locale=fr">ensembles de données importées</a> comprennes petites cartes de glanages de quartier à de vastes inventaires professionnelles d'arbres d'alignements. Jusqu'à présent, la carte contient %{types} différents types comestible (la majorité des espèces végétales) répartis sur %{locations} repères. Au-delà du commun et cultivé aux saveurs exotiques de plantes étrangères ou oubliées, la recherche de nourriture dans votre quartier est un voyage à travers le temps et la culture.
       tristram_stuart_bio_html: ! 'Auteur de <a href="//tristramstuart.co.uk">Waste: Uncovering the Global Food Scandal</a> · Foundeur de l''association internationale contre le gaspillage alimentaire <a href="//feedbackglobal.org">Feedback Global</a> · National Geographic <a href="//www.nationalgeographic.com/explorers/bios/tristram-stuart/">Emerging Explorer</a>'
     data:
-      beware_html: Attention! Une foi décompressé, les données deviennent un fichier énorme qui écrase la plupart des logiciels de tableur. Si vous recherchez seulement les données sur une zone limitée, essayez d'abord de récupérer les points d'intérêts avec l'outil de téléchargement intégré à la <a href="/">carte</a>.
+      beware_html: Attention! Une foi décompressé, les données deviennent un fichier énorme qui écrase la plupart des logiciels de tableur. Si vous recherchez seulement les données sur une zone limitée, essayez d'abord de récupérer les points d'intérêts avec l'outil de téléchargement intégré à la <a href="/?locale=fr">carte</a>.
       caveat_emptor_html: Nous ne prenons aucune responsabilité pour la précision des données - elles sont fourni tels quels, <i>caveat emptor</i>. Si vous développé quelque chose de cool avec les données, <a href="mailto:feedback@fallingfruit.org">faites-le nous savoir</a>!
       common_name: Nom commun
       count: Nombre
@@ -410,7 +409,7 @@ fr:
       google_maps_engine: Google Maps Engine
       imported: Importé
       imported_datasets: Données importées
-      intro_html: Falling Fruit aspire à être la plus complète base de donnés géographique des sources comestibles en espace urbain. Pendant que nos utilisateurs l'explorent, la modifient, et y ajoutent depuis notre <a href="/">carte</a>, nous fouillons l'univers pour toutes données préexistantes et les importons à notre <a href="/data">base de données</a>, unissant les efforts des glaneurs, forestiers et freegans du monde. Si vous connaissez des données que nous avons manqué, s'il vous plaît <a href="mailto:info@fallingfruit.org">faite-le nous savoir</a>! Vous pouvez également nous aider avec le processus d'importation en préparant les données pour qu'elles conforment au <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">schema d'importation</a>. Veuillez-noter que puisque les importations doivent être effectuées manuellement, toutes modifications faites aux ensembles de données d'origine suivant leurs importations ne sont pas reflétés sur Falling Fruit.
+      intro_html: Falling Fruit aspire à être la plus complète base de donnés géographique des sources comestibles en espace urbain. Pendant que nos utilisateurs l'explorent, la modifient, et y ajoutent depuis notre <a href="/?locale=fr">carte</a>, nous fouillons l'univers pour toutes données préexistantes et les importons à notre <a href="/data?locale=fr">base de données</a>, unissant les efforts des glaneurs, forestiers et freegans du monde. Si vous connaissez des données que nous avons manqué, s'il vous plaît <a href="mailto:info@fallingfruit.org">faite-le nous savoir</a>! Vous pouvez également nous aider avec le processus d'importation en préparant les données pour qu'elles conforment au <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">schema d'importation</a>. Veuillez-noter que puisque les importations doivent être effectuées manuellement, toutes modifications faites aux ensembles de données d'origine suivant leurs importations ne sont pas reflétés sur Falling Fruit.
       locations: Endroits
       name: Nom
       no_license: Aucune licence est spécifiée. Assumez <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr">CC BY-NC-SA</a> (Creative Commons – Attribution, Pas d’utilisation commerciale, Partage dans les mêmes conditions ).

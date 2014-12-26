@@ -190,7 +190,7 @@ pt-br:
       description: Descrição
       description_subtext: Detalhes da localização, problemas de acesso, estado fitossanitário ...
       form_error: Um erro proibido este local seja salvo
-      form_intro_html: Editar o local abaixo, ou <a href="/observations/new?location_id=%{location_id}" data-ajax="false" rel="external" title="Comente este local">use este formulário</a> para analisar, comentar e postar fotos.
+      form_intro_html: Editar o local abaixo, ou <a href="/observations/new?location_id=%{location_id}&locale=pt" data-ajax="false" rel="external" title="Comente este local">use este formulário</a> para analisar, comentar e postar fotos.
       fruiting_status: Estado de frutificação
       fruiting_subtext: Qual é o fruto está fazendo agora? (Se aplicável)
       have_you: Você já visitou este local?
@@ -224,10 +224,10 @@ pt-br:
     index:
       addmarker_html: 
       editmarker_html: 
-      freegan_modal_html: Além de nossos esforços mapeando as <a href="/">plantas comestíveis que crescem em cidades</a>, we've começou a mapear lixeiras de suporte de alimentos do mundo. Cerca de 50% de todos os alimentos produzidos no mundo desenvolvido é comido nunca. We're na esperança de aumentar a conscientização em torno desta questão, facilitar a liberação de alimentos descartados, e incentivar as empresas a <a href="/sharing">doar o alimento</a> em seu lugar. <br><br> Em apoio a um estilo de vida de baixo desperdício, estamos incentivando o mapeamento de todos os locais (de lixeiras para caixas livres) com descartados, mas útil bens, comestíveis ou não.
+      freegan_modal_html: Além de nossos esforços mapeando as <a href="/?locale=pt">plantas comestíveis que crescem em cidades</a>, we've começou a mapear lixeiras de suporte de alimentos do mundo. Cerca de 50% de todos os alimentos produzidos no mundo desenvolvido é comido nunca. We're na esperança de aumentar a conscientização em torno desta questão, facilitar a liberação de alimentos descartados, e incentivar as empresas a <a href="/sharing?locale=pt">doar o alimento</a> em seu lugar. <br><br> Em apoio a um estilo de vida de baixo desperdício, estamos incentivando o mapeamento de todos os locais (de lixeiras para caixas livres) com descartados, mas útil bens, comestíveis ou não.
       freegan_modal_title: 
       stamen_html: Mapa telhas por <a href="http://stamen.com">estame projeto</a>, sob <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dados de <a href="http://openstreetmap.org">OpenStreetMap</a>, sob <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
-      welcome_modal_html: Queda de fruta é um enorme mapa colaborativo da colheita urbana. Unindo os esforços de forrageiras, florestais e freegans em todos os lugares, o mapa já aponta para mais de meio milhão locais para produção de alimentos em todo o mundo (a partir de plantas e fungos para poços de água e lixeiras). A nossa crescente comunidade de usuário está explorando ativamente, editar e adicionar ao mapa. <br/><br/> Junte-se a nós na celebração da generosidade esquecido de ruas da nossa cidade! Use o site anonimamente ou <a href="/users/sign_up">se inscrever</a> para uma conta para acessar recursos adicionais.
+      welcome_modal_html: Queda de fruta é um enorme mapa colaborativo da colheita urbana. Unindo os esforços de forrageiras, florestais e freegans em todos os lugares, o mapa já aponta para mais de meio milhão locais para produção de alimentos em todo o mundo (a partir de plantas e fungos para poços de água e lixeiras). A nossa crescente comunidade de usuário está explorando ativamente, editar e adicionar ao mapa. <br/><br/> Junte-se a nós na celebração da generosidade esquecido de ruas da nossa cidade! Use o site anonimamente ou <a href="/users/sign_up?locale=pt">se inscrever</a> para uma conta para acessar recursos adicionais.
       welcome_modal_title: 
     infowindow:
       access:
@@ -265,7 +265,7 @@ pt-br:
       - Floração
       - Frutificação
       - Maduro
-      have_you_visited_html: Você já visitou essa fonte? Adicionar uma <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Comente este local" id="add_review">revisão</a>
+      have_you_visited_html: Você já visitou essa fonte? Adicionar uma <a href="/observations/new?location_id=%{id}&locale=pt" data-ajax="false" rel="external" title="Comente este local" id="add_review">revisão</a>
       january_to_december: Jan.-dez.
       link: ligação
       new_route: New Route
@@ -291,7 +291,6 @@ pt-br:
         reviews: Comentários
         street_view: Street View
       toggle_route_controls: Controles de rotas de alternância
-      toggle_route_countrols: Controles de rotas de alternância
       unsure: Incerto
       unsure_other: Incerto outro
       unverified: Não verificado
@@ -323,7 +322,7 @@ pt-br:
       activity: Atividade
       ago: atrás
       by_author: 
-      changed_within_html: Mudanças dentro da sua <a href="/users/edit">gama de forrageamento</a>
+      changed_within_html: Mudanças dentro da sua <a href="/users/edit?locale=pt">gama de forrageamento</a>
       click_here: Clique aqui
       click_here_to_manage_your_routes_html: Clique <a href="%{routes_path}">aqui</a> para gerenciar suas rotas
       favorites: Favoritos
@@ -342,7 +341,7 @@ pt-br:
       unknown: Desconhecido
       you_havent_added_or_reviewed_anything_while_logged_in: Você haven't adicionado ou revisada nada (enquanto estiver conectado)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Você haven't definido quaisquer rotas de forrageamento ainda. Clique na fonte e clique em 'rotas' para começar a fazer uma rota.
-      you_havent_defined_html: Você não definiu uma gama de forrageamento. <a href="/users/edit">Clique aqui</a> para fazer isso agora
+      you_havent_defined_html: Você não definiu uma gama de forrageamento. <a href="/users/edit?locale=pt">Clique aqui</a> para fazer isso agora
   meta:
     forager_description: 
     freegan_description: 
@@ -367,11 +366,11 @@ pt-br:
       give_paypal: 
       give_us_money: Somos uma totalmente voluntária, isenta de impostos sem fins lucrativos e dependem de doações de nossos usuários para operar. Se você está disposto e capaz, por favor, considere fazer uma contribuição financeira. Doações dentro dos Estados Unidos são dedutíveis.
       jeff_bio_html: Desde a colheita preto e blueberries com a família quando criança e, mais recentemente, percebendo a riqueza de árvores frutíferas públicas em todo Colorado, Jeff desenvolveu um profundo apreço pela abundância de fruticultura em nossas cidades. Sua primeira missão para a queda de frutos foi de pentear os mapas em papel Boulder e Salt Lake City, em mão, para gravar árvores frutíferas. Quando não está trabalhando para melhorar a eficiência energética do edifício, ele é geralmente ajudando na comunidade ou movendo-se rapidamente sobre as montanhas a pé, ski, ou de bicicleta.
-      join_us_html: Junte-se a nós na celebração do local e comestível! O <a href="/">mapa</a> é aberto para qualquer um editar o banco de dados pode ser <a href="/data">baixado</a> com apenas um clique, e <a href="https://github.com/somerandomsequence/falling-fruit">o código</a> é open-source. Você igualmente são incentivados a compartilhar a generosidade com seus companheiros seres humanos. Nossa <a href="/sharing">página de partilha</a> lista centenas de organizações locais que plantam florestas de alimentos e pomares públicos, colhendo frutos de outra forma, desperdiçados e legumes de árvores da cidade e nos campos de cultivo ", e trocando com e dando aos vizinhos e aos necessitados.
-      more_about_html: Nosso mapa de comestíveis urbanos não é o primeiro de seu tipo, mas que aspiram a ser o "mundo mais abrangente. Enquanto nossos usuários contribuir locais próprios, que pentear a internet para conhecimento pré-existente, buscando unir os esforços de forrageiras, florestais e freegans em todos os lugares. Os <a href="/datasets">conjuntos de dados importados</a> variam de pequenos mapas bairro de forrageamento para vastos estoques de árvores profissionalmente compilados. Isso equivale até agora para %{types} diferentes tipos de comestíveis (a maioria, mas não todas, as espécies de plantas) distribuídos ao longo %{locations} locais. Além do cultivo e comum para os sabores exóticos de plantas estrangeiras e os usos culinários há muito esquecidas de plantas nativas, caçando no seu bairro é uma viagem através do tempo e entre culturas.
+      join_us_html: Junte-se a nós na celebração do local e comestível! O <a href="/?locale=pt">mapa</a> é aberto para qualquer um editar o banco de dados pode ser <a href="/data?locale=pt">baixado</a> com apenas um clique, e <a href="https://github.com/somerandomsequence/falling-fruit">o código</a> é open-source. Você igualmente são incentivados a compartilhar a generosidade com seus companheiros seres humanos. Nossa <a href="/sharing?locale=pt">página de partilha</a> lista centenas de organizações locais que plantam florestas de alimentos e pomares públicos, colhendo frutos de outra forma, desperdiçados e legumes de árvores da cidade e nos campos de cultivo ", e trocando com e dando aos vizinhos e aos necessitados.
+      more_about_html: Nosso mapa de comestíveis urbanos não é o primeiro de seu tipo, mas que aspiram a ser o "mundo mais abrangente. Enquanto nossos usuários contribuir locais próprios, que pentear a internet para conhecimento pré-existente, buscando unir os esforços de forrageiras, florestais e freegans em todos os lugares. Os <a href="/datasets?locale=pt">conjuntos de dados importados</a> variam de pequenos mapas bairro de forrageamento para vastos estoques de árvores profissionalmente compilados. Isso equivale até agora para %{types} diferentes tipos de comestíveis (a maioria, mas não todas, as espécies de plantas) distribuídos ao longo %{locations} locais. Além do cultivo e comum para os sabores exóticos de plantas estrangeiras e os usos culinários há muito esquecidas de plantas nativas, caçando no seu bairro é uma viagem através do tempo e entre culturas.
       tristram_stuart_bio_html: 
     data:
-      beware_html: Mas cuidado. Uma vez descompactado, os dados se torna um enorme arquivo que faz com que a maioria dos softwares de planilha para implodir. Apenas os interessados ​​em manipular os dados no seu todo \ 's precisa ir por esse caminho. Para a maioria, a melhor alternativa é para recuperar seletivamente pontos de interesse utilizando a ferramenta de download integrado no <a href="/">mapa</a>.
+      beware_html: Mas cuidado. Uma vez descompactado, os dados se torna um enorme arquivo que faz com que a maioria dos softwares de planilha para implodir. Apenas os interessados ​​em manipular os dados no seu todo \ 's precisa ir por esse caminho. Para a maioria, a melhor alternativa é para recuperar seletivamente pontos de interesse utilizando a ferramenta de download integrado no <a href="/?locale=pt">mapa</a>.
       caveat_emptor_html: Deve ir sem dizer que nós não assumimos qualquer responsabilidade pela precisão dos dados - que é fornecido como é, <i>seja cuidadoso.</i> Se você fizer algo legal com os dados, por favor, <a href="mailto:feedback@fallingfruit.org">avise-nos</a> !
       common_name: Nome comum
       count: Contagem
@@ -392,7 +391,7 @@ pt-br:
       google_maps_engine: Google Maps Engine
       imported: Importado
       imported_datasets: Conjuntos de dados importados
-      intro_html: Caindo Fruit aspira a ser o mundo de 'o conjunto de dados geográfica mais abrangente e aberto de comestíveis urbanas. Enquanto nossos usuários explorar, editar e adicionar locais, usando o nosso <a href="/">mapa</a>, nós pentear o universo conhecido para conjuntos de dados pré-existentes e importá-los diretamente no <a href="/data">banco de dados</a>, unindo os esforços de forrageiras, florestais e freegans em todos os lugares. Se você souber de um conjunto de dados we've perdeu, por favor, <a href="mailto:info@fallingfruit.org">avise-nos</a> ! Você também pode nos ajudar com o processo de importação, formatando os dados usando o <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">modelo de importação</a>. Note que desde que as importações devem ser executadas manualmente, mais alterações aos dados originais não estão refletidos na queda dos Fruit.
+      intro_html: Caindo Fruit aspira a ser o mundo de 'o conjunto de dados geográfica mais abrangente e aberto de comestíveis urbanas. Enquanto nossos usuários explorar, editar e adicionar locais, usando o nosso <a href="/?locale=pt">mapa</a>, nós pentear o universo conhecido para conjuntos de dados pré-existentes e importá-los diretamente no <a href="/data?locale=pt">banco de dados</a>, unindo os esforços de forrageiras, florestais e freegans em todos os lugares. Se você souber de um conjunto de dados we've perdeu, por favor, <a href="mailto:info@fallingfruit.org">avise-nos</a> ! Você também pode nos ajudar com o processo de importação, formatando os dados usando o <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">modelo de importação</a>. Note que desde que as importações devem ser executadas manualmente, mais alterações aos dados originais não estão refletidos na queda dos Fruit.
       locations: Locais
       name: Nome
       no_license: Nenhuma licença especificada, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> Creative Commons (Atribuição, não-comercial, Share-alike) </a>
