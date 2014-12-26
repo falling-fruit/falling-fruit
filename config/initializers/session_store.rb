@@ -1,4 +1,3 @@
-# Use the database for sessions instead of the cookie-based default,
-# which shouldn't be used to store highly confidential information
-# (create the session table with "rails generate session_migration")
+# https://github.com/plataformatec/devise/issues/3031
+# http://maverickblogging.com/logout-is-broken-by-default-ruby-on-rails-web-applications/
 FallingfruitWebapp::Application.config.session_store :active_record_store
