@@ -67,6 +67,7 @@ task(:geocode => :environment) do
   }
 end
 
+# Fetch common names from Encyclopedia of Life (EOL)
 task(:eol_names => :environment) do
   
   # Initialize csv
@@ -109,17 +110,20 @@ task(:eol_names => :environment) do
   end
 end
 
-task(:wikipedia_links => :environment) do
+# Fetch Wikipedia page links and parse out common names
+task(:wikipedia_links_names => :environment) do
   
   # Initialize csv
-  CSV.open("public/wikipedia_links.csv","wb") do |csv|
-    cols = ["ff_id","ff_name","ff_scientific","language","title","url"]
+  CSV.open("public/wikipedia_links_names.csv","wb") do |csv|
+    cols = ["ff_id","ff_name","ff_scientific","language","title","url","names","ambiguous"]
     csv << cols
     # For each type with a scientific name (and taxonomic_rank not 7 => multispecies)
     Type.order(:scientific_name).each{ |t|
       
+      lang = "en"
+      
       # Show progress
-      puts "[S] " + t.scientific_name + " [en] " + t.name
+      puts "[S] " + t.scientific_name + " [" + lang + "] " + t.name
       
       # English page title
       # from database
@@ -129,32 +133,90 @@ task(:wikipedia_links => :environment) do
       elsif (not(t.taxonomic_rank == 7 or t.scientific_name.blank?))
         en_title = t.scientific_name
       else
-        csv << [t.id, t.name, t.scientific_name, "en", '', '']
+        csv << [t.id, t.name, t.scientific_name, lang, '', '', '', '']
+        puts "=> No page title (" + lang + ")"
         next
       end
       
-      # Fetch page
-      url = "http://en.wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title.gsub(" ","%20")
-      page = JSON.parse(open(url).read)
+      # Fetch English page
+      api_url = URI.escape("http://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title)
+      page = JSON.parse(open(api_url).read)
       if (page.has_key?("parse") and page["parse"].has_key?("title"))
-        en_title = page["parse"]["title"]
-        en_url = "https://en.wikipedia.org/wiki/" + page["parse"]["title"]
-        csv << [t.id, t.name, t.scientific_name, "en", en_title, en_url]
+        title = page["parse"]["title"]
+        url = "https://" + lang + ".wikipedia.org/wiki/" + title
+        if (is_disambiguation_page(page))
+          csv << [t.id, t.name, t.scientific_name, lang, title, url, '', 1]
+          puts "=> Ambiguous (" + lang + ")"
+        else
+          names = get_wikipedia_names(page).join(", ")
+          csv << [t.id, t.name, t.scientific_name, lang, title, url, names, 0]
+          puts "[" + lang + "] " + names
+        end
       else
-        csv << [t.id, t.name, t.scientific_name, "en", '', '']
+        csv << [t.id, t.name, t.scientific_name, lang, en_title, '', '', '']
+        puts "=> No page found (" + lang + ")"
         next
       end
       
-      # Get other language links
+      # Get other language pages
       if (page["parse"].has_key?("langlinks"))
         page["parse"]["langlinks"].each{ |l|
-          csv << [t.id, t.name, t.scientific_name, l["lang"], l["*"], l["url"]]
+          lang = l["lang"]
+          title = l["*"]
+          url = l["url"]
+          api_url = URI.escape("http://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + title)
+          page = JSON.parse(open(api_url).read)
+          if (is_disambiguation_page(page))
+            csv << [t.id, t.name, t.scientific_name, lang, title, url, '', 1]
+            puts "=> Ambiguous (" + lang + ")"
+          else
+            names = get_wikipedia_names(page).join(", ")
+            csv << [t.id, t.name, t.scientific_name, lang, title, url, names, 0]
+            puts "[" + lang + "] " + names
+          end
         }
       end
 
       # Sleep
       sleep 0.1
     }
+  end
+end
+
+# Helper function: Parse wikipedia common names
+def get_wikipedia_names(page)
+  
+  # Extract common names
+  content = Nokogiri::HTML(page["parse"]["text"]["*"])
+  first_p = content.css('body > p')[0]
+  if not first_p.nil?
+    first_p.css('i').remove
+    first_p_bold = first_p.css('b').collect{ |n| n.text }
+  else
+    first_p_bold = []
+  end
+  biotabox_header = content.css('table.infobox.biota th')[0]
+  if (biotabox_header.nil?)
+    biotabox_title = ''
+  else
+    biotabox_header.css('i').remove
+    biotabox_title = biotabox_header.text
+  end
+  
+  # Return as array
+  temp = first_p_bold
+  temp.push(biotabox_title)
+  names = temp.compact.uniq.collect{ |s| s.gsub(/\.|,|\n|\t|\?|\(|\)|"/, '').strip.gsub('[ ]+', ' ') }.reject(&:blank?)
+  return names
+end
+
+# Helper function: Check if page is a disambiguation page
+def is_disambiguation_page(page)
+  properties = page["parse"]["properties"].collect{ |p| p["name"]}
+  if (properties.include?("disambiguation"))
+    return true
+  else
+    return false
   end
 end
 
