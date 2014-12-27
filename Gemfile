@@ -24,6 +24,7 @@ group :development do
   gem 'faker'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'nokogiri'
 end
 
 # Testing
