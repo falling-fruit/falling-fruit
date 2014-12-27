@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(:version => 20141226194649) do
     t.string   "state"
     t.string   "country"
     t.integer  "user_id"
-    t.integer  "type_ids",                                                                 :default => [],                    :array => true
-    t.string   "type_others",                                                              :default => [],                    :array => true
+    t.integer  "type_ids",                                                                                                    :array => true
+    t.string   "type_others",                                                                                                 :array => true
   end
 
   create_table "locations_routes", :force => true do |t|
