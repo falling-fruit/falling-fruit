@@ -3,6 +3,9 @@
 <head>
   
   <% host = request.local? ? "localhost" : "fallingfruit.org" %>
+  <% if host == "localhost" %>
+    <meta name="google" value="notranslate">
+  <% end %>
   
   <!-- Metadata -->
   <title>Falling Fruit</title>
@@ -64,7 +67,10 @@
   
   <!-- Recaptcha -->
   <script type="text/javascript" src="//www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+  
+  <!-- Helper JS functions -->
   <script type="text/javascript">
+    // Show recaptcha
     function show_recaptcha(element) {
       Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
     }
@@ -85,6 +91,16 @@
           }
         }
       }
+    }
+    // URL parameter add/edit
+    function add_url_parameter(url, name, value) {
+      var pattern = new RegExp('(' + name + '=).*?(&|$|\/|^)')
+      if (url.search(pattern) > -1) {
+        url = url.replace(pattern, '$1' + value + '$2');
+      } else {
+        url += (url.indexOf('?') > 0 ? '&' : '?') + name + '=' + value;
+      }
+      return url
     }
   </script>
 
@@ -122,10 +138,10 @@
   <!-- FIXME: Redirect as needed to /fallingfruit.org -->
   <div id="locale">
     <select id="locale_select">
-      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
-      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
       <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
-      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option>
+      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
+      <!-- <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option> -->
+      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
     </select>
   </div>
 
@@ -286,19 +302,10 @@
 
 <script type="text/javascript">
   jQuery(document).ready(function(){
-
     $("#locale_select").change(function(){
-      window.location.href = "?locale=" + $("#locale_select").val();
-      var val = $("#locale_select").val();
-      var url = window.location.href;
-      if(url.indexOf('?') > -1){
-        url += '&locale=' + val;
-      }else{
-        url += '?locale=' + val;
-      }
+      url = add_url_parameter(window.location.href, 'locale', $("#locale_select").val())
       window.location.href = url;
     });
-
   });
 </script>
 

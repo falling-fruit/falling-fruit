@@ -134,7 +134,7 @@ task(:wikipedia_links => :environment) do
       end
       
       # Fetch page
-      url = "http://en.wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title.split('/').last.gsub(" ","%20")
+      url = "http://en.wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title.gsub(" ","%20")
       page = JSON.parse(open(url).read)
       if (page.has_key?("parse") and page["parse"].has_key?("title"))
         en_title = page["parse"]["title"]
@@ -151,7 +151,7 @@ task(:wikipedia_links => :environment) do
           csv << [t.id, t.name, t.scientific_name, l["lang"], l["*"], l["url"]]
         }
       end
-      
+
       # Sleep
       sleep 0.1
     }

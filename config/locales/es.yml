@@ -265,7 +265,7 @@ es:
       fruit: Frutas
       fruiting:
       - Floración
-      - La fructificación
+      - Fructificación
       - Maduro
       have_you_visited_html: ¿Ha visitado esta fuente? Añada un <a href="/observations/new?location_id=%{id}" data-ajax="false" rel="external" title="Opina sobre este lugar" id="add_review">comentario</a>
       january_to_december: Enero - Diciembre
