@@ -154,7 +154,7 @@
  		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="<%= I18n.t("locations.infowindow.see_this_location_in_streetview") %>"><%= I18n.t("locations.infowindow.street") %></a>
  		<% end %>
  		<!-- Link -->
- 		<a href="#" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="<%= I18n.t("locations.infowindow.url_for_this_location") %>"><%= I18n.t("locations.infowindow.link") %></a>
+      <%= link_to(I18n.t("locations.infowindow.link"),location_path(location.id),:onclick => "update_url('#location_link'); return false;",:title => I18n.t("locations.infowindow.url_for_this_location"), :id => "location_link") %>
     <!-- Edit -->
     <%= link_to edit_location_path(location.id) do %>
       <%= I18n.t("locations.infowindow.edit") %>
