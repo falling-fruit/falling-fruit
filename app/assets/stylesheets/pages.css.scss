@@ -221,12 +221,15 @@ div#searchbar {
 /*** Map ***/
 
 $headerHeight: $logobarHeight + $menubarHeight + $searchbarHeight + $searchbarBorder;
+$sidebarWidth: 293px;
+$sidebarBorder: 2px;
 
 div#mainmap_container {
   position: absolute;
   top: $headerHeight;
   bottom: 0;
-  width: 100%;
+  right: 0;
+  left: 0;
   z-index: -1;  /* So that if search bar controls wrap, they display above map. */
 }
 
@@ -235,11 +238,11 @@ div#sidebar_container {
   top: $headerHeight;
   bottom: 0;
   left: 0;
-  width: 293px;
+  width: $sidebarWidth;
   z-index: -2;
   padding: 2px 0 0 5px;
   background: #EEE;
-  border-right: 2px solid #CCC;
+  border-right: $sidebarBorder solid #CCC;
 }
 
 div#sidebar{
@@ -248,22 +251,22 @@ div#sidebar{
     font-size: 12px;
     overflow: auto;
     display: none;
-    > ul{
+    > ul {
       background: #EEE ! important;
       padding: 0;
       border-bottom: 1px solid transparent;
-      li{
+      li {
         padding: 0;
         margin: 0;
         border: 1px solid transparent;
         border-radius: 0px;
-        a{
+        a {
           padding-right: 5px;
           padding-left: 5px;
           padding-top: 0px;
           padding-bottom: 0px;
           cursor: pointer;
-          span{
+          span {
             font-size: inherit;
           }
         }
@@ -288,7 +291,7 @@ div#sidebar{
       a:hover {
         color: #333;
       }
-      blockquote{
+      blockquote {
         margin-left: 1em;
         margin-right: 1em;
         padding-left: 1em;
@@ -303,6 +306,7 @@ div#sidebar{
   
 div#sidebar_button{
   position: absolute;
+  top: $headerHeight + 1px;
   left: 0px;
   font-size: 10px;
   font-weight: bold;
@@ -313,7 +317,7 @@ div#sidebar_button{
     color: #A0A0A0;
     padding: 5px;
     display: block;
-    &:hover{
+    &:hover {
     color: #666;
     }
   }

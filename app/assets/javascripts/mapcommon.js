@@ -942,7 +942,6 @@ function recenter_map_to_address() {
 	}
 
 	// Run geocoder for everything else
-	// FIXME: Localize!
 	geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			var bounds = results[0].geometry.viewport;
@@ -1021,19 +1020,17 @@ function add_bicycle_control(map) {
 // Adds Key Drag Zoom to the map (unless mobile device)
 // http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/
 function keyDragZoom(map) {
-	if (!mobile) {
-		map.enableKeyDragZoom({
-			visualEnabled: true,
-			visualPosition: google.maps.ControlPosition.LEFT,
-			visualPositionOffset: new google.maps.Size(35, 0),
-			visualPositionIndex: null,
-			visualSprite: "//maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
-			visualSize: new google.maps.Size(20, 20),
-			key: "shift",
-			boxStyle: {border: "1px solid #736AFF"},
-			veilStyle: {backgroundColor: "transparent", cursor: "crosshair"}
-		 });
-	}
+  map.enableKeyDragZoom({
+    visualEnabled: true,
+    visualPosition: google.maps.ControlPosition.LEFT,
+    visualPositionOffset: new google.maps.Size(35, 0),
+    visualPositionIndex: null,
+    visualSprite: "//maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
+    visualSize: new google.maps.Size(20, 20),
+    key: "shift",
+    boxStyle: {border: "1px solid #736AFF"},
+    veilStyle: {backgroundColor: "transparent", cursor: "crosshair"}
+   });
 }
 
 // Toggles on/off route controls below footer of location infowindow
@@ -1134,7 +1131,6 @@ function update_marker_address() {
 }
 
 // Update marker position from user-provided latitude and longitude
-// FIXME: Localize
 function update_marker_latlng() {
 	var lat = parseFloat($("#location_lat").val());
 	var lng = parseFloat($("#location_lng").val());
