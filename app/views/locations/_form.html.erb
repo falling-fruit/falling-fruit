@@ -16,7 +16,7 @@ jQuery(document).ready(function(){
 	});
 	
 	// Date observed
-  $("#observed_on").datepicker();
+  $("#location_observation_observed_on").datepicker();
   
   // Type selector
   $('#typeselect2').select2({
@@ -30,7 +30,7 @@ jQuery(document).ready(function(){
 	});
   
   // Quality rating slider        
-  var select = $( "#quality_rating" );
+  var select = $( "#location_observation_quality_rating" );
   if (select.length > 0) {
   var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
     min: 1,
@@ -41,14 +41,14 @@ jQuery(document).ready(function(){
       select[ 0 ].selectedIndex = ui.value - 1;
     }
   });
-  $( "#quality_rating" ).change(function() {
+  $( "#location_observation_quality_rating" ).change(function() {
     slider.slider( "value", this.selectedIndex + 1 );
   });
   select.hide();
 	}
 	
 	// Yield rating slider
-  var select2 = $( "#yield_rating" );
+  var select2 = $( "#location_observation_yield_rating" );
 	if (select2.length > 0) {
   var slider2 = jQuery( "<div id='slider'></div>" ).insertAfter( select2 ).slider({
     min: 1,
@@ -59,14 +59,14 @@ jQuery(document).ready(function(){
       select2[ 0 ].selectedIndex = ui.value - 1;
     }
   });
-  $( "#yield_rating" ).change(function() {
+  $( "#location_observation_yield_rating" ).change(function() {
     slider2.slider( "value", this.selectedIndex + 1 );
   });
   select2.hide();
 	}
 	
 	// Fruiting slider
-  var select3 = $( "#fruiting" );
+  var select3 = $( "#location_observation_fruiting" );
   if (select3.length > 0) {
   var slider3 = jQuery( "<div id='slider'></div>" ).insertAfter( select3 ).slider({
     min: 1,
@@ -77,7 +77,7 @@ jQuery(document).ready(function(){
       select3[ 0 ].selectedIndex = ui.value - 1;
     }
   });
-  $( "#fruiting" ).change(function() {
+  $( "#location_observation_fruiting" ).change(function() {
     slider3.slider( "value", this.selectedIndex + 1 );
   });
   select3.hide();
@@ -185,24 +185,23 @@ jQuery(document).ready(function(){
   </div>
   
   <!-- Observations -->
-  <% if @current_action == "new" or @current_action == "create" %>
-  <hr />
-  
   <details>
     <summary><%= I18n.t("locations.form.have_you") %></summary>
+
+    <%= f.fields_for :observation do |fo| %>
 
     <!-- Date -->
     <div class="field">
       <%= f.label I18n.t("locations.form.date_visited") %><br />
       <span class="subtext"><%= I18n.t("locations.form.date_subtext") %></span><br />
-      <%= text_field_tag(:observed_on) %>
+      <%= fo.text_field(:observed_on) %>
     </div>
   
     <!-- Fruiting -->
     <div class="field">
       <%= f.label I18n.t("locations.form.fruiting_status") %><br />
       <span class="subtext"><%= I18n.t("locations.form.fruiting_subtext") %></span><br />
-      <%= select_tag(:fruiting,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] })) %>
+      <%= fo.select(:fruiting,I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] },:include_blank => true) %>
       <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[2] %></div></div>
     </div>
   
@@ -210,7 +209,7 @@ jQuery(document).ready(function(){
     <div class="field">
       <%= f.label I18n.t("locations.form.quality") %><br />
       <span class="subtext"><%= I18n.t("locations.form.quality_subtext") %></span><br />
-      <%= select_tag(:quality_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
+      <%= fo.select(:quality_rating,I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] },:include_blank => true) %>
       <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
   
@@ -218,13 +217,27 @@ jQuery(document).ready(function(){
     <div class="field">
       <%= f.label I18n.t("locations.form.yield") %><br />
       <span class="subtext"><%= I18n.t("locations.form.yield_subtext") %></span><br />
-      <%= select_tag(:yield_rating,options_for_select([[nil,nil]] + I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] })) %>
+      <%= fo.select(:yield_rating,I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] },:include_blank => true) %>
       <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
     </div>
 
-  </details>
+    <!-- Photo -->
+    <div class="field">
+      <%= f.label I18n.t("locations.form.photo") %><br />
+      <span class="subtext"><%= I18n.t("locations.form.photo_subtext") %></span><br />
+      <%= fo.file_field :photo %>
+    </div>
+
+    <!-- Caption -->
+    <div class="field">
+      <%= f.label I18n.t("locations.form.photo_caption") %><br />
+      <%= fo.text_field :photo_caption, :size => "40" %>
+    </div>
+
   <% end %>
-    
+
+  </details>
+
   <hr />
   
   <!-- Captcha -->

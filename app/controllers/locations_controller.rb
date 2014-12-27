@@ -155,6 +155,7 @@ class LocationsController < ApplicationController
   # GET /locations/1/edit
   def edit
     @location = Location.find(params[:id])
+    @observation = Observation.new
     @lat = @location.lat
     @lng = @location.lng
     respond_to do |format|
@@ -166,7 +167,16 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     check_api_key!("api/locations/create") if request.format.json?
+    obs_params = params[:location].delete(:observation)
     @location = Location.new(params[:location])
+    unless obs_params.values.all?{|x| x.blank? }
+      @observation = nil
+      @observation = Observation.new(obs_params)
+      @observation.location = @location
+      @observation.author = @location.author
+      @observation.user = current_user if user_signed_in?
+    end
+
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
       if t.nil? 
@@ -193,32 +203,11 @@ class LocationsController < ApplicationController
     #  }
     #end
 
-    # create an observation if necessary
-    @obs = nil
-    if [:quality_rating,:yield_rating,:fruiting,:photo,:comment].collect{ |k| params[k].present? }.any?
-      @obs = Observation.new
-      @obs.quality_rating = params[:quality_rating].to_i unless params[:quality_rating].blank?
-      @obs.yield_rating = params[:yield_rating].to_i unless params[:yield_rating].blank?
-      @obs.fruiting = params[:fruiting].to_i unless params[:fruiting].blank?
-      @obs.comment = params[:comment] unless params[:comment].blank?
-      unless params[:photo].blank?
-      	@obs.photo_caption = params[:photo_caption].to_i unless params[:photo_caption].blank?
-      end
-      if params[:observed_on].empty?
-        @obs.observed_on = Date.today
-      else
-        @obs.observed_on = Timeliness.parse(params[:observed_on], :format => 'mm/dd/yyyy')
-      end
-      @obs.location = @location
-      @obs.user = current_user if user_signed_in?
-      @obs.author = @location.author
-    end
-
     log_api_request("api/locations/create",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-      if test and @location.save and (@obs.nil? or @obs.save)
+      if test and @location.save and (@observation.nil? or @observation.save)
         cluster_increment(@location)
         log_changes(@location,"added")
         expire_things
@@ -241,6 +230,12 @@ class LocationsController < ApplicationController
   def update
     check_api_key!("api/locations/update") if request.format.json?
     @location = Location.find(params[:id])
+    @observation = nil
+    unless params[:location][:observation].values.all?{|x| x.blank? }
+      @observation = Observation.new(params[:location][:observation])
+      @observation.location = @location
+    end
+    params[:location].delete(:observation)
 
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
@@ -271,7 +266,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-      if test and @location.update_attributes(params[:location]) and lt_update_okay
+      if test and @location.update_attributes(params[:location]) and lt_update_okay and (@observation.nil? or @observation.save)
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_type_others,former_location)
         cluster_increment(@location)
         expire_things
