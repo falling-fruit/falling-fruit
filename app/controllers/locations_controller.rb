@@ -167,10 +167,27 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     check_api_key!("api/locations/create") if request.format.json?
-    obs_params = params[:location].delete(:observation)
+    obs_params = params[:location][:observation]
+    params[:location].delete(:observation)
     @location = Location.new(params[:location])
-    unless obs_params.values.all?{|x| x.blank? }
-      @observation = nil
+    @observation = nil
+    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
+      # deal with photo data in expected JSON format
+      # (as opposed to something already caught and parsed by paperclip)
+      unless obs_params["photo_data"].nil?
+        tempfile = Tempfile.new("fileupload")
+        tempfile.binmode
+        dc,data = obs_params["photo_data"]["data"].split(/,/)
+        tempfile.write(Base64.decode64(data))
+        tempfile.rewind
+        uploaded_file = ActionDispatch::Http::UploadedFile.new(
+          :tempfile => tempfile,
+          :filename => obs_params["photo_data"]["name"],
+          :type => obs_params["photo_data"]["type"]
+        )
+        obs_params[:photo] = uploaded_file
+        obs_params.delete(:photo_data)
+      end
       @observation = Observation.new(obs_params)
       @observation.location = @location
       @observation.author = @location.author
@@ -186,22 +203,6 @@ class LocationsController < ApplicationController
       end
     } if params[:types].present?
     @location.user = current_user if user_signed_in?
-
-    #unless params["photos"].nil? or params["photos"].empty?
-    #  params["photos"].each_with_index{ |p,i|
-    #    tempfile = Tempfile.new("fileupload")
-    #    tempfile.binmode
-    #    dc,data = p["data"].split(/,/)
-    #    tempfile.write(Base64.decode64(data))
-    #    tempfile.rewind
-    #    uploaded_file = ActionDispatch::Http::UploadedFile.new(
-    #      :tempfile => tempfile,
-    #      :filename => p["name"],
-    #      :type => p["type"]
-    #    )
-    #    @donation.photos << DonationPhoto.new(photo:uploaded_file,receipt_worthy:p["receipt_worthy"],donation_detail_id:@donation_detail.id)
-    #  }
-    #end
 
     log_api_request("api/locations/create",1)
     respond_to do |format|
@@ -230,12 +231,29 @@ class LocationsController < ApplicationController
   def update
     check_api_key!("api/locations/update") if request.format.json?
     @location = Location.find(params[:id])
+    obs_params = params[:location][:observation]
+    params[:location].delete(:observation)
     @observation = nil
-    unless params[:location][:observation].values.all?{|x| x.blank? }
-      @observation = Observation.new(params[:location][:observation])
+    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
+      # deal with photo data in expected JSON format
+      # (as opposed to something already caught and parsed by paperclip)
+      unless obs_params["photo_data"].nil?
+        tempfile = Tempfile.new("fileupload")
+        tempfile.binmode
+        dc,data = obs_params["photo_data"]["data"].split(/,/)
+        tempfile.write(Base64.decode64(data))
+        tempfile.rewind
+        uploaded_file = ActionDispatch::Http::UploadedFile.new(
+          :tempfile => tempfile,
+          :filename => obs_params["photo_data"]["name"],
+          :type => obs_params["photo_data"]["type"]
+        )
+        obs_params[:photo] = uploaded_file
+        obs_params.delete(:photo_data)
+      end
+      @observation = Observation.new(obs_params)
       @observation.location = @location
     end
-    params[:location].delete(:observation)
 
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
