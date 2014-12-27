@@ -1,5 +1,4 @@
 <%= javascript_include_tag "application" %>
-<%= stylesheet_link_tag "shadowbox" %>
 <%= stylesheet_link_tag "jquery.ui.tabs" %>
 <%= stylesheet_link_tag "base" %>
 
@@ -29,7 +28,13 @@
 <script type="text/javascript" charset="utf-8">
   // Mobile state variable (since embed is not wrapped into application.html)
   var mobile = false;
+  // Load I18n locale into JS
+  I18n.defaultLocale = "<%= I18n.default_locale %>";
+  I18n.locale = "<%= I18n.locale %>";  
 </script>
+<%= stylesheet_link_tag "shadowbox" %>
+<%= javascript_include_tag "shadowbox-i18n" %>
+<%= javascript_include_tag "shadowbox-infowindow" %>  
 <%= render 'map_includes' %>
 <script type="text/javascript" charset="utf-8">
 
