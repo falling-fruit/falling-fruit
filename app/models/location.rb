@@ -6,6 +6,8 @@ class Location < ActiveRecord::Base
   belongs_to :import
   belongs_to :user
 
+  accepts_nested_attributes_for :observations, :reject_if => :all_blank
+
   validates :type_ids, :presence => true, :if => proc{|o| o.type_others.empty? }
   validates :type_others, :presence => true, :if => proc{|o| o.type_ids.empty? }
   validates :lat, numericality: {greater_than_or_equal_to: -85.0, less_than_or_equal_to: 85.0, allow_nil: false}
@@ -14,7 +16,7 @@ class Location < ActiveRecord::Base
 	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
                   :no_season, :unverified, :access, :type_ids, :type_others, :import_id, :photo_url, :user, :user_id,
-                  :category_mask
+                  :category_mask, :observations_attributes, :destroyed?
   attr_accessor :import_link
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   reverse_geocoded_by :lat, :lng do |obj,results|
@@ -36,7 +38,7 @@ class Location < ActiveRecord::Base
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
   after_initialize :default_values
 
-  public 
+  public
 
   # csv support
   comma do

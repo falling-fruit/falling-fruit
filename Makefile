@@ -15,8 +15,10 @@ export:
 	#sudo su postgres -c "psql -f /tmp/export_csv.sql fallingfruit_db"
 	#cp /tmp/ff.csv.bz2 public/data.csv.bz2
 	time bundle exec rake export:data
-	rm -f public/data.csv.bz2
-	bzip2 public/data.csv
+	rm -f public/locations.csv.bz2
+	bzip2 public/locations.csv
+	rm -f public/types.csv.bz2
+	bzip2 public/types.csv
 
 clusters:
 	bundle exec rake db:migrate:redo VERSION=20131110213005
@@ -25,8 +27,10 @@ devserver:
 	bundle exec thin -e development start
 
 syncfrombackup:
-	scp erichtho:/var/www/falling-fruit/db/backups/fallingfruit.1.sql ./
+	scp erichtho:/var/www/falling-fruit/db/backups/fallingfruit.latest.sql ./
 	bash util/load_backup.sh fallingfruit.1.sql
+	sudo su postgres -c "dropdb fallingfruit_test_db"
+	sudo su postgres -c "createdb fallingfruit_test_db -T fallingfruit_new_db -O fallingfruit_user"
 
 shapes:
 	pgsql2shp -u fallingfruit_user -h localhost -f $(DATETIME)_cluster_polygon.shp fallingfruit_db 'SELECT zoom, muni, count, created_at, updated_at, ST_TRANSFORM(ST_SETSRID(polygon,900913),4326) FROM clusters ORDER BY zoom ASC, muni ASC'
