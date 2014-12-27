@@ -1,14 +1,8 @@
-<p>Welcome to Falling Fruit!</p>
-
-<p>Before you sign in again you will need to confirm your account email (<%= @resource.email %>) through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
-
-<p>Falling Fruit is a user-powered website, so if you have something to add or improve, please do.</p>
-
-<p>Happy foraging!</p>
-
+<%= I18n.t("devise.fallingfruit.mailer.confirmation_instructions_html",
+           :email => @resource.email,
+           :link => link_to(I18n.t("devise.fallingfruit.confirm_account"),
+                            confirmation_url(@resource, :confirmation_token => @resource.confirmation_token))).html_safe %>
 <p>
---<br>
-Caleb &amp; Ethan | FallingFruit.org
+  --<br />
+  Caleb &amp; Ethan | fallingfruit.org
 </p>

@@ -6,38 +6,65 @@
   
   <!-- Metadata -->
   <title>Falling Fruit</title>
-  <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, agriculture, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
+  <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
+  <meta property="og:site_name" content="Falling Fruit" />
   
+  <!-- FIXME: Less hacky, and filter out active og:locale:alternate tags. Facebook is stupid for not allowing language only locales -->
+  <% if (I18n.locale == :en) %>
+    <meta property="og:locale" content="en_US" />
+  <% elsif (I18n.locale == :fr) %>
+    <meta property="og:locale" content="fr_FR" />
+  <% end %>
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+ 
   <% if @freegan %>
-    <meta property="og:title" content="World Dumpster Map" />
-    <meta property="og:site_name" content="Falling Fruit" />
+    <meta property="og:title" content="<%= I18n.t("meta.freegan_title") %>" />
     <meta property="og:url" content="https://fallingfruit.org/dumpsters" />
     <meta property="og:image" content="https://fallingfruit.org/og/dumpster-sticker.png" />
     <meta property="og:image" content="https://fallingfruit.org/og/dumpster-sticker-01.jpg" />
     <meta property="og:image" content="https://fallingfruit.org/og/dumpster-haul.jpg" />
-    <meta property="og:description" content="By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
-    <meta name="description" content="By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead." />
+    <meta property="og:description" content="<%= I18n.t("meta.freegan_description") %>" />
+    <meta name="description" content="<%= I18n.t("meta.freegan_description") %>" />
     
   <% else %>
     <meta property="og:title" content="Falling Fruit" />
-    <meta property="og:site_name" content="Falling Fruit" />
     <meta property="og:url" content="https://fallingfruit.org/" />
     <meta property="og:image" content="https://fallingfruit.org/og/amittai.jpg" />
     <meta property="og:image" content="https://fallingfruit.org/og/apple-haul.jpg" />
-    <meta property="og:description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
-    <meta name="description" content="An urban harvesting map that brings together community and city datasets from all over the internet. Find, add, and edit information on the wild edibles growing in your neighborhood." />
+    <meta property="og:description" content="<%= I18n.t("meta.forager_description") %>" />
+    <meta name="description" content="<%= I18n.t("meta.forager_description") %>" />
   <% end %>
 
-  <!-- Scripts & Styles -->
+  <!-- Stylesheets -->
   <%= stylesheet_link_tag "application" %>
   <% if @freegan %>
     <%= stylesheet_link_tag "freegan" %>
   <% end %>
+  
+  <!-- Javascript -->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript">
+    // Mobile state variable
+    var mobile = false;
+		
+		// Load I18n locale into JS
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+
+    // resize content on header resize
+    $(window).resize(function() {
+      resize_content();
+    });
+  </script>
+  <!-- Load infowindow only after locale is set -->
+  <%= javascript_include_tag "shadowbox-i18n" %>
+  <%= javascript_include_tag "shadowbox-infowindow" %>
+  
+  <!-- Recaptcha -->
   <script type="text/javascript" src="//www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript">
-    // captcha
     function show_recaptcha(element) {
       Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
     }
@@ -59,17 +86,13 @@
         }
       }
     }
-    $(window).resize(function() {
-      resize_content();
-    });
-    // Mobile state variable
-    var mobile = false;
   </script>
 
 </head>
 <body onload="resize_content();">
 
- <div id="problem_modal" title="<%= I18n.t("layouts.application.problem_modal_title") %>"></div> <!-- Problems modal gets injected into this div. -->
+<!-- Problems modal -->
+ <div id="problem_modal" title="<%= I18n.t("layouts.application.problem_modal_title") %>"></div>
 
  <!-- Alerts -->
  <% if notice or alert %>
@@ -94,20 +117,37 @@
 <!-- Logo Bar -->
 <div id="logobar">
 
- <!-- AddThis Buttons -->
+	<!-- Locale -->
+  <!-- FIXME: Replace locale tags with flag sprites -->
+  <!-- FIXME: Redirect as needed to /fallingfruit.org -->
+  <div id="locale">
+    <select id="locale_select">
+      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
+      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
+      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
+      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option>
+    </select>
+  </div>
+
+ <!-- Sharing -->
+ 	<script type="text/javascript">
+		var addthis_config = {
+		  // list at http://support.addthis.com/customer/portal/articles/381240-languages
+			ui_language: I18n.locale.substring(0,2)
+		}
+	</script>
 	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
-		
-		<a class="addthis_button_facebook_follow" addthis:userid="FallingFruit">
-			<img src="/social/facebook.svg" />
+		<a href="https://www.facebook.com/FallingFruit" title="Facebook" >
+			<img src="/social/facebook.svg" alt="Facebook" />
 		</a>
-		<a class="addthis_button_twitter_follow" addthis:userid="Falling_Fruit">
-			<img src="/social/twitter.svg" />
+		<a href="https://twitter.com/Falling_Fruit" title="Twitter">
+			<img src="/social/twitter.svg" alt="Twitter" />
 		</a>
-		<a class="addthis_button_instagram_follow" addthis:userid="fallingfruit">
-			<img src="/social/instagram.svg" />
+		<a href="http://instagram.com/fallingfruit" title="Instagram">
+			<img src="/social/instagram.svg" alt="Instagram" />
 		</a>
-		<a class="addthis_button_google_follow" addthis:url="https://plus.google.com/114324461382595896953/about">
-			<img src="/social/gplus.svg" />
+		<a href="https://plus.google.com/114324461382595896953/about" title="Google+">
+			<img src="/social/gplus.svg" alt="Google+"/>
 		</a>
 		<a class="addthis_button_compact" addthis:url="https://fallingfruit.org">
 			<img src="/social/addthis.png" />
@@ -142,61 +182,68 @@
 			<%= link_to(I18n.t("layouts.application.menu.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(I18n.t("layouts.application.menu.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
 		<% end %>
  </div>
+ 
+ <!-- Menu -->
+ <% basepath = path.split('?')[0] %>
  <div id="menu">
     <ul>
     
     <!-- Map -->
     <% unless user_signed_in? %>
-      <li><%= link_to(I18n.t("layouts.application.menu.map"), root_path, :id => "maplink", :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to(I18n.t("layouts.application.menu.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
     <% else %>
-      <li><%= link_to(I18n.t("layouts.application.menu.home"), '/home', :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
-      <li><%= link_to(I18n.t("layouts.application.menu.world"), root_path, :class => ([root_path,'/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to(I18n.t("layouts.application.menu.home"), home_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to(I18n.t("layouts.application.menu.world"), root_path, :class => (['/','/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
     <% end %>
     
     <!-- About -->
-    <li><%= link_to(I18n.t("layouts.application.menu.about"), '/about', :class => (['/about','/datasets','/sharing','/press'].include?(path)) ? "currentpage" : "notcurrentpage") %>
+    <li><%= link_to(I18n.t("layouts.application.menu.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
     <ul>
-      <li><%= link_to(I18n.t("layouts.application.menu.the_project"), '/about', :class => (path == '/about') ? 'currentpage' : 'notcurrentpage') %>
-      <li><%= link_to(I18n.t("layouts.application.menu.imported_datasets"), '/datasets', :class => (path == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to(I18n.t("layouts.application.menu.sharing_the_harvest"), '/sharing', :class => (path == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to(I18n.t("layouts.application.menu.in_the_press"), '/press', :class => (path == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to(I18n.t("layouts.application.menu.the_project"), about_path, :class => (basepath == '/about') ? 'currentpage' : 'notcurrentpage') %>
+      <li><%= link_to(I18n.t("layouts.application.menu.imported_datasets"), datasets_path, :class => (basepath == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to(I18n.t("layouts.application.menu.sharing_the_harvest"), sharing_path, :class => (basepath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to(I18n.t("layouts.application.menu.in_the_press"), press_path, :class => (basepath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
     </ul>
-    <li><%= link_to(I18n.t("layouts.application.menu.data"), '/data', :class => (path == '/data') ? "currentpage" : "notcurrentpage") %></li>
-    <li><%= link_to(I18n.t("locations.sidebar.activity"), '/changes', :class => (path == '/changes') ? "currentpage" : "notcurrentpage") %></li>
+    
+    <!-- Data -->
+    <li><%= link_to(I18n.t("layouts.application.menu.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
+    
+    <!-- Activity -->
+    <li><%= link_to(I18n.t("locations.sidebar.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- Routes -->
 		<% if user_signed_in? %>
-			<li><%= link_to(I18n.t("layouts.application.menu.routes"), routes_path, :class => ((path == routes_path or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
+			<li><%= link_to(I18n.t("layouts.application.menu.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
 			<% if current_user.is? :admin %>
 				
 				<!-- Trouble -->
-				<li><%= link_to(I18n.t("layouts.application.menu.trouble"), problems_path, :class => (path == problems_path) ? "currentpage" : "notcurrentpage") %></li>
+				<li><%= link_to(I18n.t("layouts.application.menu.trouble"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
 				
 				<!-- Types -->
-				<li><%= link_to(I18n.t("layouts.application.menu.types"), types_path, :class => (path.include? types_path) ? "currentpage" : "notcurrentpage") %>
+				<li><%= link_to(I18n.t("layouts.application.menu.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
 				<ul>
-						<li><%= link_to(I18n.t("layouts.application.menu.approved_types"), types_path, :class => (path == types_path) ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(I18n.t("layouts.application.menu.pending_types"), grow_types_path, :class => (path == grow_types_path) ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(I18n.t("layouts.application.menu.new_type"), new_type_path, :class => (path == new_type_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to(I18n.t("layouts.application.menu.approved_types"), types_path, :class => (basepath == '/types') ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to(I18n.t("layouts.application.menu.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to(I18n.t("layouts.application.menu.new_type"), new_type_path, :class => (basepath == '/types/new') ? "currentpage" : "notcurrentpage") %></li>
 				</ul>
 				</li>
 		
 				<!-- Imports -->
-				<li><%= link_to(I18n.t("layouts.application.menu.imports"), imports_path, :class => (path.include? imports_path or path == import_locations_path) ? "currentpage" : "notcurrentpage") %>
+				<li><%= link_to(I18n.t("layouts.application.menu.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
 				<ul>
-						<li><%= link_to(I18n.t("layouts.application.menu.list_imports"), imports_path, :class => (request.fullpath == imports_path) ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(I18n.t("layouts.application.menu.new_import"), import_locations_path, :class => (request.fullpath == import_locations_path) ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to(I18n.t("layouts.application.menu.list_imports"), imports_path, :class => (basepath == '/imports') ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to(I18n.t("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
 				</ul>
 				</li>
 		
 				<!-- Users -->
-				<li><%= link_to(I18n.t("layouts.application.menu.users"), users_path, :class => (request.fullpath == users_path) ? "currentpage" : "notcurrentpage") %></li>
+				<li><%= link_to(I18n.t("layouts.application.menu.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
 			<% end %>
 		<% end %>
 		
-		<li><%= link_to(I18n.t("layouts.application.menu.add_source"), new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %>
-    <!-- Click on map! -->
+		<!-- Add Source -->
+		<li><%= link_to(I18n.t("layouts.application.menu.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
 				<span><%= I18n.t("layouts.application.or_right-click_on_map") %></span>
 			<% end %>
@@ -226,8 +273,7 @@
  
 	 <!-- Footer -->
 	 <div id="footer">
-	 <!-- FIXME: change language based on locale -->
-		<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en"><%= I18n.t("layouts.application.copyleft") %></a> (c) <%= Time.now.year %> Falling Fruit
+		<a href="http://creativecommons.org/licenses/by-nc/3.0/"><%= I18n.t("layouts.application.copyleft") %></a> (c) <%= Time.now.year %> Falling Fruit
 	 </div>
 	</div>
 </div>
@@ -237,6 +283,24 @@
 	<%= yield %>
 
 <% end %>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+
+    $("#locale_select").change(function(){
+      window.location.href = "?locale=" + $("#locale_select").val();
+      var val = $("#locale_select").val();
+      var url = window.location.href;
+      if(url.indexOf('?') > -1){
+        url += '&locale=' + val;
+      }else{
+        url += '?locale=' + val;
+      }
+      window.location.href = url;
+    });
+
+  });
+</script>
 
 <!-- Per Page Javascripts -->
 <%= yield :page_scripts %>

@@ -1,15 +1,14 @@
-<%= f.label :foraging_range, I18n.t("devise.fallingfruit.foraging_range") %><br /><br/>
+<%= f.label :foraging_range, I18n.t("devise.fallingfruit.foraging_range") + ":" %><br/><br/>
 
-<div id="range_tabs">
+<div id="range_tabs" >
 
   <!-- Tab Menu -->
   <ul>
-    <li><a href="#tab-1"><%= I18n.t("registrations.range_map.set_by_address",:default => "Address and Radius") %></a></li>
-    <li><a href="#tab-2"><%= I18n.t("registrations.range_map.set_by_drawing",:default => "Draw a Shape (Advanced)") %></a></li>
+    <li><%= link_to '#range-radius' do %><%= I18n.t("devise.fallingfruit.range_by_radius") %><% end %></li>
+    <li><%= link_to '#range-map' do %><%= I18n.t("devise.fallingfruit.range_by_map") %><% end %></li>
   </ul>
 
-  <!-- Info Tab -->
-  <div id="tab-1">
+  <div id="range-radius">
 
     <div class="field">
       <%= f.label :address, I18n.t("devise.fallingfruit.address") %><br/>
@@ -20,26 +19,23 @@
       <%= f.label :foraging_range_radius, I18n.t("devise.fallingfruit.foraging_radius") %><br/>
       <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_radius_subtext") %></span><br />
       <%= f.text_field :range_radius, :size => 10 %>
-      <%= f.select(:range_radius_unit,options_for_select(["km","miles"])) %>
+      <%= f.select(:range_radius_unit,options_for_select(["km", I18n.t("devise.fallingfruit.miles")])) %>
     </div>
 
   </div>
-  <div id="tab-2">
+  <div id="range-map">
 
-    <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_range_subtext") %></span><br/>
+    <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_map_subtext") %></span><br/>
       <input type="text" placeholder="<%= I18n.t("devise.fallingfruit.address") %>" name="address" id="address">
       <button type="button" onclick="recenter_range_map_to_address();return false;"><%= I18n.t("devise.fallingfruit.zoom_to_address") %></button>
       <button type="button" onclick="clear_range_overlays();return false;"><%= I18n.t("devise.fallingfruit.clear_map") %></button>
-    <div id="map" style="width:100%;height:400px;"></div>
+    <div id="map"></div>
 
   </div>
-
 </div>
 
 <% content_for :page_scripts do %>
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?libraries=drawing&amp;sensor=false"></script>
-<script src="/assets/wicket.js" type="text/javascript"></script>
-<script src="/assets/wicket-gmap3.js" type="text/javascript"></script>
+<%= render :partial => "/locations/map_includes" %>
 <%= javascript_include_tag "mapcommon" %>
 <script type="text/javascript">
 
@@ -150,6 +146,7 @@ function recenter_range_map_to_address() {
         draggable: false
       });
     } else {
+      // FIXME (localize):
       alert("Geocode was not successful for the following reason: " + status);
     }
   });

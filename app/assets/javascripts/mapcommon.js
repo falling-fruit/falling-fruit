@@ -64,7 +64,7 @@
 
     // Stamen Toner (B&W) map
     var tonerType = new google.maps.StamenMapType(toner);
-    tonerType.name = "B&W";
+    tonerType.name = "B+W";
     map.mapTypes.set(toner, tonerType);
     if(type == toner){
       update_attribution();
@@ -280,24 +280,24 @@
       if(bounds == undefined) return '';
       var ne = bounds.getNorthEast();
       var sw = bounds.getSouthWest();
-      bstr = 'nelat=' + ne.lat() + '&nelng=' + ne.lng() +
+      bstr = '&nelat=' + ne.lat() + '&nelng=' + ne.lng() +
              '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
       return bstr;
   }
 
   function do_clusters(bounds,zoom,muni,type_filter) {
       var bstr = bounds_to_query_string(bounds);
-      var gstr = 'method=grid&grid=' + zoom;
-      if (muni) mstr = '';
-      else mstr = 'muni=0&';
+      var gstr = '&method=grid&grid=' + zoom;
+      if (muni) mstr = '&muni=1';
+        else mstr = '&muni=0';
       var tstr = '';
       if(type_filter != undefined){
-        tstr = '&t='+type_filter;
+        tstr = '&t=' + type_filter;
       }
       if(pb != null) pb.start(200);
       var request = $.ajax({
         type: 'GET',
-        url: '/api/locations/cluster.json?api_key=EEQRBBUB&' + mstr + gstr + '&' + bstr + tstr,
+        url: '/api/locations/cluster.json?api_key=EEQRBBUB' + mstr + gstr + bstr + tstr,
         dataType: 'json'
       });
       request.done(function(json){
@@ -316,12 +316,12 @@
   
   function do_cluster_types(bounds,zoom,muni) {
 		var bstr = bounds_to_query_string(bounds);
-		var gstr = 'method=grid&grid=' + zoom;
-		if (muni) mstr = '';
-		else mstr = 'muni=0&';
+		var gstr = '&method=grid&grid=' + zoom;
+		if (muni) mstr = '&muni=1';
+      else mstr = '&muni=0';
 		var request = $.ajax({
 			type: 'GET',
-			url: '/api/locations/cluster_types.json?api_key=EEQRBBUB&' + mstr + gstr + '&' + bstr,
+			url: '/api/locations/cluster_types.json?api_key=EEQRBBUB' + mstr + gstr + bstr,
 			dataType: 'json'
 		});
 		request.done(function(json){		    
@@ -447,7 +447,7 @@
   }
 
   function open_problem_modal(id){
-    $('#problem_modal').load('/problems/new?location_id='+id).dialog({
+    $('#problem_modal').load('/problems/new?location_id=' + id + '&locale=' + I18n.locale).dialog({
       autoOpen:true,
       width:425, 
       modal:true, 
@@ -569,13 +569,14 @@ function open_tab_3() {
   function open_marker_by_id(id) {
     var cstr = '';
     if (cats != undefined) {
-      cstr = 'c='+cats;
+      cstr = '&c=' + cats;
     }
+    lstr = '&locale=' + I18n.locale;
     for (var i = 0; i < markersArray.length; i++) {
       if (markersArray[i].id == id) {
         var requestHtml = $.ajax({
           type: 'GET',
-          url: '/locations/' + id + '/infobox?' + cstr,
+          url: '/locations/' + id + '/infobox?' + cstr + lstr,
           dataType: 'html'
         });
         requestHtml.done(function(html){
@@ -619,13 +620,9 @@ function open_tab_3() {
       if(labelsOn) labelize_markers();
       search_filter(last_search);
       // open infobox
-      var cstr = '';
-      if (cats != undefined) {
-        cstr = 'c='+cats;
-      }
       var requestHtml = $.ajax({
         type: 'GET',
-        url: '/locations/' + id + '/infobox?' + cstr,
+        url: '/locations/' + id + '/infobox?' + cstr + lstr,
         dataType: 'html'
       });
       requestHtml.done(function(html){
@@ -667,11 +664,12 @@ function open_tab_3() {
       if (openInfoWindow != null) openInfoWindow.close();
       var cstr = '';
       if (cats != undefined) {
-        cstr = 'c='+cats;
+        cstr = '&c=' + cats;
       }
+      lstr = '&locale=' + I18n.locale;
       var requestHtml = $.ajax({
         type: 'GET',
-        url: '/locations/' + id + '/infobox?' + cstr,
+        url: '/locations/' + id + '/infobox?' + cstr + lstr,
         dataType: 'html'
       });
       requestHtml.done(function(html) {
@@ -716,20 +714,20 @@ function open_tab_3() {
   function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     if(markersArray.length >= markersMax) return;
     var bstr = bounds_to_query_string(bounds);
-    mstr = 0;
-    if(muni) mstr = 1;
+    if (muni) mstr = '&muni=1';
+      else mstr = '&muni=0';
     var tstr = '';
-    var cstr = '';
     if (type_filter != undefined) {
-      tstr = '&t='+type_filter;
+      var tstr = '&t=' + type_filter;
     }
+    var cstr = '';
     if (cats != undefined) {
-      cstr = '&c='+cats;
+      cstr = '&c=' + cats;
     }
     if(pb != null) pb.start(200);
     var request = $.ajax({
       type: 'GET',
-      url: '/api/locations/markers.json?api_key=EEQRBBUB&muni=' + mstr + '&' + bstr + tstr + cstr,
+      url: '/api/locations/markers.json?api_key=EEQRBBUB' + mstr + bstr + tstr + cstr,
       dataType: 'json'
     });
     request.done(function(json){
@@ -797,7 +795,7 @@ function open_tab_3() {
   }
 
   // Add a marker with an open infowindow
-  function place_add_marker(latlng, text) {
+  function place_add_marker(latlng) {
     var marker = new google.maps.Marker({
         position: latlng, 
         map: map,
@@ -805,8 +803,8 @@ function open_tab_3() {
     });
     markersArray.push({marker: marker, id: -1, type: "point"});
     // Set and open infowindow
-    var html = $('<div id="addmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + 
-                 '" data-ajax="false" rel="external">' + decodeHtml(text) + '</div>');
+    var html = $('<div id="addmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + '&locale=' + I18n.locale +
+                 '" data-ajax="false" rel="external">' + I18n.t("locations.index.addmarker_html") + '</div>');
     var infowindow = new google.maps.InfoWindow({
     	content: html[0]
     });
@@ -951,7 +949,7 @@ function recenter_map_to_address() {
 			apply_geocode(latlng,bounds);
 			return;
 		} else {
-			alert("Geocode was not successful for the following reason: " + status);
+			alert(I18n.t("locations.errors.geocode_failed") + status);
 		}
 	});
 }
@@ -995,8 +993,7 @@ function add_bicycle_control(map) {
   bicycleControl = document.createElement('div');
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(bicycleControl);
   bicycleControl.id = 'maptype_button';
-  bicycleControl.title = 'Show bicycle map';
-  bicycleControl.innerHTML = 'Bicycling';
+  bicycleControl.innerHTML = I18n.t("routes.show.bicycling");
 
   // Initialize map with control off
   bicycleLayerOn = false;
@@ -1023,23 +1020,17 @@ function add_bicycle_control(map) {
 // Adds Key Drag Zoom to the map (unless mobile device)
 // http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/
 function keyDragZoom(map) {
-	if (!mobile) {
-		map.enableKeyDragZoom({
-			visualEnabled: true,
-			visualPosition: google.maps.ControlPosition.LEFT,
-			visualPositionOffset: new google.maps.Size(35, 0),
-			visualPositionIndex: null,
-			visualSprite: "//maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
-			visualSize: new google.maps.Size(20, 20),
-			visualTips: {
-			 off: "Turn on drag-zoom (or hold 'Shift' key)",
-			 on: "Turn off drag-zoom"
-			},
-			key: "shift",
-			boxStyle: {border: "1px solid #736AFF"},
-			veilStyle: {backgroundColor: "transparent", cursor: "crosshair"}
-		 });
-	}
+  map.enableKeyDragZoom({
+    visualEnabled: true,
+    visualPosition: google.maps.ControlPosition.LEFT,
+    visualPositionOffset: new google.maps.Size(35, 0),
+    visualPositionIndex: null,
+    visualSprite: "//maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
+    visualSize: new google.maps.Size(20, 20),
+    key: "shift",
+    boxStyle: {border: "1px solid #736AFF"},
+    veilStyle: {backgroundColor: "transparent", cursor: "crosshair"}
+   });
 }
 
 // Toggles on/off route controls below footer of location infowindow
@@ -1134,7 +1125,7 @@ function update_marker_address() {
 			}
 		// Otherwise, return geocoding errors
 		} else {
-			alert("Geocode was not successful for the following reason: " + status);
+			alert(I18n.t("locations.errors.geocode_failed") + status);
 		}
 	});
 }
@@ -1150,7 +1141,7 @@ function update_marker_latlng() {
 	// If latitude > 85, return error
 	// Google Maps cannot display lat > 85 properly, and lat > 85 breaks clusters.
 	if (Math.abs(lat) > 85) {
-	  alert("We do not support latitudes beyond 85 degrees (north or south).");
+	  alert(I18n.t("locations.errors.latitude_too_large"));
 	  return;
 	}
 	
@@ -1172,7 +1163,7 @@ function update_marker_latlng() {
   }
 }
 
-// FIXME: Super hacky way to decode html coming in as variable for I18n support
+// Decode html coming in as a string
 function decodeHtml(html) {
     var txt = document.createElement("textarea");
     txt.innerHTML = html;
@@ -1180,7 +1171,7 @@ function decodeHtml(html) {
 }
 
 // Initialize map marker (marker) and infowindow (nag)
-function place_edit_marker(lat,lng,text) {
+function place_edit_marker(lat,lng) {
 	
 	var latlng = new google.maps.LatLng(lat,lng)
 	
@@ -1197,11 +1188,10 @@ function place_edit_marker(lat,lng,text) {
     google.maps.event.addListenerOnce(marker, 'dragend', function() {
       navigator.geolocation.clearWatch(watchID);
       watchID = null;
-      alert('cleared');
     });
   }
 	// Infowindow
-	var html = $('<div id="editmarker">' + decodeHtml(text) + '</div>');
+	var html = $('<div id="editmarker">' + I18n.t("locations.index.editmarker_html") + '</div>');
 	var nag = new google.maps.InfoWindow({
 		content: html[0]
 	});

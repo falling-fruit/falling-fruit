@@ -98,14 +98,14 @@
   <% else %>
   <!-- Observation table -->
   	<% unless location.observations.length == 0 %>
-			<% unless location.nobs_months_flowering.length == 0 %>
-				<label><%= I18n.t("locations.infowindow.flower") %></label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+			<% unless location.nobs_months_flowering.length == 0 %>			
+				<label><%= I18n.t("locations.infowindow.fruiting")[0] %></label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
 			<% end %>
 			<% unless location.nobs_months_fruiting.length == 0 %>
-				<label><%= I18n.t("locations.infowindow.fruit") %></label> <%= location.nobs_months_fruiting.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+				<label><%= I18n.t("locations.infowindow.fruiting")[1] %></label> <%= location.nobs_months_fruiting.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
 			<% end %>
 			<% unless location.nobs_months_ripe.length == 0 %>
-				<label><%= I18n.t("locations.infowindow.ripe") %></label> <%= location.nobs_months_ripe.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+				<label><%= I18n.t("locations.infowindow.fruiting")[2] %></label> <%= location.nobs_months_ripe.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + I18n.t("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
 			<% end %>
 		<% end %>
   <% end %>
@@ -140,7 +140,9 @@
 	<tr>
  		<td id="controls">
  		<!-- Observation -->
-		<a href="/observations/new?location_id=<%= location.id %>" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.review_this_location") %>" id="add_review"><%= I18n.t("locations.infowindow.review") %></a>
+    <%= link_to new_observation_path(:location_id => location.id) do %>
+		  <%= I18n.t("locations.infowindow.review") %>
+    <% end %>
 		<% if not(!defined?($embed).nil? and $embed) %>
 		  <!-- Problem -->
       <a href="#" title="<%= I18n.t("locations.infowindow.report_a_problem") %>" id="problem_link" onclick="open_problem_modal(<%= location.id %>);"><%= I18n.t("locations.infowindow.report") %></a>
@@ -152,9 +154,11 @@
  		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="<%= I18n.t("locations.infowindow.see_this_location_in_streetview") %>"><%= I18n.t("locations.infowindow.street") %></a>
  		<% end %>
  		<!-- Link -->
- 		<a href="/locations/<%= location.id %>" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="<%= I18n.t("locations.infowindow.url_for_this_location") %>"><%= I18n.t("locations.infowindow.link") %></a>
+ 		<a href="#" data-ajax="false" rel="external" id="location_link" onclick="update_url('#location_link'); return false;" title="<%= I18n.t("locations.infowindow.url_for_this_location") %>"><%= I18n.t("locations.infowindow.link") %></a>
     <!-- Edit -->
-    <a href="/locations/<%= location.id %>/edit" data-ajax="false" rel="external" title="<%= I18n.t("locations.infowindow.edit_this_location") %>"><%= I18n.t("locations.infowindow.edit") %></a>
+    <%= link_to edit_location_path(location.id) do %>
+      <%= I18n.t("locations.infowindow.edit") %>
+    <% end %>
     <!-- Routes -->
  		<% if !mobile_device? and user_signed_in? %>
  			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="<%= I18n.t("locations.infowindow.toggle_route_controls") %>"><%= I18n.t("locations.infowindow.routes") %></a>
@@ -167,7 +171,7 @@
  		<!-- Author (source) -->
   	<td id="added_by"><%= I18n.t("locations.infowindow.by") %> <i style="padding-right:0.5em;"><%= (location.author.nil? or (location.author.strip.length == 0)) ? I18n.t("locations.infowindow.anonymous") : location.author %></i>
   	<% unless location.import.nil? %>
-			(<a href="/imports/<%= location.import.id %>" title="<%= I18n.t("locations.infowindow.citation_to_the_original_source") %>"><%= I18n.t("locations.infowindow.source") %></a>)
+			(<%= link_to import_path(location.import.id) do %><%= I18n.t("locations.infowindow.source") %><% end %>)
   	<% end %>
 		</td>
  	</tr>
@@ -248,7 +252,7 @@
 					<% end %>
 					<% unless o.fruiting.nil? %>
 					  <% unless o.yield_rating.nil? and o.quality_rating.nil? %>&middot;<% end %>
-						<label><%= I18n.t("locations.infowindow.status") %></label> <%= I18n.t("locations.infowindow.fruiting")[o.fruiting] %>
+						<%= I18n.t("locations.infowindow.fruiting")[o.fruiting] %>
 					<% end %>
 					<br />
 				</span>

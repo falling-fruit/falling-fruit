@@ -1,4 +1,6 @@
 FallingfruitWebapp::Application.configure do
+  default_url_options[:host] = "fallingfruit.org"
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # force ssl for devise stuff

@@ -2,10 +2,13 @@
 <%= I18n.t("pages.data.intro") %>:
 </p>
 
-<% if File.exists?(Rails.root.join("public","data.csv.bz2")) %>
+<% if File.exists?(Rails.root.join("public","locations.csv.bz2")) and File.exists?(Rails.root.join("public","types.csv.bz2")) %>
 		<blockquote>
-		<a href="/data.csv.bz2">data.csv.bz2</a> (<%= File.size(Rails.root.join("public","data.csv.bz2"))/(1024**2) %> MB)<br>
-		<i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","data.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+		<a href="/locations.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br>
+		<i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
+    <br>
+    <a href="/types.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024**2) %> MB)<br>
+    <i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 		</blockquote>
 <% else %>
 		<blockquote>
@@ -39,7 +42,7 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 %>
 
 <p>
-<%= I18n.t("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)) %>
+<%= I18n.t("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)).html_safe %>
 </p>
 <br/>
 
@@ -98,7 +101,7 @@ jQuery(document).ready(function(){
     jQuery('#type_summary').dataTable({
       "aaSorting": [[3,"desc"]],
       "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-						"iDisplayLength" : -1
+			"iDisplayLength" : -1
     });
 });
 </script>

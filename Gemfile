@@ -24,6 +24,7 @@ group :development do
   gem 'faker'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'nokogiri'
 end
 
 # Testing
@@ -64,6 +65,7 @@ gem 'activerecord-postgis-adapter'
 gem 'cancan'
 gem 'role_model'
 
+# pretty picture previewing
 gem 'shadowbox-rails'
 
 # For diffing/patching descriptions
@@ -74,7 +76,9 @@ gem 'i15r'
 gem 'i18n-tasks', '~> 0.7.2'
 gem 'devise-i18n'
 gem 'rails-i18n'
-
-gem 'postgres_ext'
-
 gem 'localeapp'
+gem 'world-flags'
+gem 'i18n-js'
+
+# Allows us to use postgres native types like arrays
+gem 'postgres_ext'

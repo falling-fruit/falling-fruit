@@ -114,7 +114,7 @@ class TypesController < ApplicationController
           }
           locs.uniq.each{ |loc|
             n += 1
-            ApplicationController.cluster_increment(loc,[@type.id])
+            cluster_increment(loc,[@type.id])
           }
           format.html { redirect_to grow_types_path, notice: "Type was successfully created and #{n} locations were updated to use this new type." }
           format.json { render json: @type, status: :created, location: @type }

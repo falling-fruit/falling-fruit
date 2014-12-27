@@ -17,7 +17,7 @@ Errors:
   <%= Location.csv_header.join(", ") %>
   </blockquote>
 
-  <p><b>Type:</b> Leading English-language common name of the source(s) at each location. If the name does not match an <a href="/types">existing type</a>, a new type object is created in the database. Separate multiple types with commas (eg. "Orange,Potato,Grape").</p>
+  <p><b>Type:</b> Leading English-language common name of the source(s) at each location. If the name does not match an <%= link_to types_path do %>existing type<% end %>, a new type object is created in the database. Separate multiple types with commas (eg. "Orange,Potato,Grape").</p>
   <p><b>Type Other:</b> Deprecated. A new type_other object is created in the database for further review by a site admin before being approved as an official type.</p>
   <p><b>Description:</b> Whatever information should be displayed in the location's infobox (location details, access issues, plant health, etc). &lt;br&gt; (HTML line break) tags are converted to \n (newline) characters. No other markup is currently supported.</p>
   <p><b>Address:</b> Full street address of the location (number, street, city, state / province, zip code, country). It is geocoded and converted to coordinates, so don't provide an address if you are already providing Lat and Lng.</p>

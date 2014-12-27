@@ -20,7 +20,7 @@
 
   function initialize() {
   	basemap(lat,lng,zoom,type);
-    place_edit_marker(lat,lng,'<%= I18n.t("locations.index.editmarker_html") %>');
+    place_edit_marker(lat,lng);
      
     // update markers once we're done panning and zooming
     google.maps.event.addListenerOnce(map, 'idle', function() {

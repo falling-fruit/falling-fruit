@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
 
   def data
     max_n = 500
-    cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    cat_mask = array_to_mask(Type::DefaultCategories,Type::Categories)
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
@@ -155,6 +155,7 @@ class LocationsController < ApplicationController
   # GET /locations/1/edit
   def edit
     @location = Location.find(params[:id])
+    @observation = Observation.new
     @lat = @location.lat
     @lng = @location.lng
     respond_to do |format|
@@ -166,7 +167,32 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     check_api_key!("api/locations/create") if request.format.json?
+    obs_params = params[:location][:observation]
+    params[:location].delete(:observation)
     @location = Location.new(params[:location])
+    @observation = nil
+    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
+      # deal with photo data in expected JSON format
+      # (as opposed to something already caught and parsed by paperclip)
+      unless obs_params["photo_data"].nil?
+        tempfile = Tempfile.new("fileupload")
+        tempfile.binmode
+        tempfile.write(Base64.decode64(obs_params["photo_data"]["data"]))
+        tempfile.rewind
+        uploaded_file = ActionDispatch::Http::UploadedFile.new(
+          :tempfile => tempfile,
+          :filename => obs_params["photo_data"]["name"],
+          :type => obs_params["photo_data"]["type"]
+        )
+        obs_params[:photo] = uploaded_file
+        obs_params.delete(:photo_data)
+      end
+      @observation = Observation.new(obs_params)
+      @observation.location = @location
+      @observation.author = @location.author
+      @observation.user = current_user if user_signed_in?
+    end
+
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
       if t.nil? 
@@ -177,33 +203,12 @@ class LocationsController < ApplicationController
     } if params[:types].present?
     @location.user = current_user if user_signed_in?
 
-    # create an observation if necessary
-    @obs = nil
-    if [:quality_rating,:yield_rating,:fruiting,:photo,:comment].collect{ |k| params[k].present? }.any?
-      @obs = Observation.new
-      @obs.quality_rating = params[:quality_rating].to_i unless params[:quality_rating].blank?
-      @obs.yield_rating = params[:yield_rating].to_i unless params[:yield_rating].blank?
-      @obs.fruiting = params[:fruiting].to_i unless params[:fruiting].blank?
-      @obs.comment = params[:comment] unless params[:comment].blank?
-      unless params[:photo].blank?
-      	@obs.photo_caption = params[:photo_caption].to_i unless params[:photo_caption].blank?
-      end
-      if params[:observed_on].empty?
-        @obs.observed_on = Date.today
-      else
-        @obs.observed_on = Timeliness.parse(params[:observed_on], :format => 'mm/dd/yyyy')
-      end
-      @obs.location = @location
-      @obs.user = current_user if user_signed_in?
-      @obs.author = @location.author
-    end
-
     log_api_request("api/locations/create",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-      if test and @location.save and (@obs.nil? or @obs.save)
-        ApplicationController.cluster_increment(@location)
+      if test and @location.save and (@observation.nil? or @observation.save)
+        cluster_increment(@location)
         log_changes(@location,"added")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
@@ -225,6 +230,28 @@ class LocationsController < ApplicationController
   def update
     check_api_key!("api/locations/update") if request.format.json?
     @location = Location.find(params[:id])
+    obs_params = params[:location][:observation]
+    params[:location].delete(:observation)
+    @observation = nil
+    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
+      # deal with photo data in expected JSON format
+      # (as opposed to something already caught and parsed by paperclip)
+      unless obs_params["photo_data"].nil?
+        tempfile = Tempfile.new("fileupload")
+        tempfile.binmode
+        tempfile.write(Base64.decode64(obs_params["photo_data"]["data"]))
+        tempfile.rewind
+        uploaded_file = ActionDispatch::Http::UploadedFile.new(
+          :tempfile => tempfile,
+          :filename => obs_params["photo_data"]["name"],
+          :type => obs_params["photo_data"]["type"]
+        )
+        obs_params[:photo] = uploaded_file
+        obs_params.delete(:photo_data)
+      end
+      @observation = Observation.new(obs_params)
+      @observation.location = @location
+    end
 
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
@@ -250,14 +277,14 @@ class LocationsController < ApplicationController
     } if params[:types].present?
     lt_update_okay = @location.save
 
-    ApplicationController.cluster_decrement(@location)
+    cluster_decrement(@location)
     log_api_request("api/locations/update",1)
     respond_to do |format|
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-      if test and @location.update_attributes(params[:location]) and lt_update_okay
+      if test and @location.update_attributes(params[:location]) and lt_update_okay and (@observation.nil? or @observation.save)
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_type_others,former_location)
-        ApplicationController.cluster_increment(@location)
+        cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { render json: {"status" => 0} }
@@ -272,7 +299,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
-    ApplicationController.cluster_decrement(@location)
+    cluster_decrement(@location)
     @location.destroy
     expire_things
     respond_to do |format|

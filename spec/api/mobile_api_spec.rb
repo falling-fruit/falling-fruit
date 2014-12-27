@@ -64,7 +64,8 @@ describe 'mobile_api' do
 
   it "can get data for one location" do
     api_key = ApiKey.find_by_name('MobileApp')
-    get "/api/locations/#{a_location.id}.json&api_key=#{api_key.api_key}", {}, json_headers
+    l = create(:location_with_observation)
+    get "/api/locations/#{l.id}.json?api_key=#{api_key.api_key}", {}, json_headers
     expect(last_response.status).to eq(200)
     json = JSON.parse(last_response.body)
     json.should be_a(Hash)
@@ -137,6 +138,32 @@ describe 'mobile_api' do
     a_location.types.length.should eq(3)
   end
 
+  it "can edit a location with an added review and photo" do
+    api_key = ApiKey.find_by_name('MobileApp')
+    u = create(:user)
+    auth_params = get_auth_params(u)
+    file = File.open(Rails.root.join('spec', 'photos', 'loquats.jpg'))
+    params = {
+      :location => {
+        :description => "this is a test update",
+        :observation => {:comment => "testing 123",
+                         :photo_data => {data:Base64.encode64(file.read),name:"test.jpg",type:'image/jpg'}
+                        }
+      },:types => "Apple,Potato,Grapefruit"
+    }
+    file.close
+    put "/api/locations/#{a_location.id}.json?api_key=#{api_key.api_key}", params.merge(auth_params).to_json, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_a(Hash)
+    json["status"].should eq(0)
+    a_location.reload
+    a_location.description.should eq(params[:location][:description])
+    a_location.observations.last.comment.should eq("testing 123")
+    a_location.observations.last.photo_file_name.should_not be_nil
+    a_location.types.length.should eq(3)
+  end
+
   it "prevents editing when not authenticated" do
     api_key = ApiKey.find_by_name('MobileApp')
     params = {:location => {:description => "this is a test update"},:types => "Apple,Potato,Grapefruit"}
@@ -162,6 +189,37 @@ describe 'mobile_api' do
     loc.types.length.should eq(3)
   end
 
+  it "can create a location with a photo and review" do
+    api_key = ApiKey.find_by_name('MobileApp')
+    u = create(:user)
+    auth_params = get_auth_params(u)
+    file = File.open(Rails.root.join('spec', 'photos', 'loquats.jpg'))
+    params = {
+      :location => {
+                :description => "this is a test create",:lat => 41.133745, :lng => -71.524588,
+                :observation => {:quality_rating => 4, :yield_rating => 1, :comment => "test",
+                  :photo_data => {data:Base64.encode64(file.read),name:"test.jpg",type:'image/jpg'},
+                  :observed_on => '12/12/2014'
+                },
+      },
+      :types => "Apple,Potato,Grapefruit"
+    }
+    file.close
+    post "/locations.json?api_key=#{api_key.api_key}", params.merge(auth_params).to_json, json_headers
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+    json.should be_a(Hash)
+    puts json
+    json["status"].should eq(0)
+    id = json["id"].to_i
+    loc = Location.find(id)
+    loc.description.should eq(params[:location][:description])
+    loc.observations.first.comment.should eq(params[:location][:observation][:comment])
+    loc.observations.first.photo_file_name.should_not be_nil
+    loc.types.length.should eq(3)
+  end
+
+
   it "prevents creation when not authenticated" do
     api_key = ApiKey.find_by_name('MobileApp')
     params = {:location => {:description => "this is a test update"},:types => "Apple,Potato,Grapefruit"}
@@ -172,9 +230,10 @@ describe 'mobile_api' do
   it "can get info for a users' locations" do
     api_key = ApiKey.find_by_name('MobileApp')
     u = create(:user)
-    a_location.observations.each{ |o| o.user = u }
-    a_location.user = u
-    a_location.save
+    l = create(:location_with_observation)
+    l.observations.each{ |o| o.user = u; o.save }
+    l.user = u
+    l.save
     auth_params = get_auth_params(u)
     get "/api/locations/mine.json?api_key=#{api_key.api_key}", auth_params, json_headers
     expect(last_response.status).to eq(200)

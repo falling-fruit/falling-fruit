@@ -46,6 +46,7 @@ class Api::LocationsController < ApplicationController
     @location[:photos] = @location.observations.collect{ |o|
       o.photo_file_name.nil? ? nil : { :updated_at => o.photo_updated_at, :url => o.photo.url }
     }.compact unless @api_key.api_type == "muni"
+    @location[:num_reviews] = @location.observations.length
     if @api_key.api_type == "muni" and not @location.import.nil?
       @location[:source] = {:license => @location.import.license,
                             :name => @location.import.name,
@@ -194,7 +195,7 @@ class Api::LocationsController < ApplicationController
     cfilter = "(bit_or(t.category_mask) & #{cat_mask})>0"
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
     sorted = "1 as sort"
-    # FIXME: would be easy to allow t to be an array of types
+    # FIXME: would be easy to allow t to be an array of typesq
     if params[:t].present?
       type = Type.find(params[:t])
       tids = ([type.id] + type.all_children.collect{ |c| c.id }).compact.uniq
@@ -214,11 +215,11 @@ class Api::LocationsController < ApplicationController
     end
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     # FIXME: name doesn't include other types
-    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types,
+    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, count(o.*),
       #{dist} as distance, l.description, l.author, l.type_others,
       array_agg(t.parent_id) as parent_types,
       string_agg(coalesce(#{i18n_name_field}t.name),',') AS name,
-      #{sorted} FROM locations l, types t
+      #{sorted} FROM locations l LEFT JOIN observations o ON o.location_id=l.id, types t
       WHERE t.id=ANY(l.type_ids) AND #{[dfilter,ifilter].compact.join(" AND ")}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
       LIMIT #{max_n} OFFSET #{offset_n}");
@@ -241,9 +242,19 @@ class Api::LocationsController < ApplicationController
       {:title => name, :location_id => row["id"].to_i,
        :lat => row["lat"].to_f, :lng => row["lng"].to_f,
        :distance => row["distance"].to_f.round,
-       :description => row["description"], :author => row["author"]
+       :description => row["description"], :author => row["author"],
+       :num_reviews => row["count"].to_i
       }
     } unless r.nil?
+    photo_having_lids = @markers.collect{ |m| m[:num_reviews] > 0 ? m[:location_id] : nil }.compact
+    obs_hash = {}
+    Observation.where("location_id IN (#{photo_having_lids.join(",")})").collect{ |o|
+      obs_hash[o.location_id] = [] if obs_hash[o.location_id].nil?
+      obs_hash[o.location_id] << [:thumbnail => o.photo(:thumbnail), :created_at => o.created_at]
+    }
+    @markers.collect{ |m|
+      m[:photos] = obs_hash[m[:location_id]] unless obs_hash[m[:location_id]].nil?
+    }
     log_api_request("api/locations/nearby",@markers.length)
     respond_to do |format|
       format.json { render json: @markers }
@@ -254,13 +265,19 @@ class Api::LocationsController < ApplicationController
   # Unverified no longer has its own color.
   def markers
     return unless check_api_key!("api/locations/markers")
-    max_n = 1000
+    if params[:n].present?
+      max_n = [1000,params[:n].to_i].min
+    else
+      max_n = 1000
+    end
     # Muni API is locked to muni & human
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
       params[:c] = "human"
-      max_n = 100
+      max_n = [100,max_n].min
     end
+    offset_n = params[:offset].present? ? params[:offset].to_i : 0
+
     if params[:c].blank?
       cat_mask = array_to_mask(["human","freegan"],Type::Categories)
     else
@@ -283,14 +300,16 @@ class Api::LocationsController < ApplicationController
     else      
       ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     end
-    r = ActiveRecord::Base.connection.select_one("SELECT count(*) FROM locations l, types t WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")} GROUP BY l.id HAVING #{[cfilter].compact.join(" AND ")}");
+    r = ActiveRecord::Base.connection.select_one("SELECT COUNT(*)
+      FROM locations l, types t
+      WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}")
     found_n = r["count"].to_i unless r.nil?
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, l.type_others,
       array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name),',') AS name, #{sorted}
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}
-      GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n}");
+      GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
       row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }

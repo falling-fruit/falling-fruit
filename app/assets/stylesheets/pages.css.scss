@@ -11,7 +11,9 @@ $searchbarBorder: 2px;
 
 div#logobar {
   background-color: #1F5F92;
-  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  width: 100%;
   height: $logobarHeight;
 }
 
@@ -20,7 +22,7 @@ div#logobar a#falling_fruit {
   font-family: 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
   font-weight: bold;
   color: #FFF;
-  margin-left: 4px;
+  margin-left: 9px;
   letter-spacing: 1px;
 }
 
@@ -30,103 +32,101 @@ div#logobar span#subtitle {
   font-size: 1.25em;
 }
 
-div#logobar img#logo {
-  float: right;
-  height: 100%;
-}
-
 div#share_controls {
   float: right;
-  margin: 0.3em 0 0 0;
-  
+  margin-top: $logobarHeight * 0.1;
   img {
-    height: 2.15em;
+    height: $logobarHeight * 0.8;
   }
+}
+
+div#locale {
+  float: right;
+  display: inline;
+  margin: ($logobarHeight * 0.1) 5px;
+  height: $logobarHeight * 0.8;
+}
+
+div#locale select {
+  border: none;
+  font-size: inherit;
+  height: 100%;
 }
 
 /*** Menu ***/
 
 div#menubar {
   background-color: #D3D3D3;
-}
-
-div#menubar a, 
-div#menu span {
-  color: #666;
-  line-height: $menubarHeight;
-  padding: 0em 8px;
-  display: inline-block;
+  position: absolute;
+  top: $logobarHeight;
+  height: $menubarHeight;
+  width: 100%; 
+  a, span {
+    color: #666;
+    line-height: $menubarHeight;
+    padding: 0 8px;
+    display: inline-block;
+  }
 }
 
 div#menu {
   overflow: auto;
-}
-
-div#menu a#maplink {
-  padding-left: 12px;
+  a#maplink {
+    padding-left: 12px;
+  }
 }
 
 div#menu ul li {
   float: left;
-  cursor: pointer;
+  a {
+   cursor: pointer;
+  }
+  .currentpage {
+    background-color: #FFF;
+  }
+  a:hover:not(.currentpage),
+  &:hover span:not(.currentpage) {
+    color: #FFF;
+  }
+  ul {
+    display: none;
+    height: auto;
+    position: absolute;
+    z-index: 200;
+    li {
+      display: block;
+      float: none;
+      a {
+        border-top: 1px solid #FFF;
+        width: 15em;
+        color: #888;
+        &.currentpage {
+          background-color: #D3D3D3;
+          color: #666;
+        }
+      }
+      &:hover a:not(.currentpage) {
+        color: #E35809;
+      }
+    }
+  }
+  &:hover ul {
+    display: block;
+    background: #EEE;
+  }
 }
 
-div#menu ul li a.currentpage, 
-div#menu ul li span.currentpage {
-  background-color: #FFF;
-}
-
-div#menu ul li a:hover:not(.currentpage) {
-  color: #FFF;
-}
-
-div#menu ul li:hover span:not(.currentpage) {
-  color: #FFF;
-}
-
-div#menu ul li ul {
-  display: none;
-  height: auto;
-  position: absolute;
-  z-index: 200;
-}
-
-div#menu ul li:hover ul {
-  display: block;
-  background: #EEE;
-}
-
-div#menu ul li ul li {
-  display: block;
-  float: none;
-}
-
-div#menu ul li ul li a {
-  border-top: 1px solid #FFF;
-  width: 15em;
-  color: #888;
-}
-
-div#menu ul li ul li a.currentpage {
-  background-color: #D3D3D3;
-  color: #666;
-}
-
-div#menu ul li ul li:hover a:not(.currentpage) {
-  color: #E35809;
-}
-
-div#rightcontrols a:not(.currentpage):hover {
-  color: #FFF;
-}
-
-div#rightcontrols a.currentpage {
-  background-color: #FFF;
-}
-
-div#rightcontrols span#user_email {
-  font-size: 0.85em;
-  font-style: italic;
+div#rightcontrols {
+  a:not(.currentpage):hover {
+    color: #FFF;
+  }
+  a.currentpage {
+    background-color: #FFF;
+  }
+  span#user_email {
+      font-size: 0.85em;
+      font-style: italic;
+  }
 }
 
 /**********************************************************/
@@ -135,28 +135,23 @@ div#rightcontrols span#user_email {
 
 div#content_container {
   position: absolute;
-  top: 4.75em;
+  top: $logobarHeight + $menubarHeight;
   bottom: 0;
-  left: 0;
-  right: 0;
-  overflow-y: auto;
-}
-
-div#content_container div#content {
-  padding: 15px 1.5em 10px 1.5em;
-  text-align: justify;
-  max-width: 1400px;
-  margin: 0 auto;  /* Page is centered on wider screens */
-}
-  
-div#content_container div#content p {
-  line-height: 1.5em;  /* For better legibility on wider screens */
-}
-
-div#content_container div#footer {
-  margin-top: 2.5em;
-  text-align: center;
-  font-size: 0.85em;
+  width: 100%;
+  div#content {
+    padding: 15px 15px 10px 15px;
+    text-align: justify;
+    max-width: 1400px;
+    margin: 0 auto;
+    p {
+      line-height: 1.5em;
+    }
+  }
+  div#footer {
+    margin-top: 2.5em;
+    text-align: center;
+    font-size: 85%;
+  }
 }
 
 /**********************************************************/
@@ -166,75 +161,75 @@ div#content_container div#footer {
 /*** Searchbar ***/
 
 div#searchbar {
+  position: absolute;
+  top: $logobarHeight + $menubarHeight;
+  min-height: $searchbarHeight;
+  width: 100%;
   line-height: $searchbarHeight;
   background-color: #FFF;
   border-bottom: $searchbarBorder solid #CCC;
-  width: 100%;
-}
-
-div#searchbar b {
-  font-size: 95%;
-}
-
-div#searchbar div#searchcontrols {
-  padding: 0 9px 0 11px;  /* Adding padding here keeps searchbar width at 100% */
-}
-
-div#searchbar button {
-  border: 1px solid #DDD;
-  border-radius: 4px;
-  background-color: #EEE;
-  font-size: 0.8em;
-  cursor: pointer;
-  font-family: inherit;
-  color: inherit;
-  padding: 3px;
-}
-
-div#searchbar button:hover {
-  background-color: #C6E1F7;
-}
-
-div#searchbar input {
-  border: 1px solid #DDD;
-  padding: 2px 3px;
-  font-size: .9em;
-  font-family: inherit;
-  color: inherit;
-}
-
-div#searchbar input[type=checkbox] {
-  position: relative;  /* Fixes vertical alignment issue */
-  top: -.1em;
+  b {
+    font-size: 95%;
+  }
+  div#searchcontrols {
+    padding: 0 9px 0 11px;
+  }
+  input, button {
+    border: 1px solid #DDD;
+    font-family: inherit;
+    color: inherit;
+  }
+  button {
+    border-radius: 4px;
+    background-color: #EEE;
+    font-size: 80%;
+    cursor: pointer;
+    padding: 3px;
+    &:hover {
+      background-color: #C6E1F7;
+    }
+  }
+  input {
+    padding: 2px 3px;
+    font-size: 90%;
+    /* FIXME: Find platform-independent vertical alignment fix */
+    &[type=checkbox] {
+      position: relative;
+      top: -.1em;
+    }
+  }
 }
 
 /* Mainmap type filter */
+
 #s2id_type_filter {
   width: 20em;
   font-size: 95% ! important;
-}
-#s2id_type_filter .select2-choice {
-  line-height: 1.5em ! important;
-  height: 1.5em ! important;
-  border: 1px solid #DDD ! important;
-}
-#s2id_type_filter .select2-arrow b {
-  background: image-url("/assets/select2.png") no-repeat 0 -2px ! important;
-}
-#s2id_type_filter .select2-search-choice-close {
-  top: 4px ! important;
+  .select2-choice {
+    line-height: 1.5em ! important;
+    height: 1.5em ! important;
+    border: 1px solid #DDD ! important;
+  }
+  .select2-arrow b {
+    background: image-url("/assets/select2.png") no-repeat 0 -2px ! important;
+  }
+  .select2-search-choice-close {
+    top: 4px ! important;
+  }
 }
 
 /*** Map ***/
 
 $headerHeight: $logobarHeight + $menubarHeight + $searchbarHeight + $searchbarBorder;
+$sidebarWidth: 293px;
+$sidebarBorder: 2px;
 
 div#mainmap_container {
   position: absolute;
   top: $headerHeight;
   bottom: 0;
-  left: 0;
   right: 0;
+  left: 0;
   z-index: -1;  /* So that if search bar controls wrap, they display above map. */
 }
 
@@ -243,11 +238,11 @@ div#sidebar_container {
   top: $headerHeight;
   bottom: 0;
   left: 0;
-  width: 293px;
+  width: $sidebarWidth;
   z-index: -2;
   padding: 2px 0 0 5px;
   background: #EEE;
-  border-right: 2px solid #CCC;
+  border-right: $sidebarBorder solid #CCC;
 }
 
 div#sidebar{
@@ -256,22 +251,22 @@ div#sidebar{
     font-size: 12px;
     overflow: auto;
     display: none;
-    > ul{
+    > ul {
       background: #EEE ! important;
       padding: 0;
       border-bottom: 1px solid transparent;
-      li{
+      li {
         padding: 0;
         margin: 0;
         border: 1px solid transparent;
         border-radius: 0px;
-        a{
+        a {
           padding-right: 5px;
           padding-left: 5px;
           padding-top: 0px;
           padding-bottom: 0px;
           cursor: pointer;
-          span{
+          span {
             font-size: inherit;
           }
         }
@@ -296,7 +291,7 @@ div#sidebar{
       a:hover {
         color: #333;
       }
-      blockquote{
+      blockquote {
         margin-left: 1em;
         margin-right: 1em;
         padding-left: 1em;
@@ -311,19 +306,20 @@ div#sidebar{
   
 div#sidebar_button{
   position: absolute;
+  top: $headerHeight + 1px;
   left: 0px;
   font-size: 10px;
   font-weight: bold;
   background: #FFF;
   border: 1px solid #DDD;
   display: none;
-  a{
+  a {
     color: #A0A0A0;
     padding: 5px;
     display: block;
-  }
-  a:hover{
+    &:hover {
     color: #666;
+    }
   }
 }
 
@@ -615,4 +611,19 @@ table#type_summary img.link_icon {
   position: absolute;
   top: 1em;
   height: 2em;
+}
+
+/**********************************************************/
+/****************** /users/* ******************************/
+/**********************************************************/
+
+
+div#range_tabs {
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid #ddd ! important;
+  
+  div#map {
+    width: 100%;
+    height: 400px;
+  }
 }

@@ -12,10 +12,12 @@
     <%= I18n.t("locations.index.stamen_html").html_safe %>
   </p>
   <div id="embed_branding">
-    <a href="<%= request.fullpath.gsub('locations/embed', '') %>" id="falling_fruit">falling fruit</a>
+    <%= link_to("falling fruit",root_url,:id => "falling_fruit") %>
 		<div class="hr-like"></div>
     <span>mini</span>
-    <a href="/locations/new<%= @perma[:cats].nil? ? "" : "?c=" + @perma[:cats].to_s %>" id="add_source"><%= I18n.t("locations.embed.add_source") %></a>
+    <%= link_to(new_location_url(:c => @perma[:cats].to_s),:id => "add_source") do %>
+      <%= I18n.t("locations.embed.add_source") %>
+    <% end %>
   </div>
 </div>
 
@@ -68,7 +70,7 @@
 
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
-      place_add_marker(event.latLng, '<%= I18n.t("locations.index.addmarker_html") %>');
+      place_add_marker(event.latLng);
     });
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
@@ -97,17 +99,15 @@
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(w/2, h/2)
         },
-        position: new google.maps.LatLng(lat,lng),
-        title: 'Some location'
+        position: new google.maps.LatLng(lat,lng)
       });
     }
 
     if(center_radius != undefined){
       var marker = new google.maps.Marker({
         map: map,
-        position: new google.maps.LatLng(lat, lng),
-        title: 'Some location'
-      });
+        position: new google.maps.LatLng(lat, lng)
+    });
       // Add circle overlay and bind to marker
       var circle = new google.maps.Circle({
         map: map,

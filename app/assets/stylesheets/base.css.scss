@@ -668,14 +668,6 @@ div#slider{
   border-color: rgba(0,0,0,0);
 }
 
-.ui-dialog .ui-dialog-titlebar-close .ui-icon {
-  background-image: image-url("/assets/jquery-ui/ui-icons_454545_256x240.png") /*{iconsHeader}*/ ! important;
-}
-
-.ui-dialog .ui-dialog-titlebar-close.ui-state-hover .ui-icon {
-  background-image: image-url("/assets/jquery-ui/ui-icons_222222_256x240.png") /*{iconsHeader}*/ ! important;
-}
-
 /*** Notice ***/
 
 .dialog_yellow {
@@ -736,18 +728,6 @@ div#slider{
 /**********************************************************/
 /********************** Shadowbox *************************/
 /**********************************************************/
-
-/* Image URL Override (same issue as select2) */
-
-#sb-nav-close {
-  background-image: image-url("shadowbox/close.png") ! important;
-}
-#sb-nav-next {
-  background-image: image-url("shadowbox/next.png") ! important;
-}
-#sb-nav-previous {
-  background-image: image-url("shadowbox/previous.png") ! important;
-}
 
 /* Caption */ 
 

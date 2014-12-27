@@ -15,7 +15,6 @@
   
   <div class="field">
     <%= f.label :about_you, I18n.t("devise.fallingfruit.bio") %><br/>
-    <span class="subtext"><%= I18n.t("devise.fallingfruit.bio_subtext") %></span><br />
     <%= f.text_area :bio, :size => "40x6" %>
   </div>
   
@@ -25,9 +24,9 @@
     <%= f.check_box :add_anonymously %> <%= I18n.t("devise.fallingfruit.options.add_anonymously") %>
   </div>
 
-  <hr />
+  <br/>
   <%= render :partial => "range_map", :locals => {:f => f} %>
-  <hr />
+  <br/>
   
   <div class="field confirmation">
     <%= f.label :new_password %>

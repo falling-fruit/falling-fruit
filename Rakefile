@@ -67,6 +67,97 @@ task(:geocode => :environment) do
   }
 end
 
+task(:eol_names => :environment) do
+  
+  # Initialize csv
+  CSV.open("public/eol_names.csv","wb") do |csv|
+    cols = ["ff_id","ff_name","ff_scientific","eol_id","eol_scientific","language","name","preferred"]
+    csv << cols
+    # For each type with a scientific name (and taxonomic_rank not 7 => multispecies)
+    Type.where("scientific_name != '' and (taxonomic_rank is null or taxonomic_rank != 7)").order(:scientific_name).each{ |t|
+    
+      # Show progress
+      puts t.scientific_name
+      
+      # Search EOL
+      # Gets page id of first (top) result
+      search_url = "http://eol.org/api/search/1.0.json?q=%22" + t.scientific_name.gsub(" ","+") + "%22&exact=true"
+      search = JSON.parse(open(search_url).read)
+      if search["totalResults"] > 0
+        eol_id = search["results"][0]["id"]
+      else
+        csv << [t.id, t.name, t.scientific_name, '', '', '', '', '']
+        next
+      end
+      
+      # Get EOL species info
+      page_url = "http://eol.org/api/pages/1.0/" + eol_id.to_s + ".json?common_names=true"
+      page = JSON.parse(open(page_url).read)
+      eol_scientific = page["scientificName"]
+      page["vernacularNames"].each{ |n|
+        if n["eol_preferred"]
+          preferred = 1
+        else
+          preferred = 0
+        end
+        csv << [t.id, t.name, t.scientific_name, eol_id, eol_scientific, n["language"], n["vernacularName"], preferred]
+      }
+      
+      # Sleep
+      sleep 0.1
+    }
+  end
+end
+
+task(:wikipedia_links => :environment) do
+  
+  # Initialize csv
+  CSV.open("public/wikipedia_links.csv","wb") do |csv|
+    cols = ["ff_id","ff_name","ff_scientific","language","title","url"]
+    csv << cols
+    # For each type with a scientific name (and taxonomic_rank not 7 => multispecies)
+    Type.order(:scientific_name).each{ |t|
+      
+      # Show progress
+      puts "[S] " + t.scientific_name + " [en] " + t.name
+      
+      # English page title
+      # from database
+      if (not t.wikipedia_url.blank?)
+        en_title = t.wikipedia_url.split('/').last
+      # or try scientific name
+      elsif (not(t.taxonomic_rank == 7 or t.scientific_name.blank?))
+        en_title = t.scientific_name
+      else
+        csv << [t.id, t.name, t.scientific_name, "en", '', '']
+        next
+      end
+      
+      # Fetch page
+      url = "http://en.wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title.split('/').last.gsub(" ","%20")
+      page = JSON.parse(open(url).read)
+      if (page.has_key?("parse") and page["parse"].has_key?("title"))
+        en_title = page["parse"]["title"]
+        en_url = "https://en.wikipedia.org/wiki/" + page["parse"]["title"]
+        csv << [t.id, t.name, t.scientific_name, "en", en_title, en_url]
+      else
+        csv << [t.id, t.name, t.scientific_name, "en", '', '']
+        next
+      end
+      
+      # Get other language links
+      if (page["parse"].has_key?("langlinks"))
+        page["parse"]["langlinks"].each{ |l|
+          csv << [t.id, t.name, t.scientific_name, l["lang"], l["*"], l["url"]]
+        }
+      end
+      
+      # Sleep
+      sleep 0.1
+    }
+  end
+end
+
 task(:range_changes => :environment) do
   sent_okay = 0
   User.where('range_updates_email AND range IS NOT NULL').each{ |u|
@@ -90,33 +181,37 @@ end
 namespace :export do
 
   task(:data => :environment) do
-     r = ActiveRecord::Base.connection.execute("SELECT ARRAY_AGG(COALESCE(types.name,locations_types.type_other)) as name, locations.id as id,
-         description, lat, lng, address, season_start, season_stop, no_season, access, unverified, author, import_id,
-         locations.created_at, locations.updated_at FROM locations
-         INNER JOIN locations_types ON locations_types.location_id=locations.id LEFT OUTER
-         JOIN types ON locations_types.type_id=types.id GROUP BY locations.id")
-     CSV.open("public/data.csv","wb") do |csv|
+     puts "Exporting Locations..."
+     cat_mask = array_to_mask(Type::DefaultCategories,Type::Categories)
+     r = ActiveRecord::Base.connection.execute("SELECT locations.id, array_to_string(type_ids,':') as types, access,
+       array_to_string(type_others,':') as type_others, description, lat, lng, address, unverified,
+       season_start, season_stop, no_season, access, unverified, author, import_id, locations.created_at, locations.updated_at
+       FROM locations INNER JOIN types ON types.id=ANY(locations.type_ids) WHERE (types.category_mask & #{cat_mask})>0")
+     CSV.open("public/locations.csv","wb") do |csv|
        cols = ["id","lat","lng","unverified","description","season_start","season_stop",
                "no_season","author","address","created_at","updated_at",
-               "quality_rating","yield_rating","access","import_link","muni","name"]
+               "quality_rating","yield_rating","access","import_link","name"]
        csv << cols
        r.each{ |row|
-
-         quality_rating = Location.find(row["id"]).mean_quality_rating
-         yield_rating = Location.find(row["id"]).mean_yield_rating
-
          csv << [row["id"],row["lat"],row["lng"],row["unverified"],row["description"],
                  row["season_start"].nil? ? nil : I18n.t("date.month_names")[row["season_start"].to_i+1],
                  row["season_stop"].nil? ? nil : I18n.t("date.month_names")[row["season_stop"].to_i+1],
                  row["no_season"],row["author"],
                  row["address"],row["created_at"],row["updated_at"],
-                 quality_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[quality_rating],
-                 yield_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[yield_rating],
                  row["access"].nil? ? nil : I18n.t("locations.infowindow.access_short")[row["access"].to_i],
                  row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}",
-                 row["import_id"].nil? ? 'f' : (Import.find(row["import_id"]).muni ? 't' : 'f'),
-                 row["name"]]
+                 row["types"],row["type_others"]]
          }
+     end
+     puts "Exporting Types..."
+     cols = ["id","en_name","es_name","he_name","pt_br_name","fr_name","de_name","pl_name","scientific_name",
+             "scientific_synonyms","taxonomic_rank"]
+     csv << cols
+     CSV.open("public/types.csv","wb") do |csv|
+       Type.select(cols.join(",")).where("(category_mask & #{cat_mask})>0").each{ |t|
+         csv << [t.id,t.en_name,t.es_name,t.he_name,t.pt_br_name,t.fr_name,t.de_name,
+                 t.pl_name,t.scientific_name,t.scientific_synonyms,t.taxonomic_rank]
+       }
      end
   end
 
