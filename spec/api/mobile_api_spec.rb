@@ -147,7 +147,7 @@ describe 'mobile_api' do
       :location => {
         :description => "this is a test update",
         :observation => {:comment => "testing 123",
-                         :photo_data => {data:"FOO,"+Base64.encode64(file.read),name:"test.jpg",type:'image/jpg'}
+                         :photo_data => {data:Base64.encode64(file.read),name:"test.jpg",type:'image/jpg'}
                         }
       },:types => "Apple,Potato,Grapefruit"
     }
@@ -198,7 +198,7 @@ describe 'mobile_api' do
       :location => {
                 :description => "this is a test create",:lat => 41.133745, :lng => -71.524588,
                 :observation => {:quality_rating => 4, :yield_rating => 1, :comment => "test",
-                  :photo_data => {data:"FOO,"+Base64.encode64(file.read),name:"test.jpg",type:'image/jpg'},
+                  :photo_data => {data:Base64.encode64(file.read),name:"test.jpg",type:'image/jpg'},
                   :observed_on => '12/12/2014'
                 },
       },
