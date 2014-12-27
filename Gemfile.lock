@@ -280,6 +280,7 @@ DEPENDENCIES
   jquery-ui-rails
   jquery_mobile_rails
   localeapp
+  nokogiri
   paperclip (~> 3.1)
   pg
   postgres_ext

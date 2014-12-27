@@ -177,8 +177,7 @@ class LocationsController < ApplicationController
       unless obs_params["photo_data"].nil?
         tempfile = Tempfile.new("fileupload")
         tempfile.binmode
-        dc,data = obs_params["photo_data"]["data"].split(/,/)
-        tempfile.write(Base64.decode64(data))
+        tempfile.write(Base64.decode64(obs_params["photo_data"]["data"]))
         tempfile.rewind
         uploaded_file = ActionDispatch::Http::UploadedFile.new(
           :tempfile => tempfile,
@@ -240,8 +239,7 @@ class LocationsController < ApplicationController
       unless obs_params["photo_data"].nil?
         tempfile = Tempfile.new("fileupload")
         tempfile.binmode
-        dc,data = obs_params["photo_data"]["data"].split(/,/)
-        tempfile.write(Base64.decode64(data))
+        tempfile.write(Base64.decode64(obs_params["photo_data"]["data"]))
         tempfile.rewind
         uploaded_file = ActionDispatch::Http::UploadedFile.new(
           :tempfile => tempfile,

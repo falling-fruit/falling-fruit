@@ -122,9 +122,10 @@
   <!-- FIXME: Redirect as needed to /fallingfruit.org -->
   <div id="locale">
     <select id="locale_select">
-      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
       <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
       <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
+      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
+      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option>
     </select>
   </div>
 
@@ -244,7 +245,7 @@
 		<!-- Add Source -->
 		<li><%= link_to(I18n.t("layouts.application.menu.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
-				<%= I18n.t("layouts.application.or_right-click_on_map") %>
+				<span><%= I18n.t("layouts.application.or_right-click_on_map") %></span>
 			<% end %>
     </li>
     
@@ -288,15 +289,16 @@
 
     $("#locale_select").change(function(){
       window.location.href = "?locale=" + $("#locale_select").val();
-      //var val = $("#locale_select").val();
-      //var url = window.location.href;
-      //if(url.indexOf('?') > -1){
-      //  url += '&locale=' + val;
-      //}else{
-      //  url += '?locale=' + val;
-     // }
-      //window.location.href = url;
+      var val = $("#locale_select").val();
+      var url = window.location.href;
+      if(url.indexOf('?') > -1){
+        url += '&locale=' + val;
+      }else{
+        url += '?locale=' + val;
+      }
+      window.location.href = url;
     });
+
   });
 </script>
 
