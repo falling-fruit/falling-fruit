@@ -19,7 +19,8 @@
     <%
        last_lab = nil
        @changes.each do |c|
-         types = (c["type_title"] + c["type_others"]).split(/,/).join(', ')
+         # FIXME: Why are types in type_title here joined with " - ", not "," ?
+         types = (c["type_title"] + "," + c["type_others"]).split(/,|[ ]*-[ ]*/).join(', ')
          case c["description"]
            when "added"
              action = I18n.t("changes.type.added")
@@ -54,9 +55,8 @@
     %>
       <%= raw header %>
       <% unless c["location_id"].nil? %>
-        <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();">
-          <%= types.nil? ? I18n.t("locations.sidebar.unknown") : types %>
-        </a>
+        <!-- On one line to avoid underlined trailing spaces -->
+        <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();"><%= types.nil? ? I18n.t("locations.sidebar.unknown") : types %></a>
         <% unless c["city"].nil? %>
           <%= I18n.t("changes.index.change_in_city", :type => action, :city => c["city"]) %>
         <% else %>
@@ -82,13 +82,9 @@
     <% else %>
       <%= I18n.t("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %>:
       <br/>
-      <% @mine.each do |o|
-        next if o.location.title.nil?
-      %>
+      <% @mine.each do |o| %>
         <div class="favorite">
-          <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();">
-            <%= o.location.title %>
-          </a><br/>
+          <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();"><%= o.location.types(@cat_filter).collect{ |t| t.name.nil? ? "Unknown" : t.name }.join(", ") %></a><br/>
           <%= I18n.t("locations.sidebar.last_visited") %> <%= I18n.t("routes.index.time_ago", :time => time_ago_in_words(o.created_at)) %>.
         </div>
       <% end %>

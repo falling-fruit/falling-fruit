@@ -281,8 +281,8 @@ fr:
       fruit: Fruit
       fruiting:
       - En fleurs
-      - Fruits pas mûrs
-      - Fruits mûrs
+      - Pas mûrs
+      - Mûrs
       have_you_visited_html: Avez-vous visité cette source? Laissez un <a href="/observations/new?location_id=%{id}&locale=fr" data-ajax="false" rel="external" title="Commenter sur cette source" id="add_review">commentaire</a>
       january_to_december: Janvier - Décembre
       link: lien

@@ -281,8 +281,8 @@ de:
       fruit: Obst
       fruiting:
       - Blüte
-      - Frucht
-      - Reif
+      - Unreife Frucht
+      - Reife Frucht
       have_you_visited_html: Hast du diese Quelle besucht? Füge eine <a href="/observations/new?location_id=%{id}&locale=de" data-ajax="false" rel="external" title="Bewerten Sie diesen Standort" id="add_review">Füge eine Bewertung </a> hinzu.
       january_to_december: Von Januar bis Dezember
       link: Link

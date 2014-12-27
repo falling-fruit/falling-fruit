@@ -16,7 +16,7 @@ function update_permalink(){
   var zoom = map.getZoom();
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
-     typeid + '&l=' + $('#labels').is(":checked");
+     typeid + '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale;
   if (type_filter != undefined) {
   	permalink = permalink + "&f=" + type_filter;
   }
@@ -60,7 +60,7 @@ function show_embed_html(object){
   }
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + fstr + cstr +
-    '&l=' + $('#labels').is(":checked") + 
+    '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale + 
     '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
       closeText: "close", 
       modal: true, 
