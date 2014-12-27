@@ -122,10 +122,10 @@
   <!-- FIXME: Redirect as needed to /fallingfruit.org -->
   <div id="locale">
     <select id="locale_select">
-      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English (en)</option>
-      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français (fr)</option>
-      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch (de)</option>
-      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español (es)</option>
+      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
+      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
+      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option>
+      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
     </select>
   </div>
 
@@ -238,7 +238,7 @@
 		<li><%= link_to(I18n.t("layouts.application.menu.add_source"), new_location_path, :class => (request.fullpath == new_location_path) ? "currentpage" : "notcurrentpage") %>
     <!-- Click on map! -->
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
-				<span><%= I18n.t("layouts.application.or_right-click_on_map") %></span>
+				<%= I18n.t("layouts.application.or_right-click_on_map") %>
 			<% end %>
     </li>
     

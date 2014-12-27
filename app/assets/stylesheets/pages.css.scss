@@ -74,24 +74,13 @@ div#menu {
   a#maplink {
     padding-left: 12px;
   }
-  div#rightcontrols {
-    a:not(.currentpage):hover {
-      color: #FFF;
-    }
-    a.currentpage {
-      background-color: #FFF;
-    }
-    span#user_email {
-      font-size: 0.85em;
-      font-style: italic;
-    }
-  }
 }
 
 div#menu ul li {
   float: left;
-  cursor: pointer;
-  
+  a {
+   cursor: pointer;
+  }
   .currentpage {
     background-color: #FFF;
   }
@@ -124,6 +113,19 @@ div#menu ul li {
   &:hover ul {
     display: block;
     background: #EEE;
+  }
+}
+
+div#rightcontrols {
+  a:not(.currentpage):hover {
+    color: #FFF;
+  }
+  a.currentpage {
+    background-color: #FFF;
+  }
+  span#user_email {
+      font-size: 0.85em;
+      font-style: italic;
   }
 }
 
@@ -161,7 +163,7 @@ div#content_container {
 div#searchbar {
   position: absolute;
   top: $logobarHeight + $menubarHeight;
-  height: $searchbarHeight;
+  min-height: $searchbarHeight;
   width: 100%;
   line-height: $searchbarHeight;
   background-color: #FFF;
