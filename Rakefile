@@ -204,12 +204,12 @@ namespace :export do
          }
      end
      puts "Exporting Types..."
-     cols = ["id","en_name","es_name","he_name","pt_br_name","fr_name","de_name","pl_name","scientific_name",
-             "scientific_synonyms","taxonomic_rank"]
-     csv << cols
      CSV.open("public/types.csv","wb") do |csv|
+       cols = ["id","name","es_name","he_name","pt_br_name","fr_name","de_name","pl_name","scientific_name",
+             "scientific_synonyms","taxonomic_rank"]
+       csv << cols
        Type.select(cols.join(",")).where("(category_mask & #{cat_mask})>0").each{ |t|
-         csv << [t.id,t.en_name,t.es_name,t.he_name,t.pt_br_name,t.fr_name,t.de_name,
+          csv << [t.id,t.name,t.es_name,t.he_name,t.pt_br_name,t.fr_name,t.de_name,
                  t.pl_name,t.scientific_name,t.scientific_synonyms,t.taxonomic_rank]
        }
      end
