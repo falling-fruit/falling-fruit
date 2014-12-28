@@ -427,6 +427,7 @@ fr:
       global: Mondial
       grow_pick_and_distribute: Cultiver · Récolter · Distribuer
       intro_html: Voici une liste d'associations qui cultivent l'espace public urbain (jardins-forêts, vergers publics), récoltent (glanage urbain et rural), ou distribuent (échanges, dons) la nourriture. Les associations sont énumérés par pays, état (si besoin), et ville. Ceux avec des noms barrés sont soupçonnés d'être inactifs. Si vous en connaissez d'autres qui devraient être sur cette liste, <a href="mailto:info@fallingfruit.org">contactez-nous</a> !
+      italy: Italie
       united_kingdom: Royaume-Uni
       united_states: États-Unis
   problems:

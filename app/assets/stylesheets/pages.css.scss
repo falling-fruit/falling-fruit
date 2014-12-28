@@ -442,23 +442,41 @@ div.rightphoto img {
   border: 1px solid #EEE;
 }
 
-div.profile img.avatar {
-  float: left;
-  width: 200px;
-  border: 1px solid #EEE;
-}
-
-div.profile div.bio {
-  margin-left: 216px;
-}
-
-/* Clears float instead of a div inside html */
-div.profile:after {
+div.profile {
+  img.avatar {
+    float: left;
+    border: 1px solid #EEE;
+  }
+  /* Clears float instead of a div inside html */
+  &:after {
   content: ".";
   display: block;
   height: 0;
   clear: left;
   visibility: hidden;
+  }
+}
+
+div.big-bios {
+  div.profile {
+    img.avatar {
+      width: 200px;
+    }
+    div.bio {
+      margin-left: 216px;
+    }
+  }
+}
+
+div.small-bios {
+  div.profile {
+    img.avatar {
+      width: 100px;
+    }
+    div.bio {
+      margin-left: 116px;
+    }
+  }
 }
 
 /**********************************************************/
