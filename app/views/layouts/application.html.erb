@@ -11,8 +11,10 @@
   <title>Falling Fruit</title>
   <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
   <meta property="og:site_name" content="Falling Fruit" />
+  <meta property="fb:admins" content="10708811" /><!-- Ethan Welty -->
+  <meta property="fb:admins" content="42001954" /><!-- Caleb Phillips -->
+  <meta property="fb:admins" content="5246945" /><!-- Jeff Wanner -->
   
-  <!-- FIXME: Less hacky, and filter out active og:locale:alternate tags. Facebook is stupid for not allowing language only locales -->
   <% if (I18n.locale == :en) %>
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="fr_FR" />
@@ -29,7 +31,7 @@
  
   <% if @freegan %>
     <meta property="og:title" content="<%= I18n.t("meta.freegan_title") %>" />
-    <meta property="og:url" content="http://<%= I18n.locale %>.fallingfruit.org/dumpsters" />
+    <meta property="og:url" content="http://fallingfruit.org/dumpsters?locale=<%= I18n.locale %>" />
     <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker.png" />
     <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker-01.jpg" />
     <meta property="og:image" content="http://fallingfruit.org/og/dumpster-haul.jpg" />
@@ -37,7 +39,7 @@
     <meta name="description" content="<%= I18n.t("meta.freegan_description") %>" />
   <% else %>
     <meta property="og:title" content="Falling Fruit" />
-    <meta property="og:url" content="http://<%= I18n.locale %>.fallingfruit.org" />
+    <meta property="og:url" content="http://fallingfruit.org/?locale=<%= I18n.locale %>" />
     <meta property="og:image" content="http://fallingfruit.org/og/amittai.jpg" />
     <meta property="og:image" content="http://fallingfruit.org/og/apple-haul.jpg" />
     <meta property="og:description" content="<%= I18n.t("meta.forager_description") %>" />
