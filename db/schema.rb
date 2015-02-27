@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141226194649) do
+ActiveRecord::Schema.define(:version => 20150227163444) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -40,15 +40,16 @@ ActiveRecord::Schema.define(:version => 20141226194649) do
     t.integer  "location_id"
     t.string   "remote_ip"
     t.text     "description"
-    t.datetime "created_at",                                                                                     :null => false
-    t.datetime "updated_at",                                                                                     :null => false
+    t.datetime "created_at",                                                                                        :null => false
+    t.datetime "updated_at",                                                                                        :null => false
     t.integer  "user_id"
     t.integer  "observation_id"
     t.string   "author"
     t.text     "description_patch"
-    t.integer  "former_type_ids",                                                                :default => [],                 :array => true
-    t.string   "former_type_others",                                                             :default => [],                 :array => true
+    t.integer  "former_type_ids",                                                                :default => [],                    :array => true
+    t.string   "former_type_others",                                                             :default => [],                    :array => true
     t.spatial  "former_location",    :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.boolean  "spam",                                                                           :default => false
   end
 
   create_table "clusters", :force => true do |t|

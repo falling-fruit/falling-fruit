@@ -7,7 +7,7 @@ class ChangesController < ApplicationController
     r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),',') as type_title, array_to_string(type_others,',') as type_others,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state, l.country
       FROM changes c, locations l, types t
-      WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id
+      WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id AND NOT c.spam
       GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at ORDER BY c.created_at DESC LIMIT 100");
     @changes = r.collect{ |row| row }
     respond_to do |format|

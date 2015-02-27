@@ -6,7 +6,8 @@ module ClusterStuff
     tids = location.type_ids if tids.nil?
     muni = (location.import.nil? or (not location.import.muni)) ? false : true
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as xp, ST_Y(ST_TRANSFORM(location::geometry,900913)) as yp").where("id=?",location.id).first
-    Cluster.select("ST_X(cluster_point) as xp, ST_Y(cluster_point) as yp, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) AND muni = ? AND (type_id IS NULL or type_id IN (#{tids.join(",")}))",muni).each{ |clust|
+    ts = (tids.nil? or tids.empty?) ? "" : " OR type_id IN (#{tids.join(",")})"
+    Cluster.select("ST_X(cluster_point) as xp, ST_Y(cluster_point) as yp, count, *").where("ST_INTERSECTS(ST_TRANSFORM(ST_SETSRID(ST_POINT(#{location.lng},#{location.lat}),4326),900913),polygon) AND muni = ? AND (type_id IS NULL#{ts})",muni).each{ |clust|
 
       # since the cluster center is the arithmetic mean of the bag of points, simply integrate this points' location proportionally
       # e.g., https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average
