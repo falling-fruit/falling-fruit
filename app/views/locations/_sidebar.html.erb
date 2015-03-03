@@ -19,8 +19,7 @@
     <%
        last_lab = nil
        @changes.each do |c|
-         # FIXME: Why are types in type_title here joined with " - ", not "," ?
-         types = (c["type_title"] + "," + c["type_others"]).split(/,|[ ]*-[ ]*/).join(', ')
+         types = c["type_title"]
          case c["description"]
            when "added"
              action = I18n.t("changes.type.added")

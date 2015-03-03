@@ -24,7 +24,7 @@ class LocationsController < ApplicationController
     i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     @locations = Location.joins("INNER JOIN types ON types.id=ANY(locations.type_ids)").
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
-             select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, type_others, locations.id as id,
+             select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
                      author, import_id, locations.created_at, locations.updated_at, muni").
              where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
@@ -137,7 +137,6 @@ class LocationsController < ApplicationController
   def new
     @location = Location.new
     @location.type_ids = []
-    @location.type_others = []
     @lat = nil
     @lng = nil
     unless params[:lat].nil? or params[:lng].nil?
@@ -196,10 +195,13 @@ class LocationsController < ApplicationController
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
       if t.nil? 
-        @location.type_others.push type_name
-      else
-        @location.type_ids.push t.id
+        t = Type.new
+        t.name = type_name
+        t.pending = true
+        t.category_mask = 0
+        t.save
       end
+      @location.type_ids.push t.id
     } if params[:types].present?
     @location.user = current_user if user_signed_in?
 
@@ -260,20 +262,21 @@ class LocationsController < ApplicationController
     dmp = DiffMatchPatch.new
     patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description))
     former_type_ids = @location.type_ids
-    former_type_others = @location.type_others
     former_location = @location.location
 
     p = 0
     lts = []
     @location.type_ids = []
-    @location.type_others = []
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name).first
       if t.nil? 
-        @location.type_others.push type_name
-      else
-        @location.type_ids.push t.id
+        t = Type.new
+        t.name = type_name
+        t.category_mask = 0
+        t.pending = true
+        t.save
       end
+      @location.type_ids.push t.id
     } if params[:types].present?
     lt_update_okay = @location.save
 
@@ -283,7 +286,7 @@ class LocationsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
       if test and @location.update_attributes(params[:location]) and lt_update_okay and (@observation.nil? or @observation.save)
-        log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_type_others,former_location)
+        log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_location)
         cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
@@ -347,7 +350,7 @@ class LocationsController < ApplicationController
   def prepare_for_sidebar
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     rangeq = current_user.range.nil? ? "" : "AND ST_INTERSECTS(l.location,(SELECT range FROM users u2 WHERE u2.id=#{current_user.id}))"
-    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),' - ') as type_title, array_to_string(type_others,' - ') as type_others,
+    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),' - ') as type_title,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state,
       l.country, l.lat, l.lng, l.description as location_description, c.author as change_author, l.id
       FROM changes c, locations l, types t

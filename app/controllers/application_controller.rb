@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   #
 
   def log_changes(location,description,observation=nil,author=nil,description_patch=nil,
-    former_type_ids=[],former_type_others=[],former_location=nil)
+    former_type_ids=[],former_location=nil)
     c = Change.new
     c.location = location
     c.description = description
@@ -48,7 +48,6 @@ class ApplicationController < ActionController::Base
     c.observation = observation
     c.description_patch = description_patch
     c.former_type_ids = former_type_ids
-    c.former_type_others = former_type_others
     c.former_location = former_location
     # adding an observation
     if author.nil? and not observation.nil?

@@ -214,9 +214,8 @@ class Api::LocationsController < ApplicationController
       ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
     end
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-    # FIXME: name doesn't include other types
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, count(o.*),
-      #{dist} as distance, l.description, l.author, l.type_others,
+      #{dist} as distance, l.description, l.author,
       array_agg(t.parent_id) as parent_types,
       string_agg(coalesce(#{i18n_name_field}t.name),',') AS name,
       #{sorted} FROM locations l LEFT JOIN observations o ON o.location_id=l.id, types t
@@ -224,13 +223,12 @@ class Api::LocationsController < ApplicationController
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
       LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
-      row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       if row["name"].nil? or row["name"].strip == ""
         name = "Unknown"
       else
-        t = row["name"].split(/,/) + row["type_others"]
+        t = row["name"].split(/,/)
         if t.length == 2
           name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2
@@ -305,19 +303,18 @@ class Api::LocationsController < ApplicationController
       WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}")
     found_n = r["count"].to_i unless r.nil?
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, l.type_others,
+    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types,
       array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name),',') AS name, #{sorted}
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
-      row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       if row["name"].nil? or row["name"].strip == ""
         name = "Unknown"
       else
-        t = row["name"].split(/,/) + row["type_others"]
+        t = row["name"].split(/,/)
         if t.length == 2
           name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2
@@ -343,19 +340,18 @@ class Api::LocationsController < ApplicationController
      id = params[:id].to_i
      i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
-      array_agg(t.parent_id) as parent_types, l.type_others,
+      array_agg(t.parent_id) as parent_types,
       string_agg(coalesce(#{i18n_name_field}t.name),',') as name    
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=#{id}
       GROUP BY l.id, l.lat, l.lng, l.unverified")
     @markers = r.collect{ |row|
-      row["type_others"] = row["type_others"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
       if row["name"].nil? or row["name"].strip == ""
         name = "Unknown"
       else
-        t = row["name"].split(/,/) + row["type_others"]
+        t = row["name"].split(/,/)
         if t.length == 2
           name = "#{t[0]} & #{t[1]}"
         elsif t.length > 2

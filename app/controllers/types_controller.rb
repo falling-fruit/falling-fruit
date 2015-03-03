@@ -14,17 +14,10 @@ class TypesController < ApplicationController
   end
 
   def grow
-    @type_others = {}
-    Location.select("type_others").where("type_others IS NOT NULL and array_length(type_others,1)>0").collect{ |l|
-      l.type_others.compact.each{ |lt|
-        safer_type = lt.tr('^A-Za-z- \'','').capitalize
-        @type_others[safer_type] = [] if @type_others[safer_type].nil?
-        @type_others[safer_type].push(l)
-      }
-    }
+    @pending_types = Type.where("pending")
     respond_to do |format|
       format.html
-      format.json { render json: @types }
+      format.json { render json: @pending_types }
     end
   end
 
@@ -58,22 +51,6 @@ class TypesController < ApplicationController
       from.destroy
       respond_to do |format|
         format.html { redirect_to types_url, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
-        format.json { head :no_content }
-      end
-    elsif params[:locs].present? and params[:type_other].present?
-      to = Type.find(params[:into_id].to_i)
-      n = 0
-      params[:locs].split(/:/).each{ |lid|
-        l = Location.find(lid)
-        l.type_ids.push to
-        l.type_others = l.type_others.collect{ |e|
-          e.tr('^A-Za-z- \'','').capitalize == params[:type_other] ? nil : e
-        }.compact
-        l.save
-        n += 1
-      }
-      respond_to do |format|
-        format.html { redirect_to grow_types_url, :notice => "Type #{to.id} absorbed #{n} location-types" }
         format.json { head :no_content }
       end
     end

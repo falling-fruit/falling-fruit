@@ -28,7 +28,7 @@ devserver:
 
 syncfrombackup:
 	scp erichtho:/var/www/falling-fruit/db/backups/fallingfruit.latest.sql ./
-	bash util/load_backup.sh fallingfruit.1.sql
+	bash util/load_backup.sh fallingfruit.latest.sql
 	sudo su postgres -c "dropdb fallingfruit_test_db"
 	sudo su postgres -c "createdb fallingfruit_test_db -T fallingfruit_new_db -O fallingfruit_user"
 

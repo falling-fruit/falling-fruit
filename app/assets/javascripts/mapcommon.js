@@ -568,7 +568,7 @@ function open_tab_3() {
 
   function open_marker_by_id(id) {
     var cstr = '';
-    if (cats != undefined) {
+    if (cats != undefined) {  
       cstr = '&c=' + cats;
     }
     lstr = '&locale=' + I18n.locale;

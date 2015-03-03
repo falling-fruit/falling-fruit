@@ -2,7 +2,7 @@ pt-br:
   changes:
     index:
       1_day_ago: 1 dia atrás
-      change_in_city: 
+      change_in_city: ! '%{type} em %{city}'
       last_24_hours: Nas últimas 24 horas
       n_days_ago: ! '%{n} dias atrás'
       recent_changes: Mudanças recentes
@@ -169,8 +169,8 @@ pt-br:
       pending_types_help: Nós reforçamos uma taxonomia de tipos de comestíveis para manter o mapa organizado e pesquisável. Novos tipos apresentados pelos usuários são destacadas como pendente até que sejam aprovadas como um novo tipo ou fundiu-se com um tipo existente na taxonomia. Em casos raros, quando a apresentação é demasiado aleatório ou vaga para justificar seu próprio tipo, ele persiste no mapa em um estado não aprovado.
       pending_types_help_title: 
       problem_modal_title: 
-      unverified_help: Fontes são marcados como não verificada se a sua identidade, localização ou existência é contestada. Muitas fontes importados a partir de inventários de árvores são marcadas como não verificadas porque a sua comestibilidade é incerto (por exemplo, "pera" poderia ser tanto uma variedade comestível ou decorativo). Os usuários são encorajados a viajar para esses locais e relatar suas descobertas.
-      unverified_help_title: 
+      unverified_help: Fontes são marcados como não verificada se a sua identidade, localização ou existência é contestada. Muitas fontes importadas a partir de inventários de árvores são marcadas como não verificadas porque a sua comestibilidade é incerto (por exemplo, "pera" poderia ser tanto uma variedade comestível ou decorativo). Os usuários são encorajados a viajar para esses locais e relatar suas descobertas.
+      unverified_help_title: Por quê não verificada?
   locations:
     embed:
       add_source: Adicionar fonte

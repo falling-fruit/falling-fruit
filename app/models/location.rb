@@ -8,14 +8,13 @@ class Location < ActiveRecord::Base
 
   accepts_nested_attributes_for :observations, :reject_if => :all_blank
 
-  validates :type_ids, :presence => true, :if => proc{|o| o.type_others.empty? }
-  validates :type_others, :presence => true, :if => proc{|o| o.type_ids.empty? }
+  validates :type_ids, :presence => true
   validates :lat, numericality: {greater_than_or_equal_to: -85.0, less_than_or_equal_to: 85.0, allow_nil: false}
   validates :lng, numericality: {greater_than_or_equal_to: -180.0, less_than_or_equal_to: 180.0, allow_nil: false}
   validates :access, :numericality => { :only_integer => true }, :allow_nil => true
 	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
-                  :no_season, :unverified, :access, :type_ids, :type_others, :import_id, :photo_url, :user, :user_id,
+                  :no_season, :unverified, :access, :type_ids, :import_id, :photo_url, :user, :user_id,
                   :category_mask, :observations_attributes, :destroyed?
   attr_accessor :import_link
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
@@ -43,7 +42,6 @@ class Location < ActiveRecord::Base
   # csv support
   comma do
     scsv_types
-    scsv_type_others
     description
     lat
     lng
@@ -55,6 +53,14 @@ class Location < ActiveRecord::Base
     unverified
     author
     photo_url
+  end
+
+  def accepted_type_ids
+    self.types.keep_if{ |t| not t.pending }
+  end
+
+  def pending_type_ids
+    self.types.keep_if{ |t| t.pending }
   end
 
   def has_photos?
@@ -100,8 +106,24 @@ class Location < ActiveRecord::Base
     end
   end
 
+  def pending_types
+    self.types("pending")
+  end
+
+  def accepted_types
+    self.types("NOT pending")
+  end
+
   def type_names
-    (self.types.collect{ |t| t.name }.compact + self.type_others.compact)
+    self.types.collect{ |t| t.name }.compact
+  end
+
+  def pending_type_names
+    self.pending_types.collect{ |t| t.name }.compact
+  end
+
+  def accepted_type_names
+    self.accepted_types.collect{ |t| t.name }.compact
   end
 
   def title
@@ -121,10 +143,6 @@ class Location < ActiveRecord::Base
     self.types.collect{ |t| t.name }.compact.join(";")
   end
 
-  def scsv_type_others
-    self.type_others.compact.join(";")
-  end
-
   #### CLASS METHODS ####
 
   def self.csv_header
@@ -133,12 +151,11 @@ class Location < ActiveRecord::Base
   end
 
   def self.build_from_csv(row,typehash=nil)
-    type,type_other,desc,lat,lng,address,season_start,season_stop,no_season,
+    type,desc,lat,lng,address,season_start,season_stop,no_season,
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
     loc = Location.new
     loc.type_ids = []
-    loc.type_others = []
     unless type.blank?
       type.split(/[;,:]/).each{ |t|
         safer_type = t.squish.tr('^A-Za-z- \'','').capitalize
@@ -147,6 +164,7 @@ class Location < ActiveRecord::Base
           nt = Type.new
           nt.name = safer_type
           nt.category_mask = 0 # default is no category per Ethan's request
+          nt.pending = true
           nt.save
           loc.type_ids.push(nt.id)
         else
@@ -155,11 +173,6 @@ class Location < ActiveRecord::Base
       }
     end
     loc.type_ids.uniq!
-
-    type_other.split(/[;,:]/).each{ |to|
-      loc.type_others.push to
-    } unless type_other.blank?
-    loc.type_others.uniq!
 
     unless lat.blank? or lng.blank?
       loc.lat = lat.to_f
@@ -196,7 +209,6 @@ class Location < ActiveRecord::Base
   private
   def default_values
     self["type_ids"] ||= []
-    self["type_others"] ||= []
   end
 
 end
