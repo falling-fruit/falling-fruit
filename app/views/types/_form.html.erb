@@ -10,7 +10,8 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <h3>Common names</h3>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -21,19 +22,33 @@
     <%= f.text_field :synonyms %>
   </div>
   <div class="field">
-    <%= f.label :spanish_name %><br />
+    <%= f.label :french %><br />
+    <%= f.text_field :fr_name %>
+  </div>
+  <div class="field">
+    <%= f.label :german %><br />
+    <%= f.text_field :de_name %>
+  </div>
+  <div class="field">
+    <%= f.label :spanish %><br />
     <%= f.text_field :es_name %>
   </div>
   <div class="field">
-    <%= f.label :polish_name %><br />
+    <%= f.label :portuguese %><br />
+    <%= f.text_field :pt_br_name %>
+  </div>
+  <div class="field">
+    <%= f.label :polish %><br />
     <%= f.text_field :pl_name %>
   </div>
   <div class="field">
-    <%= f.label :hebrew_name %><br />
+    <%= f.label :hebrew %><br />
     <%= f.text_field :he_name %>
   </div>
+  
+  <h3>Scientific taxonomy</h3>
   <div class="field">
-    Scientific (latin) name<br />
+    <%= f.label :scientific_name %><br />
     <%= f.text_field :scientific_name %>
   </div>
   <div class="field">
@@ -48,40 +63,49 @@
     <%= f.label :taxonomic_rank %><br/>
     <%= f.select(:taxonomic_rank,Type::Ranks.collect{ |id,name| [name,id] },:include_blank=>true) %>
   </div>
+  
+  <h3>Links</h3>
   <div class="field">
-    <%= f.label "USDA" %><br />
+    <a href="//plants.usda.gov/classification.html">USDA</a> (symbol)<br />
     <%= f.text_field :usda_symbol %><br>
-    <span class="subtext">See <a href="http://plants.usda.gov/classification.html">here</a>.</span>
   </div>
   <div class="field">
-    <%= f.label :wikipedia_url %><br />
+    <a href="//en.wikipedia.org">Wikipedia</a> (en)<br />
     <%= f.text_field :wikipedia_url %>
   </div>
   <div class="field">
-    <%= f.label :urban_mushrooms_url %><br />
+    <a href="//urbanmushrooms.com">Urban Mushrooms</a><br />
     <%= f.text_field :urban_mushrooms_url %>
   </div>
   <div class="field">
-    <%= f.label :eat_the_weeds_url %><br />
+    <a href="//eattheweeds.com">Eat the Weeds</a><br />
     <%= f.text_field :eat_the_weeds_url %>
   </div>
   <div class="field">
-    <%= f.label :fruitipedia_url %><br />
+    <a href="//fruitipedia.com">Fruitipedia</a><br />
     <%= f.text_field :fruitipedia_url %>
   </div>
   <div class="field">
-    <%= f.label :foraging_texas_url %><br />
+    <a href="//foragingtexas.com">Foraging Texas</a><br />
     <%= f.text_field :foraging_texas_url %>
   </div>
 
+  <h3>Categories</h3>
   <div class="field">
     <%= f.label :edibility %><br />
     <%= f.select(:edability, Type::Edabilities.collect{ |k,v| [v,k] }, :include_blank => true) %>
   </div>
-
   <div class="field">
     <%= f.label :categories %><br />
     <%= select_tag(:categories, options_for_select(Type::Categories.each_with_index.collect{ |v,i| [v.capitalize,v] },@categories),:multiple => true) %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area(:notes, :rows => 5) %>
+  </div>
+  <div class="field">
+    <b><%= f.label :pending %></b>
+    <%= f.check_box(:pending, :checked => false) %>
   </div>
   
   <!-- Custom marker (unused)
@@ -93,12 +117,8 @@
   -->
   
   <br />
-  <% unless not(defined? locs) or locs.nil? %>
-    <%= hidden_field_tag 'locs', locs.collect{ |l| l.id }.join(":") %>
-    <%= hidden_field_tag 'type_other', type_other %>
-  <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update" %>
   </div>
 <% end %>
 

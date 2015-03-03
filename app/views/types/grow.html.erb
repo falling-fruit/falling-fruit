@@ -1,61 +1,48 @@
 <h1>Pending Types</h1>
 
-<table id="type_others_table">
+<table id="types_table">
 <thead>
 <tr>
+ <th>ID</th>
  <th>Name</th>
  <th>Locations</th>
- <th>Create</th>
- <th>Merge</th>
+ <th>Categories</th>
+ <th>Edit</th>
+ <th>Delete</th>
 </tr>
 </thead>
 <tbody>
-
-<% @type_others.each do |name,locs|
-  @type = Type.new
-  @type.name = name
-%>
-
+<% @types.each_with_index do |type, i| %>
 <tr>
-<td><%= name %></td>
-<td width="25%"><%= locs.length %><br/><br/>
-
-[
-<% locs.each do |l| %>
-<%= link_to l.id, edit_location_path(l.id) unless l.id.nil? %>
+<td style="text-align:right"><%= type.id %></td>
+<td>
+ <% unless type.wikipedia_url.blank? %>
+  <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= h type.name %></a>
+ <% else %>
+  <%= h type.name %>
+ <% end %>
+ <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
+</td>
+<td>
+[<%= @locations[i].length %>]
+<% @locations[i].each do |lid| %>
+<%= link_to lid, edit_location_path(lid) unless lid.nil? %>
 <% end %>
-]
-
 </td>
-<td style="padding-bottom:1em;"><%= render :partial => 'form', :object => @type, :locals => {:locs => locs,:type_other => name} %></td>
-<td><form action="/types/merge">
-    <%= hidden_field_tag 'locs', locs.collect{ |l| l.id }.join(":") %>
-    <%= hidden_field_tag 'type_other', name %>
-    <%= hidden_field_tag(:into_id,'',:class=>"intoselect2") %>
-    <%= submit_tag "Merge" %>
-</form>
-</td>
+<td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
+<td><%= link_to 'Edit', edit_type_path(type) %></td>
+<td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
-<% end %>
+<% end %>   
 </tbody>
 </table>
 
-<% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-  jQuery('#type_others_table').dataTable({
-      "aaSorting": [],
+    jQuery('#types_table').dataTable({
+      "aaSorting": [[2,"asc"], [1,"asc"]],
       "bPaginate": false
     });
-  var all_types_data = <%= Type.full_list_with_ids(Type::Categories).to_json.html_safe %>;
-  $(".parentselect2").select2({
-    width: "20em",
-    data: all_types_data
-  });
-  $(".intoselect2").select2({
-    width: "20em",
-    data: all_types_data
-  });
 });
 </script>
-<% end %>
+

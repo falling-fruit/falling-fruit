@@ -195,8 +195,18 @@ class LocationsController < ApplicationController
 
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
-      if t.nil? 
-        @location.type_others.push type_name
+      if t.nil?
+        @type = nil
+        @type = Type.new()
+        @type.name = type_name
+        @type.pending = true        
+        if params[:c].blank?
+          @type.category_mask = array_to_mask(["human","freegan"],Type::Categories)
+        else
+          @type.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+        end
+        @type.save
+        @location.type_ids.push @type.id
       else
         @location.type_ids.push t.id
       end
@@ -266,11 +276,20 @@ class LocationsController < ApplicationController
     p = 0
     lts = []
     @location.type_ids = []
-    @location.type_others = []
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name).first
-      if t.nil? 
-        @location.type_others.push type_name
+      if t.nil?
+        @type = nil
+        @type = Type.new()
+        @type.name = type_name
+        @type.pending = true        
+        if params[:c].blank?
+          @type.category_mask = array_to_mask(["human","freegan"],Type::Categories)
+        else
+          @type.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+        end
+        @type.save
+        @location.type_ids.push @type.id
       else
         @location.type_ids.push t.id
       end

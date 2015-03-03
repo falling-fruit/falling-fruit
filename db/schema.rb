@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150227163444) do
+ActiveRecord::Schema.define(:version => 20150303114742) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(:version => 20150227163444) do
     t.integer  "zoom"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
+    t.integer  "type_id"
     t.spatial  "cluster_point", :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "grid_point",    :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "polygon",       :limit => {:srid=>900913, :type=>"polygon"}
-    t.integer  "type_id"
   end
 
   create_table "imports", :force => true do |t|
@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(:version => 20150227163444) do
 
   create_table "types", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "marker_file_name"
     t.string   "marker_content_type"
     t.integer  "marker_file_size"
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20150227163444) do
     t.string   "fr_name"
     t.string   "pt_br_name"
     t.string   "de_name"
+    t.boolean  "pending",             :default => false
   end
 
   create_table "users", :force => true do |t|
