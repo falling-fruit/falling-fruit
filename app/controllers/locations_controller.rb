@@ -358,7 +358,7 @@ class LocationsController < ApplicationController
   def prepare_for_sidebar
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     rangeq = current_user.range.nil? ? "" : "AND ST_INTERSECTS(l.location,(SELECT range FROM users u2 WHERE u2.id=#{current_user.id}))"
-    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),' - ') as type_title,
+    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),', ') as type_title,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state,
       l.country, l.lat, l.lng, l.description as location_description, c.author as change_author, l.id
       FROM changes c, locations l, types t

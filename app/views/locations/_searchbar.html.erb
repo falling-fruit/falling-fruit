@@ -73,10 +73,9 @@
   }
 jQuery(document).ready(function(){
   $('#type_filter').select2({
-    <% if @type.nil? %>
     	placeholder: "<%= I18n.t("locations.searchbar.select_edible_type") %>",
-    <% else %>
-    	placeholder: "<%= @type.full_name %>",
+     <% unless @type.nil? %>
+    	val: type_filter,
     <% end %>
       data: function(term,page){
           return { text:'text', results: filter_by_types_hash(base_type_data) };

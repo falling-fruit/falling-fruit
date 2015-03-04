@@ -149,9 +149,9 @@ jQuery(document).ready(function(){
   <br/>
   
   <!-- Captcha -->
-  <% unless user_signed_in? %>
+	<% unless user_signed_in? %>
   	<div id="captcha">
-  		<%= recaptcha_tags(:display => {:theme => 'white'}) %>
+  		<%= recaptcha_tags(:display => {:theme => 'white'}, :ssl => (request.protocol == 'https://' ? true : false)) %>
   	</div>
   <br />
 	<% end %>

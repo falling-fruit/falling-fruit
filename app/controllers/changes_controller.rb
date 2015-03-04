@@ -4,7 +4,7 @@ class ChangesController < ApplicationController
   # GET /types.json
   def index
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),',') as type_title,
+    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),', ') as type_title,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state, l.country
       FROM changes c, locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id AND NOT c.spam

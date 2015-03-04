@@ -23,6 +23,7 @@ jQuery(document).ready(function(){
   	tokenSeparators: [","],
     tags: <%= Type.where("pending is false").full_list(@cats.nil? ? Type::DefaultCategories : @cats).to_json.html_safe %>
   });
+  
   $("#typeselect2").select2("container").find("ul.select2-choices").sortable({
     containment: 'parent',
     start: function() { $("#typeselect2").select2("onSortStart"); },
@@ -184,6 +185,7 @@ jQuery(document).ready(function(){
     <span class="subtext"><%= I18n.t("locations.form.unverified_subtext") %></span>
   </div>
   
+  <br />
   <!-- Observations -->
   <details>
     <summary><%= I18n.t("locations.form.have_you") %></summary>
@@ -243,7 +245,7 @@ jQuery(document).ready(function(){
   <!-- Captcha -->
   <% unless user_signed_in? %>
   	<div id="captcha">
-  		<%= recaptcha_tags(:display => {:theme => 'white'}) %>
+  		<%= recaptcha_tags(:display => {:theme => 'white'}, :ssl => (request.protocol == 'https://' ? true : false)) %>
   	</div>
   <br />
 	<% end %>

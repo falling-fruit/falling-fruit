@@ -15,6 +15,9 @@
   var lng = $("#location_lng").val();
   var zoom = 20;
 	var type = google.maps.MapTypeId.HYBRID;
+	// Needed for opening marker windows. 
+  // FIXME: Shouldn't this be set in the session?
+  var cats = undefined;
 
   // ================= functions =================
 

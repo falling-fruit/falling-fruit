@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   SupportedLocales = ['pt-br','en','es','fr','de','he','pl']
 
+  before_filter :redirect_to_https
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :instantiate_controller_and_action_names
   before_filter :set_locale
@@ -88,7 +89,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # prevent a sneaky person from setting thier roles on creation
+  # prevent a sneaky person from setting their roles on creation
   def configure_permitted_parameters
     if self.controller_name == "registrations"
       params["registration"]["user"].delete("roles_mask") if params["registration"].present? and params["user"].present?
@@ -143,6 +144,14 @@ class ApplicationController < ActionController::Base
     return nil unless params.has_key? :locale
     locale = params[:locale].downcase.gsub('_','-')
     I18n.available_locales.map(&:to_s).include?(locale) ? locale : (I18n.available_locales.map(&:to_s).include?(locale[0,2]) ? locale[0,2] : nil)
+  end
+  
+  #
+  # =================== HTTPS STUFF ========================
+  #
+  
+  def redirect_to_https
+    redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
   end
 
 end

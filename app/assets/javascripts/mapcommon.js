@@ -336,9 +336,9 @@
 				  var previous_text = $('#s2id_type_filter .select2-chosen').html();
 				  filter_display = $('#s2id_type_filter .select2-chosen');
 				  if (types_hash[type_filter] == undefined) {
-				    filter_display.html(previous_text.replace(/([0-9]+)/, 0));
+				    filter_display.html(filter_display.html().replace(/ \([0-9]+\+*\)/, '') + ' (0)');
 				  } else {
-				    filter_display.html(previous_text.replace(/([0-9]+)/, types_hash[type_filter]));
+				    $("#type_filter").select2('val', type_filter);
 				  }
 			  }
 		});
@@ -773,9 +773,9 @@ function open_tab_3() {
 			if (!mobile && type_filter != undefined) {
 				filter_display = $('#s2id_type_filter .select2-chosen');
 				if (types_hash[type_filter] == undefined) {
-				  filter_display.html(filter_display.html().replace(/([0-9]+)/, 0));
+				  filter_display.html(filter_display.html().replace(/ \([0-9]+\+*\)/, '') + ' (0)');
 				} else {
-				  filter_display.html(filter_display.html().replace(/([0-9]+)/, types_hash[type_filter]));
+				  $("#type_filter").select2('val', type_filter);
 				}
 			}
     });
