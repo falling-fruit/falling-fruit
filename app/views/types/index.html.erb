@@ -6,8 +6,15 @@
 <thead>
 <tr>
  <th>ID</th>
- <th>Common name</th>
- <th>Scientific name</th>
+ <th>Rank</th>
+ <th>Latin</th>
+ <th>en</th>
+ <th>fr</th>
+ <th>de</th>
+ <th>es</th>
+ <th>pt</th>
+ <th>pl</th>
+ <th>he</th>
  <th>Categories</th>
  <th>W</th>
  <th>USDA</th>
@@ -23,22 +30,25 @@
 <% @types.each do |type| %>
 <tr>
 <td style="text-align:right"><%= type.id %></td>
+<td><%= Type::Ranks[type.taxonomic_rank] %>
+<td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.blank? %></td>
 <td>
- <% unless type.wikipedia_url.blank? %>
-  <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= type.name %></a>
- <% else %>
-  <%= type.name %>
- <% end %>
+ <%= type.name %>
  <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
 </td>
-<td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.blank? %></td>
+<td><%= type.fr_name %></td>
+<td><%= type.de_name %></td>
+<td><%= type.es_name %></td>
+<td><%= type.pt_br_name %></td>
+<td><%= type.pl_name %></td>
+<td><%= type.he_name %></td>
 <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
-<td style="text-align:center;"><% if type.wikipedia_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.wikipedia_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
 <td style="text-align:center;"><%= raw !type.usda_symbol.blank? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "" %></td>
-<td style="text-align:center;"><% if type.eat_the_weeds_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.eat_the_weeds_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><% if type.foraging_texas_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.foraging_texas_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><% if type.urban_mushrooms_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.urban_mushrooms_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><% if type.fruitipedia_url.blank? %><span style="color:brown;">???</span><% else %><a href="<%= raw type.fruitipedia_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.eat_the_weeds_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.eat_the_weeds_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.foraging_texas_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.foraging_texas_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.urban_mushrooms_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.urban_mushrooms_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;"><% if type.fruitipedia_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.fruitipedia_url %>" target="_blank">...</a><% end %></td>
 <td><%= link_to 'Edit', edit_type_path(type) %></td>
 <td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
@@ -49,7 +59,7 @@
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
     jQuery('#types_table').dataTable({
-      "aaSorting": [[2,"asc"], [1,"asc"]],
+      "aaSorting": [[2,"asc"], [3,"asc"]],
       "bPaginate": false
     });
 });

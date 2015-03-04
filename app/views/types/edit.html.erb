@@ -1,8 +1,13 @@
-<h1>Edit Type</h1>
+<h1>Merge</h1>
+
+<form action="/types/<%= @type.id %>/merge">
+    <%= select_tag(:into_id,options_for_select(Type.where("pending is false").order("scientific_name", "name").collect{ |t| [t.full_name,t.id] }),:class=>"select2") %>
+    <%= submit_tag "Merge" %>
+</form>
+
+<h2>Edit</h2>
 
 <%= render 'form' %>
-
-<!-- Merge type -->
 
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
@@ -12,10 +17,3 @@ jQuery(document).ready(function(){
 </script>
 <% end %>
 
-<br />
-<h2>Convert to</h2>
-
-<form action="/types/<%= @type.id %>/merge">
-    <%= select_tag(:into_id,options_for_select(Type.order("name").collect{ |t| [t.name,t.id] }),:class=>"select2") %>
-    <%= submit_tag "Merge" %>
-</form>

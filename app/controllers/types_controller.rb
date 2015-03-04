@@ -5,7 +5,12 @@ class TypesController < ApplicationController
   # GET /types
   # GET /types.json
   def index
-    @types = Type.all
+    @types = Type.where("pending is false")
+    @counts = []
+    @types.each{ |type| 
+      count = Cluster.where("#{type.id}=type_id and zoom=0").collect{|l| l.count}.sum
+      @counts.push(count)
+    }
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @types }
@@ -14,7 +19,7 @@ class TypesController < ApplicationController
   end
 
   def grow
-    @pending_types = Type.where("pending")
+    @types = Type.where("pending")
     respond_to do |format|
       format.html
       format.json { render json: @pending_types }
@@ -46,7 +51,7 @@ class TypesController < ApplicationController
       Location.where("? = ANY (type_ids)", from.id).each{ |l|
         l.type_ids = l.type_ids.collect{ |e| e == from.id ? nil : e }.compact
         l.type_ids.push to
-        lt.save
+        l.save
       }
       from.destroy
       respond_to do |format|

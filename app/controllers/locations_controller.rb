@@ -194,11 +194,15 @@ class LocationsController < ApplicationController
 
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name.strip).first
-      if t.nil? 
+      if t.nil?
         t = Type.new
         t.name = type_name
-        t.pending = true
-        t.category_mask = 0
+        t.pending = true        
+        if params[:c].blank?
+          t.category_mask = array_to_mask(["human","freegan"],Type::Categories)
+        else
+          t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+        end
         t.save
       end
       @location.type_ids.push t.id
@@ -269,11 +273,15 @@ class LocationsController < ApplicationController
     @location.type_ids = []
     params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name).first
-      if t.nil? 
+      if t.nil?
         t = Type.new
         t.name = type_name
-        t.category_mask = 0
-        t.pending = true
+        t.pending = true        
+        if params[:c].blank?
+          t.category_mask = array_to_mask(["human","freegan"],Type::Categories)
+        else
+          t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
+        end
         t.save
       end
       @location.type_ids.push t.id
