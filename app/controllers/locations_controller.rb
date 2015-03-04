@@ -192,14 +192,14 @@ class LocationsController < ApplicationController
       @observation.user = current_user if user_signed_in?
     end
 
-    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
-      t = Type.where("name = ?",type_name.strip).first
+    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].squish.capitalize }.uniq.each{ |type_name|
+      t = Type.where("name = ?",type_name).first
       if t.nil?
         t = Type.new
-        t.name = type_name
+        t.name = type_name.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize
         t.pending = true        
         if params[:c].blank?
-          t.category_mask = array_to_mask(["human","freegan"],Type::Categories)
+          t.category_mask = array_to_mask(["human"],Type::Categories)
         else
           t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
         end
@@ -271,14 +271,14 @@ class LocationsController < ApplicationController
     p = 0
     lts = []
     @location.type_ids = []
-    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].strip.capitalize }.uniq.each{ |type_name|
+    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].squish.capitalize }.uniq.each{ |type_name|
       t = Type.where("name = ?",type_name).first
       if t.nil?
         t = Type.new
-        t.name = type_name
+        t.name = type_name.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize
         t.pending = true        
         if params[:c].blank?
-          t.category_mask = array_to_mask(["human","freegan"],Type::Categories)
+          t.category_mask = array_to_mask(["human"],Type::Categories)
         else
           t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
         end

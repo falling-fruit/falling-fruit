@@ -19,14 +19,14 @@
  <% unless type.wikipedia_url.blank? %>
   <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= h type.name %></a>
  <% else %>
-  <%= h type.name %>
+  <%= type.name %>
  <% end %>
  <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
 </td>
 <td>
-[<%= type.locations.length %>]
-<% type.locations.each do |l| %>
-<%= link_to l.id, edit_location_path(l) unless l.nil? %>
+[<%= @locations[i].length %>]
+<% @locations[i].each do |id| %>
+<%= link_to id, edit_location_path(id) unless id.nil? %>
 <% end %>
 </td>
 <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>

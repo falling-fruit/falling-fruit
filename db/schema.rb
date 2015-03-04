@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20150303154024) do
-=======
-ActiveRecord::Schema.define(:version => 20150303114742) do
->>>>>>> ea13b4aacad86b3693034fc925ca8061c785dc59
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -44,15 +40,16 @@ ActiveRecord::Schema.define(:version => 20150303114742) do
     t.integer  "location_id"
     t.string   "remote_ip"
     t.text     "description"
-    t.datetime "created_at",                                                                                     :null => false
-    t.datetime "updated_at",                                                                                     :null => false
+    t.datetime "created_at",                                                                                        :null => false
+    t.datetime "updated_at",                                                                                        :null => false
     t.integer  "user_id"
     t.integer  "observation_id"
     t.string   "author"
     t.text     "description_patch"
-    t.integer  "former_type_ids",                                                                :default => [],                 :array => true
-    t.string   "former_type_others",                                                             :default => [],                 :array => true
+    t.integer  "former_type_ids",                                                                :default => [],                    :array => true
+    t.string   "former_type_others",                                                             :default => [],                    :array => true
     t.spatial  "former_location",    :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.boolean  "spam",                                                                           :default => false
   end
 
   create_table "clusters", :force => true do |t|
@@ -102,7 +99,8 @@ ActiveRecord::Schema.define(:version => 20150303114742) do
     t.string   "state"
     t.string   "country"
     t.integer  "user_id"
-    t.integer  "type_ids",                                                                 :default => [],                    :array => true
+    t.integer  "type_ids",                                                                                                    :array => true
+    t.string   "type_others",                                                              :default => [],                    :array => true
   end
 
   create_table "locations_routes", :force => true do |t|
@@ -165,13 +163,8 @@ ActiveRecord::Schema.define(:version => 20150303114742) do
 
   create_table "types", :force => true do |t|
     t.string   "name"
-<<<<<<< HEAD
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-=======
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
->>>>>>> ea13b4aacad86b3693034fc925ca8061c785dc59
     t.string   "marker_file_name"
     t.string   "marker_content_type"
     t.integer  "marker_file_size"
@@ -196,11 +189,7 @@ ActiveRecord::Schema.define(:version => 20150303114742) do
     t.string   "fr_name"
     t.string   "pt_br_name"
     t.string   "de_name"
-<<<<<<< HEAD
-    t.boolean  "pending",             :default => true
-=======
     t.boolean  "pending",             :default => false
->>>>>>> ea13b4aacad86b3693034fc925ca8061c785dc59
   end
 
   create_table "users", :force => true do |t|
