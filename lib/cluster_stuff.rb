@@ -3,7 +3,7 @@ module ClusterStuff
   # assumes not muni increments the not muni clusters
   def cluster_increment(location,tids=nil)
     found = {}
-    tids = location.accepted_type_ids if tids.nil?
+    tids = location.type_ids if tids.nil?
     muni = (location.import.nil? or (not location.import.muni)) ? false : true
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as xp, ST_Y(ST_TRANSFORM(location::geometry,900913)) as yp").where("id=?",location.id).first
     ts = (tids.nil? or tids.empty?) ? "" : " OR type_id IN (#{tids.join(",")})"
@@ -29,7 +29,7 @@ module ClusterStuff
 
   # assumes not muni, increments the not muni clusters
   def cluster_decrement(location,tids=nil)
-    tids = location.accepted_type_ids if tids.nil?
+    tids = location.type_ids if tids.nil?
     muni = (location.import.nil? or (not location.import.muni)) ? false : true
     ml = Location.select("ST_X(ST_TRANSFORM(location::geometry,900913)) as x, ST_Y(ST_TRANSFORM(location::geometry,900913)) as y").where("id=#{location.id}").first
     tq = tids.empty? ? "" : "OR type_id IN (#{tids.join(",")})"

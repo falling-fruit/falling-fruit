@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(:version => 20150303154024) do
     t.string   "country"
     t.integer  "user_id"
     t.integer  "type_ids",                                                                                                    :array => true
-    t.string   "type_others",                                                              :default => [],                    :array => true
   end
 
   create_table "locations_routes", :force => true do |t|
@@ -163,8 +162,8 @@ ActiveRecord::Schema.define(:version => 20150303154024) do
 
   create_table "types", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "marker_file_name"
     t.string   "marker_content_type"
     t.integer  "marker_file_size"
@@ -189,7 +188,7 @@ ActiveRecord::Schema.define(:version => 20150303154024) do
     t.string   "fr_name"
     t.string   "pt_br_name"
     t.string   "de_name"
-    t.boolean  "pending",             :default => false
+    t.boolean  "pending",             :default => true
   end
 
   create_table "users", :force => true do |t|

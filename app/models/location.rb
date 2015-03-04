@@ -56,11 +56,11 @@ class Location < ActiveRecord::Base
   end
 
   def accepted_type_ids
-    self.types.keep_if{ |t| not t.pending }
+    self.accepted_types.collect{ |t| t.id }
   end
 
   def pending_type_ids
-    self.types.keep_if{ |t| t.pending }
+    self.pending_types.collect{ |t| t.id }
   end
 
   def has_photos?

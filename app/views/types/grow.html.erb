@@ -12,7 +12,7 @@
 </tr>
 </thead>
 <tbody>
-<% @types.each_with_index do |type, i| %>
+<% @types.each do |type| %>
 <tr>
 <td style="text-align:right"><%= type.id %></td>
 <td>
@@ -24,9 +24,9 @@
  <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
 </td>
 <td>
-[<%= @locations[i].length %>]
-<% @locations[i].each do |id| %>
-<%= link_to id, edit_location_path(id) unless id.nil? %>
+<%= link_to '[' + type.locations.length.to_s + ']', '/?f=' + type.id.to_s %>
+<% type.locations.each do |l| %>
+<%= link_to l.id, edit_location_path(l.id) unless l.id.nil? %>
 <% end %>
 </td>
 <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>

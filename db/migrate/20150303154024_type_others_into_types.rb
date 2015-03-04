@@ -1,5 +1,6 @@
 class TypeOthersIntoTypes < ActiveRecord::Migration
   def up
+    add_column :types, :pending, :boolean, :default => true
     Type.where("pending is null").each{ |t| t.pending = false; t.save }
     h = {}
     Location.where("type_others IS NOT NULL").select("id,type_others").each{ |l|
@@ -15,7 +16,6 @@ class TypeOthersIntoTypes < ActiveRecord::Migration
       t = Type.new
       t.name = k
       t.category_mask = array_to_mask(["human"],Type::Categories)
-      t.pending = true
       t.save
       h[k].each{ |lid|
         l = Location.find(lid)

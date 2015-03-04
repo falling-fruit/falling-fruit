@@ -84,6 +84,10 @@ class Type < ActiveRecord::Base
     lang = "scientific" if lang == "la"
     return ([self["#{lang}_name"],self.name].compact.first)
   end
+  
+  def locations
+    Location.where("type_ids @> ARRAY[?]",self.id)
+  end
 
   # csv support
   comma do
