@@ -42,8 +42,7 @@ You'll want to change config/database.yml and config/intializers/secret_token.rb
 
 == Translations
 
-Translations for Falling Fruit are managed on [Locale](http://www.localeapp.com/). 
-To contribute, edit the translations directly on the
-[falling-fruit](http://www.localeapp.com/projects/public?search=falling-fruit)
-project on Locale. We will then pull translations from the Locale project and push to Github.
-Happy translating!
+Translations for Falling Fruit are managed via the 
+{falling-fruit}[http://www.localeapp.com/projects/public?search=falling-fruit] 
+project on Locale. To contribute, login with your GitHub account and edit the translations directly.
+We regularly pull translations from the Locale project to Github. Happy translating!  
