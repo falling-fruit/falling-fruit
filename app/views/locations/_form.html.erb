@@ -16,7 +16,14 @@ jQuery(document).ready(function(){
 	});
 	
 	// Date observed
-  $("#location_observation_observed_on").datepicker();
+  $("#location_observation_observed_on").datepicker({
+    dateFormat: "yy-mm-dd",
+    firstDay: 1, // week starts on Monday
+    maxDate: 0
+  });
+  $("#location_observation_observed_on").datepicker(
+    "setDate", "0" // today
+  );
   
   // Type selector
   $('#typeselect2').select2({

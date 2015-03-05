@@ -1,7 +1,16 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-  $("#observation_observed_on").datepicker();
+  
+  // Date observed
+  $("#observation_observed_on").datepicker({
+    dateFormat: "yy-mm-dd",
+    firstDay: 1, // week starts on Monday
+    maxDate: 0
+  });
+  $("#observation_observed_on").datepicker(
+    "setDate", "0" // today
+  );
 
   var select = $( "#observation_quality_rating" );
   var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({

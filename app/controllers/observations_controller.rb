@@ -17,7 +17,7 @@ class ObservationsController < ApplicationController
       @obs.observed_on = Date.today
       params[:observation].delete(:observed_on)
     else
-      @obs.observed_on = Timeliness.parse(params[:observation][:observed_on], :format => 'mm/dd/yyyy')
+      @obs.observed_on = Timeliness.parse(params[:observation][:observed_on], :format => 'yyyy-mm-dd')
       params[:observation].delete(:observed_on)
     end
     unless params[:verify].blank? or !params[:verify]
