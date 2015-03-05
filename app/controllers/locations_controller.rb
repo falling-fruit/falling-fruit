@@ -192,8 +192,8 @@ class LocationsController < ApplicationController
       @observation.user = current_user if user_signed_in?
     end
 
-    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].squish.capitalize }.uniq.each{ |type_name|
-      t = Type.where("name = ?",type_name).first
+    params[:types].split(/,/).uniq.each{ |type_name|
+      t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
       if t.nil?
         t = Type.new
         t.name = type_name.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize
@@ -270,8 +270,8 @@ class LocationsController < ApplicationController
     p = 0
     lts = []
     @location.type_ids = []
-    params[:types].split(/,/).collect{ |e| e[/^([^\[]*)/].squish.capitalize }.uniq.each{ |type_name|
-      t = Type.where("name = ?",type_name).first
+    params[:types].split(/,/).uniq.each{ |type_name|
+      t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
       if t.nil?
         t = Type.new
         t.name = type_name.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize    

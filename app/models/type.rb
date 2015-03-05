@@ -37,7 +37,7 @@ class Type < ActiveRecord::Base
 
   def full_name
     n = self.i18n_name
-    self.scientific_name.to_s == '' ? n : (n + " [" + self.scientific_name + "]")
+    self.scientific_name.blank? ? n : (n + " [" + self.scientific_name + "]")
   end
 
   def Type.hash_tree(cats=DefaultCategories)

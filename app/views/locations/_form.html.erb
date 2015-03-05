@@ -116,7 +116,7 @@ jQuery(document).ready(function(){
   <div class="field first" id="types">
     *<%= f.label I18n.t("locations.form.types") %><br />
     <span class="subtext"><%= I18n.t("locations.form.types_subtext") %></span><br />
-    <%= hidden_field_tag('types', @location.type_names.join(","), :id=>"typeselect2") %>
+    <%= hidden_field_tag('types', @location.types.collect{ |t| t.full_name }.join(","), :id=>"typeselect2") %>
   </div>
  
   <!-- Location -->
