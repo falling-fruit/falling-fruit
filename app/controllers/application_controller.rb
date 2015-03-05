@@ -153,5 +153,13 @@ class ApplicationController < ActionController::Base
   def redirect_to_https
     redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
   end
+  
+  #
+  # =================== SELECT2 STUFF ========================
+  #
+  
+  def s_to_i_array(string, sep = ',')
+    result = [string[0..-1].gsub(/\[|\]/,'').split(sep).reject(&:blank?).collect! {|n| n.to_i}].flatten
+  end
 
 end

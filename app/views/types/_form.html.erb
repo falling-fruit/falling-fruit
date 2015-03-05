@@ -60,6 +60,10 @@
     <%= f.hidden_field(:parent_id,{:class=>"parentselect2"}) %>
   </div>
   <div class="field">
+    <%= f.label :children %><br/>
+    <%= hidden_field_tag(:children_ids, @type.children_ids.join(","), :class => "childselect2") %>
+  </div>
+  <div class="field">
     <%= f.label :taxonomic_rank %><br/>
     <%= f.select(:taxonomic_rank,Type::Ranks.collect{ |id,name| [name,id] },:include_blank=>true) %>
   </div>
@@ -125,10 +129,27 @@
 <% content_for :form_scripts do %>
   <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function(){
+      <% if @current_action == "new" %>
+        var type_list = <%= Type.full_list_with_ids(Type::Categories).to_json.html_safe %>;
+      <% else %>
+        // Remove self from type dropdowns
+        var type_list = <%= Type.full_list_with_ids(Type::Categories).reject!{ |t| t[:id] == @type.id}.to_json.html_safe %>;
+      <% end %>
       // Parent
       $(".parentselect2").select2({
-        width: "20em",
-        data: <%= Type.full_list_with_ids(Type::Categories).to_json.html_safe %>
+        width: "20.5em",
+        data: type_list,
+        allowClear: true,
+        placeholder: " ",
+        placeholderOption: function () { return undefined; }
+      });
+      // Children
+      $(".childselect2").select2({
+        tokenSeparators: [","],
+        multiple: true,
+        closeOnSelect: false,
+        width: "30em",
+        data: type_list
       });
     });
   </script>

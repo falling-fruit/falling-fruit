@@ -40,11 +40,12 @@ class Type < ActiveRecord::Base
     self.scientific_name.blank? ? n : (n + " [" + self.scientific_name + "]")
   end
 
+  # Type filter 1.0
   def Type.hash_tree(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
     Rails.cache.fetch('types_hash_tree' + cat_mask.to_s + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
       $seen = {}
-      Type.where("parent_id is NULL AND (category_mask & ?)>0",cat_mask).order(:name).collect{ |t| t.to_hash }
+      Type.where("NOT pending AND parent_id is NULL AND (category_mask & ?)>0",cat_mask).default_sort.collect{ |t| t.to_hash(cats) }
     end
   end
 
@@ -54,23 +55,48 @@ class Type < ActiveRecord::Base
     return nil unless $seen[self.id].nil?
     $seen[self.id] = true
     ret = {"id" => self.id, "name" => self.full_name}
-    cs = Type.where("parent_id=? AND (category_mask & ?)>0",self.id,cat_mask)
-    ret["children"] = cs.collect{ |c| c.to_hash }.compact unless cs.empty?
+    cs = self.children.where("(category_mask & ?)>0",cat_mask).default_sort
+    ret["children"] = cs.collect{ |c| c.to_hash(cats) }.compact unless cs.empty?
     ret
   end
-
+  
+  # Type filter 2.0 (forthcoming)
+  def Type.dyna_tree(cats=DefaultCategories)
+    cat_mask = array_to_mask(cats,Categories)
+    Rails.cache.fetch('types_dyna_tree' + cat_mask.to_s + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      $seen = {}
+      Type.where("NOT pending AND parent_id is NULL AND (category_mask & ?)>0",cat_mask).default_sort.collect{ |t| t.to_dyna(cats) }
+    end
+  end
+  
+  def to_dyna(cats=DefaultCategories)
+    cat_mask = array_to_mask(cats,Categories)
+    $seen = {} if $seen.nil?
+    return nil unless $seen[self.id].nil?
+    $seen[self.id] = true
+    cs = self.children.where("(category_mask & ?)>0",cat_mask).default_sort
+    if cs.empty?
+      ret = {"key" => self.id, "title" => self.full_name}  
+    else
+      ret = {"key" => "group" + self.id.to_s, "title" => self.full_name}
+      ret["children"] = cs.collect{ |c| c.to_dyna(cats) }.compact
+      ret["children"].unshift({"key" => self.id, "title" => "..."})
+    end
+    ret
+  end
+  
+  # Location types
   def Type.full_list(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
-    Rails.cache.fetch('types_full_list' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
-      Type.where("(category_mask & ?)>0",cat_mask).collect{ |t| t.full_name }.sort
+    Rails.cache.fetch('types_full_list' + cat_mask.to_s + I18n.locale.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      Type.where("NOT pending AND (category_mask & ?)>0",cat_mask).default_sort.collect{ |t| t.full_name }
     end
   end
 
+  # Type editing (NO CACHE)
   def Type.full_list_with_ids(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
-    #Rails.cache.fetch('types_full_list' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
-      Type.where("(category_mask & ?)>0",cat_mask).order(:name).collect{ |t| {:id => t.id, :text => t.full_name} }
-    #end
+    Type.where("NOT pending AND (category_mask & ?)>0",cat_mask).default_sort.collect{ |t| {:id => t.id, :text => t.full_name} }
   end
 
   def Type.sorted_with_parents
@@ -80,14 +106,23 @@ class Type < ActiveRecord::Base
   end
 
   # Default to english name if requested is nil or empty
-  def i18n_name
-    lang = I18n.locale.to_s.tr("-","_")
+  def i18n_name(locale=I18n.locale.to_s)
+    lang = locale.tr("-","_")
     lang = "scientific" if lang == "la"
     return ([self["#{lang}_name"], self.name].reject(&:blank?).first)
   end
   
+  # Default sorting scheme
+  def Type.default_sort
+    Type.order('scientific_name DESC NULLS LAST').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
+  end
+  
   def locations
     Location.where("type_ids @> ARRAY[?]",self.id)
+  end
+  
+  def children_ids
+    self.children.collect{ |t| t.id }
   end
 
   # csv support

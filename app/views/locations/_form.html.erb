@@ -4,16 +4,16 @@ jQuery(document).ready(function(){
 	
 	// Access
 	$("#location_access").select2({
-		minimumResultsForSearch: -1,
+		minimumResultsForSearch: Infinity,
 		placeholderOption: function () { return undefined; } //preserves blank option
 	});
 	
 	// Season
 	$("#location_season_start").select2({
-		minimumResultsForSearch: -1
+		minimumResultsForSearch: Infinity
 	});
 	$("#location_season_stop").select2({
-		minimumResultsForSearch: -1
+		minimumResultsForSearch: Infinity
 	});
 	
 	// Date observed
@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
   // Type selector
   $('#typeselect2').select2({
   	tokenSeparators: [","],
-    tags: <%= Type.where("pending is false").full_list(@cats.nil? ? Type::DefaultCategories : @cats).to_json.html_safe %>
+    tags: <%= Type.full_list(@cats.nil? ? Type::DefaultCategories : @cats).to_json.html_safe %>
   });
   
   $("#typeselect2").select2("container").find("ul.select2-choices").sortable({

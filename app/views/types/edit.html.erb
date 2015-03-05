@@ -1,9 +1,10 @@
 <h1>Merge</h1>
 
 <form action="/types/<%= @type.id %>/merge">
-    <%= select_tag(:into_id,options_for_select(Type.where("pending is false").order("scientific_name", "name").collect{ |t| [t.full_name,t.id] }),:class=>"select2") %>
+    <%= hidden_field_tag(:into_id, [], :class => "select2") %>
     <%= submit_tag "Merge" %>
 </form>
+
 
 <h2>Edit</h2>
 
@@ -12,7 +13,10 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-  jQuery('.select2').select2({width:'element'});
+  jQuery('.select2').select2({
+    width:'20.5em',
+    data: <%= Type.full_list_with_ids(Type::Categories).reject!{ |t| t[:id] == @type.id}.to_json.html_safe %>
+  });
 });
 </script>
 <% end %>

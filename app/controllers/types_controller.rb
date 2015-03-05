@@ -79,6 +79,13 @@ class TypesController < ApplicationController
     @type.category_mask = array_to_mask(params["categories"],Type::Categories)
     respond_to do |format|
       if @type.save
+        # FIXME: Quietly removes parent from children (throw error instead?)
+        add_child_ids = s_to_i_array(params[:children_ids]) - s_to_i_array(params[:type][:parent_id])
+        add_child_ids.each { |id|
+          @child = Type.find(id)
+          @child.parent_id = @type.id
+          @child.save
+        }
         andtext = ""
         if params[:locs].present?
           n = 0
@@ -113,7 +120,20 @@ class TypesController < ApplicationController
     params[:type][:category_mask] = array_to_mask(params["categories"],Type::Categories)
     respond_to do |format|
       if @type.update_attributes(params[:type])
-
+        # FIXME: Quietly removes parent from children (throw error instead?)
+        new_child_ids = s_to_i_array(params[:children_ids]) - s_to_i_array(params[:type][:parent_id])
+        add_child_ids = new_child_ids - @type.children_ids
+        remove_child_ids = @type.children_ids - new_child_ids
+        add_child_ids.each { |id|
+          @child = Type.find(id)
+          @child.parent_id = @type.id
+          @child.save
+        }
+        remove_child_ids.each { |id|
+          @child = Type.find(id)
+          @child.parent_id = nil
+          @child.save
+        }
         format.html { redirect_to types_path, notice: 'Type was successfully updated.' }
         format.json { head :no_content }
       else
