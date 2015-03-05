@@ -85,9 +85,10 @@ jQuery(document).ready(function(){
     allowClear: true,
     allowedMethods: ['updateResults']
   });
+  // Needed so that default placeholder (not type name) is shown when select is cleared
+  $('#type_filter').attr("placeholder", "<%= I18n.t("locations.searchbar.select_edible_type") %>");
   $('#s2id_type_filter').select2('disable', true);
   $('#type_filter').on("change",function() {
-    $('#type_filter').attr("placeholder", "<%= I18n.t("locations.searchbar.select_edible_type") %>");
     if ($("#type_filter").val() == "") {
       type_filter = undefined;
       if (map.getZoom() <= 12) { // getZoom is critical!

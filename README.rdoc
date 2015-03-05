@@ -39,3 +39,11 @@ pre-requisites installed (ruby 1.9.3, rvm, postgis 2.1, etc.)
   caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle exec thin start
   
 You'll want to change config/database.yml and config/intializers/secret_token.rb too.
+
+== Translations
+
+Translations for Falling Fruit are managed on [Locale](http://www.localeapp.com/). 
+To contribute, edit the translations directly on the
+[falling-fruit](http://www.localeapp.com/projects/public?search=falling-fruit)
+project on Locale. We will then pull translations from the Locale project and push to Github.
+Happy translating!

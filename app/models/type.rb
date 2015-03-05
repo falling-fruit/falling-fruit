@@ -42,7 +42,7 @@ class Type < ActiveRecord::Base
 
   def Type.hash_tree(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
-    Rails.cache.fetch('types_hash_tree' + cat_mask.to_s + I18n.locale.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+    Rails.cache.fetch('types_hash_tree' + cat_mask.to_s + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
       $seen = {}
       Type.where("parent_id is NULL AND (category_mask & ?)>0",cat_mask).order(:name).collect{ |t| t.to_hash }
     end
@@ -62,7 +62,7 @@ class Type < ActiveRecord::Base
   def Type.full_list(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
     Rails.cache.fetch('types_full_list' + cat_mask.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
-      Type.where("(category_mask & ?)>0",cat_mask).order(:name).collect{ |t| t.full_name }
+      Type.where("(category_mask & ?)>0",cat_mask).collect{ |t| t.full_name }.sort
     end
   end
 
@@ -79,10 +79,11 @@ class Type < ActiveRecord::Base
       order(:sortme)
   end
 
+  # Default to english name if requested is nil or empty
   def i18n_name
     lang = I18n.locale.to_s.tr("-","_")
     lang = "scientific" if lang == "la"
-    return ([self["#{lang}_name"],self.name].compact.first)
+    return ([self["#{lang}_name"], self.name].reject(&:blank?).first)
   end
   
   def locations

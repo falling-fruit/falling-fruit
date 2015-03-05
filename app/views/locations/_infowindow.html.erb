@@ -17,17 +17,21 @@
 <!-- Types -->
 <div id="type_list">
 	<% if location.unverified %>
-		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;"><%= I18n.t("locations.infowindow.unverified") %><% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span><% end %>
-			</li>
+		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">
+		  <%= I18n.t("locations.infowindow.unverified") %><% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span><% end %>
+	  </li>
 	<% end %>
  <% @location.types(@cat_filter).each{ |t| %>
- <% if t.nil? %>
+ <% if t.pending %>
    <li style="background-color:#FCE7E4;">
  <% else %>
    <li>
  <% end %>
- <%= t.i18n_name.nil? ? "Unknown" : t.i18n_name %>
- <% if t.nil? %>
+ <%= t.i18n_name.blank? ? "?" : t.i18n_name %>
+ <% unless t.scientific_name.blank? %>
+   <i style="font-size: 90%;"><%= t.scientific_name %></i>
+ <% end %>
+ <% if t.pending %>
    <span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_pending_types_help_modal();">[?]</span>
  <% else %>
 	 <% unless t.wikipedia_url.blank? %>

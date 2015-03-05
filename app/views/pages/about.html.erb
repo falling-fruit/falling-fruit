@@ -2,7 +2,7 @@
   <img src="/ethan-oranges.jpg"><img src="/jeff-tree.jpg"><img src="/plums.jpg"><img src="/amittai-mulberries.jpg">
 </div>
 
-<p class="announcement">
+<p class="announcement"><b><%= I18n.t("pages.about.donate") %></b>
   <%= I18n.t("pages.about.give_us_money") %>
 </p>
 
@@ -28,8 +28,12 @@
 	    
 	</blockquote>
 
-<p class="announcement">
+<p class="announcement"><b><%= I18n.t("pages.about.write") %></b>
   <%= I18n.t("pages.about.contact_us_html").html_safe %>
+</p>
+
+<p class="announcement"><b><%= I18n.t("pages.about.translate") %></b>
+  <%= I18n.t("pages.about.translate_for_us_html").html_safe %>
 </p>
 
 <h2><%= I18n.t("pages.about.about_the_site") %></h2>
@@ -151,10 +155,18 @@
   </div>
 </div>
 
+<h2><%= I18n.t("pages.about.translators") %></h2>
+
+<p>
+<b>Ethan Welty</b> – Français<br/>
+<b>Mylène Jacquemart</b> – Deutsch<br/>
+</p>
+
 <h2><%= I18n.t("pages.about.closing_remarks") %></h2>
 
 <p>
 <%= I18n.t("pages.about.closing_remarks_para1_html").html_safe %>
+<blockquote>Falling Fruit<br/>PO Box 284, Boulder, CO, 80306, USA<br/>EIN: 46-5363428</blockquote>
 </p>
  
 <p>
