@@ -4,15 +4,16 @@ jQuery(document).ready(function(){
 	
 	// Access
 	$("#location_access").select2({
-		minimumResultsForSearch: 999
+		minimumResultsForSearch: -1,
+		placeholderOption: function () { return undefined; } //preserves blank option
 	});
 	
 	// Season
 	$("#location_season_start").select2({
-		minimumResultsForSearch: 999
+		minimumResultsForSearch: -1
 	});
 	$("#location_season_stop").select2({
-		minimumResultsForSearch: 999
+		minimumResultsForSearch: -1
 	});
 	
 	// Date observed
@@ -21,9 +22,6 @@ jQuery(document).ready(function(){
     firstDay: 1, // week starts on Monday
     maxDate: 0
   });
-  $("#location_observation_observed_on").datepicker(
-    "setDate", "0" // today
-  );
   
   // Type selector
   $('#typeselect2').select2({
@@ -203,7 +201,7 @@ jQuery(document).ready(function(){
     <div class="field">
       <%= f.label I18n.t("locations.form.date_visited") %><br />
       <span class="subtext"><%= I18n.t("locations.form.date_subtext") %></span><br />
-      <%= fo.text_field(:observed_on) %>
+      <%= fo.text_field(:observed_on, :placeholder => 'yyyy-mm-dd') %>
     </div>
   
     <!-- Fruiting -->

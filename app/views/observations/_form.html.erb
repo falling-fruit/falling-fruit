@@ -8,9 +8,6 @@ jQuery(document).ready(function(){
     firstDay: 1, // week starts on Monday
     maxDate: 0
   });
-  $("#observation_observed_on").datepicker(
-    "setDate", "0" // today
-  );
 
   var select = $( "#observation_quality_rating" );
   var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
@@ -83,7 +80,7 @@ jQuery(document).ready(function(){
   <div class="field first">
     <%= f.label I18n.t("locations.form.visited_on") %><br />
     <span class="subtext"><%= I18n.t("locations.form.visited_on_subtext") %></span><br />
-    <%= f.text_field(:observed_on) %>
+    <%= f.text_field(:observed_on, :placeholder => 'yyyy-mm-dd') %>
   </div>
   
   <!-- Comments -->
