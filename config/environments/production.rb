@@ -10,7 +10,7 @@ FallingfruitWebapp::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => 'fallingfruit.org' }
+  config.action_mailer.default_url_options = { :host => 'fallingfruit.org', :protocol => 'https' }
   config.action_mailer.delivery_method = :sendmail
   # Defaults to:
   # config.action_mailer.sendmail_settings = {
