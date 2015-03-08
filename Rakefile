@@ -8,6 +8,14 @@ SendEmails = true
 
 FallingfruitWebapp::Application.load_tasks
 
+# http://www.cheynewallace.com/resend-devise-confirmation-emails-for-incomplete/
+task(:resend_confirmation => :environment) do
+  users = User.where('confirmation_token IS NOT NULL')
+  users.each do |user|
+    user.send_confirmation_instructions
+  end
+end
+
 task(:clear_cache => :environment) do
   LocationsController.new.expire_things
 end
