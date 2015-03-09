@@ -1,10 +1,10 @@
 it:
   changes:
     index:
-      1_day_ago: 1 day ago
-      change_in_city: ! '%{type} in %{city}'
+      1_day_ago: 
+      change_in_city: 
       last_24_hours: Ultime 24 ore
-      n_days_ago: giorni %{n} ago
+      n_days_ago: 
       recent_changes: Ultime modifiche
       user: Utente
     type:

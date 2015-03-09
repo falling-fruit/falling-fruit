@@ -127,7 +127,6 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = I18n.default_locale
     end
-    #foo
   end
 
   def extract_locale_from_subdomain
@@ -150,8 +149,9 @@ class ApplicationController < ActionController::Base
   # =================== HTTPS STUFF ========================
   #
   
+  # Redirect only if logged in user is arriving at live site with http
   def redirect_to_https
-    redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
+    redirect_to :protocol => "https://" if user_signed_in? and not (request.ssl? || request.local?)
   end
   
   #
