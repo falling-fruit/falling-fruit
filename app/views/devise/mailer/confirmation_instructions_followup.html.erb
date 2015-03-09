@@ -1,12 +1,12 @@
 <p>Welcome to Falling Fruit,</p>
-<p>We see you opened an account but never activated it by confirming your email. Do so by visiting the link below:<br />
+<p>We see you opened an account but never confirmed your email. Do so by visiting the link below:<br />
 <%= link_to(
   I18n.t("devise.fallingfruit.confirm_account"),
   confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
   ) 
 %>
 </p>
-<p>We're sorry if past confirmation emails didn't work, but this one should (let us know if it does not). Happy foraging!</p>
+<p>We're sorry if past confirmation emails didn't work, but this one should. Happy foraging!</p>
 <p>
   --<br />
   Caleb &amp; Ethan | fallingfruit.org

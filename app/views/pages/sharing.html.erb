@@ -6,7 +6,9 @@
 
 <script>
 $(function() {
-  $( "#countries" ).tabs();
+  $( "#countries" ).tabs({
+    heightStyle: "auto"
+  });
 });
 </script>
 
@@ -22,7 +24,8 @@ $(function() {
   <li><a href="#United_States"><%= I18n.t("pages.sharing.united_states") %></a></li>
 </ul>
 
-<div id="Global"><li class="active"><a href="http://www.ftpf.org/">Fruit Tree Planting Foundation</a> <a href="https://www.facebook.com/fruittreeplantingfoundation"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/FTPFdotorg"><img class="social" src="/social/twitter_sq.svg" /></a></li>
+<div id="Global"><li class="active"><a href="http://www.foodnotbombs.net/">Food Not Bombs</a></li>
+<li class="active"><a href="http://www.ftpf.org/">Fruit Tree Planting Foundation</a> <a href="https://www.facebook.com/fruittreeplantingfoundation"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/FTPFdotorg"><img class="social" src="/social/twitter_sq.svg" /></a></li>
 <li class="active"><a href="http://incredibleediblenetwork.org.uk/">Incredible Edible Network</a> <a href="https://www.facebook.com/IncredibleEdibleNetwork"><img class="social" src="/social/facebook_sq.svg" /></a></li>
 <li class="active"><a href="http://www.transitionnetwork.org/">Transition Network</a> <a href="https://www.facebook.com/transitionnetwork"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/transitiontowns"><img class="social" src="/social/twitter_sq.svg" /></a></li></div>
 <div id="Australia"><ul>Tasmania<ul>Burnie<li class="active"><a href="http://producetothepeople.weebly.com/">Produce to the People Tasmania</a> <a href="https://www.facebook.com/producetothepeopletasmania"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/pttptasmania"><img class="social" src="/social/twitter_sq.svg" /></a></li></ul></ul>
@@ -65,10 +68,10 @@ $(function() {
 <ul>Toronto<li class="active"><a href="http://communityorchard.ca/">Ben Nobleman Park Community Orchard</a></li>
 <li class="active"><a href="http://www.notfarfromthetree.org/">Not Far From The Tree</a></li></ul>
 <ul>Wilfred Laurier University<li class="active"><a href="http://www.kwurbanharvester.org/contact-us">Kitchener-Waterloo Urban Harvester</a> <a href="https://www.facebook.com/groups/10563736723/?fref=ts"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul></ul>
-<ul>Quebec<ul>Montreal<li class="active"><a href="http://santropolroulant.org/">Santropol Roulant</a> (<a href="http://santropolroulant.org/what-we-do/urban-agriculture/les-fruits-defendus/">Les Fruits Défendus</a>)</li>
+<ul>Quebec<ul>Montreal<li class="active"><a href="http://santropolroulant.org/">Santropol Roulant</a> (<a href="http://santropolroulant.org/what-we-do/urban-agriculture/les-fruits-defendus/">Les Fruits Défendus</a>) <a href="https://www.facebook.com/sroulant"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/SRoulant"><img class="social" src="/social/twitter_sq.svg" /></a></li>
 <li class="active"><a href="http://vergersdecheznous.wordpress.com/">Vergers de Chez Nous</a></li></ul></ul></div>
 <div id="Fiji"><li class="inactive"><a href="https://www.facebook.com/pages/Fiji-Fruit-Tree-Project/261760267773">Fiji Fruit Tree Project <img class="social" src="/social/facebook_sq.svg" /></a></li></div>
-<div id="France"><ul><ul>Paris<li class="active"><a href="http://www.lesfruitsduvoisin.org/">Les Fruits du Voisin</a></li></ul></div>
+<div id="France"><ul><ul>Paris<li class="active"><a href="http://www.lesfruitsduvoisin.org/">Les Fruits du Voisin</a> <a href="https://www.facebook.com/lesfruitsduvoisin"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul></div>
 <div id="Italy"><ul><ul>Rome<li class="active"><a href="http://www.fruttaurbana.org/">Frutta Urbana</a> <a href="https://www.facebook.com/fruttaurbana"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul></ul></div>
 <div id="United_Kingdom"><li class="active"><a href="http://www.abundancenetwork.org.uk/">Abundance Network</a></li>
 <li class="active"><a href="http://www.feeding5k.org/">Feeding the 5000</a> (<a href="http://www.feeding5k.org/gleaning.php">Gleaning Network UK</a>)</li>
@@ -131,6 +134,7 @@ $(function() {
 <ul>Clayton<li class="active"><a href="http://www.thelemonlady.blogspot.com/">The Lemon Lady Foundation</a> <a href="https://www.facebook.com/annaandava"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul>
 <ul>Coachella<li class="active"><a href="http://www.hiddenharvest.org/">Hidden Harvest</a></li></ul>
 <ul>Contra Costa County<li class="active"><a href="http://whiteponyexpress.org/">White Pony Express</a> <a href="https://www.facebook.com/whiteponyexpress"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul>
+<ul>Encinitas<li class="active"><a href="http://donatedontdump.net/">Donate Don't Dump</a> <a href="https://www.facebook.com/DonateDontDump"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/Don8DontDumpOrg"><img class="social" src="/social/twitter_sq.svg" /></a></li></ul>
 <ul>Humboldt County<li class="active"><a href="http://www.foodforpeople.org/">Food for People</a> <a href="https://www.facebook.com/FoodforPeopleInc"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/FoodforPeople"><img class="social" src="/social/twitter_sq.svg" /></a></li></ul>
 <ul>Irvine<li class="active"><a href="http://www.ocgp.org/">Orange County Great Park</a> (<a href="http://www.ocgp.org/visit/agricultural-programs-2-2/">Agricultural Programs</a>)</li>
 <li class="active"><a href="http://feedoc.org/">Second Harvest Food Bank</a></li></ul>
@@ -146,6 +150,7 @@ $(function() {
 <li class="active"><a href="http://forageoakland.wordpress.com/">Forage Oakland</a></li>
 <li class="active"><a href="http://www.growingtogetherproject.org/">Growing Together</a> (<a href="http://www.growingtogetherproject.org/#!oakland-fruit/cyy1">Oakland Fruit</a>) <a href="https://www.facebook.com/FruitTreesGrowingTogether"><img class="social" src="/social/facebook_sq.svg" /></a></li>
 <li class="active"><a href="http://www.peopleunited.org/">PUEBLO</a> (<a href="http://www.peopleunited.org/uyh/">Urban Youth Harvest</a>)</li></ul>
+<ul>Ocean Beach<li class="active"><a href="https://www.facebook.com/groups/1506913566211223/">Harvest OB <img class="social" src="/social/facebook_sq.svg" /></a></li></ul>
 <ul>Orangevale<li class="active"><a href="http://harvestfairvale.weebly.com/">Harvest Fairvale</a> <a href="https://www.facebook.com/harvestorangevale"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul>
 <ul>Pasadena<li class="active"><a href="https://www.facebook.com/ATBFruitHarvest?ref=br_rs">Neighborhood Fruit Harvest Project <img class="social" src="/social/facebook_sq.svg" /></a></li></ul>
 <ul>Petaluma<li class="active"><a href="http://www.petalumabounty.org/">Petaluma Bounty</a></li></ul>
@@ -153,8 +158,11 @@ $(function() {
 <ul>Sacramento<li class="active"><a href="http://www.seniorgleaners.org/">Senior Gleaners</a></li>
 <li class="active"><a href="https://www.soilborn.org/">Soil Born Farms</a> (<a href="https://www.soilborn.org/index.php?option=com_content&view=category&layout=blog&id=89&Itemid=84">Harvest Sacramento</a>) <a href="https://www.facebook.com/HarvestSac?ref=br_rs"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul>
 <ul>San Diego<li class="active"><a href="http://backyard-produce-project.wikispaces.com/The+Backyard+Produce+Project">Backyard Produce Project</a> <a href="https://www.facebook.com/pages/Backyard-Produce-Project/153765357990546?sk=timeline"><img class="social" src="/social/facebook_sq.svg" /></a></li>
+<li class="active"><a href="http://www.cropswapsandiego.com/">CropSwap</a> <a href="https://www.facebook.com/CropSwap"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/ProduceGood"><img class="social" src="/social/twitter_sq.svg" /></a></li>
+<li class="active"><a href="https://www.facebook.com/groups/425947397561463">Dumpster Diving San Diego <img class="social" src="/social/facebook_sq.svg" /></a></li>
 <li class="active"><a href="http://www.harvestcrops.org/">Harvest CROPS</a></li>
-<li class="active"><a href="www.housingcollaborative.org">Housing Opportunities Collaborative</a> (<a href="https://www.facebook.com/groups/317156755034908/?ref=br_rs">Harvesting Opportunities Collaborative</a>) <a href="https://www.facebook.com/groups/317156755034908/?ref=br_rs"><img class="social" src="/social/facebook_sq.svg" /></a></li></ul>
+<li class="active"><a href="www.housingcollaborative.org">Housing Opportunities Collaborative</a> (<a href="https://www.facebook.com/groups/317156755034908/?ref=br_rs">Harvesting Opportunities Collaborative</a>) <a href="https://www.facebook.com/groups/317156755034908/?ref=br_rs"><img class="social" src="/social/facebook_sq.svg" /></a></li>
+<li class="active"><a href="http://www.sandiegoroots.org/">San Diego Roots Sustainable Food Project</a> (<a href="http://www.sandiegoroots.org/harvesting.php">Harvesting San Diego</a>) <a href="https://www.facebook.com/wildwillowfarm"><img class="social" src="/social/facebook_sq.svg" /></a> <a href="https://twitter.com/WildWillowFarm"><img class="social" src="/social/twitter_sq.svg" /></a></li></ul>
 <ul>San Francisco<li class="active"><a href="http://www.foodrunners.org/">Food Runners</a></li>
 <li class="active"><a href="http://foragesf.com/">Forage SF</a></li>
 <li class="active"><a href="http://freefarmstand.org/">Free Farm Stand</a> <a href="https://www.facebook.com/freefarmstand"><img class="social" src="/social/facebook_sq.svg" /></a></li>
