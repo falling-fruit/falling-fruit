@@ -1,4 +1,5 @@
 class Observation < ActiveRecord::Base
+  
   belongs_to :user
   belongs_to :location
   attr_accessible :yield_rating, :quality_rating, :fruiting, :user_id, :location_id, :location, :user, :id, :photo, :comment, :author, :observed_on, :photo_caption, :destroyed?
@@ -6,6 +7,7 @@ class Observation < ActiveRecord::Base
                     :storage => :s3, :s3_permissions => 'private',:s3_protocol => 'https',
                     :s3_host_name => 's3-us-west-2.amazonaws.com'
 
+  normalize_attributes *character_column_symbols
   before_validation { |record|
     record.observed_on = Date.today if record.observed_on.nil?
   }

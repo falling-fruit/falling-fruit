@@ -42,6 +42,9 @@ RSpec.configure do |config|
   # Mixin devise stuff
   # https://github.com/plataformatec/devise#test-helpers
   config.include Devise::TestHelpers, type: :controller
+  
+  # Attribute Normalizer 
+  config.include AttributeNormalizer::RSpecMatcher, :type => :model
 
   # Mix in Rack Test
   config.include Rack::Test::Methods

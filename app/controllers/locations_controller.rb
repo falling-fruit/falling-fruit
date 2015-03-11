@@ -196,7 +196,7 @@ class LocationsController < ApplicationController
       t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
       if t.nil?
         t = Type.new
-        t.name = type_name.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize
+        t.name = type_name
         if params[:c].blank?
           t.category_mask = array_to_mask(["human"],Type::Categories)
         else
@@ -274,7 +274,7 @@ class LocationsController < ApplicationController
       t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
       if t.nil?
         t = Type.new
-        t.name = type_name.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize    
+        t.name = type_name
         if params[:c].blank?
           t.category_mask = array_to_mask(["human"],Type::Categories)
         else

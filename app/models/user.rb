@@ -21,8 +21,10 @@ class User < ActiveRecord::Base
                   :name, :bio, :roles, :roles_mask, :remember_me, :add_anonymously,
                   :range_updates_email, :announcements_email, :address, :lat, :lng, :range_radius,
                   :location, :range_radius_unit
-
+  
+  normalize_attributes :name, :email, :email_confirmation, :bio, :address
   validates :email, confirmation: true
+  validates :range_radius, numericality: {greater_than: 0}
 
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   before_validation { |record|

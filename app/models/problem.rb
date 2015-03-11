@@ -5,6 +5,7 @@ class Problem < ActiveRecord::Base
   attr_accessible :comment, :problem_code, :reporter_id, :resolution_code, :responder_id,
                   :response, :reporter, :responder, :id, :location_id, :name, :email
 
+  normalize_attributes *character_column_symbols
   validates :problem_code, :numericality => { :only_integer => true }, :allow_nil => false
   validates :email, presence: true
 

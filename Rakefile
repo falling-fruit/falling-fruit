@@ -20,6 +20,38 @@ task(:clear_cache => :environment) do
   LocationsController.new.expire_things
 end
 
+# Replaces '' in atomic character columns with default, and removes (nil, '') values from array columns.
+# (prints number and location of changes to console)
+task(:remove_blanks => :environment) do
+  Rails.application.eager_load!
+  ActiveRecord::Base.descendants.reject{ |m| m.name.include? "ActiveRecord::" }.each{ |model|
+   model.columns.each{ |column| 
+     unless column.array
+       if [:text,:string].include? column.type
+         blanks = model.where(column.name => '')
+         if blanks.length > 0
+           puts '[' + blanks.length.to_s + 'x] ' + model.name + '.' + column.name + ' => ' + column.default.to_s
+           blanks.update_all(column.name => column.default)
+         end
+       end
+     else
+       if [:text,:string].include? column.type
+         blanks = model.where("ARRAY_LENGTH(#{column.name},1) > 0 and (#{column.name}[1] IS NULL or #{column.name}[1]='')")
+       else
+         blanks = model.where("ARRAY_LENGTH(#{column.name},1) > 0 and #{column.name}[1] IS NULL")
+       end
+       if blanks.length > 0
+         puts '[' + blanks.length.to_s + 'x] ' + model.name + '.' + column.name + " - [nil, '']"
+         blanks.find_each do |object|
+          object[column.name] = object[column.name].reject(&:blank?)
+          object.save
+         end
+       end
+     end
+    }
+  }
+end
+
 task(:fix_ratings => :environment) do
   missing_count = 0
   copy_fail_count = 0

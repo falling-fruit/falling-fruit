@@ -1,4 +1,5 @@
 class Type < ActiveRecord::Base
+
   attr_accessible :name, :synonyms, 
                   :fr_name, :de_name, :es_name, :pt_br_name, :pl_name, :he_name,
                   :scientific_name, :scientific_synonyms, :taxonomic_rank,
@@ -8,10 +9,15 @@ class Type < ActiveRecord::Base
                   :parent_id, :parent, 
                   :marker, :notes
   has_attached_file :marker
-  validates :name, :presence => true
   belongs_to :parent, class_name: "Type"
   has_many :children, class_name: "Type", foreign_key: "parent_id"
-
+  
+  normalize_attributes *character_column_symbols
+  normalize_attribute :name, :before => [ :squish ] do |value|
+    value.is_a?(String) ? value.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize : value
+  end
+  validates :name, :presence => true
+  
   Ranks={0 => "Polyphyletic", 1 => "Kingdom", 2 => "Phylum", 3 => "Class", 4 => "Order", 5 => "Family",
          6 => "Genus", 7 => "Multispecies", 8 => "Species", 9 => "Subspecies"}
   Edabilities={-1 => "Not worth it (or toxic)", 1 => "Include", 2 => "Maybe Include"}
@@ -78,7 +84,7 @@ class Type < ActiveRecord::Base
     if cs.empty?
       ret = {"key" => self.id, "title" => self.full_name}  
     else
-      ret = {"key" => "group" + self.id.to_s, "title" => self.full_name}
+      ret = {"key" => self.id.to_s + ".all", "title" => self.full_name}
       ret["children"] = cs.collect{ |c| c.to_dyna(cats) }.compact
       ret["children"].unshift({"key" => self.id, "title" => "..."})
     end

@@ -5,6 +5,7 @@ class Route < ActiveRecord::Base
   attr_accessible :name, :transport_type, :is_public, :access_key
 
   set_inheritance_column 'does_not_have_one'
+  normalize_attributes *character_column_symbols
 
   TransportTypes = ["Walking","Bicycling","Driving"]
 end

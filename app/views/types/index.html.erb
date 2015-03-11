@@ -53,12 +53,36 @@
 <td><%= type.pl_name %></td>
 <td><%= type.he_name %></td>
 <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
-<td style="text-align:center;"><% if type.wikipedia_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.wikipedia_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><%= raw !type.usda_symbol.blank? ? "<a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">#{type.usda_symbol}</a>" : "" %></td>
-<td style="text-align:center;"><% if type.eat_the_weeds_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.eat_the_weeds_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><% if type.foraging_texas_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.foraging_texas_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><% if type.urban_mushrooms_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.urban_mushrooms_url %>" target="_blank">...</a><% end %></td>
-<td style="text-align:center;"><% if type.fruitipedia_url.blank? %><span style="color:brown;">?</span><% else %><a href="<%= raw type.fruitipedia_url %>" target="_blank">...</a><% end %></td>
+<td style="text-align:center;">
+<% unless type.wikipedia_url.blank? %>
+  <a href="<%= raw type.wikipedia_url %>" target="_blank">x</a>
+<% end %>
+</td>
+<td style="text-align:center;">
+<% unless type.usda_symbol.blank? %>
+  <a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\"><%= type.usda_symbol %></a>
+<% end %>
+</td>
+<td style="text-align:center;">
+<% unless type.eat_the_weeds_url.blank? %>
+  <a href="<%= raw type.eat_the_weeds_url %>" target="_blank">x</a>
+<% end %>
+</td>
+<td style="text-align:center;">
+<% unless type.foraging_texas_url.blank? %>
+  <a href="<%= raw type.foraging_texas_url %>" target="_blank">x</a>
+<% end %>
+</td>
+<td style="text-align:center;">
+<% unless type.urban_mushrooms_url.blank? %>
+  <a href="<%= raw type.urban_mushrooms_url %>" target="_blank">x</a>
+<% end %>
+</td>
+<td style="text-align:center;">
+<% unless type.fruitipedia_url.blank? %>
+  <a href="<%= raw type.fruitipedia_url %>" target="_blank">x</a>
+<% end %>
+</td>
 <td><%= link_to 'Edit', edit_type_path(type) %></td>
 <td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

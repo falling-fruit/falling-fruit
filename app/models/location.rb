@@ -1,13 +1,14 @@
 class Location < ActiveRecord::Base
   include ActionView::Helpers::TextHelper # for word_wrap
-
+  
   has_many :observations
   has_many :changes, :dependent => :delete_all
   belongs_to :import
   belongs_to :user
 
   accepts_nested_attributes_for :observations, :reject_if => :all_blank
-
+  
+  normalize_attributes *character_column_symbols
   validates :type_ids, :presence => true
   validates :lat, numericality: {greater_than_or_equal_to: -85.0, less_than_or_equal_to: 85.0, allow_nil: false}
   validates :lng, numericality: {greater_than_or_equal_to: -180.0, less_than_or_equal_to: 180.0, allow_nil: false}

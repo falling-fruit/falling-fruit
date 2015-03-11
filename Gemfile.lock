@@ -31,6 +31,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
+    attribute_normalizer (1.2.0)
     aws-sdk (1.5.8)
       httparty (~> 0.7)
       json (~> 1.4)
@@ -257,6 +258,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgis-adapter
+  attribute_normalizer
   aws-sdk (~> 1.5.7)
   better_errors
   binding_of_caller

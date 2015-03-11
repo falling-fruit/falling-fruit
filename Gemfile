@@ -82,3 +82,6 @@ gem 'i18n-js'
 
 # Allows us to use postgres native types like arrays
 gem 'postgres_ext'
+
+# Field sanitation
+gem 'attribute_normalizer'
