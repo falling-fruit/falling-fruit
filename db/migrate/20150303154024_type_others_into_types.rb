@@ -1,7 +1,7 @@
 class TypeOthersIntoTypes < ActiveRecord::Migration
   def up
     add_column :types, :pending, :boolean, :default => true
-    Type.where("pending is null").each{ |t| t.pending = false; t.save }
+    Type.all.each{ |t| t.pending = false; t.save }
     h = {}
     Location.where("type_others IS NOT NULL").select("id,type_others").each{ |l|
       l.type_others.compact.each{ |e|

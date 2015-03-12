@@ -1,10 +1,5 @@
-<script type='text/javascript' src="http://wwwendt.de/tech/dynatree/jquery/jquery-ui.custom.js"></script>
-<script type='text/javascript' src="http://wwwendt.de/tech/dynatree/jquery/jquery.cookie.js"></script>
-<link rel="stylesheet" type="text/css" href="http://wwwendt.de/tech/dynatree/src/skin/ui.dynatree.css">
-<script type='text/javascript' src="http://wwwendt.de/tech/dynatree/src/jquery.dynatree.js"></script>
-    
 <style type='text/css'>
-    .button {
+.button {
     display: inline-block;
     background: #EEE;
     cursor: pointer;
@@ -48,7 +43,7 @@ span.dynatree-selected a {
     color: #000 !important;
 }
   </style>
-  
+
 
 <script type='text/javascript'>//<![CDATA[ 
 $(window).load(function(){
@@ -163,14 +158,14 @@ $("#deselectAll").click(function() {
     });
 });
 
-// Update count
+// Update count (template)
 $("#updateCount").click(function() {
     var node = $("#tree").dynatree("getTree").getNodeByKey("Freegan");
     node.data.title = "Freegan (1052)";
     node.render();
 });
 
-// Toggle type
+// Toggle type (template)
 $("#toggleType").click(function() {
     var node = $("#tree").dynatree("getTree").getNodeByKey("Fruit");
     //$(node.li).toggle();

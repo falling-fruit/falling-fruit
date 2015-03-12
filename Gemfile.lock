@@ -70,6 +70,7 @@ GEM
     diff-lcs (1.2.1)
     diff_match_patch_native (1.0.2)
       rice (>= 1.4.2)
+    dynatree-rails (1.2.6)
     easy_translate (0.5.0)
       json
       thread
@@ -269,6 +270,7 @@ DEPENDENCIES
   devise (~> 2.1.2)
   devise-i18n
   diff_match_patch_native
+  dynatree-rails
   factory_girl_rails
   faker
   geocoder

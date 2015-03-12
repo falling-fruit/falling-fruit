@@ -85,3 +85,6 @@ gem 'postgres_ext'
 
 # Field sanitation
 gem 'attribute_normalizer'
+
+# Type tree
+gem 'dynatree-rails'

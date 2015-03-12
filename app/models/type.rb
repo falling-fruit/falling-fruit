@@ -120,7 +120,7 @@ class Type < ActiveRecord::Base
   
   # Default sorting scheme
   def Type.default_sort
-    Type.order('scientific_name DESC NULLS LAST').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
+    Type.order('scientific_name ASC NULLS LAST').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
   end
   
   def locations

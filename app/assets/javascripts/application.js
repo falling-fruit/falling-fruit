@@ -20,4 +20,4 @@
 //= require select2
 //= require sprintf
 //= require dataTables/jquery.dataTables
-
+//= require dynatree/jquery.dynatree
