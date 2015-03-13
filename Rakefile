@@ -286,40 +286,42 @@ namespace :export do
      puts "Exporting Locations..."
      cat_mask = array_to_mask(Type::DefaultCategories,Type::Categories)
      r = ActiveRecord::Base.connection.execute("SELECT locations.id, array_to_string(type_ids,':') as types, access,
-       array_to_string(type_others,':') as type_others, description, lat, lng, address, unverified,
+       description, lat, lng, address, unverified,
        season_start, season_stop, no_season, access, unverified, author, import_id, locations.created_at, locations.updated_at
        FROM locations INNER JOIN types ON types.id=ANY(locations.type_ids) WHERE (types.category_mask & #{cat_mask})>0")
      CSV.open("public/locations.csv","wb") do |csv|
-       cols = ["id","lat","lng","unverified","description","season_start","season_stop",
+       cols = ["id","type_ids","lat","lng","unverified","description","season_start","season_stop",
                "no_season","author","address","created_at","updated_at",
-               "quality_rating","yield_rating","access","import_link","name"]
+               "access","quality_rating","yield_rating","import_link"]
        csv << cols
        r.each{ |row|
-         csv << [row["id"],row["lat"],row["lng"],row["unverified"],row["description"],
+         csv << [row["id"],row["types"],row["lat"],row["lng"],row["unverified"],row["description"],
                  row["season_start"].nil? ? nil : I18n.t("date.month_names")[row["season_start"].to_i+1],
                  row["season_stop"].nil? ? nil : I18n.t("date.month_names")[row["season_stop"].to_i+1],
                  row["no_season"],row["author"],
                  row["address"],row["created_at"],row["updated_at"],
                  row["access"].nil? ? nil : I18n.t("locations.infowindow.access_short")[row["access"].to_i],
-                 row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}",
-                 row["types"],row["type_others"]]
+                 row["quality_rating"],row["yield_rating"],
+                 row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}"]
          }
      end
      puts "Exporting Types..."
      CSV.open("public/types.csv","wb") do |csv|
-       cols = ["id","name","es_name","he_name","pt_br_name","fr_name","de_name","pl_name","scientific_name",
-             "scientific_synonyms","taxonomic_rank"]
+       cols = ["id","name","synonyms","es_name","he_name","pt_br_name","fr_name","de_name","pl_name","scientific_name",
+             "scientific_synonyms","taxonomic_rank","parent_id"]
        csv << cols
        Type.select(cols.join(",")).where("(category_mask & #{cat_mask})>0").each{ |t|
-          csv << [t.id,t.name,t.es_name,t.he_name,t.pt_br_name,t.fr_name,t.de_name,
-                 t.pl_name,t.scientific_name,t.scientific_synonyms,t.taxonomic_rank]
+          csv << [t.id,t.name,t.synonyms,t.es_name,t.he_name,t.pt_br_name,t.fr_name,t.de_name,
+                 t.pl_name,t.scientific_name,t.scientific_synonyms,
+                 t.taxonomic_rank.nil? ? nil : Type::Ranks[t.taxonomic_rank],
+                 t.parent_id]
        }
      end
   end
 
-  task(:types => :environment) do
-    CSV.open("public/types.csv","wb") do |csv|
-      cols = ["ID","English Common Name","Latin Name","Wikipedia Link","Translated Name"]
+  task(:type_template => :environment) do
+    CSV.open("public/type_template.csv","wb") do |csv|
+      cols = ["ID","English Common Name","Latin Name","Wikipedia Link"]
       csv << cols
       Type.all.each do |t|
         csv << [t.id,t.name,t.scientific_name,t.wikipedia_url]
