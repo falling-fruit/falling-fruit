@@ -263,7 +263,7 @@ class LocationsController < ApplicationController
 
     # compute diff/patch so we can undo later
     dmp = DiffMatchPatch.new
-    patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description))
+    patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description.nil? ? '' : @location.description))
     former_type_ids = @location.type_ids
     former_location = @location.location
 

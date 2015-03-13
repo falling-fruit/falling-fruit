@@ -493,16 +493,17 @@
 // Tab 1 (info, the default) uses its original height.
 function open_tab_1() {	
   p = $('#location_infowindow');
-  openInfoWindowHeaderHeight = p.children('.ui-tabs-nav')[0].scrollHeight + parseFloat(p.children('.ui-tabs-nav').css('margin-bottom'));
+  openInfoWindowHeaderHeight = p.children('.ui-tabs-nav').outerHeight(true);
   var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
-  if (max_height < ($('#tab-1').height() - 1)) {
+  // except shrink if too tall
+  if (max_height < ($('#tab-1').height())) {
     $('#tab-1').height(max_height);
   }
   if (pano.getVisible()) {
-            openInfoWindow.open(pano, openMarker);
-          } else {
-            openInfoWindow.open(map, openMarker);
-          }
+    openInfoWindow.open(pano, openMarker);
+  } else {
+    openInfoWindow.open(map, openMarker);
+  }
 }
 
 // Tab 2 (reviews) tries to get as close as possible to its content height.
@@ -551,20 +552,23 @@ function open_tab_3() {
     //originalTab1Height = $('#tab-1').height();
     //originalTab2Height = $('#tab-2').height();
     // Hack: Avoids error when request arrives before DOM ready?
-    if (p.children('.ui-tabs-nav')[0] != undefined) {
-			openInfoWindowHeaderHeight = p.children('.ui-tabs-nav')[0].scrollHeight + parseFloat(p.children('.ui-tabs-nav').css('margin-bottom'));
+    if (p.children('.ui-tabs-nav') != undefined) {
+			openInfoWindowHeaderHeight = p.children('.ui-tabs-nav').outerHeight(true);
 			var max_height = 0.75 * $('#map').height() - openInfoWindowHeaderHeight;
 			if (max_height < ($('#tab-1').height() - 1)) {
 				$('#tab-1').height(max_height);
-				if (pano.getVisible()) {
-            	openInfoWindow.open(pano, openMarker);
-          	} else {
-            	openInfoWindow.open(map, openMarker);
-          	}
-				return;
 			}
+			// HACK: Force Google to recalculate infowindow size.
+			$('#tab-1').height($('#tab-1').height() + 1);
+			$('.gm-style-iw').height($('#location_infowindow').height());
+			if (pano.getVisible()) {
+        openInfoWindow.open(pano, openMarker);
+      } else {
+        openInfoWindow.open(map, openMarker);
+      }
+			return;
 		}
-  }
+	}
 
   function open_marker_by_id(id) {
     var cstr = '';
@@ -693,8 +697,6 @@ function open_tab_3() {
           google.maps.event.addListenerOnce(infowindow,'domready',function(){
             setup_tabs(marker, openInfoWindow);
           });
-					// Hack: Avoids incorrectly sized tab-1 in infowindow.
-          setup_tabs(marker, openInfoWindow);
       });
       openMarker = marker;
       openMarkerId = id;
