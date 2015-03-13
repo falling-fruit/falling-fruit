@@ -35,7 +35,7 @@ class LocationsController < ApplicationController
         csv_data = CSV.generate do |csv|
           cols = ["id","lat","lng","unverified","description","season_start","season_stop",
                   "no_season","quality_rating","yield_rating","author","address","created_at","updated_at",
-                  "access","import_link","muni","name"]
+                  "access","import_link","muni","types"]
           csv << cols
           @locations.each{ |l|
           
@@ -52,7 +52,7 @@ class LocationsController < ApplicationController
                     l.access.nil? ? nil : I18n.t("locations.infowindow.access_short")[l.access],
                     l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
                     l.import_id.nil? ? false : (l.muni ? true : false), 
-                    l.title]
+                    l.name]
           }
         end
         send_data(csv_data,:type => 'text/csv; charset=utf-8; header=present', :filename => 'data.csv')
