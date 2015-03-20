@@ -31,14 +31,13 @@
 		<% end %>
 	<% end %>
 </td>
-<td><% if problem.location.nil? %>
-    Removed
-    <% else %>
-      <% link_to location_path(problem.location) do %>
-        <%= problem.location.id %>
-      <% end %>
-    <% end %>
-    </td>
+<td>
+<% if problem.location.nil? %>
+  Removed
+<% else %>    
+  <%= link_to problem.location.id, location_path(problem.location.id) %>
+<% end %>
+</td>
 <td><%= Problem::Codes[problem.problem_code] %>
     <% unless problem.comment.blank? %>
     <br><em><%= problem.comment %></em>
