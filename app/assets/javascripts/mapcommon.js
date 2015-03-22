@@ -101,12 +101,8 @@
   
     // Close open location infowindow when map is clicked
     google.maps.event.addListener(map, 'click', function(event) {
-      if (openMarker != null && openInfoWindow != null) {
-        openInfoWindow.close();
-        openMarker = null;
-        openMarkerId = null;
-        openInfoWindow = null;
-      }
+      //close_infowindow();
+      close_markerInfoWindow();
     });
     
     // Update attribution when map type changes
@@ -365,7 +361,7 @@
 						linksControl: false,
 					});
 					var pano_marker = new google.maps.Marker({
-						position: openMarker.getPosition(), 
+						position: markerInfoWindow.marker.getPosition(), 
 						map: pano_tab
 					});
 					// Calculate pitch from Google Elevation API
@@ -499,11 +495,7 @@ function open_tab_1() {
   if (max_height < ($('#tab-1').height())) {
     $('#tab-1').height(max_height);
   }
-  if (pano.getVisible()) {
-    openInfoWindow.open(pano, openMarker);
-  } else {
-    openInfoWindow.open(map, openMarker);
-  }
+  open_markerInfoWindow();
 }
 
 // Tab 2 (reviews) tries to get as close as possible to its content height.
@@ -512,11 +504,7 @@ function open_tab_2() {
 	$('#tab-2').width(p.parent().width());
 	var new_height = Math.min(0.75 * $('#map').height() - openInfoWindowHeaderHeight, Math.max($('#tab-1').height(), $('#tab-2').height()));
 	$('#tab-2').height(new_height);
-	if (pano.getVisible()) {
-            	openInfoWindow.open(pano, openMarker);
-          	} else {
-            	openInfoWindow.open(map, openMarker);
-          	}
+	open_markerInfoWindow();
 	// Load images into Shadowbox gallery
 	Shadowbox.clearCache();
 	Shadowbox.setup("a[rel='shadowbox']", { gallery: "Gallery" });
@@ -535,22 +523,16 @@ function open_tab_3() {
 	$('#tab-3').width(current_width);
 	var new_height = Math.max(starting_height, Math.min(400, 0.75 * $('#map').height() - openInfoWindowHeaderHeight));
 	$('#tab-3').height(new_height);
-	if (pano.getVisible()) {
-            	openInfoWindow.open(pano, openMarker);
-          	} else {
-            	openInfoWindow.open(map, openMarker);
-          	}
+	// open
 	if (pano_tab == null || !pano_tab.visible) {
-    setup_streetview_tab(openMarker,50,true);
+    setup_streetview_tab(markerInfoWindow.marker,50,true);
   } else if (previous_height != new_height) {
   	pano_tab.setVisible(true);
   }
 }
 
-  function setup_tabs(marker, infowindow) {
+  function setup_tabs() {
     p = $('#location_infowindow');
-    //originalTab1Height = $('#tab-1').height();
-    //originalTab2Height = $('#tab-2').height();
     // Hack: Avoids error when request arrives before DOM ready?
     if (p.children('.ui-tabs-nav') != undefined) {
 			openInfoWindowHeaderHeight = p.children('.ui-tabs-nav').outerHeight(true);
@@ -561,12 +543,8 @@ function open_tab_3() {
 			// HACK: Force Google to recalculate infowindow size.
 			$('#tab-1').height($('#tab-1').height() + 1);
 			$('.gm-style-iw').height($('#location_infowindow').height());
-			if (pano.getVisible()) {
-        openInfoWindow.open(pano, openMarker);
-      } else {
-        openInfoWindow.open(map, openMarker);
-      }
-			return;
+			open_markerInfoWindow();
+			open_tab_1();
 		}
 	}
 
@@ -657,50 +635,120 @@ function open_tab_3() {
     return true;
   }
 
+//   function add_marker_infobox(i) { 
+//     var marker = markersArray[i].marker;
+//     marker.id = markersArray[i].id;
+//     google.maps.event.addListener(marker, 'click', function(){
+//     	// Clear existing Street View tab object
+//     	// (doing this on map-click and close-click is not enough, marker-click is sufficient)
+//     	pano_tab = null;
+//     	// FIXME: Infowindow closes then reopens when openMarker is clicked?
+//     	if (marker == openMarker) {
+//     	  close_infowindow();
+//     	  return;
+//     	}
+//       if (openMarker != null) {
+//         close_infowindow();
+//       }
+//       var cstr = '';
+//       if (cats != undefined) {
+//         cstr = '&c=' + cats;
+//       }
+//       lstr = '&locale=' + I18n.locale;
+//       var requestHtml = $.ajax({
+//         type: 'GET',
+//         url: '/locations/' + marker.id + '/infobox?' + cstr + lstr,
+//         dataType: 'html'
+//       });
+//       requestHtml.done(function(html) {
+//         var div = document.createElement('div');
+//         div.innerHTML = html;
+//         setup_streetview_tab(marker,50,false);
+//         $(div).tabs();
+//         var infowindow = new google.maps.InfoWindow({content:div});
+//         marker.infowindow = infowindow;
+//         infowindow.marker = marker;
+//         open_infowindow(infowindow, marker);
+//         google.maps.event.addListener(infowindow,'closeclick',function() {
+//           close_infowindow(infowindow);
+//         });
+//         google.maps.event.addListenerOnce(infowindow,'domready',function() {
+//           setup_tabs(infowindow.marker, infowindow);
+//         });
+//         google.maps.event.addListenerOnce(infowindow,'content_changed',function() {
+//           open_infowindow(infowindow, infowindow.marker);
+//         });
+//       });
+//       // FIXME: Why does removing this create two infowindows?
+//       openMarker = marker;
+//     });
+//   }
+
+	var markerInfoWindow = new google.maps.InfoWindow();
+	markerInfoWindow.marker = false;
+	
+	function close_markerInfoWindow() {
+		markerInfoWindow.close();
+		markerInfoWindow.setContent('');
+		markerInfoWindow.marker = false;
+	}
+	
+	function open_markerInfoWindow(marker) {
+	  if (marker === undefined) {
+	    marker == markerInfoWindow.marker;
+	  }
+	  if (marker != null) {
+			if (pano.getVisible()) {
+				markerInfoWindow.open(pano, marker);
+			} else {
+				markerInfoWindow.open(map, marker);
+			}
+			markerInfoWindow.marker = marker;
+		}
+  }
+  
+	google.maps.event.addListener(markerInfoWindow,'closeclick',function() {
+		close_markerInfoWindow();
+	});
+// 	google.maps.event.addListenerOnce(markerInfoWindow,'domready',function() {
+// 		setup_tabs(markerInfoWindow.marker, infowindow);
+// 	});
+// 	google.maps.event.addListenerOnce(markerInfoWindow,'content_changed',function() {
+// 		open_infowindow(markerInfoWindow, markerInfoWindow.marker);
+// 	});
+
   function add_marker_infobox(i) { 
     var marker = markersArray[i].marker;
-    var id = markersArray[i].id;
-    google.maps.event.addListener(marker, 'click', function(){
-    	// Clear existing Street View tab object
-    	// (doing this on map-click and close-click is not enough, marker-click is sufficient)
-    	pano_tab = null;
-      if (openMarker === marker) return;
-      if (openInfoWindow != null) openInfoWindow.close();
-      var cstr = '';
-      if (cats != undefined) {
-        cstr = '&c=' + cats;
-      }
-      lstr = '&locale=' + I18n.locale;
-      var requestHtml = $.ajax({
-        type: 'GET',
-        url: '/locations/' + id + '/infobox?' + cstr + lstr,
-        dataType: 'html'
-      });
-      requestHtml.done(function(html) {
-        var div = document.createElement('div');
-        div.innerHTML = html;
-        setup_streetview_tab(marker,50,false);
-        $(div).tabs();
-        var infowindow = new google.maps.InfoWindow({content:div});
-        google.maps.event.addListener(infowindow,'closeclick',function(){
-          openInfoWindow = null;
-          openMarker = null;
-          openMarkerId = null;
+    marker.id = markersArray[i].id;
+		google.maps.event.addListener(marker,'click',function() {
+			pano_tab = null;
+			if (marker == markerInfoWindow.marker) {
+			  // FIXME: Closing works, but then window reopens?!
+			  // close_markerInfoWindow();
+			  return true;
+    	}
+			var cstr = '';
+			if (cats != undefined) {
+				cstr = '&c=' + cats;
+			}
+			lstr = '&locale=' + I18n.locale;
+			var requestHtml = $.ajax({
+				type: 'GET',
+				url: '/locations/' + marker.id + '/infobox?' + cstr + lstr,
+				dataType: 'html'
+			});
+			requestHtml.done(function(html) {
+				var div = document.createElement('div');
+				div.innerHTML = html;
+				$(div).tabs();
+				markerInfoWindow.setContent(div);
+				open_markerInfoWindow(marker);
+				google.maps.event.addListenerOnce(markerInfoWindow,'domready',function() {
+				  //setup_streetview_tab(marker,50,false);
+    			setup_tabs();
         });
-        if (pano.getVisible()) {
-            infowindow.open(pano, marker);
-          } else {
-            infowindow.open(map, marker);
-          }
-          openInfoWindow = infowindow;
-          openInfoWindowHtml = infowindow.content;
-          google.maps.event.addListenerOnce(infowindow,'domready',function(){
-            setup_tabs(marker, openInfoWindow);
-          });
-      });
-      openMarker = marker;
-      openMarkerId = id;
-    });
+			});
+		});
   }
 
   function add_clicky_cluster(marker){

@@ -3,61 +3,71 @@
 <table id="open_problems_table">
 <thead>
 <tr>
- <th>When</th>
- <th>Who</th>
- <th>Where</th>
- <th>What</th>
+ <th>Date</th>
+ <th>User</th>
+ <th>Location</th>
+ <th>Problem</th>
  <th>Resolve</th>
 </tr>
 </thead>
 <tbody>
 <% @open_problems.each do |problem| %>
 <tr>
-<td><%= problem.created_at %></td>
+<td><%= problem.created_at.strftime('%Y-%m-%d') %></td>
 <td>
-	<% unless problem.reporter.nil? %>
-		<% unless problem.reporter.name.nil? %>
-			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.name %></a>
-		<% else %>
-			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.email %></a>
-		<% end %>
-	<% else %>
-		<% if (not problem.email.nil? and not problem.name.nil?) %>
-			<a href="mailto:<%= problem.email %>"><%= problem.name %></a>
-		<% elsif (problem.email.nil? and not problem.name.nil?) %>
-			<%= problem.name %>
-		<% elsif (not problem.email.nil? and problem.name.nil?) %>
-			<a href="mailto:<%= problem.email %>"><%= problem.email %></a>
-		<% end %>
-	<% end %>
+<%
+unless problem.reporter.nil? 
+  display_name = problem.reporter.name
+  name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
+  email = problem.reporter.email
+else
+  display_name = problem.name
+  name = problem.name.nil? ? '' : '%20' + problem.name
+  email = problem.email
+end
+location_url = problem.location.nil? ? '' + problem.location.id.to_s : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
+mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + name + ',' + location_url + '">' + display_name + '</a>' 
+%>
+ <%= mailto.html_safe %>
 </td>
 <td>
 <% if problem.location.nil? %>
-  Removed
+  Deleted
 <% else %>    
   <%= link_to problem.location.id, location_path(problem.location.id) %>
 <% end %>
 </td>
-<td><%= Problem::Codes[problem.problem_code] %>
+<td>
+  <%= Problem::Codes[problem.problem_code] %>
     <% unless problem.comment.blank? %>
     <br><em><%= problem.comment %></em>
-    <% end %>
-<td>Coming soon!</td>
+  <% end %>
+</td>
+<td>  
+<%= form_for(problem) do |f| %>
+  <%= hidden_field_tag :responder_id, current_user.id %>
+  <%= f.hidden_field :id %>
+  <%= f.text_area :response, :rows => 3, :class => "full_width" %><br/>
+  <%= f.select(:resolution_code, Problem::Resolutions.collect{ |r| [r, Problem::Resolutions.index(r)] }, { :include_blank => true }) %>
+  <%= submit_tag "Resolve" %>
+<% end %>
+</td>
 </tr>
 <% end %>
 </tbody>
 </table>
+<br />
 
 <% if @closed_problems.length > 0 %>
-<h1>Completed</h1>
+<h2>Completed</h2>
 
 <table id="closed_problems_table">
 <thead>
 <tr>
- <th>When</th>
- <th>Who</th>
- <th>Where</th>
- <th>What</th>
+ <th>Date</th>
+ <th>User</th>
+ <th>Location</th>
+ <th>Problem</th>
  <th>Resolution</th>
  <th>Admin</th>
 </tr>
@@ -68,30 +78,46 @@
 <td><%= problem.created_at %></td>
 <td>
 	<% unless problem.reporter.nil? %>
+	  <% 
+	  name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
+	  mailto = '<a href="mailto:' + problem.reporter.email + '?subject=Falling%20Fruit%20Location #' + problem.location.id.to_s + '&body=Hi' + name + ',%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location.id.to_s + '">' 
+	  %>
 		<% unless problem.reporter.name.nil? %>
-			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.name %></a>
+			<%= (mailto + problem.reporter.name).html_safe %></a>
 		<% else %>
-			<a href="mailto:<%= problem.reporter.email %>"><%= problem.reporter.email %></a>
+			<%= (mailto + problem.reporter.email).html_safe %></a>
 		<% end %>
 	<% else %>
-		<% if (not problem.email.nil? and not problem.name.nil?) %>
-			<a href="mailto:<%= problem.email %>"><%= problem.name %></a>
-		<% elsif (problem.email.nil? and not problem.name.nil?) %>
-			<%= problem.name %>
-		<% elsif (not problem.email.nil? and problem.name.nil?) %>
-			<a href="mailto:<%= problem.email %>"><%= problem.email %></a>
-		<% end %>
+	  <% 
+	  name = problem.name.nil? ? '' : '%20' + problem.name
+	  mailto = '<a href="mailto:' + problem.reporter.email + '?subject=Falling%20Fruit%20Location #' + problem.location.id.to_s + '&body=Hi' + name + ',%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location.id.to_s + '">' 
+	  %>
+		<% unless problem.reporter.name.nil? %>
+      <% if (not problem.email.nil? and not problem.name.nil?) %>
+        <%= (mailto + problem.name).html_safe %></a>
+      <% elsif (problem.email.nil? and not problem.name.nil?) %>
+        <%= problem.name %>
+      <% elsif (not problem.email.nil? and problem.name.nil?) %>
+        <%= (mailto + problem.email).html_safe %></a>
+      <% end %>
+    <% end %>
 	<% end %>
 </td>
-<td><%= link_to(problem.location.id,location_path(problem.location)) %></td>
-<td><%= Problem::Codes[problem.problem_code] %>
-    <% unless problem.comment.blank? %>
+<td>
+  <%= link_to(problem.location.id,location_path(problem.location)) %>
+</td>
+<td>
+  <%= Problem::Codes[problem.problem_code] %>
+  <% unless problem.comment.blank? %>
     <br><em><%= problem.comment %></em>
-    <% end %>
-<td><%= Problem::Resolutions[problem.resolution_code] %>
-    <% unless problem.response.blank? %>
+  <% end %>
+</td>
+<td>
+  <%= Problem::Resolutions[problem.resolution_code] %>
+  <% unless problem.response.blank? %>
     <br><em><%= problem.response %></em>
-    <% end %>
+  <% end %>
+</td>
 <td><%= problem.responder.nil? ? "Anonymous" : problem.responder.name %></td>
 </tr>
 <% end %>

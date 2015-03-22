@@ -8,69 +8,79 @@ pt-br:
       recent_changes: Mudanças recentes
       user: Usuário
     type:
-      added: 
-      edited: 
-      visited: 
+      added: adicionado
+      edited: editado
+      visited: visitado
   devise:
     confirmations:
-      confirmed: 
-      send_instructions: 
-      send_paranoid_instructions: 
+      confirmed: ! 'Sua conta foi confirmada com sucesso. Você está conectado. '
+      send_instructions: Você receberá um email em breve com instruções sobre como confirmar a sua conta.
+      send_paranoid_instructions: ! 'Se o seu endereço já exista em nosso banco de dados, você receberá um email em breve com instruções sobre como confirmar a sua conta. '
     failure:
-      already_authenticated: 
-      inactive: 
-      invalid: 
-      invalid_token: 
-      locked: 
-      not_approved: 
-      timeout: 
-      unauthenticated: 
-      unconfirmed: 
+      already_authenticated: ! 'Você já está conectado. '
+      inactive: ! 'Sua conta ainda não está ativada. '
+      invalid: ! 'Email ou senha inválido. '
+      invalid_token: ! 'Token de autenticação inválido. '
+      locked: ! 'Sua conta é bloqueada. '
+      not_approved: ! 'Sua conta ainda não foi aprovada por um administrador. '
+      timeout: ! 'Sua sessão expirou, por favor, inicie novamente a sessão para continuar. '
+      unauthenticated: ! 'Você tem que se registrar ou criar uma nova conta antes de continuar. '
+      unconfirmed: ! 'Você tem que confirmar a sua conta antes de continuar. '
     fallingfruit:
-      address: 
-      address_subtext: 
-      are_you_sure: 
-      bio: 
-      change_password: 
-      clear_map: 
-      confirm_account: 
-      current_password: 
-      current_password_subtext: 
-      delete_account: 
-      edit_account: 
-      email: 
-      foraging_map_subtext: 
-      foraging_radius: 
-      foraging_radius_subtext: 
-      foraging_range: 
-      forgot_password: 
-      login: 
+      address: Endereço
+      address_subtext: O centro do seu alcance de forrageamento (seu endereço de casa, por exemplo)
+      are_you_sure: Você tem certeza?
+      bio: Sobre você
+      change_password: Mudar a minha senha
+      clear_map: Limpar o mapa
+      confirm_account: Confirmar a minha conta
+      current_password: Senha atual
+      current_password_subtext: Necessário para modificar a sua conta
+      delete_account: Cancelar a minha conta
+      edit_account: Editar a conta
+      email: Email
+      foraging_map_subtext: ! 'Use a ferramenta polígona ou rectángula no mapa abaixo para definir seu alcance do forreagamento. Se estiver usando a ferramenta polígona, certifique-se de fechar o polígono, unindo o ponto final com o primeiro ponto. '
+      foraging_radius: Raio
+      foraging_radius_subtext: ! 'O Raio do alcance de forrageamento centrado no endereço acima. '
+      foraging_range: Alcance de forrageamento
+      forgot_password: Redefina a sua senha
+      login: Fazer login
       mailer:
-        confirmation_instructions_html: 
-        reset_password_instructions_html: 
-        unlock_instructions_html: 
-      miles: 
-      name: 
-      new_password: 
+        confirmation_instructions_html: ! "<p>Bem Vindos ao Falling Fruit,</p>\n<p>Para ativar a sua conta, clique no link abaixo para confirmar o seu email (%{email}): \n<br/>%{link}</p>\n<p>Falling Fruit é motivado pelos seus usuários, por isso, se você tiver a oportunidade para adicionar lugares ou melhorar o site, por favor faça isso. Forrageamento feliz!<p/>"
+        reset_password_instructions_html: ! '<p>Olá %{email},</p>
+
+          <p>Alguém (provavelmente você) solicitou um link para mudar a sua senha:
+
+          <br />%{link}</p>
+
+          <p>Se não fosse você, pode ignorar este email. Sua senha não mudará a menos que você visitar o link acima e criar uma nova senha.</p>'
+        unlock_instructions_html: ! '<p>Olá %{email},</p>
+
+          <p>A sua conta foi bloqueada por causa de uma quantidade excessiva de tentativas para conectar-se:
+
+          <br />%{link}</p>'
+      miles: milhas
+      name: Nome
+      new_password: Senha nova
       options:
-        add_anonymously: 
-        label: 
-        range_updates_email: 
-      password: 
-      range_by_map: 
-      range_by_radius: 
-      remember_me: 
-      resend_confirmation_instructions: 
-      resend_unlock_instructions: 
-      save_changes: 
-      send: 
-      send_password_instructions: 
-      sign_in: 
-      sign_in_with: 
-      sign_up: 
-      type_it_twice: 
-      unlock_account: 
-      zoom_to_address: 
+        add_anonymously: Editar o mapa anonimamente (mesmo quando estiver conectado)
+        label: Opções
+        range_updates_email: ! 'Receber um email semanal que reporta atividade recente no seu alcance de forrageamento '
+      password: Senha
+      range_by_map: Desenhar no mapa
+      range_by_radius: Endereço e radio
+      remember_me: Lembrar usuário
+      resend_confirmation_instructions: Reenviar as instruções de confirmação
+      resend_unlock_instructions: Reenviar as instruções para destravar minha conta
+      save_changes: ! 'Salvar as mudanças '
+      send: Enviar
+      send_password_instructions: Enviar as instruções para redefinir a minha senha
+      sign_in: Entrar
+      sign_in_with: Entrar com %{provider}
+      sign_up: Inscrever-se
+      type_it_twice: ! 'Digite novamete para confirmar que esteja correto '
+      unlock_account: Destravar a minha conta
+      zoom_to_address: Zoom para o endereço
     mailer:
       confirmation_instructions:
         subject: 
@@ -79,20 +89,20 @@ pt-br:
       unlock_instructions:
         subject: 
     omniauth_callbacks:
-      failure: 
-      success: 
+      failure: Não podia autenticar a sua conta de %{kind} porque "%{reason}".
+      success: Autenticada com sucesso da conta de %{kind}.
     passwords:
-      no_token: 
-      send_instructions: 
-      send_paranoid_instructions: 
-      updated: 
-      updated_not_active: 
+      no_token: ! 'Você não pode acessar essa página sem entrar do email de redefinição de senha. Se viesse do email de redefinição de senha, por favor, certifique-se de copiar e colar a URL (endereço da Web) do link que você recebeu no e-mail no navegador. '
+      send_instructions: Você receberá um email com as instruções de como redefinir a sua senha em poucos minutos.
+      send_paranoid_instructions: Se o seu endereço de email existisse no nosso banco de dados, você receberá um email com um link para a recuperação da sua senha em poucos minutos.
+      updated: ! 'A sua senha foi alterada com sucesso. Agora você está conectado. '
+      updated_not_active: ! 'A sua senha foi alterada com sucesso. '
     registrations:
-      destroyed: 
-      signed_up: 
-      signed_up_but_inactive: 
-      signed_up_but_locked: 
-      signed_up_but_not_approved: 
+      destroyed: ! 'Tchau! A sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve. '
+      signed_up: Bem vindos ao Falling Fruit! Você se inscreveu com sucesso.
+      signed_up_but_inactive: ! 'Você se inscreveu com sucesso. No entanto, não podiamos se conectar porque a sua conta ainda nao estiver ativada. '
+      signed_up_but_locked: Você se inscreveu com sucesso. No entanto, não podiamos se conectar porque a sua conta está bloqueada.
+      signed_up_but_not_approved: ! 'Você se inscreveu com sucesso mas a sua conta ainda não foi aprovada por um administrator. '
       signed_up_but_unconfirmed: 
       update_needs_confirmation: 
       updated: 
