@@ -42,13 +42,15 @@ class ProblemsController < ApplicationController
   def update
     @problem = Problem.find(params[:id])
     params[:problem][:responder] = User.find(params[:responder_id])
+    @problem.attributes = params[:problem]
     respond_to do |format|
-      if @problem.update_attributes(params[:problem])
+      # HACK: To force update old problems without emails (which is now required)
+      if @problem.save(:validate => false)
         if params[:email_reporter]
           Spammer.respond_to_problem(@problem).deliver
         end
         format.html { redirect_to problems_path, notice: 'Problem was successfully resolved.' }
-      else
+      else 
         format.html { redirect_to problems_path, notice: 'Problem failed to udpate.' }
       end
     end
