@@ -54,7 +54,7 @@
   <%= f.hidden_field :id %>
   <%= f.text_area :response, :rows => 3, :class => "full_width" %><br/>
   <%= check_box_tag :email_reporter, :checked => false %> Email &middot;
-  <%= f.select(:resolution_code, Problem::Resolutions.collect{ |r| [r, Problem::Resolutions.index(r)] }, { :include_blank => true }) %> &middot;
+  <%= f.select(:resolution_code, Problem::Resolutions.collect{ |r| [r, Problem::Resolutions.index(r)] }, { :include_blank => false }) %> &middot;
   <%= submit_tag "Resolve" %>
 <% end %>
 </td>

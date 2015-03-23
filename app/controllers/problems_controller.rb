@@ -49,7 +49,7 @@ class ProblemsController < ApplicationController
         end
         format.html { redirect_to problems_path, notice: 'Problem was successfully resolved.' }
       else
-        format.html { render action: "index" }
+        format.html { redirect_to problems_path, notice: 'Problem failed to udpate.' }
       end
     end
   end
