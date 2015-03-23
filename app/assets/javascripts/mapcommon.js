@@ -585,6 +585,8 @@ function open_marker(marker) {
       setup_tabs();
       // FIXME: Store streetview? in database
       setup_streetview_tab(marker,50,false);
+      // HACK: Attempt to set content twice to fix online infowindow size issue
+      infowindow.setContent(infowindow.content);
     });
   });
 }    

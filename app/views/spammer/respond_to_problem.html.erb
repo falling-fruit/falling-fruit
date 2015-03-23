@@ -6,7 +6,8 @@
   end
   action = @problem.resolution_code.nil? ? 'made no changes' : Problem::Resolutions[@problem.resolution_code].downcase
   location_url = @problem.location.nil? ? '#' + @problem.location_id.to_s : '<a href="http://fallingfruit.org/locations/' + @problem.location_id.to_s + '">#' + @problem.location_id.to_s + '</a>'
-  problem_comment = Problem::Codes[@problem.problem_code] + ' - <i>' + @problem.comment.to_s + '</i>'
+  comment = @problem.comment.nil? ? '' : ' - <i>' + @problem.comment + '</i>'
+  problem_comment = Problem::Codes[@problem.problem_code] + comment
   signature = @problem.responder.nil? ? "fallingfruit.org" : (@problem.responder.name.nil? ? 'An anonymous admin' : @problem.responder.name) + "<br/>fallingfruit.org"
   %>
 

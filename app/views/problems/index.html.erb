@@ -7,7 +7,7 @@
  <th>User</th>
  <th>Location</th>
  <th>Problem</th>
- <th>Resolve</th>
+ <th style="min-width: 250px;">Resolve</th>
 </tr>
 </thead>
 <tbody>
@@ -27,7 +27,7 @@
   end
   display_name = display_name.nil? ? '' : display_name
   unless email.nil?
-    location_url = problem.location.nil? ? '' + problem.location_id.to_s : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
+    location_url = problem.location.nil? ? '' : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
     mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>' 
   else
     mailto = display_name
@@ -95,7 +95,7 @@
   end
   display_name = display_name.nil? ? '' : display_name
   unless email.nil?
-    location_url = problem.location.nil? ? '' + problem.location_id.to_s : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
+    location_url = problem.location.nil? ? '' : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
     mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>' 
   else
     mailto = display_name
@@ -104,7 +104,11 @@
  <%= mailto.html_safe %>
 </td>
 <td>
-  <%= link_to(problem.location.id,location_path(problem.location)) %>
+<% if problem.location.nil? %>
+  Deleted
+<% else %>    
+  <%= link_to problem.location.id, location_path(problem.location.id) %>
+<% end %>
 </td>
 <td>
   <%= Problem::Codes[problem.problem_code] %>

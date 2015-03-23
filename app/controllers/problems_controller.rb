@@ -45,7 +45,7 @@ class ProblemsController < ApplicationController
     respond_to do |format|
       if @problem.update_attributes(params[:problem])
         if params[:email_reporter]
-          Spammer.respond_to_problem(@problem).deliver_later
+          Spammer.respond_to_problem(@problem).deliver
         end
         format.html { redirect_to problems_path, notice: 'Problem was successfully resolved.' }
       else
