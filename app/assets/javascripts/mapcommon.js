@@ -561,7 +561,7 @@ function setup_tabs() {
   // HACK: Force Google to recalculate infowindow size.
   $('#tab-1').height($('#tab-1').height() + 1);
   $('.gm-style-iw').height($('#location_infowindow').height());
-  open_infowindow();
+  infowindow.setContent(infowindow.content);
 }
 
 function open_marker(marker) {

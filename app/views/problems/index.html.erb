@@ -29,7 +29,7 @@
     location_url = problem.location.nil? ? '' + problem.location_id.to_s : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
     mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + name + ',' + location_url + '">' + display_name + '</a>' 
   else
-    mailto = display_name
+    mailto = display_name.nil? ? '' : display_name
   end
   %>
  <%= mailto.html_safe %>
