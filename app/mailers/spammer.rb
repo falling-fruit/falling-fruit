@@ -14,11 +14,15 @@ class Spammer < ActionMailer::Base
       else
         email = problem.email
       end
-      subject = "Falling Fruit Location #" + problem.location_id.to_s
-      mail(
-        :to => email,
-        :subject => subject
+      unless email.nil?
+        subject = "Falling Fruit Location #" + problem.location_id.to_s
+        mail(
+          :to => email,
+          :subject => subject
         )
+      else
+        return nil
+      end
     else
       return nil
     end
