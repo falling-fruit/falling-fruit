@@ -582,8 +582,9 @@ function open_marker(marker) {
     infowindow.setContent(div);
     open_infowindow(marker);
     google.maps.event.addListenerOnce(infowindow,'domready',function() {
-      setup_streetview_tab(marker,50,false);
       setup_tabs();
+      // FIXME: Store streetview? in database
+      setup_streetview_tab(marker,50,false);
     });
   });
 }    

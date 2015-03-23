@@ -17,19 +17,20 @@
 <td>
   <%
   unless problem.reporter.nil? 
-    display_name = problem.reporter.name
-    name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
     email = problem.reporter.email
+    email_name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
+    display_name = problem.reporter.name.nil? ? email : problem.reporter.name
   else
-    display_name = problem.name
-    name = problem.name.nil? ? '' : '%20' + problem.name
     email = problem.email
+    email_name = problem.name.nil? ? '' : '%20' + problem.name
+    display_name = problem.name.nil? ? email : problem.name
   end
+  display_name = display_name.nil? ? '' : display_name
   unless email.nil?
     location_url = problem.location.nil? ? '' + problem.location_id.to_s : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
-    mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + name + ',' + location_url + '">' + display_name + '</a>' 
+    mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>' 
   else
-    mailto = display_name.nil? ? '' : display_name
+    mailto = display_name
   end
   %>
  <%= mailto.html_safe %>
@@ -82,23 +83,25 @@
 <tr>
 <td><%= problem.created_at %></td>
 <td>
-<%
-unless problem.reporter.nil? 
-  display_name = problem.reporter.name
-  name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
-  email = problem.reporter.email
-else
-  display_name = problem.name
-  name = problem.name.nil? ? '' : '%20' + problem.name
-  email = problem.email
-end
-unless email.nil?
-  location_url = problem.location.nil? ? '' + problem.location_id.to_s : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
-  mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + name + ',' + location_url + '">' + display_name + '</a>' 
-else
-  mailto = display_name
-end
-%>
+  <%
+  unless problem.reporter.nil? 
+    email = problem.reporter.email
+    email_name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
+    display_name = problem.reporter.name.nil? ? email : problem.reporter.name
+  else
+    email = problem.email
+    email_name = problem.name.nil? ? '' : '%20' + problem.name
+    display_name = problem.name.nil? ? email : problem.name
+  end
+  display_name = display_name.nil? ? '' : display_name
+  unless email.nil?
+    location_url = problem.location.nil? ? '' + problem.location_id.to_s : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
+    mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>' 
+  else
+    mailto = display_name
+  end
+  %>
+ <%= mailto.html_safe %>
 </td>
 <td>
   <%= link_to(problem.location.id,location_path(problem.location)) %>
