@@ -511,30 +511,20 @@ function open_pending_types_help_modal(){
   });
 }
 
-// Tab 1 (info, the default) uses its original height.
-function open_tab_1() {	
-  p = $('#location_infowindow');
-  infowindowHeaderHeight = p.children('.ui-tabs-nav').outerHeight(true);
-  var max_height = 0.75 * $('#map').height() - infowindowHeaderHeight;
-  if (max_height < ($('#tab-1').height())) {
-    $('#tab-1').height(max_height);
-  }
+// Tab 1
+function open_tab_1() {
   open_infowindow();
 }
 
-// Tab 2 (reviews) tries to get as close as possible to its content height.
+// Tab 2
 function open_tab_2() {
-  p = $('#location_infowindow');
-  $('#tab-2').width(p.parent().width());
-  var new_height = Math.min(0.75 * $('#map').height() - infowindowHeaderHeight, Math.max($('#tab-1').height(), $('#tab-2').height()));
-  $('#tab-2').height(new_height);
   open_infowindow();
   // Load images into Shadowbox gallery
   Shadowbox.clearCache();
   Shadowbox.setup("a[rel='shadowbox']", { gallery: "Gallery" });
 }
 
-// Tab 3 (street view) requires a minimum height to be useful.
+// Tab 3
 function open_tab_3() {
   p = $('#location_infowindow');
   if ($("#tab-1").hasClass('ui-tabs-hide')) {
@@ -543,8 +533,6 @@ function open_tab_3() {
     var starting_height = $('#tab-1').height();
   }
   var previous_height = $('#tab-3').height()
-  var current_width = p.parent().width();
-  $('#tab-3').width(current_width);
   var new_height = Math.max(starting_height, Math.min(400, 0.75 * $('#map').height() - infowindowHeaderHeight));
   $('#tab-3').height(new_height);
   open_infowindow();
@@ -555,20 +543,52 @@ function open_tab_3() {
   }
 }
 
+// Tab 1 (info, the default) uses its original height, or the max height.
+// Tab 2 (reviews) tries to get as close as possible to its content height.
+// Tab 3 (street view) requires a minimum height to be useful.
 function setup_tabs() {
   p = $('#location_infowindow');
   infowindowHeaderHeight = p.children('.ui-tabs-nav').outerHeight(true);
   var max_height = 0.75 * $('#map').height() - infowindowHeaderHeight;
-  if (max_height < ($('#tab-1').height() - 1)) {
+  if (max_height < $('#tab-1').height()) {
     $('#tab-1').height(max_height);
   }
+  $('#tab-2').height(Math.min(max_height, Math.max($('#tab-1').height(), $('#tab-2').height())));
+  var current_width = p.parent().width();
+  $('#tab-1').width(current_width);
+  $('#tab-2').width(current_width);
+  $('#tab-3').width(current_width);
   // HACK: Force Google to recalculate infowindow size.
   $('#tab-1').height($('#tab-1').height() + 1);
-  $('.gm-style-iw').height($('#location_infowindow').height());
-  open_infowindow();
+  $('.gm-style-iw').height($('#location_infowindow').height()); 
 }
 
-function add_marker_infobox(i) { 
+function open_marker(marker) {
+  var cstr = '';
+  if (cats != undefined) {
+    cstr = '&c=' + cats;
+  }
+  lstr = '&locale=' + I18n.locale;
+  var requestHtml = $.ajax({
+    type: 'GET',
+    url: '/locations/' + marker.id + '/infobox?' + cstr + lstr,
+    dataType: 'html'
+  });
+  requestHtml.done(function(html) {
+    var div = document.createElement('div');
+    div.innerHTML = html;
+    $(div).tabs();
+    infowindow.setContent(div);
+    open_infowindow(marker);
+    google.maps.event.addListenerOnce(infowindow,'domready',function() {
+      setup_tabs();
+      setup_streetview_tab(marker,50,false);
+      open_infowindow();
+    });
+  });
+}    
+    
+function add_marker_infowindow(i) { 
   var marker = markersArray[i].marker;
   marker.id = markersArray[i].id;
   google.maps.event.addListener(marker,'click',function() {
@@ -576,67 +596,15 @@ function add_marker_infobox(i) {
     if (marker == infowindow.marker) {
       return true;
     }
-    var cstr = '';
-    if (cats != undefined) {
-      cstr = '&c=' + cats;
-    }
-    lstr = '&locale=' + I18n.locale;
-    var requestHtml = $.ajax({
-      type: 'GET',
-      url: '/locations/' + marker.id + '/infobox?' + cstr + lstr,
-      dataType: 'html'
-    });
-    requestHtml.done(function(html) {
-      var div = document.createElement('div');
-      div.innerHTML = html;
-      $(div).tabs();
-      infowindow.setContent(div);
-      open_infowindow(marker);
-      google.maps.event.addListenerOnce(infowindow,'domready',function() {
-        setup_tabs();
-        setup_streetview_tab(marker,50,false);
-      });
-    });
+    open_marker(marker);
   });
 }
 
 function open_marker_by_id(id) {
-  var cstr = '';
-  if (cats != undefined) {  
-    cstr = '&c=' + cats;
-  }
-  lstr = '&locale=' + I18n.locale;
   for (var i = 0; i < markersArray.length; i++) {
     if (markersArray[i].id == id) {
-      var requestHtml = $.ajax({
-        type: 'GET',
-        url: '/locations/' + id + '/infobox?' + cstr + lstr,
-        dataType: 'html'
-      });
-      requestHtml.done(function(html){
-        var div = document.createElement('div');
-        div.innerHTML = html;
-        setup_streetview_tab(markersArray[i].marker,50,false);
-        $(div).tabs();
-        var infowindow = new google.maps.InfoWindow({content:div});
-        google.maps.event.addListener(infowindow,'closeclick',function(){
-          openInfoWindow = null;
-          openMarker = null;
-          openMarkerId = null;
-        });
-        if (pano.getVisible()) {
-          infowindow.open(pano, markersArray[i].marker);
-        } else {
-          infowindow.open(map, markersArray[i].marker);
-        }
-        openInfoWindow = infowindow;
-        openInfoWindowHtml = infowindow.content;
-        google.maps.event.addListenerOnce(infowindow,'domready',function(){
-          setup_tabs(markersArray[i].marker, openInfoWindow);
-        });
-      });
-      openMarker = markersArray[i].marker;
-      openMarkerId = markersArray[i].id;
+      marker = markersArray[i].marker
+      open_marker(marker);
       return true;
     }
   }
@@ -649,40 +617,13 @@ function open_marker_by_id(id) {
   requestJson.done(function(json){
     add_markers_from_json(json,false);
     // make marker clickable
-    add_marker_infobox(markersArray.length-1);
+    add_marker_infowindow(markersArray.length-1);
     // filter and labels
     if(labelsOn) labelize_markers();
     search_filter(last_search);
-    // open infobox
-    var requestHtml = $.ajax({
-      type: 'GET',
-      url: '/locations/' + id + '/infobox?' + cstr + lstr,
-      dataType: 'html'
-    });
-    requestHtml.done(function(html){
-      var div = document.createElement('div');
-      div.innerHTML = html;
-      setup_streetview_tab(markersArray[markersArray.length-1].marker,50,false);
-      $(div).tabs();
-      var infowindow = new google.maps.InfoWindow({content: div});
-      google.maps.event.addListener(infowindow,'closeclick',function(){
-        openInfoWindow = null;
-        openMarker = null;
-        openMarkerId = null;
-      });
-      if (pano.getVisible()) {
-          infowindow.open(pano, markersArray[markersArray.length-1].marker);
-        } else {
-          infowindow.open(map, markersArray[markersArray.length-1].marker);
-        }
-        openInfoWindow = infowindow;
-        openInfoWindowHtml = infowindow.content;
-        google.maps.event.addListenerOnce(infowindow,'domready',function(){
-          setup_tabs(markersArray[markersArray.length-1].marker, openInfoWindow);
-        });
-    });
-    openMarker = markersArray[markersArray.length-1].marker;
-    openMarkerId = markersArray[markersArray.length-1].id;
+    // open infowindow
+    marker = markersArray[markersArray.length-1].marker
+    open_marker
   });
   return true;
 }
@@ -739,7 +680,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     if(type_filter != undefined) apply_type_filter();
     // make markers clickable
     for (var i = 0; i < markersArray.length; ++i) {
-      add_marker_infobox(i);
+      add_marker_infowindow(i);
     }
     if(labelsOn) labelize_markers();
     n = json.length;
@@ -789,8 +730,9 @@ function place_add_marker(latlng) {
   });
   markersArray.push({marker: marker, id: -1, type: "point"});
   // Set and open infowindow
-  var html = $('<div id="addmarker"><a href="/locations/new?lat=' + latlng.lat() + '&lng=' + latlng.lng() + '&locale=' + I18n.locale +
-               '" data-ajax="false" rel="external">' + I18n.t("locations.index.addmarker_html") + '</div>');
+  var html = $('<div id="addmarker"><a href="/locations/new?lat=' 
+    + latlng.lat() + '&lng=' + latlng.lng() + '&locale=' + I18n.locale 
+    + '" data-ajax="false" rel="external">' + I18n.t("locations.index.addmarker_html") + '</div>');
   var infowindow = new google.maps.InfoWindow({
     content: html[0]
   });
