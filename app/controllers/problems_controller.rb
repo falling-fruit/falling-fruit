@@ -43,11 +43,8 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     params[:problem][:responder] = User.find(params[:responder_id])
     respond_to do |format|
-      resolved = (not params[:problem][:resolution_code].nil?)
       if @problem.update_attributes(params[:problem])
-        if resolved
-          Spammer.respond_to_problem(@problem)
-        end
+        Spammer.respond_to_problem(@problem).deliver_later
         format.html { redirect_to problems_path, notice: 'Problem was successfully resolved.' }
       else
         format.html { render action: "index" }
