@@ -46,7 +46,7 @@
       update_display(true,zoom);
       document.addEventListener("markersloaded",function(event){
         if (!opened_once) {
-          opened_once = open_marker_by_id(<%= @location.id %>,<%= @location.lat %>,<%= @location.lng %>);
+          opened_once = open_marker_by_id(<%= @location.id %>);
         }
       },false);
     });

@@ -560,7 +560,8 @@ function setup_tabs() {
   $('#tab-3').width(current_width);
   // HACK: Force Google to recalculate infowindow size.
   $('#tab-1').height($('#tab-1').height() + 1);
-  $('.gm-style-iw').height($('#location_infowindow').height()); 
+  $('.gm-style-iw').height($('#location_infowindow').height());
+  open_infowindow();
 }
 
 function open_marker(marker) {
@@ -581,9 +582,8 @@ function open_marker(marker) {
     infowindow.setContent(div);
     open_infowindow(marker);
     google.maps.event.addListenerOnce(infowindow,'domready',function() {
-      setup_tabs();
       setup_streetview_tab(marker,50,false);
-      open_infowindow();
+      setup_tabs();
     });
   });
 }    
@@ -603,7 +603,8 @@ function add_marker_infowindow(i) {
 function open_marker_by_id(id) {
   for (var i = 0; i < markersArray.length; i++) {
     if (markersArray[i].id == id) {
-      marker = markersArray[i].marker
+      marker = markersArray[i].marker;
+      marker.id = markersArray[i].id;
       open_marker(marker);
       return true;
     }
@@ -622,8 +623,9 @@ function open_marker_by_id(id) {
     if(labelsOn) labelize_markers();
     search_filter(last_search);
     // open infowindow
-    marker = markersArray[markersArray.length-1].marker
-    open_marker
+    marker = markersArray[markersArray.length-1].marker;
+    marker.id = markersArray[markersArray.length-1].id;
+    open_marker(marker);
   });
   return true;
 }
