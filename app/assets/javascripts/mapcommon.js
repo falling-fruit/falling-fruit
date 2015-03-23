@@ -546,7 +546,7 @@ function open_tab_3() {
 // Tab 1 (info, the default) uses its original height, or the max height.
 // Tab 2 (reviews) tries to get as close as possible to its content height.
 // Tab 3 (street view) requires a minimum height to be useful.
-function setup_tabs() {
+function setup_tabs(callback) {
   p = $('#location_infowindow');
   infowindowHeaderHeight = p.children('.ui-tabs-nav').outerHeight(true);
   var max_height = 0.75 * $('#map').height() - infowindowHeaderHeight;
@@ -583,10 +583,7 @@ function open_marker(marker) {
     open_infowindow(marker);
     google.maps.event.addListenerOnce(infowindow,'domready',function() {
       setup_tabs();
-      // FIXME: Store streetview? in database
-      setup_streetview_tab(marker,50,false);
-      // HACK: Attempt to set content twice to fix online infowindow size issue
-      infowindow.setContent(infowindow.content);
+      setup_streetview_tab(infowindow.marker,50,false);
     });
   });
 }    
