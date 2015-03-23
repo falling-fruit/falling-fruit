@@ -152,7 +152,7 @@
  		<a href="javascript:zoom_to_marker();" data-ajax="false" title="<%= I18n.t("locations.infowindow.zoom_to_this_location") %>"><%= I18n.t("locations.infowindow.zoom") %></a>
  		<!-- Street View -->
  		<% if user_signed_in? and current_user.is? :admin %>
- 		  <a id="streetview-toggle" href="javascript:streetview_toggle(openMarker,50);" data-ajax="false" title="<%= I18n.t("locations.infowindow.see_this_location_in_streetview") %>"><%= I18n.t("locations.infowindow.street") %></a>
+ 		  <a id="streetview-toggle" href="javascript:streetview_toggle(infowindow.marker,50);" data-ajax="false" title="<%= I18n.t("locations.infowindow.see_this_location_in_streetview") %>"><%= I18n.t("locations.infowindow.street") %></a>
  		<% end %>
  		<!-- Link -->
       <%= link_to(I18n.t("locations.infowindow.link"),location_path(location.id),:onclick => "update_url('#location_link'); return false;",:title => I18n.t("locations.infowindow.url_for_this_location"), :id => "location_link") %>
@@ -191,12 +191,6 @@
 	</select>
 	<input type="submit" value="+ / -" style="padding:0.2em 0.3em;line-height:85%;">
 </form>
-</div>
-<% end %>
-
-<!-- Problem -->
-<% if user_signed_in? %>
-<div id="problem_controls" style="display:none;border-top:1px solid #F0F0F0;margin-top:0.75em;padding-top:0.75em;width:100%;font-size:85%!important;">
 </div>
 <% end %>
 
