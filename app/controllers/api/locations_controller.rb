@@ -6,10 +6,10 @@ class Api::LocationsController < ApplicationController
   # API endpoint to give access to types list
   def types
     if !@api_key.nil? and @api_key.api_type == "muni"
-      params[:c] = "human"
+      params[:c] = "forager"
     end
     if params[:c].blank?
-      cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+      cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
     else
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
@@ -77,12 +77,12 @@ class Api::LocationsController < ApplicationController
   # Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
     return unless check_api_key!("api/locations/cluster_types")
-    # Muni API is locked to muni & human
+    # Muni API is locked to muni & forager
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
-      params[:c] = "human"
+      params[:c] = "forager"
     end
-    cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+    cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
       mfilter = ""
@@ -116,10 +116,10 @@ class Api::LocationsController < ApplicationController
 
   def cluster
     return unless check_api_key!("api/locations/cluster")
-    # Muni API is locked to muni & human
+    # Muni API is locked to muni & forager
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
-      params[:c] = "human"
+      params[:c] = "forager"
     end
     mfilter = ""
     if params[:muni].present? and params[:muni].to_i == 1
@@ -180,15 +180,15 @@ class Api::LocationsController < ApplicationController
 
   def nearby
     return unless check_api_key!("api/locations/nearby")
-    # Muni API is locked to muni & human
+    # Muni API is locked to muni & forager
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
-      params[:c] = "human"
+      params[:c] = "forager"
     end
     max_n = 100
     offset_n = params[:offset].present? ? params[:offset].to_i : 0
     if params[:c].blank?
-      cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+      cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
     else
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
@@ -268,16 +268,16 @@ class Api::LocationsController < ApplicationController
     else
       max_n = 1000
     end
-    # Muni API is locked to muni & human
+    # Muni API is locked to muni & forager
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:muni] = 1
-      params[:c] = "human"
+      params[:c] = "forager"
       max_n = [100,max_n].min
     end
     offset_n = params[:offset].present? ? params[:offset].to_i : 0
 
     if params[:c].blank?
-      cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+      cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
     else
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end

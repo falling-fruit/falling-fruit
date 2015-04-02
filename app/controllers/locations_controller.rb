@@ -76,7 +76,7 @@ class LocationsController < ApplicationController
   def infobox
     @location = Location.find(params[:id])
     if params[:c].blank?
-      @cat_mask = array_to_mask(["human","freegan"],Type::Categories)
+      @cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
     else
       @cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
@@ -103,7 +103,7 @@ class LocationsController < ApplicationController
     @type = Type.find_by_name('Freegan')
     params[:f] = @type.id
     params[:t] = 'toner-lite'
-    params[:c] = 'human,freegan'
+    params[:c] = 'forager,freegan'
     params[:m] = 'false'
     index and return
   end
@@ -199,7 +199,7 @@ class LocationsController < ApplicationController
         t = Type.new
         t.name = type_name
         if params[:c].blank?
-          t.category_mask = array_to_mask(["human"],Type::Categories)
+          t.category_mask = array_to_mask(["forager"],Type::Categories)
         else
           t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
         end
@@ -277,7 +277,7 @@ class LocationsController < ApplicationController
         t = Type.new
         t.name = type_name
         if params[:c].blank?
-          t.category_mask = array_to_mask(["human"],Type::Categories)
+          t.category_mask = array_to_mask(["forager"],Type::Categories)
         else
           t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
         end

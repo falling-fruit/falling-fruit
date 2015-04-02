@@ -15,7 +15,7 @@ class TypeOthersIntoTypes < ActiveRecord::Migration
       puts "#{k}: #{h[k].length}"
       t = Type.new
       t.name = k
-      t.category_mask = array_to_mask(["human"],Type::Categories)
+      t.category_mask = array_to_mask(["forager"],Type::Categories)
       t.save
       h[k].each{ |lid|
         l = Location.find(lid)
