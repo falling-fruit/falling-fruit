@@ -42,19 +42,11 @@
       place_add_marker(event.latLng);
     });
 
-    google.maps.event.addListener(map, 'click', function(event) {
-      if(openMarker != null && openInfoWindow != null){
-        openInfoWindow.close();
-        openMarker = null;
-        openInfoWindow = null;
-      }
-    });
-    
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display(true,zoom);
       document.addEventListener("markersloaded",function(event){
         if (!opened_once) {
-          opened_once = open_marker_by_id(<%= @location.id %>,<%= @location.lat %>,<%= @location.lng %>);
+          opened_once = open_marker_by_id(<%= @location.id %>);
         }
       },false);
     });

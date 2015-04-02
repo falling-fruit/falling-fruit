@@ -1,0 +1,26 @@
+<% 
+  unless @problem.reporter.nil? 
+    name = @problem.reporter.name.nil? ? '' : ' ' + @problem.reporter.name
+  else
+    name = @problem.name.nil? ? '' : ' ' + @problem.name
+  end
+  action = @problem.resolution_code.nil? ? 'made no changes' : Problem::Resolutions[@problem.resolution_code].downcase
+  location_url = @problem.location.nil? ? '#' + @problem.location_id.to_s : '<a href="http://fallingfruit.org/locations/' + @problem.location_id.to_s + '">#' + @problem.location_id.to_s + '</a>'
+  comment = @problem.comment.nil? ? '' : ' - <i>' + @problem.comment + '</i>'
+  problem_comment = Problem::Codes[@problem.problem_code] + comment
+  signature = @problem.responder.nil? ? "fallingfruit.org" : (@problem.responder.name.nil? ? 'An anonymous admin' : @problem.responder.name) + "<br/>fallingfruit.org"
+  %>
+
+Hi<%= name %>,
+
+<p>
+  Thank you for reporting a problem for location <%= location_url.html_safe %>:<br/>
+<br/>
+  &emsp;&emsp;"<%= problem_comment.html_safe %>"
+</p>
+
+<p>We have <%= action %>. <%= @problem.response.to_s %></p>
+
+Let us know if you have any questions or concerns.<br/>
+thank you,<br/>
+<%= signature.html_safe %>

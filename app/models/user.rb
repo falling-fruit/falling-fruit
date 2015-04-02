@@ -22,9 +22,10 @@ class User < ActiveRecord::Base
                   :range_updates_email, :announcements_email, :address, :lat, :lng, :range_radius,
                   :location, :range_radius_unit
   
+  # Don't normalize passwords, etc:
   normalize_attributes :name, :email, :email_confirmation, :bio, :address
   validates :email, confirmation: true
-  validates :range_radius, numericality: {greater_than: 0}
+  validates :range_radius, numericality: {greater_than: 0}, :allow_nil => true
 
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   before_validation { |record|

@@ -292,6 +292,16 @@ end
 
 namespace :export do
 
+  task(:apples => :environment) do
+    of = File.open("apples.csv","w")
+    of.puts "lon,lat,q,y,no"
+    t = Type.where("name='Apple'").first
+    Location.where("type_ids @> ARRAY[#{t.id}]").each{ |l|
+      of.puts [l.lng,l.lat,l.mean_quality_rating,l.mean_yield_rating,l.observations.length].join(",")
+    }
+    of.close
+  end
+
   task(:data => :environment) do
      puts "Exporting Locations..."
      cat_mask = array_to_mask(Type::DefaultCategories,Type::Categories)
