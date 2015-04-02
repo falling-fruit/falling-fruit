@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(:version => 20150303154024) do
     t.integer  "zoom"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.integer  "type_id"
     t.spatial  "cluster_point", :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "grid_point",    :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "polygon",       :limit => {:srid=>900913, :type=>"polygon"}
+    t.integer  "type_id"
   end
 
   create_table "imports", :force => true do |t|

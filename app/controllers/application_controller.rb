@@ -5,12 +5,22 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :instantiate_controller_and_action_names
   before_filter :set_locale
-
+  after_filter :set_access_control_headers
+  
   protect_from_forgery
 
   # catch all perms errors and punt to root
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
+  end
+
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
+  end
+
+  def handle_options_request
+    head(:ok) if request.request_method == "OPTIONS"
   end
 
   # app/controllers/application_controller.rb

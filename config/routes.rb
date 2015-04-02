@@ -1,5 +1,7 @@
 FallingfruitWebapp::Application.routes.draw do
 
+  match '*path', :controller => 'application', :action => 'handle_options_request', :constraints => {:method => 'OPTIONS'}
+
   devise_for :users, :controllers => {:sessions => "sessions"}
   resources :users do
     member do
