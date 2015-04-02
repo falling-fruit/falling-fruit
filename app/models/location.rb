@@ -147,11 +147,11 @@ class Location < ActiveRecord::Base
   #### CLASS METHODS ####
 
   def self.csv_header
-    ["Type","Type Other","Description","Lat","Lng","Address","Season Start","Season Stop",
+    ["Type","Description","Lat","Lng","Address","Season Start","Season Stop",
      "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
   end
 
-  def self.build_from_csv(row,typehash=nil)
+  def self.build_from_csv(row,typehash=nil,default_category_mask=0)
     type,desc,lat,lng,address,season_start,season_stop,no_season,
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
@@ -164,7 +164,7 @@ class Location < ActiveRecord::Base
         if types.count == 0
           nt = Type.new
           nt.name = safer_type
-          nt.category_mask = 0 # default is no category per Ethan's request
+          nt.category_mask = default_category_mask
           nt.pending = true
           nt.save
           loc.type_ids.push(nt.id)
@@ -179,7 +179,8 @@ class Location < ActiveRecord::Base
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
-
+    
+    # NOTE: -1 shifts because input is 1-index but database is 0-index
     loc.access = (access.to_i - 1) unless access.blank?
     loc.description = desc.gsub(/(\\n|<br>)/,"\n") unless desc.blank?
     loc.address = address unless address.blank?

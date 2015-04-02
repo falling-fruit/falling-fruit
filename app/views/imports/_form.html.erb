@@ -1,8 +1,7 @@
 <%= form_for @import do |f| %>
   <% if @import.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@type.errors.count, "error") %> prohibited this type from being saved:</h2>
-
+      <h2><%= pluralize(@import.errors.count, "error") %> prohibited this import from being saved:</h2>
       <ul>
       <% @import.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -28,16 +27,20 @@
     <%= f.text_area :license, :size => "80x10" %><br />
   </div>
   <div class="field">
-    <%= f.check_box :autoload %> <%= f.label :autoload %>
-  </div>
-  <div class="field">
     <%= f.check_box :muni %> <%= f.label :municipal %>
   </div>
   <div class="field">
-    <%= f.check_box :auto_cluster %> <%= f.label :increment_clusters_now %>
+    <%= f.check_box :autoload %> <%= f.label :autoload %>
+  </div>
+  <div class="field">
+    <%= f.check_box :auto_cluster %> <%= f.label :increment_clusters %>
   </div>
   <div class="field">
     <%= f.check_box :reverse_geocode %> <%= f.label :reverse_geocode %>
+  </div>
+  <div class="field">
+    <%= f.label :default_categories %><br />
+    <%= select_tag(:default_categories, options_for_select(Type::Categories.each_with_index.collect{ |v,i| [v.capitalize,v] }, @default_categories),:multiple => true) %>
   </div>
   <br />
   <div class="actions">

@@ -44,23 +44,36 @@ Errors:
 <%= form_for :import, :html => {:multipart => true} do |f| %>
   <%= fields_for :import do |f2| %>
     <div class="field">
-      Name<br>
+      <%= f.label :name %><br />
       <%= f.text_field :name, :size => "80" %>
     </div>
     <div class="field">
-      URL<br>
+      <%= f.label :url %><br />
       <%= f.text_field :url, :size => "80" %>
     </div>
     <div class="field">
-      Comments<br>
+      <%= f.label :comments %><br />
       <%= f.text_area :comments, :size => "80x10" %>
     </div>
     <div class="field">
-      License<br>
+      <%= f.label :license %><br />
       <%= f.text_area :license, :size => "80x10" %>
     </div>
     <div class="field">
-      <%= f.check_box :muni, :value => 1, :checked => false %> Municipal<br />
+      <%= f.check_box :muni %> <%= f.label :municipal %>
+    </div>
+    <div class="field">
+      <%= f.check_box :autoload, :checked => true %> <%= f.label :autoload %>
+    </div>
+    <div class="field">
+      <%= f.check_box :auto_cluster %> <%= f.label :increment_clusters %>
+    </div>
+    <div class="field">
+      <%= f.check_box :reverse_geocode %> <%= f.label :reverse_geocode %>
+    </div>
+    <div class="field">
+      <%= f.label :default_categories %><br />
+      <%= select_tag(:default_categories, options_for_select(Type::Categories.each_with_index.collect{ |v,i| [v.capitalize,v] }, []),:multiple => true) %>
     </div>
   <% end %>
   <div class="field">
@@ -69,4 +82,5 @@ Errors:
   <div class="field">
     <%= f.submit "Upload" %>
   </div>
+  
 <% end %>

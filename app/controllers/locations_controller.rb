@@ -64,6 +64,7 @@ class LocationsController < ApplicationController
     if request.post? && params[:csv].present?
       infile = params[:csv].tempfile
       import = Import.new(params[:import])
+      import.default_category_mask = array_to_mask(params["default_categories"], Type::Categories)
       import.save
       filepath = File.join("public","import","#{import.id}.csv")
       FileUtils.cp infile.path, filepath

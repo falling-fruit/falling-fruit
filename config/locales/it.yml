@@ -1,10 +1,10 @@
 it:
   changes:
     index:
-      1_day_ago: 
-      change_in_city: 
+      1_day_ago: Un giorno fa
+      change_in_city: ! '%{type} in %{city}'
       last_24_hours: Ultime 24 ore
-      n_days_ago: 
+      n_days_ago: ! '%{n} giorni fa'
       recent_changes: Ultime modifiche
       user: Utente
     type:
@@ -13,16 +13,16 @@ it:
       visited: visitato
   devise:
     confirmations:
-      confirmed: Il tuo account è stato correttamente confermato. Ora sei collegato.
-      send_instructions: Riceverai un messaggio email con le istruzioni per confermare il tuo account entro qualche minuto.
-      send_paranoid_instructions: Se la tua email esiste nel nostro database, entro qualche minuto riceverai un messaggio email con le istruzioni per confermare il tuo account.
+      confirmed: Il tuo account è stato confermato. Ora sei collegato.
+      send_instructions: Entro qualche minuto riceverai un messaggio email con le istruzioni per confermare il tuo account.
+      send_paranoid_instructions: Se la tua email esiste nel nostro database, riceverai un messaggio email con le istruzioni per confermare il tuo account fra qualche minuto.
     failure:
       already_authenticated: Hai già effettuato l'accesso.
       inactive: Il tuo account non è ancora stato attivato.
-      invalid: Indirizzo email o password non validi.
+      invalid: Indirizzo email o password invalidi.
       invalid_token: Codice di autenticazione non valido.
       locked: Il tuo account è bloccato.
-      not_approved: Il tuo account non è stato approvato dall'amministratore ancora.
+      not_approved: Il tuo account non è ancora stato approvato dall'amministratore.
       timeout: Sessione scaduta, accedere nuovamente per continuare.
       unauthenticated: Devi accedere o registrarti per continuare.
       unconfirmed: Devi confermare il tuo account per continuare.

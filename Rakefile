@@ -52,6 +52,16 @@ task(:remove_blanks => :environment) do
   }
 end
 
+# Removes types with no locations
+task(:delete_unused_types => :environment) do
+  Type.all.each do |type|
+    if type.locations.blank?
+      type.destroy
+      puts '[' + type.id.to_s + '] ' + type.name
+    end
+  end
+end
+
 task(:fix_ratings => :environment) do
   missing_count = 0
   copy_fail_count = 0
@@ -399,10 +409,10 @@ task(:import => :environment) do
        print "."
        n += 1
        next if n == 1 or row.join.blank?
-       location = Location.build_from_csv(row,typehash)
+       # FIXME: Customize default category mask
+       location = Location.build_from_csv(row,typehash,import.default_category_mask)
        location.import = import
        location.client = 'import'
-
        if (location.lat.nil? or location.lng.nil?) and !location.address.blank?
          print "G"
          location.geocode
@@ -412,7 +422,7 @@ task(:import => :environment) do
          print "S"
          if location.save and import.auto_cluster == true
            print "C"
-           ApplicationController.cluster_increment(location)
+           cluster_increment(location)
          end
        else
          text_errs << location.errors

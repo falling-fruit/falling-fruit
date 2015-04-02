@@ -10,6 +10,7 @@ class ImportsController < ApplicationController
   
   def edit
     @import = Import.find(params[:id])
+    @default_categories = mask_to_array(@import.default_category_mask, Type::Categories)
   end
 
   def show
@@ -22,7 +23,7 @@ class ImportsController < ApplicationController
 
   def update
     @import = Import.find(params[:id])
-
+    @import.default_category_mask = array_to_mask(params["default_categories"], Type::Categories)
     respond_to do |format|
       if @import.update_attributes(params[:import])
         format.html { redirect_to imports_path, notice: 'Import was successfully updated.' }
@@ -44,4 +45,5 @@ class ImportsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 end

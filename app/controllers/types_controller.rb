@@ -24,6 +24,7 @@ class TypesController < ApplicationController
   def merge
     if params[:id].present?
       from = Type.find(params[:id].to_i)
+      from_pending = from.pending
       to = Type.find(params[:into_id].to_i)
       Cluster.select("*, ST_X(cluster_point) AS cx, ST_Y(cluster_point) AS cy").
         where("type_id = ?",from.id).each{ |c|
@@ -50,7 +51,11 @@ class TypesController < ApplicationController
       }
       from.destroy
       respond_to do |format|
-        format.html { redirect_to types_url, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
+        if from_pending
+          format.html { redirect_to grow_types_path, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
+        else
+          format.html { redirect_to types_path, :notice => "Type #{from.id} was successfully merged into type #{to.id}" }
+        end
         format.json { head :no_content }
       end
     end
@@ -86,26 +91,12 @@ class TypesController < ApplicationController
           @child.parent_id = @type.id
           @child.save
         }
-        andtext = ""
-        if params[:locs].present?
-          n = 0
-          locs = []
-          params[:locs].split(/:/).each{ |lid|
-            l = Locations.find(lid)
-            l.type_ids.push @type.id
-            l.save
-            locs << l unless l.nil?
-          }
-          locs.uniq.each{ |loc|
-            n += 1
-            cluster_increment(loc,[@type.id])
-          }
-          format.html { redirect_to grow_types_path, notice: "Type was successfully created and #{n} locations were updated to use this new type." }
-          format.json { render json: @type, status: :created, location: @type }
+        if @type.pending
+          format.html { redirect_to grow_types_path, notice: "Type was successfully created." }
         else
           format.html { redirect_to types_path, notice: "Type was successfully created." }
-          format.json { render json: @type, status: :created, location: @type }
         end
+        format.json { render json: @type, status: :created, location: @type }
       else
         format.html { render action: "new" }
         format.json { render json: @type.errors, status: :unprocessable_entity }
@@ -117,6 +108,7 @@ class TypesController < ApplicationController
   # PUT /types/1.json
   def update
     @type = Type.find(params[:id])
+    from_pending = @type.pending
     params[:type][:category_mask] = array_to_mask(params["categories"],Type::Categories)
     respond_to do |format|
       if @type.update_attributes(params[:type])
@@ -134,7 +126,11 @@ class TypesController < ApplicationController
           @child.parent_id = nil
           @child.save
         }
-        format.html { redirect_to types_path, notice: 'Type was successfully updated.' }
+        if from_pending
+          format.html { redirect_to grow_types_path, notice: 'Type was successfully updated.' }
+        else
+          format.html { redirect_to types_path, notice: 'Type was successfully updated.' }          
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -152,7 +148,7 @@ class TypesController < ApplicationController
       c.destroy
     }
     respond_to do |format|
-      format.html { redirect_to types_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end
