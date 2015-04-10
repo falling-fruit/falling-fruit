@@ -193,6 +193,7 @@ class LocationsController < ApplicationController
       @observation.user = current_user if user_signed_in?
     end
 
+    params[:types] = params[:location][:types] if params[:types].blank? and not params[:location][:types].blank?
     params[:types].split(/,/).uniq.each{ |type_name|
       t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
       if t.nil?

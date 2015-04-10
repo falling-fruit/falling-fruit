@@ -14,7 +14,7 @@ class Api::LocationsController < ApplicationController
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
     cfilter = "(category_mask & #{cat_mask})>0"
-    @types = Type.select("id,name").where(cfilter)
+    @types = Type.where(cfilter).collect{ |t| {:name => t.full_name, :id => t.id } }
     log_api_request("api/locations/types",@types.length)
     respond_to do |format|
       format.json { render json: @types }
