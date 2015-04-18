@@ -115,7 +115,7 @@
 <body onload="resize_content();">
 
 <!-- Problems modal -->
- <div id="problem_modal" title="<%= I18n.t("layouts.application.problem_modal_title") %>"></div>
+ <div id="problem_modal" title="<%= I18n.t("glossary.report_a_problem") %>"></div>
 
  <!-- Alerts -->
  <% if notice or alert %>
@@ -199,10 +199,10 @@
    <% path = request.fullpath %>
 		<% if user_signed_in? %>
 			<span id="user_email"><%= current_user.email %></span>
-     <%= link_to(I18n.t("layouts.application.menu.account"), edit_user_registration_path, :class => (path == '/users/edit') ? 'currentpage' : 'notcurrentpage') %>
-     <%= link_to(I18n.t("layouts.application.menu.logout"), destroy_user_session_path, :method => :delete) %>
+     <%= link_to(I18n.t("glossary.account"), edit_user_registration_path, :class => (path == '/users/edit') ? 'currentpage' : 'notcurrentpage') %>
+     <%= link_to(I18n.t("glossary.logout"), destroy_user_session_path, :method => :delete) %>
 		<% else %>
-			<%= link_to(I18n.t("layouts.application.menu.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(I18n.t("layouts.application.menu.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
+			<%= link_to(I18n.t("glossary.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(I18n.t("glossary.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
 		<% end %>
  </div>
  
@@ -213,47 +213,47 @@
     
     <!-- Map -->
     <% unless user_signed_in? %>
-      <li><%= link_to(I18n.t("layouts.application.menu.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to(I18n.t("glossary.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
     <% else %>
-      <li><%= link_to(I18n.t("layouts.application.menu.home"), home_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
-      <li><%= link_to(I18n.t("layouts.application.menu.world"), root_path, :class => (['/','/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to(I18n.t("glossary.home"), home_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
+      <li><%= link_to(I18n.t("glossary.world"), root_path, :class => (['/','/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
     <% end %>
     
     <!-- About -->
-    <li><%= link_to(I18n.t("layouts.application.menu.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
+    <li><%= link_to(I18n.t("glossary.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
     <ul>
       <li><%= link_to(I18n.t("layouts.application.menu.the_project"), about_path, :class => (basepath == '/about') ? 'currentpage' : 'notcurrentpage') %>
-      <li><%= link_to(I18n.t("layouts.application.menu.imported_datasets"), datasets_path, :class => (basepath == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
+      <li><%= link_to(I18n.t("glossary.imported_datasets"), datasets_path, :class => (basepath == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
       <li><%= link_to(I18n.t("layouts.application.menu.sharing_the_harvest"), sharing_path, :class => (basepath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
       <li><%= link_to(I18n.t("layouts.application.menu.in_the_press"), press_path, :class => (basepath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
     </ul>
     
     <!-- Data -->
-    <li><%= link_to(I18n.t("layouts.application.menu.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to(I18n.t("glossary.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- Activity -->
-    <li><%= link_to(I18n.t("locations.sidebar.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
+    <li><%= link_to(I18n.t("glossary.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
     
     <!-- Routes -->
 		<% if user_signed_in? %>
-			<li><%= link_to(I18n.t("layouts.application.menu.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
+			<li><%= link_to(I18n.t("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
 			<% if current_user.is? :admin %>
 				
-				<!-- Trouble -->
-				<li><%= link_to(I18n.t("layouts.application.menu.trouble"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
+				<!-- Problems -->
+				<li><%= link_to(I18n.t("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
 				
 				<!-- Types -->
-				<li><%= link_to(I18n.t("layouts.application.menu.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
+				<li><%= link_to(I18n.t("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
 				<ul>
 						<li><%= link_to(I18n.t("layouts.application.menu.approved_types"), types_path, :class => (basepath == '/types') ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(I18n.t("layouts.application.menu.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
+						<li><%= link_to(I18n.t("glossary.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
 						<li><%= link_to(I18n.t("layouts.application.menu.new_type"), new_type_path, :class => (basepath == '/types/new') ? "currentpage" : "notcurrentpage") %></li>
 				</ul>
 				</li>
 		
 				<!-- Imports -->
-				<li><%= link_to(I18n.t("layouts.application.menu.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
+				<li><%= link_to(I18n.t("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
 				<ul>
 						<li><%= link_to(I18n.t("layouts.application.menu.list_imports"), imports_path, :class => (basepath == '/imports') ? "currentpage" : "notcurrentpage") %></li>
 						<li><%= link_to(I18n.t("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
@@ -261,15 +261,15 @@
 				</li>
 		
 				<!-- Users -->
-				<li><%= link_to(I18n.t("layouts.application.menu.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
+				<li><%= link_to(I18n.t("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
 			<% end %>
 		<% end %>
 		
 		<!-- Add Source -->
-		<li><%= link_to(I18n.t("layouts.application.menu.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
+		<li><%= link_to("+ " + I18n.t("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
-				<span><%= I18n.t("layouts.application.or_right-click_on_map") %></span>
-			<% end %>
+			<span><%= I18n.t("layouts.application.or_right-click_on_map") %></span>
+		<% end %>
     </li>
     
     </ul>
@@ -283,7 +283,7 @@
 </div>
 
 <!-- Pending Types -->
-<div id="pending_types_help" style="display:none;" title="<%= I18n.t("layouts.application.pending_types_help_title") %>">
+<div id="pending_types_help" style="display:none;" title="<%= I18n.t("glossary.pending_types") %>">
 <%= I18n.t("layouts.application.pending_types_help") %>
 </div>
    
@@ -296,7 +296,7 @@
  
 	 <!-- Footer -->
 	 <div id="footer">
-		<a href="http://creativecommons.org/licenses/by-nc/3.0/"><%= I18n.t("layouts.application.copyleft") %></a> (c) <%= Time.now.year %> Falling Fruit
+		<a href="http://creativecommons.org/licenses/by-nc/3.0/"><%= I18n.t("glossary.copyleft") %></a> (c) <%= Time.now.year %> Falling Fruit
 	 </div>
 	</div>
 </div>

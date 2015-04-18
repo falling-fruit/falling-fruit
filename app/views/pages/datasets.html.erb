@@ -2,7 +2,7 @@
   <%= I18n.t("pages.datasets.intro_html").html_safe %>
 </p>
 
-<h2><%= I18n.t("pages.datasets.imported_datasets") %></h2>
+<h2><%= I18n.t("glossary.imported_datasets") %></h2>
 
 <p>
   <%= I18n.t("pages.datasets.types_of_data") %>
@@ -16,10 +16,10 @@
 <thead>
   <tr>
     <th></th>
-    <th><%= I18n.t("pages.datasets.details") %></th>
+    <th><%= I18n.t("glossary.details") %></th>
     <th><%= I18n.t("pages.datasets.type") %></th>
-    <th><%= I18n.t("pages.datasets.name") %></th>
-    <th><%= I18n.t("pages.datasets.locations") %></th>
+    <th><%= I18n.t("glossary.name") %></th>
+    <th><%= I18n.t("glossary.locations", :count => 2) %></th>
     <th><%= I18n.t("pages.datasets.date_imported") %></th>
   </tr>
 </thead>
@@ -62,7 +62,7 @@ Import.order("id").reverse.each do |import|
       <% end %>
     </td>
     <td>
-      <%= import.muni ? I18n.t("pages.datasets.tree_inventory") : I18n.t("pages.datasets.community_map") %>
+      <%= import.muni ? I18n.t("glossary.tree_inventories", :count => 1) : I18n.t("pages.datasets.community_map") %>
     </td>
     <td>
 	    <% unless import.url.blank? %>

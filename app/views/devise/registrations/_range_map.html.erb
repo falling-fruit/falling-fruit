@@ -1,34 +1,34 @@
-<%= f.label :foraging_range, I18n.t("devise.fallingfruit.foraging_range") + ":" %><br/><br/>
+<h3><%= f.label :foraging_range, I18n.t("users.foraging_range") %></h3>
 
 <div id="range_tabs" >
 
   <!-- Tab Menu -->
   <ul>
-    <li><%= link_to '#range-radius' do %><%= I18n.t("devise.fallingfruit.range_by_radius") %><% end %></li>
-    <li><%= link_to '#range-map' do %><%= I18n.t("devise.fallingfruit.range_by_map") %><% end %></li>
+    <li><%= link_to '#range-radius' do %><%= I18n.t("users.range_by_radius") %><% end %></li>
+    <li><%= link_to '#range-map' do %><%= I18n.t("users.range_by_map") %><% end %></li>
   </ul>
 
   <div id="range-radius">
 
     <div class="field">
-      <%= f.label :address, I18n.t("devise.fallingfruit.address") %><br/>
-      <span class="subtext"><%= I18n.t("devise.fallingfruit.address_subtext") %></span><br />
+      <%= f.label :address, I18n.t("glossary.address") %><br/>
+      <span class="subtext"><%= I18n.t("users.address_subtext") %></span><br />
       <%= f.text_area :address, :size => "40x6" %>
     </div>
     <div class="field">
-      <%= f.label :foraging_range_radius, I18n.t("devise.fallingfruit.foraging_radius") %><br/>
-      <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_radius_subtext") %></span><br />
+      <%= f.label :foraging_range_radius, I18n.t("users.foraging_radius") %><br/>
+      <span class="subtext"><%= I18n.t("users.foraging_radius_subtext") %></span><br />
       <%= f.text_field :range_radius, :size => 10 %>
-      <%= f.select(:range_radius_unit,options_for_select(["km", I18n.t("devise.fallingfruit.miles")])) %>
+      <%= f.select(:range_radius_unit,options_for_select(["km", I18n.t("glossary.miles")])) %>
     </div>
 
   </div>
   <div id="range-map">
 
-    <span class="subtext"><%= I18n.t("devise.fallingfruit.foraging_map_subtext") %></span><br/>
-      <input type="text" placeholder="<%= I18n.t("devise.fallingfruit.address") %>" name="address" id="address">
-      <button type="button" onclick="recenter_range_map_to_address();return false;"><%= I18n.t("devise.fallingfruit.zoom_to_address") %></button>
-      <button type="button" onclick="clear_range_overlays();return false;"><%= I18n.t("devise.fallingfruit.clear_map") %></button>
+    <span class="subtext"><%= I18n.t("users.foraging_map_subtext") %></span><br/>
+      <input type="text" placeholder="<%= I18n.t("glossary.address") %>" name="address" id="address">
+      <button type="button" onclick="recenter_range_map_to_address();return false;"><%= I18n.t("users.zoom_to_address") %></button>
+      <button type="button" onclick="clear_range_overlays();return false;"><%= I18n.t("users.clear_map") %></button>
     <div id="map"></div>
 
   </div>

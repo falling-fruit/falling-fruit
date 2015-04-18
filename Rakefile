@@ -8,6 +8,26 @@ SendEmails = true
 
 FallingfruitWebapp::Application.load_tasks
 
+# Find duplicate I18n values (en)
+task(:find_duplicate_locale_values => :environment) do
+  require 'yaml'
+  temp = YAML.load_file("config/locales/en.yml")
+  f = flatten_hash(temp["en"])
+  df = f.group_by { |k,v| v }.select { |k,v| v.size > 1 }
+  df.each { |k,v|
+    puts "=> " + k + "\n" + v.collect { |ind| ind[0] }.join("\n")
+  }
+end
+
+# Helper function: Flatten hash, locale style
+# http://stackoverflow.com/questions/9647997/converting-a-nested-hash-into-a-flat-hash
+def flatten_hash(h, f = [], g = {})
+  return g.update({f.join('.') => h}) unless h.is_a? Hash
+  h.each { |k,r| flatten_hash(r, f + [k], g) }
+  g
+end
+
+# Resend email confirmation to unconfirmed users
 # http://www.cheynewallace.com/resend-devise-confirmation-emails-for-incomplete/
 task(:resend_confirmation => :environment) do
   users = User.where('confirmation_token IS NOT NULL')

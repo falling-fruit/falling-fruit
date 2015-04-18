@@ -2,11 +2,11 @@
 
 <div id="directions_panel">
   <div id="travel_mode">
-  <b><%= I18n.t("routes.show.mode_of_travel") %></b>
+  <b><%= I18n.t("routes.mode_of_travel") %></b>
   <select id="travel_mode_select" onchange="calculate_route(all_waypoints.slice(0));">
-    <option value="WALKING"><%= I18n.t("routes.show.walking") %></option>
-    <option value="BICYCLING"><%= I18n.t("routes.show.bicycling") %></option>
-    <option value="DRIVING"><%= I18n.t("routes.show.driving") %></option>
+    <option value="WALKING"><%= I18n.t("routes.modes_of_travel")[0] %></option>
+    <option value="BICYCLING"><%= I18n.t("routes.modes_of_travel")[1] %></option>
+    <option value="DRIVING"><%= I18n.t("routes.modes_of_travel")[2] %></option>
   </select>
   </div>
   <div id="directions">

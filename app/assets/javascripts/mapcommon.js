@@ -923,7 +923,7 @@ function add_bicycle_control(map) {
   bicycleControl = document.createElement('div');
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(bicycleControl);
   bicycleControl.id = 'maptype_button';
-  bicycleControl.innerHTML = I18n.t("routes.show.bicycling");
+  bicycleControl.innerHTML = I18n.t("routes.modes_of_travel")[1];
 
   // Initialize map with control off
   bicycleLayerOn = false;

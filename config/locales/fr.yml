@@ -1,12 +1,7 @@
 fr:
   changes:
-    index:
-      1_day_ago: Il y a 1 jour
-      change_in_city: ! '%{type} à %{city}'
-      last_24_hours: Dernières 24 heures
-      n_days_ago: Il y a %{n} jours
-      recent_changes: Modifications récentes
-      user: Utilisateur
+    change_in_city: ! '%{type} à %{city}'
+    recent_changes: Modifications récentes
     type:
       added: ajouté
       edited: modifié
@@ -26,74 +21,13 @@ fr:
       timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
       unconfirmed: Vous devez valider votre compte pour continuer.
-    fallingfruit:
-      address: Adresse
-      address_subtext: Le centre de votre zone de glanage (votre maison, par exemple)
-      are_you_sure: Êtes-vous sûr?
-      bio: Un peu sur vous
-      change_password: Modifier mon mot de passe
-      clear_map: Nettoyer la carte
-      confirm_account: Valider mon compte
-      current_password: Mot de passe actuel
-      current_password_subtext: Nécessaire pour modifier votre compte
-      delete_account: Annuler mon compte
-      edit_account: Modifier mon compte
-      email: Email
-      foraging_map_subtext: Utilisez l'outil polygone ou rectangle dans la carte ci-dessous pour définir votre zone de glanage. Si vous utilisez l'outil polygone, assurez-vous de fermer votre polygone en rejoignant le dernier point au premier.
-      foraging_radius: Rayon
-      foraging_radius_subtext: Rayon d'une zone de glanage circulaire centrée sur l'adresse ci-dessus
-      foraging_range: Zone de glanage
-      forgot_password: Réinitialiser votre mot de passe
-      login: Connexion
-      mailer:
-        confirmation_instructions_html: ! '<p>Bienvenue sur Falling Fruit,</p>
-
-          <p>Pour activer votre compte, vous devez valider votre e-mail (%{email}) en visitant le lien ci-dessous:
-
-          <br/>%{link}</p>
-
-          <p>Falling Fruit est propulsé par ses utilisateurs, donc si vous pouvez y ajouter ou améliorer, faites-le. Joyeux glanage! </ P>'
-        reset_password_instructions_html: ! '<p>Bonjour %{email},</p>
-
-          <p>Quelqu''un (probablement vous) a demandé un lien pour modifier votre mot de passe:
-
-          <br />%{link}</p>
-
-          <p>Si vous ne l''avez pas demandé, vous pouvez ignorer cet e-mail. Votre mot de passe ne changera pas à moins que vous visitez le lien ci-dessus et en créez un nouveau.</p>'
-        unlock_instructions_html: ! '<p>Bonjour %{email},</p>
-
-          <p>Votre compte a été bloqué en raison d''une quantité excessive de tentatives de connexion infructueuses:
-
-          <br />%{link}</p>'
-      miles: miles
-      name: Nom
-      new_password: Nouveau mot de passe
-      options:
-        add_anonymously: Modifier la carte dans l'anonymat (même si connecter)
-        label: Options
-        range_updates_email: Recevoir un email hebdomadaire avec l'activité récente dans votre zone de glanage (défini ci-dessous)
-      password: Mot de passe
-      range_by_map: Tracer sur une carte
-      range_by_radius: Adresse et rayon
-      remember_me: Rester connecté
-      resend_confirmation_instructions: Renvoyer les instructions de validation
-      resend_unlock_instructions: Renvoyer les instructions de déblocage
-      save_changes: Enregistrer les modifications
-      send: Envoyer
-      send_password_instructions: Envoyer les instructions de réinitialisation de mot de passe
-      sign_in: Se connecter
-      sign_in_with: Se connecter avec %{provider}
-      sign_up: Créer un compte
-      type_it_twice: Tapez-le deux fois pour confirmer
-      unlock_account: Débloquer mon compte
-      zoom_to_address: Zoom sur l'adresse
     mailer:
       confirmation_instructions:
-        subject: Confirmer votre compte | Falling Fruit
+        subject: Confirmer votre compte
       reset_password_instructions:
-        subject: Réinitialiser votre mot de passe | Falling Fruit
+        subject: Réinitialiser votre mot de passe
       unlock_instructions:
-        subject: Débloquer votre compte | Falling Fruit
+        subject: Débloquer votre compte
     omniauth_callbacks:
       failure: ! 'Nous n''avons pas pu vous authentifier via %{kind}: "%{reason}".'
       success: Authentifié avec succès via %{kind}.
@@ -105,7 +39,7 @@ fr:
       updated_not_active: Votre mot de passe a été changé avec succès.
     registrations:
       destroyed: Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt!
-      signed_up: Bienvenue sur Falling Fruit! Vous êtes maintenant enregistré.
+      signed_up: Bienvenue! Vous êtes maintenant enregistré.
       signed_up_but_inactive: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter car votre compte n'est pas encore activé.
       signed_up_but_locked: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter car votre compte est bloqué.
       signed_up_but_not_approved: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter avant que votre compte soi validé par un administrateur.
@@ -136,107 +70,143 @@ fr:
         other: ! '%{count} erreurs ont empêché ce(tte) %{resource} d''être sauvegardé(e) :'
       on_or_after: doit être égale à ou venir après %{restriction}
       on_or_before: doit être égale à ou venir avant %{restriction}
-  helpers:
-    faster_time_ago_in_words:
-      days: jours
-      last_month: le mois dernier
-      last_year: l'année dernière
-      less_than_24_hours: moins de 24 heures
-      months_ago: il y a des mois
-      years_ago: il y a des années
-  imports:
-    index:
-      delete: Supprimer
-      edit: Modifier
-      error: Erreur
-    show:
-      edit: modifier
-      imported: Importé
+  glossary:
+    about: À propos
+    access: Accès
+    account: Compte
+    activity: Activité
+    add_source: Ajouter une source
+    address: Adresse
+    anonymous: Anonyme
+    are_you_sure: Êtes-vous sûr?
+    australia: Australie
+    by_author: par %{author}
+    canada: Canada
+    common_name: Nom commun
+    copyleft: Copyleft
+    data: Données
+    delete: Supprimer
+    description: Description
+    details: Détails
+    download: Télécharger
+    edible_type: Type comestible
+    edit: Modifier
+    email: Email
+    embed: Intégrer
+    error: Erreur
+    favorites: Favoris
+    fiji: Fidji
+    filter: Filtre
+    france: France
+    global: Mondial
+    home: Maison
+    imported: Importé
+    imported_datasets: Données importées
+    imports: Importations
+    info: Infos
+    italy: Italie
+    labels: Étiquettes
+    links:
+      one: Lien
+      other: Liens
+    locations:
+      one: Endroit
+      other: Endroits
+    login: Connexion
+    logout: Déconnexion
+    map: Carte
+    miles: miles
+    name: Nom
+    options: Options
+    password: Mot de passe
+    pending_types: Types en attente
+    photo: Photo
+    position: Position
+    problems: Problèmes
+    public: Public
+    quality: Qualité
+    report: Signaler
+    report_a_problem: Signaler un problème
+    reviews:
+      one: Revue
+      other: Revues
+    routes: Parcours
+    save_changes: Enregistrer vos modifications
+    scientific_name: Nom scientifique
+    season: Saison
+    send: Envoyer
+    show: Afficher
+    sign_up: S'inscrire
+    street_view: Street View
+    submit: Soumettre
+    tree_inventories:
+      one: Inventaire d'arbres
+      other: Inventaires d'arbres
+    type_and_press_enter: Tapez et appuyez sur entrée
+    types: Types
+    united_kingdom: Royaume-Uni
+    united_states: États-Unis
+    unknown: Inconnu
+    unverified: Non vérifié
+    updated: Mise à jour
+    user: Utilisateur
+    users: Utilisateurs
+    visited: Visité
+    world: Monde
+    yield: Production
+    zoom: Zoom
+    zoom_to_current_location: Zoom sur ma position actuel
+    zoom_to_me: Zoom sur moi
+    zoom_to_this_location: Zoom sur ce lieu
   layouts:
     application:
-      copyleft: Copyleft
       feed_people_not_landfills: Nourrissez les gens, non les décharges!
       mapping_the_urban_harvest: Carte du glanage urbain!
       menu:
-        about: À propos
-        account: Compte
-        add_source: + Ajouter une source
         approved_types: Types approuvés
-        changes: Modifications
-        data: Données
-        home: Maison
-        imported_datasets: Données importées
-        imports: Importations
         in_the_press: Dans la presse
         list_imports: Liste d'importations
-        login: Connexion
-        logout: Déconnexion
-        map: Carte
         new_import: Nouvelle importation
         new_type: Nouveau type
-        pending_types: Types en attente
-        routes: Parcours
         sharing_the_harvest: Partager la récolte
-        sign_up: S'inscrire
         the_project: Le projet
-        trouble: Problèmes
-        types: Types
-        users: Utilisateurs
-        world: Monde
       or_right-click_on_map: (ou cliquez-droit sur la carte)
       pending_types_help: ! 'Nous imposons une taxonomie de types comestibles afin que la carte soit organisée et consultable. Les nouveaux types proposés par nos utilisateurs sont mis en évidence jusqu''à ce qu''ils soient ajoutés à la taxonomie ou fusionnés avec des types existants. Certains types proposés sont si uniques ou ambigus qu''ils persistent non approuvé indéfiniment. '
-      pending_types_help_title: Types en attente
-      problem_modal_title: Signaler un problème
       unverified_help: Certaines sources sont mis en évidence comme non vérifiées si leur identités, emplacements, ou existences sont contestées. Beaucoup de sources provenant d'inventaires d'arbres sont marqués comme non vérifiées parce que leurs comestibilité est incertaine (par exemple, "Poire" pourrait soit être une variété comestible ou décorative). Nous encourageons nos utilisateurs de se rendre à ces endroits et mettre à jour la carte en fonction de leurs observations.
       unverified_help_title: Pourquoi non vérifié?
   locations:
-    embed:
-      add_source: Ajouter une source
     errors:
       geocode_failed: ! 'Votre recherche d''adresse a échoué pour la raison suivante:'
       latitude_too_large: Nous ne soutenons pas les latitudes au-delà de ± 85 degrés.
     form:
-      access: Accès
       access_subtext: Statut d'accès de la source. Laissez vide si vous ne savez pas.
       address_subtext_html: Adresse <span class="subtext-inline">peut être utilisée pour positionner le marqueur. Ajustez-le si nécessaire avant de soumettre.</span>
       author_subtext: Affiché sur la carte. Laissez vide si vous souhaitez garder l'anonymat.
-      comments: Commentaires
       comments_subtext: Nouveaux développements, problèmes d'accès, condition des plantes ...
       create_another: Créer une autre
       date_subtext: Date de l'état des fruits signalé (si non aujourd'hui)
       date_visited: Date visité
-      description: Description
       description_subtext: Détails, problèmes d'accès, condition des plantes ...
       form_error: Une erreur a empêché cette source d'être enregistrée
       form_intro_html: Modifier l'endroit ci-dessous, ou <a href="/observations/new?location_id=%{location_id}&locale=fr" data-ajax="false" rel="external" title="Évaluer cet endroit">utiliser ce formulaire</a> pour y ajouter des commentaires et des photos.
       fruiting_status: État des fruits
       fruiting_subtext: Comment sont les fruits en ce moment? (le cas échéant)
       have_you: Avez-vous visité ce lieu?
-      location: Position
-      location_subtext: Provenant de votre position actuelle (si disponible) ou le marqueur que vous avez placé. Ajustez-le en déplaçant le marqueur.
       move_marker: Placer le marqeur aux coordonnées
       move_marker_address: Placer le marqueur à l'adresse
       name_subtext: Laissez vide si vous souhaitez garder l'anonymat.
       no_season: Sans saison
       or: ou
-      photo: Photo
       photo_caption: Légende photo
       photo_subtext: Poster une photo de la source. Si elle n'est pas la votre, assurer vous d'avoir l'autorisation et de créditer le photographe dans la légende.
-      quality: Qualité
+      position_subtext: Provenant de votre position actuelle (si disponible) ou le marqueur que vous avez placé. Ajustez-le en déplaçant le marqueur.
       quality_subtext: Évaluez la qualité de la source (le cas échéant)
-      season: Saison
       season_subtext: Quand récolter la source? Laissez vide si vous ne savez pas.
-      submit: Soumettre
       to: à
-      types: Types
       types_subtext: Choisissez dans la liste déroulante, proposants de nouveaux types que si des choix appropriés n'existent pas déjà.
-      unverified: Non vérifiée
       unverified_subtext: Si vous doutez l'existence, la position, ou l'identité de la source.
-      verify: Vérifier
       verify_subtext: La source est actuellement marqué comme "Non vérifiée"
-      visited_on: Date visité
       visited_on_subtext: Laissez vide si visité aujourd'hui.
-      yield: Production
       yield_subtext: Évaluez la productivité de la source (le cas échéant)
       your_name: Votre nom
     index:
@@ -267,96 +237,42 @@ fr:
       - Privé mais en surplomb
       - Privé
       add_to_remove_from: Ajouter à / supprimer de
-      anonymous: Anonyme
-      are_you_sure: Êtes-vous sûr?
-      by: par
       citation_to_the_original_source: Citation de la source d'origine
-      delete: supprimer
       delete_comment: Supprimer le commentaire
       delete_photo: Supprimer la photo
       delete_this_location: Supprimer cet endroit
-      edit: modifier
       edit_this_location: Modifier ce endroit
-      flower: Fleur
-      fruit: Fruit
       fruiting:
       - En fleurs
       - Pas mûrs
       - Mûrs
       have_you_visited_html: Avez-vous visité cette source? Laissez un <a href="/observations/new?location_id=%{id}&locale=fr" data-ajax="false" rel="external" title="Commenter sur cette source" id="add_review">commentaire</a>
       january_to_december: Janvier - Décembre
-      link: lien
       new_route: Nouveau parcour
-      quality: Qualité
       rating:
       - Faible
       - Moyen
       - Bien
       - Très bien
       - Excellent
-      report: signaler
-      report_a_problem: Signaler un problème
-      review: + commenter
       review_this_location: Évaluer cet endroit
-      ripe: Mûr
-      routes: parcours
-      season: Saison
       see_this_location_in_streetview: Voir ce lieu avec streetview
       source: source
-      street: streetview
-      tabs:
-        info: Infos
-        reviews: Commentaires
-        street_view: Street View
       toggle_route_controls: Basculer les contrôles de parcours
       unsure: Incertain
       unsure_other: Incertain/Autre
-      unverified: Non vérifié
       url_for_this_location: URL pour cet endroit
-      x_photo: x photo
-      yield: Production
-      zoom: zoom
-      zoom_to_this_location: Zoom sur ce lieu
-    locations_type:
-      or: Ou
     searchbar:
-      address: Adresse
-      download: Télécharger
-      embed: Intégrer
       embed_hover: Code d'intégration
       embed_modal_title: Code d'intégration (iFrame HTML)
-      filter: Filtre
-      labels: Étiquettes
-      link: Lien
       link_hover: URL de la carte actuelle
-      select_edible_type: Type comestible
-      tree_inventories: Inventaires d'arbres
       tree_inventories_modal: Les inventaires d'arbres sont compilées par des institutions qui cherchent à mieux documenter et prendre soin de leurs arbres. Ces données sont généralement recueillies par des arboriculteurs formés et sont à la fois détaillées et exhaustives. Nous choisissons soigneusement les espèces comestibles de ces inventaires et les ajoutons à la carte pour vous. Aidez-nous à répertorier les sources comestibles de votre quartier en demandant à votre ville (ou université, canton, etc) si un inventaire d'arbres existe et s'il peut être partagé sur Falling Fruit.
       tree_inventories_modal_title: Qu'est-ce qu'un inventaire d'arbres?
-      type_and_press_enter: Tapez et appuyez sur entrée
-      zoom_to_current_location: Zoom sur ma position actuel
-      zoom_to_me: Zoom sur moi
     sidebar:
-      activity: Activité
-      ago: il y a
-      by_author: par %{author}
       changed_within_html: Modifications dans votre <a href="/users/edit?locale=fr">zone de glanage</a>
-      click_here: Cliquez ici
       click_here_to_manage_your_routes_html: Cliquez <a href="%{routes_path}">ici</a> pour gérer vos parcours
-      favorites: Favoris
       in: à
-      last_24_hours: 24 dernières heures
-      last_month: Le mois dernier
-      last_updated: Mise à jour
-      last_visited: Visité
-      locations: endroits
       locations_added_or_reviewed_by_you_while_logged_in: Sources ajoutées ou modifiées par vous (en étant connecté)
-      months_ago: Il y a %{months} mois
-      public: public
-      routes: Parcours
-      this_month: Ce mois-ci
-      this_week: Cette semaine
-      unknown: Inconnu
       you_havent_added_or_reviewed_anything_while_logged_in: Vous n'avez pas encore ajouté ou modifié des sources (en étant connecté)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Vous n'avez pas encore défini des parcours de glanage. Cliquez sur une source, puis sur "parcours", pour commencer à en faire un.
       you_havent_defined_html: Vous n'avez pas défini votre zone de glanage. <a href="/users/edit?locale=fr">Cliquez ici</a> pour le faire maintenant
@@ -395,73 +311,97 @@ fr:
     data:
       beware_html: Attention! Une foi décompressé, les données deviennent un fichier énorme qui écrase la plupart des logiciels de tableur. Si vous recherchez seulement les données sur une zone limitée, essayez d'abord de récupérer les points d'intérêts avec l'outil de téléchargement intégré à la <a href="/?locale=fr">carte</a>.
       caveat_emptor_html: Nous ne prenons aucune responsabilité pour la précision des données - elles sont fourni tels quels, <i>caveat emptor</i>. Si vous développé quelque chose de cool avec les données, <a href="mailto:feedback@fallingfruit.org">faites-le nous savoir</a>!
-      common_name: Nom commun
-      count: Nombre
       data_unavailable_html: Les données sont actuellement indisponibles. Revenez plus tard ou <a href="mailto:info@fallingfruit.org">contactez-nous</a>.
       intro: Falling Fruit dépends des données publiques et la générosité des glaneurs disposés à partager leurs trouvailles. Nous voulons que le plus grand nombre de personnes possible ait accès au glanage urbain, et nous croyons que tout le monde devrait avoir un accès égal au résultat d'un effort collectif. Dans l'esprit de l'"open data", voici la base de données entière
-      last_updated: mise à jour
       license_html: Si vous êtes intéressé à utiliser les données dans votre projet, en particulier un projet commercial, nous vous proposons de nous contacter (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Sauf indication contraire, les données sont distribué sous une licence <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Pas d’utilisation commerciale, Partage dans les mêmes conditions). Cela signifie que vous êtes libre d'utiliser et de distribuer les données aussi longtemps que vous conservez l'attribution aux auteurs/sources initiales et ne les utilisez pas (sans autorisation) dan des applications commerciales. Le code source de Falling Fruit est également ouvert, et disponible sur <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
-      links: Liens
-      scientific_name: Nom scientifique
       summary_description: La base de données contient actuellement %{types} différents types d'aliments comestibles (la plupart, mais pas tous, des espèces végétales) dans %{locations} endroits. Pour chaque type, le tableau ci-dessous répertorie nom(s) commun(s) Français, nom(s) scientifique(s), liens vers des ressources extérieures, et nombre total.
       summary_of_sources: Résumé des sources
     datasets:
       community_map: Cartes communautaires
       date_imported: Date d'importation
-      details: Détails
       google_fusion_table: Google Fusion Table
       google_map: Google Map
       google_maps_engine: Google Maps Engine
-      imported: Importé
-      imported_datasets: Données importées
       intro_html: Falling Fruit aspire à être la plus complète base de donnés géographique des sources comestibles en espace urbain. Pendant que nos utilisateurs l'explorent, la modifient, et y ajoutent depuis notre <a href="/?locale=fr">carte</a>, nous fouillons l'univers pour toutes données préexistantes et les importons à notre <a href="/data?locale=fr">base de données</a>, unissant les efforts des glaneurs, forestiers et freegans du monde. Si vous connaissez des données que nous avons manqué, s'il vous plaît <a href="mailto:info@fallingfruit.org">faite-le nous savoir</a>! Vous pouvez également nous aider avec le processus d'importation en préparant les données pour qu'elles conforment au <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">schema d'importation</a>. Veuillez-noter que puisque les importations doivent être effectuées manuellement, toutes modifications faites aux ensembles de données d'origine suivant leurs importations ne sont pas reflétés sur Falling Fruit.
-      locations: Endroits
-      name: Nom
       no_license: Aucune licence est spécifiée. Assumez <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Pas d’utilisation commerciale, Partage dans les mêmes conditions ).
       table_info: Chaque ensemble de données est répertorié par nom, nombre d'emplacements, et la date d'importation. Élargissez chaque ligne pour révéler des détails sur les données d'origine, le processus d'importation, et la licence régissant l'utilisation des données.
-      tree_inventory: Inventaire d'arbres
       type: Type
       types_of_data: Les ensembles de données importés dans Falling Fruit se répartissent en deux groupes principaux. Les "cartes communautaires" sont construites par les glaneurs et freegans pour documenter les sources comestibles dans leurs communautés. Nous sommes redevables aux citoyens-cartographes qui ont compilé ces données. Les "inventaires d'arbres" sont compilés par les villes, les universités et autres institutions qui souhaitent mieux documenter et prendre soin de leurs arbres. Nous exploitons ces vastes bases de données pour les espèces productrices et nous les ajoutons à la carte. Aidez-nous à documenter les arbres fruitiers de votre quartier en communiquant avec votre ville, canton, université, etc les invitant à partager leur inventaire d'arbres avec nous.
     sharing:
-      australia: Australie
-      canada: Canada
-      fiji: Fidji
       food_banks: Banques alimentaires
       food_banks_intro: Glaneurs et propriétaires d'arbres privés sont encouragés à faire des dons charitables de leur surplus. Considérer un partenariat avec des groupes comme ceux énumérés ci-dessus, ou en faisant des dons alimentaires aux associations qui donnent à manger à ceux qui ont faim dans votre communauté. Les grands réseaux de banques alimentaires sont énumérés ci-dessous; refuges pour sans abri, écoles et résidences pour personnes âgées sont également à considérer.
-      france: France
-      global: Mondial
       grow_pick_and_distribute: Cultiver · Récolter · Distribuer
       intro_html: Voici une liste d'associations qui cultivent l'espace public urbain (jardins-forêts, vergers publics), récoltent (glanage urbain et rural), ou distribuent (échanges, dons) la nourriture. Les associations sont énumérés par pays, état (si besoin), et ville. Ceux avec des noms barrés sont soupçonnés d'être inactifs. Si vous en connaissez d'autres qui devraient être sur cette liste, <a href="mailto:info@fallingfruit.org">contactez-nous</a> !
-      italy: Italie
-      united_kingdom: Royaume-Uni
-      united_states: États-Unis
   problems:
     description_subtext: Toute information pouvant nous aider à évaluer le problème
     problem_type: Type de problème
     your_contact_info: Vos coordonnées
   routes:
-    index:
-      delete: Supprimer
-      delete_confirmation: Êtes-vous sur?
-      link: Lien
-      locations: Endroits
-      name: Nom
-      public: Public
-      routes: Parcours
-      save_changes: Enregistrer vos modifications
-      show: Afficher
-      time_ago: il y a %{time}
-      travel_mode: Moyen de transport
-      updated: Mise à jour
-    show:
-      bicycling: Vélo
-      driving: Voiture
-      mode_of_travel: Moyen de transport
-      modes_of_travel:
-      - À pieds
-      - Vélo
-      - Voiture
-      walking: À pieds
+    mode_of_travel: Moyen de transport
+    modes_of_travel:
+    - À pieds
+    - À vélo
+    - En voiture
+  time:
+    days:
+      one: ! '%{count} jour'
+      other: ! '%{count} jours'
+    last_24_hours: Dernières 24 heures
+    months:
+      one: ! '%{count} mois'
+      other: ! '%{count} mois'
+    this_month: Ce mois-ci
+    this_week: Cette semaine
+    time_ago: Il y a %{time}
+  users:
+    address_subtext: Le centre de votre zone de glanage (votre maison, par exemple)
+    bio: Un peu sur vous
+    change_password: Modifier mon mot de passe
+    clear_map: Nettoyer la carte
+    confirm_account: Valider mon compte
+    current_password: Mot de passe actuel
+    current_password_subtext: Nécessaire pour modifier votre compte
+    delete_account: Annuler mon compte
+    edit_account: Modifier mon compte
+    foraging_map_subtext: Utilisez l'outil polygone ou rectangle dans la carte ci-dessous pour définir votre zone de glanage. Si vous utilisez l'outil polygone, assurez-vous de fermer votre polygone en rejoignant le dernier point au premier.
+    foraging_radius: Rayon
+    foraging_radius_subtext: Rayon d'une zone de glanage circulaire centrée sur l'adresse ci-dessus
+    foraging_range: Zone de glanage
+    forgot_password: Réinitialiser votre mot de passe
+    mailer:
+      confirmation_instructions_html: ! '<p>Bienvenue sur Falling Fruit,</p>
+
+        <p>Pour activer votre compte, vous devez valider votre e-mail (%{email}) en visitant le lien ci-dessous:
+
+        <br/>%{link}</p>
+
+        <p>Falling Fruit est propulsé par ses utilisateurs, donc si vous pouvez y ajouter ou améliorer, faites-le. Joyeux glanage! </ P>'
+      reset_password_instructions_html: ! '<p>Bonjour %{email},</p>
+
+        <p>Quelqu''un (probablement vous) a demandé un lien pour modifier votre mot de passe:
+
+        <br />%{link}</p>
+
+        <p>Si vous ne l''avez pas demandé, vous pouvez ignorer cet e-mail. Votre mot de passe ne changera pas à moins que vous visitez le lien ci-dessus et en créez un nouveau.</p>'
+      unlock_instructions_html: ! '<p>Bonjour %{email},</p>
+
+        <p>Votre compte a été bloqué en raison d''une quantité excessive de tentatives de connexion infructueuses:
+
+        <br />%{link}</p>'
+    new_password: Nouveau mot de passe
+    options:
+      add_anonymously: Modifier la carte dans l'anonymat (même si connecter)
+      range_updates_email: Recevoir un email hebdomadaire avec l'activité récente dans votre zone de glanage (défini ci-dessous)
+    range_by_map: Tracer sur une carte
+    range_by_radius: Adresse et rayon
+    remember_me: Rester connecté
+    resend_confirmation_instructions: Renvoyer les instructions de validation
+    resend_unlock_instructions: Renvoyer les instructions de déblocage
+    send_password_instructions: Envoyer les instructions de réinitialisation de mot de passe
+    sign_in: Se connecter
+    sign_in_with: Se connecter avec %{provider}
+    type_it_twice: Tapez-le deux fois pour confirmer
+    unlock_account: Débloquer mon compte
   validates_timeliness:
     error_value_formats:
       date: ! '%Y-%m-%d'

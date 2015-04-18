@@ -1,16 +1,16 @@
-<h1><%= I18n.t("routes.index.routes") %></h1>
+<h1><%= I18n.t("glossary.routes") %></h1>
 
 <%= form_tag("/routes/multiupdate") do %>
 <table id="route_list">
 <thead>
   <tr>
-    <th><%= I18n.t("routes.index.link") %></th>
-    <th><%= I18n.t("routes.index.name") %></th>
-    <th><%= I18n.t("routes.index.locations") %></th>
-    <th><%= I18n.t("routes.index.travel_mode") %></th>
-    <th><%= I18n.t("routes.index.public") %></th>
-    <th><%= I18n.t("routes.index.delete") %></th>
-    <th><%= I18n.t("routes.index.updated") %></th>
+    <th><%= I18n.t("glossary.links", :count => 1) %></th>
+    <th><%= I18n.t("glossary.name") %></th>
+    <th><%= I18n.t("glossary.locations", :count => 2) %></th>
+    <th><%= I18n.t("routes.mode_of_travel") %></th>
+    <th><%= I18n.t("glossary.public") %></th>
+    <th><%= I18n.t("glossary.delete") %></th>
+    <th><%= I18n.t("glossary.updated") %></th>
   </tr>
 </thead>
 <tbody>
@@ -21,16 +21,16 @@ LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where
 }
 @routes.each do |route| %>
   <tr>
-    <td><%= route.is_public ? link_to(I18n.t("routes.index.show"), route) : link_to(I18n.t("routes.index.show"), route_path(route) + "?k=#{route.access_key}") %>
+    <td><%= route.is_public ? link_to(I18n.t("glossary.show"), route) : link_to(I18n.t("glossary.show"), route_path(route) + "?k=#{route.access_key}") %>
     <td><%= text_field_tag "route[#{route.id}[name]", route.name %></td>
     <td><%= lcounts[route.id] %></td>
     <td><%= select_tag "route[#{route.id}][transport_type]", options_for_select(Route::TransportTypes,route.transport_type) %>
-    <!--FIXME <td><%= select_tag "route[#{route.id}][transport_type]", options_for_select(I18n.t("routes.show.modes_of_travel")) %></td>-->
+    <!--FIXME <td><%= select_tag "route[#{route.id}][transport_type]", options_for_select(I18n.t("routes.modes_of_travel")) %></td>-->
     <td><%= check_box_tag "route[#{route.id}][is_public]", '1', route.is_public %>
-    <td><%= link_to I18n.t("routes.index.delete"), route, method: :delete, data: { confirm: I18n.t("routes.index.delete_confirmation") } %></td>
+    <td><%= link_to I18n.t("glossary.delete"), route, method: :delete, data: { confirm: I18n.t("glossary.are_you_sure") } %></td>
     <td>
       <span style="display:none;"><%= route.updated_at %></span> 
-      <%= I18n.t("routes.index.time_ago", :time => time_ago_in_words(route.updated_at)) %>
+      <%= I18n.t("time.time_ago", :time => time_ago_in_words(route.updated_at)) %>
     </td>
   </tr>
 <% end %>
@@ -38,7 +38,7 @@ LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where
 </table>
 
 <br><br>
-<%= submit_tag I18n.t("routes.index.save_changes") %>
+<%= submit_tag I18n.t("glossary.save_changes") %>
 
 <% end %>
 

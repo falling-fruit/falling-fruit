@@ -5,10 +5,10 @@
 <% if File.exists?(Rails.root.join("public","locations.csv.bz2")) and File.exists?(Rails.root.join("public","types.csv.bz2")) %>
 		<blockquote>
 		<a href="/locations.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br>
-		<i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
+		<i><%= I18n.t("glossary.updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
     <br>
     <a href="/types.csv.bz2">types.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024) %> KB)<br>
-    <i><%= I18n.t("pages.data.last_updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+    <i><%= I18n.t("glossary.updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 		</blockquote>
 <% else %>
 		<blockquote>
@@ -48,10 +48,10 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 <table id="type_summary">
 <thead>
 <tr>
- <th><%= I18n.t("pages.data.common_name") %></th>
- <th><%= I18n.t("pages.data.scientific_name") %></th>
- <th><%= I18n.t("pages.data.links") %></th>
- <th><%= I18n.t("pages.data.count") %></th>
+ <th><%= I18n.t("glossary.common_name") %></th>
+ <th><%= I18n.t("glossary.scientific_name") %></th>
+ <th><%= I18n.t("glossary.links", :count => 2) %></th>
+ <th><%= I18n.t("glossary.locations", :count => 2) %></th>
 </tr>
 </thead>
 <tbody>
