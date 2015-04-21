@@ -83,7 +83,6 @@ it:
     by_author: by %{author}
     canada: Canada
     common_name: Nome comune
-    copyleft: Copyleft
     data: Dati
     delete: Cancellare
     description: Descrizione
@@ -309,8 +308,8 @@ it:
       caveat_emptor_html: Non ci assumiamo alcuna responsabilità per la precisione dei dati - è fornito così com'è, <i>caveat emptor.</i> Se fate qualcosa di fresco con i dati, si prega di <a href="mailto:feedback@fallingfruit.org">farcelo sapere</a> !
       data_unavailable_html: I dati al momento disponibile. Torna più tardi o <a href="mailto:info@fallingfruit.org">contattarci</a> .
       intro: Caduta di frutta è costruita su dati pubblici e la generosità di raccoglitori disposti a condividere le loro scoperte. Vogliamo foraggiamento urbano di raggiungere quante più persone possibile, e crediamo che tutti dovrebbero avere parità di accesso ai frutti del nostro lavoro collettivo. Nello spirito di dati aperti, ecco! L'intero database
-      license_html: Se siete interessati a utilizzare i dati del progetto, in particolare di un progetto commerciale, vi consigliamo di contattarci (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Salvo diversamente specificato, i dati sono concessi in licenza come <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> (Creative Commons - Attribuzione, Non commerciale, Condividi allo stesso modo). Ciò significa che si è liberi di utilizzare e distribuire i dati fino a quando si conserva le attribuzioni autore / fonte originale e non ne fanno uso (senza permesso) per le applicazioni commerciali. Il codice sorgente per Falling frutta è aperto, e anche disponibile su <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a> .
-      summary_description: Il database contiene attualmente %{types} diversi tipi di commestibili (la maggior parte, ma non tutti, sono le specie vegetali) distribuite su %{locations} località. Per ogni tipo, la seguente tabella elenca inglese nome comune (s), nome scientifico (s), link ai riferimenti esterni, e il conteggio totale.
+      license_html: Se siete interessati a utilizzare i dati del progetto, in particolare di un progetto commerciale, vi consigliamo di contattarci (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Salvo diversamente specificato, i dati sono concessi in licenza come <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> (Creative Commons - Attribuzione, Non commerciale, Condividi allo stesso modo). Ciò significa che si è liberi di utilizzare e distribuire i dati fino a quando si conserva le attribuzioni autore / fonte originale e non ne fanno uso (senza permesso) per le applicazioni commerciali. Il codice sorgente per Falling frutta è aperto, e anche disponibile su <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a> .
+      summary_description: 
       summary_of_sources: Riepilogo delle fonti
     datasets:
       community_map: Community Mappa
@@ -319,7 +318,7 @@ it:
       google_map: Google Map
       google_maps_engine: Google Maps Engine
       intro_html: Cadere Fruit aspira ad essere il dataset geografico più completa e aperta commestibili urbani. Mentre i nostri utenti di esplorare, modificare e aggiungere punti utilizzando la nostra <a href="/?locale=it">mappa</a> , pettiniamo dell'universo conosciuto per preesistenti dataset e importarli direttamente nella <a href="/data?locale=it">banca dati</a> , unendo gli sforzi di bottinatrici, forestali, e freegans ovunque. Se siete a conoscenza di una serie di dati che abbiamo perso, per favore <a href="mailto:info@fallingfruit.org">fatecelo sapere</a> ! Puoi aiutarci anche con il processo di importazione formattando i dati utilizzando il <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">modello di importazione</a> . Si noti che, poiché le importazioni devono essere eseguiti manualmente, tutte le modifiche ai dati originali realizzati dopo l'importazione non si riflettono sulla caduta di frutta.
-      no_license: Nessuna licenza specificato, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> CC BY-NC-SA </a> (Creative Commons - Attribuzione, Non -Commercial, Share-Alike).
+      no_license: Nessuna licenza specificato, assume <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"> CC BY-NC-SA </a> (Creative Commons - Attribuzione, Non -Commercial, Share-Alike).
       table_info: Ogni set di dati è elencato in base al nome, il numero di posizioni, e la data di importazione. Espansione ogni riga rivela ulteriori dettagli circa i dati originali, il processo di importazione, e la licenza che regola come possono essere utilizzati i dati.
       type: Tipo
       types_of_data: Dataset importati in Cadere Fruit rientrano in due categorie principali. "Le mappe della Comunità" sono costruiti da raccoglitori e freegans mentre legga attentamente le loro comunità per le cose da mangiare. Siamo in debito con i laboriosi cittadini-cartografi che hanno elaborato questi dati. "Rimanenze Albero" sono compilati dalle città, le università e le altre istituzioni che desiderano documentare meglio e la cura per i loro alberi. Noi estraiamo questi vasti dataset per le specie da produzione alimentare e aggiungerli alla mappa. Per aiutarci a mappare i vostri alberi da frutto di quartiere, in contatto con la vostra scuola o città invitandoli a condividere il loro inventario albero con noi.
