@@ -109,7 +109,11 @@ pt-br:
     links:
       one: Link
       other: Links
-    locations: Locais
+    locations:
+      one: ! '
+
+        Local'
+      other: Locais
     login: Entrar
     logout: Sair
     map: Mapa
@@ -119,7 +123,7 @@ pt-br:
     password: Senha
     pending_types: Tipos pendentes
     photo: Foto
-    position: 
+    position: Posição
     problems: Problemas
     public: Público
     quality: Qualidade
@@ -162,7 +166,7 @@ pt-br:
       mapping_the_urban_harvest: Mapeamento da colheita urbana!
       menu:
         approved_types: Tipos aprovados
-        in_the_press: Na Imprensa
+        in_the_press: Publicado
         list_imports: Listar importações
         new_import: Nova importação
         new_type: Novo Tipo
@@ -290,17 +294,17 @@ pt-br:
       closing_remarks_para2_html: Colher alimentos em um cenário urbano vem com algumas considerações práticas e morais. Para uma introdução à ética de coleta urbana, recomenda-se o excelente resumo em nosso site irmão - <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a> - de Portland, Oregon.
       closing_remarks_para3_html: A Informação do Falling Fruit podde estar incorreta ou desatualizada. Por exemplo, diversos mapas de coleta foram hospedados em páginas públicas do Google Maps em que marcadores eram frequentemente movidos acidentalmente, e inventários de árvores atualizados apenas (se alguma vez) a medida que árvores sao visitadas para manutenção.  Prepare-se para encontrar imprecisoes no campo, e por favor edite o mapa conforme necessario baseado em suas descobertas.  Em última análise, é sua responsabilidade determinar a identidade, se comestível, e a localização da planta, e responsabilidade de todos aprimorar a qualidade do mapa.
       contact_us_html: Este site foi construído por e para coletores - nós queremos que seja a melhor ferramenta disponível para o coletor contemporâneo. Escreva-nos em <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, nós gostaríamos de ouvir de você!
-      craig_durkin_bio_html: 
-      cristina_rubke_bio_html: 
-      david_craft_bio_html: 
+      craig_durkin_bio_html: Craig é o cofundador da <a href="http://www.concrete-jungle.org/">Concrete Jungle</a>, uma organização em Atlanta, Georgia que produz alimentos e coleta frutas por toda a cidade para doação a albergues destinados a moradores de ruas e bancos de alimentos. Como estudante de pós graduação da <a href="http://www.gatech.edu/">Georgia Tech</a>, ele está sempre procurando maneiras de combinar a coleta de frutas e novas tecnologias, e em breve estará exibindo seu drone para localização de árvores frutíferas e tweetando seu sensor de amadurecimento de frutas...
+      cristina_rubke_bio_html: Cristina é advogada na <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis Friese LLP</a> em São Francisco, Califórnia, onde ela se especializa no trabalho com uso de registro de marcas e advocacia. Ela é também membro do conselho administrativo da <a href="//www.sfmta.com/">San Francisco Municipal Transportation Agency</a>, agência encarregada do transporte público, tráfego e estacionamento em São Francisco. Em seu tempo livre, Cristina veleja na baía de São Francisco com a <a href="//wwwbaads.org/">Associação dos Navegantes Deficientes Físicos da Area da Baía</a> competindo em regatas locais e internacionais.
+      david_craft_bio_html: ! 'David é pesquisador do departamento de Oncologia da Radiação na <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Escola de Medicina de Harvard</a> em Boston, Massachusetts. Ele também é um ávido coletor e autor do livro <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging: Finding and Eatng Wild Plants in the City</a> (<a href="/docs/david Craft - Urban Foraging.pdf">free download</a>).'
       donate: Contribua
       ethan_bio_html: De sidras de maçã e cervejas de frutas a geléias e <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan olha para seu banco de dados de árvores da vizinhança (e sua prensa de maçã ) em busca de inspiração culinária. Enquanto em casa, em Boulder, ele procura por mapas, dados e imagens time-lapse de geleiras retraindo para o seu doutorado na <a href="http://instaar.colorado.edu/people/ethan-welty/">Universidade do Colorado</a>, mas muitas vezes ele entra em órbita para andar, falar, comer e <a href="http?//www.wltyphotography.com">fotografar</a> o seu caminho através de continentes.
-      give_gittip: 
+      give_gittip: Gorjeta via Gittip
       give_paypal: Doe através do Paypal
       give_us_money: Somos mantidos de forma voluntária, sem fins lucrativos e dependemos de doações para operar. Se você está disposto e capaz, por favor considere fazer uma contribuição financeira. Doações dentro dos Estados Unidos são dedutíveis de impostos.
       jeff_bio_html: Desde que colhia framboesas e blueberries com a família quando criança e, mais recentemente, percebendo a riqueza de árvores frutíferas públicas em todo Colorado, Jeff desenvolveu um profundo apreço pela abundância de fruticultura em nossas cidades. Sua primeira missão para a Falling Fruit foi de fazer um pente-fino em Boulder e Salt Lake City, com mapas em papel em mãos, para registrar árvores frutíferas. Quando não está trabalhando para melhorar a eficiência energética, ele geralmente esta ajudando a comunidade ou movendo-se rapidamente sobre as montanhas a pé, ski, ou de bicicleta.
       join_us_html: Junte-se a nós na celebração do alimento hiper-local! O <a href="/?locale=pt">mapa</a> é aberto para qualquer um editar, o banco de dados pode ser <a href="/data?locale=pt">baixado</a> com apenas um clique, e <a href="https://github.com/somerandomsequence/falling-fruit">o código</a> é aberto. Você igualmente é incentivado a compartilhar a abundancia com seus companheiros seres humanos. Nossa <a href="/sharing?locale=pt">página de compartilhamento</a> lista centenas de organizações locais - que plantam florestas de alimentos e pomares públicos, colhendo frutos que de outra forma seriam desperdiçados e legumes de árvores da cidade e nos campos de cultivo, e dividindo com vizinhos e aos necessitados.
-      more_about_html: Nosso mapa de comestíveis urbanos não é o primeiro de seu tipo, mas que aspiram a ser o "mundo mais abrangente. Enquanto nossos usuários contribuir locais próprios, que pentear a internet para conhecimento pré-existente, buscando unir os esforços de forrageiras, florestais e freegans em todos os lugares. Os <a href="/datasets?locale=pt">conjuntos de dados importados</a> variam de pequenos mapas bairro de forrageamento para vastos estoques de árvores profissionalmente compilados. Isso equivale até agora para %{types} diferentes tipos de comestíveis (a maioria, mas não todas, as espécies de plantas) distribuídos ao longo %{locations} locais. Além do cultivo e comum para os sabores exóticos de plantas estrangeiras e os usos culinários há muito esquecidas de plantas nativas, caçando no seu bairro é uma viagem através do tempo e entre culturas.
+      more_about_html: Nosso mapa de plantas comestíveis urbanas não é o primeiro desse tipo, mas aspira ser o mais abrangente. Enquanto nossos usuários contribuem com locais próprios, nós vasculhamos internet em busca do conhecimento que já está registrado, buscando unir os esforços de forrageiras, florestais e freegans em todos os lugares. Os <a href="/datasets?locale=pt">conjuntos de dados importados</a> variam de pequenos mapas bairro de forrageamento para vastos estoques de árvores profissionalmente compilados. Isso equivale até agora para %{types} diferentes tipos de comestíveis (a maioria, mas não todas, as espécies de plantas) distribuídos ao longo %{locations} locais. Além do cultivo e comum para os sabores exóticos de plantas estrangeiras e os usos culinários há muito esquecidas de plantas nativas, caçando no seu bairro é uma viagem através do tempo e entre culturas.
       translate: Traduzir
       translate_for_us_html: Interessado em se voluntariar como tradutor? Nos envie um email e o convidaremos a juntar-se a nos em <a href="http://www.localeapp.com/projects/7532">Locale</a>, onde gerenciamos nossas traduções.
       translators: Tradutores
