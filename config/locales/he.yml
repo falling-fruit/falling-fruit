@@ -5,6 +5,7 @@ he:
     type:
       added: 
       edited: 
+      grafted: 
       visited: 
   devise:
     confirmations:

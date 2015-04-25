@@ -5,6 +5,7 @@ it:
     type:
       added: aggiunto
       edited: modificato
+      grafted: 
       visited: visitato
   devise:
     confirmations:

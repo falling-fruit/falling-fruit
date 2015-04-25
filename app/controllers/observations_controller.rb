@@ -26,7 +26,11 @@ class ObservationsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @obs, 
                                                        :message => "ReCAPCHA error!")
       if test and @obs.save
-        log_changes(@obs.location,"visited",@obs)
+        if @obs.graft
+          log_changes(@obs.location,"grafted",@obs)
+        else
+          log_changes(@obs.location,"visited",@obs)
+        end
         format.html { redirect_to @obs.location, notice: 'You review was added successfully.' }
       else
         format.html { render action: "new" }

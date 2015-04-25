@@ -19,6 +19,7 @@
     <%
        last_lab = nil
        @changes.each do |c|
+         next if c["description"] == "grafted" and (not user_signed_in? or not current_user.is? :grafter)
          types = c["type_title"]
          action = I18n.t("changes.type." + c["description"])
          c["days_ago"] = c["days_ago"].to_i

@@ -5,6 +5,7 @@
 <% 
 last_days_ago = nil 
 @changes.each do |c|
+  next if c["description"] == "grafted" and (not user_signed_in? or not current_user.is? :grafter)
   types = c["type_title"]
   unless c["country"].nil?
     city = [c["city"],c["state"],c["country"]].compact.join(", ")

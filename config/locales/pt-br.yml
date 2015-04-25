@@ -5,6 +5,7 @@ pt-br:
     type:
       added: adicionado
       edited: editado
+      grafted: 
       visited: visitado
   devise:
     confirmations:

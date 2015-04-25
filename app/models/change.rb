@@ -7,5 +7,5 @@ class Change < ActiveRecord::Base
   normalize_attributes *character_column_symbols
   validates :description, :presence => true
   
-  ChangeTypes = ["edited","added","visited"]
+  ChangeTypes = ["edited","added","visited","grafted"]
 end

@@ -5,6 +5,7 @@ fr:
     type:
       added: ajouté
       edited: modifié
+      grafted: 
       visited: visité
   devise:
     confirmations:

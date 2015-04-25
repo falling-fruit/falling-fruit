@@ -5,6 +5,7 @@ de:
     type:
       added: hinzugefügt
       edited: editiert
+      grafted: 
       visited: besucht
   devise:
     confirmations:
