@@ -13,12 +13,10 @@ class ObservationsController < ApplicationController
   def create
     @obs = Observation.new(params[:observation])
     @obs.user = current_user if user_signed_in?
-    if params[:observation][:observed_on].empty?
-      @obs.observed_on = Date.today
-      params[:observation].delete(:observed_on)
+    if params[:observation][:observed_on].blank? 
+      @obs.observed_on = nil
     else
       @obs.observed_on = Timeliness.parse(params[:observation][:observed_on], :format => 'yyyy-mm-dd')
-      params[:observation].delete(:observed_on)
     end
     unless params[:verify].blank? or !params[:verify]
       @obs.location.unverified = false

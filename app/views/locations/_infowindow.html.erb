@@ -4,7 +4,13 @@
 <!-- Tab Menu -->
 <ul>
  <li id="info-tab"><a href="#tab-1" onclick="open_tab_1();"><span><%= I18n.t("glossary.info") %></span></a></li>
- <li id="review-tab"><a href="#tab-2" onclick="open_tab_2();"><span><%= I18n.t("glossary.reviews", :count => 2) %> (<%= location.observations.length %>)</span></a></li>
+ <li id="review-tab"><a href="#tab-2" onclick="open_tab_2();"><span>
+ <% if user_signed_in? and current_user.is? :grafter %>
+   Grafts (<%= location.observations.where("graft").length %>)
+ <% else %>
+   <%= I18n.t("glossary.reviews", :count => 2) %> (<%= location.observations.where("NOT graft").length %>)
+ <% end %>
+ </span></a></li>
  <li id="streetview-tab"><a href="#tab-3" onclick="open_tab_3();"><span><%= I18n.t("glossary.street_view") %></span></a></li>
 </ul>
 
@@ -141,7 +147,14 @@
 	<tr>
  		<td id="controls">
  		<!-- Observation -->
-    <%= link_to("+ " + I18n.t("glossary.reviews", :count => 1).downcase, new_observation_path(:location_id => location.id), :title => I18n.t("locations.infowindow.review_this_location")) %>
+ 		<% 
+ 		if user_signed_in? and current_user.is? :grafter
+      review_string = "graft"
+    else
+      review_string = I18n.t("glossary.reviews", :count => 1).downcase
+    end
+    %>
+    <%= link_to("+ " + review_string, new_observation_path(:location_id => location.id), :title => I18n.t("locations.infowindow.review_this_location")) %>
 		<% if not(!defined?($embed).nil? and $embed) %>
 		  <!-- Problem -->
       <a href="#" title="<%= I18n.t("glossary.report_a_problem") %>" id="problem_link" onclick="open_problem_modal(<%= location.id %>);"><%= I18n.t("glossary.report").downcase %></a>
@@ -200,8 +213,11 @@
     <i><%= I18n.t("locations.infowindow.have_you_visited_html", :id => location.id).html_safe %></i>.
   </div>
 	<% location.observations.reverse_order.each{ |o| %>
-	
-		<div class="observation">
+	  
+	  <!-- Grafts visible only to grafters -->
+	  <% next if o.graft and (not user_signed_in? or not current_user.is? :grafter) %>
+	  
+		<div class="observation <%= "graft" if o.graft %>">
 		  <!-- Delete controls -->
 			<% if user_signed_in? and current_user.is? :admin %>
 				<div style="float: right;">

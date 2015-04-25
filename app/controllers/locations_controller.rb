@@ -100,14 +100,24 @@ class LocationsController < ApplicationController
   # GET /freegan
   def freegan_index
     @freegan = true
-    @type = Type.find_by_name('Freegan')
-    params[:f] = @type.id
     params[:t] = 'toner-lite'
-    params[:c] = 'forager,freegan'
-    params[:m] = 'false'
+    params[:c] = 'freegan'
     index and return
   end
-
+  
+  # GET /guerrilla
+  # GET /grafter
+  def grafter_index
+    params[:c] = 'grafter'
+    index and return
+  end
+  
+  # GET /honeybee
+  def honeybee_index
+    params[:c] = 'honeybee'
+    index and return
+  end
+  
   # GET /locations/home
   def home
     prepare_for_sidebar if user_signed_in?

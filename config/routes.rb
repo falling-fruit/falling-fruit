@@ -51,6 +51,9 @@ FallingfruitWebapp::Application.routes.draw do
   match 'data' => 'pages#data'
   match 'dumpsters' => 'locations#freegan_index'
   match 'freegan' => 'locations#freegan_index'
+  match 'grafter' => 'locations#grafter_index'
+  match 'guerrilla' => 'locations#grafter_index'
+  match 'honeybee' => 'locations#honeybee_index'
   match 'imports/bibliography' => 'pages#datasets'
   match 'home' => 'locations#home'
   

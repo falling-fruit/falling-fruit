@@ -21,7 +21,7 @@ class Type < ActiveRecord::Base
   Ranks={0 => "Polyphyletic", 1 => "Kingdom", 2 => "Phylum", 3 => "Class", 4 => "Order", 5 => "Family",
          6 => "Genus", 7 => "Multispecies", 8 => "Species", 9 => "Subspecies"}
   Edabilities={-1 => "Not worth it (or toxic)", 1 => "Include", 2 => "Maybe Include"}
-  Categories=["forager","freegan","honeybee"]
+  Categories=["forager","freegan","honeybee","grafter"]
   DefaultCategories=["forager","freegan"]
 
   def all_children
