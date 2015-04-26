@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150402221746) do
+ActiveRecord::Schema.define(:version => 20150425195210) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20150402221746) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "photo_caption"
+    t.boolean  "graft",              :default => false
   end
 
   create_table "problems", :force => true do |t|
@@ -147,11 +148,11 @@ ActiveRecord::Schema.define(:version => 20150402221746) do
   create_table "routes", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.string   "transport_type"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.boolean  "is_public",      :default => true, :null => false
     t.string   "access_key"
+    t.integer  "transport_type", :default => 0
   end
 
   create_table "sessions", :force => true do |t|
