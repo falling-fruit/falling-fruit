@@ -249,7 +249,7 @@ class Api::LocationsController < ApplicationController
     Observation.where("location_id IN (#{photo_having_lids.join(",")})").collect{ |o|
       obs_hash[o.location_id] = [] if obs_hash[o.location_id].nil?
       obs_hash[o.location_id] << [:thumbnail => o.photo(:thumb), :created_at => o.created_at]
-    }
+    } unless photo_having_lids.empty?
     @markers.collect{ |m|
       m[:photos] = obs_hash[m[:location_id]] unless obs_hash[m[:location_id]].nil?
     }
