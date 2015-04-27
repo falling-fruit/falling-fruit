@@ -205,21 +205,15 @@ class Api::LocationsController < ApplicationController
       # error!
       return
     end
-    dist = "ST_DISTANCE(ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326),l.location)"
-    max_distance = 100000
-    dfilter = "#{dist} < #{max_distance}" # must be within 100k!
-    if (Import.count == 0)
-      ifilter = "(import_id IS NULL)"
-    else
-      ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
-    end
+    dist = "ST_Distance(l.location,ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326))"
+    dfilter = "ST_DWithin(l.location,ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326),100000)" # must be within 100k!
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, count(o.*),
       #{dist} as distance, l.description, l.author,
       array_agg(t.parent_id) as parent_types,
       string_agg(coalesce(#{i18n_name_field}t.name),',') AS name,
       #{sorted} FROM locations l LEFT JOIN observations o ON o.location_id=l.id, types t
-      WHERE t.id=ANY(l.type_ids) AND #{[dfilter,ifilter].compact.join(" AND ")}
+      WHERE #{dfilter} #{mfilter} AND t.id=ANY(l.type_ids)
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
       LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
@@ -293,20 +287,15 @@ class Api::LocationsController < ApplicationController
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
-    if (Import.count == 0)
-      ifilter = "(import_id IS NULL)"
-    else      
-      ifilter = "(import_id IS NULL OR import_id IN (#{Import.where("autoload #{mfilter}").collect{ |i| i.id }.join(",")}))"
-    end
     r = ActiveRecord::Base.connection.select_one("SELECT COUNT(*)
       FROM locations l, types t
-      WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}")
+      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}")
     found_n = r["count"].to_i unless r.nil?
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types,
       array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name),',') AS name, #{sorted}
       FROM locations l, types t
-      WHERE t.id=ANY(l.type_ids) AND #{[bound,ifilter].compact.join(" AND ")}
+      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
