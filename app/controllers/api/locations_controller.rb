@@ -192,8 +192,11 @@ class Api::LocationsController < ApplicationController
     else
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
+    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
+      "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
+                                                     ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     cfilter = "(bit_or(t.category_mask) & #{cat_mask})>0"
-    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
+    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
     sorted = "1 as sort"
     # FIXME: would be easy to allow t to be an array of typesq
     if params[:t].present?
@@ -213,7 +216,7 @@ class Api::LocationsController < ApplicationController
       array_agg(t.parent_id) as parent_types,
       string_agg(coalesce(#{i18n_name_field}t.name),',') AS name,
       #{sorted} FROM locations l LEFT JOIN observations o ON o.location_id=l.id, types t
-      WHERE #{dfilter} #{mfilter} AND t.id=ANY(l.type_ids)
+      WHERE #{[bound,dfilter,mfilter].compact.join(" AND ")} AND t.id=ANY(l.type_ids)
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
       LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
