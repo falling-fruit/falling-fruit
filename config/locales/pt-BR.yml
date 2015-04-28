@@ -1,17 +1,17 @@
-pt-br:
+pt-BR:
   changes:
     change_in_city: ! '%{type} em %{city}'
     recent_changes: Mudanças recentes
     type:
       added: adicionado
       edited: editado
-      grafted: 
+      grafted: enxertou
       visited: visitado
   devise:
     confirmations:
       confirmed: ! 'Sua conta foi confirmada com sucesso. Você está conectado. '
       send_instructions: Você receberá um email em breve com instruções sobre como confirmar a sua conta.
-      send_paranoid_instructions: ! 'Se o seu endereço já exista em nosso banco de dados, você receberá um email em breve com instruções sobre como confirmar a sua conta. '
+      send_paranoid_instructions: ! 'Se o seu endereço já existe em nosso banco de dados, você receberá um email em breve com instruções sobre como confirmar a sua conta. '
     failure:
       already_authenticated: ! 'Você já está conectado. '
       inactive: ! 'Sua conta ainda não está ativada. '
@@ -178,7 +178,7 @@ pt-br:
       unverified_help_title: ''
   locations:
     errors:
-      geocode_failed: ! 'Sua busca de endereço não foi bem sucedida pela seguinte razão:'
+      geocode_failed: Sua busca não foi bem sucedida
       latitude_too_large: Nós não comportamos latitudes além de +/- 85 graus.
     form:
       access_subtext: Indique a condição dessa fonte. Deixe em branco caso não saiba.
@@ -186,7 +186,6 @@ pt-br:
       author_subtext: Mostrados no mapa. Deixe em branco se preferir permanecer anônimo.
       comments_subtext: Atualizações, problemas de acesso, fitossanidade ...
       create_another: Crie outra
-      date_subtext: Data do estado de frutificação indicado (caso não seja hoje)
       date_visited: Data em que visitou
       description_subtext: Detalhes da localização, problemas de acesso, estado fitossanitário ...
       form_error: Um erro não permitiu que essa fonte fosse salva
@@ -208,7 +207,6 @@ pt-br:
       types_subtext: Escolha a partir da lista suspensa, apresentação de novos tipos somente se já não existem escolhas adequadas.
       unverified_subtext: Se você duvidar da existência, localização ou identidade dessa fonte.
       verify_subtext: Esta fonte foi previamente marcada como não confirmada
-      visited_on_subtext: Data de sua visita (se não hoje)
       yield_subtext: Classifique a produtividade dessa fonte (se aplicável)
       your_name: Seu nome
     index:
@@ -245,8 +243,8 @@ pt-br:
       delete_this_location: Excluir este local
       edit_this_location: Edite este local
       fruiting:
-      - Florescendo
-      - Em processo de frutificação
+      - Flores
+      - Fruto em processo
       - Fruto maduro
       have_you_visited_html: Você já visitou essa fonte? Adicionar uma <a href="/observations/new?location_id=%{id}&locale=pt" data-ajax="false" rel="external" title="Comente este local" id="add_review">comente</a>
       january_to_december: Janeiro - Dezembro
@@ -265,8 +263,7 @@ pt-br:
       unsure_other: Incerto/Outro
       url_for_this_location: URL para este local
     searchbar:
-      embed_hover: Incorporar código
-      embed_modal_title: Incorporar código (iFrame HTML)
+      embed_hover: Código embutido
       link_hover: URL para o mapa atual
       tree_inventories_modal: Inventários de árvores são compilados por instituições que procuram a melhor documentação e cuidados para suas árvores. Esses dados são tipicamente coletados por arboristas treinados e são ambos detalhados e exaustivos. Nós cuidadosamente escolhemos espécies comestíveis a partir desses inventários e as adicionamos ao mapa para você. Você pode nos ajudar a mapear sua comunidade, descobrindo se um inventário da árvores existe e se ele pode ser compartilhado com a Falling Fruit.
       tree_inventories_modal_title: O que o inventário de árvores?
@@ -281,16 +278,16 @@ pt-br:
   meta:
     forager_description: Um grande mapa colaborativo da colheita urbana, que une os esforços de coletores, freegans e floresteiros de todo o mundo. Pesquise e divida informações sobre as fontes de alimentos grátis no seu bairro.
     freegan_description: ! 'Mapeando as lixeiras do mundo que contém alimentos, esperamos sensibilizar as pessoas sobre o disperdício de alimentos, facilitar a liberação do uso de alimentos que são descartados, e, ao contrário de disperdiçar, incentivar empresas a doar esses alimentos. '
-    freegan_title: Mapa das lixeiras mundiais
+    freegan_title: Mapa das Lixeiras Mundiais
   pages:
     about:
       about_the_site: Sobre o projeto
       about_us: Conselho administrativo
       advisory_board: Conselho de assessores
-      caleb_bio_html: Caleb é um humanóide bípede apaixonado por promover justiça alimentar e encontrar <a herf="http://smallwhitecube.com"> formas criativas de usar a tecnologia para resolver problemas sociais. Quando ele não está andando de bicibleta, boquiaberto frente às árvores, ele equilibra seus esforços entre o seu trabalho do dia-a-dia como cientista da computação no <a href://nrel.gov"> Laboratório Nacional de Energias Renováveis</a>, em Golden, Colorado, como professor adjunto de ciência da computação na <a href="http://cs.colorado.edu">Universidade do Colorado</a>, e como abelha operária em diversas organizações sem fins lucrativos (<a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> em Denver e <a hef="http://boulderfoodrescue.org">Resgate Food Boulder</a> em Boulder, Colorado). Além dessas coisas de trabalho, ele gosta de escalar montanhas, correr em trilhas, andar de bicicleta, e, geralmente, estar ao ar livre, tanto quanto possível.
+      caleb_bio_html: Caleb é um humanóide bípede apaixonado por promover justiça alimentar e encontrar <a href="http://smallwhitecube.com">formas criativas de usar a tecnologia</a> para resolver problemas sociais. Quando ele não está andando de bicibleta, boquiaberto frente às árvores, ele equilibra seus esforços entre o seu trabalho do dia-a-dia como cientista da computação no <a href://nrel.gov">Laboratório Nacional de Energias Renováveis</a>, em Golden, Colorado, como professor adjunto de ciência da computação na <a href="http://cs.colorado.edu">Universidade do Colorado</a>, e como abelha operária em diversas organizações sem fins lucrativos (<a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> em Denver e <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> em Boulder, Colorado). Além dessas coisas de trabalho, ele gosta de escalar montanhas, correr em trilhas, andar de bicicleta, e, geralmente, estar ao ar livre, tanto quanto possível.
       celebration: Falling Fruit é uma celebração da negligenciada culinária oferecida pelas ruas da cidade. Ao quantificar este recurso em um mapa, esperamos facilitar as conexões íntimas entre pessoas, alimentos e organismos que crescem e se desenvolvem em nossos bairros. Não é apenas um almoço grátis! A coleta de alimentos no século 21 é uma oportunidade para a pesquisa e o conhecimento urbano, para combater o flagelo das calçadas manchadas, e de se reconectar às origens botânicas dos alimentos.
       closing_remarks: Considerações finais
-      closing_remarks_para1_html: Falling Fruit é uma organização sem fins lucrativos 501(c)3 (isenta de impostos) sediada em Boulder, Colorado. Como resultado, as doações dentro dos Estados Unidos são dedutíveis. Examine a nossa <a href="/501c3.pdf">carta de isenção</a> de IRS e verifique a nossa categoria com a <a href="http://apps.irs.gov/app/eos/pub78Searchdo?"> Publicação IRS 78 ou a <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">by-laws</a> e reunião dos conselhos <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">atas</a>.
+      closing_remarks_para1_html: Falling Fruit é uma organização sem fins lucrativos 501(c)3 (isenta de impostos) sediada em Boulder, Colorado. Como resultado, as doações dentro dos Estados Unidos são dedutíveis. Examine a nossa <a href="/501c3.pdf">carta de isenção</a> de IRS e verifique a nossa categoria com a <a href="http://apps.irs.gov/app/eos/pub78Searchdo?">Publicação IRS 78</a> ou a <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Secretário de Estado do Colorado</a>. Também estão disponíveis o nosso <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">by-laws</a> e reunião dos conselhos <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">atas</a>.
       closing_remarks_para2_html: Colher alimentos em um cenário urbano vem com algumas considerações práticas e morais. Para uma introdução à ética de coleta urbana, recomenda-se o excelente resumo em nosso site irmão - <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a> - de Portland, Oregon.
       closing_remarks_para3_html: A Informação do Falling Fruit podde estar incorreta ou desatualizada. Por exemplo, diversos mapas de coleta foram hospedados em páginas públicas do Google Maps em que marcadores eram frequentemente movidos acidentalmente, e inventários de árvores atualizados apenas (se alguma vez) a medida que árvores sao visitadas para manutenção.  Prepare-se para encontrar imprecisoes no campo, e por favor edite o mapa conforme necessario baseado em suas descobertas.  Em última análise, é sua responsabilidade determinar a identidade, se comestível, e a localização da planta, e responsabilidade de todos aprimorar a qualidade do mapa.
       contact_us_html: Este site foi construído por e para coletores - nós queremos que seja a melhor ferramenta disponível para o coletor contemporâneo. Escreva-nos em <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, nós gostaríamos de ouvir de você!
@@ -308,7 +305,7 @@ pt-br:
       translate: Traduzir
       translate_for_us_html: Interessado em se voluntariar como tradutor? Nos envie um email e o convidaremos a juntar-se a nos em <a href="http://www.localeapp.com/projects/7532">Locale</a>, onde gerenciamos nossas traduções.
       translators: Tradutores
-      tristram_stuart_bio_html: ! 'Enquanto adolescente, Tristam criava porcos com sobras de alimentos da cozinha de sua escola, a padaria local e horticultores de sua cidade.  Reparando que bastante desse aliment ainda era apropriado para consumo humano o levou a perceber que alimentos bons e frescos eram desperdicados em escala colossal.  Tristam desde entao trabalha incansavelmente para trazer chamar atencao do publico, da media e dos politicos a esse assunto.  Ele fundou a organizacao para capanha contra o desperdicio de alimentos <a href="//feedbackglobal.org">Feedback Global<a/> e escreveu <a href="tristamstuart.co.uk/">Waste: Uncovering the Global Food Scandal<a/> para mostrar a extensao do problema em escala global.  Em 2011, Tristam recebeu o premio <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html"> The Sophie Prize <a/> por sua luta contra o desperdicio de alimentos.'
+      tristram_stuart_bio_html: ! 'Enquanto adolescente, Tristam criava porcos com sobras de alimentos da cozinha de sua escola, a padaria local e horticultores de sua cidade.  Reparando que bastante desse aliment ainda era apropriado para consumo humano o levou a perceber que alimentos bons e frescos eram desperdicados em escala colossal.  Tristam desde entao trabalha incansavelmente para trazer chamar atencao do publico, da media e dos politicos a esse assunto.  Ele fundou a organizacao para capanha contra o desperdicio de alimentos <a href="//feedbackglobal.org">Feedback Global</a> e escreveu <a href="tristamstuart.co.uk/">Waste: Uncovering the Global Food Scandal</a> para mostrar a extensao do problema em escala global.  Em 2011, Tristam recebeu o premio <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">The Sophie Prize</a> por sua luta contra o desperdicio de alimentos.'
       write: Escreva
     data:
       beware_html: Mas cuidado! Uma vez descompactado, os dados se tornam um enorme arquivo que faz com que a maioria dos softwares de planilha travem. Se voce precisa de dados apenas para uma regiao especifica, tente primeiro recuperar os pontos de interesse usando a ferramenta de download integrado em  <a href="/?locale=pt">mapa</a>.
@@ -333,7 +330,7 @@ pt-br:
       food_banks: Bancos de alimentos
       food_banks_intro: Coletores e proprietários privados de árvore proprietários privados são incentivados a doar seus excedentes para a caridade. Considere parceria com grupos como os listados acima, ou doar diretamente para organizações locais que alimentam os famintos em sua comunidade. As grandes redes de bancos de alimentos estão listados abaixo; abrigos, escolas e centros de idosos em sua área são também valem a pena serem considerados.
       grow_pick_and_distribute: Crescer · Colher · Distribuir
-      intro_html: Abaixo estão listadas as organizações locais que cultivam alimentos em locais públicos (florestas e pomares), colhem alimentos (coleta urbana e hortas), ou de outra forma redistribuirem alimentos (trocas e doações). As organizações estão listados por país, estado e cidade. Aqueles com nomes riscados são inativos. Se você souber de outros que deveriam estar nesta lista, <a href="mailto:info@fallingfruit.org">entre em contato conosco</a> !
+      intro_html: Abaixo estão listadas as organizações locais que cultivam alimentos em locais públicos (florestas e pomares), colhem alimentos (coleta urbana e hortas), ou de outra forma redistribuirem alimentos (trocas e doações). As organizações estão listados por país, estado e cidade. Aqueles com nomes riscados são inativos. Se você souber de outros que deveriam estar nesta lista, <a href="mailto:info@fallingfruit.org">entre em contato conosco</a>!
   problems:
     description_subtext: Informações que poderiam nos ajudar a avaliar o problema
     problem_type: Tipo de problema

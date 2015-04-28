@@ -180,7 +180,6 @@ it:
       author_subtext: Mostrate sulla mappa. Lasciare vuoto se si preferisce rimanere anonimo.
       comments_subtext: Aggiornamenti, problemi di accesso, salute delle piante ...
       create_another: Creare un altro
-      date_subtext: Data dello stato fruttificazione riportato (se non oggi)
       date_visited: Data visitato
       description_subtext: Dettagli Posizione, problemi di accesso, fitosanitari ...
       form_error: Un errore ha impedito questa fonte di essere salvato
@@ -202,7 +201,6 @@ it:
       types_subtext: Scegli dalla lista a discesa, presentare nuovi tipi solo se non esistono già scelte appropriate.
       unverified_subtext: Se avete dei dubbi l'esistenza, la posizione o l'identità di questa fonte.
       verify_subtext: La fonte è attualmente contrassegnato come non verificata
-      visited_on_subtext: Lasciare vuoto se visitato oggi.
       yield_subtext: Vota la produttività della sorgente (se applicabile)
       your_name: Il tuo nome
     index:
@@ -260,7 +258,6 @@ it:
       url_for_this_location: URL per questa posizione
     searchbar:
       embed_hover: Codice di Embed
-      embed_modal_title: Codice embed (iFrame HTML)
       link_hover: URL alla mappa corrente
       tree_inventories_modal: Inventari dell'albero sono compilati da istituzioni che cercano di documentare meglio e la cura per i loro alberi. Questi dati sono in genere raccolti da arborists addestrati e sono entrambi dettagliato ed esauriente. Prendiamo attentamente le specie commestibili da questi inventari e aggiungerli alla mappa per voi. Aiutaci a mappare il tuo quartiere, chiedendo la vostra città (o università, Cantone, etc) se un inventario albero esiste e se può essere condivisa in caduta Fruit.
       tree_inventories_modal_title: Che cosa è un inventario albero?

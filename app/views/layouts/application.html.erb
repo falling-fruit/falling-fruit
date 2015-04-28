@@ -17,17 +17,17 @@
   
   <% if (I18n.locale == :en) %>
     <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="fr_FR" />
-    <meta property="og:locale:alternate" content="de_DE" />
   <% elsif (I18n.locale == :fr) %>
     <meta property="og:locale" content="fr_FR" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:locale:alternate" content="de_DE" />
   <% elsif (I18n.locale == :de) %>
     <meta property="og:locale" content="de_DE" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:locale:alternate" content="fr_FR" />
+  <% elsif (I18n.locale == :"pt-BR") %>
+    <meta property="og:locale" content="pt_BR" />
   <% end %>
+	<meta property="og:locale:alternate" content="en_US" />
+	<meta property="og:locale:alternate" content="fr_FR" />
+	<meta property="og:locale:alternate" content="de_DE" />
+	<meta property="og:locale:alternate" content="pt_BR" />
  
   <% if @freegan %>
     <meta property="og:title" content="<%= I18n.t("meta.freegan_title") %>" />
@@ -56,9 +56,6 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
-    // Mobile state variable
-    var mobile = false;
-		
 		// Load I18n locale into JS
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
@@ -149,6 +146,8 @@
       <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
       <!-- <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option> -->
       <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
+      <!--<option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>-->
+      <option value="pt-BR" <%= (I18n.locale == :"pt-BR") ? "selected" : "" %>>Português</option>
     </select>
   </div>
 

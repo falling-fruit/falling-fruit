@@ -1910,7 +1910,7 @@
                 }
             };
             break;
-        case "pt-br":
+        case "pt-BR":
             Q.lang = {
                 code: "pt-BR",
                 of: "de",

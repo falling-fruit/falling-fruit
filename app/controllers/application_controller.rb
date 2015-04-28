@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  SupportedLocales = ['pt-br','en','es','fr','de','he','pl']
+  SupportedLocales = ['en','fr','de','pt-BR','es','it','pl','he']
 
   before_filter :redirect_to_https
   before_filter :configure_permitted_parameters, if: :devise_controller?
@@ -151,7 +151,7 @@ class ApplicationController < ActionController::Base
 
   def extract_locale_from_url
     return nil unless params.has_key? :locale
-    locale = params[:locale].downcase.gsub('_','-')
+    locale = params[:locale].gsub('_','-')
     I18n.available_locales.map(&:to_s).include?(locale) ? locale : (I18n.available_locales.map(&:to_s).include?(locale[0,2]) ? locale[0,2] : nil)
   end
   

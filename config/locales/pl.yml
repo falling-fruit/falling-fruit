@@ -181,7 +181,6 @@ pl:
       author_subtext: Wyświetlane na mapie. Pozostaw puste, jeśli wolisz pozostać anonimowy.
       comments_subtext: Aktualizacje, kwestie dostępu, ochrony roślin ...
       create_another: Tworzenie innego
-      date_subtext: Data omawianym stanie owocowania (jeśli nie już)
       date_visited: Data odwiedził
       description_subtext: Usytuowanie, kwestie dostępu, zdrowia roślin ...
       form_error: Błąd zabronione tę lokalizację ze zbawienia
@@ -203,7 +202,6 @@ pl:
       types_subtext: Wybierz z listy rozwijanej, składając nowe nazwy tylko wtedy, gdy odpowiednie decyzje nie istnieje.
       unverified_subtext: Jeśli masz wątpliwości, istnienia, lokalizacji lub tożsamości tego źródła.
       verify_subtext: Lokalizacja ta została wcześniej oznaczony jako niezweryfikowana
-      visited_on_subtext: Data wizyty (jeśli już nie)
       yield_subtext: Ocena wydajności tego źródła (jeśli dotyczy)
       your_name: Twoje imię i nazwisko
     index:
@@ -260,8 +258,7 @@ pl:
       unsure_other: 
       url_for_this_location: Adres URL dla tej lokalizacji
     searchbar:
-      embed_hover: Wstaw HTML
-      embed_modal_title: 
+      embed_hover: 
       link_hover: Adres URL do aktualnej mapie
       tree_inventories_modal: Zapasy drzewo sporządzane są przez instytucje pragnących lepszego dokumentu i opieki dla swoich drzew. Dane te są zazwyczaj zbierane przez wyszkolonych arborists i są zarówno szczegółowe i wyczerpujące. Starannie dobrać gatunki jadalne od tych zapasów i dodaj je do mapy dla Ciebie. Możesz pomóc nam mapę Twojej okolicy od swojego miasta lub uniwersytet, jeśli asortyment istnieje i czy drzewo to może być współdzielone z Falling Fruit.
       tree_inventories_modal_title: 

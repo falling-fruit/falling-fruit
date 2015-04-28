@@ -176,7 +176,7 @@ de:
       unverified_help_title: Wieso unbestätigt?
   locations:
     errors:
-      geocode_failed: ! 'Deine Adress-Suche war nicht erfolgreich weil:'
+      geocode_failed: Ihre Suche ausgefallen
       latitude_too_large: ! 'Wir sie ausserhalb des ±85igsten Breitengrades liegt. '
     form:
       access_subtext: Zugang zu diesem Standort. Freilassen, wenn du es nicht genau weisst.
@@ -184,7 +184,6 @@ de:
       author_subtext: Wird auf der Karte angezeigt. Freilassen, wenn du anonym bleiben möchtest.
       comments_subtext: Beschreibung, Infos zum Zugang, Zustand der Pflanzen ...
       create_another: einen weiteren Standort erstellen
-      date_subtext: Datum des gemeldeten Fruchtstands (wenn nicht heute)
       date_visited: Datum des Besuchs
       description_subtext: Details zu Standort, Zugang, Zustand der Pflanzen ...
       form_error: Ein Fehler hat verhindert, dass dieser Standort gespeichert werden konnte
@@ -206,7 +205,6 @@ de:
       types_subtext: Wähle aus der Dropdown-Liste. Ergänze einen neuen Namen nur, wenn eine passende Wahl noch nicht vorhanden ist.
       unverified_subtext: Wenn du Zweifel an der Existenz, dem Zugang oder der Art an diesem Standort hast.
       verify_subtext: Dieser Ort wurde vorhergehend als Ungeprüft markiert
-      visited_on_subtext: Leer lassen wenn der Besuch heute war
       yield_subtext: Bewerte die Produktivität dieser Quelle (falls zutreffend)
       your_name: Dein Name
     index:
@@ -243,7 +241,7 @@ de:
       delete_this_location: Löschen Sie diesen Standort
       edit_this_location: Bearbeiten Sie diesen Standort
       fruiting:
-      - Blüte
+      - Blumen
       - Unreife Frucht
       - Reife Frucht
       have_you_visited_html: Hast du diese Quelle besucht? Füge eine <a href="/observations/new?location_id=%{id}&locale=de" data-ajax="false" rel="external" title="Bewerten Sie diesen Standort" id="add_review">Füge eine Bewertung </a> hinzu.
@@ -263,8 +261,7 @@ de:
       unsure_other: Unklar/Anderes
       url_for_this_location: URL für diesen Standort
     searchbar:
-      embed_hover: Embed HTML
-      embed_modal_title: Code einbetten (iFrame HTML)
+      embed_hover: Einbettungscode
       link_hover: URL der aktuellen Karte
       tree_inventories_modal: Bauminverntare werden in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden meistens durch ausgebildetes Personal erhoben und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich in unsere Karte ein. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
       tree_inventories_modal_title: Was ist ein Bauminventar?

@@ -376,17 +376,18 @@ end
 
 task(:import_type_translations => :environment) do
   ApplicationController::SupportedLocales.each do |l|
-    next unless File.exists? "data/#{l}_types.csv"
+    next unless File.exists? "data/#{l}_names.csv"
     n = 0
     id_col = nil
     trans_cols = []
     puts l
-    CSV.foreach("data/#{l}_types.csv") do |row|
+    dbl = l.gsub("-", "_")
+    CSV.foreach("data/#{l}_names.csv") do |row|
       if n == 0
         row.each_with_index do |d,i|
-          if d =~ /ID/
+          if d =~ /ff_id/
             id_col = i
-          elsif d =~ /Translated Name/
+          elsif d =~ /translated_name/
             trans_cols.push i
           end
         end
@@ -396,15 +397,15 @@ task(:import_type_translations => :environment) do
         trans = trans.split(/,/).first unless trans.nil? or trans.index(",").nil?
         begin
           t = Type.find(id)
-          if t["#{l}_name"].nil? and not trans.nil?
-            t["#{l}_name"] = trans
+          if t["#{dbl}_name"].nil? and not trans.nil?
+            t["#{dbl}_name"] = trans
             t.save
-            print "+"
+            print "[#{id}]"
           else
-            print "."
+            print "_"
           end
         rescue
-          $stderr.puts "Error: Type #{id} defined in #{l} CSV, but not in DB!"
+          $stderr.print "?"
         end
       end
       n += 1

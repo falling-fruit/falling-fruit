@@ -24,7 +24,7 @@
 <div id="type_list">
 	<% if location.unverified %>
 		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">
-		  <%= I18n.t("glossary.unverified") %><% if !mobile_device? %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span><% end %>
+		  <%= I18n.t("glossary.unverified") %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span>
 	  </li>
 	<% end %>
  <% @location.types(@cat_filter).each{ |t| %>
@@ -170,7 +170,7 @@
     <!-- Edit -->
     <%= link_to(I18n.t("glossary.edit").downcase, edit_location_path(location.id), :title => I18n.t("locations.infowindow.edit_this_location")) %>
     <!-- Routes -->
- 		<% if !mobile_device? and user_signed_in? %>
+ 		<% if user_signed_in? %>
  			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="<%= I18n.t("locations.infowindow.toggle_route_controls") %>"><%= I18n.t("glossary.routes").downcase %></a>
  		<% end %>
  		<!-- Delete -->
@@ -188,7 +188,7 @@
 </table>
 
 <!-- Routes -->
-<% if !mobile_device? and user_signed_in? %>
+<% if user_signed_in? %>
 <div id="route_controls" style="display:none;border-top:1px solid #F0F0F0;margin-top:0.75em;padding-top:0.75em;width:100%;">
   <%= I18n.t("locations.infowindow.add_to_remove_from") %>:
 <form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">

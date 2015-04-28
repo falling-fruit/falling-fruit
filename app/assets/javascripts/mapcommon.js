@@ -357,7 +357,7 @@ function do_cluster_types(bounds,zoom,muni) {
       }
     }
     // Update count hack
-      if (!mobile && type_filter != undefined) {
+      if (type_filter != undefined) {
         var previous_text = $('#s2id_type_filter .select2-chosen').html();
         filter_display = $('#s2id_type_filter .select2-chosen');
         if (types_hash[type_filter] == undefined) {
@@ -699,7 +699,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     }
     search_filter(last_search);
     // Update count hack
-    if (!mobile && type_filter != undefined) {
+    if (type_filter != undefined) {
       filter_display = $('#s2id_type_filter .select2-chosen');
       if (types_hash[type_filter] == undefined) {
         filter_display.html(filter_display.html().replace(/ \([0-9]+\+*\)/, '') + ' (0)');
@@ -879,7 +879,7 @@ function recenter_map_to_address() {
 			apply_geocode(latlng,bounds);
 			return;
 		} else {
-			alert(I18n.t("locations.errors.geocode_failed") + status);
+			alert(I18n.t("locations.errors.geocode_failed") + ": " + status);
 		}
 	});
 }
@@ -947,7 +947,7 @@ function add_bicycle_control(map) {
   });
 }
 
-// Adds Key Drag Zoom to the map (unless mobile device)
+// Adds Key Drag Zoom to the map
 // http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/
 function keyDragZoom(map) {
   map.enableKeyDragZoom({
@@ -1040,7 +1040,7 @@ function update_marker_address() {
 			}
 		// Otherwise, return geocoding errors
 		} else {
-			alert(I18n.t("locations.errors.geocode_failed") + status);
+			alert(I18n.t("locations.errors.geocode_failed") + ": " + status);
 		}
 	});
 }

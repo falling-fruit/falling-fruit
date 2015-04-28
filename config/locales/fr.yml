@@ -176,7 +176,7 @@ fr:
       unverified_help_title: Pourquoi non vérifié?
   locations:
     errors:
-      geocode_failed: ! 'Votre recherche d''adresse a échoué pour la raison suivante:'
+      geocode_failed: Votre recherche a échoué
       latitude_too_large: Nous ne soutenons pas les latitudes au-delà de ± 85 degrés.
     form:
       access_subtext: Statut d'accès de la source. Laissez vide si vous ne savez pas.
@@ -184,7 +184,6 @@ fr:
       author_subtext: Affiché sur la carte. Laissez vide si vous souhaitez garder l'anonymat.
       comments_subtext: Nouveaux développements, problèmes d'accès, condition des plantes ...
       create_another: Créer une autre
-      date_subtext: Date de l'état des fruits signalé (si non aujourd'hui)
       date_visited: Date visité
       description_subtext: Détails, problèmes d'accès, condition des plantes ...
       form_error: Une erreur a empêché cette source d'être enregistrée
@@ -206,7 +205,6 @@ fr:
       types_subtext: Choisissez dans la liste déroulante, proposants de nouveaux types que si des choix appropriés n'existent pas déjà.
       unverified_subtext: Si vous doutez l'existence, la position, ou l'identité de la source.
       verify_subtext: La source est actuellement marqué comme "Non vérifiée"
-      visited_on_subtext: Laissez vide si visité aujourd'hui.
       yield_subtext: Évaluez la productivité de la source (le cas échéant)
       your_name: Votre nom
     index:
@@ -243,9 +241,9 @@ fr:
       delete_this_location: Supprimer cet endroit
       edit_this_location: Modifier ce endroit
       fruiting:
-      - En fleurs
-      - Pas mûrs
-      - Mûrs
+      - Fleurs
+      - Fruits pas mûrs
+      - Fruits mûrs
       have_you_visited_html: Avez-vous visité cette source? Laissez un <a href="/observations/new?location_id=%{id}&locale=fr" data-ajax="false" rel="external" title="Commenter sur cette source" id="add_review">commentaire</a>
       january_to_december: Janvier - Décembre
       new_route: Nouveau parcour
@@ -264,7 +262,6 @@ fr:
       url_for_this_location: URL pour cet endroit
     searchbar:
       embed_hover: Code d'intégration
-      embed_modal_title: Code d'intégration (iFrame HTML)
       link_hover: URL de la carte actuelle
       tree_inventories_modal: Les inventaires d'arbres sont compilées par des institutions qui cherchent à mieux documenter et prendre soin de leurs arbres. Ces données sont généralement recueillies par des arboriculteurs formés et sont à la fois détaillées et exhaustives. Nous choisissons soigneusement les espèces comestibles de ces inventaires et les ajoutons à la carte pour vous. Aidez-nous à répertorier les sources comestibles de votre quartier en demandant à votre ville (ou université, canton, etc) si un inventaire d'arbres existe et s'il peut être partagé sur Falling Fruit.
       tree_inventories_modal_title: Qu'est-ce qu'un inventaire d'arbres?
@@ -279,7 +276,7 @@ fr:
   meta:
     forager_description: Une carte immense et collaborative du glanage urbain unissant les efforts de glaneurs, freegans, et forestiers partout dans le monde. Explorer et partager des informations sur les sources de nourriture gratuite dans votre quartier.
     freegan_description: En mettant sur une carte les poubelles du monde remplis de nourriture, nous cherchons à sensibiliser le public au gaspillage alimentaire, faciliter la libération des aliments jetés, et encourager les entreprises de donner leur nourriture au lieu de la gaspiller.
-    freegan_title: ! 'Carte des Poubelles du Monde '
+    freegan_title: Carte des Poubelles du Monde
   pages:
     about:
       about_the_site: À propos du projet

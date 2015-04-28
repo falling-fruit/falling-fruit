@@ -107,7 +107,7 @@ function update_display(force,force_zoom,force_bounds){
     } else if ((zoom != prior_zoom) || force) {
       do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
     }
-    if (!mobile) do_cluster_types(bounds,zoom,$('#muni').is(':checked'));
+    do_cluster_types(bounds,zoom,$('#muni').is(':checked'));
   } else if (zoom >= 13) {
     if (prior_zoom < 13) {
       types_hash = {};
@@ -123,18 +123,14 @@ function update_display(force,force_zoom,force_bounds){
 function hide_map_controls() {
   $('#hidden_controls').hide();
   $('#export_data').hide();
-  if (!mobile) {
-		resize_map();
-  }
+  resize_map();
 }
 
 function show_map_controls() {
   $('#get_data_link').attr('href',data_link());
   $('#hidden_controls').show();
   $('#export_data').show();
-  if (!mobile) {
-		resize_map();
-	}
+	resize_map();
 }
 
 function resize_map() {

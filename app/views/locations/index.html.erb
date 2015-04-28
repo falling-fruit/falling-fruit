@@ -108,22 +108,6 @@
     navigator.geolocation.getCurrentPosition(function(position){},function(error){
       $('#recenter_button').hide();
     });
-    /*if ($.cookie('barnraiser_modal_shown') == null) {
-     $.cookie('barnraiser_modal_shown', 'yes', { expires: 7, path: '/' });
-     $('#barnraiser_modal').dialog({
-       modal:true,
-       width:530,
-       title:'Help us make a mobile app!',
-       resizable:false,
-       draggable:false
-      });
-     $("#barnraiser_modal").bind("clickoutside", function(event){
-      $(this).remove();
-     });
-     $("#barnraiser_modal").bind("dialogclose", function(event){
-      $(this).remove();
-     });
-    }*/
     <% if @freegan %>
       if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });

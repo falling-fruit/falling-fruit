@@ -186,7 +186,7 @@ en:
       unverified_help_title: Why unverified?
   locations:
     errors:
-      geocode_failed: ! 'Your address search was not successful for the following reason:'
+      geocode_failed: Your search failed
       latitude_too_large: We do not support latitudes beyond ±85 degrees.
     form:
       access_subtext: Access status of the source. Leave blank if you don't know.
@@ -194,7 +194,6 @@ en:
       author_subtext: Displayed on map. Leave blank if you prefer to remain anonymous.
       comments_subtext: Updates, access issues, plant health...
       create_another: Create another
-      date_subtext: Date of the reported fruiting status (if not today)
       date_visited: Date visited
       description_subtext: Location details, access issues, plant health ...
       form_error: An error prevented this source from being saved
@@ -216,24 +215,23 @@ en:
       types_subtext: Choose from the dropdown list, submitting new types only if appropriate choices do not already exist.
       unverified_subtext: If you doubt the existence, location, or identity of this source.
       verify_subtext: The source is currently flagged as Unverified
-      visited_on_subtext: Leave blank if visited today.
       yield_subtext: Rate the productivity of the source (if applicable)
       your_name: Your name
     index:
       addmarker_html: Add a source here</a><br><span class="subtext">You can move me too</span>
       editmarker_html: <b>Move to the position of the source.</b><br><br>Check the satellite view - the source may be visible from space!
       freegan_modal_html: In addition to our efforts mapping the <a href="/?locale=en">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly half of all food produced in the developed world is never eaten. We're hoping to raise awareness around food waste, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing?locale=en">donate their food</a> instead.<br/><br/>In support of a lower-waste lifestyle, we are encouraging the mapping of all freegan sources (from dumpsters to free boxes) with discarded but useful goods, edible or otherwise.
-      freegan_modal_title: Welcome to Falling Fruit's freegan map!
+      freegan_modal_title: Welcome to our freegan map!
       stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>.
       welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and foresters everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up?locale=en">sign up</a> to access additional features.
       welcome_modal_title: Welcome to Falling Fruit!
     infowindow:
       access:
-      - This source was added by the property owner.
-      - This source was added with permission from the property owner.
-      - This source is on public property.
-      - This source is on private property but may overhang public land. Pick with discretion.
-      - This source is on private property. Ask for permission before you pick.
+      - This source was added by the owner.
+      - This source was added with permission from the owner.
+      - This source is on public land.
+      - This source is private but may overhang public land. Pick with discretion.
+      - This source is private. Ask for permission before you pick.
       access_mode:
       - Source is on my property
       - I have permission from the owner to add the source
@@ -253,7 +251,7 @@ en:
       delete_this_location: Delete this location
       edit_this_location: Edit this location
       fruiting:
-      - Flowering
+      - Flowers
       - Unripe fruit
       - Ripe fruit
       have_you_visited_html: Have you visited this source? Add a <a href="/observations/new?location_id=%{id}&locale=en" data-ajax="false" rel="external" title="Review this source" id="add_review">review</a>
@@ -274,7 +272,6 @@ en:
       url_for_this_location: URL for this location
     searchbar:
       embed_hover: Embed code
-      embed_modal_title: Embed code (iFrame HTML)
       link_hover: URL to the current map
       tree_inventories_modal: Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. Help us map your neighborhood by asking your city (or university, canton, etc) if a tree inventory exists and whether it can be shared on Falling Fruit.
       tree_inventories_modal_title: What is a tree inventory?
