@@ -8,6 +8,26 @@ SendEmails = true
 
 FallingfruitWebapp::Application.load_tasks
 
+# Find duplicate I18n values (en)
+task(:find_duplicate_locale_values => :environment) do
+  require 'yaml'
+  temp = YAML.load_file("config/locales/en.yml")
+  f = flatten_hash(temp["en"])
+  df = f.group_by { |k,v| v }.select { |k,v| v.size > 1 }
+  df.each { |k,v|
+    puts "=> " + k + "\n" + v.collect { |ind| ind[0] }.join("\n")
+  }
+end
+
+# Helper function: Flatten hash, locale style
+# http://stackoverflow.com/questions/9647997/converting-a-nested-hash-into-a-flat-hash
+def flatten_hash(h, f = [], g = {})
+  return g.update({f.join('.') => h}) unless h.is_a? Hash
+  h.each { |k,r| flatten_hash(r, f + [k], g) }
+  g
+end
+
+# Resend email confirmation to unconfirmed users
 # http://www.cheynewallace.com/resend-devise-confirmation-emails-for-incomplete/
 task(:resend_confirmation => :environment) do
   users = User.where('confirmation_token IS NOT NULL')
@@ -22,7 +42,7 @@ end
 
 # Replaces '' in atomic character columns with default, and removes (nil, '') values from array columns.
 # (prints number and location of changes to console)
-task(:remove_blanks => :environment) do
+task(:replace_blanks => :environment) do
   Rails.application.eager_load!
   ActiveRecord::Base.descendants.reject{ |m| m.name.include? "ActiveRecord::" }.each{ |model|
    model.columns.each{ |column| 
@@ -54,8 +74,8 @@ end
 
 # Removes types with no locations
 task(:delete_unused_types => :environment) do
-  Type.all.each do |type|
-    if type.locations.blank?
+  Type.where("pending").each do |type|
+    if type.locations.blank? and type.children.blank?
       type.destroy
       puts '[' + type.id.to_s + '] ' + type.name
     end
@@ -122,10 +142,10 @@ task(:eol_names => :environment) do
   
   # Initialize csv
   CSV.open("public/eol_names.csv","wb") do |csv|
-    cols = ["ff_id","ff_name","ff_scientific","eol_id","eol_scientific","language","name","preferred"]
+    cols = ["ff_id","ff_rank","ff_name","ff_scientific","eol_id","eol_scientific","language","name","preferred"]
     csv << cols
-    # For each type with a scientific name (and taxonomic_rank not 7 => multispecies)
-    Type.where("scientific_name != '' and (taxonomic_rank is null or taxonomic_rank != 7)").order(:scientific_name).each{ |t|
+    # For each type with a scientific name
+    Type.where("scientific_name is not null and scientific_name != ''").order(:scientific_name).each{ |t|
     
       # Show progress
       puts t.scientific_name
@@ -137,7 +157,7 @@ task(:eol_names => :environment) do
       if search["totalResults"] > 0
         eol_id = search["results"][0]["id"]
       else
-        csv << [t.id, t.name, t.scientific_name, '', '', '', '', '']
+        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, '', '', '', '', '']
         next
       end
       
@@ -151,7 +171,7 @@ task(:eol_names => :environment) do
         else
           preferred = 0
         end
-        csv << [t.id, t.name, t.scientific_name, eol_id, eol_scientific, n["language"], n["vernacularName"], preferred]
+        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, eol_id, eol_scientific, n["language"], n["vernacularName"], preferred]
       }
       
       # Sleep
@@ -161,49 +181,49 @@ task(:eol_names => :environment) do
 end
 
 # Fetch Wikipedia page links and parse out common names
-task(:wikipedia_links_names => :environment) do
-  
+task :wikipedia_names, [:language] => [:environment] do |t, args|
+  language = args[:language] || nil
+
   # Initialize csv
-  CSV.open("public/wikipedia_links_names.csv","wb") do |csv|
-    cols = ["ff_id","ff_name","ff_scientific","language","title","url","names","ambiguous"]
+  CSV.open("public/wikipedia_names.csv","wb") do |csv|
+    cols = ["ff_id","ff_rank","ff_name","ff_scientific","language","title","url","names","ambiguous"]
     csv << cols
-    # For each type with a scientific name (and taxonomic_rank not 7 => multispecies)
+    # For each type
     Type.order(:scientific_name).each{ |t|
       
-      lang = "en"
-      
       # Show progress
-      puts "[S] " + t.scientific_name + " [" + lang + "] " + t.name
+      lang = "en"
+      puts "[S] " + t.scientific_name.to_s + " [" + lang + "] " + t.name.to_s
       
       # English page title
       # from database
       if (not t.wikipedia_url.blank?)
         en_title = t.wikipedia_url.split('/').last
       # or try scientific name
-      elsif (not(t.taxonomic_rank == 7 or t.scientific_name.blank?))
+      elsif (not(t.scientific_name.blank?))
         en_title = t.scientific_name
       else
-        csv << [t.id, t.name, t.scientific_name, lang, '', '', '', '']
+        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, '', '', '', '']
         puts "=> No page title (" + lang + ")"
         next
       end
       
       # Fetch English page
-      api_url = URI.escape("http://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title)
+      api_url = URI.escape("https://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title)
       page = JSON.parse(open(api_url).read)
       if (page.has_key?("parse") and page["parse"].has_key?("title"))
         title = page["parse"]["title"]
         url = "https://" + lang + ".wikipedia.org/wiki/" + title
         if (is_disambiguation_page(page))
-          csv << [t.id, t.name, t.scientific_name, lang, title, url, '', 1]
+          csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title, url, '', 1]
           puts "=> Ambiguous (" + lang + ")"
         else
           names = get_wikipedia_names(page).join(", ")
-          csv << [t.id, t.name, t.scientific_name, lang, title, url, names, 0]
+          csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title, url, names, 0]
           puts "[" + lang + "] " + names
         end
       else
-        csv << [t.id, t.name, t.scientific_name, lang, en_title, '', '', '']
+        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, en_title, '', '', '']
         puts "=> No page found (" + lang + ")"
         next
       end
@@ -211,18 +231,21 @@ task(:wikipedia_links_names => :environment) do
       # Get other language pages
       if (page["parse"].has_key?("langlinks"))
         page["parse"]["langlinks"].each{ |l|
-          lang = l["lang"]
+          lang = l["lang"] 
+          if (language and language != lang)
+            next
+          end
           title = l["*"]
           url = l["url"]
-          api_url = URI.escape("http://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + title)
+          api_url = URI.escape("https://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + title)
           page = JSON.parse(open(api_url).read)
           if (is_disambiguation_page(page))
-            csv << [t.id, t.name, t.scientific_name, lang, title, url, '', 1]
+            csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title.to_s, url, '', 1]
             puts "=> Ambiguous (" + lang + ")"
           else
             names = get_wikipedia_names(page).join(", ")
-            csv << [t.id, t.name, t.scientific_name, lang, title, url, names, 0]
-            puts "[" + lang + "] " + names
+            csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title.to_s, url, names.to_s, 0]
+            puts "[" + lang + "] " + names.to_s
           end
         }
       end
@@ -422,6 +445,7 @@ task(:import => :environment) do
        # FIXME: Customize default category mask
        location = Location.build_from_csv(row,typehash,import.default_category_mask)
        location.import = import
+       location.muni = import.muni
        location.client = 'import'
        if (location.lat.nil? or location.lng.nil?) and !location.address.blank?
          print "G"

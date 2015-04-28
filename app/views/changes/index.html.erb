@@ -1,32 +1,22 @@
 <p>
-<b><%= I18n.t("changes.index.recent_changes") %></b>
+<b><%= I18n.t("changes.recent_changes") %></b>
 </p>
 
 <% 
 last_days_ago = nil 
 @changes.each do |c|
+  next if c["description"] == "grafted" and (not user_signed_in? or not current_user.is? :grafter)
   types = c["type_title"]
   unless c["country"].nil?
     city = [c["city"],c["state"],c["country"]].compact.join(", ")
   end
-  case c["description"]
-    when "added"
-      action = I18n.t("changes.type.added")
-    when "edited"
-      action = I18n.t("changes.type.edited")
-    when "visited"
-      action = I18n.t("changes.type.visited")
-  end
+  action = I18n.t("changes.type." + c["description"])
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
     if c["days_ago"] <= 0
-      header = I18n.t("changes.index.last_24_hours")
+      header = I18n.t("time.last_24_hours")
     else
-      if c["days_ago"] == 1
-        header = I18n.t("changes.index.1_day_ago")
-      else
-        header = I18n.t("changes.index.n_days_ago",:n => c["days_ago"])
-      end
+      header = I18n.t("time.time_ago", :time => (I18n.t("time.days", :count => c["days_ago"])))
     end
     if last_days_ago.nil? 
       header = header + "<blockquote>"
@@ -39,11 +29,11 @@ last_days_ago = nil
 <%= raw header %>
 <% unless c["location_id"].nil? %>
   <%= link_to location_path(c["location_id"]) do %>
-    <%= types.nil? ? I18n.t("locations.sidebar.unknown") : types %>
+    <%= types.nil? ? I18n.t("glossary.unknown") : types %>
   <% end %>
   (#<%= c["location_id"] %>)
   <% unless city.nil? %>
-    <%= I18n.t("changes.index.change_in_city", :type => action, :city => city) %>
+    <%= I18n.t("changes.change_in_city", :type => action, :city => city) %>
   <% else %>
     <%= action %>
   <% end %>
@@ -52,7 +42,7 @@ last_days_ago = nil
     <% if c["user_id"].nil? %>
       <%= c["remote_ip"] %>
     <% else %>
-      <%= I18n.t("changes.index.user") %> #<%= c["user_id"] %>
+      <%= I18n.t("glossary.user") %> #<%= c["user_id"] %>
     <% end %>
     </span>
   <% end %>

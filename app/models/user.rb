@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :observations
   has_many :changes
 
-  ROLES = %w[admin forager partner guest]
+  ROLES = %w[admin forager partner guest grafter]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   roles_attribute :roles_mask
-  roles :admin, :forager, :partner, :guest
+  roles :admin, :forager, :partner, :guest, :grafter
 
   # https://github.com/ryanb/cancan/wiki/Role-Based-Authorization
   def roles=(roles)

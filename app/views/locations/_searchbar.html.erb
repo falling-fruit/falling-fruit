@@ -3,25 +3,25 @@
  
  	<!-- Permalink | Embed -->
   <span class="nowrap" id="rightcontrols">
-   <a href="#" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= I18n.t("locations.searchbar.link_hover") %>"><%= I18n.t("locations.searchbar.link") %></a> |
-   <a href="#" id="embedlink" onclick="show_embed_html('#embed_modal'); return false;" title="<%= I18n.t("locations.searchbar.embed_hover") %>"><%= I18n.t("locations.searchbar.embed") %></a>
+   <a href="#" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= I18n.t("locations.searchbar.link_hover") %>"><%= I18n.t("glossary.links", :count => 1) %></a> |
+   <a href="#" id="embedlink" onclick="show_embed_html('#embed_modal'); return false;" title="<%= I18n.t("locations.searchbar.embed_hover") %>"><%= I18n.t("glossary.embed") %></a>
    <div id="embed_modal" style="display:none;" title="<%= I18n.t("locations.searchbar.embed_modal_title") %>"></div>
   </span>
   
   <span class="nowrap">  
    <!-- Address -->
-   <b><%= I18n.t("locations.searchbar.address", ) %></b>
-   <input id="address" name="address" placeholder="<%= I18n.t("locations.searchbar.type_and_press_enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
+   <b><%= I18n.t("glossary.address", ) %></b>
+   <input id="address" name="address" placeholder="<%= I18n.t("glossary.type_and_press_enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
     <span id="recenter_button">
     	&middot;
-    	<button onclick="recenter_map()" title="<%= I18n.t("locations.searchbar.zoom_to_current_location") %>"><%= I18n.t("locations.searchbar.zoom_to_me") %></button>
+    	<button onclick="recenter_map()"><%= I18n.t("glossary.zoom_to_me") %></button>
     </span>
     &middot; 
   </span>
   
   <!-- Type Filter -->
   <span class="nowrap">
-    <b><%= I18n.t("locations.searchbar.filter") %></b>
+    <b><%= I18n.t("glossary.filter") %></b>
     <%= text_field_tag(:type_filter) %>
     &middot;
   </span>
@@ -29,20 +29,20 @@
 	 <!-- Labels -->
    <span id="hidden_controls" style="display:none;">
      <span class="nowrap">
-      <b><%= I18n.t("locations.searchbar.labels") %></b>
-      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %> title="Toggle location labels"> 
+      <b><%= I18n.t("glossary.labels") %></b>
+      <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %> > 
       &middot;
      </span>
    </span>
 
    <!-- Tree inventories -->
    <span class="nowrap">
-     <b><%= I18n.t("locations.searchbar.tree_inventories") %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
+     <b><%= I18n.t("glossary.tree_inventories", :count => 2) %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
 
-     <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> title="Toggle city and campus tree inventories">
+     <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> >
    </span>
    <div id="tree_inventories_help" style="display:none;" title="<%= I18n.t("locations.searchbar.tree_inventories_modal_title") %>">
-     <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Example tree inventory data for Palo Alto, California">
+     <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200">
      <%= I18n.t("locations.searchbar.tree_inventories_modal") %>
    </div>
    
@@ -50,7 +50,7 @@
    <span id="export_data" style="display: none;">
     &middot;
     <span class="nowrap">
-     <a href="#" id="get_data_link" title="Download map as a text file"><%= I18n.t("locations.searchbar.download") %></a>
+     <a href="#" id="get_data_link"><%= I18n.t("glossary.download") %></a>
     </span>
    </span>
    
@@ -77,7 +77,7 @@ jQuery(document).ready(function(){
       placeholder: "<%= @type.name %>",
       val: type_filter,
     <% else @type.nil? %>
-    	placeholder: "<%= I18n.t("locations.searchbar.select_edible_type") %>",
+    	placeholder: "<%= I18n.t("glossary.edible_type") %>",
     <% end %>
       data: function(term,page){
           return { text:'text', results: filter_by_types_hash(base_type_data) };
@@ -86,7 +86,7 @@ jQuery(document).ready(function(){
     allowedMethods: ['updateResults']
   });
   // Needed so that default placeholder (not type name) is shown when select is cleared
-  $('#type_filter').attr("placeholder", "<%= I18n.t("locations.searchbar.select_edible_type") %>");
+  $('#type_filter').attr("placeholder", "<%= I18n.t("glossary.edible_type") %>");
   $('#s2id_type_filter').select2('disable', true);
   $('#type_filter').on("change",function() {
     if ($("#type_filter").val() == "") {

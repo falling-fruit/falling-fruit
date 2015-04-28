@@ -100,14 +100,24 @@ class LocationsController < ApplicationController
   # GET /freegan
   def freegan_index
     @freegan = true
-    @type = Type.find_by_name('Freegan')
-    params[:f] = @type.id
     params[:t] = 'toner-lite'
-    params[:c] = 'forager,freegan'
-    params[:m] = 'false'
+    params[:c] = 'freegan'
     index and return
   end
-
+  
+  # GET /guerrilla
+  # GET /grafter
+  def grafter_index
+    params[:c] = 'grafter'
+    index and return
+  end
+  
+  # GET /honeybee
+  def honeybee_index
+    params[:c] = 'honeybee'
+    index and return
+  end
+  
   # GET /locations/home
   def home
     prepare_for_sidebar if user_signed_in?
@@ -193,6 +203,7 @@ class LocationsController < ApplicationController
       @observation.user = current_user if user_signed_in?
     end
 
+    params[:types] = params[:location][:types] if params[:types].blank? and not params[:location][:types].blank?
     params[:types].split(/,/).uniq.each{ |type_name|
       t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
       if t.nil?

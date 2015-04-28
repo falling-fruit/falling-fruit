@@ -1,15 +1,11 @@
 de:
   changes:
-    index:
-      1_day_ago: Vor einem Tag
-      change_in_city: ! '%{type} in %{city}'
-      last_24_hours: In den letzten 24 Stunden
-      n_days_ago: Vor %{n} Tagen
-      recent_changes: Letzte Änderungen
-      user: Benutzer
+    change_in_city: ! '%{type} in %{city}'
+    recent_changes: Letzte Änderungen
     type:
       added: hinzugefügt
       edited: editiert
+      grafted: 
       visited: besucht
   devise:
     confirmations:
@@ -26,74 +22,13 @@ de:
       timeout: Deine Sitzung ist abgelaufen, bitte melde dich erneut an.
       unauthenticated: ! 'Du musst dich anmelden oder ein Konto erstellen, bevor du weiterfahren kannst. '
       unconfirmed: ! 'Du musst dein Konto aktivieren, bevor du weiterfahren kannst. '
-    fallingfruit:
-      address: Adresse
-      address_subtext: Der Mittelpunkt deines Ernte-Gebiets (z.B. dein Zuhause)
-      are_you_sure: Bist du sicher?
-      bio: Über dich
-      change_password: Ändere mein Passwort
-      clear_map: Karte zurücksetzen
-      confirm_account: Bestätige mein Konto
-      current_password: Aktuelles Passwort
-      current_password_subtext: Wird verlangt, um Änderungen an deinem Konto vorzunehmen
-      delete_account: Entferne mein Konto
-      edit_account: Konto bearbeiten
-      email: Email
-      foraging_map_subtext: ! 'Benutze das Polygon oder Rechteck Werkzeug in der Karte, um deinen Ernte-Radius festzulegen. Wenn du das Polygon Werkzeug benutzt, musst du das Polygon schliessen, in dem du den letzten mit dem ersten Punkt verbindest. '
-      foraging_radius: Radius
-      foraging_radius_subtext: ! 'Radius eines kreisförmigen Ernte-Gebiets zentriert um obige Adresse. '
-      foraging_range: Ernte-Gebiet
-      forgot_password: Passwort zurücksetzen
-      login: Login
-      mailer:
-        confirmation_instructions_html: ! '<p>Wilkommen bei Falling Fruit,</p>
-
-          <p>Um dein Konto zu aktivieren, musst du deine Email-Adresse (%{email}) bestätige. Klicke dazu folgenden Link:
-
-          <br/>%{link}</p>
-
-          <p>Unsere User sind die Power hinter Falling Fruit - hilf mit, um die Seite zu erweitern und verbessen. Fröhliches ernten!</p>'
-        reset_password_instructions_html: ! '<p>Hallo %{email},</p>
-
-          <p>Jemand (vermutlich du) hat einen Link zur Passwortänderung beantragt:
-
-          <br />%{link}</p>
-
-          <p>Wenn du keine Passwortänderung vornehmen möchtest, kannst du dieses Mail ignorieren. Dein Passwort bleibt unverändert, wenn du obenstehenden Link nicht besuchst und ein Neues bestimmst.</p>'
-        unlock_instructions_html: ! '<p>Hallo %{email},</p>
-
-          <p>Dein Konto wurde gesperrt, weil zu viele erfolglose Login Versuche registriert wurden:
-
-          <br />%{link}</p>'
-      miles: Meilen
-      name: Name
-      new_password: Neues Passwort
-      options:
-        add_anonymously: Karte anonym bearbeiten (auch während du eingeloggt bist)
-        label: Optionen
-        range_updates_email: Erhalte wöchentlich eine Email, die dich über alle Aktivitäten innerhalb deines Ernte-Radius (unten definiert) informieren.
-      password: Passwort
-      range_by_map: Zeichne in Karte
-      range_by_radius: Adresse und Radius
-      remember_me: Speichere mich
-      resend_confirmation_instructions: Bestätigungs-Anleitung erneut senden
-      resend_unlock_instructions: Entsperrungs-Anleitung erneut senden
-      save_changes: Änderungen speichern
-      send: Abschicken
-      send_password_instructions: Anleitung zur Passwort Erneuerung senden
-      sign_in: Anmelden
-      sign_in_with: Mit %{provider} anmelden
-      sign_up: Anmelden
-      type_it_twice: Eingabe zur Bestätigung wiederholen
-      unlock_account: Entsperre mein Konto
-      zoom_to_address: Zoom auf Adresse
     mailer:
       confirmation_instructions:
-        subject: Aktivierungs-Anleitung | Falling Fruit
+        subject: Aktivierungs-Anleitung
       reset_password_instructions:
-        subject: Passwort zurücksetzen - Anleitung | Falling Fruit
+        subject: Passwort zurücksetzen - Anleitung
       unlock_instructions:
-        subject: Entsperrungs-Anleitung | Falling Fruit
+        subject: Entsperrungs-Anleitung
     omniauth_callbacks:
       failure: Du konntest nicht mit deinem %{kind}-Konto angemeldet werden, weil "%{reason}".
       success: ! '%{kind}-Konto wurde erfolgreich aktiviert.'
@@ -105,7 +40,7 @@ de:
       updated_not_active: ! 'Dein Passwort wurde erfolgreich geändert. '
     registrations:
       destroyed: Auf Wiedersehen! Dein Konto wurde erfolgreich abgemeldet. Wir hoffen, dich bald wieder zu sehen!
-      signed_up: Willkommen bei Falling Fruit! Du hast dich erfolgreich angemeldet.
+      signed_up: Willkommen! Du hast dich erfolgreich angemeldet.
       signed_up_but_inactive: ! 'Du hast erfolgreich ein Konto erstellt. Wir konnten dich aber noch nicht anmelden, weil dein Konto noch nicht aktiviert wurde. '
       signed_up_but_locked: ! 'Du hast erfolgreich ein Konto erstellt. Wir konnten dich aber noch nicht anmelden, weil dein Konto gesperrt ist. '
       signed_up_but_not_approved: ! 'Du hast erfolgreich ein Konto erstellt, dieses muss von deinem Administrator aber noch bestätigt werden. '
@@ -136,107 +71,142 @@ de:
         other: ! '%{count} Fehler haben verhindert, dass diese %{resource} gesichert werden konnte. '
       on_or_after: muss an oder nach %{restriction} sein
       on_or_before: muss an oder vor %{restriction} sein
-  helpers:
-    faster_time_ago_in_words:
-      days: Tage
-      last_month: im letzten Monat
-      last_year: letztes Jahr
-      less_than_24_hours: vor weniger als 24 Stunden
-      months_ago: vor wenigen Monaten
-      years_ago: vor Jahren
-  imports:
-    index:
-      delete: Löschen
-      edit: Bearbeiten
-      error: Fehler
-    show:
-      edit: bearbeiten
-      imported: Importiert
+  glossary:
+    about: Über uns
+    access: Zugang
+    account: Konto
+    activity: Aktivität
+    add_source: Quelle hinzufügen
+    address: Adresse
+    anonymous: Anonym
+    are_you_sure: Bist du sicher?
+    australia: Australien
+    by_author: von %{author}
+    canada: Kanada
+    common_name: Umgangssprachlier Name
+    data: Daten
+    delete: Löschen
+    description: Beschreibung
+    details: Details
+    download: Download
+    edible_type: Wähle essbare Art
+    edit: Bearbeiten
+    email: Email
+    embed: Embed
+    error: Fehler
+    favorites: Favoriten
+    fiji: Fidschi
+    filter: Filter
+    france: Frankreich
+    global: Weltweit
+    home: Zuhause
+    imported: Importiert
+    imported_datasets: Importierte Datensätze
+    imports: Importe
+    info: Info
+    italy: Italien
+    labels: Etiketten
+    links:
+      one: Link
+      other: Links
+    locations:
+      one: Standort
+      other: Standorte
+    login: Login
+    logout: Abmelden
+    map: Karte
+    miles: Meilen
+    name: Name
+    options: Optionen
+    password: Passwort
+    pending_types: Unbestätigte Arten
+    photo: Foto
+    position: Position
+    problems: Probleme
+    public: öffentlich
+    quality: Qualität
+    report: Bericht
+    report_a_problem: Ein Problem melden
+    reviews:
+      one: Bewertung
+      other: Bewertungen
+    routes: Routen
+    save_changes: Änderungen speichern
+    scientific_name: Wissenschaftlicher Name
+    season: Saison
+    send: Abschicken
+    show: zeige
+    sign_up: Anmelden
+    street_view: Street View
+    submit: Einreichen
+    tree_inventories:
+      one: Bauminventar
+      other: Bauminventare
+    type_and_press_enter: Eingeben und Enter drücken
+    types: Arten
+    united_kingdom: Vereinigtes Königreich
+    united_states: Vereinigte Staaten
+    unknown: Unbekannt
+    unverified: Ungeprüft
+    updated: Aktualisiert
+    user: Benutzer
+    users: Benutzer
+    visited: Zuletzt besucht
+    world: Welt
+    yield: Ausbeute
+    zoom: Zoom
+    zoom_to_current_location: Zoom auf aktuellen Standort
+    zoom_to_me: Zoom zu mir
+    zoom_to_this_location: Zoom zu diesem Standort
   layouts:
     application:
-      copyleft: Copyleft
       feed_people_not_landfills: Ernähre Menschen, nicht Deponien!
       mapping_the_urban_harvest: Kartiere die urbane Ernte!
       menu:
-        about: Über uns
-        account: Konto
-        add_source: + Quelle hinzufügen
         approved_types: Genehmigte Arten
-        changes: Änderungen
-        data: Daten
-        home: Zuhause
-        imported_datasets: Importierte Datensätze
-        imports: Importe
         in_the_press: In der Presse
         list_imports: Liste aller Importe
-        login: Login
-        logout: Abmelden
-        map: Karte
         new_import: Neue Import
         new_type: Neue Art
-        pending_types: Zu bestätigende Arten
-        routes: Routen
         sharing_the_harvest: Ernte teilen
-        sign_up: Anmelden
         the_project: Das Projekt
-        trouble: Probleme
-        types: Arten
-        users: Benutzer
-        world: Welt
       or_right-click_on_map: (oder Rechtsklick in die Karte)
       pending_types_help: Wir bewerten alle Arten auf ihre Geniessbarkeit, um die Karte strukturiert und durchsuchbar zu halten. Neuartige, von den Benutzern ergänzte Arten werden sind als 'hängig' markiert, bis sie entweder als eine neue Art zugelassen oder einer in der Taxonomie vorhandenen Art zugeordnet werden. In seltenen Fällen, wenn die Eingabe entweder zu willkürlich oder vage ist um eine eigene Art zu rechtfertigen, bleibt der Eintrag auf der Karte in einem nicht genehmigten Zustand.
-      pending_types_help_title: Unbestätigte Arten
-      problem_modal_title: Melde ein Problem
       unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, insbesondere wenn sie von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
       unverified_help_title: Wieso unbestätigt?
   locations:
-    embed:
-      add_source: Quelle hinzufügen
     errors:
       geocode_failed: ! 'Deine Adress-Suche war nicht erfolgreich weil:'
       latitude_too_large: ! 'Wir sie ausserhalb des ±85igsten Breitengrades liegt. '
     form:
-      access: Zugang
       access_subtext: Zugang zu diesem Standort. Freilassen, wenn du es nicht genau weisst.
       address_subtext_html: Adresse <span class="subtext-inline">kann verwendet werden, um den Marker schnell zu positionieren. Gegebenenfalls anpassen, bevor die Quelle hinzugefügt wird.</span>
       author_subtext: Wird auf der Karte angezeigt. Freilassen, wenn du anonym bleiben möchtest.
-      comments: Kommentare
       comments_subtext: Beschreibung, Infos zum Zugang, Zustand der Pflanzen ...
       create_another: einen weiteren Standort erstellen
       date_subtext: Datum des gemeldeten Fruchtstands (wenn nicht heute)
       date_visited: Datum des Besuchs
-      description: Beschreibung
       description_subtext: Details zu Standort, Zugang, Zustand der Pflanzen ...
       form_error: Ein Fehler hat verhindert, dass dieser Standort gespeichert werden konnte
       form_intro_html: Bearbeite diesen Standort <a href="/observations/new?location_id=%{location_id}&locale=de" data-ajax="false" rel="external" title="Bewerten Sie diesen Ort"> oder benutze dieses Formular</a>, um diesen Standort zu bewerten, kommentieren oder ein Photo hinzuzufügen.
       fruiting_status: Fruchtstand
       fruiting_subtext: Was macht diese Pflanze gerade? (Falls zutreffend)
       have_you: Hast du diesen Ort besucht?
-      location: Lage
-      location_subtext: Bestimmt durch deinen aktuellen Standort (sofern verfügbar) oder einen platzierten Marker. Passe den Standort durch Verschieben des Markers auf der Karte an.
       move_marker: Verschiebe Marker an obenstehende Koordinaten
       move_marker_address: Verschiebe Marker zur obenstehenden Adresse
       name_subtext: Freilassen, wenn du anonym bleiben möchtest.
       no_season: keine Saison
       or: oder
-      photo: Foto
       photo_caption: Bildunterschrift
       photo_subtext: Lade ein Foto dieser Quelle hoch (optional). Falls du das Foto nicht selber gemacht hast, prüfe bitte, ob du das Bild verwenden darfst und führe den Fotographen in der Bildunterschrift auf.
-      quality: Qualität
+      position_subtext: Bestimmt durch deinen aktuellen Standort (sofern verfügbar) oder einen platzierten Marker. Passe den Standort durch Verschieben des Markers auf der Karte an.
       quality_subtext: Bewerte die Güte dieser Quelle (falls zutreffend)
-      season: Saison
       season_subtext: Wann kann an diesem Standort geerntet werden? Freilassen, wenn du es nicht weisst.
-      submit: Einreichen
       to: bis
-      types: Arten
       types_subtext: Wähle aus der Dropdown-Liste. Ergänze einen neuen Namen nur, wenn eine passende Wahl noch nicht vorhanden ist.
-      unverified: Ungeprüft
       unverified_subtext: Wenn du Zweifel an der Existenz, dem Zugang oder der Art an diesem Standort hast.
-      verify: Überprüfen
       verify_subtext: Dieser Ort wurde vorhergehend als Ungeprüft markiert
-      visited_on: Besucht am
       visited_on_subtext: Leer lassen wenn der Besuch heute war
-      yield: Ausbeute
       yield_subtext: Bewerte die Produktivität dieser Quelle (falls zutreffend)
       your_name: Dein Name
     index:
@@ -267,96 +237,42 @@ de:
       - Überragt öffentlichen Boden
       - Privat
       add_to_remove_from: Hinzufügen / entfernen
-      anonymous: Anonym
-      are_you_sure: Bist du sicher?
-      by: durch
       citation_to_the_original_source: Originalquelle
-      delete: löschen
       delete_comment: Kommentar löschen
       delete_photo: Foto löschen
       delete_this_location: Löschen Sie diesen Standort
-      edit: bearbeiten
       edit_this_location: Bearbeiten Sie diesen Standort
-      flower: Blume
-      fruit: Obst
       fruiting:
       - Blüte
       - Unreife Frucht
       - Reife Frucht
       have_you_visited_html: Hast du diese Quelle besucht? Füge eine <a href="/observations/new?location_id=%{id}&locale=de" data-ajax="false" rel="external" title="Bewerten Sie diesen Standort" id="add_review">Füge eine Bewertung </a> hinzu.
       january_to_december: Von Januar bis Dezember
-      link: Link
       new_route: Neue Route
-      quality: Qualität
       rating:
       - Schlecht
       - Mässig
       - Gut
       - Sehr gut
       - Ausgezeichnet
-      report: Bericht
-      report_a_problem: Ein Problem melden
-      review: + Bewertung
       review_this_location: Bewerten Sie diesen Standort
-      ripe: Reif
-      routes: Routen
-      season: Saison
       see_this_location_in_streetview: Sehen Sie diese Lage in streetview
       source: Quelle
-      street: Straße
-      tabs:
-        info: Info
-        reviews: Bewertungen
-        street_view: Street View
       toggle_route_controls: Routen-Kontrolle umschalten
       unsure: Unsicher
       unsure_other: Unklar/Anderes
-      unverified: Ungeprüft
       url_for_this_location: URL für diesen Standort
-      x_photo: x Foto
-      yield: Ausbeute
-      zoom: Zoom
-      zoom_to_this_location: Zoom zu diesem Standort
-    locations_type:
-      or: oder
     searchbar:
-      address: Adresse
-      download: Download
-      embed: Embed
       embed_hover: Embed HTML
       embed_modal_title: Code einbetten (iFrame HTML)
-      filter: Filter
-      labels: Etiketten
-      link: Link
       link_hover: URL der aktuellen Karte
-      select_edible_type: Wähle essbare Art
-      tree_inventories: Bauminventare
       tree_inventories_modal: Bauminverntare werden in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden meistens durch ausgebildetes Personal erhoben und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich in unsere Karte ein. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
       tree_inventories_modal_title: Was ist ein Bauminventar?
-      type_and_press_enter: Eingeben und Enter drücken
-      zoom_to_current_location: Zoom auf aktuellen Standort
-      zoom_to_me: Zoom zu mir
     sidebar:
-      activity: Aktivität
-      ago: vor
-      by_author: von %{author}
       changed_within_html: Veränderungen in deinem <a href="/users/edit?locale=de">Ernte-Radius</a>
-      click_here: Klicke hier
       click_here_to_manage_your_routes_html: Klicke <a href="%{routes_path}">hier</a>, um deine Routen zu verwalten
-      favorites: Favoriten
       in: in
-      last_24_hours: Letzte 24 Stunden
-      last_month: Im letzten Monat
-      last_updated: Zuletzt aktualisiert
-      last_visited: Zuletzt besucht
-      locations: Standorte
       locations_added_or_reviewed_by_you_while_logged_in: Hinzugefügte oder von dir überprüfte Standorte (während du eingeloggt warst)
-      months_ago: Vor %{months} Monaten
-      public: Öffentlich
-      routes: Routen
-      this_month: Diesen Monat
-      this_week: Diese Woche
-      unknown: Unbekannt
       you_havent_added_or_reviewed_anything_while_logged_in: Du hast nichts geändert oder überprüft (während du eingeloggt warst)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Du hast noch keine Ernte-Routen hinzugefügt. Klicke auf eine Quelle und klicke dann auf 'Strecken' um eine Route zu erstellen.
       you_havent_defined_html: Du hast noch keinen persönlichen Ernte-Radius definiert. Klicke <a href="/users/edit?locale=de">hier</a> um das jetzt zu tun.
@@ -399,73 +315,97 @@ de:
     data:
       beware_html: Aber Vorsicht! Sobald die Daten nicht mehr komprimiert sind, impolidert fast jede Tabellen-Software ab der Datenunmenge! Nur wer daran interessiert ist, mit der gesammten Datenmenge zu arbeiten, sollte diesen Weg gehen. Für alle Anderen ist es die bessere Lösung, selektiv die gewünschten Daten herunter zu laden. Das Download-Tool ist direkt in die <a href="/?locale=de">Karte</a> integriert.
       caveat_emptor_html: Es ist in der Natur der Sache, dass wir für die Richtigkeit der Daten nicht garantieren können, <i>caveat emptor</i>. Wenn du etwas cooles mit den Daten machst, dann <a href="mailto:feedback@fallingfruit.org">sag uns doch Bescheid</a>!
-      common_name: Umgangssprachlier Name
-      count: Zählen
       data_unavailable_html: Daten zurzeit nicht verfügbar. Schau später wieder vorbei oder <a href="mailto:info@fallingfruit.org">schreib uns</a>.
       intro: Falling Fruit ist sowohl auf öffentlichen Datensätzen und der Daten jener urbanen Jäger und Sammler aufgebaut, die bereit sind, ihre Quellen mit einer breiten Öffentlichkeit zu teilen. Wir wollen städtische Nahrungsquellen so vielen Menschen wie möglich zugänglich machen, und wir glauben, dass jeder den gleichen Zugang zu den Früchten unserer Arbeit haben sollte. Ein hoch auf Open Source Daten!  Die gesamte Datenbank
-      last_updated: zuletzt aktualisiert
-      license_html: Wenn du die Daten für ein eigenes Projekt nutzen möchtest, insbesondere für kommerzielle Anwendungen, bitten wir dich, uns zu kontaktieren (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Wenn nicht anders angegeben, sind die Daten stehen unter der <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> Lizenz (Creative Commons – Namensnennung, Nicht-kommerziell, Weitergabe unter gleichen Bedingungen). Dies bedeutet, dass sie frei verwendet und verbreitet werden können, solange der ursprüngliche Autor/die ursprüngliche Quelle dafür entschadigt wird und die Daten nicht (ohne Genehmigung) für kommerzielle Zwecke eingesetzt werden. Der Quelltext für Falling Fruit ist ebenfalls öffentlich, und auf <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a> verfügbar.
-      links: Links
-      scientific_name: Wissenschaftlicher Name
+      license_html: Wenn du die Daten für ein eigenes Projekt nutzen möchtest, insbesondere für kommerzielle Anwendungen, bitten wir dich, uns zu kontaktieren (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Wenn nicht anders angegeben, sind die Daten stehen unter der <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> Lizenz (Creative Commons – Namensnennung, Nicht-kommerziell, Weitergabe unter gleichen Bedingungen). Dies bedeutet, dass sie frei verwendet und verbreitet werden können, solange der ursprüngliche Autor/die ursprüngliche Quelle dafür entschadigt wird und die Daten nicht (ohne Genehmigung) für kommerzielle Zwecke eingesetzt werden. Der Quelltext für Falling Fruit ist ebenfalls öffentlich, und auf <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a> verfügbar.
       summary_description: Die Datenbank enthält derzeit %{types} verschiedene essbare Arten (die meisten, aber nicht alle, sind pflanzlich) über %{locations} Standorte verteilt. In der Folgenden Tabelle sind die umgangssprachlichen und wissenschaftlichen Namen sowie Links zu externen Referenzen und die Gesamtzahl angegeben.
       summary_of_sources: Zusammenfassung aller Quellen
     datasets:
       community_map: Gemeinschaftskarte
       date_imported: Zeitpunkt eingeführt
-      details: Details
       google_fusion_table: Google Fusion Tabelle
       google_map: Google Map
       google_maps_engine: Google Maps Engine
-      imported: Importiert
-      imported_datasets: Importierte Datensätze
       intro_html: Es ist unser erklärtes Ziel, den weltweit umfassendsten Datensatz frei zugänglicher Geodaten der urbanen Ernte zu bieten. Während unsere Nutzer unserer <a href="/?locale=de">Karte</a> täglich eigene Standorte hinzufügen, durchsuchen wir das Internet nach bereits bestehenden Datenquellen. Nur so können wir das Wissen Aller vereinen! Wenn du von einem Datensatz weisst, den wir verpasst haben, dann <a href="mailto:info@fallingfruit.org">schreib uns</a>! Falls du selber Zugriff auf nützliche Daten hast, kannst du unsere <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">Import-Vorlage</a> benützen, um uns das Hinzufügen deines Datensatzes zu erleichtern. Beachte, dass alle Imports manuell durchgeführt werden müssen. Spätere Änderungen am Original-Datensatz werden daher nicht auf der Hompage wiedergegeben.
-      locations: Standorte
-      name: Name
-      no_license: Keine Lizenz angegeben, nehme an, dass die <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> Creative Commons (Attribution, nicht-kommerziellen, Share-Alike) </a> Lizenz gilt.
+      no_license: Keine Lizenz angegeben, nehme an, dass die <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"> Creative Commons (Attribution, nicht-kommerziellen, Share-Alike) </a> Lizenz gilt.
       table_info: Jeder Datensatz wird mit Namen, Anzahl der Standorte und Import-Datum aufgelistet. Wenn du die Zeile expandierst, sind zudem weitere Details über die Original-Daten, den Import oder Lizenz-Informationen aufgeführt.
-      tree_inventory: Bauminventar
       type: Art
       types_of_data: Datensätze die von Falling Fruit importiert werden, fallen in zwei Hauptkategorien. "Gemeinschaftskarten" werden von Sammlerinnen und Freeganern erstellt, indem sie in ihrem Umfeld öffentliche Nahrungsmittel-Quellen suchen und kartieren. Ein Riesiges Dankeschön geht an alle, die tagtäglich auf der Suche sind und uns ihre Daten übermitteln. "Bauminventare" werden durch Städte, Universitäten oder andere Institutionen zusammengestellt, die ihren Baumbestand überblicken und erhalten möchten. Wir filtern aus diesen riesigen Datenmengen die essbaren Arten heraus und fügen sie unserer Karte hinzu. Wenn in deiner Ecke der Welt noch Daten fehlen, dann kontaktiere deine Stadt oder deine Gemeinde und fordere sie auf, allfällig vorhandene Daten mit uns zu teilen! Wir sind für jede Hilfe dankbar!
     sharing:
-      australia: Australien
-      canada: Kanada
-      fiji: Fidschi
       food_banks: Lebensmittelbanken
       food_banks_intro: Wer du aus dem eigenen Garten oder von anderen Quellen (auch selber gesammelt) überschüssige Nahrungsmittel hat,den fordern wir auf, die Überschüsse für wohltätige Zwecke zu spenden. Überlege dir zum Beispiel eine Partnerschaft mit Gruppen wie jene, die oben aufgeführt sind, oder spende direkt an lokale Organisationen die in deiner Gemeinde Essen an Bedürftige verteilen. Die großen Nahrungsmittelbank-Netzwerke sind unten aufgelistet; Obdachlosenheime, Schulen und Seniorenzentren in deiner Nähe sind aber häufig auch dankbar, wenn sie etwas Frisches bekommen!
-      france: Frankreich
-      global: Weltweit
       grow_pick_and_distribute: Pflanze · Ernte · Verteile
       intro_html: Im Folgenden sind lokale Organisationen aufgeführt, die Lebensmittel anpflanzen (z.B. in Gemeinschaftsgärten), ernten (z.B. 'urban gardening'), oder auf andere Art und Weise verteilen und teilen. Organisationen werden nach Land, Bundesland/Kanton und Stadt aufgeführt. Organisationen mit durchgestrichenem Namen sind zur Zeit vermutlich inaktiv. Wenn du Organisationen kennst, die auf dieser Liste auftauchen müssten, dann <a href="mailto:info@fallingfruit.org">sag uns Bescheid</a>!
-      italy: Italien
-      united_kingdom: Vereinigtes Königreich
-      united_states: Vereinigte Staaten
   problems:
     description_subtext: Jeglicher Hinweis kann uns helfen, das Problem zu lösen.
     problem_type: Problem Art
     your_contact_info: Deine Kontaktinfo
   routes:
-    index:
-      delete: löschen
-      delete_confirmation: Bist du sicher?
-      link: Link
-      locations: Standorte
-      name: Name
-      public: öffentlich
-      routes: Routen
-      save_changes: Änderungen speichern
-      show: zeige
-      time_ago: vor %{time}
-      travel_mode: Fortbewegungsmittel
-      updated: aktualisiert
-    show:
-      bicycling: Velo
-      driving: Auto
-      mode_of_travel: Fortbewegungsmittel
-      modes_of_travel:
-      - zu Fuss
-      - mit dem Fahrrad
-      - motorisiert
-      walking: zu Fuss
+    mode_of_travel: Fortbewegungsmittel
+    modes_of_travel:
+    - zu Fuss
+    - mit dem Fahrrad
+    - motorisiert
+  time:
+    days:
+      one: ! '%{count} Tag'
+      other: ! '%{count} Tagen'
+    last_24_hours: Letzte 24 Stunden
+    months:
+      one: ! '%{count} Monat'
+      other: ! '%{count} Monaten'
+    this_month: Diesen Monat
+    this_week: Diese Woche
+    time_ago: Vor %{time}
+  users:
+    address_subtext: Der Mittelpunkt deines Ernte-Gebiets (z.B. dein Zuhause)
+    bio: Über dich
+    change_password: Ändere mein Passwort
+    clear_map: Karte zurücksetzen
+    confirm_account: Bestätige mein Konto
+    current_password: Aktuelles Passwort
+    current_password_subtext: Wird verlangt, um Änderungen an deinem Konto vorzunehmen
+    delete_account: Entferne mein Konto
+    edit_account: Konto bearbeiten
+    foraging_map_subtext: ! 'Benutze das Polygon oder Rechteck Werkzeug in der Karte, um deinen Ernte-Radius festzulegen. Wenn du das Polygon Werkzeug benutzt, musst du das Polygon schliessen, in dem du den letzten mit dem ersten Punkt verbindest. '
+    foraging_radius: Radius
+    foraging_radius_subtext: ! 'Radius eines kreisförmigen Ernte-Gebiets zentriert um obige Adresse. '
+    foraging_range: Ernte-Gebiet
+    forgot_password: Passwort zurücksetzen
+    mailer:
+      confirmation_instructions_html: ! '<p>Wilkommen bei Falling Fruit,</p>
+
+        <p>Um dein Konto zu aktivieren, musst du deine Email-Adresse (%{email}) bestätige. Klicke dazu folgenden Link:
+
+        <br/>%{link}</p>
+
+        <p>Unsere User sind die Power hinter Falling Fruit - hilf mit, um die Seite zu erweitern und verbessen. Fröhliches ernten!</p>'
+      reset_password_instructions_html: ! '<p>Hallo %{email},</p>
+
+        <p>Jemand (vermutlich du) hat einen Link zur Passwortänderung beantragt:
+
+        <br />%{link}</p>
+
+        <p>Wenn du keine Passwortänderung vornehmen möchtest, kannst du dieses Mail ignorieren. Dein Passwort bleibt unverändert, wenn du obenstehenden Link nicht besuchst und ein Neues bestimmst.</p>'
+      unlock_instructions_html: ! '<p>Hallo %{email},</p>
+
+        <p>Dein Konto wurde gesperrt, weil zu viele erfolglose Login Versuche registriert wurden:
+
+        <br />%{link}</p>'
+    new_password: Neues Passwort
+    options:
+      add_anonymously: Karte anonym bearbeiten (auch während du eingeloggt bist)
+      range_updates_email: Erhalte wöchentlich eine Email, die dich über alle Aktivitäten innerhalb deines Ernte-Radius (unten definiert) informieren.
+    range_by_map: Zeichne in Karte
+    range_by_radius: Adresse und Radius
+    remember_me: Speichere mich
+    resend_confirmation_instructions: Bestätigungs-Anleitung erneut senden
+    resend_unlock_instructions: Entsperrungs-Anleitung erneut senden
+    send_password_instructions: Anleitung zur Passwort Erneuerung senden
+    sign_in: Anmelden
+    sign_in_with: Mit %{provider} anmelden
+    type_it_twice: Eingabe zur Bestätigung wiederholen
+    unlock_account: Entsperre mein Konto
   validates_timeliness:
     error_value_formats:
       date: ! '%Y-%m-%d'

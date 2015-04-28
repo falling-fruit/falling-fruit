@@ -79,7 +79,6 @@ jQuery(document).ready(function(){
   <!-- Date -->
   <div class="field first">
     <%= f.label I18n.t("locations.form.visited_on") %><br />
-    <span class="subtext"><%= I18n.t("locations.form.visited_on_subtext") %></span><br />
     <%= f.text_field(:observed_on, :placeholder => 'yyyy-mm-dd') %>
   </div>
   
@@ -123,7 +122,15 @@ jQuery(document).ready(function(){
     <span class="subtext"><%= I18n.t("locations.form.verify_subtext") %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:9px;" onclick="$('#unverified_help').dialog({autoOpen:true, title:'Why Unverified?', width:500, modal:true, resizable:false, draggable:false})">[?]</span>. Can you confirm that type and location are indeed correct?</span>
   </div>
   <% end %>
-
+  
+  <% if user_signed_in? and current_user.is? :grafter %>
+  <!-- Graft -->
+  <div class="field">
+    Graft? <%= f.check_box(:graft) %><br />
+    <span class="subtext">Grafts will only be visible to other grafters.</span>
+  </div>
+  <% end %>
+  
 	<hr />
   
   <!-- Photo -->
@@ -164,7 +171,7 @@ jQuery(document).ready(function(){
   
   <!-- Submit -->
   <div class="actions">
-    <%= f.submit I18n.t("locations.form.submit") %>
+    <%= f.submit I18n.t("glossary.submit") %>
   </div>
   
 <% end %>

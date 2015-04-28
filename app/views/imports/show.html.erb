@@ -1,11 +1,11 @@
-<%= link_to('[+] List all imports', datasets_path) %>
+<%= link_to("[+] " + I18n.t("layouts.application.menu.list_imports"), datasets_path) %>
 
 <table style="border-collapse:separate;border-spacing:0 2em;">
 <tr>
 	<td style="vertical-align:top;text-align:right;padding:2em 1.5em 0 0;">
 		#<%= @import.id %>
 		<% if user_signed_in? and current_user.is? :admin %>
-			<br/><%= link_to(I18n.t("imports.show.edit"),edit_import_path(@import.id)) %>
+			<br/><%= link_to(I18n.t("glossary.edit"),edit_import_path(@import.id)) %>
 		<% end %>
 	</td>
 	<td style="padding:2em;background-color:#fafafa;">
@@ -19,7 +19,7 @@
 	<% end %>
 
 	<!-- Type, Date -->
-	<%= @import.muni ? I18n.t("pages.datasets.tree_inventory") : I18n.t("pages.datasets.community_map") %> | <%= I18n.t("imports.show.imported") %> <i><%= @import.created_at.to_s %></i><br />
+	<%= @import.muni ? I18n.t("glossary.tree_inventories", :count => 1) : I18n.t("pages.datasets.community_map") %> | <%= I18n.t("glossary.imported") %> <i><%= @import.created_at.to_s %></i><br />
 
 	<hr style="border:1px solid #eee;margin:1.5em 0;">
 

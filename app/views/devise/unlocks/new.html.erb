@@ -1,12 +1,12 @@
-<h2><%= I18n.t("devise.fallingfruit.resend_unlock_instructions") %></h2>
+<h2><%= I18n.t("users.resend_unlock_instructions") %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email, I18n.t("devise.fallingfruit.email") %><br />
+  <div><%= f.label :email, I18n.t("glossary.email") %><br />
   <%= f.email_field :email %></div>
 
-  <div><%= f.submit I18n.t("devise.fallingfruit.send") %></div>
+  <div><%= f.submit I18n.t("glossary.send") %></div>
 <% end %>
 
 <%= render "devise/shared/links" %>

@@ -1,21 +1,17 @@
 en:
   changes:
-    index:
-      1_day_ago: 1 day ago
-      change_in_city: ! '%{type} in %{city}'
-      last_24_hours: Last 24 hours
-      n_days_ago: ! '%{n} days ago'
-      recent_changes: Recent changes
-      user: User
+    change_in_city: ! '%{type} in %{city}'
+    recent_changes: Recent changes
     type:
       added: added
       edited: edited
+      grafted: grafted
       visited: visited
   devise:
     confirmations:
-      confirmed: Your account was successfully confirmed. You are now signed in.
-      send_instructions: You will receive an email with instructions about how to confirm your account in a few minutes.
-      send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.
+      confirmed: Your email address has been successfully confirmed.
+      send_instructions: You will receive an email with instructions for how to confirm your email address in a few minutes.
+      send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.
     failure:
       already_authenticated: You are already signed in.
       inactive: Your account is not activated yet.
@@ -25,75 +21,14 @@ en:
       not_approved: Your account has not yet been approved by an administrator.
       timeout: Your session expired, please sign in again to continue.
       unauthenticated: You need to sign in or sign up before continuing.
-      unconfirmed: You have to confirm your account before continuing.
-    fallingfruit:
-      address: Address
-      address_subtext: The center of your foraging range (your home address, for example)
-      are_you_sure: Are you sure?
-      bio: About you
-      change_password: Change my password
-      clear_map: Clear map
-      confirm_account: Confirm my account
-      current_password: Current password
-      current_password_subtext: Required to make changes to your account
-      delete_account: Cancel my account
-      edit_account: Edit account
-      email: Email
-      foraging_map_subtext: Use the polygon or rectangle tool in the map below to define your foraging range. If using the polygon tool, make sure to close your polygon by joining the last point to the first.
-      foraging_radius: Radius
-      foraging_radius_subtext: Radius of a circular foraging range centered on the address above
-      foraging_range: Foraging range
-      forgot_password: Reset your password
-      login: Login
-      mailer:
-        confirmation_instructions_html: ! '<p>Welcome to Falling Fruit,</p>
-
-          <p>To activate your account, you must confirm your email (%{email}) by visiting the link below:
-
-          <br/>%{link}</p>
-
-          <p>Falling Fruit is powered by its users, so if you have the opportunity to add or improve it, please do so. Happy foraging!</p>'
-        reset_password_instructions_html: ! '<p>Hello %{email},</p>
-
-          <p>Someone (most likely you) requested a link to change your password:
-
-          <br />%{link}</p>
-
-          <p>If you didn''t request this, you can ignore this email. Your password won''t change unless you visit the link above and create a new one.</p>'
-        unlock_instructions_html: ! '<p>Hello %{email},</p>
-
-          <p>Your account has been locked due to an excessive amount of unsuccessful login attempts:
-
-          <br />%{link}</p>'
-      miles: miles
-      name: Name
-      new_password: New password
-      options:
-        add_anonymously: Edit the map anonymously (even while logged in)
-        label: Options
-        range_updates_email: Receive a weekly email reporting recent activity in your foraging range (defined below)
-      password: Password
-      range_by_map: Draw on map
-      range_by_radius: Address and radius
-      remember_me: Remember me
-      resend_confirmation_instructions: Resend confirmation instructions
-      resend_unlock_instructions: Resend unlock instructions
-      save_changes: Save changes
-      send: Send
-      send_password_instructions: Send password reset instructions
-      sign_in: Sign in
-      sign_in_with: Sign in with %{provider}
-      sign_up: Sign up
-      type_it_twice: Type it twice to confirm
-      unlock_account: Unlock my account
-      zoom_to_address: Zoom to address
+      unconfirmed: You have to confirm your email address before continuing.
     mailer:
       confirmation_instructions:
-        subject: Confirmation instructions | Falling Fruit
+        subject: Confirmation instructions
       reset_password_instructions:
-        subject: Reset password instructions | Falling Fruit
+        subject: Reset password instructions
       unlock_instructions:
-        subject: Unlock Instructions | Falling Fruit
+        subject: Unlock Instructions
     omniauth_callbacks:
       failure: Could not authenticate you from %{kind} because "%{reason}".
       success: Successfully authenticated from %{kind} account.
@@ -101,23 +36,23 @@ en:
       no_token: You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided.
       send_instructions: You will receive an email with instructions on how to reset your password in a few minutes.
       send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
-      updated: Your password was changed successfully. You are now signed in.
-      updated_not_active: Your password was changed successfully.
+      updated: Your password has been changed successfully. You are now signed in.
+      updated_not_active: Your password has been changed successfully.
     registrations:
-      destroyed: Bye! Your account was successfully cancelled. We hope to see you again soon.
-      signed_up: Welcome to Falling Fruit! You have signed up successfully.
+      destroyed: Bye! Your account has been successfully cancelled. We hope to see you again soon.
+      signed_up: Welcome! You have signed up successfully.
       signed_up_but_inactive: You have signed up successfully. However, we could not sign you in because your account is not yet activated.
       signed_up_but_locked: You have signed up successfully. However, we could not sign you in because your account is locked.
       signed_up_but_not_approved: You have signed up successfully but your account has not yet been approved by an administrator.
-      signed_up_but_unconfirmed: A confirmation link has been sent to your email address. Please open the link to activate your account.
-      update_needs_confirmation: You updated your account successfully, but we need to verify your new email address. A confirmation link has been sent to your new email address. Click on this link to finalize confirming your new email address.
-      updated: You updated your account successfully.
+      signed_up_but_unconfirmed: A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.
+      update_needs_confirmation: You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address.
+      updated: Your account has been updated successfully.
     sessions:
       signed_in: Signed in successfully.
       signed_out: Signed out successfully.
     unlocks:
-      send_instructions: You will receive an email with instructions about how to unlock your account in a few minutes.
-      send_paranoid_instructions: If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.
+      send_instructions: You will receive an email with instructions for how to unlock your account in a few minutes.
+      send_paranoid_instructions: If your account exists, you will receive an email with instructions for how to unlock it in a few minutes.
       unlocked: Your account has been unlocked successfully. Please sign in to continue.
   errors:
     messages:
@@ -136,107 +71,152 @@ en:
         other: ! '%{count} errors prohibited this %{resource} from being saved:'
       on_or_after: must be on or after %{restriction}
       on_or_before: must be on or before %{restriction}
-  helpers:
-    faster_time_ago_in_words:
-      days: days
-      last_month: last month
-      last_year: last year
-      less_than_24_hours: less than 24 hours
-      months_ago: months ago
-      years_ago: years ago
-  imports:
-    index:
-      delete: Delete
-      edit: Edit
-      error: Error
-    show:
-      edit: edit
-      imported: Imported
+  glossary:
+    about: About
+    access: Access
+    account: Account
+    activity: Activity
+    add_source: Add source
+    address: Address
+    anonymous: Anonymous
+    are_you_sure: Are you sure?
+    australia: Australia
+    by_author: by %{author}
+    canada: Canada
+    common_name: Common name
+    data: Data
+    delete: Delete
+    description: Description
+    details: Details
+    download: Download
+    edible_type: Edible type
+    edit: Edit
+    email: Email
+    embed: Embed
+    error: Error
+    favorites: Favorites
+    fiji: Fiji
+    filter: Filter
+    france: France
+    global: Global
+    home: Home
+    imported: Imported
+    imported_datasets: Imported datasets
+    imports: Imports
+    info: Info
+    italy: Italy
+    labels: Labels
+    links:
+      content_item: ! '
+
+'
+      one: Link
+      other: Links
+    locations:
+      content_item: Location
+      one: Location
+      other: Locations
+    login: Login
+    logout: Logout
+    map: Map
+    miles: miles
+    name: Name
+    options: Options
+    password: Password
+    pending_types: Pending types
+    photo: Photo
+    position: Position
+    problems: Problems
+    public: Public
+    quality: Quality
+    report: Report
+    report_a_problem: Report a problem
+    reviews:
+      content_item: ! '
+
+'
+      one: Review
+      other: Reviews
+    routes: Routes
+    save_changes: Save changes
+    scientific_name: Scientific name
+    season: Season
+    send: Send
+    show: Show
+    sign_up: Sign up
+    street_view: Street View
+    submit: Submit
+    tree_inventories:
+      content_item: ! '
+
+'
+      one: Tree inventory
+      other: Tree inventories
+    type_and_press_enter: Type and press enter
+    types: Types
+    united_kingdom: United Kingdom
+    united_states: United States
+    unknown: Unknown
+    unverified: Unverified
+    updated: Updated
+    user: User
+    users: Users
+    visited: Visited
+    world: World
+    yield: Yield
+    zoom: Zoom
+    zoom_to_current_location: Zoom to current location
+    zoom_to_me: Zoom to me
+    zoom_to_this_location: Zoom to this location
   layouts:
     application:
-      copyleft: Copyleft
       feed_people_not_landfills: Feed people, not landfills!
       mapping_the_urban_harvest: Map the urban harvest!
       menu:
-        about: About
-        account: Account
-        add_source: + Add source
         approved_types: Approved types
-        changes: Changes
-        data: Data
-        home: Home
-        imported_datasets: Imported datasets
-        imports: Imports
         in_the_press: In the press
         list_imports: List imports
-        login: Login
-        logout: Logout
-        map: Map
         new_import: New import
         new_type: New type
-        pending_types: Pending types
-        routes: Routes
         sharing_the_harvest: Sharing the harvest
-        sign_up: Sign up
         the_project: The project
-        trouble: Problems
-        types: Types
-        users: Users
-        world: World
       or_right-click_on_map: (or right-click on map)
       pending_types_help: We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted on the map as pending until they are added to the taxonomy or merged with an existing type. Some proposed types are so unique or ambiguous that they persist as unapproved indefinitely.
-      pending_types_help_title: Pending types
-      problem_modal_title: Report a problem
       unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
       unverified_help_title: Why unverified?
   locations:
-    embed:
-      add_source: Add source
     errors:
       geocode_failed: ! 'Your address search was not successful for the following reason:'
       latitude_too_large: We do not support latitudes beyond ±85 degrees.
     form:
-      access: Access
       access_subtext: Access status of the source. Leave blank if you don't know.
       address_subtext_html: Address <span class="subtext-inline">can be used to position the marker. Adjust it as needed before submitting.</span>
       author_subtext: Displayed on map. Leave blank if you prefer to remain anonymous.
-      comments: Comments
       comments_subtext: Updates, access issues, plant health...
       create_another: Create another
       date_subtext: Date of the reported fruiting status (if not today)
       date_visited: Date visited
-      description: Description
       description_subtext: Location details, access issues, plant health ...
       form_error: An error prevented this source from being saved
       form_intro_html: Edit the location below, or <a href="/observations/new?location_id=%{location_id}&locale=en" data-ajax="false" rel="external" title="Review this location">use this form</a> to review, comment, and post photos.
       fruiting_status: Fruiting status
       fruiting_subtext: What is the fruit doing now? (if applicable)
       have_you: Have you visited this location?
-      location: Location
-      location_subtext: Determined from your current location (when available) or a marker you placed. Adjust by moving the map marker.
       move_marker: Move marker to coordinates
       move_marker_address: Move marker to address
       name_subtext: Leave blank if you prefer to remain anonymous.
       no_season: No season
       or: or
-      photo: Photo
       photo_caption: Photo caption
       photo_subtext: Post a photo of the source. If it isn't yours, ensure you have permission and credit the photographer in the caption.
-      quality: Quality
+      position_subtext: Determined from your current position (when available) or a marker you placed. Adjust by moving the map marker.
       quality_subtext: Rate the quality of the source (if applicable)
-      season: Season
       season_subtext: When can the source be harvested? Leave blank if you don't know.
-      submit: Submit
       to: to
-      types: Types
       types_subtext: Choose from the dropdown list, submitting new types only if appropriate choices do not already exist.
-      unverified: Unverified
       unverified_subtext: If you doubt the existence, location, or identity of this source.
-      verify: Verify
       verify_subtext: The source is currently flagged as Unverified
-      visited_on: Date visited
       visited_on_subtext: Leave blank if visited today.
-      yield: Yield
       yield_subtext: Rate the productivity of the source (if applicable)
       your_name: Your name
     index:
@@ -267,96 +247,42 @@ en:
       - Private but overhanging
       - Private
       add_to_remove_from: Add to / remove from
-      anonymous: Anonymous
-      are_you_sure: Are you sure?
-      by: by
       citation_to_the_original_source: Citation to the original data source
-      delete: delete
       delete_comment: Delete comment
       delete_photo: Delete photo
       delete_this_location: Delete this location
-      edit: edit
       edit_this_location: Edit this location
-      flower: Flower
-      fruit: Fruit
       fruiting:
       - Flowering
       - Unripe fruit
       - Ripe fruit
       have_you_visited_html: Have you visited this source? Add a <a href="/observations/new?location_id=%{id}&locale=en" data-ajax="false" rel="external" title="Review this source" id="add_review">review</a>
       january_to_december: January - December
-      link: link
       new_route: New route
-      quality: Quality
       rating:
       - Poor
       - Fair
       - Good
       - Very Good
       - Excellent
-      report: report
-      report_a_problem: Report a problem
-      review: + review
       review_this_location: Review this location
-      ripe: Ripe
-      routes: routes
-      season: Season
       see_this_location_in_streetview: See this location in streetview
       source: source
-      street: streetview
-      tabs:
-        info: Info
-        reviews: Reviews
-        street_view: Street View
       toggle_route_controls: Toggle route controls
       unsure: Unsure
       unsure_other: Unsure/Other
-      unverified: Unverified
       url_for_this_location: URL for this location
-      x_photo: x photo
-      yield: Yield
-      zoom: zoom
-      zoom_to_this_location: Zoom to this location
-    locations_type:
-      or: Or
     searchbar:
-      address: Address
-      download: Download
-      embed: Embed
       embed_hover: Embed code
       embed_modal_title: Embed code (iFrame HTML)
-      filter: Filter
-      labels: Labels
-      link: Link
       link_hover: URL to the current map
-      select_edible_type: Edible type
-      tree_inventories: Tree inventories
       tree_inventories_modal: Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. Help us map your neighborhood by asking your city (or university, canton, etc) if a tree inventory exists and whether it can be shared on Falling Fruit.
       tree_inventories_modal_title: What is a tree inventory?
-      type_and_press_enter: Type and press enter
-      zoom_to_current_location: Zoom to current location
-      zoom_to_me: Zoom to me
     sidebar:
-      activity: Activity
-      ago: ago
-      by_author: by %{author}
       changed_within_html: Changes within your <a href="/users/edit?locale=en">foraging range</a>
-      click_here: Click here
       click_here_to_manage_your_routes_html: Click <a href="%{routes_path}">here</a> to manage your routes
-      favorites: Favorites
       in: in
-      last_24_hours: Last 24 hours
-      last_month: Last month
-      last_updated: Updated
-      last_visited: Visited
-      locations: locations
       locations_added_or_reviewed_by_you_while_logged_in: Locations added or reviewed by you (while logged in)
-      months_ago: ! '%{months} months ago'
-      public: public
-      routes: Routes
-      this_month: This month
-      this_week: This week
-      unknown: Unknown
       you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed any sources yet (while logged in)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any foraging routes yet. Click on a source, then on "routes", to start making one.
       you_havent_defined_html: You haven't defined a foraging range. <a href="/users/edit?locale=en">Click here</a> to do that now
@@ -395,73 +321,99 @@ en:
     data:
       beware_html: But beware! Once uncompressed, the data is a huge file that will crush most spreadsheet software. If you only need data for a small geographic region, try first retrieving the points of interest using the download tool integrated into the <a href="/?locale=en">map</a>.
       caveat_emptor_html: We take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
-      common_name: Common name
-      count: Count
       data_unavailable_html: Data currently unavailable. Check back later or <a href="mailto:info@fallingfruit.org">contact us</a>.
       intro: Falling Fruit is built on public data and the generosity of foragers willing to share their finds. We want urban foraging to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database
-      last_updated: updated
-      license_html: If you are interested in using the data in your project, especially a commercial project, we suggest you contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Unless otherwise specified, data are licensed as <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike). This means that you are free to use and distribute the data so long as you preserve the original author/source attributions and do not use it (without permission) for commercial applications. The source code for Falling Fruit is also open, and available on <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
-      links: Links
-      scientific_name: Scientific name
-      summary_description: The database currently contains %{types} different types of edibles (most, but not all, are plant species) distributed over %{locations} locations. For each type, the following table lists English common name(s), scientific name(s), links to outside references, and total count.
+      license_html: If you are interested in using the data in your project, especially a commercial project, we suggest you contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Unless otherwise specified, data are licensed as <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike). This means that you are free to use and distribute the data so long as you preserve the original author/source attributions and do not use it (without permission) for commercial applications. The source code for Falling Fruit is also open, and available on <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
+      summary_description: The database currently contains %{types} different types of edibles (most, but not all, are plant species) distributed over %{locations} locations. For each type, the following table lists common names, scientific names, links to outside references, and total count.
       summary_of_sources: Summary of sources
     datasets:
       community_map: Community map
       date_imported: Date imported
-      details: Details
       google_fusion_table: Google Fusion Table
       google_map: Google Map
       google_maps_engine: Google Maps Engine
-      imported: Imported
-      imported_datasets: Imported datasets
       intro_html: Falling Fruit aspires to be the most comprehensive and open geographic dataset of urban edibles. While our users explore, edit, and add locations using our <a href="/?locale=en">map</a>, we comb the known universe for pre-existing datasets and import them directly into the <a href="/data?locale=en">database</a>, uniting the efforts of foragers, foresters, and freegans everywhere. If you know of a dataset we've missed, please <a href="mailto:info@fallingfruit.org">let us know</a>! You can also help us with the import process by formatting the data using the <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">import template</a>. Note that since imports must be performed manually, all changes to the original data made after the import are not reflected on Falling Fruit.
-      locations: Locations
-      name: Name
-      no_license: No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike).
+      no_license: No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike).
       table_info: Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the original data, the import process, and the license governing how the data may be used.
-      tree_inventory: Tree inventory
       type: Type
       types_of_data: Datasets imported into Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their communities for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us map your neighborhood fruit trees, contact your school or city urging them to share their tree inventory with us.
     sharing:
-      australia: Australia
-      canada: Canada
-      fiji: Fiji
       food_banks: Food banks
       food_banks_intro: Foragers and private tree owners are encouraged to donate their surplus produce to charity. Consider partnering with groups like those listed above, or donating directly to organizations feeding the hungry in your community. The major food bank networks are listed below; homeless shelters, schools, and senior centers are also worth considering.
-      france: France
-      global: Global
       grow_pick_and_distribute: Grow · Pick · Distribute
       intro_html: Listed below are organizations that grow food in public urban spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (swaps, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
-      italy: Italy
-      united_kingdom: United Kingdom
-      united_states: United States
   problems:
     description_subtext: Any information that might help us evaluate the problem
     problem_type: Problem type
     your_contact_info: Your contact info
   routes:
-    index:
-      delete: Delete
-      delete_confirmation: Are you sure?
-      link: Link
-      locations: Locations
-      name: Name
-      public: Public
-      routes: Routes
-      save_changes: Save changes
-      show: Show
-      time_ago: ! '%{time} ago'
-      travel_mode: Travel mode
-      updated: Updated
-    show:
-      bicycling: Bicycling
-      driving: Driving
-      mode_of_travel: Mode of travel
-      modes_of_travel:
-      - Walking
-      - Bicycling
-      - Driving
-      walking: Walking
+    mode_of_travel: Mode of travel
+    modes_of_travel:
+    - Walking
+    - Bicycling
+    - Driving
+  time:
+    days:
+      content_item: day
+      one: ! '%{count} day'
+      other: ! '%{count} days'
+    last_24_hours: Last 24 hours
+    months:
+      content_item: month
+      one: 1 month
+      other: ! '%{count} months'
+    this_month: This month
+    this_week: This week
+    time_ago: ! '%{time} ago'
+  users:
+    address_subtext: The center of your foraging range (your home address, for example)
+    bio: About you
+    change_password: Change my password
+    clear_map: Clear map
+    confirm_account: Confirm my account
+    current_password: Current password
+    current_password_subtext: Required to make changes to your account
+    delete_account: Cancel my account
+    edit_account: Edit account
+    foraging_map_subtext: Use the polygon or rectangle tool in the map below to define your foraging range. If using the polygon tool, make sure to close your polygon by joining the last point to the first.
+    foraging_radius: Radius
+    foraging_radius_subtext: Radius of a circular foraging range centered on the address above
+    foraging_range: Foraging range
+    forgot_password: Reset your password
+    mailer:
+      confirmation_instructions_html: ! '<p>Welcome to Falling Fruit,</p>
+
+        <p>To activate your account, you must confirm your email (%{email}) by visiting the link below:
+
+        <br/>%{link}</p>
+
+        <p>Falling Fruit is powered by its users, so if you have the opportunity to add or improve it, please do so. Happy foraging!</p>'
+      reset_password_instructions_html: ! '<p>Hello %{email},</p>
+
+        <p>Someone (most likely you) requested a link to change your password:
+
+        <br />%{link}</p>
+
+        <p>If you didn''t request this, you can ignore this email. Your password won''t change unless you visit the link above and create a new one.</p>'
+      unlock_instructions_html: ! '<p>Hello %{email},</p>
+
+        <p>Your account has been locked due to an excessive amount of unsuccessful login attempts:
+
+        <br />%{link}</p>'
+    new_password: New password
+    options:
+      add_anonymously: Edit the map anonymously (even while logged in)
+      range_updates_email: Receive a weekly email reporting recent activity in your foraging range (defined below)
+    range_by_map: Draw on map
+    range_by_radius: Address and radius
+    remember_me: Remember me
+    resend_confirmation_instructions: Resend confirmation instructions
+    resend_unlock_instructions: Resend unlock instructions
+    send_password_instructions: Send password reset instructions
+    sign_in: Sign in
+    sign_in_with: Sign in with %{provider}
+    type_it_twice: Type it twice to confirm
+    unlock_account: Unlock my account
   validates_timeliness:
     error_value_formats:
       date: ! '%Y-%m-%d'

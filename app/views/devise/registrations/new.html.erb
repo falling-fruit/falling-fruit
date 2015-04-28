@@ -1,36 +1,36 @@
-<h2><%= I18n.t("devise.fallingfruit.sign_up") %></h2>
+<h2><%= I18n.t("glossary.sign_up") %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
   
   <div class="field">
-    <%= f.label :name, I18n.t("devise.fallingfruit.name") %><br />
+    <%= f.label :name, I18n.t("glossary.name") %><br />
     <%= f.text_field :name %>
   </div>
   
   <div class="field confirmation">
-    <%= f.label :email, I18n.t("devise.fallingfruit.email") %>
-    <span class="subtext"><%= I18n.t("devise.fallingfruit.type_it_twice") %></span>
+    <%= f.label :email, I18n.t("glossary.email") %>
+    <span class="subtext"><%= I18n.t("users.type_it_twice") %></span>
     <%= f.email_field :email %>
     <%= f.email_field :email_confirmation %>
   </div>
   
   <div class="field confirmation">
-    <%= f.label :password, I18n.t("devise.fallingfruit.password") %>
-    <span class="subtext"><%= I18n.t("devise.fallingfruit.type_it_twice") %></span>
+    <%= f.label :password, I18n.t("glossary.password") %>
+    <span class="subtext"><%= I18n.t("users.type_it_twice") %></span>
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
   </div>
     
   <div class="field">
-    <%= f.label :about_you, I18n.t("devise.fallingfruit.bio") %><br/>
+    <%= f.label :about_you, I18n.t("users.bio") %><br/>
     <%= f.text_area :bio, :size => "40x6" %>
   </div>
   
   <div class="field">
-    <%= f.label :options, I18n.t("devise.fallingfruit.options.label") %><br />
-    <%= f.check_box :range_updates_email %> <%= I18n.t("devise.fallingfruit.options.range_updates_email") %><br />
-    <%= f.check_box :add_anonymously %> <%= I18n.t("devise.fallingfruit.options.add_anonymously") %>
+    <%= f.label :options, I18n.t("glossary.options") %><br />
+    <%= f.check_box :range_updates_email %> <%= I18n.t("users.options.range_updates_email") %><br />
+    <%= f.check_box :add_anonymously %> <%= I18n.t("users.options.add_anonymously") %>
   </div>
   
   <br/>
@@ -38,6 +38,6 @@
   <br/>
 
   <div class="field">
-    <%= f.submit I18n.t("devise.fallingfruit.sign_up") %>
+    <%= f.submit I18n.t("glossary.sign_up") %>
   </div>
 <% end %>

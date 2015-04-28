@@ -113,21 +113,21 @@ jQuery(document).ready(function(){
   <!-- Observations! -->
   <% if @current_action == "edit" %>
     <p style="border:1px solid #ddd;background-color:#FCE7E4;padding:0.5em;font-size:95%;line-height:125%;">
-      <%= I18n.t("locations.form.form_intro_html",:location_id => @location.id).html_safe %>
+      <%= I18n.t("locations.form.form_intro_html", :location_id => @location.id).html_safe %>
     </p>
   <% end %>
 
   <!-- Type -->
   <div class="field first" id="types">
-    *<%= f.label I18n.t("locations.form.types") %><br />
+    *<%= f.label I18n.t("glossary.types") %><br />
     <span class="subtext"><%= I18n.t("locations.form.types_subtext") %></span><br />
     <%= hidden_field_tag('types', @location.types.collect{ |t| t.full_name }.join(","), :id=>"typeselect2") %>
   </div>
  
-  <!-- Location -->
+  <!-- Position -->
   <div class="field">
-    *<label for="location_address"><%= I18n.t("locations.form.location") %></label><br>
-    <span class="subtext"><%= I18n.t("locations.form.location_subtext") %></span><br />
+    *<label for="location_address"><%= I18n.t("glossary.position") %></label><br>
+    <span class="subtext"><%= I18n.t("locations.form.position_subtext") %></span><br />
     Lat, Lng <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br />
     <a href="#" onclick="update_marker_latlng();">>> <%= I18n.t("locations.form.move_marker") %></a>
     
@@ -163,14 +163,14 @@ jQuery(document).ready(function(){
 
   <!-- Description -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.description") %><br />
+    <%= f.label I18n.t("glossary.description") %><br />
     <span class="subtext"><%= I18n.t("locations.form.description_subtext") %></span><br />
     <%= f.text_area :description %>
   </div>
   
   <!-- Season -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.season") %><br />
+    <%= f.label I18n.t("glossary.season") %><br />
     <span class="subtext"><%= I18n.t("locations.form.season_subtext") %></span><br />
     <%= f.select(:season_start,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %> <%= I18n.t("locations.form.to") %>
     <%= f.select(:season_stop,I18n.t("date.month_names").collect{ |m| [m,I18n.t("date.month_names").index(m)-1] },:include_blank => true) %>, <%= I18n.t("locations.form.or") %>
@@ -179,14 +179,14 @@ jQuery(document).ready(function(){
   
     <!-- Access -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.access") %><br />
+    <%= f.label I18n.t("glossary.access") %><br />
     <span class="subtext"><%= I18n.t("locations.form.access_subtext") %></span><br />
     <%= f.select(:access,I18n.t("locations.infowindow.access_mode").collect{ |r| [r,I18n.t("locations.infowindow.access_mode").index(r)] },:include_blank => true) %>
   </div>
   
   <!-- Unverified -->
   <div class="field">
-    <label><%= I18n.t("locations.form.unverified") %></label> <%= f.check_box(:unverified) %><br />
+    <label><%= I18n.t("glossary.unverified") %></label> <%= f.check_box(:unverified) %><br />
     <span class="subtext"><%= I18n.t("locations.form.unverified_subtext") %></span>
   </div>
   
@@ -214,7 +214,7 @@ jQuery(document).ready(function(){
   
     <!-- Quality Rating -->
     <div class="field">
-      <%= f.label I18n.t("locations.form.quality") %><br />
+      <%= f.label I18n.t("glossary.quality") %><br />
       <span class="subtext"><%= I18n.t("locations.form.quality_subtext") %></span><br />
       <%= fo.select(:quality_rating,I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] },:include_blank => true) %>
       <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
@@ -222,7 +222,7 @@ jQuery(document).ready(function(){
   
     <!-- Yield Rating -->
     <div class="field">
-      <%= f.label I18n.t("locations.form.yield") %><br />
+      <%= f.label I18n.t("glossary.yield") %><br />
       <span class="subtext"><%= I18n.t("locations.form.yield_subtext") %></span><br />
       <%= fo.select(:yield_rating,I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] },:include_blank => true) %>
       <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
@@ -230,7 +230,7 @@ jQuery(document).ready(function(){
 
     <!-- Photo -->
     <div class="field">
-      <%= f.label I18n.t("locations.form.photo") %><br />
+      <%= f.label I18n.t("glossary.photo") %><br />
       <span class="subtext"><%= I18n.t("locations.form.photo_subtext") %></span><br />
       <%= fo.file_field :photo %>
     </div>
@@ -257,7 +257,7 @@ jQuery(document).ready(function(){
   
   <!-- Submit -->
   <div class="actions">
-    <%= f.submit I18n.t("locations.form.submit") %>
+    <%= f.submit I18n.t("glossary.submit") %>
     <% if @current_action == "new" or @current_action == "create" %>
     <%= check_box_tag(:create_another, '1', false) %> <%= I18n.t("locations.form.create_another") %><br>
     <% end %>
