@@ -142,13 +142,14 @@ task(:eol_names => :environment) do
   
   # Initialize csv
   CSV.open("public/eol_names.csv","wb") do |csv|
-    cols = ["ff_id","ff_rank","ff_name","ff_scientific","eol_id","eol_scientific","language","name","preferred"]
+    cols = ["ff_id","ff_rank","ff_name","ff_scientific","eol_id","eol_scientific","language","eol_names"]
     csv << cols
     # For each type with a scientific name
     Type.where("scientific_name is not null and scientific_name != ''").order(:scientific_name).each{ |t|
     
       # Show progress
       puts t.scientific_name
+      rank = Type::Ranks[t.taxonomic_rank]
       
       # Search EOL
       # Gets page id of first (top) result
@@ -157,7 +158,7 @@ task(:eol_names => :environment) do
       if search["totalResults"] > 0
         eol_id = search["results"][0]["id"]
       else
-        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, '', '', '', '', '']
+        csv << [t.id, rank, t.name, t.scientific_name, '', '', '', '']
         next
       end
       
@@ -165,15 +166,12 @@ task(:eol_names => :environment) do
       page_url = "http://eol.org/api/pages/1.0/" + eol_id.to_s + ".json?common_names=true"
       page = JSON.parse(open(page_url).read)
       eol_scientific = page["scientificName"]
-      page["vernacularNames"].each{ |n|
-        if n["eol_preferred"]
-          preferred = 1
-        else
-          preferred = 0
-        end
-        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, eol_id, eol_scientific, n["language"], n["vernacularName"], preferred]
+      names = page["vernacularNames"].group_by{ |x| x['language'] }
+      languages = names.keys
+      languages.each{ |l|
+        l_names = names[l].sort_by{ |n| (n.key?("eol_preferred") and n["eol_preferred"])? 0 : 1 }.collect{ |n| n["vernacularName"] }.join(", ")
+        csv << [t.id, rank, t.name, t.scientific_name, eol_id, eol_scientific, l, l_names]
       }
-      
       # Sleep
       sleep 0.1
     }
@@ -186,7 +184,7 @@ task :wikipedia_names, [:language] => [:environment] do |t, args|
 
   # Initialize csv
   CSV.open("public/wikipedia_names.csv","wb") do |csv|
-    cols = ["ff_id","ff_rank","ff_name","ff_scientific","language","title","url","names","ambiguous"]
+    cols = ["ff_id","ff_rank","ff_name","ff_scientific","language","wiki_title","wiki_url","wiki_names","ambiguous"]
     csv << cols
     # For each type
     Type.order(:scientific_name).each{ |t|
@@ -194,6 +192,7 @@ task :wikipedia_names, [:language] => [:environment] do |t, args|
       # Show progress
       lang = "en"
       puts "[S] " + t.scientific_name.to_s + " [" + lang + "] " + t.name.to_s
+      rank = Type::Ranks[t.taxonomic_rank]
       
       # English page title
       # from database
@@ -203,8 +202,8 @@ task :wikipedia_names, [:language] => [:environment] do |t, args|
       elsif (not(t.scientific_name.blank?))
         en_title = t.scientific_name
       else
-        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, '', '', '', '']
         puts "=> No page title (" + lang + ")"
+        #csv << [t.id, rank, t.name, t.scientific_name, lang, '', '', '', '']
         next
       end
       
@@ -215,21 +214,25 @@ task :wikipedia_names, [:language] => [:environment] do |t, args|
         title = page["parse"]["title"]
         url = "https://" + lang + ".wikipedia.org/wiki/" + title
         if (is_disambiguation_page(page))
-          csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title, url, '', 1]
           puts "=> Ambiguous (" + lang + ")"
+          if lang == language
+            csv << [t.id, rank, t.name, t.scientific_name, lang, title, url, '', 1]
+          end
         else
           names = get_wikipedia_names(page).join(", ")
-          csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title, url, names, 0]
           puts "[" + lang + "] " + names
+          if lang == language
+            csv << [t.id, rank, t.name, t.scientific_name, lang, title, url, names, 0]
+          end
         end
       else
-        csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, en_title, '', '', '']
         puts "=> No page found (" + lang + ")"
+        #csv << [t.id, rank, t.name, t.scientific_name, lang, en_title, '', '', '']
         next
       end
       
       # Get other language pages
-      if (page["parse"].has_key?("langlinks"))
+      if (page["parse"].has_key?("langlinks")) and language != "en"
         page["parse"]["langlinks"].each{ |l|
           lang = l["lang"] 
           if (language and language != lang)
@@ -240,12 +243,12 @@ task :wikipedia_names, [:language] => [:environment] do |t, args|
           api_url = URI.escape("https://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + title)
           page = JSON.parse(open(api_url).read)
           if (is_disambiguation_page(page))
-            csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title.to_s, url, '', 1]
             puts "=> Ambiguous (" + lang + ")"
+            csv << [t.id, rank, t.name, t.scientific_name, lang, title.to_s, url, '', 1]
           else
             names = get_wikipedia_names(page).join(", ")
-            csv << [t.id, t.taxonomic_rank, t.name, t.scientific_name, lang, title.to_s, url, names.to_s, 0]
             puts "[" + lang + "] " + names.to_s
+            csv << [t.id, rank, t.name, t.scientific_name, lang, title.to_s, url, names.to_s, 0]
           end
         }
       end
