@@ -16,10 +16,12 @@ class ApplicationController < ActionController::Base
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Headers'] = 'content-type'
     headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
   end
 
   def handle_options_request
+    set_access_control_headers
     head(:ok) if request.request_method == "OPTIONS"
   end
 

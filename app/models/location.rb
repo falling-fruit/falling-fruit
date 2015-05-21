@@ -36,7 +36,7 @@ class Location < ActiveRecord::Base
   }
   # manually update postgis location object
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
-  after_initialize :default_values
+  #after_initialize :default_values
 
   public
 
@@ -209,8 +209,8 @@ class Location < ActiveRecord::Base
   end
 
   private
-  def default_values
-    self["type_ids"] ||= []
-  end
+  #def default_values
+  #  self["type_ids"] ||= []
+  #end
 
 end
