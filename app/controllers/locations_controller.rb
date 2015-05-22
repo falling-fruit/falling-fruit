@@ -177,9 +177,27 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     check_api_key!("api/locations/create") if request.format.json?
+    create_okay = ["author","description","observation","type_ids",
+                   "lat","lng","season_start","season_stop","no_season","unverified","access"]
+    params[:location] = params[:location].delete_if{ |k,v| not create_okay.include? k }
+    # hold onto obs params to parse separately
     obs_params = params[:location][:observation]
     params[:location].delete(:observation)
+    # sanitize type ids array
+    unless params[:location][:type_ids].nil?
+      if params[:location][:type_ids].kind_of? Hash
+      	params[:location][:type_ids] = params[:location][:type_ids].values
+      end
+      if params[:location][:type_ids].kind_of? Array
+        params[:location][:type_ids].map!{ |x| x.to_i }
+      else
+      	# if we couldn't get it in a reasonable format, delete it
+      	params[:location].delete(:type_ids)
+      end
+    end
+    # start creating things!
     @location = Location.new(params[:location])
+    @location.type_ids = []
     @observation = nil
     unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
       # deal with photo data in expected JSON format
@@ -245,10 +263,25 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.json
   def update
-    check_api_key!("api/locations/update") if request.format.json?
+  	check_api_key!("api/locations/update") if request.format.json?
+    update_okay = ["author","description","observation","type_ids","lat",
+                   "lng","season_start","season_stop","no_season","unverified","access"]
+    params[:location] = params[:location].delete_if{ |k,v| not update_okay.include? k }
     @location = Location.find(params[:id])
     obs_params = params[:location][:observation]
     params[:location].delete(:observation)
+    # sanitize type ids array
+    unless params[:location][:type_ids].nil?
+      if params[:location][:type_ids].kind_of? Hash
+      	params[:location][:type_ids] = params[:location][:type_ids].values
+      end
+      if params[:location][:type_ids].kind_of? Array
+        params[:location][:type_ids].map!{ |x| x.to_i }
+      else
+      	# if we couldn't get it in a reasonable format, delete it
+      	params[:location].delete(:type_ids)
+      end
+    end
     @observation = nil
     unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
       # deal with photo data in expected JSON format

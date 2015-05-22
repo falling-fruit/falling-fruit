@@ -209,8 +209,9 @@ class Location < ActiveRecord::Base
   end
 
   private
-  #def default_values
-  #  self["type_ids"] ||= []
-  #end
+  
+  def default_values
+    self["type_ids"] ||= []
+  end
 
 end
