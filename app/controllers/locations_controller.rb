@@ -308,8 +308,12 @@ class LocationsController < ApplicationController
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
 
     # compute diff/patch so we can undo later
-    dmp = DiffMatchPatch.new
-    patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description.nil? ? '' : @location.description))
+    unless params[:location][:description].nil?
+      dmp = DiffMatchPatch.new
+      patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description.nil? ? '' : @location.description))
+    else
+      patch = ""
+    end
     former_type_ids = @location.type_ids
     former_location = @location.location
 
