@@ -73,7 +73,43 @@ class Api::LocationsController < ApplicationController
       format.json { render json: @location.observations }
     end
   end
-
+  
+  # PUT /api/locations/1.json
+  def add_review
+  	return unless check_api_key!("api/locations/update")
+    @location = Location.find(params[:id])
+    
+    obs_params = params[:observation]
+    @observation = nil
+    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
+      # deal with photo data in expected JSON format
+      # (as opposed to something already caught and parsed by paperclip)
+      unless obs_params["photo_data"].nil?
+        tempfile = Tempfile.new("fileupload")
+        tempfile.binmode
+        tempfile.write(Base64.decode64(obs_params["photo_data"]["data"]))
+        tempfile.rewind
+        uploaded_file = ActionDispatch::Http::UploadedFile.new(
+          :tempfile => tempfile,
+          :filename => obs_params["photo_data"]["name"],
+          :type => obs_params["photo_data"]["type"]
+        )
+        obs_params[:photo] = uploaded_file
+        obs_params.delete(:photo_data)
+      end
+      @observation = Observation.new(obs_params)
+      @observation.location = @location
+    end
+    log_api_request("api/locations/add_review",1)
+    respond_to do |format|
+      if @observation.save
+        format.json { render json: {"status" => 0} }
+      else
+        format.json { render json: {"status" => 2, "error" => "Failed to update" } }
+      end
+    end
+  end
+  
   # Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
     return unless check_api_key!("api/locations/cluster_types")
