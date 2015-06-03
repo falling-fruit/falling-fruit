@@ -100,8 +100,11 @@ class LocationsController < ApplicationController
   # GET /freegan
   def freegan_index
     @freegan = true
-    params[:t] = 'toner-lite'
     params[:c] = 'freegan'
+    params[:t] = 'toner-lite'
+    #FIXME: clusters not yet supported for categories, so using type filter
+    @type = Type.find_by_name('Freegan')
+    params[:f] = @type.id
     index and return
   end
   
