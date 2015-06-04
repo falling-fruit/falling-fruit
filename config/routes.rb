@@ -1,6 +1,7 @@
 FallingfruitWebapp::Application.routes.draw do
 
-  match '*path', :controller => 'application', :action => 'handle_options_request', :constraints => {:method => 'OPTIONS'}
+  match '*path', :controller => 'application', :action => 'handle_options_request', 
+    :constraints => {:method => 'OPTIONS'}
 
   devise_for :users, :controllers => {:sessions => "sessions"}
   resources :users do
@@ -78,12 +79,13 @@ FallingfruitWebapp::Application.routes.draw do
 
   # these two methods are part of the API but actually live in the normal API controller to keep things DRY
   match 'api/locations/:id' => 'locations#update', via: [:put]
-  match 'api/locations' => 'locations#create', via: [:post]
+  match 'api/locations/:id' => 'locations#update', via: [:put]
 
   namespace :api do
     resources :locations do
       member do
         get 'reviews'
+        post 'add_review'
       end
       collection do
         get 'cluster'

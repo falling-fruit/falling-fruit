@@ -80,7 +80,11 @@ class ApplicationController < ActionController::Base
     a = ApiLog.new
     a.n = n
     a.endpoint = endpoint
-    a.params = Base64.encode64(Marshal.dump(params))
+    begin
+      a.params = Base64.encode64(Marshal.dump(params))
+    rescue StandardError => bang
+      a.params = nil
+    end
     a.request_method = request.request_method
     a.ip_address = request.remote_ip
     a.api_key = params[:api_key] if params[:api_key].present?

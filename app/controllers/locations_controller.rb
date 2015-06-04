@@ -100,8 +100,11 @@ class LocationsController < ApplicationController
   # GET /freegan
   def freegan_index
     @freegan = true
-    params[:t] = 'toner-lite'
     params[:c] = 'freegan'
+    params[:t] = 'toner-lite'
+    #FIXME: clusters not yet supported for categories, so using type filter
+    @type = Type.find_by_name('Freegan')
+    params[:f] = @type.id
     index and return
   end
   
@@ -204,7 +207,8 @@ class LocationsController < ApplicationController
       unless obs_params["photo_data"].nil?
         tempfile = Tempfile.new("fileupload")
         tempfile.binmode
-        tempfile.write(Base64.decode64(obs_params["photo_data"]["data"]))
+        data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
+        tempfile.write(Base64.decode64(data))
         tempfile.rewind
         uploaded_file = ActionDispatch::Http::UploadedFile.new(
           :tempfile => tempfile,
@@ -288,7 +292,8 @@ class LocationsController < ApplicationController
       unless obs_params["photo_data"].nil?
         tempfile = Tempfile.new("fileupload")
         tempfile.binmode
-        tempfile.write(Base64.decode64(obs_params["photo_data"]["data"]))
+        data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
+        tempfile.write(Base64.decode64(data))
         tempfile.rewind
         uploaded_file = ActionDispatch::Http::UploadedFile.new(
           :tempfile => tempfile,
@@ -306,8 +311,12 @@ class LocationsController < ApplicationController
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
 
     # compute diff/patch so we can undo later
-    dmp = DiffMatchPatch.new
-    patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description.nil? ? '' : @location.description))
+    unless params[:location][:description].nil?
+      dmp = DiffMatchPatch.new
+      patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description.nil? ? '' : @location.description))
+    else
+      patch = ""
+    end
     former_type_ids = @location.type_ids
     former_location = @location.location
 
