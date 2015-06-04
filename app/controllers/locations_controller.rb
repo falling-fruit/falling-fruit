@@ -207,6 +207,7 @@ class LocationsController < ApplicationController
       unless obs_params["photo_data"].nil?
         tempfile = Tempfile.new("fileupload")
         tempfile.binmode
+	logger.debug data
         data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
         tempfile.write(Base64.decode64(data))
         tempfile.rewind
@@ -237,6 +238,7 @@ class LocationsController < ApplicationController
         end
         t.save
       end
+      @location.type_ids = [] if @location.type_ids.nil?
       @location.type_ids.push t.id
     } if params[:types].present?
     @location.user = current_user if user_signed_in?
