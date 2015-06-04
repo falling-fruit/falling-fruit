@@ -305,3 +305,6 @@ DEPENDENCIES
   validates_timeliness
   world-flags
   yaml_db
+
+BUNDLED WITH
+   1.10.2

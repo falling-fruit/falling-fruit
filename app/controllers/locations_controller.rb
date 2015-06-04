@@ -187,17 +187,16 @@ class LocationsController < ApplicationController
     unless params[:location][:type_ids].nil?
       if params[:location][:type_ids].kind_of? Hash
       	params[:location][:type_ids] = params[:location][:type_ids].values
-      end
-      if params[:location][:type_ids].kind_of? Array
+      elsif params[:location][:type_ids].kind_of? Array
         params[:location][:type_ids].map!{ |x| x.to_i }
       else
       	# if we couldn't get it in a reasonable format, delete it
       	params[:location].delete(:type_ids)
       end
     end
+
     # start creating things!
     @location = Location.new(params[:location])
-    @location.type_ids = []
     @observation = nil
     unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
       # deal with photo data in expected JSON format
@@ -263,7 +262,7 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.json
   def update
-  	check_api_key!("api/locations/update") if request.format.json?
+    check_api_key!("api/locations/update") if request.format.json?
     update_okay = ["author","description","observation","type_ids","lat",
                    "lng","season_start","season_stop","no_season","unverified","access"]
     params[:location] = params[:location].delete_if{ |k,v| not update_okay.include? k }
@@ -329,7 +328,8 @@ class LocationsController < ApplicationController
       end
       @location.type_ids.push t.id
     } if params[:types].present?
-    lt_update_okay = @location.save
+    # if the list is empty, then we're assuming type ids were defined in params[:location] not params[:types]
+    lt_update_okay = @location.type_ids.empty? ? true : @location.save
 
     cluster_decrement(@location)
     log_api_request("api/locations/update",1)
@@ -344,7 +344,7 @@ class LocationsController < ApplicationController
         format.json { render json: {"status" => 0} }
       else
         format.html { render action: "edit" }
-        format.json { render json: {"status" => 2, "error" => "Failed to update" } }
+        format.json { render json: {"status" => 2, "error" => "Failed to update: #{@location.errors.full_messages.join(";")}" } }
       end
     end
   end
