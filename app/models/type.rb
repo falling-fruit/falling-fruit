@@ -51,6 +51,12 @@ class Type < ActiveRecord::Base
     ([self[Type.i18n_name_field(locale)], self.name].reject(&:blank?).first)
   end
 
+  def Type.ids
+    #Rails.cache.fetch('types_ids', :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      Type.select("id").collect{ |t| t.id }
+    #end
+  end
+
   def Type.i18n_name_field(locale=I18n.locale.to_s)
     lang = locale.tr("-","_")
     lang = "scientific" if lang == "la"

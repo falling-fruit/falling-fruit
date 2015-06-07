@@ -42,6 +42,7 @@ class Api::LocationsController < ApplicationController
   def show
     return unless check_api_key!("api/locations/show")
     @location = Location.find(params[:id])
+
     @location[:title] = @location.title
     @location[:photos] = @location.observations.collect{ |o|
       o.photo_file_name.nil? ? nil : { :updated_at => o.photo_updated_at, :url => o.photo.url }

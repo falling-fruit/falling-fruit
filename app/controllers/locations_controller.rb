@@ -193,7 +193,7 @@ class LocationsController < ApplicationController
     # start creating things!
     @location = Location.new(params[:location])
     @observation = prepare_observation(obs_params,@location)
-    @observation.author = @location.author
+    @observation.author = @location.author unless @observation.nil?
     @location.type_ids = normalize_create_types(params)
     @location.user = current_user if user_signed_in?
 
@@ -214,9 +214,8 @@ class LocationsController < ApplicationController
           format.json { render json: {"status" => 0, "id" => @location.id} }
         end
       else
-        @location.errors += @observation.errors
         format.html { render action: "new", notice: 'Location could not be created.' }
-        format.json { render json: {"status" => 2, "error" => "Failed to create: #{@location.errors.full_messages.join(";")}" } }
+        format.json { render json: {"status" => 2, "error" => "Failed to create: #{(@location.errors.full_messages + @observation.errors.full_messages).join(";")}" } }
       end
     end
   end
@@ -269,9 +268,8 @@ class LocationsController < ApplicationController
         format.json { render json: {"status" => 0} }
       else
         cluster_increment(@location) # do increment even if we fail so that clusters don't slowly deplete :/
-        @location.errors += @observation.errors
         format.html { render action: "edit", notice: 'Location could not be updated.' }
-        format.json { render json: {"status" => 2, "error" => "Failed to update: #{@location.errors.full_messages.join(";")}" } }
+        format.json { render json: {"status" => 2, "error" => "Failed to update: #{(@location.errors.full_messages + @observation.errors.full_messages).join(";")}" } }
       end
     end
   end
@@ -373,6 +371,7 @@ class LocationsController < ApplicationController
   #
   def normalize_create_types(params)
     type_ids = []
+
     params[:types].split(/,/).uniq.each{ |type_name|
       nf = Type.i18n_name_field
       tn = ActionController::Base.helpers.sanitize(type_name)
@@ -390,8 +389,10 @@ class LocationsController < ApplicationController
       end
       type_ids.push t.id
     } if params[:types].present?
-    
-    if params[:location].present? and params[:location][:type_ids]
+
+    logger.debug params[:location][:type_ids]
+
+    if params[:location].present? and params[:location][:type_ids].present?
       v = []
       if params[:location][:type_ids].kind_of? Hash
       	v = params[:location][:type_ids].values.map{ |x| x.to_i }
@@ -401,9 +402,13 @@ class LocationsController < ApplicationController
       	# if we couldn't get it in a reasonable format, delete it
       	params[:location].delete(:type_ids)
       end
+      logger.debug Type.ids
+      logger.debug v
       type_ids += (v & Type.ids) if v.length > 0
     end
 
+    logger.debug "TYPES!"
+    logger.debug type_ids
     type_ids
   end
 
