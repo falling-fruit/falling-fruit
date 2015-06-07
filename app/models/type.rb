@@ -46,6 +46,17 @@ class Type < ActiveRecord::Base
     self.scientific_name.blank? ? n : (n + " [" + self.scientific_name + "]")
   end
 
+  # Default to english name if requested is nil or empty
+  def i18n_name(locale=I18n.locale.to_s)
+    ([self[Type.i18n_name_field(locale)], self.name].reject(&:blank?).first)
+  end
+
+  def Type.i18n_name_field(locale=I18n.locale.to_s)
+    lang = locale.tr("-","_")
+    lang = "scientific" if lang == "la"
+    return lang == "en" ? "name" : "#{lang}_name"
+  end
+
   # Type filter 1.0
   def Type.hash_tree(cats=DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
@@ -109,13 +120,6 @@ class Type < ActiveRecord::Base
     Type.joins("LEFT OUTER JOIN types parents_types ON types.parent_id = parents_types.id").
       select("array_to_string(ARRAY[parents_types.name,types.name],'::') as sortme, parents_types.name as parent_name, types.*").
       order(:sortme)
-  end
-
-  # Default to english name if requested is nil or empty
-  def i18n_name(locale=I18n.locale.to_s)
-    lang = locale.tr("-","_")
-    lang = "scientific" if lang == "la"
-    return ([self["#{lang}_name"], self.name].reject(&:blank?).first)
   end
   
   # Default sorting scheme

@@ -180,71 +180,26 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     check_api_key!("api/locations/create") if request.format.json?
+
+    # sanitize input parameters
     create_okay = ["author","description","observation","type_ids",
                    "lat","lng","season_start","season_stop","no_season","unverified","access"]
     params[:location] = params[:location].delete_if{ |k,v| not create_okay.include? k }
+
     # hold onto obs params to parse separately
     obs_params = params[:location][:observation]
     params[:location].delete(:observation)
-    # sanitize type ids array
-    unless params[:location][:type_ids].nil?
-      if params[:location][:type_ids].kind_of? Hash
-      	params[:location][:type_ids] = params[:location][:type_ids].values
-      elsif params[:location][:type_ids].kind_of? Array
-        params[:location][:type_ids].map!{ |x| x.to_i }
-      else
-      	# if we couldn't get it in a reasonable format, delete it
-      	params[:location].delete(:type_ids)
-      end
-    end
 
     # start creating things!
     @location = Location.new(params[:location])
-    @observation = nil
-    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
-      # deal with photo data in expected JSON format
-      # (as opposed to something already caught and parsed by paperclip)
-      unless obs_params["photo_data"].nil?
-        tempfile = Tempfile.new("fileupload")
-        tempfile.binmode
-	logger.debug data
-        data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
-        tempfile.write(Base64.decode64(data))
-        tempfile.rewind
-        uploaded_file = ActionDispatch::Http::UploadedFile.new(
-          :tempfile => tempfile,
-          :filename => obs_params["photo_data"]["name"],
-          :type => obs_params["photo_data"]["type"]
-        )
-        obs_params[:photo] = uploaded_file
-        obs_params.delete(:photo_data)
-      end
-      @observation = Observation.new(obs_params)
-      @observation.location = @location
-      @observation.author = @location.author
-      @observation.user = current_user if user_signed_in?
-    end
-
-    params[:types] = params[:location][:types] if params[:types].blank? and not params[:location][:types].blank?
-    params[:types].split(/,/).uniq.each{ |type_name|
-      t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
-      if t.nil?
-        t = Type.new
-        t.name = type_name
-        if params[:c].blank?
-          t.category_mask = array_to_mask(["forager"],Type::Categories)
-        else
-          t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
-        end
-        t.save
-      end
-      @location.type_ids = [] if @location.type_ids.nil?
-      @location.type_ids.push t.id
-    } if params[:types].present?
+    @observation = prepare_observation(obs_params,@location)
+    @observation.author = @location.author
+    @location.type_ids = normalize_create_types(params)
     @location.user = current_user if user_signed_in?
 
     log_api_request("api/locations/create",1)
     respond_to do |format|
+      # FIXME: recaptcha check should go right at the beginning (before doing anything else)
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
       if test and @location.save and (@observation.nil? or @observation.save)
@@ -259,7 +214,8 @@ class LocationsController < ApplicationController
           format.json { render json: {"status" => 0, "id" => @location.id} }
         end
       else
-        format.html { render action: "new" }
+        @location.errors += @observation.errors
+        format.html { render action: "new", notice: 'Location could not be created.' }
         format.json { render json: {"status" => 2, "error" => "Failed to create: #{@location.errors.full_messages.join(";")}" } }
       end
     end
@@ -269,45 +225,17 @@ class LocationsController < ApplicationController
   # PUT /locations/1.json
   def update
     check_api_key!("api/locations/update") if request.format.json?
+    @location = Location.find(params[:id])
+
+    # santize input to only legit fields
     update_okay = ["author","description","observation","type_ids","lat",
                    "lng","season_start","season_stop","no_season","unverified","access"]
     params[:location] = params[:location].delete_if{ |k,v| not update_okay.include? k }
-    @location = Location.find(params[:id])
+    
+    # set aside observations params for manually processing
     obs_params = params[:location][:observation]
     params[:location].delete(:observation)
-    # sanitize type ids array
-    unless params[:location][:type_ids].nil?
-      if params[:location][:type_ids].kind_of? Hash
-      	params[:location][:type_ids] = params[:location][:type_ids].values
-      end
-      if params[:location][:type_ids].kind_of? Array
-        params[:location][:type_ids].map!{ |x| x.to_i }
-      else
-      	# if we couldn't get it in a reasonable format, delete it
-      	params[:location].delete(:type_ids)
-      end
-    end
-    @observation = nil
-    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
-      # deal with photo data in expected JSON format
-      # (as opposed to something already caught and parsed by paperclip)
-      unless obs_params["photo_data"].nil?
-        tempfile = Tempfile.new("fileupload")
-        tempfile.binmode
-        data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
-        tempfile.write(Base64.decode64(data))
-        tempfile.rewind
-        uploaded_file = ActionDispatch::Http::UploadedFile.new(
-          :tempfile => tempfile,
-          :filename => obs_params["photo_data"]["name"],
-          :type => obs_params["photo_data"]["type"]
-        )
-        obs_params[:photo] = uploaded_file
-        obs_params.delete(:photo_data)
-      end
-      @observation = Observation.new(obs_params)
-      @observation.location = @location
-    end
+    @observation = prepare_observation(obs_params,@location)
 
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
@@ -322,39 +250,27 @@ class LocationsController < ApplicationController
     former_type_ids = @location.type_ids
     former_location = @location.location
 
-    p = 0
-    lts = []
-    @location.type_ids = []
-    params[:types].split(/,/).uniq.each{ |type_name|
-      t = Type.select{ |t| t.full_name == ActionController::Base.helpers.sanitize(type_name) }.first
-      if t.nil?
-        t = Type.new
-        t.name = type_name
-        if params[:c].blank?
-          t.category_mask = array_to_mask(["forager"],Type::Categories)
-        else
-          t.category_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
-        end
-        t.save
-      end
-      @location.type_ids.push t.id
-    } if params[:types].present?
-    # if the list is empty, then we're assuming type ids were defined in params[:location] not params[:types]
-    lt_update_okay = @location.type_ids.empty? ? true : @location.save
+    # parase and normalize types
+    params[:location][:type_ids] = normalize_create_types(params)
 
+    # decrement cluster (since location may have moved into a different cluster)
     cluster_decrement(@location)
+
     log_api_request("api/locations/update",1)
     respond_to do |format|
+      # FIXME: recaptcha check should go right at the beginning (before doing anything else)
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
                                                        :message => "ReCAPCHA error!")
-      if test and @location.update_attributes(params[:location]) and lt_update_okay and (@observation.nil? or @observation.save)
+      if test and @location.update_attributes(params[:location]) and (@observation.nil? or @observation.save)
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_location)
         cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { render json: {"status" => 0} }
       else
-        format.html { render action: "edit" }
+        cluster_increment(@location) # do increment even if we fail so that clusters don't slowly deplete :/
+        @location.errors += @observation.errors
+        format.html { render action: "edit", notice: 'Location could not be updated.' }
         format.json { render json: {"status" => 2, "error" => "Failed to update: #{@location.errors.full_messages.join(";")}" } }
       end
     end
@@ -408,6 +324,88 @@ class LocationsController < ApplicationController
   end
 
   private
+
+  # prepare_observation
+  #
+  # This function is does the task of creating an observation from the parameters
+  # in a standard way. It also parses the photo data provided from the API, or in the
+  # case of standard form submission, deals with the paperclip attachment. It DOES NOT
+  # save the observation that it instantiates.
+  #
+  def prepare_observation(obs_params,loc)
+    return nil if obs_params.nil? or obs_params.values.all?{|x| x.blank? }
+
+    # deal with photo data in expected JSON format
+    # (as opposed to something already caught and parsed by paperclip)
+    unless obs_params["photo_data"].nil?
+      tempfile = Tempfile.new("fileupload")
+      tempfile.binmode
+      data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
+      tempfile.write(Base64.decode64(data))
+      tempfile.rewind
+      uploaded_file = ActionDispatch::Http::UploadedFile.new(
+        :tempfile => tempfile,
+        :filename => obs_params["photo_data"]["name"],
+        :type => obs_params["photo_data"]["type"]
+      )
+      obs_params[:photo] = uploaded_file
+      obs_params.delete(:photo_data)
+    end
+    obs = Observation.new(obs_params)
+    obs.observed_on = Date.today if obs.observed_on.nil?
+    obs.location = loc
+    obs.user = current_user if user_signed_in?
+    return obs
+  end
+
+  # normalize_create_types
+  #
+  # This function is a grand unified parser of parameters related to types
+  # it expects one or both of:
+  #
+  # params[:types] - a comma separated list of types (optionally with scientific name in square brackets)
+  # params[:location][:type_ids] - either a hash, where the values are IDs, or an array of IDs
+  #
+  # In the case of the former, any unrecognized types will have new (pending) types created
+  # In the case of the latter, only types whose IDs are legal are kept.
+  #
+  # The function does not modify the params object, and returns a sanitized array of type IDs
+  #
+  def normalize_create_types(params)
+    type_ids = []
+    params[:types].split(/,/).uniq.each{ |type_name|
+      nf = Type.i18n_name_field
+      tn = ActionController::Base.helpers.sanitize(type_name)
+      t = Type.where("(#{nf} || CASE WHEN scientific_name IS NULL THEN NULL ELSE ' ['||scientific_name||']' END)='#{tn}'")
+      # if it's not found, make it a pending type
+      if t.nil? or t.empty?
+        t = Type.new
+        t.name = type_name
+        t.pending = true # this is database default, but setting here just in case
+        t.category_mask = params[:c].blank? ? array_to_mask(["forager"],Type::Categories) : 
+                                              array_to_mask(params[:c].split(/,/),Type::Categories)
+        t.save
+      else
+        t = t.first
+      end
+      type_ids.push t.id
+    } if params[:types].present?
+    
+    if params[:location].present? and params[:location][:type_ids]
+      v = []
+      if params[:location][:type_ids].kind_of? Hash
+      	v = params[:location][:type_ids].values.map{ |x| x.to_i }
+      elsif params[:location][:type_ids].kind_of? Array
+        v = params[:location][:type_ids].map{ |x| x.to_i }
+      else
+      	# if we couldn't get it in a reasonable format, delete it
+      	params[:location].delete(:type_ids)
+      end
+      type_ids += (v & Type.ids) if v.length > 0
+    end
+
+    type_ids
+  end
 
   def prepare_for_sidebar
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
