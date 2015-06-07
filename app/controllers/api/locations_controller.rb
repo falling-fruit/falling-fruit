@@ -13,8 +13,8 @@ class Api::LocationsController < ApplicationController
     else
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
-    cfilter = "(category_mask & #{cat_mask})>0"
-    @types = Type.where(cfilter).collect{ |t| {:name => t.full_name, :id => t.id } }
+    cfilter = "(category_mask & #{cat_mask})>0 AND NOT pending"
+    @types = Type.where(cfilter).collect{ |t| {:name => t.full_name, :id => t.id } }.sort{ |x,y| x[:name]<=>y[:name] }
     log_api_request("api/locations/types",@types.length)
     respond_to do |format|
       format.json { render json: @types }
