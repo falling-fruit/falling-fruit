@@ -343,8 +343,8 @@ class LocationsController < ApplicationController
       tempfile.rewind
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
         :tempfile => tempfile,
-        :filename => obs_params["photo_data"]["name"],
-        :type => obs_params["photo_data"]["type"]
+        :type => "image/jpeg",
+        :filename => "upload.jpg"
       )
       obs_params[:photo] = uploaded_file
       obs_params.delete(:photo_data)
