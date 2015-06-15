@@ -77,7 +77,7 @@ class Api::LocationsController < ApplicationController
   
   # PUT /api/locations/1.json
   def add_review
-  	return unless check_api_key!("api/locations/update")
+    return unless check_api_key!("api/locations/update")
     @location = Location.find(params[:id])
     
     obs_params = params[:observation]
@@ -101,6 +101,7 @@ class Api::LocationsController < ApplicationController
       end
       @observation = Observation.new(obs_params)
       @observation.location = @location
+      @observation.author = current_user.name unless (not user_signed_in?) or (current_user.add_anonymously)
     end
     log_api_request("api/locations/add_review",1)
     respond_to do |format|

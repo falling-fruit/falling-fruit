@@ -53,7 +53,7 @@ it:
     unlocks:
       send_instructions: Entro qualche minuto riceverai un messaggio email con le istruzioni per sbloccare il tuo account.
       send_paranoid_instructions: Se la tua email esiste nel nostro database, entro qualche minuto riceverai un messaggio email con le istruzioni per sbloccare il tuo account.
-      unlocked: Il tuo account è stato correttamente sbloccato. Ora sei collegato.
+      unlocked: Il tuo account è stato correttamente sbloccato. Effetua un nuovo accesso.
   errors:
     messages:
       after: deve essere dopo %{restriction}
@@ -72,7 +72,7 @@ it:
       on_or_after: deve essere acceso o dopo %{restriction}
       on_or_before: deve essere acceso o prima %{restriction}
   glossary:
-    about: Su
+    about: Chi siamo
     access: Accesso
     account: Conto
     activity: Attività
@@ -81,8 +81,8 @@ it:
     anonymous: Anonimo
     are_you_sure: Sei sicuro?
     australia: Australia
-    belgium: 
-    by_author: by %{author}
+    belgium: Belgio
+    by_author: da %{author}
     canada: Canada
     common_name: Nome comune
     data: Dati
@@ -93,10 +93,10 @@ it:
     edible_type: Tipo commestibile
     edit: Modifica
     email: Email
-    embed: Embed
+    embed: Colloca
     error: Errore
     favorites: Preferiti
-    fiji: Fiji
+    fiji: ''
     filter: Filtro
     france: Francia
     global: Globale
@@ -108,9 +108,11 @@ it:
     italy: Italia
     labels: Etichette
     links:
-      one: Collegamento
+      one: Link
       other: Links
-    locations: Locations
+    locations:
+      one: Luogo
+      other: Luoghi
     login: Login
     logout: Logout
     map: Mappa
@@ -118,10 +120,10 @@ it:
     name: Nome
     options: Opzioni
     password: Password
-    pending_types: In attesa di tipi
+    pending_types: Tipi in attesa
     photo: Foto
-    position: 
-    problems: Problematica
+    position: posizione
+    problems: Problemi
     public: Pubblico
     quality: Qualità
     report: Relazione
@@ -133,13 +135,15 @@ it:
     save_changes: Salva modifiche
     scientific_name: Nome scientifico
     season: Stagione
-    send: Inviare
-    show: Spettacolo
+    send: Invia
+    show: Dimostra
     sign_up: Iscriviti
     street_view: Street View
-    submit: Presentare
-    tree_inventories: ''
-    type_and_press_enter: Tipo e premere Invio
+    submit: Inoltrare
+    tree_inventories:
+      other: inventari degli alberi
+      one: inventario degli alberi
+    type_and_press_enter: Immetti e premi enter
     types: Tipi
     united_kingdom: Regno Unito
     united_states: Stati Uniti
@@ -150,20 +154,20 @@ it:
     users: Utenti
     visited: Visitato
     world: Mondo
-    yield: 
+    yield: Raccolta
     zoom: Zoom
     zoom_to_current_location: Zoom su posizione corrente
-    zoom_to_me: Zoom a me
+    zoom_to_me: 
     zoom_to_this_location: Zoom a questa posizione
   layouts:
     application:
-      feed_people_not_landfills: Persone sfamare, non discariche!
+      feed_people_not_landfills: Sfamare la gente, non discariche!
       mapping_the_urban_harvest: Mappatura del raccolto urbano!
       menu:
         approved_types: Tipi approvati
-        in_the_press: Sulla stampa
-        list_imports: Importazioni Elenco
-        new_import: New import
+        in_the_press: Nelle medie
+        list_imports: Elenchi imporati
+        new_import: Nuovo import
         new_type: Nuovo tipo
         sharing_the_harvest: Condivisione della vendemmia
         the_project: Il progetto

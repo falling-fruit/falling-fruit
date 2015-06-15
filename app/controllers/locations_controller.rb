@@ -192,6 +192,7 @@ class LocationsController < ApplicationController
 
     # start creating things!
     @location = Location.new(params[:location])
+    @location.author = current_user.name unless (not user_signed_in?) or (current_user.add_anonymously)
     @observation = prepare_observation(obs_params,@location)
     @observation.author = @location.author unless @observation.nil?
     @location.type_ids = normalize_create_types(params)
@@ -238,6 +239,11 @@ class LocationsController < ApplicationController
 
     # prevent normal users from changing author
     params[:location][:author] = @location.author unless user_signed_in? and current_user.is? :admin
+
+    # set author
+    @observation.author = current_user.name unless @observation.nil? or (not user_signed_in?) or (current_user.add_anonymously)
+    # overwrite with field setting if given
+    @observation.author = params[:author] if params[:author].present? and not params[:author].blank?
 
     # compute diff/patch so we can undo later
     unless params[:location][:description].nil?
