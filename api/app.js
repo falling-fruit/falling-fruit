@@ -13,13 +13,19 @@ function catmask(cats) {
 }
 var default_catmask = catmask(["forager","freegan"]);
 
-// FIXME: add normalization
+function i18n_name(locale) {
+  if(__.contains(["es","he","pt","it","fr","de","pl"],locale)) return locale + "_name";
+  else return "name";
+}
+
 app.get('/types.json', apicache('1 hour'), function (req, res) {
   var cmask = default_catmask;
-  if(req.query.c){ cmask = catmask(req.query.c.split(",")); }
+  if(req.query.c) cmask = catmask(req.query.c.split(",")); 
+  var name = "name";
+  if(req.query.locale) name = i18n_name(req.query.locale); 
   db.pg.connect(db.conString, function(err, client, done) {
     if (err) return console.error('error fetching client from pool', err);
-    client.query("SELECT id,name,scientific_name FROM types WHERE NOT \
+    client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
                   pending AND (category_mask & $1)>0 ORDER BY name,scientific_name;",
                  [cmask],function(err, result) {
       if (err) return console.error('error running query', err);
@@ -31,11 +37,14 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
 // NOTE: title has been replaced with type_names
 app.get('/locations/:id(\\d+).json', function (req, res) {
   var id = req.params.id;
+  var name = "name";
+  if(req.query.locale) name = i18n_name(req.query.locale); 
   db.pg.connect(db.conString, function(err, client, done) {
     if (err) return console.error('error fetching client from pool', err);
     client.query("SELECT access, address, author, city, state, country, description, \
                   id, lat, lng, muni, type_ids, unverified, \
-                  (SELECT ARRAY_AGG(name) FROM types t WHERE ARRAY[t.id] <@ l.type_ids) as type_names, \
+                  (SELECT ARRAY_AGG(COALESCE("+name+",name)) FROM types t \
+                   WHERE ARRAY[t.id] <@ l.type_ids) as type_names, \
                   (SELECT COUNT(*) FROM observations o WHERE o.location_id=l.id) as num_reviews \
                   FROM locations l WHERE id=$1;",
                  [id],function(err, result) {
