@@ -65,12 +65,12 @@ function check_api_key(req,client,callback){
 
 // Routes
 
-// TODO:
+// FIXME: CORS enabled
 
-// PUT /locations/:id.json (edit location) - 0.2
-// POST /locations.json (add location) - 0.2
-// POST /locations/:id/reviews.json (add review) - 0.2
-// GET /locations/mine.json - 0.3
+// TODO: PUT /locations/:id.json (edit location) - 0.2
+// TODO: POST /locations.json (add location) - 0.2
+// TODO: POST /locations/:id/reviews.json (add review) - 0.2
+// TODO: GET /locations/mine.json - 0.3
 
 // Note: /locations/marker.json is now obsolete (covered by /locations/:id.json)
 // Note: /locations/nearby.json is now obsolete (covered by /locations.json)
