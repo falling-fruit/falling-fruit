@@ -27,6 +27,22 @@ function postgis_bbox(v,nelat,nelng,swlat,swlng){
   }
 }
 
+// Waterfall Helper functions
+
+function check_api_key(req,client,callback){
+  if(!req.query.api_key) return callback(true,'api key missing');
+  client.query("SELECT 1 FROM api_keys WHERE api_key=$1;",
+               [req.query.api_key],function(err, result) {
+    if (err) callback(err,'error running query');
+    if(result.rowCount == 0){
+      callback(true,'api key is invalid');
+    }else{
+      callback(null);
+    }
+  });
+}
+
+
 // Routes
 
 // Note: grid parameter replaced by zoom
@@ -51,20 +67,8 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
       return done();
     }
     async.waterfall([
+      function(callback){ check_api_key(req,client,callback) },
       function(callback){
-        if(!req.query.api_key) return callback(true,'api key missing');
-        client.query("SELECT 1 FROM api_keys WHERE api_key=$1;",
-                     [req.query.api_key],function(err, result) {
-          if (err) callback(err,'error running query');
-          if(result.rowCount == 0){
-            callback(true,'api key is invalid');
-          }else{
-            callback(null);
-          }
-        });
-      },
-      function(callback){
-        console.log("here");
         if(bfilter){
           filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
           client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name,SUM(count) as count \
@@ -105,42 +109,71 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
   var name = "name";
   if(req.query.locale) name = i18n_name(req.query.locale); 
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err) return console.error('error fetching client from pool', err);
-    client.query("SELECT access, address, author, city, state, country, description, \
-                  id, lat, lng, muni, type_ids, unverified, \
-                  (SELECT ARRAY_AGG(COALESCE("+name+",name)) FROM types t \
-                   WHERE ARRAY[t.id] <@ l.type_ids) as type_names, \
-                  (SELECT COUNT(*) FROM observations o WHERE o.location_id=l.id) as num_reviews \
-                  FROM locations l WHERE id=$1;",
-                 [id],function(err, result) {
-      if (err) return console.error('error running query', err);
-      if (result.rowCount == 0) return res.send({});
-      location = result.rows[0];
-      location.num_reviews = parseInt(location.num_reviews);
-      client.query("SELECT photo_updated_at, photo_file_name FROM observations \
-                    WHERE photo_file_name IS NOT NULL AND location_id=$1;",
-                   [id],function(err, result) {
-        if (err) return console.error('error running query', err);
-        location.photos = result.rows;
-        res.send(location);
-        done();
-      });
-    });
+    if (err){ 
+      console.error('error fetching client from pool',err);
+      return done();
+    }
+    async.waterfall([
+      function(callback){ check_api_key(req,client,callback) },
+      function(callback){
+        client.query("SELECT access, address, author, city, state, country, description, \
+                      id, lat, lng, muni, type_ids, unverified, \
+                      (SELECT ARRAY_AGG(COALESCE("+name+",name)) FROM types t \
+                       WHERE ARRAY[t.id] <@ l.type_ids) as type_names, \
+                      (SELECT COUNT(*) FROM observations o WHERE o.location_id=l.id) as num_reviews \
+                      FROM locations l WHERE id=$1;",
+                     [id],function(err, result) {
+          if (err) callback(err,'error running query');
+          if (result.rowCount == 0) return res.send({});
+          location = result.rows[0];
+          location.num_reviews = parseInt(location.num_reviews);
+          client.query("SELECT photo_updated_at, photo_file_name FROM observations \
+                        WHERE photo_file_name IS NOT NULL AND location_id=$1;",
+                       [id],function(err, result) {
+            if (err) callback(err,'error running query');
+            location.photos = result.rows;
+            res.send(location);
+          });
+        });
+      }
+    ],
+    function(err,message){
+      done();
+      if(message){ 
+        res.send({"error": message})
+        console.error(message, err);
+      }
+    }); 
+
   });
 });
 
 app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
   var id = req.params.id;
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err) return console.error('error fetching client from pool', err);
-    client.query("SELECT id, location_id, comment, observed_on, \
-                  photo_file_name, fruiting, quality_rating, yield_rating, author, photo_caption \
-                  FROM observations WHERE location_id=$1;",
-                 [id],function(err, result) {
-      if (err) return console.error('error running query', err);
-      res.send(result.rows);
+    if (err){ 
+      console.error('error fetching client from pool',err);
+      return done();
+    }
+    async.waterfall([
+      function(callback){ check_api_key(req,client,callback) },
+      function(callback){
+        client.query("SELECT id, location_id, comment, observed_on, \
+                      photo_file_name, fruiting, quality_rating, yield_rating, author, photo_caption \
+                      FROM observations WHERE location_id=$1;",
+                     [id],function(err, result) {
+          if (err) callback(err,'error running query');
+          res.send(result.rows);
+        });
+      }
+    ],
+    function(err,message){
       done();
-    });
+      if(message){ 
+        res.send({"error": message})
+        console.error(message, err);
+      }
+    });    
   });
 });
 
