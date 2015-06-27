@@ -19,7 +19,9 @@
        "pg": ">= 4.4.0",
        "js-yaml": ">= 3.3.1",
        "fs": ">= 0.0.2",
-       "bluebird": ">= 2.9.30"
+       "bluebird": ">= 2.9.30",
+       "underscore": ">= 1.8.3",
+       "apicache": ">= 0.0.12"
    },
    "bin" : {
        "api" : "./app.js"
