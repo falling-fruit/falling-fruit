@@ -1,5 +1,5 @@
 var db = require('./db');
-var promise = require("bluebird");
+var async = require("async");
 var __ = require("underscore");
 var express = require('express');
 var apicache = require('apicache').options({ debug: true }).middleware;
@@ -46,28 +46,55 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
     if(req.query.zoom) zfilter = "AND zoom="+parseInt(req.query.zoom);
   }
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err) return console.error('error fetching client from pool', err);
-    if(bfilter){
-      filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
-      client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name,SUM(count) as count \
-                    FROM types t, clusters c WHERE c.type_id=t.id AND NOT pending \
-                    AND (category_mask & $1)>0 "+filters+" GROUP BY t.id, name, scientific_name \
-                    ORDER BY name,scientific_name;",
-                   [cmask],function(err, result) {
-        if (err) return console.error('error running query', err);
-        res.send(__.map(result.rows,function(x){ 
-          x.count = parseInt(x.count); 
-          return x; 
-        }));
-      });
-    }else{
-      client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
-                    pending AND (category_mask & $1)>0 ORDER BY name,scientific_name;",
-                   [cmask],function(err, result) {
-        if (err) return console.error('error running query', err);
-        res.send(result.rows);
-      });
+    if (err){ 
+      console.error('error fetching client from pool',err);
+      return done();
     }
+    async.waterfall([
+      function(callback){
+        if(!req.query.api_key) return callback(true,'api key missing');
+        client.query("SELECT 1 FROM api_keys WHERE api_key=$1;",
+                     [req.query.api_key],function(err, result) {
+          if (err) callback(err,'error running query');
+          if(result.rowCount == 0){
+            callback(true,'api key is invalid');
+          }else{
+            callback(null);
+          }
+        });
+      },
+      function(callback){
+        console.log("here");
+        if(bfilter){
+          filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
+          client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name,SUM(count) as count \
+                        FROM types t, clusters c WHERE c.type_id=t.id AND NOT pending \
+                        AND (category_mask & $1)>0 "+filters+" GROUP BY t.id, name, scientific_name \
+                        ORDER BY name,scientific_name;",
+                       [cmask],function(err, result) {
+            if (err) callback(err,'error running query');
+            res.send(__.map(result.rows,function(x){ 
+              x.count = parseInt(x.count); 
+              return x; 
+            }));
+          });
+        }else{
+          client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
+                        pending AND (category_mask & $1)>0 ORDER BY name,scientific_name;",
+                       [cmask],function(err, result) {
+            if (err) callback(err,'error running query');
+            res.send(result.rows);
+          });
+        }
+      }
+    ],
+    function(err,message){
+      done();
+      if(message){ 
+        res.send({"error": message})
+        console.error(message, err);
+      }
+    }); 
   });
 });
 
@@ -96,6 +123,7 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
         if (err) return console.error('error running query', err);
         location.photos = result.rows;
         res.send(location);
+        done();
       });
     });
   });
@@ -111,6 +139,7 @@ app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
                  [id],function(err, result) {
       if (err) return console.error('error running query', err);
       res.send(result.rows);
+      done();
     });
   });
 });
