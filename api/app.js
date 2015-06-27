@@ -5,6 +5,7 @@ var express = require('express');
 var apicache = require('apicache').options({ debug: true }).middleware;
 var app = express();
 
+// Helper functions
 function catmask(cats) {
   var options = ["forager","freegan","honeybee","grafter"];
   return __.reduce(__.pairs(options),function(memo,pair){
@@ -25,6 +26,8 @@ function postgis_bbox(v,nelat,nelng,swlat,swlng){
     return "AND (ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,"+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+swlng+","+swlat+"), ST_POINT(180,"+nelat+")),4326),900913)))";
   }
 }
+
+// Routes
 
 // Note: grid parameter replaced by zoom
 // Note: now can accept a bounding box, obviating the cluster_types.json endpoint
@@ -52,7 +55,10 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
                     ORDER BY name,scientific_name;",
                    [cmask],function(err, result) {
         if (err) return console.error('error running query', err);
-        res.send(result.rows);
+        res.send(__.map(result.rows,function(x){ 
+          x.count = parseInt(x.count); 
+          return x; 
+        }));
       });
     }else{
       client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
