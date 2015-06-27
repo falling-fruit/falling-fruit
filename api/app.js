@@ -19,12 +19,33 @@ function i18n_name(locale) {
   else return "name";
 }
 
-function postgis_bbox(v,nelat,nelng,swlat,swlng){
+function postgis_bbox(v,nelat,nelng,swlat,swlng,srid){
   if(swlng < nelng){
-    return "AND ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913))";
+    if(srid == 900913){
+      return "AND ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+
+             swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913))";
+    }else{ // assume 4326
+      return "AND ST_INTERSECTS("+v+",ST_SETSRID(ST_MakeBox2D(ST_POINT("+
+             swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326))";
+    }
   }else{
-    return "AND (ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,"+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+swlng+","+swlat+"), ST_POINT(180,"+nelat+")),4326),900913)))";
+    if(srid == 900913){
+      return "AND (ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,"+
+             swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913)) OR \
+             ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+
+             swlng+","+swlat+"), ST_POINT(180,"+nelat+")),4326),900913)))";
+    }else{ // assume 4326
+      return "AND (ST_INTERSECTS("+v+",ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,"+
+             swlat+"), ST_POINT("+nelng+","+nelat+")),4326)) OR \
+             ST_INTERSECTS("+v+",ST_SETSRID(ST_MakeBox2D(ST_POINT("+
+             swlng+","+swlat+"), ST_POINT(180,"+nelat+")),4326)))";
+    }
   }
+}
+
+function send_error(res,msg,logmsg){
+  res.send({"error": msg});
+  console.error("ERROR: ",msg,logmsg);
 }
 
 // Waterfall Helper functions
@@ -58,12 +79,12 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
   var zfilter = "AND zoom=2";
   if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
     bfilter = postgis_bbox("cluster_point",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
-                           parseFloat(req.query.swlat),parseFloat(req.query.swlng));
+                           parseFloat(req.query.swlat),parseFloat(req.query.swlng),900913);
     if(req.query.zoom) zfilter = "AND zoom="+parseInt(req.query.zoom);
   }
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
-      console.error('error fetching client from pool',err);
+      send_error(res,'error fetching client from pool',err);
       return done();
     }
     async.waterfall([
@@ -94,10 +115,84 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
     ],
     function(err,message){
       done();
-      if(message){ 
-        res.send({"error": message})
-        console.error(message, err);
+      if(message) send_error(res,message,err);
+    }); 
+  });
+});
+
+// Note: types renamed to type_ids
+// Note: n renamed to limit
+// Note: name (string) replaced with type_names (array)
+// Note: title removed (client can create from type_names)
+// FIXME: does not include child types, leaves it to the client to do that with t argument
+// Note: can take lat/lng to obviate need for nearby.json
+// Note: returns only the most recent photo, not an array of photos
+// FIXME: convert photo_file_name to URL (thumbnail)
+app.get('/locations.json', function (req, res) {
+  var cmask = default_catmask;
+  if(req.query.c) cmask = catmask(req.query.c.split(",")); 
+  var cfilter = "(bit_or(t.category_mask) & "+cmask+")>0";
+  var name = "name";
+  if(req.query.locale) name = i18n_name(req.query.locale); 
+  var mfilter = "";
+  if(req.query.muni == 0) mfilter = "AND NOT muni";
+  var bfilter = undefined;
+  if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
+    bfilter = postgis_bbox("location",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
+                           parseFloat(req.query.swlat),parseFloat(req.query.swlng));
+  }else{
+    return send_error(res,'bounding box not defined');    
+  }
+  var sorted = "1 as sort";
+  if(req.query.t){
+    var tids = __.map(req.query.t.split(","),function(x){ parseInt(x) });
+    sorted = "CASE WHEN array_agg(t.id) @> ARRAY["+tids+"] THEN 0 ELSE 1 END as sort";
+  }
+  var limit = req.query.limit ? __.min([parseInt(req.query.limit),1000]) : 1000;
+  var offset = req.query.offset ?parseInt(req.query.offset) : 0;
+  var filters = __.reject([bfilter,mfilter],__.isUndefined).join(" ");
+  var distance = "";
+  if(__.every([req.query.lat,req.query.lng])){
+    distance = ",ST_Distance(l.location,ST_SETSRID(ST_POINT("+parseFloat(req.query.lng)+
+               ","+parseFloat(req.query.lat)+"),4326)) as distance";
+  }
+  var reviews = "";
+  if(req.query.reviews == 1){
+    reviews = ",(SELECT COUNT(*) FROM observations o1 WHERE o1.location_id=l.id) AS num_reviews,\
+               (SELECT photo_file_name FROM observations o2 WHERE o2.location_id=l.id AND \
+                photo_file_name IS NOT NULL \
+                ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name";
+  }
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err){ 
+      send_error(res,'error fetching client from pool',err);
+      return done();
+    }
+    async.waterfall([
+      function(callback){ check_api_key(req,client,callback) },
+      function(callback){
+        client.query("SELECT COUNT(*) FROM locations l, types t WHERE t.id=ANY(l.type_ids) "+
+                      filters+";",[],function(err,result){
+          if (err) callback(err,'error running query');
+          else callback(null,parseInt(result.rows[0].count));
+        });
+      },
+      function(total_count,callback){
+        client.query("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids, \
+                      l.description, l.author, \
+                      ARRAY_AGG(COALESCE("+name+",name)) AS type_names, \
+                      "+sorted+distance+reviews+" FROM locations l, types t\
+                      WHERE t.id=ANY(l.type_ids) "+filters+" GROUP BY l.id, l.lat, l.lng, l.unverified \
+                      HAVING "+cfilter+" ORDER BY sort LIMIT $1 OFFSET $2;",
+                     [limit,offset],function(err, result) {
+          if (err) callback(err,'error running query');
+          res.send([result.rowCount,total_count].concat(result.rows));
+        });
       }
+    ],
+    function(err,message){
+      done();
+      if(message) send_error(res,message,err);
     }); 
   });
 });
@@ -110,7 +205,7 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
   if(req.query.locale) name = i18n_name(req.query.locale); 
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
-      console.error('error fetching client from pool',err);
+      send_error(res,'error fetching client from pool',err);
       return done();
     }
     async.waterfall([
@@ -139,20 +234,18 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
     ],
     function(err,message){
       done();
-      if(message){ 
-        res.send({"error": message})
-        console.error(message, err);
-      }
+      if(message) send_error(res,message,err);
     }); 
 
   });
 });
 
+// FIXME: convert photo_file_name to photo_url
 app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
   var id = req.params.id;
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
-      console.error('error fetching client from pool',err);
+      send_error(res,'error fetching client from pool',err);
       return done();
     }
     async.waterfall([
@@ -169,10 +262,7 @@ app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
     ],
     function(err,message){
       done();
-      if(message){ 
-        res.send({"error": message})
-        console.error(message, err);
-      }
+      if(message) send_error(res,message,err);
     });    
   });
 });
@@ -301,154 +391,6 @@ app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
 //    end
 //  end
 
-//  def nearby
-//    return unless check_api_key!("api/locations/nearby")
-//    # Muni API is locked to muni & forager
-//    if !@api_key.nil? and @api_key.api_type == "muni"
-//      params[:muni] = 1
-//      params[:c] = "forager"
-//    end
-//    max_n = 100
-//    offset_n = params[:offset].present? ? params[:offset].to_i : 0
-//    if params[:c].blank?
-//      cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
-//    else
-//      cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
-//    end
-//    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? nil :
-//      "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
-//                                                     ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
-//    cfilter = "(bit_or(t.category_mask) & #{cat_mask})>0"
-//    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
-//    sorted = "1 as sort"
-//    # FIXME: would be easy to allow t to be an array of typesq
-//    if params[:t].present?
-//      type = Type.find(params[:t])
-//      tids = ([type.id] + type.all_children.collect{ |c| c.id }).compact.uniq
-//      sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{tids.join(",")}] THEN 0 ELSE 1 END as sort"
-//    end
-//    unless params[:lat].present? and params[:lng].present?
-//      # error!
-//      return
-//    end
-//    dist = "ST_Distance(l.location,ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326))"
-//    dfilter = "ST_DWithin(l.location,ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326),100000)" # must be within 100k!
-//    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-//    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, count(o.*),
-//      #{dist} as distance, l.description, l.author,
-//      array_agg(t.parent_id) as parent_types,
-//      string_agg(coalesce(#{i18n_name_field}t.name),',') AS name,
-//      #{sorted} FROM locations l LEFT JOIN observations o ON o.location_id=l.id, types t
-//      WHERE #{[bound,dfilter,mfilter].compact.join(" AND ")} AND t.id=ANY(l.type_ids)
-//      GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
-//      LIMIT #{max_n} OFFSET #{offset_n}");
-//    @markers = r.collect{ |row|
-//      row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
-//      row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
-//      if row["name"].nil? or row["name"].strip == ""
-//        name = "Unknown"
-//      else
-//        t = row["name"].split(/,/)
-//        if t.length == 2
-//          name = "#{t[0]} & #{t[1]}"
-//        elsif t.length > 2
-//          name = "#{t[0]} & Others"
-//        else
-//          name = t[0]
-//        end
-//      end
-//      {:title => name, :location_id => row["id"].to_i,
-//       :lat => row["lat"].to_f, :lng => row["lng"].to_f,
-//       :distance => row["distance"].to_f.round,
-//       :description => row["description"], :author => row["author"],
-//       :num_reviews => row["count"].to_i
-//      }
-//    } unless r.nil?
-//    photo_having_lids = @markers.collect{ |m| m[:num_reviews] > 0 ? m[:location_id] : nil }.compact
-//    obs_hash = {}
-//    Observation.where("location_id IN (#{photo_having_lids.join(",")})").collect{ |o|
-//      obs_hash[o.location_id] = [] if obs_hash[o.location_id].nil?
-//      obs_hash[o.location_id] << [:thumbnail => o.photo(:thumb), :created_at => o.created_at]
-//    } unless photo_having_lids.empty?
-//    @markers.collect{ |m|
-//      m[:photos] = obs_hash[m[:location_id]] unless obs_hash[m[:location_id]].nil?
-//    }
-//    log_api_request("api/locations/nearby",@markers.length)
-//    respond_to do |format|
-//      format.json { render json: @markers }
-//    end
-//  end
-
-//  # Currently keeps max_n markers, and displays filtered out markers as translucent grey.
-//  # Unverified no longer has its own color.
-//  def markers
-//    return unless check_api_key!("api/locations/markers")
-//    if params[:n].present?
-//      max_n = [1000,params[:n].to_i].min
-//    else
-//      max_n = 1000
-//    end
-//    # Muni API is locked to muni & forager
-//    if !@api_key.nil? and @api_key.api_type == "muni"
-//      params[:muni] = 1
-//      params[:c] = "forager"
-//      max_n = [100,max_n].min
-//    end
-//    offset_n = params[:offset].present? ? params[:offset].to_i : 0
-
-//    if params[:c].blank?
-//      cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
-//    else
-//      cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
-//    end
-//    cfilter = "(bit_or(t.category_mask) & #{cat_mask})>0"
-//    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
-//    sorted = "1 as sort"
-//    # FIXME: would be easy to allow t to be an array of types
-//    if params[:t].present?
-//      type = Type.find(params[:t])
-//      tids = ([type.id] + type.all_children.collect{ |c| c.id }).compact.uniq
-//      sorted = "CASE WHEN array_agg(t.id) @> ARRAY[#{tids.join(",")}] THEN 0 ELSE 1 END as sort"
-//    end
-//    bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
-//      "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
-//                                                     ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
-//    r = ActiveRecord::Base.connection.select_one("SELECT COUNT(*)
-//      FROM locations l, types t
-//      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}")
-//    found_n = r["count"].to_i unless r.nil?
-//    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-//    r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types,
-//      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name),',') AS name, #{sorted}
-//      FROM locations l, types t
-//      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}
-//      GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n} OFFSET #{offset_n}");
-//    @markers = r.collect{ |row|
-//      row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
-//      row["types"] = row["types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }
-//      if row["name"].nil? or row["name"].strip == ""
-//        name = "Unknown"
-//      else
-//        t = row["name"].split(/,/)
-//        if t.length == 2
-//          name = "#{t[0]} & #{t[1]}"
-//        elsif t.length > 2
-//          name = "#{t[0]} & Others"
-//        else
-//          name = t[0]
-//        end
-//      end
-//      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"],
-//       :types => row["types"],:parent_types => row["parent_types"]
-//      }
-//    } unless r.nil?
-//    @markers.unshift(max_n)
-//    @markers.unshift(found_n)
-//    log_api_request("api/locations/markers",@markers.length-2)
-//    respond_to do |format|
-//      format.json { render json: @markers }
-//    end
-//  end
 
 //  def marker
 //    return unless check_api_key!("api/locations/marker")
