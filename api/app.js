@@ -35,6 +35,7 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
 });
 
 // NOTE: title has been replaced with type_names
+// FIXME: convert photo_file_name to photo_url
 app.get('/locations/:id(\\d+).json', function (req, res) {
   var id = req.params.id;
   var name = "name";
@@ -63,6 +64,20 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
   });
 });
 
+app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
+  var id = req.params.id;
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err) return console.error('error fetching client from pool', err);
+    client.query("SELECT id, location_id, comment, observed_on, \
+                  photo_file_name, fruiting, quality_rating, yield_rating, author, photo_caption \
+                  FROM observations WHERE location_id=$1;",
+                 [id],function(err, result) {
+      if (err) return console.error('error running query', err);
+      res.send(result.rows);
+    });
+  });
+});
+
 // TODO:
 
 //  def mine
@@ -83,21 +98,6 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
 //    end
 //  end
 
-//  def reviews
-//    return unless check_api_key!("api/locations/reviews")
-//    @location = Location.find(params[:id])
-//    @obs = @location.observations
-//    @obs.each_index{ |i|
-//      @obs[i][:photo_url] = @obs[i].photo_file_name.nil? ? nil : @obs[i].photo.url
-//      @obs[i] = @obs[i].attributes
-//      @obs[i].delete("user_id")
-//      @obs[i].delete("remote_ip")
-//    }
-//    log_api_request("api/locations/reviews",@obs.length)
-//    respond_to do |format|
-//      format.json { render json: @location.observations }
-//    end
-//  end
 //  
 //  # PUT /api/locations/1.json
 //  def add_review
