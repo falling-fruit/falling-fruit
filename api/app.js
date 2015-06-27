@@ -18,19 +18,50 @@ function i18n_name(locale) {
   else return "name";
 }
 
+function postgis_bbox(v,nelat,nelng,swlat,swlng){
+  if(swlng < nelng){
+    return "AND ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913))";
+  }else{
+    return "AND (ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,"+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+swlng+","+swlat+"), ST_POINT(180,"+nelat+")),4326),900913)))";
+  }
+}
+
+// Note: grid parameter replaced by zoom
+// Note: now can accept a bounding box, obviating the cluster_types.json endpoint
 app.get('/types.json', apicache('1 hour'), function (req, res) {
   var cmask = default_catmask;
   if(req.query.c) cmask = catmask(req.query.c.split(",")); 
   var name = "name";
   if(req.query.locale) name = i18n_name(req.query.locale); 
+  var mfilter = "";
+  if(req.query.muni == 0) mfilter = "AND NOT muni";
+  var bfilter = undefined;
+  var zfilter = "AND zoom=2";
+  if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
+    bfilter = postgis_bbox("cluster_point",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
+                           parseFloat(req.query.swlat),parseFloat(req.query.swlng));
+    if(req.query.zoom) zfilter = "AND zoom="+parseInt(req.query.zoom);
+  }
   db.pg.connect(db.conString, function(err, client, done) {
     if (err) return console.error('error fetching client from pool', err);
-    client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
-                  pending AND (category_mask & $1)>0 ORDER BY name,scientific_name;",
-                 [cmask],function(err, result) {
-      if (err) return console.error('error running query', err);
-      res.send(result.rows);
-    });
+    if(bfilter){
+      filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
+      client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name,SUM(count) as count \
+                    FROM types t, clusters c WHERE c.type_id=t.id AND NOT pending \
+                    AND (category_mask & $1)>0 "+filters+" GROUP BY t.id, name, scientific_name \
+                    ORDER BY name,scientific_name;",
+                   [cmask],function(err, result) {
+        if (err) return console.error('error running query', err);
+        res.send(result.rows);
+      });
+    }else{
+      client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
+                    pending AND (category_mask & $1)>0 ORDER BY name,scientific_name;",
+                   [cmask],function(err, result) {
+        if (err) return console.error('error running query', err);
+        res.send(result.rows);
+      });
+    }
   });
 });
 
@@ -137,45 +168,6 @@ app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
 //    end
 //  end
 //  
-//  # Note: intersect on center_point so that count reflects counts shown on map
-//  def cluster_types
-//    return unless check_api_key!("api/locations/cluster_types")
-//    # Muni API is locked to muni & forager
-//    if !@api_key.nil? and @api_key.api_type == "muni"
-//      params[:muni] = 1
-//      params[:c] = "forager"
-//    end
-//    cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
-//    mfilter = ""
-//    if params[:muni].present? and params[:muni].to_i == 1
-//      mfilter = ""
-//    elsif params[:muni].present? and params[:muni].to_i == 0
-//      mfilter = "AND NOT muni"
-//    end
-//    g = params[:grid].present? ? params[:grid].to_i : 2
-//    g = 12 if g > 12
-//    if [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? }
-//      bound = ""
-//    elsif params[:swlng].to_f < params[:nelng].to_f
-//      bound = "AND ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913))"
-//    else # map spans -180 | 180 seam, split into two polygons
-//      bound = "AND (ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(180,#{params[:nelat]})),4326),900913)))"
-//    end
-//    types = {}
-//    Cluster.select("type_id, parent_id, SUM(count) as count").joins(:type).group("type_id,parent_id").
-//                        where("zoom = #{g} AND type_id IS NOT NULL AND (category_mask & #{cat_mask})>0 #{mfilter} #{bound}").each{ |t|
-//      types[t.type_id] = 0 if types[t.type_id].nil?
-//      types[t.type_id] += t.count
-//      # FIXME: doesn't deal properly with more than a single generation, would need to find our parents' parents
-//      # (grandparents) and so on, and increment those too!
-//      types[t.parent_id] = 0 if types[t.parent_id].nil?
-//      types[t.parent_id] += t.count
-//    }
-//    log_api_request("api/locations/cluster_types",types.length)
-//    respond_to do |format|
-//      format.json { render json: types.collect{ |id,n| {:id => id, :n => n} } }
-//    end
-//  end
 
 //  def cluster
 //    return unless check_api_key!("api/locations/cluster")
