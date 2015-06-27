@@ -1,0 +1,27 @@
+{
+   "name": "FallingFruitAPI",
+   "description": "Like it Says.",
+   "version": "0.0.2",
+   "author": {
+      "name" : "Caleb Phillips", 
+      "email" : "cphillips@smallwhitecube.com"
+   },
+   "repository": {
+       "type": "git",
+       "url": "https://github.com/somerandomsequence/falling-fruit.git"
+   },
+   "engines": [
+       "node >= 0.10"
+   ],
+   "license" : "GNU GPL 3.0",
+   "dependencies": {
+       "express": ">= 4.13.0",
+       "pg": ">= 4.4.0",
+       "js-yaml": ">= 3.3.1",
+       "fs": ">= 0.0.2",
+       "bluebird": ">= 2.9.30"
+   },
+   "bin" : {
+       "api" : "./app.js"
+   }
+}
