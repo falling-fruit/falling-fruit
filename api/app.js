@@ -102,10 +102,15 @@ function log_api_call(endpoint,n,user,req,client,callback){
   var params = req.query; // FIXME: serialize and b64encode
   var method = req.query; // FIXME: determine request method
   var ip = req.query; // FIXME: determine ip
-  client.query("INSERT INTO api_log (n,endpoint,params,request_method,\
-                ip_address,api_key) VALUES ($1,$2,$3,$4,$5,$6);",
+  client.query("INSERT INTO api_logs (n,endpoint,params,request_method,\
+                ip_address,api_key,created_at,updated_at) \
+                VALUES ($1,$2,$3,$4,$5,$6,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
                [n,endpoint,params,method,ip,req.query.api_key],function(err, result) {
-    if (err) return callback(err,'error running query');
+    if (err){ 
+      // if there's an error here, don't tell the user
+      console.error('error in log_api_call',err);
+      return callback(err,null);
+    }
     return callback(null); // pass
   });
 }
