@@ -180,48 +180,75 @@ app.post('/locations.json', function (req, res) {
       send_error(res,'error fetching client from pool',err);
       return done();
     }
+    // a proper waterfall:
+    //
+    // 1. check api key
+    // 2. authenticate
+    // 3. do location insert
+    // 4. get inserted id
+    // 5. do change insert
+    // 6. do observation insert & send response
+    // 7. do api log insert
+    //
     async.waterfall([
       function(callback){ check_api_key(req,client,callback); },
       function(callback){ authenticate_by_token(req,client,callback); },
       function(user,callback){
         var author = req.query.author ? req.query.author : (user.add_anonymously ? null : user.name);
+        // FIXME: sanitize lat & lng
         client.query("INSERT INTO locations (author,description,type_ids,\
-                      lat,lng,season_start,season_stop,no_season,unverified,access) \
-                      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,ST_SetSRID(ST_POINT($11,$12),4326));",
+                      lat,lng,season_start,season_stop,no_season,unverified,access,\
+                      location,created_at,updated_at) \
+                      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,\
+                      ST_SetSRID(ST_POINT($11,$12),4326),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
                      [author,req.query.description,req.query.type_ids.split(","),
                       req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
-                      req.query.no_season,req.query.unverified,req.query.access],function(err,result){
-          var location_id = result;
-
-          // change log
-          client.query("INSERT INTO changes (location_id,user_id,description) VALUES ($1,$2,$3);",
-                       [location_id,user.id,"added"],function(err,result){
-            if(err) return callback(err,'error running query');
-          });
-
-          // proceed with observation if needed
-          if(__.some([req.query.comment,req.query.fruiting,req.query.quality_rating,
-                      req.query.yield_rating,req.query.photo_data])){
-            // FIXME: fetch location_id from last result
-            // FIXME: parse photo data and upload to amazon (recreate paperclip!?)
-
-            client.query("INSERT INTO observations (location_id,author,comment,yield_rating,\
-                          quality_rating,fruiting,photo_file_name,observed_on) \
-                          VALUES ($1,$2,$3,$4,$5,$6,$7);",
-                         [req.query.author,req.query.comment,req.query.yield_rating,req.query.quality_rating,
-                          req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
-                         function(err,result){
-              if(err) return callback(err,'error running query');
-              res.send({"location_id": location_id, "review": true });
-              return callback(null,user,2);
-            });
-          }else{
-            res.send({"location_id": location_id });
-            return callback(null,user,1);
-          }
+                      req.query.no_season,req.query.unverified,
+                      req.query.access,req.query.lng,req.query.lat],function(err,result){
+          
+          if(err) return callback(err,'error running query');
+          else return callback(null,user);
         });
       },
-      function(user,n,callback){ log_api_call("/locations.json",n,user,req,client,callback); }
+      function(user,callback){
+        client.query("SELECT currval('locations_id_seq') as id;",[],function(err,result){
+          if(err) return callback(err,'error running query');
+          else return callback(null,parseInt(result.rows[0].id),user);
+        });
+      },
+      function(location_id,user,callback){
+        // change log
+        client.query("INSERT INTO changes (location_id,user_id,description,created_at,updated_at) \
+                      VALUES ($1,$2,$3,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
+                     [location_id,user.id,"added"],function(err,result){
+          if(err) return callback(err,'error running query');
+          else return callback(null,location_id,user);
+        });
+      },
+      function(location_id,user,callback){
+        if(__.some([req.query.comment,req.query.fruiting,req.query.quality_rating,
+                    req.query.yield_rating,req.query.photo_data])){
+          // FIXME: fetch location_id from last result
+          // FIXME: parse photo data and upload to amazon (recreate paperclip!?)
+          client.query("INSERT INTO observations (location_id,author,comment,yield_rating,\
+                        quality_rating,fruiting,photo_file_name,observed_on,created_at,updated_at) \
+                        VALUES (currval('locations_id_seq'),$1,$2,$3,$4,$5,$6,$7,\
+                        CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
+                       [req.query.author,req.query.comment,req.query.yield_rating,req.query.quality_rating,
+                        req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
+                       function(err,result){
+            if(err) return callback(err,'error running query');
+            res.send({"location_id": location_id, "review": true });
+            return callback(null,user,2);
+          });
+        }else{
+          res.send({"location_id": location_id });
+          return callback(null,user,1);
+        }
+      },
+      function(user,n,callback){ 
+        log_api_call("/locations.json",n,user,req,client,callback); 
+      }
     ],
     function(err,message){
       done();
