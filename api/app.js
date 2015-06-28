@@ -6,7 +6,7 @@ var apicache = require('apicache').options({ debug: true }).middleware;
 var app = express();
 
 // Helper functions
-function catmask(cats) {
+function catmask(cats){
   var options = ["forager","freegan","honeybee","grafter"];
   return __.reduce(__.pairs(options),function(memo,pair){
     return memo | (__.contains(cats,pair[1]) ? 1<<parseInt(pair[0]) : 0)
@@ -14,9 +14,14 @@ function catmask(cats) {
 }
 var default_catmask = catmask(["forager","freegan"]);
 
-function i18n_name(locale) {
+function i18n_name(locale){
   if(__.contains(["es","he","pt","it","fr","de","pl"],locale)) return locale + "_name";
   else return "name";
+}
+
+function encrypt_password(clear){
+  // FIXME: need to match devise's encrypt method
+  return clear;
 }
 
 function postgis_bbox(v,nelat,nelng,swlat,swlng,srid){
@@ -58,8 +63,50 @@ function check_api_key(req,client,callback){
     if(result.rowCount == 0){
       callback(true,'api key is invalid');
     }else{
-      callback(null);
+      callback(null); // pass
     }
+  });
+}
+
+function authenticate_by_token(req,client,callback){
+  if(!req.query.auth_token) return callback(true,'authentication (auth_token) required');
+  client.query("SELECT id, email, add_anonymously, name FROM users WHERE authentication_token=$1;",
+               [req.query.auth_token],function(err, result) {
+    if (err) callback(err,'error running query');
+    if(result.rowCount == 0){
+      callback(true,'auth token is invalid');
+    }else{
+      callback(null,result.rows[0]); // pass
+    }
+  });
+}
+
+//  def log_api_request(endpoint,n)
+//    a = ApiLog.new
+//    a.n = n
+//    a.endpoint = endpoint
+//    begin
+//      a.params = Base64.encode64(Marshal.dump(params))
+//    rescue StandardError => bang
+//      a.params = nil
+//    end
+//    a.request_method = request.request_method
+//    a.ip_address = request.remote_ip
+//    a.api_key = params[:api_key] if params[:api_key].present?
+//    a.save
+//  end
+//  helper_method :log_api_request
+
+
+function log_api_call(endpoint,n,user,req,client,callback){
+  var params = req.query; // FIXME: serialize and b64encode
+  var method = req.query; // FIXME: determine request method
+  var ip = req.query; // FIXME: determine ip
+  client.query("INSERT INTO api_log (n,endpoint,params,request_method,\
+                ip_address,api_key) VALUES ($1,$2,$3,$4,$5,$6);",
+               [n,endpoint,params,method,ip,req.query.api_key],function(err, result) {
+    if (err) return callback(err,'error running query');
+    return callback(null); // pass
   });
 }
 
@@ -74,6 +121,141 @@ function check_api_key(req,client,callback){
 
 // Note: /locations/marker.json is now obsolete (covered by /locations/:id.json)
 // Note: /locations/nearby.json is now obsolete (covered by /locations.json)
+
+//def prepare_observation(obs_params,loc)
+//    return nil if obs_params.nil? or obs_params.values.all?{|x| x.blank? }
+
+//    # deal with photo data in expected JSON format
+//    # (as opposed to something already caught and parsed by paperclip)
+//    unless obs_params["photo_data"].nil?
+//      tempfile = Tempfile.new("fileupload")
+//      tempfile.binmode
+//      data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
+//      tempfile.write(Base64.decode64(data))
+//      tempfile.rewind
+//      uploaded_file = ActionDispatch::Http::UploadedFile.new(
+//        :tempfile => tempfile,
+//        :type => "image/jpeg",
+//        :filename => "upload.jpg"
+//      )
+//      obs_params[:photo] = uploaded_file
+//      obs_params.delete(:photo_data)
+//    end
+//    obs = Observation.new(obs_params)
+//    obs.observed_on = Date.today if obs.observed_on.nil?
+//    obs.location = loc
+//    obs.user = current_user if user_signed_in?
+//    return obs
+//  end
+
+//  def log_changes(location,description,observation=nil,author=nil,description_patch=nil,
+//    former_type_ids=[],former_location=nil)
+//    c = Change.new
+//    c.location = location
+//    c.description = description
+//    c.remote_ip = request.remote_ip
+//    c.user = current_user if user_signed_in?
+//    c.observation = observation
+//    c.description_patch = description_patch
+//    c.former_type_ids = former_type_ids
+//    c.former_location = former_location
+//    # adding an observation
+//    if author.nil? and not observation.nil?
+//      c.author = observation.author
+//    # adding a location
+//    elsif author.nil? and observation.nil? and description == "added"
+//      c.author = location.author
+//    # editing a location
+//    elsif not author.nil?
+//      c.author = author
+//    end
+//    c.save
+//  end
+//  helper_method :log_changes
+
+// Note: only logs change as addition (not review too, when both are done)
+app.post('/locations.json', function (req, res) {
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err){ 
+      send_error(res,'error fetching client from pool',err);
+      return done();
+    }
+    async.waterfall([
+      function(callback){ check_api_key(req,client,callback); },
+      function(callback){ authenticate_by_token(req,client,callback); },
+      function(user,callback){
+        var author = req.query.author ? req.query.author : (user.add_anonymously ? null : user.name);
+        client.query("INSERT INTO locations (author,description,type_ids,\
+                      lat,lng,season_start,season_stop,no_season,unverified,access) \
+                      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,ST_SetSRID(ST_POINT($11,$12),4326));",
+                     [author,req.query.description,req.query.type_ids.split(","),
+                      req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
+                      req.query.no_season,req.query.unverified,req.query.access],function(err,result){
+          var location_id = result;
+
+          // change log
+          client.query("INSERT INTO changes (location_id,user_id,description) VALUES ($1,$2,$3);",
+                       [location_id,user.id,"added"],function(err,result){
+            if(err) return callback(err,'error running query');
+          });
+
+          // proceed with observation if needed
+          if(__.some([req.query.comment,req.query.fruiting,req.query.quality_rating,
+                      req.query.yield_rating,req.query.photo_data])){
+            // FIXME: fetch location_id from last result
+            // FIXME: parse photo data and upload to amazon (recreate paperclip!?)
+
+            client.query("INSERT INTO observations (location_id,author,comment,yield_rating,\
+                          quality_rating,fruiting,photo_file_name,observed_on) \
+                          VALUES ($1,$2,$3,$4,$5,$6,$7);",
+                         [req.query.author,req.query.comment,req.query.yield_rating,req.query.quality_rating,
+                          req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
+                         function(err,result){
+              if(err) return callback(err,'error running query');
+              res.send({"location_id": location_id, "review": true });
+              return callback(null,user,2);
+            });
+          }else{
+            res.send({"location_id": location_id });
+            return callback(null,user,1);
+          }
+        });
+      },
+      function(user,n,callback){ log_api_call("/locations.json",n,user,req,client,callback); }
+    ],
+    function(err,message){
+      done();
+      if(message) send_error(res,message,err);
+    }); 
+  });
+});
+
+// Note: takes email/password, returns authentication_token (in hash) -- protocol may have changed
+app.get('/login.json', function (req, res) {
+  var email = req.query.email;
+  var password = encrypt_password(req.query.password);
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err){ 
+      send_error(res,'error fetching client from pool',err);
+      return done();
+    }
+    async.waterfall([
+      function(callback){ check_api_key(req,client,callback) },
+      function(callback){
+        client.query("SELECT authentication_token FROM users WHERE email=$1 AND encrypted_password=$2;",
+                     [email,password],function(err,result){
+          if (err) return callback(err,'error running query');
+          if (result.rowCount == 0) return callback(true,'bad email or password');
+          return res.send(result.rows[0]);
+        });
+      }
+    ],
+    function(err,message){
+      done();
+      if(message) send_error(res,message,err);
+    }); 
+  });
+});
 
 // Note: grid parameter replaced by zoom
 // Note: now can accept a bounding box, obviating the cluster_types.json endpoint
