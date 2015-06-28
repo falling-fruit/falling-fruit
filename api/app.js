@@ -336,7 +336,7 @@ app.get('/locations.json', function (req, res) {
   }
   var sorted = "1 as sort";
   if(req.query.t){
-    var tids = __.map(req.query.t.split(","),function(x){ parseInt(x) });
+    var tids = __.map(req.query.t.split(","),function(x){ return parseInt(x) });
     sorted = "CASE WHEN array_agg(t.id) @> ARRAY["+tids+"] THEN 0 ELSE 1 END as sort";
   }
   var limit = req.query.limit ? __.min([parseInt(req.query.limit),1000]) : 1000;
@@ -411,9 +411,10 @@ app.get('/clusters.json', function (req, res) {
   }
   var tfilter = "AND type_id IS NULL";
   if(req.query.t){
-    var tids = __.map(req.query.t.split(","),function(x){ parseInt(x) });
+    var tids = __.map(req.query.t.split(","),function(x){ return parseInt(x) });
     tfilter = "AND type_id IN ("+tids.join(",")+")";
   }
+  console.log(req.query.t);
   var filters = __.reject([zfilter,tfilter,bfilter,mfilter],__.isUndefined).join(" ");
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
