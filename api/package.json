@@ -21,7 +21,8 @@
        "fs": ">= 0.0.2",
        "async": ">= 1.2.1",
        "underscore": ">= 1.8.3",
-       "apicache": ">= 0.0.12"
+       "apicache": ">= 0.0.12",
+       "bcrypt-nodejs": ">= 0.0.3"
    },
    "bin" : {
        "api" : "./app.js"

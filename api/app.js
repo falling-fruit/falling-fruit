@@ -3,6 +3,7 @@ var async = require("async");
 var __ = require("underscore");
 var express = require('express');
 var apicache = require('apicache').options({ debug: true }).middleware;
+var bcrypt = require('bcrypt-nodejs');
 var app = express();
 
 // Helper functions
@@ -17,11 +18,6 @@ var default_catmask = catmask(["forager","freegan"]);
 function i18n_name(locale){
   if(__.contains(["es","he","pt","it","fr","de","pl"],locale)) return locale + "_name";
   else return "name";
-}
-
-function encrypt_password(clear){
-  // FIXME: need to match devise's encrypt method
-  return clear;
 }
 
 function postgis_bbox(v,nelat,nelng,swlat,swlng,srid){
@@ -119,9 +115,8 @@ function log_api_call(endpoint,n,user,req,client,callback){
 
 // FIXME: CORS enabled
 
+// TODO: GET /locations/logout.json - 0.2
 // TODO: PUT /locations/:id.json (edit location) - 0.2
-// TODO: POST /locations.json (add location) - 0.2
-// TODO: POST /locations/:id/reviews.json (add review) - 0.2
 // TODO: GET /locations/mine.json - 0.3
 
 // Note: /locations/marker.json is now obsolete (covered by /locations/:id.json)
@@ -177,6 +172,63 @@ function log_api_call(endpoint,n,user,req,client,callback){
 //    c.save
 //  end
 //  helper_method :log_changes
+
+// Note: only logs change as addition (not review too, when both are done)
+app.post('/locations/:id(\\d+)/review.json', function (req, res) {
+  // FIXME: verify this is a real location id
+  var location_id = parseInt(req.params.id);
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err){ 
+      send_error(res,'error fetching client from pool',err);
+      return done();
+    }
+    // 1. check api key
+    // 2. authenticate
+    // 3. do change insert
+    // 4. do observation insert & send response
+    // 5. do api log insert
+    async.waterfall([
+      function(callback){ check_api_key(req,client,callback); },
+      function(callback){ authenticate_by_token(req,client,callback); },
+      function(user,callback){
+        var author = req.query.author ? req.query.author : (user.add_anonymously ? null : user.name);
+        // change log
+        client.query("INSERT INTO changes (location_id,user_id,description,created_at,updated_at) \
+                      VALUES ($1,$2,$3,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
+                     [location_id,user.id,"visited"],function(err,result){
+          if(err) return callback(err,'error running query');
+          else return callback(null,user);
+        });
+      },
+      function(user,callback){
+        if(__.some([req.query.comment,req.query.fruiting,req.query.quality_rating,
+                    req.query.yield_rating,req.query.photo_data])){
+          // FIXME: fetch location_id from last result
+          // FIXME: parse photo data and upload to amazon (recreate paperclip!?)
+          client.query("INSERT INTO observations (location_id,author,comment,yield_rating,\
+                        quality_rating,fruiting,photo_file_name,observed_on,created_at,updated_at) \
+                        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,\
+                        CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
+                       [location_id,req.query.author,req.query.comment,
+                        req.query.yield_rating,req.query.quality_rating,
+                        req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
+                       function(err,result){
+            if(err) return callback(err,'error running query');
+            res.send({"location_id": location_id, "review": true });
+            return callback(null,user,1);
+          });
+        }else{
+          return callback(err,'missing fields');
+        }
+      },
+      function(user,n,callback){ log_api_call("/locations.json",n,user,req,client,callback); }
+    ],
+    function(err,message){
+      done();
+      if(message) send_error(res,message,err);
+    }); 
+  });
+});
 
 // Note: only logs change as addition (not review too, when both are done)
 app.post('/locations.json', function (req, res) {
@@ -265,7 +317,7 @@ app.post('/locations.json', function (req, res) {
 // Note: takes email/password, returns authentication_token (in hash) -- protocol may have changed
 app.get('/login.json', function (req, res) {
   var email = req.query.email;
-  var password = encrypt_password(req.query.password);
+  var password = req.query.password;
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
       send_error(res,'error fetching client from pool',err);
@@ -274,11 +326,16 @@ app.get('/login.json', function (req, res) {
     async.waterfall([
       function(callback){ check_api_key(req,client,callback) },
       function(callback){
-        client.query("SELECT authentication_token FROM users WHERE email=$1 AND encrypted_password=$2;",
-                     [email,password],function(err,result){
+        client.query("SELECT authentication_token,encrypted_password FROM users WHERE email=$1;",
+                     [email],function(err,result){
           if (err) return callback(err,'error running query');
           if (result.rowCount == 0) return callback(true,'bad email or password');
-          return res.send(result.rows[0]);
+          var encrypted_password = result.rows[0].encrypted_password;
+          var token = result.rows[0].authentication_token;
+          bcrypt.compare(password, encrypted_password, function(err, success) {
+            if(err || !success) return callback(true,'bad email or password');
+            else return res.send({"auth_token": token});
+          });
         });
       }
     ],
@@ -479,7 +536,7 @@ app.get('/clusters.json', function (req, res) {
 // NOTE: title has been replaced with type_names
 // FIXME: convert photo_file_name to photo_url
 app.get('/locations/:id(\\d+).json', function (req, res) {
-  var id = req.params.id;
+  var id = parseInt(req.params.id);
   var name = "name";
   if(req.query.locale) name = i18n_name(req.query.locale); 
   db.pg.connect(db.conString, function(err, client, done) {
