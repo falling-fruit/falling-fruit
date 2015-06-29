@@ -77,27 +77,11 @@ function authenticate_by_token(req,client,callback){
   });
 }
 
-//  def log_api_request(endpoint,n)
-//    a = ApiLog.new
-//    a.n = n
-//    a.endpoint = endpoint
-//    begin
-//      a.params = Base64.encode64(Marshal.dump(params))
-//    rescue StandardError => bang
-//      a.params = nil
-//    end
-//    a.request_method = request.request_method
-//    a.ip_address = request.remote_ip
-//    a.api_key = params[:api_key] if params[:api_key].present?
-//    a.save
-//  end
-//  helper_method :log_api_request
-
-
-function log_api_call(endpoint,n,user,req,client,callback){
-  var params = req.query; // FIXME: serialize and b64encode
-  var method = req.query; // FIXME: determine request method
-  var ip = req.query; // FIXME: determine ip
+// Note: currently only GET /locations.json and GET /locations/:id.json are logged
+function log_api_call(method,endpoint,n,req,client,callback){
+  var params = (new Buffer(JSON.stringify({"query":req.query,
+                "params":req.params}))).toString('base64');
+  var ip = req.ip;
   client.query("INSERT INTO api_logs (n,endpoint,params,request_method,\
                 ip_address,api_key,created_at,updated_at) \
                 VALUES ($1,$2,$3,$4,$5,$6,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
@@ -215,13 +199,11 @@ app.post('/locations/:id(\\d+)/review.json', function (req, res) {
                        function(err,result){
             if(err) return callback(err,'error running query');
             res.send({"location_id": location_id, "review": true });
-            return callback(null,user,1);
           });
         }else{
           return callback(err,'missing fields');
         }
       },
-      function(user,n,callback){ log_api_call("/locations.json",n,user,req,client,callback); }
     ],
     function(err,message){
       done();
@@ -296,15 +278,10 @@ app.post('/locations.json', function (req, res) {
                        function(err,result){
             if(err) return callback(err,'error running query');
             res.send({"location_id": location_id, "review": true });
-            return callback(null,user,2);
           });
         }else{
           res.send({"location_id": location_id });
-          return callback(null,user,1);
         }
-      },
-      function(user,n,callback){ 
-        log_api_call("/locations.json",n,user,req,client,callback); 
       }
     ],
     function(err,message){
@@ -470,8 +447,10 @@ app.get('/locations.json', function (req, res) {
             if(x.num_reviews) x.num_reviews = parseInt(x.num_reviews);
             return x;
           })));
+          callback(null,result.rowCount);
         });
-      }
+      },
+      function(n,callback){ log_api_call("GET","/locations.json",n,req,client,callback); }
     ],
     function(err,message){
       done();
@@ -566,7 +545,8 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
             res.send(location);
           });
         });
-      }
+      },
+      function(callback){ log_api_call("GET","/locations/:id.json",1,req,client,callback); }
     ],
     function(err,message){
       done();
@@ -602,64 +582,6 @@ app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
     });    
   });
 });
-
-//  def mine
-//    return unless check_api_key!("api/locations/mine")
-//    @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
-//      where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
-//      order('observations.created_at desc')
-//    @mine.uniq!{ |o| o.location_id }
-//    @mine.each_index{ |i|
-//      loc = @mine[i].location
-//      @mine[i] = loc.attributes
-//      @mine[i]["title"] = loc.title
-//      @mine[i].delete("user_id")
-//    }
-//    log_api_request("api/locations/mine",@mine.length)
-//    respond_to do |format|
-//      format.json { render json: @mine }
-//    end
-//  end
-
-//  
-//  # PUT /api/locations/1.json
-//  def add_review
-//    return unless check_api_key!("api/locations/update")
-//    @location = Location.find(params[:id])
-//    
-//    obs_params = params[:observation]
-//    @observation = nil
-//    unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
-//      # deal with photo data in expected JSON format
-//      # (as opposed to something already caught and parsed by paperclip)
-//      unless obs_params["photo_data"].nil?
-//        tempfile = Tempfile.new("fileupload")
-//        tempfile.binmode
-//        data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
-//        tempfile.write(Base64.decode64(data))
-//        tempfile.rewind
-//        uploaded_file = ActionDispatch::Http::UploadedFile.new(
-//          :tempfile => tempfile,
-//          :filename => obs_params["photo_data"]["name"],
-//          :type => obs_params["photo_data"]["type"]
-//        )
-//        obs_params[:photo] = uploaded_file
-//        obs_params.delete(:photo_data)
-//      end
-//      @observation = Observation.new(obs_params)
-//      @observation.location = @location
-//      @observation.author = current_user.name unless (not user_signed_in?) or (current_user.add_anonymously)
-//    end
-//    log_api_request("api/locations/add_review",1)
-//    respond_to do |format|
-//      if @observation.save
-//        format.json { render json: {"status" => 0} }
-//      else
-//        format.json { render json: {"status" => 2, "error" => "Failed to update" } }
-//      end
-//    end
-//  end
-//  
 
 var server = app.listen(3100, function () {
 
