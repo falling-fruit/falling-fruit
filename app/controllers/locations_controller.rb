@@ -243,7 +243,7 @@ class LocationsController < ApplicationController
     # set author
     @observation.author = current_user.name unless @observation.nil? or (not user_signed_in?) or (current_user.add_anonymously)
     # overwrite with field setting if given
-    @observation.author = params[:author] if params[:author].present? and not params[:author].blank?
+    @observation.author = params[:author] if not @observation.nil? and params[:author].present? and not params[:author].blank?
 
     # compute diff/patch so we can undo later
     unless params[:location][:description].nil?
