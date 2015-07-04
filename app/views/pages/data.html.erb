@@ -35,8 +35,8 @@
 cache "pages_data_type_summary_table_#{I18n.locale}" do
   i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
   @types = Location.joins("LEFT OUTER JOIN types ON types.id=ANY(locations.type_ids)").
-  select("COALESCE(#{i18n_name_field}types.name) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms, count(*)").
-  group("cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms").order("cname")
+  select("COALESCE(#{i18n_name_field}types.name) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms, pending, category_mask, count(*)").
+  group("cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms, pending, category_mask").order("cname")
   @lt_count = Location.count # above is better but is slow
 %>
 
@@ -55,7 +55,7 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 </tr>
 </thead>
 <tbody>
-<% @types.each{ |t| %>
+<% @types.select{ |t| t.pending == "f" and (["forager", "freegan"] & mask_to_array(t.category_mask.to_i,Type::Categories)).any? }.each{ |t| %>
 <tr>
 <td>
 	<%= t.cname unless t.cname.blank? %>
