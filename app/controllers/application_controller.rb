@@ -166,8 +166,11 @@ class ApplicationController < ActionController::Base
   #
   
   # Redirect only if logged in user is arriving at live site with http
+  # see http://stackoverflow.com/questions/11252910/rails-redirect-to-https-while-keeping-all-parameters
   def redirect_to_https
-    redirect_to :protocol => "https://" if user_signed_in? and not (request.ssl? || request.local?)
+    if user_signed_in? and not (request.ssl? || request.local?)
+      redirect_to({:protocol => 'https://'}.merge(params), :flash => flash)
+    end
   end
   
   #
