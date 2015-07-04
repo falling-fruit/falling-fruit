@@ -381,7 +381,7 @@ class LocationsController < ApplicationController
     params[:types].split(/,/).uniq.each{ |type_name|
       nf = Type.i18n_name_field
       tn = ActionController::Base.helpers.sanitize(type_name)
-      t = Type.where("(#{nf} || CASE WHEN scientific_name IS NULL THEN NULL ELSE ' ['||scientific_name||']' END)='#{tn}'")
+      t = Type.where("(#{nf} || CASE WHEN scientific_name IS NULL THEN '' ELSE ' ['||scientific_name||']' END)='#{tn}'")
       # if it's not found, make it a pending type
       if t.nil? or t.empty?
         t = Type.new
