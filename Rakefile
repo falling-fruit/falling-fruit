@@ -354,13 +354,14 @@ namespace :export do
      puts "Exporting Types..."
      CSV.open("public/types.csv","wb") do |csv|
        cols = ["id","name","synonyms","es_name","he_name","pt_br_name","fr_name","de_name","pl_name","scientific_name",
-             "scientific_synonyms","taxonomic_rank","parent_id"]
+             "scientific_synonyms","taxonomic_rank","parent_id","category_mask"]
        csv << cols
        Type.select(cols.join(",")).where("(category_mask & #{cat_mask})>0 AND NOT pending").each{ |t|
           csv << [t.id,t.name,t.synonyms,t.es_name,t.he_name,t.pt_br_name,t.fr_name,t.de_name,
                  t.pl_name,t.scientific_name,t.scientific_synonyms,
                  t.taxonomic_rank.nil? ? nil : Type::Ranks[t.taxonomic_rank],
-                 t.parent_id]
+                 t.parent_id,
+                 mask_to_array(t.category_mask,Type::Categories).join(":")]
        }
      end
   end
