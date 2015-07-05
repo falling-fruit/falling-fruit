@@ -73,7 +73,7 @@ task(:replace_blanks => :environment) do
 end
 
 # Removes types with no locations
-task(:delete_unused_types => :environment) do
+task(:delete_unused_pending_types => :environment) do
   Type.where("pending").each do |type|
     if type.locations.blank? and type.children.blank?
       type.destroy
