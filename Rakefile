@@ -444,9 +444,9 @@ task(:import => :environment) do
      text_errs = []
      ok_count = 0
      CSV.foreach("public/import/#{l}") do |row|
-       print "."
        n += 1
        next if n == 1 or row.join.blank?
+       print "."
        location = Location.build_from_csv(row,typehash,import.default_category_mask)
        location.import = import
        location.client = 'import'

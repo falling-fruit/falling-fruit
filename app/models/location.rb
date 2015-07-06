@@ -165,14 +165,14 @@ class Location < ActiveRecord::Base
         query = ""
         unless name.nil?
           name = name.squish.capitalize
-          query = "name = '" + name + "'"
+          query = "name = " + ActiveRecord::Base.connection.quote(name)
         end
         unless scientific_name.nil?
           scientific_name = scientific_name.squish.capitalize
           unless query == ""
             query += " and "
           end
-          query += "scientific_name = '" + scientific_name + "'"
+          query += "scientific_name = " + ActiveRecord::Base.connection.quote(scientific_name)
         end
         types = Type.where(query)
         if types.length == 0
