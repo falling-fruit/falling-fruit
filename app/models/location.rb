@@ -159,17 +159,36 @@ class Location < ActiveRecord::Base
     loc.type_ids = []
     unless type.blank?
       type.split(/[;,:]/).each{ |t|
-        safer_type = t.squish.tr('^A-Za-z- \'','').capitalize
-        types = Type.where("name=?",safer_type)
-        if types.count == 0
+        safer_type = t.gsub(/[^[:word:]\s\(\)\-\'\[\]]/,'')
+        name = safer_type[/([^\[]+)/,1]
+        scientific_name = safer_type[/\[(.+)\]/,1]
+        query = ""
+        unless name.nil?
+          name = name.squish.capitalize
+          query = "name = '" + name + "'"
+        end
+        unless scientific_name.nil?
+          scientific_name = scientific_name.squish.capitalize
+          unless query == ""
+            query += " and "
+          end
+          query += "scientific_name = '" + scientific_name + "'"
+        end
+        types = Type.where(query)
+        if types.length == 0
           nt = Type.new
-          nt.name = safer_type
+          nt.name = name
+          nt.scientific_name = scientific_name
           nt.category_mask = default_category_mask
           nt.pending = true
           nt.save
           loc.type_ids.push(nt.id)
-        else
+        elsif types.length == 1
           loc.type_ids.push(types.shift.id)
+        else
+          # Multiple matches. Return empty!
+          loc.type_ids = []
+          return loc
         end
       }
     end
@@ -194,9 +213,9 @@ class Location < ActiveRecord::Base
 
     unless yield_rating.blank? and quality_rating.blank? and photo_url.blank?
       obs = Observation.new
-      obs.observed_on = Date.today
       obs.yield_rating = (yield_rating.to_i - 1) unless yield_rating.blank?
       obs.quality_rating = (quality_rating.to_i - 1) unless quality_rating.blank?
+      obs.author = author unless author.blank?
       obs.location = loc
       begin
         obs.photo = open(photo_url) unless photo_url.blank?
@@ -205,7 +224,7 @@ class Location < ActiveRecord::Base
       obs.save
     end
 
-    return loc 
+    return loc
   end
 
   private

@@ -447,10 +447,8 @@ task(:import => :environment) do
        print "."
        n += 1
        next if n == 1 or row.join.blank?
-       # FIXME: Customize default category mask
        location = Location.build_from_csv(row,typehash,import.default_category_mask)
        location.import = import
-       location.muni = import.muni
        location.client = 'import'
        if (location.lat.nil? or location.lng.nil?) and !location.address.blank?
          print "G"
