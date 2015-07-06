@@ -1,10 +1,27 @@
 var db = require('./db');
 var async = require("async");
 var __ = require("underscore");
+var _s = require("underscore.string");
 var express = require('express');
 var apicache = require('apicache').options({ debug: true }).middleware;
 var bcrypt = require('bcrypt-nodejs');
 var app = express();
+
+// rails paperclip paths are :bucket/observations/photos/:a/:b/:c/medium|thumb|original/whatever.jpg
+// :a/:b/:c is from this function and is based on the observation.id
+function id_partition(id){
+  var ret = _s.sprintf("%09d",parseInt(id));
+  return [ret.substr(0,3),ret.substr(3,3),ret.substr(6,3)].join("/");
+}
+
+function photo_urls(id,fname){
+  var bucket = db.s3conf.bucket;
+  var idpart = id_partition(id);
+  var urlbase = "http://s3-us-west-2.amazonaws.com/"+bucket+"/observations/photos/"+idpart+"/";
+  return {"medium": urlbase + "medium/" + fname,
+          "original": urlbase + "original/" + fname,
+          "thumb": urlbase + "original/" + fname};
+}
 
 // Helper functions
 function catmask(cats){
@@ -187,7 +204,6 @@ app.post('/locations/:id(\\d+)/review.json', function (req, res) {
       function(user,callback){
         if(__.some([req.query.comment,req.query.fruiting,req.query.quality_rating,
                     req.query.yield_rating,req.query.photo_data])){
-          // FIXME: fetch location_id from last result
           // FIXME: parse photo data and upload to amazon (recreate paperclip!?)
           client.query("INSERT INTO observations (location_id,author,comment,yield_rating,\
                         quality_rating,fruiting,photo_file_name,observed_on,created_at,updated_at) \
@@ -198,12 +214,21 @@ app.post('/locations/:id(\\d+)/review.json', function (req, res) {
                         req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
                        function(err,result){
             if(err) return callback(err,'error running query');
-            res.send({"location_id": location_id, "review": true });
           });
         }else{
           return callback(err,'missing fields');
         }
       },
+      function(user,callback){
+        client.query("SELECT currval('observations_id_seq') as id;",[],function(err,result){
+          if(err) return callback(err,'error running query');
+          else return callback(null,parseInt(result.rows[0].id),user);
+        });
+      },
+      function(observation_id,user,callback){
+       // FIXME: do paperclip upload and final output
+       //     res.send({"location_id": location_id, "review": true });
+      }
     ],
     function(err,message){
       done();
@@ -384,7 +409,6 @@ app.get('/types.json', apicache('1 hour'), function (req, res) {
 // FIXME: does not include child types, leaves it to the client to do that with t argument
 // Note: can take lat/lng to obviate need for nearby.json
 // Note: returns only the most recent photo, not an array of photos
-// FIXME: convert photo_file_name to URL (thumbnail)
 app.get('/locations.json', function (req, res) {
   var cmask = default_catmask;
   if(req.query.c) cmask = catmask(req.query.c.split(",")); 
@@ -416,7 +440,7 @@ app.get('/locations.json', function (req, res) {
   var reviews = "";
   if(req.query.reviews == 1){
     reviews = ",(SELECT COUNT(*) FROM observations o1 WHERE o1.location_id=l.id) AS num_reviews,\
-               (SELECT photo_file_name FROM observations o2 WHERE o2.location_id=l.id AND \
+               (SELECT photo_file_name || '/' || id FROM observations o2 WHERE o2.location_id=l.id AND \
                 photo_file_name IS NOT NULL \
                 ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name";
   }
@@ -445,6 +469,11 @@ app.get('/locations.json', function (req, res) {
           if (err) return callback(err,'error running query');
           res.send([result.rowCount,total_count].concat(__.map(result.rows,function(x){
             if(x.num_reviews) x.num_reviews = parseInt(x.num_reviews);
+            if(x.photo_file_name){
+              var parts = x.photo_file_name.split("/");
+              x.photo = photo_urls(parts[1],parts[0]);
+              x.photo_file_name = parts[0];
+            }
             return x;
           })));
           callback(null,result.rowCount);
@@ -513,7 +542,6 @@ app.get('/clusters.json', function (req, res) {
 });
 
 // NOTE: title has been replaced with type_names
-// FIXME: convert photo_file_name to photo_url
 app.get('/locations/:id(\\d+).json', function (req, res) {
   var id = parseInt(req.params.id);
   var name = "name";
@@ -537,11 +565,14 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
           if (result.rowCount == 0) return res.send({});
           location = result.rows[0];
           location.num_reviews = parseInt(location.num_reviews);
-          client.query("SELECT photo_updated_at, photo_file_name FROM observations \
+          client.query("SELECT id, photo_updated_at, photo_file_name FROM observations \
                         WHERE photo_file_name IS NOT NULL AND location_id=$1;",
                        [id],function(err, result) {
             if (err) return callback(err,'error running query');
-            location.photos = result.rows;
+            location.photos = __.map(result.rows,function(x){
+              x.photo = photo_urls(x.id,x.photo_file_name);
+              return x;
+            });
             res.send(location);
           });
         });
@@ -556,7 +587,6 @@ app.get('/locations/:id(\\d+).json', function (req, res) {
   });
 });
 
-// FIXME: convert photo_file_name to photo_url
 app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
   var id = req.params.id;
   db.pg.connect(db.conString, function(err, client, done) {
@@ -572,7 +602,10 @@ app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
                       FROM observations WHERE location_id=$1;",
                      [id],function(err, result) {
           if (err) return callback(err,'error running query');
-          res.send(result.rows);
+          res.send(__.map(result.rows,function(x){
+            x.photo = photo_urls(x.id,x.photo_file_name);
+            return x;
+          }));
         });
       }
     ],
