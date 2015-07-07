@@ -1,11 +1,19 @@
 var db = require('./db');
+var fs = require('fs');
 var async = require("async");
 var __ = require("underscore");
 var _s = require("underscore.string");
 var express = require('express');
 var apicache = require('apicache').options({ debug: true }).middleware;
 var bcrypt = require('bcrypt-nodejs');
+var base64_decode = require('base64').decode;
+var temp = require('temp');
+temp.track(); // clean up temp files on exit
+
 var app = express();
+
+
+// Helper functions
 
 // rails paperclip paths are :bucket/observations/photos/:a/:b/:c/medium|thumb|original/whatever.jpg
 // :a/:b/:c is from this function and is based on the observation.id
@@ -23,7 +31,6 @@ function photo_urls(id,fname){
           "thumb": urlbase + "original/" + fname};
 }
 
-// Helper functions
 function catmask(cats){
   var options = ["forager","freegan","honeybee","grafter"];
   return __.reduce(__.pairs(options),function(memo,pair){
@@ -226,8 +233,24 @@ app.post('/locations/:id(\\d+)/review.json', function (req, res) {
         });
       },
       function(observation_id,user,callback){
-       // FIXME: do paperclip upload and final output
-       //     res.send({"location_id": location_id, "review": true });
+        if(req.query.photo_data){
+          temp.open('apiupload',function(err,info){       
+            if(err) return callback(err,'could not create tempfile for photo');
+            var photo_data = req.query.photo_data;
+            photo_data = photo_data.match(",") ? photo_data.split(",").pop() : photo_data;
+            photo_data = base64_decode(photo_data);
+            fs.write(info.fd,photo_data);
+            fs.close(info.fd,function(err){
+              if(err) return callback(err,'error writing to photo tempfile');
+              db.uploader.process(req.query.photo_file_name, info.path, function(images){
+                console.log(images);
+                return res.send({"location_id": location_id, "observation_id": observation_id, "photos": images });
+              });
+            });
+          });
+        }else{
+          res.send({"location_id": location_id, "observation_id": observation_id });
+        }
       }
     ],
     function(err,message){
