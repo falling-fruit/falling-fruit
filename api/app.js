@@ -14,9 +14,12 @@ var multer = require('multer');
 var app = express();
 app.use(multer({ dest: config.temp_dir }));
 
-// FIXME: CORS enabled
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-// TODO: GET /locations/logout.json - 0.2
 // TODO: GET /locations/mine.json - 0.3
 
 // Note: /locations/marker.json is now obsolete (covered by /locations/:id.json)
