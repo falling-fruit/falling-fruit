@@ -153,7 +153,7 @@ function upload_photo(src_path,dst_path,callback){
   });
 }
 
-function resize_and_upload_photo(image_path,photo_file_name,observation_id,outer_callback){
+function resize_and_upload_photo(image_path,photo_file_name,observation_id,location_id,outer_callback){
   var thumb_path = config.temp_dir + "/" + observation_id + "-thumb.jpg";
   var medium_path = config.temp_dir + "/" + observation_id + "-medium.jpg";
   var original_path = config.temp_dir + "/" + observation_id + "-original.jpg";
@@ -174,7 +174,7 @@ function resize_and_upload_photo(image_path,photo_file_name,observation_id,outer
     function(callback){ upload_photo(original_path,dest_paths.original,callback) }],
     function(err,message){
       if(message) outer_callback(message,err);
-      else outer_callback(null,observation_id,photo_urls(observation_id,photo_file_name));
+      else outer_callback(null,location_id,observation_id,photo_urls(observation_id,photo_file_name));
     }); 
 }
 
@@ -270,12 +270,12 @@ app.post('/locations/:id(\\d+)/review.json', function (req, res) {
         console.log('Photo Data:',req.files.photo_data);
         if(req.files.photo_data){
           var info = req.files.photo_data;
-          resize_and_upload_photo(info.path,req.query.photo_file_name,observation_id,callback);
+          resize_and_upload_photo(info.path,req.query.photo_file_name,observation_id,location_id,callback);
         }else{
-          callback(null,observation_id,null);
+          callback(null,location_id,observation_id,null);
         }
       },
-      function(observation_id,images,callback){
+      function(location_id,observation_id,images,callback){
         var ret = {"location_id": location_id, "observation_id": observation_id };
         if(images) ret.images = images;
         res.send(ret);
@@ -353,11 +353,32 @@ app.post('/locations.json', function (req, res) {
                         req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
                        function(err,result){
             if(err) return callback(err,'error running query');
-            res.send({"location_id": location_id, "review": true });
+            callback(null,location_id,user);
           });
         }else{
           res.send({"location_id": location_id });
+          callback(null); // skip to the finish line
         }
+      },
+      function(location_id,user,callback){
+        client.query("SELECT currval('observations_id_seq') as id;",[],function(err,result){
+          if(err) return callback(err,'error running query');
+          else return callback(null,location_id,parseInt(result.rows[0].id),user);
+        });
+      },
+      function(location_id,observation_id,user,callback){
+        console.log('Photo Data:',req.files.photo_data);
+        if(req.files.photo_data){
+          var info = req.files.photo_data;
+          resize_and_upload_photo(info.path,req.query.photo_file_name,observation_id,location_id,callback);
+        }else{
+          callback(null,location_id,observation_id,null);
+        }
+      },
+      function(location_id,observation_id,images,callback){
+        var ret = {"location_id": location_id, "observation_id": observation_id };
+        if(images) ret.images = images;
+        res.send(ret);
       }
     ],
     function(err,message){
