@@ -40,7 +40,7 @@ es:
       updated_not_active: Tu contraseña fue cambiada.
     registrations:
       destroyed: Fue grato tenerte con nosotros. Tu cuenta fue cancelada.
-      signed_up: Bienvenido! Tu cuenta fue creada.
+      signed_up: ¡Bienvenido! Tu cuenta fue creada.
       signed_up_but_inactive: Tu cuenta ha sido creada correctamente. Sin embargo, no hemos podido iniciar la sesión porque tu cuenta aún no está activada.
       signed_up_but_locked: Tu cuenta ha sido creada correctamente. Sin embargo, no hemos podido iniciar la sesión porque que tu cuenta está bloqueada.
       signed_up_but_not_approved: Tu cuenta ha sido creada correctamente pero tu cuenta aún no ha sido aprobada por un administrador.
@@ -79,7 +79,7 @@ es:
     add_source: Añadir fuente
     address: Dirección
     anonymous: Anónimo
-    are_you_sure: Estás seguro?
+    are_you_sure: ¿Estás seguro?
     australia: Australia
     belgium: Bélgica
     by_author: por %{author}
@@ -162,7 +162,7 @@ es:
   layouts:
     application:
       feed_people_not_landfills: Alimenta la gente, no los vertederos!
-      mapping_the_urban_harvest: Mapeando la cosecha urbana!
+      mapping_the_urban_harvest: ¡Mapeando la cosecha urbana!
       menu:
         approved_types: Tipos aprobados
         in_the_press: En la prensa
@@ -172,8 +172,8 @@ es:
         sharing_the_harvest: Compartiendo la cosecha
         the_project: El proyecto
       or_right-click_on_map: (o haga clic en el mapa)
-      pending_types_help: Aplicamos una taxonomía de tipos de comestibles para mantener el mapa organizada y realizar búsquedas. Nuevos tipos enviados por los usuarios se destacan como pendiente hasta que sean aprobados, ya sea como un nuevo tipo o se fusionaron con un tipo existente en la taxonomía. En raras ocasiones, cuando la presentación es demasiado aleatorio o vaga como para justificar su propio tipo, que persiste en el mapa en un estado no aprobado.
-      unverified_help: Las fuentes se marcan como sin verificar si su identidad, ubicación o existencia es disputado. Muchas fuentes importadas de inventarios de árboles se marcan como no verificada porque su comestibilidad es incierta (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los usuarios están invitados a viajar a estos lugares y reportar sus hallazgos.
+      pending_types_help: Aplicamos una taxonomía de tipos de comestibles para mantener el mapa organizado y poder realizar búsquedas. Nuevos tipos enviados por usuarios se destacan como pendiente hasta que sean agregados a la taxonomía o fusionados con un tipo existente. Algunos tipos propuestos son tan únicos o ambiguos que persisten como no aprobado de forma indefinida.
+      unverified_help: Las fuentes se marcan como no verificada si su identidad, ubicación o existencia es disputado. Muchas fuentes importadas de inventarios de árboles se marcan como no verificada porque su comestibilidad es incierta (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los usuarios están invitados a viajar a estos lugares y reportar sus hallazgos.
       unverified_help_title: ¿Por qué no verificada?
   locations:
     errors:
@@ -188,20 +188,20 @@ es:
       date_visited: Fecha visitado
       description_subtext: Detalles de ubicación, problemas de acceso, la condición de las plantas ...
       form_error: Un error impidió que esta fuente se guarden
-      form_intro_html: Edite la ubicación de abajo, o <a href="/observations/new?location_id=%{location_id}&locale=es" data-ajax="false" rel="external" title="Opina sobre este lugar">usar este formulario</a> para revisar, comentar y publicar fotos.
+      form_intro_html: Edite la ubicación abajo, ó <a href="/observations/new?location_id=%{location_id}&locale=es" data-ajax="false" rel="external" title="Opina sobre este lugar">usar este formulario</a> para revisar, comentar y publicar fotos.
       fruiting_status: Estado de fructificación
-      fruiting_subtext: ¿Cuál es el fruto haciendo en este momento? (Si es aplicable)
+      fruiting_subtext: ¿Que está haciendo el fruto en este momento? (Si es aplicable)
       have_you: ¿Ha visitado este ubicación?
       move_marker: Mover marcador a las coordenadas
-      move_marker_address: Mover marcador para abordar
-      name_subtext: Dejar en blanco si prefiere permanecer en el anonimato.
+      move_marker_address: Mover marcador a dirección
+      name_subtext: Dejar en blanco si prefieres permanecer anónimo.
       no_season: No temporada
       or: o
       photo_caption: Pie de foto
       photo_subtext: Opcionalmente, subir una foto de la fuente. Si se trata de alguien más "la foto, por favor, asegúrese de que tiene los permisos necesarios y el crédito del fotógrafo en el rubro.
-      position_subtext: Determinado a partir de su ubicación actual (si está disponible) o un marcador que colocó. Ajuste la ubicación moviendo el marcador del mapa.
+      position_subtext: Determinado a partir de su ubicación actual (si está disponible) o un marcador que ha colocado. Ajuste la ubicación moviendo el marcador del mapa.
       quality_subtext: Valorar la sabrosura de esta fuente (si es aplicable)
-      season_subtext: Cuando se puede cosechar la fuente? Dejar en blanco si no sabe.
+      season_subtext: ¿Cuando se puede cosechar la fuente? Dejar en blanco si no sabe.
       to: –
       types_subtext: Elija de la lista desplegable, la presentación de nuevos nombres sólo si no existen ya las decisiones adecuadas.
       unverified_subtext: Si usted duda de la existencia, ubicación, o la identidad de esta fuente.
@@ -209,13 +209,13 @@ es:
       yield_subtext: Valorar la productividad de esta fuente (si es aplicable)
       your_name: Su nombre
     index:
-      addmarker_html: 
+      addmarker_html: Agrega una fuente aqui</a><br><span class="subtext">Tambien me puedes mover</span>
       editmarker_html: 
       freegan_modal_html: Además de nuestros esfuerzos de mapeo las <a href="/?locale=es">plantas comestibles que crecen en las ciudades</a>, PD Tuve que establecen para asignar los contenedores de basura de soporte de alimentos del mundo. Casi el 50% de todos los alimentos producidos en el mundo desarrollado no se come. We're con la esperanza de crear conciencia en torno a este tema, facilitar la liberación de los alimentos desechados, y alentar a las empresas a <a href="/sharing?locale=es">donar la comida</a> en su lugar. <br><br> En apoyo de un estilo de vida más baja de los desechos, estamos alentando a la cartografía de todos los lugares (de los contenedores de basura a las cajas libres) con descartadas pero útiles mercancías, ya sea comestible o no.
-      freegan_modal_title: Bienvenido a nuestro mapa freegan!
+      freegan_modal_title: ¡Bienvenido a nuestro mapa freegan!
       stamen_html: Mapa azulejos por <a href="http://stamen.com">Stamen Design</a>, bajo <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Datos por <a href="http://openstreetmap.org">OpenStreetMap</a>, bajo <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit es un mapa enorme, en colaboración de la cosecha urbana. Uniendo los esfuerzos de los cazadores-recolectores, silvicultores y freegans por todas partes, el mapa ya apunta a más de medio millón de lugares productores de alimentos de todo el mundo (de las plantas y los hongos a los pozos de agua y contenedores de basura). Nuestra comunidad de usuarios en rápido crecimiento está explorando activamente, editar y agregar al mapa. <br/><br/> Únete a nosotros en la celebración de la generosidad de nuestros vecinos calles de la ciudad! Utilice el sitio de forma anónima o <a href="/users/sign_up?locale=es">inscribirse</a> para una cuenta para acceder a funciones adicionales.
-      welcome_modal_title: Bienvenido a Falling Fruit!
+      welcome_modal_title: ¡Bienvenido a Falling Fruit!
     infowindow:
       access:
       - Esta fuente fue añadido por el dueño.
@@ -308,7 +308,7 @@ es:
       write: Escribir
     data:
       beware_html: Pero cuidado. Una vez descomprimido, los datos se convierte en un archivo enorme que hace que el software de hoja de cálculo más que implosionar. Sólo aquellos que estén interesados ​​en la manipulación de los datos en ella totalidad's tienen que ir a esta ruta. Para la mayoría, la mejor alternativa es recuperar selectivamente puntos de interés usando la herramienta de descarga integrado en el <a href="/?locale=es">mapa</a>.
-      caveat_emptor_html: No hace falta decir que no nos hacemos responsables de la exactitud de los datos - que se brinde como es, <i>caveat emptor.</i> Si haces algo fresco con los datos, por favor <a href="mailto:feedback@fallingfruit.org">háganoslo saber</a> !
+      caveat_emptor_html: No hace falta decir que no nos hacemos responsables de la exactitud de los datos - que se brinde como es, <i>caveat emptor.</i> ¡Si haces algo fresco con los datos, por favor <a href="mailto:feedback@fallingfruit.org">háganoslo saber</a>!
       data_unavailable_html: Los datos disponibles actualmente. Compruebe más tarde o <a href="mailto:info@fallingfruit.org">póngase en contacto con nosotros</a>.
       intro: Falling Fruit se basa en datos públicos y la generosidad de los recolectores urbanos que estén dispuestos a compartir sus hallazgos con los demás. Queremos que las fuentes de alimentos urbanos para llegar a tantas personas como sea posible, y creemos que todos deben tener igualdad de acceso a los frutos de nuestro trabajo colectivo. En el espíritu de los datos abiertos, he aquí! La base de datos entera
       license_html: Si usted está interesado en el uso de los datos en su propio proyecto, especialmente para aplicaciones comerciales, le sugerimos que se ponga en contacto con nosotros ( <a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a> ). Cuando no se especifique lo contrario, los datos está bajo una licencia <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> (Creative Commons – Atribución, Compartir-igual, No comercial) de licencia. Esto significa que usted es libre de usar y distribuir los datos, siempre y cuando se preserve la atribución autor / fuente original y no lo usa (sin permiso) para aplicaciones comerciales. El código fuente para Falling Fruit también está abierto, y disponible en <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.

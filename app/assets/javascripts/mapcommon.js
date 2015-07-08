@@ -24,6 +24,8 @@ markersLoadedEvent.initEvent("markersloaded",true,true);
 var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
 var watchID = null; // navigator/geolocation watchID
+var api_base = "http://localhost:3100/";
+var api_key = "EEQRBBUB";
 
 // ================= infowindow =================
 
@@ -185,70 +187,78 @@ function add_range(range_string) {
   return obj;
 }
 
-// will avoid adding duplicate markers (using location id)
-function add_markers_from_json(mdata,rich,skip_ids){
+// FIXME: convert count to human readable (i.e., 10k, etc.)
+function add_clusters_from_json(mdata){
   var len = mdata.length;
   for(var i = 0; i < len; i++){
     var lid = mdata[i]["location_id"];
     if((skip_ids != undefined) && (skip_ids.indexOf(parseInt(lid)) >= 0)) continue;
     if((lid != undefined) && (find_marker(lid) != undefined)) continue;
-    if(!rich){
-      var w = 17;
-      var h = 17;
-      var wo = parseInt(w/2,10);
-      var ho = parseInt(h/2,10);
-      if(infowindow.marker && infowindow.marker.id == lid){
-        var m = infowindow.marker; 
-      }else{
-        var m = new google.maps.Marker({
-          icon: {
-            url: '/icons/smdot_t1_red.png',
-            size: new google.maps.Size(w,h),
-            origin: new google.maps.Point(0,0),
-            // by convention, icon center is at ~40%
-            anchor: new google.maps.Point(w*0.4,h*0.4)
-          },
-          position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
-          map: map,
-          title: mdata[i]["title"],
-          draggable: false
-        });
-      }
-      markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point", types: mdata[i]["types"], parent_types: mdata[i]["parent_types"]});
-      for(var j = 0; j < mdata[i]["types"].length; j++){
-        var tid = mdata[i]["types"][j];
-        if(types_hash[tid] == undefined) types_hash[tid] = 1;
-        else types_hash[tid] += 1;
-      }
-      for(var j = 0; j < mdata[i]["parent_types"].length; j++){
-        var tid = mdata[i]["parent_types"][j];
-        if(types_hash[tid] == undefined) types_hash[tid] = 1;
-        else types_hash[tid] += 1;
-      }
-    } else {
-      var pct = Math.min(Math.max((Math.round(Math.log(mdata[i]["n"])/Math.log(10))+2)*10,30),100);
-      var picture = "/icons/orangedot" + pct + ".png";
-      var w = pct;
-      var h = pct;
-      var wo = parseInt(w/2,10);
-      var ho = parseInt(h/2,10);
-      var m = new RichMarker({
-          content: '<div style="color:black;background:url(' + picture + ');height:'+h+
-                   'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
-                   'text-align: center;position:absolute;'+
-                   'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+mdata[i]["title"]+'</div>',
-          position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
-          map: map,
-          draggable: false,
-          width: w,
-          height: h,
-          shadow: false,
-          flat: true,
-          title: mdata[i]["title"],
-          anchor: RichMarkerPosition.MIDDLE,
-        });
-        add_clicky_cluster(m);
-        markersArray.push({marker: m, id: null, type: "cluster", types: [], parent_types: []});
+    var pct = Math.min(Math.max((Math.round(Math.log(mdata[i]["count"])/Math.log(10))+2)*10,30),100);
+    var picture = "/icons/orangedot" + pct + ".png";
+    var w = pct;
+    var h = pct;
+    var wo = parseInt(w/2,10);
+    var ho = parseInt(h/2,10);
+    var m = new RichMarker({
+      content: '<div style="color:black;background:url(' + picture + ');height:'+h+
+      'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
+      'text-align: center;position:absolute;'+
+      'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+mdata[i]["count"]+'</div>',
+      position: new google.maps.LatLng(mdata[i]["center_y"],mdata[i]["center_x"]),
+      map: map,
+      draggable: false,
+      width: w,
+      height: h,
+      shadow: false,
+      flat: true,
+      title: mdata[i]["count"],
+      anchor: RichMarkerPosition.MIDDLE,
+    });
+    add_clicky_cluster(m);
+    markersArray.push({marker: m, id: null, type: "cluster", types: [], parent_types: []});
+  }
+  document.dispatchEvent(markersLoadedEvent);
+}
+
+// will avoid adding duplicate markers (using location id)
+function add_markers_from_json(mdata,skip_ids){
+  var len = mdata.length;
+  for(var i = 0; i < len; i++){
+    var lid = mdata[i]["location_id"];
+    if((skip_ids != undefined) && (skip_ids.indexOf(parseInt(lid)) >= 0)) continue;
+    if((lid != undefined) && (find_marker(lid) != undefined)) continue;
+    var w = 17;
+    var h = 17;
+    var wo = parseInt(w/2,10);
+    var ho = parseInt(h/2,10);
+    if(infowindow.marker && infowindow.marker.id == lid){
+      var m = infowindow.marker;
+    }else{
+      var m = new google.maps.Marker({
+        icon: {
+          url: '/icons/smdot_t1_red.png',
+          size: new google.maps.Size(w,h),
+          origin: new google.maps.Point(0,0),
+          // by convention, icon center is at ~40%
+          anchor: new google.maps.Point(w*0.4,h*0.4)
+        },
+        position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]),
+        map: map,
+        title: mdata[i]["title"],
+        draggable: false
+      });
+    }
+    markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point", types: mdata[i]["types"], parent_types: mdata[i]["parent_types"]});
+    for(var j = 0; j < mdata[i]["types"].length; j++){
+      var tid = mdata[i]["types"][j];
+      if(types_hash[tid] == undefined) types_hash[tid] = 1;
+      else types_hash[tid] += 1;
+    }
+    for(var j = 0; j < mdata[i]["parent_types"].length; j++){
+      var tid = mdata[i]["parent_types"][j];
+      if(types_hash[tid] == undefined) types_hash[tid] = 1;
+      else types_hash[tid] += 1;
     }
   }
   document.dispatchEvent(markersLoadedEvent);
@@ -311,8 +321,8 @@ function bounds_to_query_string(bounds){
 }
 
 function do_clusters(bounds,zoom,muni,type_filter) {
-    var bstr = bounds_to_query_string(bounds);
-    var gstr = '&method=grid&grid=' + zoom;
+    var bstr = bounds_to_query_string(map.getBounds());
+    var gstr = '&zoom=' + zoom;
     if (muni) mstr = '&muni=1';
       else mstr = '&muni=0';
     var tstr = '';
@@ -320,15 +330,17 @@ function do_clusters(bounds,zoom,muni,type_filter) {
       tstr = '&t=' + type_filter;
     }
     if(pb != null) pb.start(200);
+    console.log(api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr);
     var request = $.ajax({
       type: 'GET',
-      url: '/api/locations/cluster.json?api_key=EEQRBBUB&locale=' + I18n.locale + mstr + gstr + bstr + tstr,
+      url: api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr,
       dataType: 'json'
     });
     request.done(function(json){
+      console.log(json);
       clear_markers();
       if(json.length > 0){
-        add_markers_from_json(json,true);
+        add_clusters_from_json(json);
       }
       //do_cluster_types(bounds,zoom,muni);
       markersPartial = false;
@@ -346,7 +358,7 @@ function do_cluster_types(bounds,zoom,muni) {
     else mstr = '&muni=0';
   var request = $.ajax({
     type: 'GET',
-    url: '/api/locations/cluster_types.json?api_key=EEQRBBUB&locale=' + I18n.locale + mstr + gstr + bstr,
+    url: api_base + 'types.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr,
     dataType: 'json'
   });
   request.done(function(json){		    
@@ -612,11 +624,11 @@ function open_marker_by_id(id) {
   // didn't find it, manually fetch & add it
   var requestJson = $.ajax({
     type: 'GET',
-    url: '/api/locations/marker.json?api_key=EEQRBBUB&id=' + id,
+    url: api_base + 'locations/'+id+'.json?api_key='+api_key,
     dataType: 'json'
   });
   requestJson.done(function(json){
-    add_markers_from_json(json,false);
+    add_markers_from_json(json);
     // make marker clickable
     add_marker_infowindow(markersArray.length-1);
     // filter and labels
@@ -656,7 +668,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
   if(pb != null) pb.start(200);
   var request = $.ajax({
     type: 'GET',
-    url: '/api/locations/markers.json?api_key=EEQRBBUB&locale=' + I18n.locale + mstr + bstr + tstr + cstr,
+    url: api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr,
     dataType: 'json'
   });
   request.done(function(json){
@@ -678,7 +690,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     n_found = json.shift();
     n_limit = json.shift();
     clear_offscreen_markers();
-    add_markers_from_json(json,false,skip_ids);
+    add_markers_from_json(json,skip_ids);
     if(type_filter != undefined) apply_type_filter();
     // make markers clickable
     for (var i = 0; i < markersArray.length; ++i) {
