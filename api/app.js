@@ -7,8 +7,6 @@ _s = require("underscore.string");
 common = require('./common');
 
 // locals
-var gm = require('gm');
-var fs = require('fs');
 var express = require('express');
 var apicache = require('apicache').options({ debug: true }).middleware;
 var multer = require('multer');

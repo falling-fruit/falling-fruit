@@ -1,17 +1,19 @@
 var common = {};
 
+common.gm = require('gm');
+
 // Helper functions
 
 // rails paperclip paths are :bucket/observations/photos/:a/:b/:c/medium|thumb|original/whatever.jpg
 // :a/:b/:c is from this function and is based on the observation.id
-common.id_partion = function(id){
+common.id_partition = function(id){
   var ret = _s.sprintf("%09d",parseInt(id));
   return [ret.substr(0,3),ret.substr(3,3),ret.substr(6,3)].join("/");
 }
 
 common.photo_urls = function(id,fname,path_only){
   var bucket = db.s3conf.bucket;
-  var idpart = id_partition(id);
+  var idpart = common.id_partition(id);
   var urlbase = path_only ? "observations/photos/"+idpart+"/" : 
                             "http://s3-us-west-2.amazonaws.com/"+bucket+"/observations/photos/"+idpart+"/";
   return {"medium": urlbase + "medium/" + fname,
@@ -108,13 +110,22 @@ common.log_api_call = function(method,endpoint,n,req,client,callback){
 }
 
 common.resize_photo = function(size,src_path,dst_path,callback){
-  gm(src_path)
-    .resize(size,size)
-    .autoOrient()
-    .write(dst_path, function (err) {
-      if (err) callback(err,'failed to resize to '+size);
-      else callback(null);
-    });
+  if(size){
+    common.gm(src_path)
+      .resize(size,size)
+      .autoOrient()
+      .write(dst_path, function (err) {
+        if (err) callback(err,'failed to resize to '+size);
+        else callback(null);
+      });
+  }else{
+    common.gm(src_path)
+      .autoOrient()
+      .write(dst_path, function (err) {
+        if (err) callback(err,'failed to resize to '+size);
+        else callback(null);
+      });
+  }
 }
 
 common.upload_photo = function(src_path,dst_path,callback){
@@ -144,18 +155,11 @@ common.resize_and_upload_photo = function(image_path,photo_file_name,observation
   var thumb_path = config.temp_dir + "/" + observation_id + "-thumb.jpg";
   var medium_path = config.temp_dir + "/" + observation_id + "-medium.jpg";
   var original_path = config.temp_dir + "/" + observation_id + "-original.jpg";
-  var dest_paths = photo_urls(observation_id,photo_file_name,true);
+  var dest_paths = common.photo_urls(observation_id,photo_file_name,true);
   async.waterfall([
     function(callback){ common.resize_photo(100,image_path,thumb_path,callback) },
     function(callback){ common.resize_photo(300,image_path,medium_path,callback) },
-    function(callback){
-      gm(image_path)
-        .autoOrient()
-        .write(original_path, function (err) {
-          if (err) callback(err,'failed to reorient original');
-          else callback(null);
-        });
-    },
+    function(callback){ common.resize_photo(null,image_path,original_path,callback) },
     function(callback){ common.upload_photo(thumb_path,dest_paths.thumb,callback) },
     function(callback){ common.upload_photo(medium_path,dest_paths.medium,callback) },
     function(callback){ common.upload_photo(original_path,dest_paths.original,callback) }],

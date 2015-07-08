@@ -91,7 +91,7 @@ reviews.list = function (req, res) {
                      [id],function(err, result) {
           if (err) return callback(err,'error running query');
           res.send(__.map(result.rows,function(x){
-            x.photo = photo_urls(x.id,x.photo_file_name);
+            x.photo = common.photo_urls(x.id,x.photo_file_name);
             return x;
           }));
         });

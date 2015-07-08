@@ -70,8 +70,7 @@ locations.add = function (req, res) {
             callback(null,location_id,user);
           });
         }else{
-          res.send({"location_id": location_id });
-          callback(null); // skip to the finish line
+          return res.send({"location_id": location_id });
         }
       },
       function(location_id,user,callback){
@@ -143,7 +142,7 @@ locations.list = function (req, res) {
       return done();
     }
     async.waterfall([
-      function(callback){ check_api_key(req,client,callback) },
+      function(callback){ common.check_api_key(req,client,callback) },
       function(callback){
         client.query("SELECT COUNT(*) FROM locations l, types t WHERE t.id=ANY(l.type_ids) "+
                       filters+";",[],function(err,result){
@@ -164,7 +163,7 @@ locations.list = function (req, res) {
             if(x.num_reviews) x.num_reviews = parseInt(x.num_reviews);
             if(x.photo_file_name){
               var parts = x.photo_file_name.split("/");
-              x.photo = photo_urls(parts[1],parts[0]);
+              x.photo = common.photo_urls(parts[1],parts[0]);
               x.photo_file_name = parts[0];
             }
             return x;
@@ -191,7 +190,7 @@ locations.show = function (req, res) {
       return done();
     }
     async.waterfall([
-      function(callback){ check_api_key(req,client,callback) },
+      function(callback){ common.check_api_key(req,client,callback) },
       function(callback){
         client.query("SELECT access, address, author, city, state, country, description, \
                       id, lat, lng, muni, type_ids, unverified, \
@@ -209,7 +208,7 @@ locations.show = function (req, res) {
                        [id],function(err, result) {
             if (err) return callback(err,'error running query');
             location.photos = __.map(result.rows,function(x){
-              x.photo = photo_urls(x.id,x.photo_file_name);
+              x.photo = common.photo_urls(x.id,x.photo_file_name);
               return x;
             });
             res.send(location);
