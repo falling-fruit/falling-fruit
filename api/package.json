@@ -23,9 +23,9 @@
        "underscore.string": ">= 3.1.1",
        "apicache": ">= 0.0.12",
        "bcrypt-nodejs": ">= 0.0.3",
-       "papercut": ">= 0.0.6",
-       "temp": ">= 0.8.3",
-       "base64": ">= 2.1.0"
+       "gm": ">= 1.18.1",
+       "s3": ">= 4.4.0",
+       "multer": ">= 0.1.8"
    },
    "bin" : {
        "api" : "./app.js"

@@ -1,4 +1,6 @@
+var config = require('./config');
 var db = require('./db');
+var gm = require('gm');
 var fs = require('fs');
 var async = require("async");
 var __ = require("underscore");
@@ -6,12 +8,10 @@ var _s = require("underscore.string");
 var express = require('express');
 var apicache = require('apicache').options({ debug: true }).middleware;
 var bcrypt = require('bcrypt-nodejs');
-var base64_decode = require('base64').decode;
-var temp = require('temp');
-temp.track(); // clean up temp files on exit
+var multer = require('multer');
 
 var app = express();
-
+app.use(multer({ dest: config.temp_dir}));
 
 // Helper functions
 
@@ -22,13 +22,14 @@ function id_partition(id){
   return [ret.substr(0,3),ret.substr(3,3),ret.substr(6,3)].join("/");
 }
 
-function photo_urls(id,fname){
+function photo_urls(id,fname,path_only){
   var bucket = db.s3conf.bucket;
   var idpart = id_partition(id);
-  var urlbase = "http://s3-us-west-2.amazonaws.com/"+bucket+"/observations/photos/"+idpart+"/";
+  var urlbase = path_only ? "observations/photos/"+idpart+"/" : 
+                            "http://s3-us-west-2.amazonaws.com/"+bucket+"/observations/photos/"+idpart+"/";
   return {"medium": urlbase + "medium/" + fname,
           "original": urlbase + "original/" + fname,
-          "thumb": urlbase + "original/" + fname};
+          "thumb": urlbase + "thumb/" + fname};
 }
 
 function catmask(cats){
@@ -119,6 +120,64 @@ function log_api_call(method,endpoint,n,req,client,callback){
   });
 }
 
+function resize_photo(size,src_path,dst_path,callback){
+  gm(src_path)
+    .resize(size,size)
+    .autoOrient()
+    .write(dst_path, function (err) {
+      if (err) callback(err,'failed to resize to '+size);
+      else callback(null);
+    });
+}
+
+function upload_photo(src_path,dst_path,callback){
+  var params = {
+    localFile: src_path,
+    s3Params: {
+      Bucket: db.s3conf["bucket"],
+      Key: dst_path,
+      // other options supported by putObject, except Body and ContentLength. 
+      // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property 
+    },
+  };
+  var uploader = db.s3client.uploadFile(params);
+  uploader.on('error', function(err) {
+    callback(err,'unable to upload '+src_path+' to S3');
+  });
+  uploader.on('progress', function() {
+    console.log("progress", uploader.progressMd5Amount,
+              uploader.progressAmount, uploader.progressTotal);
+  });
+  uploader.on('end', function() {
+    callback(null); // pass
+  });
+}
+
+function resize_and_upload_photo(image_path,photo_file_name,observation_id,outer_callback){
+  var thumb_path = config.temp_dir + "/" + observation_id + "-thumb.jpg";
+  var medium_path = config.temp_dir + "/" + observation_id + "-medium.jpg";
+  var original_path = config.temp_dir + "/" + observation_id + "-original.jpg";
+  var dest_paths = photo_urls(observation_id,photo_file_name,true);
+  async.waterfall([
+    function(callback){ resize_photo(100,image_path,thumb_path,callback) },
+    function(callback){ resize_photo(300,image_path,medium_path,callback) },
+    function(callback){
+      gm(image_path)
+        .autoOrient()
+        .write(original_path, function (err) {
+          if (err) callback(err,'failed to reorient original');
+          else callback(null);
+        });
+    },
+    function(callback){ upload_photo(thumb_path,dest_paths.thumb,callback) },
+    function(callback){ upload_photo(medium_path,dest_paths.medium,callback) },
+    function(callback){ upload_photo(original_path,dest_paths.original,callback) }],
+    function(err,message){
+      if(message) outer_callback(message,err);
+      else outer_callback(null,observation_id,photo_urls(observation_id,photo_file_name));
+    }); 
+}
+
 // Routes
 
 // FIXME: CORS enabled
@@ -129,32 +188,6 @@ function log_api_call(method,endpoint,n,req,client,callback){
 
 // Note: /locations/marker.json is now obsolete (covered by /locations/:id.json)
 // Note: /locations/nearby.json is now obsolete (covered by /locations.json)
-
-//def prepare_observation(obs_params,loc)
-//    return nil if obs_params.nil? or obs_params.values.all?{|x| x.blank? }
-
-//    # deal with photo data in expected JSON format
-//    # (as opposed to something already caught and parsed by paperclip)
-//    unless obs_params["photo_data"].nil?
-//      tempfile = Tempfile.new("fileupload")
-//      tempfile.binmode
-//      data = obs_params["photo_data"]["data"].include?(",") ? obs_params["photo_data"]["data"].split(/,/)[1] : obs_params["photo_data"]["data"]
-//      tempfile.write(Base64.decode64(data))
-//      tempfile.rewind
-//      uploaded_file = ActionDispatch::Http::UploadedFile.new(
-//        :tempfile => tempfile,
-//        :type => "image/jpeg",
-//        :filename => "upload.jpg"
-//      )
-//      obs_params[:photo] = uploaded_file
-//      obs_params.delete(:photo_data)
-//    end
-//    obs = Observation.new(obs_params)
-//    obs.observed_on = Date.today if obs.observed_on.nil?
-//    obs.location = loc
-//    obs.user = current_user if user_signed_in?
-//    return obs
-//  end
 
 //  def log_changes(location,description,observation=nil,author=nil,description_patch=nil,
 //    former_type_ids=[],former_location=nil)
@@ -221,6 +254,7 @@ app.post('/locations/:id(\\d+)/review.json', function (req, res) {
                         req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
                        function(err,result){
             if(err) return callback(err,'error running query');
+            else return callback(null,user);
           });
         }else{
           return callback(err,'missing fields');
@@ -233,24 +267,18 @@ app.post('/locations/:id(\\d+)/review.json', function (req, res) {
         });
       },
       function(observation_id,user,callback){
-        if(req.query.photo_data){
-          temp.open('apiupload',function(err,info){       
-            if(err) return callback(err,'could not create tempfile for photo');
-            var photo_data = req.query.photo_data;
-            photo_data = photo_data.match(",") ? photo_data.split(",").pop() : photo_data;
-            photo_data = base64_decode(photo_data);
-            fs.write(info.fd,photo_data);
-            fs.close(info.fd,function(err){
-              if(err) return callback(err,'error writing to photo tempfile');
-              db.uploader.process(req.query.photo_file_name, info.path, function(images){
-                console.log(images);
-                return res.send({"location_id": location_id, "observation_id": observation_id, "photos": images });
-              });
-            });
-          });
+        console.log('Photo Data:',req.files.photo_data);
+        if(req.files.photo_data){
+          var info = req.files.photo_data;
+          resize_and_upload_photo(info.path,req.query.photo_file_name,observation_id,callback);
         }else{
-          res.send({"location_id": location_id, "observation_id": observation_id });
+          callback(null,observation_id,null);
         }
+      },
+      function(observation_id,images,callback){
+        var ret = {"location_id": location_id, "observation_id": observation_id };
+        if(images) ret.images = images;
+        res.send(ret);
       }
     ],
     function(err,message){
@@ -639,7 +667,7 @@ app.get('/locations/:id(\\d+)/reviews.json', function (req, res) {
   });
 });
 
-var server = app.listen(3100, function () {
+var server = app.listen(config.port, function () {
 
   var host = server.address().address;
   var port = server.address().port;

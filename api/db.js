@@ -17,36 +17,25 @@ db.pg = require('pg');
 db.conString = "postgres://"+dbconf["username"]+":"+
                dbconf["password"]+"@"+dbconf["host"]+"/"+dbconf["database"];
 
-// papercut (s3)
+// s3
 try {
   db.s3conf = yaml.safeLoad(fs.readFileSync('../config/s3.yml', 'utf8'));
 } catch (e) {
   console.log(e);
 }
-db.papercut = require('papercut');
-db.papercut.configure(rails_env, function(){
-  papercut.set('storage', 's3')
-  papercut.set('S3_KEY', db.s3conf["access_key_id"])
-  papercut.set('S3_SECRET', db.s3conf["secret_access_key"])
-  papercut.set('bucket', db.s3conf["bucket"])
-});
-db.uploader = db.papercut.Schema(function(schema){
-  schema.version({
-    name: 'thumb',
-    size: '100x100',
-    process: 'resize'
-  });
-
-  schema.version({
-    name: 'medium',
-    size: '300x300',
-    process: 'resize'
-  });
-
-  schema.version({
-    name: 'original',
-    process: 'copy'
-  });
+db.s3 = require("s3");
+db.s3client = db.s3.createClient({
+  maxAsyncS3: 20,     // this is the default 
+  s3RetryCount: 3,    // this is the default 
+  s3RetryDelay: 1000, // this is the default 
+  multipartUploadThreshold: 20971520, // this is the default (20 MB) 
+  multipartUploadSize: 15728640, // this is the default (15 MB) 
+  s3Options: {
+    accessKeyId: db.s3conf["access_key_id"],
+    secretAccessKey: db.s3conf["secret_access_key"],
+    // any other options are passed to new AWS.S3() 
+    // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property 
+  },
 });
 
 module.exports = db;
