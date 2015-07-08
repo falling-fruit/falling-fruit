@@ -11,7 +11,7 @@
        "url": "https://github.com/somerandomsequence/falling-fruit.git"
    },
    "engines": [
-       "node >= 0.10"
+       "node >= 0.12"
    ],
    "license" : "GNU GPL 3.0",
    "dependencies": {
@@ -26,8 +26,7 @@
        "gm": ">= 1.18.1",
        "s3": ">= 4.4.0",
        "multer": ">= 0.1.8",
-       "hat": ">= 0.0.3",
-       "base64": ">= 2.1.0"
+       "hat": ">= 0.0.3"
    },
    "bin" : {
        "api" : "./app.js"

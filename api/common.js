@@ -2,7 +2,6 @@ var common = {};
 
 common.gm = require('gm');
 common.hat = require('hat');
-common.base64 = require('base64');
 
 // Helper functions
 
@@ -94,7 +93,7 @@ common.authenticate_by_token = function(req,client,callback){
 }
 
 common.generate_auth_token = function(){
-  return common.base64.encode(common.hat());
+  return new Buffer(common.hat()).toString('base64');
 }
 
 // Note: currently only GET /locations.json and GET /locations/:id.json are logged
