@@ -17,7 +17,6 @@ app.use(multer({ dest: config.temp_dir }));
 // FIXME: CORS enabled
 
 // TODO: GET /locations/logout.json - 0.2
-// TODO: PUT /locations/:id.json (edit location) - 0.2
 // TODO: GET /locations/mine.json - 0.3
 
 // Note: /locations/marker.json is now obsolete (covered by /locations/:id.json)
@@ -32,6 +31,7 @@ var reviews = require('./reviews');
 
 // Note: takes email/password, returns authentication_token (in hash) -- protocol may have changed
 app.get('/login.json',auth.login);
+app.get('/logout.json',auth.logout);
 
 // Note: grid parameter replaced by zoom
 // Note: now can accept a bounding box, obviating the cluster_types.json endpoint
@@ -50,6 +50,7 @@ app.get('/locations.json', locations.list);
 app.get('/locations/:id(\\d+).json', locations.show);
 // Note: only logs change as addition (not review too, when both are done)
 app.post('/locations.json',locations.add);
+app.post('/locations/:id(\\d+).json',locations.edit);
 
 // Note: grid param renamed to zoom
 // Note: does not implicitly include children, we leave that to the client

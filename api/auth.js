@@ -32,4 +32,29 @@ auth.login = function (req, res) {
   });
 };
 
+auth.logout = function (req, res) {
+  var auth_token = req.query.auth_token;
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err){ 
+      common.send_error(res,'error fetching client from pool',err);
+      return done();
+    }
+    async.waterfall([
+      function(callback){ common.check_api_key(req,client,callback); },
+      function(callback){ common.authenticate_by_token(req,client,callback); },
+      function(user,callback){
+        client.query("UPDATE users SET authentication_token=$1 WHERE authentication_token=$2;",
+                     [common.generate_auth_token(),auth_token],function(err,result){
+          if (err) return callback(err,'error running query');
+          else return res.send({})
+        });
+      }
+    ],
+    function(err,message){
+      done();
+      if(message) common.send_error(res,message,err);
+    }); 
+  });
+};
+
 module.exports = auth;

@@ -7,6 +7,7 @@
 		"30a8fc99-6d20-e93e-4aa9-8ac9ace8e1de",
 		"3b72f88a-97a6-d1b4-7d10-5691fab69604",
 		"71b85446-795d-ab25-c949-a27376ca737d",
+		"012a1604-8e0a-ca5a-b5bf-89bd0f367319",
 		"e6be498a-94c7-6bbd-2224-a11ceb6cdcba",
 		"e6ca8b6d-f654-f673-9b2e-859134ffa451",
 		"e46755c1-ddc4-f9cf-2df4-bb929160eada",
@@ -27,6 +28,22 @@
 	"remoteLink": "",
 	"public": false,
 	"requests": [
+		{
+			"collectionId": "23a30824-6146-f251-5f90-b28a8d960b92",
+			"id": "012a1604-8e0a-ca5a-b5bf-89bd0f367319",
+			"name": "Edit Location 1023",
+			"description": "",
+			"url": "http://localhost:3100/locations.json?api_key=BJBNKMWM&auth_token=PdRNx4hssqDWLbuQtPzx&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false",
+			"method": "POST",
+			"headers": "",
+			"data": [],
+			"dataMode": "params",
+			"timestamp": 0,
+			"responses": [],
+			"version": 2,
+			"preRequestScript": "",
+			"tests": ""
+		},
 		{
 			"collectionId": "23a30824-6146-f251-5f90-b28a8d960b92",
 			"id": "051fb7b7-fc0a-3ad6-114b-006a2e4e39a1",
@@ -172,20 +189,30 @@
 			"tests": ""
 		},
 		{
-			"collectionId": "23a30824-6146-f251-5f90-b28a8d960b92",
 			"id": "71b85446-795d-ab25-c949-a27376ca737d",
+			"headers": "",
+			"url": "http://localhost:3100/locations/1023/review.json?api_key=BJBNKMWM&auth_token=PdRNx4hssqDWLbuQtPzx&quality_rating=3&yield_rating=2&fruiting=1&photo_file_name=foo.jpg",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "photo_data",
+					"value": "rhubarb.jpg",
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1436318315437,
 			"name": "Add Review (w/Photo)",
 			"description": "",
-			"url": "http://localhost:3100/locations/1023/review.json?api_key=BJBNKMWM&auth_token=PdRNx4hssqDWLbuQtPzx&quality_rating=3&yield_rating=2&fruiting=1",
-			"method": "POST",
-			"headers": "",
-			"data": [],
-			"dataMode": "params",
-			"timestamp": 0,
-			"responses": [],
-			"version": 2,
-			"preRequestScript": "",
-			"tests": ""
+			"collectionId": "23a30824-6146-f251-5f90-b28a8d960b92",
+			"responses": []
 		},
 		{
 			"collectionId": "23a30824-6146-f251-5f90-b28a8d960b92",

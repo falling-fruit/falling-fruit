@@ -6,8 +6,6 @@ locations.add = function (req, res) {
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
-    // a proper waterfall:
-    //
     // 1. check api key
     // 2. authenticate
     // 3. do location insert
@@ -92,6 +90,55 @@ locations.add = function (req, res) {
         var ret = {"location_id": location_id, "observation_id": observation_id };
         if(images) ret.images = images;
         res.send(ret);
+      }
+    ],
+    function(err,message){
+      done();
+      if(message) common.send_error(res,message,err);
+    }); 
+  });
+};
+
+locations.edit = function (req, res) {
+  var id = parseInt(req.params.id);
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err){ 
+      common.send_error(res,'error fetching client from pool',err);
+      return done();
+    }
+    // 1. check api key
+    // 2. authenticate
+    // 3. do location update
+    // 4. do change insert
+    //
+    async.waterfall([
+      function(callback){ common.check_api_key(req,client,callback); },
+      function(callback){ common.authenticate_by_token(req,client,callback); },
+      function(user,callback){
+        var author = req.query.author ? req.query.author : (user.add_anonymously ? null : user.name);
+        // FIXME: sanitize lat & lng
+        client.query("UPDATE locations SET (description,type_ids,\
+                      lat,lng,season_start,season_stop,no_season,unverified,access,\
+                      location,updated_at) = \
+                      ($1,$2,$3,$4,$5,$6,$7,$8,$9,\
+                      ST_SetSRID(ST_POINT($10,$11),4326),CURRENT_TIMESTAMP) WHERE id=$12;",
+                     [req.query.description,req.query.type_ids.split(","),
+                      req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
+                      req.query.no_season,req.query.unverified,
+                      req.query.access,req.query.lng,req.query.lat,id],function(err,result){
+          
+          if(err) return callback(err,'error running query');
+          else return callback(null,id,user);
+        });
+      },
+      function(location_id,user,callback){
+        // change log
+        client.query("INSERT INTO changes (location_id,user_id,description,created_at,updated_at) \
+                      VALUES ($1,$2,$3,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
+                     [location_id,user.id,"edited"],function(err,result){
+          if(err) return callback(err,'error running query');
+          else return res.send({"location_id": location_id });
+        });
       }
     ],
     function(err,message){
