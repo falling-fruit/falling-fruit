@@ -1,7 +1,5 @@
 var types = {};
 
-// Note: grid parameter replaced by zoom
-// Note: now can accept a bounding box, obviating the cluster_types.json endpoint
 types.list = function (req, res) {
   var cmask = common.default_catmask;
   if(req.query.c) cmask = common.catmask(req.query.c.split(",")); 

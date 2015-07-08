@@ -1,7 +1,6 @@
 var auth = {};
 auth.bcrypt = require('bcrypt-nodejs');
 
-// Note: takes email/password, returns authentication_token (in hash) -- protocol may have changed
 auth.login = function (req, res) {
   var email = req.query.email;
   var password = req.query.password;

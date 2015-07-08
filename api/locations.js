@@ -1,6 +1,5 @@
 var locations = {};
 
-// Note: only logs change as addition (not review too, when both are done)
 locations.add = function (req, res) {
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
@@ -103,13 +102,6 @@ locations.add = function (req, res) {
   });
 };
 
-// Note: types renamed to type_ids
-// Note: n renamed to limit
-// Note: name (string) replaced with type_names (array)
-// Note: title removed (client can create from type_names)
-// FIXME: does not include child types, leaves it to the client to do that with t argument
-// Note: can take lat/lng to obviate need for nearby.json
-// Note: returns only the most recent photo, not an array of photos
 locations.list = function (req, res) {
   var cmask = common.default_catmask;
   if(req.query.c) cmask = common.catmask(req.query.c.split(",")); 
@@ -189,7 +181,6 @@ locations.list = function (req, res) {
   });
 };
 
-// NOTE: title has been replaced with type_names
 locations.show = function (req, res) {
   var id = parseInt(req.params.id);
   var name = "name";

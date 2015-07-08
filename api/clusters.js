@@ -1,8 +1,5 @@
 var clusters = {};
 
-// Note: grid param renamed to zoom
-// Note: does not implicitly include children, we leave that to the client
-// Note: does not return title, client is responsible for formatting (i.e., calling number_to_human)
 clusters.list = function (req, res) {
   var cmask = common.default_catmask;
   if(req.query.c) cmask = common.catmask(req.query.c.split(",")); 

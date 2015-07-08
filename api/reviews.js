@@ -1,6 +1,5 @@
 var reviews = {};
 
-// Note: only logs change as addition (not review too, when both are done)
 reviews.add = function (req, res) {
   // FIXME: verify this is a real location id
   var location_id = parseInt(req.params.id);
