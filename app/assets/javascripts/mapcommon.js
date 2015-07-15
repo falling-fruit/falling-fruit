@@ -11,7 +11,8 @@ var prior_bounds = null;
 var prior_zoom = null;
 var prior_url = null;
 var markersArray = [];
-var types_hash = {};
+var types_hash = {}; // id to count mapping
+var types_names_hash = {}; // id to name mapping
 var showing_route_controls = false; // currently unused
 var labelsOn = null;
 var bicycleLayerOn = null;
@@ -187,6 +188,16 @@ function add_range(range_string) {
   return obj;
 }
 
+function number_to_human(n){
+  if(n > 999 && n <= 999999){
+    return Math.round(n/1000.0) + "K";
+  }else if(n > 999999){
+    return Math.round(n/1000000) + "M";
+  }else{
+    return n;
+  }
+}
+
 // FIXME: convert count to human readable (i.e., 10k, etc.)
 function add_clusters_from_json(mdata){
   var len = mdata.length;
@@ -204,7 +215,7 @@ function add_clusters_from_json(mdata){
       content: '<div style="color:black;background:url(' + picture + ');height:'+h+
       'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
       'text-align: center;position:absolute;'+
-      'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+mdata[i]["count"]+'</div>',
+      'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+number_to_human(mdata[i]["count"])+'</div>',
       position: new google.maps.LatLng(mdata[i]["center_y"],mdata[i]["center_x"]),
       map: map,
       draggable: false,
@@ -212,7 +223,7 @@ function add_clusters_from_json(mdata){
       height: h,
       shadow: false,
       flat: true,
-      title: mdata[i]["count"],
+      title: number_to_human(mdata[i]["count"]),
       anchor: RichMarkerPosition.MIDDLE,
     });
     add_clicky_cluster(m);
@@ -245,20 +256,23 @@ function add_markers_from_json(mdata,skip_ids){
         },
         position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]),
         map: map,
-        title: mdata[i]["title"],
+        title: type_ids_to_title(mdata[i]["type_ids"]),
         draggable: false
       });
     }
-    markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point", types: mdata[i]["types"], parent_types: mdata[i]["parent_types"]});
-    for(var j = 0; j < mdata[i]["types"].length; j++){
-      var tid = mdata[i]["types"][j];
+    markersArray.push({marker: m, id: mdata[i]["id"], type: "point",
+      types: mdata[i]["type_ids"], parent_types: mdata[i]["parent_types"]});
+    for(var j = 0; j < mdata[i]["type_ids"].length; j++){
+      var tid = mdata[i]["type_ids"][j];
       if(types_hash[tid] == undefined) types_hash[tid] = 1;
       else types_hash[tid] += 1;
     }
-    for(var j = 0; j < mdata[i]["parent_types"].length; j++){
-      var tid = mdata[i]["parent_types"][j];
-      if(types_hash[tid] == undefined) types_hash[tid] = 1;
-      else types_hash[tid] += 1;
+    if(mdata[i]["parent_types"]) {
+      for (var j = 0; j < mdata[i]["parent_types"].length; j++) {
+        var tid = mdata[i]["parent_types"][j];
+        if (types_hash[tid] == undefined) types_hash[tid] = 1;
+        else types_hash[tid] += 1;
+      }
     }
   }
   document.dispatchEvent(markersLoadedEvent);
@@ -292,10 +306,12 @@ function clear_offscreen_markers(){
         if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
         if(types_hash[tid] == 0) delete types_hash[tid];
       }
-      for(var j = 0; j < markersArray[i].parent_types.length; j++){
-        var tid = markersArray[i].parent_types[j];
-        if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
-        if(types_hash[tid] == 0) delete types_hash[tid];
+      if(markersArray[i].parent_types) {
+        for (var j = 0; j < markersArray[i].parent_types.length; j++) {
+          var tid = markersArray[i].parent_types[j];
+          if (types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
+          if (types_hash[tid] == 0) delete types_hash[tid];
+        }
       }
       markersArray[i].marker.setMap(null);
       markersArray[i].marker = null;
@@ -362,10 +378,12 @@ function do_cluster_types(bounds,zoom,muni) {
     dataType: 'json'
   });
   request.done(function(json){		    
-      types_hash = {};
+    types_hash = {};
+    types_names_hash = {};
     if(json.length > 0){
       for(var i = 0;i < json.length; i++){
-        types_hash[json[i]["id"]] = json[i]["n"];
+        types_hash[json[i]["id"]] = json[i]["count"];
+        types_names_hash[json[i]["id"]] = json[i]["name"];
       }
     }
     // Update count hack
@@ -379,6 +397,21 @@ function do_cluster_types(bounds,zoom,muni) {
         }
       }
   });
+}
+
+// Given a list of type ids, returns a marker title fit for displaying on the map.
+function type_ids_to_title(tids){
+  var type_names = $.map(tids,function(x){ return types_names_hash[x]; });
+  if(type_names.length == 0) {
+    return "Unknown";
+  }else if(type_names.length == 1){
+    return type_names[0];
+  }else if(type_names.length == 2){
+    // FIXME: should i18n-ize "and"
+    return type_names[0] + " and " + type_names[1];
+  }else{
+    return type_names[0] + " and others";
+  }
 }
 
 // Finds nearest imagery from Street View Service, then calculates the heading.
@@ -666,12 +699,15 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     cstr = '&c=' + cats;
   }
   if(pb != null) pb.start(200);
+  console.log(api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr);
   var request = $.ajax({
     type: 'GET',
     url: api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr,
     dataType: 'json'
   });
   request.done(function(json){
+    console.log("done");
+    console.log(json);
     if(pb != null) pb.setTotal(json.length);
     // remove any cluster-type markers 
     var i = find_marker(null);
