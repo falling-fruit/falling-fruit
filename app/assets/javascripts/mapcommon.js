@@ -859,8 +859,8 @@ function search_filter(search){
 function apply_type_filter() {
   var len = markersArray.length;
   for(var i = 0; i < len; i++){
-    if(markersArray[i].types == undefined || markersArray[i].parent_types == undefined) continue;
-    if (markersArray[i].types.indexOf(type_filter) >= 0 || markersArray[i].parent_types.indexOf(type_filter) >= 0) {
+    if(markersArray[i].types == undefined) continue;
+    if((markersArray[i].types.indexOf(type_filter) >= 0) || (markersArray[i].parent_types && markersArray[i].parent_types.indexOf(type_filter) >= 0)){
       //markersArray[i].marker.setVisible(true);
       markersArray[i].marker.setZIndex(101);
       markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
