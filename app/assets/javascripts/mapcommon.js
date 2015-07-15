@@ -236,7 +236,7 @@ function add_clusters_from_json(mdata){
 function add_markers_from_json(mdata,skip_ids){
   var len = mdata.length;
   for(var i = 0; i < len; i++){
-    var lid = mdata[i]["location_id"];
+    var lid = mdata[i]["id"];
     if((skip_ids != undefined) && (skip_ids.indexOf(parseInt(lid)) >= 0)) continue;
     if((lid != undefined) && (find_marker(lid) != undefined)) continue;
     var w = 17;
