@@ -2,14 +2,13 @@ var yaml = require('js-yaml');
 var fs   = require('fs');
 
 var db = {};
-var rails_env = "development";
 var dbconf;
 var s3conf;
 
 // postgres
 try {
-  dbconf = yaml.safeLoad(fs.readFileSync('../config/database.yml', 'utf8'));
-  dbconf = dbconf[rails_env];
+  dbconf = yaml.safeLoad(fs.readFileSync(config.db_config_file, 'utf8'));
+  dbconf = dbconf[config.rails_env];
 } catch (e) {
   console.log(e);
 }
@@ -19,7 +18,7 @@ db.conString = "postgres://"+dbconf["username"]+":"+
 
 // s3
 try {
-  db.s3conf = yaml.safeLoad(fs.readFileSync('../config/s3.yml', 'utf8'));
+  db.s3conf = yaml.safeLoad(fs.readFileSync(config.s3_config_file, 'utf8'));
 } catch (e) {
   console.log(e);
 }

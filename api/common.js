@@ -16,22 +16,21 @@ common.photo_urls = function(id,fname,path_only){
   var bucket = db.s3conf.bucket;
   var idpart = common.id_partition(id);
   var urlbase = path_only ? "observations/photos/"+idpart+"/" : 
-                            "http://s3-us-west-2.amazonaws.com/"+bucket+"/observations/photos/"+idpart+"/";
+                            "http://"+config.s3_host+"/"+bucket+"/observations/photos/"+idpart+"/";
   return {"medium": urlbase + "medium/" + fname,
           "original": urlbase + "original/" + fname,
           "thumb": urlbase + "thumb/" + fname};
 }
 
 common.catmask = function(cats){
-  var options = ["forager","freegan","honeybee","grafter"];
-  return __.reduce(__.pairs(options),function(memo,pair){
+  return __.reduce(__.pairs(config.cats),function(memo,pair){
     return memo | (__.contains(cats,pair[1]) ? 1<<parseInt(pair[0]) : 0)
   },0);
 }
 common.default_catmask = common.catmask(["forager","freegan"]);
 
 common.i18n_name = function(locale){
-  if(__.contains(["es","he","pt","it","fr","de","pl"],locale)) return locale + "_name";
+  if(__.contains(config.i18n_languages,locale)) return locale + "_name";
   else return "name";
 }
 
@@ -162,8 +161,8 @@ common.resize_and_upload_photo = function(image_path,photo_file_name,observation
   var original_path = config.temp_dir + "/" + observation_id + "-original.jpg";
   var dest_paths = common.photo_urls(observation_id,photo_file_name,true);
   async.waterfall([
-    function(callback){ common.resize_photo(100,image_path,thumb_path,callback) },
-    function(callback){ common.resize_photo(300,image_path,medium_path,callback) },
+    function(callback){ common.resize_photo(config.s3_thumb_size,image_path,thumb_path,callback) },
+    function(callback){ common.resize_photo(config.s3_medium_size,image_path,medium_path,callback) },
     function(callback){ common.resize_photo(null,image_path,original_path,callback) },
     function(callback){ common.upload_photo(thumb_path,dest_paths.thumb,callback) },
     function(callback){ common.upload_photo(medium_path,dest_paths.medium,callback) },

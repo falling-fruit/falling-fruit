@@ -65,11 +65,11 @@ locations.add = function (req, res) {
                         req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
                        function(err,result){
             if(err) return callback(err,'error running query');
-            callback(null,location_id,user);
+            return callback(null,location_id,user);
           });
         }else{
           res.send({"location_id": location_id });
-          return callback(null); // jump to the finish line
+          return callback('okay','done'); // jump to the finish line
         }
       },
       function(location_id,user,callback){
@@ -96,7 +96,7 @@ locations.add = function (req, res) {
     ],
     function(err,message){
       done();
-      if(message) common.send_error(res,message,err);
+      if(message && (err != 'okay')) common.send_error(res,message,err);
     }); 
   });
 };
