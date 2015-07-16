@@ -34,6 +34,7 @@ types.list = function (req, res) {
               x.count = parseInt(x.count); 
               return x; 
             }));
+            return callback(null);
           });
         }else{
           client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
@@ -41,6 +42,7 @@ types.list = function (req, res) {
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');
             res.send(result.rows);
+            return callback(null);
           });
         }
       }

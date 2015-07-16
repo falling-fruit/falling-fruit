@@ -68,7 +68,8 @@ locations.add = function (req, res) {
             callback(null,location_id,user);
           });
         }else{
-          return res.send({"location_id": location_id });
+          res.send({"location_id": location_id });
+          return callback(null); // jump to the finish line
         }
       },
       function(location_id,user,callback){
@@ -81,15 +82,16 @@ locations.add = function (req, res) {
         console.log('Photo Data:',req.files.photo_data);
         if(req.files.photo_data){
           var info = req.files.photo_data;
-          common.resize_and_upload_photo(info.path,req.query.photo_file_name,observation_id,location_id,callback);
+          return common.resize_and_upload_photo(info.path,req.query.photo_file_name,observation_id,location_id,callback);
         }else{
-          callback(null,location_id,observation_id,null);
+          return callback(null,location_id,observation_id,null);
         }
       },
       function(location_id,observation_id,images,callback){
         var ret = {"location_id": location_id, "observation_id": observation_id };
         if(images) ret.images = images;
         res.send(ret);
+        return callback(null);
       }
     ],
     function(err,message){

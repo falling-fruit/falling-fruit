@@ -20,7 +20,6 @@ clusters.list = function (req, res) {
     var tids = __.map(req.query.t.split(","),function(x){ return parseInt(x) });
     tfilter = "AND type_id IN ("+tids.join(",")+")";
   }
-  console.log(req.query.t);
   var filters = __.reject([zfilter,tfilter,bfilter,mfilter],__.isUndefined).join(" ");
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
@@ -40,6 +39,7 @@ clusters.list = function (req, res) {
             x.count = parseInt(x.count);
             return x;
           }));
+          return callback(null);
         });
       }
     ],

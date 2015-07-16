@@ -371,10 +371,12 @@ function do_cluster_types(bounds,zoom,muni) {
   var bstr = bounds_to_query_string(bounds);
   var gstr = '&method=grid&grid=' + zoom;
   if (muni) mstr = '&muni=1';
-    else mstr = '&muni=0';
+  else mstr = '&muni=0';
+  var url = api_base + 'types.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr;
+  console.log(url);
   var request = $.ajax({
     type: 'GET',
-    url: api_base + 'types.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr,
+    url: url,
     dataType: 'json'
   });
   request.done(function(json){		    

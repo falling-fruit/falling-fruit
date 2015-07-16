@@ -20,7 +20,10 @@ auth.login = function (req, res) {
           var token = result.rows[0].authentication_token;
           auth.bcrypt.compare(password, encrypted_password, function(err, success) {
             if(err || !success) return callback(true,'bad email or password');
-            else return res.send({"auth_token": token});
+            else {
+              res.send({"auth_token": token});
+              return callback(null);
+            }
           });
         });
       }
@@ -46,7 +49,10 @@ auth.logout = function (req, res) {
         client.query("UPDATE users SET authentication_token=$1 WHERE authentication_token=$2;",
                      [common.generate_auth_token(),auth_token],function(err,result){
           if (err) return callback(err,'error running query');
-          else return res.send({})
+          else{
+            res.send({});
+            return callback(null);
+          }
         });
       }
     ],
