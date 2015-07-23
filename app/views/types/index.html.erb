@@ -17,12 +17,10 @@
  <th>Rank</th>
  <th>Latin</th>
  <th>en</th>
- <th>fr</th>
  <th>de</th>
- <th>es</th>
+ <th>fr</th>
  <th>pt</th>
- <th>pl</th>
- <th>he</th>
+ <th>it</th>
  <th>cats</th>
  <th>W</th>
  <th>US</th>
@@ -46,12 +44,10 @@
  <%= type.name %>
  <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
 </td>
-<td><%= type.fr_name %></td>
 <td><%= type.de_name %></td>
-<td><%= type.es_name %></td>
+<td><%= type.fr_name %></td>
 <td><%= type.pt_br_name %></td>
-<td><%= type.pl_name %></td>
-<td><%= type.he_name %></td>
+<td><%= type.it_name %></td>
 <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
 <td style="text-align:center;">
 <% unless type.wikipedia_url.blank? %>

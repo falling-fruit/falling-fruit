@@ -17,17 +17,20 @@
   
   <% if (I18n.locale == :en) %>
     <meta property="og:locale" content="en_US" />
-  <% elsif (I18n.locale == :fr) %>
-    <meta property="og:locale" content="fr_FR" />
   <% elsif (I18n.locale == :de) %>
     <meta property="og:locale" content="de_DE" />
+  <% elsif (I18n.locale == :fr) %>
+    <meta property="og:locale" content="fr_FR" />
   <% elsif (I18n.locale == :"pt-BR") %>
     <meta property="og:locale" content="pt_BR" />
+  <% elsif (I18n.locale == :"it") %>
+    <meta property="og:locale" content="it_IT" />
   <% end %>
 	<meta property="og:locale:alternate" content="en_US" />
-	<meta property="og:locale:alternate" content="fr_FR" />
 	<meta property="og:locale:alternate" content="de_DE" />
+	<meta property="og:locale:alternate" content="fr_FR" />
 	<meta property="og:locale:alternate" content="pt_BR" />
+	<meta property="og:locale:alternate" content="it_IT" />
  
   <% if @freegan %>
     <meta property="og:title" content="<%= I18n.t("meta.freegan_title") %>" />
