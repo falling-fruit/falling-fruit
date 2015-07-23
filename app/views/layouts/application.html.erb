@@ -146,7 +146,7 @@
       <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
       <!-- <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option> -->
       <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
-      <!--<option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>-->
+      <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
       <option value="pt-BR" <%= (I18n.locale == :"pt-BR") ? "selected" : "" %>>Português</option>
     </select>
   </div>
@@ -290,7 +290,8 @@
 <% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show")  or (@current_controller == "observations") %>
 
 <div id="content_container">
-	<div id="content">
+	<!-- Allow full-width content for very large tables in admin views -->
+	<div id="content" <% if (@current_controller == "types" and @current_action == "index") or (@current_controller == "users" and @current_action == "index") %>style="max-width:100%;"<% end %>>
 	 <%= yield %>
  
 	 <!-- Footer -->
