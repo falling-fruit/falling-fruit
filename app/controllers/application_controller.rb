@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
-  SupportedLocales = ['en','fr','de','pt-BR','es','it','pl','he']
-
+  @categories = Type::DefaultCategories
+   
   before_filter :redirect_to_https
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :instantiate_controller_and_action_names
   before_filter :set_locale
+  before_filter :set_categories
   after_filter :set_access_control_headers
   
   protect_from_forgery
@@ -28,7 +29,7 @@ class ApplicationController < ActionController::Base
   # app/controllers/application_controller.rb
   # http://guides.rubyonrails.org/i18n.html
   def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
+    { locale: I18n.locale, c: @categories.join(",") }.merge options
   end
 
   # used by devise to determine where to send users after login
@@ -138,7 +139,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     new_locale = extract_locale_from_subdomain || extract_locale_from_url
-    if new_locale and SupportedLocales.include? new_locale
+    unless new_locale.nil?
       I18n.locale = new_locale
     else
       I18n.locale = I18n.default_locale
@@ -159,6 +160,25 @@ class ApplicationController < ActionController::Base
     return nil unless params.has_key? :locale
     locale = params[:locale].gsub('_','-')
     I18n.available_locales.map(&:to_s).include?(locale) ? locale : (I18n.available_locales.map(&:to_s).include?(locale[0,2]) ? locale[0,2] : nil)
+  end
+  
+  #
+  # =================== TYPE CATEGORIES ========================
+  #
+    
+  def set_categories
+    new_categories = extract_categories_from_url
+    unless new_categories.nil?
+      @categories = new_categories
+    else
+      @categories = Type::DefaultCategories
+    end
+  end
+
+  def extract_categories_from_url
+    return nil unless params.has_key? :c
+    categories = params[:c].split(",")
+    return Type::Categories & categories
   end
   
   #
