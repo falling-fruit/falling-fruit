@@ -185,15 +185,13 @@
  <a id="falling_fruit" href="/">falling fruit</a>
  <span id="subtitle">
  &ndash;
- <!--
- <% unless @freegan %>
-   <%= I18n.t("layouts.application.mapping_the_urban_harvest") %>
- <% else %>
+ <% if @freegan %>
    <%= I18n.t("layouts.application.feed_people_not_landfills") %>
+ <% else %>
+   <%= I18n.t("layouts.application.mapping_the_urban_harvest") %>
  <% end %>
- -->
  </span>
- 
+ <!-- 
  <% ['forager', 'freegan', 'grafter'].each do |c| %>
  		<% if @categories.include?(c) %>
  			<b><%= c %></b>
@@ -201,6 +199,7 @@
  			<%= c %>
  		<% end %>
  <% end %>
+ -->
 </div>
 
 <!-- Menu Bar -->
