@@ -161,7 +161,7 @@ locations.list = function (req, res) {
   var bfilter = undefined;
   if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
     bfilter = common.postgis_bbox("location",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
-                           parseFloat(req.query.swlat),parseFloat(req.query.swlng));
+                           parseFloat(req.query.swlat),parseFloat(req.query.swlng),4326,12);
   }else{
     return common.send_error(res,'bounding box not defined');    
   }

@@ -10,7 +10,7 @@ clusters.list = function (req, res) {
   var zfilter = "zoom=2"; // zfilter is first so doesn't have an AND
   if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
     bfilter = common.postgis_bbox("cluster_point",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
-                           parseFloat(req.query.swlat),parseFloat(req.query.swlng),900913);
+                           parseFloat(req.query.swlat),parseFloat(req.query.swlng),900913,req.query.zoom);
     if(req.query.zoom) zfilter = "zoom="+parseInt(req.query.zoom);
   }else{
     return common.send_error(res,'bounding box not defined');    

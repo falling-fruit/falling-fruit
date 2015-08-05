@@ -34,12 +34,64 @@ common.i18n_name = function(locale){
   else return "name";
 }
 
-common.postgis_bbox = function(v,nelat,nelng,swlat,swlng,srid){
+common.earth_radius = 6378137.0;
+common.earth_circum = 2.0*Math.PI*earth_radius;  
+
+// Conversion SRID 4326 <-> 900913
+common.wgs84_to_web_mercator = function(lng,lat){
+  var x = (lng/360)*common.earth_circum;
+  var y = Math.log(Math.tan((lat+90)*(Math.PI/360)))*common.earth_radius;
+  return [x,y];
+}
+
+common.web_mercator_to_wgs84 = function(x,y){
+  var lng = x*(360/earth_circum);
+  var lat = 90-(Math.atan2(1,Math.exp(y/earth_radius))*(360/Math.PI));
+  return [lng,lat];
+}
+
+common.scale_postgis_bbox = function(nelat,nelng,swlat,swlng,max_zoom,srid){
+  if(srid == 900913){
+    var ne_wgs = common.web_mercator_to_wgs84(nelng,nelat);
+    var sw_wgs = common.web_mercator_to_wgs84(swlng,swlat);
+    nelng = ne_wgs[0];
+    nelat = ne_wgs[1];
+    swlng = sw_wgs[0];
+    swlat = sw_wgs[1];
+  }
+  var max_width = 360.0/Math.pow(2,max_zoom);
+  var lng_scale = (nelng-swlng) > max_width ? max_width/(nelng-swlng) : 1.0;
+  var lat_scale = (nelat-swlat) > max_width ? max_width/(nelat-swlat) : 1.0;
+  console.log("Prior area (degrees^2): "+(nelat-swlat)*(nelng-swlng));
+  if(lng_scale < 1.0){
+    swlng = swlng + (1.0-lng_scale)/2;
+    nelng = nelng - (1.0-lng_scale)/2;
+  }
+  if(lat_scale < 1.0){
+    swlat = swlat + (1.0-lat_scale)/2;
+    nelat = nelat - (1.0-lat_scale)/2;
+  }
+  console.log("Max width: ",max_width);
+  console.log("Lng scale",lng_scale,"Lat scale",lat_scale);
+  console.log("New area (degrees^2): "+(nelat-swlat)*(nelng-swlng));
+  if(srid == 900913){
+    var ne_wgs = common.wgs84_to_web_mercator(nelng,nelat);
+    var sw_wgs = common.wgs84_to_web_mercator(swlng,swlat);
+    nelng = ne_wgs[0];
+    nelat = ne_wgs[1];
+    swlng = sw_wgs[0];
+    swlat = sw_wgs[1];
+  }
+  return {"nelat":nelat,"nelng":nelng,"swlat":swlat,"swlng":swlng};
+}
+
+common.postgis_bbox = function(v,nelat,nelng,swlat,swlng,srid,zoom){
+  var scaled = common.scale_postgis_bbox(ne_wgs[1],ne_wgs[0],sw_wgs[1],sw_wgs[0],zoom > 0 ? zoom-1 : 0,srid);
   if(swlng < nelng){
     if(srid == 900913){
       return "AND ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+
              swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913))";
-    }else{ // assume 4326
+    }else{ // assume 4326      
       return "AND ST_INTERSECTS("+v+",ST_SETSRID(ST_MakeBox2D(ST_POINT("+
              swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326))";
     }
