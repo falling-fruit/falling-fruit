@@ -52,8 +52,8 @@
   labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var skip_ids = null;
   var type_filter = undefined;
-  <% unless @type.nil? %>
-    type_filter = <%= @type.id %>;
+  <% unless @types.nil? %>
+    type_filter = [<%= @types.collect{ |t| t.id }.join(",") %>];
   <% end %>
   
    // state variable used to leave out certain info_window features (report)

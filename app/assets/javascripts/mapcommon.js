@@ -317,7 +317,7 @@ function do_clusters(bounds,zoom,muni,type_filter) {
       else mstr = '&muni=0';
     var tstr = '';
     if(type_filter != undefined){
-      tstr = '&t=' + type_filter;
+      tstr = '&t=' + type_filter.join(",");
     }
     if(pb != null) pb.start(200);
     var request = $.ajax({
@@ -647,7 +647,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     else mstr = '&muni=0';
   var tstr = '';
   if (type_filter != undefined) {
-    var tstr = '&t=' + type_filter;
+    var tstr = '&t=' + type_filter.join(",");
   }
   var cstr = '';
   if (cats != undefined) {
