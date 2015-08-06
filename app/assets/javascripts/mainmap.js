@@ -94,7 +94,6 @@ function show_observation_html(object){
 
 function update_display(force,force_zoom,force_bounds){
   $('#s2id_type_filter').select2('disable', true);
-  if (typeof type_filter != 'number') type_filter = undefined;
   var zoom = map.getZoom();
   if (force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();

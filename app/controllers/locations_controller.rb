@@ -454,7 +454,7 @@ class LocationsController < ApplicationController
     @perma[:cats] = params[:c] if params[:c].present?
     @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
     @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
-    @types = params[:f].present? ? Type.find(params[:f].split(",").collect{ |e| e.to_i }) : nil
+    @types = params[:f].present? ? Type.find(params[:f].split(",").collect{ |e| e.to_i }) : []
   end
 
 end
