@@ -53,11 +53,14 @@ FallingfruitWebapp::Application.routes.draw do
   resources :problems
   resources :imports # Used by /imports/show. Consider redirecting to /datasets.
 
-  
-  
+  match 'about' => 'pages#about' 
+  match 'datasets' => 'pages#datasets'
   match 'maps' => 'pages#datasets' # deprecated, redirect
   match 'inventories' => 'pages#datasets' # deprecated, redirect
-  match 'imports/bibliography' => 'pages#datasets' # deprecated, redirect
+  match 'imports/bibliography' => 'pages#datasets' # deprecated, redirecta
+  match 'sharing' => 'pages#sharing'
+  match 'press' => 'pages#press'
+  match 'data' => 'pages#data'
   
   match 'forager' => 'locations#forager_index'
   match 'dumpsters' => 'locations#freegan_index'

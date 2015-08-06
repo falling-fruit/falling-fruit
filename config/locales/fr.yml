@@ -216,6 +216,8 @@ fr:
       stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>.
       welcome_modal_html: Falling Fruit est une carte immense et collaborative du glanage urbain. En unissant les efforts de glaneurs, freegans, et forestiers, la carte contient déjà plus d'un demi-million de sources comestibles à travers le monde (plantes et champignons aux puits d'eau et poubelles). Notre communauté d'utilisateurs, en croissance rapide, explore, modifie, et ajoute à la carte.<br/><br/>Célébrez avec nous la générosité alimentaires négligée de nos villes! Utilisez le site de façon anonyme ou <a href="/users/sign_up?locale=fr">inscrivez-vous</a> pour accéder à des fonctionnalités supplémentaires.
       welcome_modal_title: Bienvenue sur Falling Fruit!
+      grafter_modal_html: 
+      grafter_modal_title: 
     infowindow:
       access:
       - Cette source a été ajoutée par son propriétaire.

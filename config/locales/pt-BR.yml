@@ -218,6 +218,8 @@ pt-BR:
       stamen_html: Bloco do mapa por <a href="http://stamen.com">estame projeto</a>, sob <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dados de <a href="http://openstreetmap.org">OpenStreetMap</a>, sob <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit é um enorme mapa colaborativo sobre colheita urbana. Unindo os esforços de coletores, florestais e freegans em todos os lugares, o mapa já identifica mais de meio milhão de fontes de alimentos em todo o mundo (desde plantas e fungos até poços de água e lixeiras). Nossa crescente comunidade de usuários ativamente explora, editar e adiciona ao mapa. <br/><br/> Junte-se a nós na celebração da abundancia negligenciada de nossas ruas! Use o site anonimamente ou <a href="/users/sign_up?locale=pt">se inscreva</a> para acessar recursos adicionais.
       welcome_modal_title: ! 'Bem vindo ao Falling Fruit! '
+      grafter_modal_html: 
+      grafter_modal_title: 
     infowindow:
       access:
       - Esta fonte foi acrescentada pelo proprietário.
