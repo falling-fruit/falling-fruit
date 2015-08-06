@@ -64,6 +64,7 @@
   // ================= functions =================
   
   function initialize() {
+    console.log('initializing');
   
     <% if @zoom_to_polygon.nil? %>
       basemap(lat,lng,zoom,type);
@@ -86,6 +87,7 @@
     });
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+      console.log("update");
       update_display(true,zoom);
       if($("#labels").is(":checked")) labelize_markers();
       // Ensures that labels come on again if labels = true and zoom <= 12
@@ -96,6 +98,7 @@
     
     // Far less redundant event trigger
     google.maps.event.addListener(map, 'idle', function() {
+      console.log("update");
       update_display(false);
     });
   }
