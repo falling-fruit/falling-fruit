@@ -35,7 +35,7 @@ common.i18n_name = function(locale){
 }
 
 common.earth_radius = 6378137.0;
-common.earth_circum = 2.0*Math.PI*earth_radius;  
+common.earth_circum = 2.0*Math.PI*common.earth_radius;
 
 // Conversion SRID 4326 <-> 900913
 common.wgs84_to_web_mercator = function(lng,lat){
@@ -45,8 +45,8 @@ common.wgs84_to_web_mercator = function(lng,lat){
 }
 
 common.web_mercator_to_wgs84 = function(x,y){
-  var lng = x*(360/earth_circum);
-  var lat = 90-(Math.atan2(1,Math.exp(y/earth_radius))*(360/Math.PI));
+  var lng = x*(360/common.earth_circum);
+  var lat = 90-(Math.atan2(1,Math.exp(y/common.earth_radius))*(360/Math.PI));
   return [lng,lat];
 }
 
@@ -86,7 +86,7 @@ common.scale_postgis_bbox = function(nelat,nelng,swlat,swlng,max_zoom,srid){
 }
 
 common.postgis_bbox = function(v,nelat,nelng,swlat,swlng,srid,zoom){
-  var scaled = common.scale_postgis_bbox(ne_wgs[1],ne_wgs[0],sw_wgs[1],sw_wgs[0],zoom > 0 ? zoom-1 : 0,srid);
+  var scaled = common.scale_postgis_bbox(nelat,nelng,swlat,swlng,zoom-1,srid);
   if(swlng < nelng){
     if(srid == 900913){
       return "AND ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+
