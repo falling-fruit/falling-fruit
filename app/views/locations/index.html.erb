@@ -16,6 +16,11 @@
   <%= I18n.t("locations.index.freegan_modal_html").html_safe %>
 </div>
 
+<div id="grafter_modal" style="display:none;" title="<%= I18n.t("locations.index.grafter_modal_title") %>">
+  <img src="/guerrilla-grafter-logo-resize.jpg" style="float:right;margin:0.4em 0 0.5em 1em;">
+  <%= I18n.t("locations.index.grafter_modal_html").html_safe %>
+</div>
+
 <%= render 'searchbar' %>
 
 <% unless @show_sidebar.nil? or not @show_sidebar %>
@@ -112,7 +117,15 @@
       if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });
         $('#freegan_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
-        $("#freegan_modal").bind( "clickoutside", function(event){
+        $("#freegan_modal").bind("clickoutside", function(event){
+          $(this).dialog('close');
+        });
+      }
+    <% elsif @grafter %>
+      if ($.cookie('grafter_modal_shown') == null) {
+        $.cookie('grafter_modal_shown', 'yes', { expires: 365, path: '/' });
+        $('#grafter_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
+        $("#grafter_modal").bind("clickoutside", function(event){
           $(this).dialog('close');
         });
       }
@@ -120,7 +133,7 @@
       if ($.cookie('welcome_modal_shown') == null) {
         $.cookie('welcome_modal_shown', 'yes', { expires: 365, path: '/' });
         $('#welcome_modal').dialog({modal:true,width:600,resizable:false,draggable:false});
-        $("#welcome_modal").bind( "clickoutside", function(event){
+        $("#welcome_modal").bind("clickoutside", function(event){
           $(this).dialog('close');
         });
       }

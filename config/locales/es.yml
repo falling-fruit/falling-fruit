@@ -216,6 +216,8 @@ es:
       stamen_html: Mapa azulejos por <a href="http://stamen.com">Stamen Design</a>, bajo <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Datos por <a href="http://openstreetmap.org">OpenStreetMap</a>, bajo <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit es un mapa enorme, en colaboración de la cosecha urbana. Uniendo los esfuerzos de los cazadores-recolectores, silvicultores y freegans por todas partes, el mapa ya apunta a más de medio millón de lugares productores de alimentos de todo el mundo (de las plantas y los hongos a los pozos de agua y contenedores de basura). Nuestra comunidad de usuarios en rápido crecimiento está explorando activamente, editar y agregar al mapa. <br/><br/> Únete a nosotros en la celebración de la generosidad de nuestros vecinos calles de la ciudad! Utilice el sitio de forma anónima o <a href="/users/sign_up?locale=es">inscribirse</a> para una cuenta para acceder a funciones adicionales.
       welcome_modal_title: ¡Bienvenido a Falling Fruit!
+      grafter_modal_html: 
+      grafter_modal_title: 
     infowindow:
       access:
       - Esta fuente fue añadido por el dueño.

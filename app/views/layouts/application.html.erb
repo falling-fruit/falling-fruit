@@ -59,7 +59,7 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
-		// Load I18n locale into JS
+	// Load I18n locale into JS
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
 
@@ -141,8 +141,6 @@
 <div id="logobar">
 
 	<!-- Locale -->
-  <!-- FIXME: Replace locale tags with flag sprites -->
-  <!-- FIXME: Redirect as needed to /fallingfruit.org -->
   <div id="locale">
     <select id="locale_select">
       <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
@@ -151,7 +149,7 @@
       <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
       <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
       <option value="pt-BR" <%= (I18n.locale == :"pt-BR") ? "selected" : "" %>>Português</option>
-    </select>
+    </select>		
   </div>
 
  <!-- Sharing -->
@@ -187,12 +185,21 @@
  <a id="falling_fruit" href="/">falling fruit</a>
  <span id="subtitle">
  &ndash;
- <% unless @freegan %>
-   <%= I18n.t("layouts.application.mapping_the_urban_harvest") %>
- <% else %>
+ <% if @freegan %>
    <%= I18n.t("layouts.application.feed_people_not_landfills") %>
+ <% else %>
+   <%= I18n.t("layouts.application.mapping_the_urban_harvest") %>
  <% end %>
  </span>
+ <!-- 
+ <% ['forager', 'freegan', 'grafter'].each do |c| %>
+ 		<% if @categories.include?(c) %>
+ 			<b><%= c %></b>
+ 		<% else %>
+ 			<%= c %>
+ 		<% end %>
+ <% end %>
+ -->
 </div>
 
 <!-- Menu Bar -->
@@ -311,12 +318,12 @@
 <% end %>
 
 <script type="text/javascript">
-  jQuery(document).ready(function(){
-    $("#locale_select").change(function(){
-      url = add_url_parameter(window.location.href, 'locale', $("#locale_select").val())
-      window.location.href = url;
-    });
-  });
+	jQuery(document).ready(function(){
+		$("#locale_select").change(function(){
+			url = add_url_parameter(window.location.href, 'locale', $("#locale_select").val())
+			window.location.href = url;
+		});
+	});
 </script>
 
 <!-- Per Page Javascripts -->

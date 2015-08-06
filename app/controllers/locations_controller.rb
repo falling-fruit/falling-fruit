@@ -108,9 +108,10 @@ class LocationsController < ApplicationController
     index and return
   end
   
-  # GET /guerrilla
+  # GET /graftable
   # GET /grafter
   def grafter_index
+  	@grafter = true
     params[:c] = 'grafter'
     index and return
   end

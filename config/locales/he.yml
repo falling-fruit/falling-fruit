@@ -210,6 +210,8 @@ he:
       stamen_html: אריחי מפה על ידי <a href="http://stamen.com">אבקן עיצוב,</a> תחת <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0.</a> נתונים על ידי <a href="http://openstreetmap.org">OpenStreetMap,</a> תחת <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA.</a>
       welcome_modal_html: נפילת פירות היא מפה סיבית, שיתוף פעולה של היבול העירוני. מאחד את המאמצים של מלקטי מזון, יערנים, וfreegans בכל מקום, המפה כבר מצביעה על מעל חצי מיליון מקומות ייצור מזון בעולם (מצמחים ופטריות לבארות מים ופחי אשפה). קהילת המשתמשים גדלו במהירות שלנו באופן פעיל לחקור, עריכה, ולהוסיף למפה. <br/><br/> הצטרפו אלינו בחוגגים את השפע להתעלם מרחובות העיר שלנו! השתמש באתר בעילום שם או <a href="/users/sign_up?locale=he">להירשם</a> לחשבון כדי לגשת לתכונות נוספות.
       welcome_modal_title: 
+      grafter_modal_html: 
+      grafter_modal_title: 
     infowindow:
       access:
       - מקור זה נוסף על ידי בעל הנכס.

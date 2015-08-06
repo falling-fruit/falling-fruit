@@ -41,40 +41,35 @@ FallingfruitWebapp::Application.routes.draw do
       get 'merge'
     end
   end
-
-  resources :regions
-
-  match 'about' => 'pages#about'
-  match 'datasets' => 'pages#datasets'
-
-  match 'sharing' => 'pages#sharing'
-  match 'press' => 'pages#press'
-  match 'data' => 'pages#data'
-  match 'dumpsters' => 'locations#freegan_index'
-  match 'freegan' => 'locations#freegan_index'
-  match 'grafter' => 'locations#grafter_index'
-  match 'guerrilla' => 'locations#grafter_index'
-  match 'honeybee' => 'locations#honeybee_index'
-  match 'imports/bibliography' => 'pages#datasets'
-  match 'home' => 'locations#home'
   
-  # Replaced by pages#datasets (unused, but kept for posterity)
-  match 'maps' => 'pages#datasets'
-  match 'inventories' => 'pages#datasets'
-
-  # Still used by /imports/show. Consider redirecting to /datasets.
-  resources :imports
-
-  resources :changes
-
   resources :observations do
     member do
       get 'delete_photo'
     end
   end
-
+  
+  resources :regions
+  resources :changes
   resources :problems
+  resources :imports # Used by /imports/show. Consider redirecting to /datasets.
 
+  match 'about' => 'pages#about' 
+  match 'datasets' => 'pages#datasets'
+  match 'maps' => 'pages#datasets' # deprecated, redirect
+  match 'inventories' => 'pages#datasets' # deprecated, redirect
+  match 'imports/bibliography' => 'pages#datasets' # deprecated, redirecta
+  match 'sharing' => 'pages#sharing'
+  match 'press' => 'pages#press'
+  match 'data' => 'pages#data'
+  
+  match 'forager' => 'locations#forager_index'
+  match 'dumpsters' => 'locations#freegan_index'
+  match 'freegan' => 'locations#freegan_index'
+  match 'grafter' => 'locations#grafter_index'
+  match 'graftable' => 'locations#grafter_index'
+  match 'honeybee' => 'locations#honeybee_index'
+  
+  match 'home' => 'locations#home'
   match 'locations/:id/infobox' => 'locations#infobox'
 
   # these two methods are part of the API but actually live in the normal API controller to keep things DRY
