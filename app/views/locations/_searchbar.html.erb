@@ -71,10 +71,11 @@
     }
     return ret;
   }
+
 jQuery(document).ready(function(){
   $('#type_filter').select2({
     <% unless @types.nil? or @types.empty? %>
-      placeholder: "<%= @types.collect{ |t| t.name }.join("+") %>",
+      placeholder: "<%= @types.collect{ |t| t.name }.join(" + ") %>",
       val: type_filter,
     <% else @types.nil? %>
     	placeholder: "<%= I18n.t("glossary.edible_type") %>",
