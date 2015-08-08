@@ -101,11 +101,7 @@ function update_display(force,force_zoom,force_bounds){
   update_permalink();
   if (zoom <= 12) {
     if (prior_zoom > 12) hide_map_controls();
-    if (zoom > 8) {
-      do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
-    } else if ((zoom != prior_zoom) || force) {
-      do_clusters(undefined,zoom,$('#muni').is(':checked'),type_filter);
-    }
+    do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
     do_cluster_types(bounds,zoom,$('#muni').is(':checked'));
   } else if (zoom >= 13) {
     if (prior_zoom < 13) {

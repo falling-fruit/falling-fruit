@@ -300,12 +300,14 @@ function clear_offscreen_markers(){
   for (var i = 0; i < len; i++ ) {
     if(infowindow.marker && infowindow.marker == markersArray[i].marker) continue;
     if(!bounds.contains(markersArray[i].marker.getPosition())){
-      for(var j = 0; j < markersArray[i].types.length; j++){
-        var tid = markersArray[i].types[j];
-        if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
-        if(types_hash[tid] == 0) delete types_hash[tid];
+      if(markersArray[i].types) {
+        for (var j = 0; j < markersArray[i].types.length; j++) {
+          var tid = markersArray[i].types[j];
+          if (types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
+          if (types_hash[tid] == 0) delete types_hash[tid];
+        }
       }
-      if(markersArray[i].parent_types) {
+        if(markersArray[i].parent_types) {
         for (var j = 0; j < markersArray[i].parent_types.length; j++) {
           var tid = markersArray[i].parent_types[j];
           if (types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
@@ -336,7 +338,7 @@ function bounds_to_query_string(bounds){
 }
 
 function do_clusters(bounds,zoom,muni,type_filter) {
-    var bstr = bounds_to_query_string(map.getBounds());
+    var bstr = bounds_to_query_string(bounds);
     var gstr = '&zoom=' + zoom;
     if (muni) mstr = '&muni=1';
       else mstr = '&muni=0';
@@ -345,7 +347,7 @@ function do_clusters(bounds,zoom,muni,type_filter) {
       tstr = '&t=' + type_filter.join(",");
     }
     if(pb != null) pb.start(200);
-    console.log(api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr);
+    //console.log(api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr);
     var request = $.ajax({
       type: 'GET',
       url: api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr,
@@ -371,7 +373,7 @@ function do_cluster_types(bounds,zoom,muni) {
   if (muni) mstr = '&muni=1';
   else mstr = '&muni=0';
   var url = api_base + 'types.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr;
-  console.log(url);
+  //console.log(url);
   var request = $.ajax({
     type: 'GET',
     url: url,

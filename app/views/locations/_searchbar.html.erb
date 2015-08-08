@@ -77,7 +77,7 @@ jQuery(document).ready(function(){
     <% unless @types.nil? or @types.empty? %>
       placeholder: "<%= @types.collect{ |t| t.name }.join(" + ") %>",
       val: type_filter,
-    <% else @types.nil? %>
+    <% else %>
     	placeholder: "<%= I18n.t("glossary.edible_type") %>",
     <% end %>
       data: function(term,page){
