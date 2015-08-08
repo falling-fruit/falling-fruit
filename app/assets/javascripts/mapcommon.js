@@ -25,7 +25,8 @@ markersLoadedEvent.initEvent("markersloaded",true,true);
 var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
 var watchID = null; // navigator/geolocation watchID
-var api_base = "http://localhost:3100/api/0.2/";
+//var api_base = "http://localhost:3100/api/0.2/";
+var api_base = "https://fallingfruit.org/api/0.2/";
 var api_key = "EEQRBBUB";
 
 // ================= infowindow =================
