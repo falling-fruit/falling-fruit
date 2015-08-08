@@ -71,12 +71,13 @@
     }
     return ret;
   }
+
 jQuery(document).ready(function(){
   $('#type_filter').select2({
-    <% unless @type.nil? %> 
-      placeholder: "<%= @type.name %>",
+    <% unless @types.nil? or @types.empty? %>
+      placeholder: "<%= @types.collect{ |t| t.name }.join(" + ") %>",
       val: type_filter,
-    <% else @type.nil? %>
+    <% else %>
     	placeholder: "<%= I18n.t("glossary.edible_type") %>",
     <% end %>
       data: function(term,page){
@@ -97,7 +98,7 @@ jQuery(document).ready(function(){
         clear_type_filter();
       }
     } else {
-      type_filter = parseFloat($("#type_filter").val());
+      type_filter = [parseFloat($("#type_filter").val())];
       if (map.getZoom() <= 12) {
         update_display(true);
       } else {

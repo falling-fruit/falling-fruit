@@ -102,17 +102,22 @@ class LocationsController < ApplicationController
     @freegan = true
     params[:c] = 'freegan'
     params[:t] = 'toner-lite'
-    #FIXME: clusters not yet supported for categories, so using type filter
-    @type = Type.find_by_name('Freegan')
-    params[:f] = @type.id
+    # hack since clusters don't support categories yet
+    @cat_mask = array_to_mask(["freegan"],Type::Categories)
+    @cat_filter = "(category_mask & #{@cat_mask})>0"
+    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
   
   # GET /graftable
   # GET /grafter
   def grafter_index
-  	@grafter = true
+    @grafter = true
     params[:c] = 'grafter'
+    # hack since clusters don't support categories yet
+    @cat_mask = array_to_mask(["grafter"],Type::Categories)
+    @cat_filter = "(category_mask & #{@cat_mask})>0"
+    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
   
@@ -449,9 +454,7 @@ class LocationsController < ApplicationController
     @perma[:cats] = params[:c] if params[:c].present?
     @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
     @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
-    unless @freegan
-      @type = params[:f].present? ? Type.find(params[:f]) : nil
-    end
+    @types = params[:f].present? ? Type.find(params[:f].split(",").collect{ |e| e.to_i }) : []
   end
 
 end

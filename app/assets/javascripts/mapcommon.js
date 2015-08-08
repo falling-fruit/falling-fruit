@@ -11,7 +11,8 @@ var prior_bounds = null;
 var prior_zoom = null;
 var prior_url = null;
 var markersArray = [];
-var types_hash = {};
+var types_hash = {}; // id to count mapping
+var types_names_hash = {}; // id to name mapping
 var showing_route_controls = false; // currently unused
 var labelsOn = null;
 var bicycleLayerOn = null;
@@ -24,6 +25,9 @@ markersLoadedEvent.initEvent("markersloaded",true,true);
 var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
 var watchID = null; // navigator/geolocation watchID
+//var api_base = "http://localhost:3100/api/0.2/";
+var api_base = "https://fallingfruit.org/api/0.2/";
+var api_key = "EEQRBBUB";
 
 // ================= infowindow =================
 
@@ -185,70 +189,90 @@ function add_range(range_string) {
   return obj;
 }
 
-// will avoid adding duplicate markers (using location id)
-function add_markers_from_json(mdata,rich,skip_ids){
+function number_to_human(n){
+  if(n > 999 && n <= 999999){
+    return Math.round(n/1000.0) + "K";
+  }else if(n > 999999){
+    return Math.round(n/1000000) + "M";
+  }else{
+    return n;
+  }
+}
+
+// FIXME: convert count to human readable (i.e., 10k, etc.)
+function add_clusters_from_json(mdata,type_filter){
   var len = mdata.length;
   for(var i = 0; i < len; i++){
-    var lid = mdata[i]["location_id"];
+    var lid = mdata[i]["id"];
+    if((lid != undefined) && (find_marker(lid) != undefined)) continue;
+    var pct = Math.min(Math.max((Math.round(Math.log(mdata[i]["count"])/Math.log(10))+2)*10,30),100);
+    var picture = "/icons/orangedot" + pct + ".png";
+    var w = pct;
+    var h = pct;
+    var wo = parseInt(w/2,10);
+    var ho = parseInt(h/2,10);
+    var m = new RichMarker({
+      content: '<div style="color:black;background:url(' + picture + ');height:'+h+
+      'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
+      'text-align: center;position:absolute;'+
+      'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+number_to_human(mdata[i]["count"])+'</div>',
+      position: new google.maps.LatLng(mdata[i]["center_y"],mdata[i]["center_x"]),
+      map: map,
+      draggable: false,
+      width: w,
+      height: h,
+      shadow: false,
+      flat: true,
+      title: number_to_human(mdata[i]["count"]),
+      anchor: RichMarkerPosition.MIDDLE,
+    });
+    add_clicky_cluster(m);
+    markersArray.push({marker: m, id: null, type: "cluster", types: [], parent_types: []});
+  }
+  document.dispatchEvent(markersLoadedEvent);
+}
+
+// will avoid adding duplicate markers (using location id)
+function add_markers_from_json(mdata,skip_ids){
+  var len = mdata.length;
+  for(var i = 0; i < len; i++){
+    var lid = mdata[i]["id"];
     if((skip_ids != undefined) && (skip_ids.indexOf(parseInt(lid)) >= 0)) continue;
     if((lid != undefined) && (find_marker(lid) != undefined)) continue;
-    if(!rich){
-      var w = 17;
-      var h = 17;
-      var wo = parseInt(w/2,10);
-      var ho = parseInt(h/2,10);
-      if(infowindow.marker && infowindow.marker.id == lid){
-        var m = infowindow.marker; 
-      }else{
-        var m = new google.maps.Marker({
-          icon: {
-            url: '/icons/smdot_t1_red.png',
-            size: new google.maps.Size(w,h),
-            origin: new google.maps.Point(0,0),
-            // by convention, icon center is at ~40%
-            anchor: new google.maps.Point(w*0.4,h*0.4)
-          },
-          position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
-          map: map,
-          title: mdata[i]["title"],
-          draggable: false
-        });
-      }
-      markersArray.push({marker: m, id: mdata[i]["location_id"], type: "point", types: mdata[i]["types"], parent_types: mdata[i]["parent_types"]});
-      for(var j = 0; j < mdata[i]["types"].length; j++){
-        var tid = mdata[i]["types"][j];
-        if(types_hash[tid] == undefined) types_hash[tid] = 1;
-        else types_hash[tid] += 1;
-      }
-      for(var j = 0; j < mdata[i]["parent_types"].length; j++){
+    var w = 17;
+    var h = 17;
+    var wo = parseInt(w/2,10);
+    var ho = parseInt(h/2,10);
+    if(infowindow.marker && infowindow.marker.id == lid){
+      var m = infowindow.marker;
+    }else{
+      var m = new google.maps.Marker({
+        icon: {
+          url: '/icons/smdot_t1_red.png',
+          size: new google.maps.Size(w,h),
+          origin: new google.maps.Point(0,0),
+          // by convention, icon center is at ~40%
+          anchor: new google.maps.Point(w*0.4,h*0.4)
+        },
+        position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]),
+        map: map,
+        title: type_ids_to_title(mdata[i]["type_ids"]),
+        draggable: false
+      });
+    }
+    markersArray.push({marker: m, id: mdata[i]["id"], type: "point",
+      types: mdata[i]["type_ids"], parent_types: mdata[i]["parent_types"]});
+    for(var j = 0; j < mdata[i]["type_ids"].length; j++){
+      var tid = mdata[i]["type_ids"][j];
+      if(types_hash[tid] == undefined) types_hash[tid] = 1;
+      else types_hash[tid] += 1;
+    }
+    if(mdata[i]["parent_types"]) {
+      for (var j = 0; j < mdata[i]["parent_types"].length; j++) {
         var tid = mdata[i]["parent_types"][j];
-        if(types_hash[tid] == undefined) types_hash[tid] = 1;
+        if (types_hash[tid] == undefined) types_hash[tid] = 1;
         else types_hash[tid] += 1;
       }
-    } else {
-      var pct = Math.min(Math.max((Math.round(Math.log(mdata[i]["n"])/Math.log(10))+2)*10,30),100);
-      var picture = "/icons/orangedot" + pct + ".png";
-      var w = pct;
-      var h = pct;
-      var wo = parseInt(w/2,10);
-      var ho = parseInt(h/2,10);
-      var m = new RichMarker({
-          content: '<div style="color:black;background:url(' + picture + ');height:'+h+
-                   'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
-                   'text-align: center;position:absolute;'+
-                   'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+mdata[i]["title"]+'</div>',
-          position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]), 
-          map: map,
-          draggable: false,
-          width: w,
-          height: h,
-          shadow: false,
-          flat: true,
-          title: mdata[i]["title"],
-          anchor: RichMarkerPosition.MIDDLE,
-        });
-        add_clicky_cluster(m);
-        markersArray.push({marker: m, id: null, type: "cluster", types: [], parent_types: []});
     }
   }
   document.dispatchEvent(markersLoadedEvent);
@@ -277,15 +301,19 @@ function clear_offscreen_markers(){
   for (var i = 0; i < len; i++ ) {
     if(infowindow.marker && infowindow.marker == markersArray[i].marker) continue;
     if(!bounds.contains(markersArray[i].marker.getPosition())){
-      for(var j = 0; j < markersArray[i].types.length; j++){
-        var tid = markersArray[i].types[j];
-        if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
-        if(types_hash[tid] == 0) delete types_hash[tid];
+      if(markersArray[i].types) {
+        for (var j = 0; j < markersArray[i].types.length; j++) {
+          var tid = markersArray[i].types[j];
+          if (types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
+          if (types_hash[tid] == 0) delete types_hash[tid];
+        }
       }
-      for(var j = 0; j < markersArray[i].parent_types.length; j++){
-        var tid = markersArray[i].parent_types[j];
-        if(types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
-        if(types_hash[tid] == 0) delete types_hash[tid];
+        if(markersArray[i].parent_types) {
+        for (var j = 0; j < markersArray[i].parent_types.length; j++) {
+          var tid = markersArray[i].parent_types[j];
+          if (types_hash[tid] != undefined && types_hash[tid] > 0) types_hash[tid] -= 1;
+          if (types_hash[tid] == 0) delete types_hash[tid];
+        }
       }
       markersArray[i].marker.setMap(null);
       markersArray[i].marker = null;
@@ -312,25 +340,26 @@ function bounds_to_query_string(bounds){
 
 function do_clusters(bounds,zoom,muni,type_filter) {
     var bstr = bounds_to_query_string(bounds);
-    var gstr = '&method=grid&grid=' + zoom;
+    var gstr = '&zoom=' + zoom;
     if (muni) mstr = '&muni=1';
       else mstr = '&muni=0';
     var tstr = '';
     if(type_filter != undefined){
-      tstr = '&t=' + type_filter;
+      tstr = '&t=' + type_filter.join(",");
     }
     if(pb != null) pb.start(200);
+    //console.log(api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr);
     var request = $.ajax({
       type: 'GET',
-      url: '/api/locations/cluster.json?api_key=EEQRBBUB&locale=' + I18n.locale + mstr + gstr + bstr + tstr,
+      url: api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr,
       dataType: 'json'
     });
     request.done(function(json){
+      //console.log(json);
       clear_markers();
       if(json.length > 0){
-        add_markers_from_json(json,true);
+        add_clusters_from_json(json);
       }
-      //do_cluster_types(bounds,zoom,muni);
       markersPartial = false;
       if(pb != null) pb.hide();
     });
@@ -341,32 +370,42 @@ function do_clusters(bounds,zoom,muni,type_filter) {
 
 function do_cluster_types(bounds,zoom,muni) {
   var bstr = bounds_to_query_string(bounds);
-  var gstr = '&method=grid&grid=' + zoom;
+  var gstr = '&zoom=' + zoom;
   if (muni) mstr = '&muni=1';
-    else mstr = '&muni=0';
+  else mstr = '&muni=0';
+  var url = api_base + 'types.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr;
+  //console.log(url);
   var request = $.ajax({
     type: 'GET',
-    url: '/api/locations/cluster_types.json?api_key=EEQRBBUB&locale=' + I18n.locale + mstr + gstr + bstr,
+    url: url,
     dataType: 'json'
   });
   request.done(function(json){		    
-      types_hash = {};
+    types_hash = {};
+    types_names_hash = {};
     if(json.length > 0){
       for(var i = 0;i < json.length; i++){
-        types_hash[json[i]["id"]] = json[i]["n"];
+        types_hash[json[i]["id"]] = json[i]["count"];
+        types_names_hash[json[i]["id"]] = json[i]["name"];
       }
     }
-    // Update count hack
-      if (type_filter != undefined) {
-        var previous_text = $('#s2id_type_filter .select2-chosen').html();
-        filter_display = $('#s2id_type_filter .select2-chosen');
-        if (types_hash[type_filter] == undefined) {
-          filter_display.html(filter_display.html().replace(/ \([0-9]+\+*\)/, '') + ' (0)');
-        } else {
-          $("#type_filter").select2('val', type_filter);
-        }
-      }
+    update_count_hack();
   });
+}
+
+// Given a list of type ids, returns a marker title fit for displaying on the map.
+function type_ids_to_title(tids){
+  var type_names = $.map(tids,function(x){ return types_names_hash[x]; });
+  if(type_names.length == 0) {
+    return "Unknown";
+  }else if(type_names.length == 1){
+    return type_names[0];
+  }else if(type_names.length == 2){
+    // FIXME: should i18n-ize "and"
+    return type_names[0] + " and " + type_names[1];
+  }else{
+    return type_names[0] + " and others";
+  }
 }
 
 // Finds nearest imagery from Street View Service, then calculates the heading.
@@ -612,11 +651,11 @@ function open_marker_by_id(id) {
   // didn't find it, manually fetch & add it
   var requestJson = $.ajax({
     type: 'GET',
-    url: '/api/locations/marker.json?api_key=EEQRBBUB&id=' + id,
+    url: api_base + 'locations/'+id+'.json?api_key='+api_key,
     dataType: 'json'
   });
   requestJson.done(function(json){
-    add_markers_from_json(json,false);
+    add_markers_from_json(json);
     // make marker clickable
     add_marker_infowindow(markersArray.length-1);
     // filter and labels
@@ -647,19 +686,21 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     else mstr = '&muni=0';
   var tstr = '';
   if (type_filter != undefined) {
-    var tstr = '&t=' + type_filter;
+    var tstr = '&t=' + type_filter.join(",");
   }
   var cstr = '';
   if (cats != undefined) {
     cstr = '&c=' + cats;
   }
   if(pb != null) pb.start(200);
+  //console.log(api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr);
   var request = $.ajax({
     type: 'GET',
-    url: '/api/locations/markers.json?api_key=EEQRBBUB&locale=' + I18n.locale + mstr + bstr + tstr + cstr,
+    url: api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr,
     dataType: 'json'
   });
   request.done(function(json){
+    //console.log(json);
     if(pb != null) pb.setTotal(json.length);
     // remove any cluster-type markers 
     var i = find_marker(null);
@@ -678,8 +719,9 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
     n_found = json.shift();
     n_limit = json.shift();
     clear_offscreen_markers();
-    add_markers_from_json(json,false,skip_ids);
-    if(type_filter != undefined) apply_type_filter();
+    add_markers_from_json(json,skip_ids);
+    if(type_filter != undefined && type_filter.length > 0) apply_type_filter();
+    else clear_type_filter();
     // make markers clickable
     for (var i = 0; i < markersArray.length; ++i) {
       add_marker_infowindow(i);
@@ -698,15 +740,6 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
       pb.hide();
     }
     search_filter(last_search);
-    // Update count hack
-    if (type_filter != undefined) {
-      filter_display = $('#s2id_type_filter .select2-chosen');
-      if (types_hash[type_filter] == undefined) {
-        filter_display.html(filter_display.html().replace(/ \([0-9]+\+*\)/, '') + ' (0)');
-      } else {
-        $("#type_filter").select2('val', type_filter);
-      }
-    }
   });
   request.fail(function(){
     if(pb != null) pb.hide();
@@ -808,11 +841,34 @@ function search_filter(search){
   }
 }
 
+function intersect(a, b) {
+  var t;
+  if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
+  return a.filter(function (e) {
+    if (b.indexOf(e) !== -1) return true;
+  });
+}
+
+// updates the count in the placeholder text
+function update_count_hack(){
+  // Update count hack
+  if (type_filter != undefined && type_filter.length > 0) {
+    filter_display = $('#s2id_type_filter .select2-chosen');
+    var types_count = 0;
+    if(type_filter != undefined) {
+      for (var i = 0; i < type_filter; i++) {
+        types_count += types_hash[type_filter[i]] == undefined ? 0 : types_hash[type_filter[i]];
+      }
+    }
+    filter_display.html(filter_display.html().replace(/\(\d+\)/,'('+types_count+')'));
+  }
+}
+
 function apply_type_filter() {
   var len = markersArray.length;
   for(var i = 0; i < len; i++){
-    if(markersArray[i].types == undefined || markersArray[i].parent_types == undefined) continue;
-    if (markersArray[i].types.indexOf(type_filter) >= 0 || markersArray[i].parent_types.indexOf(type_filter) >= 0) {
+    if(markersArray[i].types == undefined) continue;
+    if(intersect(markersArray[i].types,type_filter).length > 0){
       //markersArray[i].marker.setVisible(true);
       markersArray[i].marker.setZIndex(101);
       markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
@@ -824,6 +880,7 @@ function apply_type_filter() {
       //if(markersArray[i].label != undefined) markersArray[i].label.set('map',null);
     }
   }
+  update_count_hack();
 }
 
 function clear_type_filter() {
