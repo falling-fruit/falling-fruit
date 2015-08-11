@@ -22,7 +22,7 @@ locations.add = function (req, res) {
       function(callback){ common.authenticate_by_token(req,client,callback); },
       function(user,callback){
         var author = req.query.author ? req.query.author : (user.add_anonymously ? null : user.name);
-        // FIXME: sanitize lat & lng
+        var coords = common.sanitize_wgs84_coords(req.query.lat,req.query.lng);
         client.query("INSERT INTO locations (author,description,type_ids,\
                       lat,lng,season_start,season_stop,no_season,unverified,access,\
                       location,created_at,updated_at) \
@@ -31,7 +31,7 @@ locations.add = function (req, res) {
                      [author,req.query.description,req.query.type_ids.split(","),
                       req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
                       req.query.no_season,req.query.unverified,
-                      req.query.access,req.query.lng,req.query.lat],function(err,result){
+                      req.query.access,coords[1],coords[0]],function(err,result){
           
           if(err) return callback(err,'error running query');
           else return callback(null,user);
@@ -118,7 +118,7 @@ locations.edit = function (req, res) {
       function(callback){ common.authenticate_by_token(req,client,callback); },
       function(user,callback){
         var author = req.query.author ? req.query.author : (user.add_anonymously ? null : user.name);
-        // FIXME: sanitize lat & lng
+        var coords = common.sanitize_wgs84_coords(req.query.lat,req.query.lng);
         client.query("UPDATE locations SET (description,type_ids,\
                       lat,lng,season_start,season_stop,no_season,unverified,access,\
                       location,updated_at) = \
@@ -127,7 +127,7 @@ locations.edit = function (req, res) {
                      [req.query.description,req.query.type_ids.split(","),
                       req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
                       req.query.no_season,req.query.unverified,
-                      req.query.access,req.query.lng,req.query.lat,id],function(err,result){
+                      req.query.access,coords[1],coords[0],id],function(err,result){
           
           if(err) return callback(err,'error running query');
           else return callback(null,id,user);
@@ -175,8 +175,9 @@ locations.list = function (req, res) {
   var filters = __.reject([bfilter,mfilter],__.isUndefined).join(" ");
   var distance = "";
   if(__.every([req.query.lat,req.query.lng])){
-    distance = ",ST_Distance(l.location,ST_SETSRID(ST_POINT("+parseFloat(req.query.lng)+
-               ","+parseFloat(req.query.lat)+"),4326)) as distance";
+    var coords = common.sanitize_wgs84_coords(req.query.lat,req.query.lng);
+    distance = ",ST_Distance(l.location,ST_SETSRID(ST_POINT("+coords[1]+
+               ","+coords[0]+"),4326)) as distance";
   }
   var reviews = "";
   if(req.query.reviews == 1){

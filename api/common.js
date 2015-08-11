@@ -34,6 +34,16 @@ common.i18n_name = function(locale){
   else return "name";
 }
 
+common.sanitize_wgs84_coords = function(lat,lng){
+  var rlat = lat;
+  var rlng = lng;
+  if(lat < -85) rlat = -85;
+  if(lat > 85) rlat = 85;
+  if(lng < -180) rlng = -180;
+  if(lng > 180) rlng = 180;
+  return [rlat,rlng,rlat != lat || rlng != lng];
+}
+
 common.earth_radius = 6378137.0;
 common.earth_circum = 2.0*Math.PI*common.earth_radius;
 
@@ -86,26 +96,34 @@ common.scale_postgis_bbox = function(nelat,nelng,swlat,swlng,max_zoom,srid){
 }
 
 common.postgis_bbox = function(v,nelat,nelng,swlat,swlng,srid,zoom){
+  if(srid == 4326){
+    var swcoords = common.sanitize_wgs84_coords(swlat,swlng);
+    var necoords = common.sanitize_wgs84_coords(nelat,nelng);
+    swlat = swcoords[0];
+    swlng = swcoords[1];
+    nelat = necoords[0];
+    nelng = necoords[1];
+  }
   var scaled = common.scale_postgis_bbox(nelat,nelng,swlat,swlng,zoom-1,srid);
   if(swlng < nelng){
     if(srid == 900913){
       return "AND ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+
-             swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913))";
-    }else{ // assume 4326      
+             scaled.swlng+","+scaled.swlat+"), ST_POINT("+scaled.nelng+","+scaled.nelat+")),4326),900913))";
+    }else{ // assume 4326
       return "AND ST_INTERSECTS("+v+",ST_SETSRID(ST_MakeBox2D(ST_POINT("+
-             swlng+","+swlat+"), ST_POINT("+nelng+","+nelat+")),4326))";
+             scaled.swlng+","+scaled.swlat+"), ST_POINT("+scaled.nelng+","+scaled.nelat+")),4326))";
     }
   }else{
     if(srid == 900913){
       return "AND (ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,"+
-             swlat+"), ST_POINT("+nelng+","+nelat+")),4326),900913)) OR \
+             scaled.swlat+"), ST_POINT("+scaled.nelng+","+scaled.nelat+")),4326),900913)) OR \
              ST_INTERSECTS("+v+",ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT("+
-             swlng+","+swlat+"), ST_POINT(180,"+nelat+")),4326),900913)))";
+             scaled.swlng+","+scaled.swlat+"), ST_POINT(180,"+scaled.nelat+")),4326),900913)))";
     }else{ // assume 4326
       return "AND (ST_INTERSECTS("+v+",ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,"+
-             swlat+"), ST_POINT("+nelng+","+nelat+")),4326)) OR \
+             scaled.swlat+"), ST_POINT("+scaled.nelng+","+scaled.nelat+")),4326)) OR \
              ST_INTERSECTS("+v+",ST_SETSRID(ST_MakeBox2D(ST_POINT("+
-             swlng+","+swlat+"), ST_POINT(180,"+nelat+")),4326)))";
+             scaled.swlng+","+scaled.swlat+"), ST_POINT(180,"+scaled.nelat+")),4326)))";
     }
   }
 }
