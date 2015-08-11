@@ -37,10 +37,10 @@ common.i18n_name = function(locale){
 common.sanitize_wgs84_coords = function(lat,lng){
   var rlat = lat;
   var rlng = lng;
-  if(lat < -85) rlat = -85;
-  if(lat > 85) rlat = 85;
-  if(lng < -180) rlng = -180;
-  if(lng > 180) rlng = 180;
+  if(rlat < -85) rlat = -85;
+  if(rlat > 85) rlat = 85;
+  if(rlng < -180) rlng = -180;
+  if(rlng > 180) rlng = 180;
   return [rlat,rlng,rlat != lat || rlng != lng];
 }
 
@@ -69,21 +69,41 @@ common.scale_postgis_bbox = function(nelat,nelng,swlat,swlng,max_zoom,srid){
     swlng = sw_wgs[0];
     swlat = sw_wgs[1];
   }
+  console.log("Coords [Original]: ("+swlng+","+swlat+") ("+nelng+","+nelat+")");
+  // swap if backwards
+  if(swlng > nelng){
+    var tmp = swlng;
+    swlng = nelng;
+    nelng = tmp;
+  }
+  if(swlat > nelat){
+    var tmp = swlat;
+    swlat = nelat;
+    nelat = tmp;
+  }
   var max_width = 360.0/Math.pow(2,max_zoom);
-  var lng_scale = (nelng-swlng) > max_width ? max_width/(nelng-swlng) : 1.0;
-  var lat_scale = (nelat-swlat) > max_width ? max_width/(nelat-swlat) : 1.0;
-  console.log("Prior area (degrees^2): "+(nelat-swlat)*(nelng-swlng));
+  var lng_range = Math.abs(nelng-swlng);
+  var lat_range = Math.abs(nelat-swlat);
+  var lng_scale = lng_range > max_width ? max_width/lng_range : 1.0;
+  var lat_scale = lat_range > max_width ? max_width/lat_range : 1.0;
+  console.log("Prior area (degrees^2): "+lat_range*lng_range);
+  console.log("Lng Range: "+lng_range+", Lat Range: "+lat_range);
   if(lng_scale < 1.0){
-    swlng = swlng + (1.0-lng_scale)/2;
-    nelng = nelng - (1.0-lng_scale)/2;
+    var lng_center = (lng_range/2 + swlng);
+    swlng = lng_center - (lng_scale*lng_range)/2;
+    nelng = lng_center + (lng_scale*lng_range)/2;
   }
   if(lat_scale < 1.0){
-    swlat = swlat + (1.0-lat_scale)/2;
-    nelat = nelat - (1.0-lat_scale)/2;
+    swlat = (lat_range/2 + swlng) - (lat_scale*lat_range)/2;
+    nelat = (lat_range/2 + swlng) + (lat_scale*lat_range)/2;
   }
+  console.log("Coords [w/Scale]: ("+swlng+","+swlat+") ("+nelng+","+nelat+")");
+  lng_range = Math.abs(nelng-swlng);
+  lat_range = Math.abs(nelat-swlat);
   console.log("Max width: ",max_width);
   console.log("Lng scale",lng_scale,"Lat scale",lat_scale);
-  console.log("New area (degrees^2): "+(nelat-swlat)*(nelng-swlng));
+  console.log("Lng Range: "+lng_range+", Lat Range: "+lat_range);
+  console.log("New area (degrees^2): "+Math.abs((nelat-swlat)*(nelng-swlng)));
   if(srid == 900913){
     var ne_wgs = common.wgs84_to_web_mercator(nelng,nelat);
     var sw_wgs = common.wgs84_to_web_mercator(swlng,swlat);
@@ -104,6 +124,7 @@ common.postgis_bbox = function(v,nelat,nelng,swlat,swlng,srid,zoom){
     nelat = necoords[0];
     nelng = necoords[1];
   }
+  console.log("Coords [w/Swap]: ("+swlng+","+swlat+") ("+nelng+","+nelat+")");
   var scaled = common.scale_postgis_bbox(nelat,nelng,swlat,swlng,zoom-1,srid);
   if(swlng < nelng){
     if(srid == 900913){
