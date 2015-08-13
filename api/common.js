@@ -69,7 +69,12 @@ common.scale_postgis_bbox = function(nelat,nelng,swlat,swlng,max_zoom,srid){
     swlng = sw_wgs[0];
     swlat = sw_wgs[1];
   }
-  console.log("Coords [Original]: ("+swlng+","+swlat+") ("+nelng+","+nelat+")");
+  var swcoords = common.sanitize_wgs84_coords(swlat,swlng);
+  var necoords = common.sanitize_wgs84_coords(nelat,nelng);
+  swlat = swcoords[0];
+  swlng = swcoords[1];
+  nelat = necoords[0];
+  nelng = necoords[1];
   // swap if backwards
   if(swlng > nelng){
     var tmp = swlng;
@@ -116,15 +121,6 @@ common.scale_postgis_bbox = function(nelat,nelng,swlat,swlng,max_zoom,srid){
 }
 
 common.postgis_bbox = function(v,nelat,nelng,swlat,swlng,srid,zoom){
-  if(srid == 4326){
-    var swcoords = common.sanitize_wgs84_coords(swlat,swlng);
-    var necoords = common.sanitize_wgs84_coords(nelat,nelng);
-    swlat = swcoords[0];
-    swlng = swcoords[1];
-    nelat = necoords[0];
-    nelng = necoords[1];
-  }
-  console.log("Coords [w/Swap]: ("+swlng+","+swlat+") ("+nelng+","+nelat+")");
   var scaled = common.scale_postgis_bbox(nelat,nelng,swlat,swlng,zoom-1,srid);
   if(swlng < nelng){
     if(srid == 900913){

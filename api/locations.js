@@ -222,11 +222,10 @@ locations.list = function (req, res) {
         });
       },
       function(n,callback){ common.log_api_call("GET","/locations.json",n,req,client,callback); }
-    ],
-    function(err,message){
+    ],function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
