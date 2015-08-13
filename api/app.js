@@ -18,7 +18,7 @@ app.use(multer({ dest: config.temp_dir }));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  console.log(req.originalUrl);
+  console.log("REQUEST: " + req.originalUrl);
   next();
 });
 
