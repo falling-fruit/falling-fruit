@@ -1,6 +1,6 @@
 #!/bin/bash
 
-num_backups=30
+num_backups=15
 backup_dir="backups"
 prefix="fallingfruit"
 ymd=$(date +%Y%m%d)
