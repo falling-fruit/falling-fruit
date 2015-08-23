@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
   # app/controllers/application_controller.rb
   # http://guides.rubyonrails.org/i18n.html
   def default_url_options(options = {})
+    @categories = Type::DefaultCategories if @categories.nil?
     { locale: I18n.locale, c: @categories.join(",") }.merge options
   end
 

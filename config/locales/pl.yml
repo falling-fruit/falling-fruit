@@ -210,11 +210,11 @@ pl:
       editmarker_html: 
       freegan_modal_html: Oprócz naszych wysiłków mapowania <a href="/?locale=pl">jadalnych roślin rosnących w miastach</a>, we've określone do mapy świata dumpsters jedzenie-łożyska. Prawie 50% całej żywności produkowanej w krajach rozwiniętych nie jest spożywane. We're nadzieję na zwiększenie świadomości tego problemu, ułatwiać wyzwolenie wyrzucić jedzenie, i zachęcać przedsiębiorców do <a href="/sharing?locale=pl">oddania jedzenie</a> zamiast. <br><br> W uzasadnieniu do życia niższe ilości odpadów, zachęcamy odwzorowanie wszystkich miejsc (od śmietników do wolnych pól) z odrzuconych ale przydatnych towarów, zarówno jadalne lub w inny sposób.
       freegan_modal_title: 
+      grafter_modal_html: 
+      grafter_modal_title: 
       stamen_html: Mapa płytki według <a href="http://stamen.com">Stamen projekt</a>, w ramach <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dane według <a href="http://openstreetmap.org">OpenStreetMap</a>, pod <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling owoców jest ogromny, wspólny mapa zbiorów miejskiego. Jednocząc wysiłki paszowe, leśników i freegans wszędzie, mapa już wskazuje na ponad pół miliona miejsc produkcji żywności na całym świecie (z roślin i grzybów do studni i śmietników). Nasza szybko rosnąca społeczność użytkownik aktywnie bada, edycji i dodawania do mapy. <br/><br/> Dołącz do nas w celebracji wychodził bounty naszych ulicach miasta! Użyj witryny anonimowo lub <a href="/users/sign_up?locale=pl">zaloguj się</a> na konto, aby uzyskać dostęp do dodatkowych funkcji.
       welcome_modal_title: 
-      grafter_modal_html: 
-      grafter_modal_title: 
     infowindow:
       access:
       - To źródło został dodany przez właściciela nieruchomości.

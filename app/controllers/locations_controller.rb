@@ -337,7 +337,7 @@ class LocationsController < ApplicationController
 
   # prepare_observation
   #
-  # This function is does the task of creating an observation from the parameters
+  # This function does the task of creating an observation from the parameters
   # in a standard way. It also parses the photo data provided from the API, or in the
   # case of standard form submission, deals with the paperclip attachment. It DOES NOT
   # save the observation that it instantiates.

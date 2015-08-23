@@ -207,11 +207,11 @@ he:
       editmarker_html: 
       freegan_modal_html: בנוסף למאמצינו למפות את <a href="/?locale=he">הצמחים האכילים גדלו בערים,</a> we've יצא מפת פחי אשפת מזון נושאות בעולם. כמעט 50% ממיוצר בעולם המפותח כל המזון מעולם לא אכל. We're מקווה להעלות את המודעות סביב נושא זה, להקל על שחרורו של מזון מושלך, ולעודד עסקים <a href="/sharing?locale=he">ללתרום מזון</a> במקום. <br><br> בתמיכה של אורח חיים נמוך פסולת, אנחנו מעודדים את המיפוי של כל המקומות (מפחי אשפה לתיבות חינם) עם מוצרים שהושלכו אך שימושיים, אם אכיל או אחר.
       freegan_modal_title: 
+      grafter_modal_html: 
+      grafter_modal_title: 
       stamen_html: אריחי מפה על ידי <a href="http://stamen.com">אבקן עיצוב,</a> תחת <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0.</a> נתונים על ידי <a href="http://openstreetmap.org">OpenStreetMap,</a> תחת <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA.</a>
       welcome_modal_html: נפילת פירות היא מפה סיבית, שיתוף פעולה של היבול העירוני. מאחד את המאמצים של מלקטי מזון, יערנים, וfreegans בכל מקום, המפה כבר מצביעה על מעל חצי מיליון מקומות ייצור מזון בעולם (מצמחים ופטריות לבארות מים ופחי אשפה). קהילת המשתמשים גדלו במהירות שלנו באופן פעיל לחקור, עריכה, ולהוסיף למפה. <br/><br/> הצטרפו אלינו בחוגגים את השפע להתעלם מרחובות העיר שלנו! השתמש באתר בעילום שם או <a href="/users/sign_up?locale=he">להירשם</a> לחשבון כדי לגשת לתכונות נוספות.
       welcome_modal_title: 
-      grafter_modal_html: 
-      grafter_modal_title: 
     infowindow:
       access:
       - מקור זה נוסף על ידי בעל הנכס.
