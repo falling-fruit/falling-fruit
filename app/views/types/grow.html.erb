@@ -5,6 +5,7 @@
 <tr>
  <th>ID</th>
  <th>Name</th>
+ <th>Scientific</th>
  <th>Locations</th>
  <th>Categories</th>
  <th>Edit</th>
@@ -22,6 +23,9 @@
   <%= type.name %>
  <% end %>
  <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
+</td>
+<td>
+  <%= type.scientific_name %>
 </td>
 <td>
 <%= link_to '[' + type.locations.length.to_s + ']', '/?f=' + type.id.to_s %>

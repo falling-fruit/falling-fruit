@@ -16,10 +16,10 @@ Errors:
   <blockquote style="font-family:Courier;">
   <%= Location.csv_header.join(", ") %>
   </blockquote>
-
-  <p><b>Type:</b> Leading English-language common name of the source(s) at each location. If the name does not match an <%= link_to types_path do %>existing type<% end %>, a new type object is created in the database. Separate multiple types with commas (eg. "Orange,Potato,Grape").</p>
-  <p><b>Type Other:</b> Deprecated. A new type_other object is created in the database for further review by a site admin before being approved as an official type.</p>
+  <p><b>Id:</b> Unique identifier of the location in the original data source.</p>
+  <p><b>Type:</b> Name of the source types at each location, in the format "English common name" or "English common name [Scientific name]". If the name does not match an <%= link_to types_path do %>existing type<% end %>, a new pending type is created. If the name matches multiple existing types, an error is returned. Separate multiple types with commas (eg. "Apple [Malus domestica],U-pick").</p>
   <p><b>Description:</b> Whatever information should be displayed in the location's infobox (location details, access issues, plant health, etc). &lt;br&gt; (HTML line break) tags are converted to \n (newline) characters. No other markup is currently supported.</p>
+  <p><b>Lat/Lng:</b> Latitude and longitude in decimal degrees (WGS84).</p>
   <p><b>Address:</b> Full street address of the location (number, street, city, state / province, zip code, country). It is geocoded and converted to coordinates, so don't provide an address if you are already providing Lat and Lng.</p>
   <p><b>Season Start/Stop:</b> Months that harvesting begins and ends, respectively, with 1 corresponding to January and 12 corresponding to December.</p>
   <p><b>No Season:</b> Whether season does not apply (eg. Rosemary). Mark 'x', 't', or 'true' if true (no season), otherwise leave blank.</p>
@@ -37,7 +37,7 @@ Errors:
     <% } %>
     </blockquote>
   <p><b>Author:</b> Author of the location, as displayed on the map. If left blank, the author is "Anonymous".</p>
-  <p><b>Photo URL:</b> Full path to an image of the location. (Currently unused on the website, but support for photos is planned).</p>
+  <p><b>Photo URL:</b> Full path to a photo of the location. A review will be created with the photo added.</p>
 </details>
 
 <br/>

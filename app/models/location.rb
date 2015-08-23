@@ -147,15 +147,16 @@ class Location < ActiveRecord::Base
   #### CLASS METHODS ####
 
   def self.csv_header
-    ["Type","Description","Lat","Lng","Address","Season Start","Season Stop",
+    ["Id","Type","Description","Lat","Lng","Address","Season Start","Season Stop",
      "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
   end
 
   def self.build_from_csv(row,typehash=nil,default_category_mask=0)
-    type,desc,lat,lng,address,season_start,season_stop,no_season,
+    id,type,desc,lat,lng,address,season_start,season_stop,no_season,
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
     loc = Location.new
+    loc.original_id = id
     loc.type_ids = []
     unless type.blank?
       type.split(/[;,:]/).each{ |t|
