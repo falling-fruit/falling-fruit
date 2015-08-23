@@ -6,7 +6,7 @@
  <th>ID</th>
  <th>Name</th>
  <th>Scientific</th>
- <th>Locations</th>
+ <!--<th>Locations</th>-->
  <th>Categories</th>
  <th>Edit</th>
  <th>Delete</th>
@@ -27,12 +27,18 @@
 <td>
   <%= type.scientific_name %>
 </td>
+<!--
 <td>
-<%= link_to '[' + type.locations.length.to_s + ']', '/?f=' + type.id.to_s %>
-<% type.locations.each do |l| %>
-<%= link_to l.id, edit_location_path(l.id) unless l.id.nil? %>
-<% end %>
+  <%= link_to '[' + type.locations.length.to_s + ']', '/?f=' + type.id.to_s %>
+  <% links = 10 %>
+  <% type.locations[0..links-1].each do |l| %>
+    <%= link_to l.id, edit_location_path(l.id) unless l.id.nil? %>
+  <% end %>
+  <% if type.locations.length > links %>
+    ...
+  <% end %>
 </td>
+-->
 <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
 <td><%= link_to 'Edit', edit_type_path(type) %></td>
 <td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>

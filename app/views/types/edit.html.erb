@@ -1,10 +1,22 @@
-<h1>Merge</h1>
+<h1>Locations</h1>
+
+<% if @type.pending %>
+  <%= link_to '[' + @type.locations.length.to_s + ']', '/?f=' + @type.id.to_s %>
+  <% links = 10 %>
+  <% @type.locations[0..links-1].each do |l| %>
+    <%= link_to l.id, edit_location_path(l.id) unless l.id.nil? %>
+  <% end %>
+  <% if @type.locations.length > links %>
+    ...
+  <% end %>
+<% end %>
+
+<h2>Merge</h2>
 
 <form action="/types/<%= @type.id %>/merge">
     <%= hidden_field_tag(:into_id, [], :class => "mergeselect2") %>
     <%= submit_tag "Merge" %>
 </form>
-
 
 <h2>Edit</h2>
 
