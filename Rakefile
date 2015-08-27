@@ -141,7 +141,7 @@ end
 task(:eol_names => :environment) do
   
   # Initialize csv
-  CSV.open("public/eol_names.csv","wb") do |csv|
+  CSV.open("data/eol_names.csv","wb") do |csv|
     cols = ["ff_id","ff_rank","ff_name","ff_scientific","eol_id","eol_scientific","language","eol_names"]
     csv << cols
     # For each type with a scientific name
@@ -183,7 +183,7 @@ task :wikipedia_names, [:language] => [:environment] do |t, args|
   language = args[:language] || nil
 
   # Initialize csv
-  CSV.open("public/wikipedia_names.csv","wb") do |csv|
+  CSV.open("data/wikipedia_names.csv","wb") do |csv|
     cols = ["ff_id","ff_rank","ff_name","ff_scientific","language","wiki_title","wiki_url","wiki_names","ambiguous"]
     csv << cols
     # For each type

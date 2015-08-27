@@ -16,7 +16,7 @@ else
 end
 
 csv = CSV.open(csvfile,"wb")
-csv << ["Type","Description","Lat","Lng","Address","Season Start","Season Stop",
+csv << ["Id","Type","Description","Lat","Lng","Address","Season Start","Season Stop",
         "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
 @doc = Nokogiri::XML(File.open(ARGV[0]))
 
@@ -29,7 +29,7 @@ csv << ["Type","Description","Lat","Lng","Address","Season Start","Season Stop",
   coordinates.text.split(' ').each do |coordinate|
     (lng,lat,elevation) = coordinate.split(',').collect{ |e| e.to_f }
   end if coordinates
-  csv << [title,description,lat,lng,nil,nil,nil,nil,nil,nil,nil,nil,nil]
+  csv << [nil,title,description,lat,lng,nil,nil,nil,nil,nil,nil,nil,nil,nil]
 end
 
 csv.close

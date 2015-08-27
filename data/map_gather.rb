@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# improved from https://github.com/caseypt/map-gather/blob/master/map_gather.rb
+# modified from https://github.com/caseypt/map-gather/blob/master/map_gather.rb
 
 require 'rubygems'
 require 'json'
@@ -11,18 +11,18 @@ require 'rest_client'
 def startup_check
   if ARGV.empty? || ARGV[0].nil?
     abort("You must specify a ArcGIS REST Query URL (and optionally, an output file name): " +
-      "ruby map-gather.rb http://www.example.com/ArcGIS/rest/services/folder_name/map_name/MapServer/layer_index/ (resultOffset = 0) (outfile = <layer name>)"
+      "ruby map-gather.rb http://www.example.com/ArcGIS/rest/services/folder_name/map_name/MapServer/layer_index/ (outfile = <layer name>) (resultOffset = 0)"
     )
   end
 
   $url = ARGV[0]
-  if ARGV[1].nil?
+  if not ARGV[1].nil?
+    $outfile = ARGV[1]
+  end
+  if ARGV[2].nil?
     $resultOffset = 0
   else
-    $resultOffset = ARGV[1].to_i
-  end
-  if not ARGV[2].nil?
-    $outfile = ARGV[2]
+    $resultOffset = ARGV[2].to_i
   end
 end
 
@@ -139,7 +139,7 @@ def get_features()
     
   # Pagination
   else
-    params["resultRecordCount"] = $maxRecordCount # wouldn't work otherwise!?
+    params["resultRecordCount"] = $maxRecordCount # FIXME: wouldn't work otherwise!?
     while $resultOffset < $totalCount
       params["resultOffset"] = $resultOffset
       RestClient.get("#{$url}/query", {:params => params} ){ |response, request, result, &block|
