@@ -14,3 +14,4 @@ bench_prep:
 bench:
 	ruby benchmark.rb cluster cluster_params.csv > cluster_benchmark.txt
 	ruby benchmark.rb location location_params.csv > location_benchmark.txt
+	R --vanilla < benchmark.R
