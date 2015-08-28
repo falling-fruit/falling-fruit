@@ -24,6 +24,7 @@ clusters:
 	bundle exec rake db:migrate:redo VERSION=20131110213005
 
 devserver:
+	#pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 	bundle exec thin -e development start
 
 syncfrombackup:
