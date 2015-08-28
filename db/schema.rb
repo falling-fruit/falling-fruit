@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150426233816) do
+ActiveRecord::Schema.define(:version => 20150823011715) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20150426233816) do
     t.integer  "user_id"
     t.integer  "type_ids",                                                                                                    :array => true
     t.boolean  "muni",                                                                     :default => false
+    t.integer  "original_id"
   end
 
   create_table "locations_routes", :force => true do |t|
@@ -192,6 +193,7 @@ ActiveRecord::Schema.define(:version => 20150426233816) do
     t.string   "pt_br_name"
     t.string   "de_name"
     t.boolean  "pending",             :default => true
+    t.string   "it_name"
   end
 
   create_table "users", :force => true do |t|

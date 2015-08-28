@@ -29,16 +29,19 @@ clusters.list = function (req, res) {
     async.waterfall([
       function(callback){ common.check_api_key(req,client,callback) },
       function(callback){
+        console.log("Doing query")
         client.query("SELECT ST_X(center_point) AS center_x, ST_Y(center_point) AS center_y, count FROM \
                       (SELECT ST_Transform(ST_SetSRID(ST_POINT(SUM(count*ST_X(cluster_point))/SUM(count), \
                       SUM(count*ST_Y(cluster_point))/SUM(count)),900913),4326) as center_point, \
                       SUM(count) as count FROM clusters WHERE "+filters+" GROUP BY grid_point) subq;",
                      [],function(err, result) {
           if (err) return callback(err,'error running query');
+          console.log("Sending result")
           res.send(__.map(result.rows,function(x){
             x.count = parseInt(x.count);
             return x;
           }));
+          console.log("Leaving waterfall and cleaning up")
           return callback(null);
         });
       }

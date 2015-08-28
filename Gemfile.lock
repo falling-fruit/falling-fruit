@@ -61,6 +61,8 @@ GEM
     coffee-script-source (1.4.0)
     comma (3.0.4)
     daemons (1.1.9)
+    dbf (2.0.10)
+      fastercsv (~> 1.5)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -86,6 +88,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.1.2)
       i18n (~> 0.5)
+    fastercsv (1.5.5)
     geocoder (1.1.6)
     gli (2.12.2)
     gmaps4rails (1.5.5)
@@ -191,6 +194,9 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.20)
+    rgeo-shapefile (0.2.3)
+      dbf (>= 1.7.0)
+      rgeo (>= 0.3.3)
     rice (1.6.0)
     role_model (0.8.1)
     rspec-core (2.13.0)
@@ -293,6 +299,7 @@ DEPENDENCIES
   rails-i18n
   recaptcha
   rgeo
+  rgeo-shapefile
   role_model
   rspec-rails
   sass-rails (~> 3.2.3)
@@ -305,6 +312,3 @@ DEPENDENCIES
   validates_timeliness
   world-flags
   yaml_db
-
-BUNDLED WITH
-   1.10.2
