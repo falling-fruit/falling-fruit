@@ -49,7 +49,7 @@ function show_embed_html(object){
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
   if (type_filter != undefined) {
-  	var fstr = "&f=" + type_filter;
+  	var fstr = "&f=" + type_filter.join(",");
   } else {
     var fstr = "";
   }
