@@ -1,7 +1,7 @@
 class Type < ActiveRecord::Base
 
   attr_accessible :name, :synonyms, 
-                  :fr_name, :de_name, :es_name, :pt_br_name, :pl_name, :he_name,
+                  :fr_name, :de_name, :es_name, :pt_br_name, :it_name, :pl_name, :he_name,
                   :scientific_name, :scientific_synonyms, :taxonomic_rank,
                   :usda_symbol, :wikipedia_url, 
                   :urban_mushrooms_url, :fruitipedia_url, :foraging_texas_url, :eat_the_weeds_url,
