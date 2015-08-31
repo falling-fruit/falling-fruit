@@ -4,6 +4,7 @@ var host;
 var map;
 var pano;
 var pointer;
+var crosshair;
 var pano_tab = null;
 var panoClient = new google.maps.StreetViewService();
 var elevationClient = new google.maps.ElevationService();
@@ -130,12 +131,30 @@ function basemap(lat,lng,zoom,type,bounds){
       scale: 10,
       strokeWeight: 4,
       strokeColor: '#ff666e'
-    },
+    	},
     draggable: false,
     clickable: false,
     visible: false,
-    zIndex: 9999 // STILL below clusters!
+    zIndex: 1e3
   });
+  
+  // Search crosshair
+  var w = 19;
+	var h = 19;
+  crosshair = new google.maps.Marker({
+		position: map.getCenter(),
+		map: map,
+		icon: {
+			url: '/cross.png',
+			size: new google.maps.Size(w, h),
+			origin: new google.maps.Point(0, 0),
+			anchor: new google.maps.Point(w/2, h/2)
+			},
+		draggable: false,
+		clickable: false,
+		visible: false,
+		zIndex: -1e3 // so that it draws beneath any overlapping marker
+	});
 
   // Close open location infowindow when map is clicked
   google.maps.event.addListener(map, 'click', function(event) {
@@ -145,6 +164,10 @@ function basemap(lat,lng,zoom,type,bounds){
   // Update attribution when map type changes
   google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
     update_attribution();
+  });
+  
+  google.maps.event.addListener(map, 'zoom_changed', function(event) {
+  	zoom = map.getZoom();
   });
 }
 
@@ -228,7 +251,7 @@ function add_clusters_from_json(mdata,type_filter){
       shadow: false,
       flat: true,
       title: number_to_human(mdata[i]["count"]),
-      anchor: RichMarkerPosition.MIDDLE,
+      anchor: RichMarkerPosition.MIDDLE
     });
     add_clicky_cluster(m);
     markersArray.push({marker: m, id: null, type: "cluster", types: [], parent_types: []});
@@ -949,7 +972,7 @@ function recenter_map_to_address() {
 
 function apply_geocode(latlng,bounds,zoom) {
 	if (zoom == undefined) {
-		var zoom = 17;
+		zoom = 17;
 	}
 	if (latlng != undefined) {
 		if (bounds == undefined) {
@@ -960,21 +983,9 @@ function apply_geocode(latlng,bounds,zoom) {
 			zoom = map.getZoom();
 		}
 		if (zoom > 12) {
-			var w = 19;
-			var h = 19;
-			var cross = new google.maps.Marker({
-				icon: {
-					url: '/cross.png',
-					size: new google.maps.Size(w, h),
-					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(w/2, h/2)
-					},
-				position: latlng, 
-				map: map,
-				draggable: false,
-				clickable: false,
-				zIndex: -9999 // so that it draws beneath any overlapping marker
-			});
+			show_crosshair(latlng);
+		} else {
+			hide_crosshair();
 		}
 	}
 }
@@ -1060,14 +1071,26 @@ function sidebar_pan_to_location(lid,lat,lng){
   }
 }
 
-// Add a marker with an open infowindow
+// Show pointer
 function show_pointer(lat, lng) {
   pointer.setPosition(new google.maps.LatLng(lat,lng));
   pointer.setVisible(true);
 }
 
+// Hide pointer
 function hide_pointer() {
   pointer.setVisible(false);
+}
+
+// Show crosshair
+function show_crosshair(latlng) {
+  crosshair.setPosition(latlng);
+  crosshair.setVisible(true);
+}
+
+// Hide crosshair
+function hide_crosshair() {
+  crosshair.setVisible(false);
 }
 
 /**********************************************************/
