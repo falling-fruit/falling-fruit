@@ -86,15 +86,15 @@
       place_add_marker(event.latLng);
     });
     
-    /*google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      console.log("update");
-      update_display(true,zoom);
-      if($("#labels").is(":checked")) labelize_markers();
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+      //console.log("update");
+      //update_display(true,zoom);
+      if (labels && zoom > 12) labelize_markers();
       // Ensures that labels come on again if labels = true and zoom <= 12
-      if ($('#labels').length > 0) {
-        labelsOn = $("#labels").is(":checked");
+      if (labels && zoom <= 12) {
+        labelsOn = true;
       }
-    });*/
+    });
     
     // Far less redundant event trigger
     google.maps.event.addListener(map, 'idle', function() {

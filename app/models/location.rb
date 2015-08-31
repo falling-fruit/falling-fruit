@@ -126,7 +126,7 @@ class Location < ActiveRecord::Base
   def accepted_type_names
     self.accepted_types.collect{ |t| t.name }.compact
   end
-
+  
   def title
     lt = self.type_names
     if lt.empty?
@@ -134,7 +134,7 @@ class Location < ActiveRecord::Base
     elsif lt.length == 2
       "#{lt[0]} & #{lt[1]}"
     elsif lt.length > 2
-      "#{lt[0]} & Others"
+      "#{lt[0]} (+#{lt.length-1})"
     elsif lt.length == 1
       lt[0]
     end

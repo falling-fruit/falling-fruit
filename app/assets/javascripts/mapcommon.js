@@ -14,9 +14,8 @@ var prior_zoom = null;
 var prior_url = null;
 var markersArray = [];
 var types_hash = {}; // id to count mapping
-var types_names_hash = {}; // id to name mapping
 var showing_route_controls = false; // currently unused
-var labelsOn = null;
+var labelsOn = false;
 var bicycleLayerOn = null;
 var bicycleControl = null;
 var last_search = null;
@@ -226,7 +225,6 @@ function number_to_human(n){
   }
 }
 
-// FIXME: convert count to human readable (i.e., 10k, etc.)
 function add_clusters_from_json(mdata,type_filter){
   var len = mdata.length;
   for(var i = 0; i < len; i++){
@@ -278,12 +276,12 @@ function add_markers_from_json(mdata,skip_ids){
           url: '/icons/smdot_t1_red.png',
           size: new google.maps.Size(w,h),
           origin: new google.maps.Point(0,0),
-          // by convention, icon center is at ~40%
+          // smdot icon center is at ~40%
           anchor: new google.maps.Point(w*0.4,h*0.4)
         },
         position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]),
         map: map,
-        title: type_ids_to_title(mdata[i]["type_ids"]),
+        title: type_names_to_title(mdata[i]["type_names"]),
         draggable: false
       });
     }
@@ -409,29 +407,25 @@ function do_cluster_types(bounds,zoom,muni) {
   });
   request.done(function(json){		    
     types_hash = {};
-    types_names_hash = {};
     if(json.length > 0){
       for(var i = 0;i < json.length; i++){
         types_hash[json[i]["id"]] = json[i]["count"];
-        types_names_hash[json[i]["id"]] = json[i]["name"];
       }
     }
     update_count_hack();
   });
 }
 
-// Given a list of type ids, returns a marker title fit for displaying on the map.
-function type_ids_to_title(tids){
-  var type_names = $.map(tids,function(x){ return types_names_hash[x]; });
-  if(type_names.length == 0) {
-    return "Unknown";
-  }else if(type_names.length == 1){
+// Given a list of type names, returns a marker title fit for displaying on the map.
+function type_names_to_title(type_names) {
+  if (type_names.length == 0) {
+    return "";
+  } else if (type_names.length == 1) {
     return type_names[0];
-  }else if(type_names.length == 2){
-    // FIXME: should i18n-ize "and"
-    return type_names[0] + " and " + type_names[1];
-  }else{
-    return type_names[0] + " and others";
+  } else if (type_names.length == 2) {
+    return type_names[0] + " & " + type_names[1];
+  } else {
+    return type_names[0] + " (+" + (type_names.length - 1) + ")";
   }
 }
 
@@ -811,28 +805,28 @@ function place_add_marker(latlng) {
 }
 
 function labelize_markers() {
-     // if we're still in clustered mode, don't label
-     if(map.getZoom() <= 12) return;
-     var len = markersArray.length;
-     for(var i = 0; i < len; i++){
-       if(!markersArray[i].marker.getVisible()) continue;
-       if(markersArray[i].label != undefined) continue;
-       var pos = markersArray[i].marker.getPosition();
-       var mapLabel = new MapLabel({
-         text: markersArray[i].marker.getTitle(),
-         // bad hack to prevent marker from overlapping with label
-         position: new google.maps.LatLng(pos.lat()-0.00003,pos.lng()),
-         map: map,
-         fontSize: 13,
-         fontColor: '#990000',
-         strokeColor: '#efe8de',
-         strokeWeight: 5,
-         align: 'center'
-       });
-       markersArray[i].label = mapLabel;     
-       markersArray[i].marker.bindTo('map', mapLabel);
-     } 
-     labelsOn = true;
+	 // if we're still in clustered mode, don't label
+	 if(map.getZoom() <= 12) return;
+	 var len = markersArray.length;
+	 for(var i = 0; i < len; i++){
+		 if(!markersArray[i].marker.getVisible()) continue;
+		 if(markersArray[i].label != undefined) continue;
+		 var pos = markersArray[i].marker.getPosition();
+		 var mapLabel = new MapLabel({
+			 text: markersArray[i].marker.getTitle(),
+			 // FIXME: bad hack to prevent marker from overlapping with label
+			 position: new google.maps.LatLng(pos.lat()-0.00003,pos.lng()),
+			 map: map,
+			 fontSize: 13,
+			 fontColor: '#990000',
+			 strokeColor: '#efe8de',
+			 strokeWeight: 5,
+			 align: 'center'
+		 });
+		 markersArray[i].label = mapLabel; 
+		 markersArray[i].marker.bindTo('map', mapLabel);
+	 } 
+	 labelsOn = true;
 }
 
 function delabelize_marker(i){
