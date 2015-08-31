@@ -659,7 +659,9 @@ function open_marker_by_id(id) {
     dataType: 'json'
   });
   requestJson.done(function(json){
-    add_markers_from_json(json);
+  	// Add marker to map
+  	// Put into array for add_markers_from_json()
+    add_markers_from_json([json]);
     // make marker clickable
     add_marker_infowindow(markersArray.length-1);
     // filter and labels
