@@ -47,7 +47,7 @@
       <%= raw header %>
       <% unless c["location_id"].nil? %>
         <!-- On one line to avoid underlined trailing spaces -->
-        <a href="#" onclick="sidebar_pan_to_location(<%= c["location_id"] %>,<%= c["lat"] %>,<%= c["lng"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();"><%= types.nil? ? I18n.t("glossary.unknown") : types %></a>
+        <a href="#" onclick="open_marker_by_id(<%= c["location_id"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();"><%= types.nil? ? I18n.t("glossary.unknown") : types %></a>
         <% unless c["city"].nil? %>
           <%= I18n.t("changes.change_in_city", :type => action, :city => c["city"]) %>
         <% else %>

@@ -77,7 +77,7 @@ class Type < ActiveRecord::Base
     $seen = {} if $seen.nil?
     return nil unless $seen[self.id].nil?
     $seen[self.id] = true
-    ret = {"id" => self.id, "name" => self.full_name}
+    ret = {"id" => self.id, "name" => self.full_name, "children_ids" => self.children_ids}
     cs = self.children.where("(category_mask & ?)>0",cat_mask).default_sort
     ret["children"] = cs.collect{ |c| c.to_hash(cats) }.compact unless cs.empty?
     ret

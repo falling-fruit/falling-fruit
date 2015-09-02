@@ -632,6 +632,28 @@ div#slider{
   cursor: pointer;
 }
 
+/* Nested display */
+.select2-results-dept-0:not(.select2-highlighted) > .select2-result-label {
+  background: #fff !important;
+}
+.select2-result-sub .select2-result-label {
+  &:before {
+    content: "⌊ ";
+  }
+  border-left: 3px solid #eee;
+  border-right: 3px solid #eee;
+}
+.select2-result-with-children {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.select2-result-with-children:not(.select2-highlighted) > .select2-result-label {
+  background: #eee !important;
+}
+.select2-result-with-children > .select2-result-label {
+  font-weight: inherit !important;
+}
+
 /**********************************************************/
 /****************** Template: Dialogs *********************/
 /**********************************************************/

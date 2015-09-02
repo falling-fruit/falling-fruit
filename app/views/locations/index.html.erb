@@ -38,16 +38,15 @@
 <script type="text/javascript" charset="utf-8">
 	
   // ================= globals ==================
+  
   var lat = 36.45662936733231;
   var lng = -49.57030500000002;
   var zoom = 2;
   var type = google.maps.MapTypeId.ROADMAP;
-  var cats = undefined;
 	<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
 	<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
 	<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
 	<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
-  <% unless @perma[:cats].nil? %>cats = '<%= @perma[:cats] %>';<% end %>
   muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>;
   labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var skip_ids = null;
@@ -87,10 +86,8 @@
     });
     
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      //console.log("update");
-      //update_display(true,zoom);
       if (labels && zoom > 12) labelize_markers();
-      // Ensures that labels come on again if labels = true and zoom <= 12
+      // Ensures that labels come on again if labels = true and zoom <= 12:
       if (labels && zoom <= 12) {
         labelsOn = true;
       }
@@ -116,6 +113,7 @@
     navigator.geolocation.getCurrentPosition(function(position){},function(error){
       $('#recenter_button').hide();
     });
+    
     <% if @freegan %>
       if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });

@@ -1,14 +1,16 @@
-// ================= globals ==================
+// ================= app globals ==================
+// Set in application.html.erb
 
+var cats;
 var host;
+
+// ================= map globals ==================
+
 var map;
 var pano;
 var pointer;
 var crosshair;
 var pano_tab = null;
-var panoClient = new google.maps.StreetViewService();
-var elevationClient = new google.maps.ElevationService();
-var geocoder = geocoder = new google.maps.Geocoder();
 var prior_bounds = null;
 var prior_zoom = null;
 var prior_url = null;
@@ -25,13 +27,18 @@ var markersLoadedEvent = document.createEvent("Event");
 markersLoadedEvent.initEvent("markersloaded",true,true);
 var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
-var watchID = null; // navigator/geolocation watchID
 if (host == "localhost") {
 	var api_base = "http://localhost:3100/api/0.2/";
 } else {
 	var api_base = "https://fallingfruit.org/api/0.2/";
 }
 var api_key = "EEQRBBUB";
+
+// ================= services ==================
+
+var panoClient = new google.maps.StreetViewService();
+var elevationClient = new google.maps.ElevationService();
+var geocoder = new google.maps.Geocoder();
 
 // ================= infowindow =================
 
@@ -387,6 +394,8 @@ function do_clusters(bounds,zoom,muni,type_filter) {
       }
       markersPartial = false;
       if(pb != null) pb.hide();
+      // Call from here to ensure the data is available
+      do_cluster_types(bounds,zoom,muni);
     });
     request.fail(function() {  
       if(pb != null) pb.hide();
@@ -878,8 +887,8 @@ function update_count_hack(){
   if (type_filter != undefined && type_filter.length > 0) {
     filter_display = $('#s2id_type_filter .select2-chosen');
     var types_count = 0;
-    if(type_filter != undefined) {
-      for (var i = 0; i < type_filter; i++) {
+    if (type_filter != undefined) {
+      for (var i = 0; i < type_filter.length; i++) {
         types_count += types_hash[type_filter[i]] == undefined ? 0 : types_hash[type_filter[i]];
       }
     }
@@ -932,7 +941,7 @@ function recenter_map() {
 			var latlng = new google.maps.LatLng(lat,lng);
 			apply_geocode(latlng,undefined,15);
 	},function(error){
-		//use error.code to determine what went wrong
+		console.log("Geocode error [" + error.code + "]: " + error.message);
 	});
 } 
 
@@ -1052,19 +1061,6 @@ function zoom_to_marker() {
   open_infowindow();
 }
 
-function sidebar_pan_to_location(lid,lat,lng){
-  z = map.getZoom();
-  if(z >= 13) {
-    if (infowindow.marker) close_infowindow();
-    map.panTo(new google.maps.LatLng(lat,lng));
-    open_marker_by_id(lid);
-  } else {
-    map.panTo(new google.maps.LatLng(lat,lng))
-    map.setZoom(13);
-    open_marker_by_id(lid);
-  }
-}
-
 // Show pointer
 function show_pointer(lat, lng) {
   pointer.setPosition(new google.maps.LatLng(lat,lng));
@@ -1166,25 +1162,18 @@ function decodeHtml(html) {
 }
 
 // Initialize map marker (marker) and infowindow (nag)
-function place_edit_marker(lat,lng) {
+function load_edit_marker(lat,lng) {
 	
 	var latlng = new google.maps.LatLng(lat,lng)
 	
-	// Marker (global variable in new)
-	marker = new google.maps.Marker({
+	// Initialize marker
+	var marker = new google.maps.Marker({
 		icon: '',
 		position: latlng, 
 		map: map,
 		draggable: true
 	});
 
-  // remove geolocation watcher when marker is dragged
-  if(watchID != undefined){
-    google.maps.event.addListenerOnce(marker, 'dragend', function() {
-      navigator.geolocation.clearWatch(watchID);
-      watchID = null;
-    });
-  }
 	// Infowindow
 	var html = $('<div id="editmarker">' + I18n.t("locations.index.editmarker_html") + '</div>');
 	var nag = new google.maps.InfoWindow({
@@ -1199,8 +1188,8 @@ function place_edit_marker(lat,lng) {
 		nagOpen = true;
 	});
 	
-	// Update lat, lng when marker moved
-	google.maps.event.addListener(marker, 'dragend', function() {
+	// Update lat,lng fields when marker moved
+	google.maps.event.addListener(marker, 'position_changed', function() {
 		$("#location_lat").val(this.getPosition().lat());
 		$("#location_lng").val(this.getPosition().lng());
 	});
@@ -1221,11 +1210,5 @@ function place_edit_marker(lat,lng) {
 		}
 	});
 	
-	// Close nag if map is clicked
-	google.maps.event.addListener(map, 'click', function(event) {
-		if (nagOpen) {
-			nag.close();
-			nagOpen = false;
-		}
-	});
+	return marker;
 }

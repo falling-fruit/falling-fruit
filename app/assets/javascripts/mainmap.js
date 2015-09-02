@@ -93,7 +93,6 @@ function show_observation_html(object){
 }
 
 function update_display(force,force_zoom,force_bounds){
-  $('#s2id_type_filter').select2('disable', true);
   var zoom = map.getZoom();
   if (force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
@@ -102,7 +101,6 @@ function update_display(force,force_zoom,force_bounds){
   if (zoom <= 12) {
     if (prior_zoom > 12) hide_map_controls();
     do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
-    do_cluster_types(bounds,zoom,$('#muni').is(':checked'));
   } else if (zoom >= 13) {
     if (prior_zoom < 13) {
       types_hash = {};
@@ -112,7 +110,6 @@ function update_display(force,force_zoom,force_bounds){
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
-  $('#s2id_type_filter').select2('enable', true);
 }
 
 function hide_map_controls() {
