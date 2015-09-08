@@ -31,9 +31,9 @@ for (i in 1:nrow(temp)) {
   names <- gsub("^\\s+|\\s+$", "", names)
   scientific_name <- temp$ff_scientific[i]
   # Skip name if same as scientific?
-  
-  #names = unique(strsplit("fagiolo comune, fagiolo, fagiolo dall'occhio", ', ')[[1]])
-  #scientific_name <- "Vigna unguiculata subsp. unguiculata"
+  # For testing:
+  #names <- unique(strsplit("silver poplar, white poplar", ', ')[[1]])
+  #$scientific_name <- "Populus alba"
   
   # Choose "best" name
   if (length(names) == -1) {
@@ -42,19 +42,23 @@ for (i in 1:nrow(temp)) {
   } else if (!is.na(scientific_name)) {
     # Otherwise, use search engine to determine which name is most commonly used.
     # FIXME: Quickly reaches maximum quota. Need to find a very cheap or free alternative with higher quotas.
-    google_results <- rep(NA, length(names))
+    search_results <- rep(NA, length(names))
     for (j in 1:length(names)) {
       query <- curlEscape(sprintf("\"%s\"+\"%s\"", names[j], scientific_name))
-      result <- fromJSON(getURL(paste0("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=", query), .opts = list(ssl.verifypeer = FALSE)))
-      google_results[j] <- as.integer(result$responseData$cursor$estimatedResultCount)
-      Sys.sleep(1)
+      ## Google
+      #result <- fromJSON(getURL(paste0("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=", query), .opts = list(ssl.verifypeer = FALSE)))
+      #search_results[j] <- as.integer(result$responseData$cursor$estimatedResultCount)
+      ## Gigablast
+      result <- fromJSON(getURL(paste0("http://www.gigablast.com/search?c=main&format=json&q=", query), .opts = list(ssl.verifypeer = FALSE)))
+      search_results[j] <- as.integer(result$hits)
+      Sys.sleep(0.1)
     }
-    if (max(google_results) > 0) {
-      names[which(google_results == max(google_results))]
-    #  temp$translated_name[i] <- names[which(google_results == max(google_results))]
+    if (max(search_results) > 0) {
+      s <- names[which(search_results == max(search_results))]
+      temp$translated_name[i] <- paste0(toupper(substring(s, 1, 1)), tolower(substring(s, 2)));
     }
   }
-  #cbind(names, google_results)
+  #cbind(names, search_results)
 }
 
 # Export

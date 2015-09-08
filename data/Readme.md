@@ -12,7 +12,7 @@ Fetches common name translations from [EOL.org](http://eol.org/) for each type w
 Fetches common name translations for the specified language (or all available languages, if not specified) from [Wikipedia.org](http://wikipedia.org/) for each type with a scientific name or wikipedia url defined, and writes the results to `data/wikipedia_names.csv`. The method works most of the time but does make mistakes, since the text formatting in the article is used to infer what is or is not a common name.
 
 #### `join_type_translations.r`
-Cleans up and joins together `eol_names.csv` and `wikipedia_names.csv`. The result can then be used to determine the best translation (currently this is done manually).
+Cleans up and joins together `eol_names.csv` and `wikipedia_names.csv`, then uses the [Gigablast API](http://gigablast.com/api.html) to choose the name most commonly used on the internet alongside the corresponding scientific name. Because errors and inconsistencies are likely, the output should be reviewed and edited manually before importing the translations into the database.
 
 #### `$ bundle exec rake import_type_translations`
 Imports type translations into the database. Expects file
