@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150823011715) do
+ActiveRecord::Schema.define(:version => 20150914031653) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -78,6 +78,12 @@ ActiveRecord::Schema.define(:version => 20150823011715) do
     t.boolean  "auto_cluster",          :default => false
     t.boolean  "reverse_geocode",       :default => false
     t.integer  "default_category_mask", :default => 0
+  end
+
+  create_table "invasives", :force => true do |t|
+    t.spatial "regions", :limit => {:srid=>4326, :type=>"multi_polygon", :geographic=>true}
+    t.integer "type_id"
+    t.string  "source"
   end
 
   create_table "locations", :force => true do |t|

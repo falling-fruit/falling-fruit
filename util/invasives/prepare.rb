@@ -58,7 +58,7 @@ CSV.foreach("usda.csv") do |row|
     tids = Type.select("id").where("scientific_name ILIKE ? OR name ILIKE ?","%#{latin_name}%","%#{common_name}%").collect{ |r| r.id }
   end
   next if tids.nil? or tids.empty?
-  puts "#{common_name} #{latin_name} #{tids.join(",")}"
+  $stderr.puts "#{common_name} #{latin_name} #{tids.join(",")}"
   row[5].split(/, /).each{ |r|
     if r =~ /([A-Z]{2}) \((.*)\)/
       state = $1
@@ -71,13 +71,17 @@ CSV.foreach("usda.csv") do |row|
 end
 
 RGeo::Shapefile::Reader.open('cb_2014_us_state_20m.shp') do |file|
-  puts "File contains #{file.num_records} records."
+  $stderr.puts "File contains #{file.num_records} records."
+  puts "BEGIN;"
   file.each do |record|
     state = record.attributes["STUSPS"]
     geom = record.geometry.as_text
     types = state_hash[state]
     next if types.nil? or types.empty?
-    puts "#{state} #{types.join(",")}" 
-    # FIXME: insert into invasives table once it exists
+    $stderr.puts "#{state} #{types.join(",")}"
+    types.each{ |t|
+      puts "INSERT INTO invasives (type_id,source,regions) VALUES (#{t},'USDA Noxious or Invasive (by State)',ST_Transform(ST_Force2D(ST_GeomFromText('#{geom}',#{SRID})),4326));"
+    }
   end
+  puts "COMMIT;"
 end

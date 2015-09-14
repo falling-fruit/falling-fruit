@@ -11,6 +11,7 @@ class Type < ActiveRecord::Base
   has_attached_file :marker
   belongs_to :parent, class_name: "Type"
   has_many :children, class_name: "Type", foreign_key: "parent_id"
+  has_many :invasives
   
   normalize_attributes *character_column_symbols
   normalize_attribute :name, :before => [ :squish ] do |value|
