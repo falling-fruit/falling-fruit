@@ -72,7 +72,6 @@ end
 
 RGeo::Shapefile::Reader.open('cb_2014_us_state_20m.shp') do |file|
   $stderr.puts "File contains #{file.num_records} records."
-  puts "BEGIN;"
   file.each do |record|
     state = record.attributes["STUSPS"]
     geom = record.geometry.as_text
@@ -83,5 +82,4 @@ RGeo::Shapefile::Reader.open('cb_2014_us_state_20m.shp') do |file|
       puts "INSERT INTO invasives (type_id,source,regions) VALUES (#{t},'USDA Noxious or Invasive (by State)',ST_Transform(ST_Force2D(ST_GeomFromText('#{geom}',#{SRID})),4326));"
     }
   end
-  puts "COMMIT;"
 end
