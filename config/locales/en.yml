@@ -225,6 +225,22 @@ en:
       freegan_modal_title: Welcome to our freegan map!
       grafter_modal_html: Guerrilla Grafters graft fruit-bearing branches onto non-fruit-bearing, ornamental fruit trees. Over time, delicious, nutritious fruit is made available to neighborhoods through these grafts. You can learn more about this project at <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>Cities in North America often use sterile fruit trees for their colorful spring blossoms. This map shows some of the most common ornamental fruit trees. If you are a grafter, a gardener, or a fruit tree enthusiast, contribute to the information commons and tag the trees in your yard or neighborhood that can be grafted with fruit-bearing branches!
       grafter_modal_title: Welcome to our grafter map!
+      mobile_modal_html: ! 'Hello! It looks like you''re accessing Falling Fruit from a <strong>mobile device</strong>. We recently released a crowdfunded mobile app for both Android and Apple mobile platforms. I think you''ll find it''s much more pleasant to use on your mobile device:
+
+        <br><br>
+
+        <ul>
+
+        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit for Apple Phones</a>
+
+        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit for Android Phones</a>
+
+        </ul>
+
+        <br>
+
+        100% of proceeds from app sales go to support our hard costs (servers and infrastructure to keep the site online). We''re a 501(c)3 nonprofit organization, so this cost is also tax-deductible in the US.'
+      mobile_modal_title: But wait, there's a mobile app!
       stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>.
       welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and foresters everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up?locale=en">sign up</a> to access additional features.
       welcome_modal_title: Welcome to Falling Fruit!

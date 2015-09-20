@@ -215,6 +215,8 @@ it:
       freegan_modal_title: Benvenuti nella nostra mappa!
       grafter_modal_html: 
       grafter_modal_title: 
+      mobile_modal_html: 
+      mobile_modal_title: 
       stamen_html: Mappa piastrelle di <a href="http://stamen.com">Stamen design</a> , sotto <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> . I dati di <a href="http://openstreetmap.org">OpenStreetMap</a> , sotto <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a> .
       welcome_modal_html: Falling Fruit è una grande mappa condivisa sulla raccolta urbana di frutta. Grazie alla collaborazione di raccoglitori, forestali e freegans, la mappa indica già a oltre un milione e mezzo di luoghi destinati alla produzione alimentare in tutto il mondo (da piante e funghi a pozzi d'acqua e discariche). La nostra comunità e in rapida crescita ed è attivamente coinvolta in esplorazioni e aggiungendo alla mappa. <br/><br/> Unitevi a noi per celebrare l'abbondante produzione delle nostre strade cittadine! Potete utilizzare il sito in forma anonima oppure <a href="/users/sign_up?locale=it">registrarsi</a> creare un vostro account per accedere a tutte le funzioni aggiuntive.
       welcome_modal_title: Benvenuti a Fallen Fruit!

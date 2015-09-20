@@ -21,6 +21,11 @@
   <%= I18n.t("locations.index.grafter_modal_html").html_safe %>
 </div>
 
+<div id="mobile_modal" style="display:none;" title="<%= I18n.t("locations.index.mobile_modal_title") %>">
+  <img src="/new_logo_200x.jpg" style="float:right;margin:0.4em 0 0.5em 1em;">
+  <%= I18n.t("locations.index.mobile_modal_html").html_safe %>
+</div>
+
 <%= render 'searchbar' %>
 
 <% unless @show_sidebar.nil? or not @show_sidebar %>
@@ -113,8 +118,16 @@
     navigator.geolocation.getCurrentPosition(function(position){},function(error){
       $('#recenter_button').hide();
     });
-    
-    <% if @freegan %>
+
+    <% if mobile_device? %>
+    if ($.cookie('mobile_modal_shown') == null) {
+      $.cookie('mobile_modal_shown', 'yes', { expires: 14, path: '/' });
+      $('#mobile_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
+      $("#mobile_modal").bind("clickoutside", function(event){
+        $(this).dialog('close');
+      });
+    }
+    <% elsif @freegan %>
       if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });
         $('#freegan_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
@@ -124,9 +137,9 @@
       }
     <% elsif @grafter %>
       if ($.cookie('grafter_modal_shown') == null) {
-        $.cookie('grafter_modal_shown', 'yes', { expires: 365, path: '/' });
-        $('#grafter_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
-        $("#grafter_modal").bind("clickoutside", function(event){
+        $.cookie('grafter_modal_shown', 'yes', {expires: 365, path: '/'});
+        $('#grafter_modal').dialog({modal: true, width: 650, resizable: false, draggable: false});
+        $("#grafter_modal").bind("clickoutside", function (event) {
           $(this).dialog('close');
         });
       }
