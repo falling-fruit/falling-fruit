@@ -105,6 +105,7 @@ fr:
     imported_datasets: Données importées
     imports: Importations
     info: Infos
+    invasive: 
     italy: Italie
     labels: Étiquettes
     links:
@@ -267,6 +268,8 @@ fr:
       url_for_this_location: URL pour cet endroit
     searchbar:
       embed_hover: Code d'intégration
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL de la carte actuelle
       tree_inventories_modal: Les inventaires d'arbres sont compilées par des institutions qui cherchent à mieux documenter et prendre soin de leurs arbres. Ces données sont généralement recueillies par des arboriculteurs formés et sont à la fois détaillées et exhaustives. Nous choisissons soigneusement les espèces comestibles de ces inventaires et les ajoutons à la carte pour vous. Aidez-nous à répertorier les sources comestibles de votre quartier en demandant à votre ville (ou université, canton, etc) si un inventaire d'arbres existe et s'il peut être partagé sur Falling Fruit.
       tree_inventories_modal_title: Qu'est-ce qu'un inventaire d'arbres?

@@ -105,6 +105,7 @@ de:
     imported_datasets: Importierte Datensätze
     imports: Importe
     info: Info
+    invasive: 
     italy: Italien
     labels: Etiketten
     links:
@@ -267,6 +268,8 @@ de:
       url_for_this_location: URL für diesen Standort
     searchbar:
       embed_hover: Einbettungscode
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL der aktuellen Karte
       tree_inventories_modal: Bauminverntare werden in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden meistens durch ausgebildetes Personal erhoben und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich in unsere Karte ein. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
       tree_inventories_modal_title: Was ist ein Bauminventar?

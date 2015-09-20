@@ -38,12 +38,19 @@
    <!-- Tree inventories -->
    <span class="nowrap">
      <b><%= I18n.t("glossary.tree_inventories", :count => 2) %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
-
      <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> >
+   </span>
+   <span class="nowrap" style="display: none;" id="invasive_span">
+     <b><%= I18n.t("glossary.invasive", :count => 2) %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_invasive_help_modal();">[?]</span>
+     <input type="checkbox" id="invasive" value="1" onclick="clear_markers();update_display(true);">
    </span>
    <div id="tree_inventories_help" style="display:none;" title="<%= I18n.t("locations.searchbar.tree_inventories_modal_title") %>">
      <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200">
      <%= I18n.t("locations.searchbar.tree_inventories_modal") %>
+   </div>
+   <div id="tree_invasive_help" style="display:none;" title="<%= I18n.t("locations.searchbar.invasive_modal_title") %>">
+     <img src="/himalayanblackberry1_300x.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Himalayan Blackberry, image via Washington State Noxious Weed Control Board">
+     <%= I18n.t("locations.searchbar.invasive_modal") %>
    </div>
    
    <!-- Download -->

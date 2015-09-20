@@ -105,6 +105,7 @@ he:
     imported_datasets: מערכי נתונים מיובאים
     imports: יבוא
     info: מידע
+    invasive: 
     italy: 
     labels: תוויות
     links:
@@ -261,6 +262,8 @@ he:
       url_for_this_location: URL עבור מיקום זה
     searchbar:
       embed_hover: שבץ HTML
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: כתובת אתר למפה הנוכחית
       tree_inventories_modal: מלאי עץ מופקים על ידי מוסדות המבקשים מסמך טוב יותר וטיפול לעצים שלהם. נתונים אלה נאספים בדרך כלל על ידי arborists המאומן ושניהם מפורטים וממצים. אנחנו בוחרים בקפידה את מינים אכילים מהמלאי אלה ולהוסיף אותם למפה בשבילך. אתה יכול לעזור לנו מפת השכונה שלך על ידי לשאול העיר או באוניברסיטה שלך, אם מלאי עץ קיים והאם הוא יכול להיות משותף עם נפילת פירות.
       tree_inventories_modal_title: 

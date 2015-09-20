@@ -570,6 +570,16 @@ function open_inventories_help_modal(){
   });
 }
 
+function open_invasive_help_modal(){
+  $('#tree_invasive_help').dialog({
+    autoOpen:true,
+    width:640,
+    modal:true,
+    resizable:false,
+    draggable:false
+  });
+}
+
 function open_pending_types_help_modal(){
   $('#pending_types_help').dialog({
     autoOpen:true, 
@@ -711,11 +721,14 @@ function add_clicky_cluster(marker){
   });
 }
 
-function do_markers(bounds,skip_ids,muni,type_filter,cats) {
+function do_markers(bounds,skip_ids,muni,type_filter,cats,invasive) {
   if(markersArray.length >= markersMax) return;
   var bstr = bounds_to_query_string(bounds);
   if (muni) mstr = '&muni=1';
     else mstr = '&muni=0';
+  if (invasive) istr = '&invasive=1';
+  else istr = '';
+
   var tstr = '';
   if (type_filter != undefined) {
     var tstr = '&t=' + type_filter.join(",");
@@ -728,7 +741,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats) {
   //console.log(api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr);
   var request = $.ajax({
     type: 'GET',
-    url: api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr,
+    url: api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + istr + bstr + tstr + cstr,
     dataType: 'json'
   });
   request.done(function(json){

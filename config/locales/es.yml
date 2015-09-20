@@ -105,6 +105,7 @@ es:
     imported_datasets: Datos importados
     imports: Importaciones
     info: Info
+    invasive: 
     italy: Italia
     labels: Etiquetas
     links:
@@ -267,6 +268,8 @@ es:
       url_for_this_location: URL para esta ubicación
     searchbar:
       embed_hover: Código de inserción
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL al mapa actual
       tree_inventories_modal: Inventarios de árboles son compilados por instituciones que tratan de documentar mejor y la atención a sus árboles. Estos datos se recogen típicamente por arbolistas entrenados y son a la vez detallada y exhaustiva. Escogemos cuidadosamente las especies comestibles de estos inventarios y agregarlos al mapa para usted. Usted puede ayudarnos a Mapa de su vecindario pidiendo tu ciudad o universidad si existe un inventario de árboles y si puede ser compartida con la caída de la fruta.
       tree_inventories_modal_title: ¿Qué es un inventario de árboles?

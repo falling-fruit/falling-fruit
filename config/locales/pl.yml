@@ -106,6 +106,7 @@ pl:
     imported_datasets: Importowane Zbiory danych
     imports: Przywóz
     info: Informacje
+    invasive: 
     italy: 
     labels: Etykiety
     links:
@@ -264,6 +265,8 @@ pl:
       url_for_this_location: Adres URL dla tej lokalizacji
     searchbar:
       embed_hover: 
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: Adres URL do aktualnej mapie
       tree_inventories_modal: Zapasy drzewo sporządzane są przez instytucje pragnących lepszego dokumentu i opieki dla swoich drzew. Dane te są zazwyczaj zbierane przez wyszkolonych arborists i są zarówno szczegółowe i wyczerpujące. Starannie dobrać gatunki jadalne od tych zapasów i dodaj je do mapy dla Ciebie. Możesz pomóc nam mapę Twojej okolicy od swojego miasta lub uniwersytet, jeśli asortyment istnieje i czy drzewo to może być współdzielone z Falling Fruit.
       tree_inventories_modal_title: 

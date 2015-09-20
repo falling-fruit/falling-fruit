@@ -106,7 +106,7 @@ function update_display(force,force_zoom,force_bounds){
       types_hash = {};
       show_map_controls();
     }
-    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter,cats);
+    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter,cats,$('#invasive').is(':checked'));
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
@@ -115,6 +115,7 @@ function update_display(force,force_zoom,force_bounds){
 function hide_map_controls() {
   $('#hidden_controls').hide();
   $('#export_data').hide();
+  $('#invasive_span').hide();
   resize_map();
 }
 
@@ -122,6 +123,7 @@ function show_map_controls() {
   $('#get_data_link').attr('href',data_link());
   $('#hidden_controls').show();
   $('#export_data').show();
+  $('#invasive_span').show();
 	resize_map();
 }
 
@@ -147,7 +149,7 @@ function update_display_embedded(force, force_zoom, muni) {
     else if ((zoom != prior_zoom) || force)
       do_clusters(undefined,zoom,muni,type_filter);
   } else if (zoom >= 13) {
-    do_markers(bounds,null,muni,type_filter,cats);
+    do_markers(bounds,null,muni,type_filter,cats,false);
   }
   prior_zoom = zoom;
   prior_bounds = bounds;

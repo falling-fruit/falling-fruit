@@ -105,6 +105,7 @@ it:
     imported_datasets: Dataset importati
     imports: Importazioni
     info: Info
+    invasive: 
     italy: Italia
     labels: Etichette
     links:
@@ -267,6 +268,8 @@ it:
       url_for_this_location: URL per questa posizione
     searchbar:
       embed_hover: Embed code
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL alla mappa attuale
       tree_inventories_modal: Gli inventari degli alberi sono redatti da istituzioni che hanno l'obiettivo di documentare e curare i loro alberi. Questi dati sono in genere raccolti da arboricoltori specializzati e sono dettagliati ed esaurienti. Da questi inventari noi selezioniamo attentamente le specie commestibili e le aggiungiamo per voi alla mappa. Aiutateci a mappare il vostro quartiere, chiedendo al vostro Municipio (o Università, Comitato di quartiere, etc) se esiste un inventario degli alberi e se può essere condiviso da Fallen Fruit.
       tree_inventories_modal_title: Che cosa è un inventario degli alberi?
