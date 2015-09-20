@@ -9,7 +9,7 @@ common = require('./common');
 // locals
 var express = require('express');
 var router = express.Router();
-var apicache = require('apicache').options({ debug: true }).middleware;
+//var apicache = require('apicache').options({ debug: true }).middleware;
 var multer = require('multer');
 var app = express();
 
@@ -40,7 +40,8 @@ router.get('/logout.json',auth.logout);
 
 // Note: grid parameter replaced by zoom
 // Note: now can accept a bounding box, deprecating the cluster_types.json endpoint
-router.get('/types.json',apicache('1 hour'),types.list);
+//router.get('/types.json',apicache('1 hour'),types.list);
+router.get('/types.json',types.list);
 
 // Note: GET /locations.json replaces both /markers.json and nearby.json
 // Note: types renamed to type_ids
