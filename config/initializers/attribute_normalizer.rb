@@ -1,10 +1,9 @@
 AttributeNormalizer.configure do |config|
   
-  # :squeeze Squeezes repeating characters to single (whitespace by default)
+  # :squeeze Squeezes repeating spaces to single, and repeating new lines to double
   config.normalizers[:squeeze] = lambda do |value, options|
     if value.is_a?(String)
-      options.reverse_merge!(:characters => '\s')
-      value.gsub(/([#{options[:characters]}]+)\1/, "\\1")
+      value.gsub(/[ ]+/, ' ').gsub(/[\r\n]{2,}/, "\n\n")
     else
       value
     end

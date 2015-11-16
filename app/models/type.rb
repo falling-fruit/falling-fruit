@@ -15,7 +15,7 @@ class Type < ActiveRecord::Base
   
   normalize_attributes *character_column_symbols
   normalize_attribute :name, :before => [ :squish ] do |value|
-    value.is_a?(String) ? value.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize : value
+    value.is_a?(String) ? value.gsub(/[^[:word:]\s\(\)\-\']/,'') : value
   end
   validates :name, :presence => true
   
