@@ -1,7 +1,7 @@
 class Type < ActiveRecord::Base
 
   attr_accessible :name, :synonyms, 
-                  :fr_name, :de_name, :es_name, :pt_br_name, :pl_name, :he_name,
+                  :fr_name, :de_name, :es_name, :pt_br_name, :it_name, :pl_name, :he_name,
                   :scientific_name, :scientific_synonyms, :taxonomic_rank,
                   :usda_symbol, :wikipedia_url, 
                   :urban_mushrooms_url, :fruitipedia_url, :foraging_texas_url, :eat_the_weeds_url,
@@ -11,10 +11,11 @@ class Type < ActiveRecord::Base
   has_attached_file :marker
   belongs_to :parent, class_name: "Type"
   has_many :children, class_name: "Type", foreign_key: "parent_id"
+  has_many :invasives
   
   normalize_attributes *character_column_symbols
   normalize_attribute :name, :before => [ :squish ] do |value|
-    value.is_a?(String) ? value.gsub(/[^[:word:]\s\(\)\-\']/,'').capitalize : value
+    value.is_a?(String) ? value.gsub(/[^[:word:]\s\(\)\-\']/,'') : value
   end
   validates :name, :presence => true
   
@@ -77,7 +78,7 @@ class Type < ActiveRecord::Base
     $seen = {} if $seen.nil?
     return nil unless $seen[self.id].nil?
     $seen[self.id] = true
-    ret = {"id" => self.id, "name" => self.full_name}
+    ret = {"id" => self.id, "name" => self.full_name, "children_ids" => self.children_ids}
     cs = self.children.where("(category_mask & ?)>0",cat_mask).default_sort
     ret["children"] = cs.collect{ |c| c.to_hash(cats) }.compact unless cs.empty?
     ret

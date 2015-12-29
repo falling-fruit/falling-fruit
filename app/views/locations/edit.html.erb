@@ -11,41 +11,23 @@
   
   // ================= globals ==================
 	
+	var marker = null;
   var lat = $("#location_lat").val();
   var lng = $("#location_lng").val();
   var zoom = 20;
 	var type = google.maps.MapTypeId.HYBRID;
-	// Needed for opening marker windows. 
-  // FIXME: Shouldn't this be set in the session?
-  var cats = undefined;
 
   // ================= functions =================
 
   function initialize() {
   	basemap(lat,lng,zoom,type);
-    place_edit_marker(lat,lng);
-     
-    // update markers once we're done panning and zooming
-    google.maps.event.addListenerOnce(map, 'idle', function() {
-      do_markers(map.getBounds(),$("#location_id").val(),true);
-    });
-		
-		// Update location markers when bounds change
-		google.maps.event.addListener(map, 'bounds_changed', function() {
-			google.maps.event.addListenerOnce(map, 'idle', function() {
-				var zoom = map.getZoom();
-				var bounds = map.getBounds();
-				if (prior_bounds == null && prior_zoom == null) {
-					prior_zoom = zoom;
-					prior_bounds = bounds;
-					return;
-				}
-				if (zoom > 12 && prior_bounds != bounds) {
-					do_markers(bounds,null,true);
-				}
-				prior_zoom = zoom;
-				prior_bounds = bounds;
-			});
+    marker = load_edit_marker(lat,lng);
+    
+		// Update markers once done panning and zooming
+		google.maps.event.addListener(map, 'idle', function() {
+      if (map.getZoom() > 12) {
+        do_markers(map.getBounds(),$("#location_id").val(),true,undefined,cats);
+      }
 		});
   }
   

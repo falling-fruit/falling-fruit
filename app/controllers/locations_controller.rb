@@ -108,6 +108,14 @@ class LocationsController < ApplicationController
     params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
+
+  def invasivore_index
+    @invasivore = true
+    params[:c] = 'invasivore'
+    # hack since clusters don't support categories yet
+    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
+    index and return
+  end
   
   # GET /graftable
   # GET /grafter

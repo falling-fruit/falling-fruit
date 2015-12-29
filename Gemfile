@@ -59,6 +59,7 @@ gem 'gmaps4rails'
 gem 'recaptcha', :require => "recaptcha/rails"
 gem 'comma', '~> 3.0'
 gem 'rgeo'
+gem 'rgeo-shapefile'
 gem 'activerecord-postgis-adapter'
 
 # Authentication stuff

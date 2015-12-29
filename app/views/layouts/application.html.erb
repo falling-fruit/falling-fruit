@@ -2,15 +2,11 @@
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
   
-  <% host = request.local? ? "localhost" : "fallingfruit.org" %>
-  <% if host == "localhost" %>
-    <meta name="google" value="notranslate">
-  <% end %>
-  
   <!-- Metadata -->
   <title>Falling Fruit</title>
   <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
   <meta property="og:site_name" content="Falling Fruit" />
+  <meta property="og:type" content="website" /> 
   <meta property="fb:admins" content="10708811" /><!-- Ethan Welty -->
   <meta property="fb:admins" content="42001954" /><!-- Caleb Phillips -->
   <meta property="fb:admins" content="5246945" /><!-- Jeff Wanner -->
@@ -58,16 +54,24 @@
   <!-- Javascript -->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  
+  <!-- app globals -->
+  <% host = request.local? ? "localhost" : "fallingfruit.org" %>
+  <% if host == "localhost" %>
+    <meta name="google" value="notranslate">
+  <% end %>
   <script type="text/javascript">
-	// Load I18n locale into JS
+		host = "<%= host %>";
+		cats = <%= raw @categories %>;
+		// load I18n
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
-
     // resize content on header resize
     $(window).resize(function() {
       resize_content();
     });
   </script>
+	
   <!-- Load infowindow only after locale is set -->
   <%= javascript_include_tag "shadowbox-i18n" %>
   <%= javascript_include_tag "shadowbox-infowindow" %>

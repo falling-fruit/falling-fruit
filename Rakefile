@@ -379,13 +379,13 @@ namespace :export do
 end
 
 task(:import_type_translations => :environment) do
-  ApplicationController::SupportedLocales.each do |l|
+  I18n.available_locales.each do |l|
     next unless File.exists? "data/#{l}_names.csv"
     n = 0
     id_col = nil
     trans_cols = []
     puts l
-    dbl = l.downcase.gsub("-", "_")
+    dbl = l.to_s.downcase.gsub("-", "_")
     CSV.foreach("data/#{l}_names.csv") do |row|
       if n == 0
         row.each_with_index do |d,i|

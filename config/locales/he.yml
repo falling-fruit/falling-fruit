@@ -105,6 +105,7 @@ he:
     imported_datasets: מערכי נתונים מיובאים
     imports: יבוא
     info: מידע
+    invasive: 
     italy: 
     labels: תוויות
     links:
@@ -136,6 +137,7 @@ he:
     sign_up: הרשמה
     street_view: Street View
     submit: שלח
+    switzerland: שווייץ
     tree_inventories: מלאי עץ
     type_and_press_enter: הקלד ולחץ תנטר
     types: סוגים
@@ -209,6 +211,8 @@ he:
       freegan_modal_title: 
       grafter_modal_html: 
       grafter_modal_title: 
+      mobile_modal_html: 
+      mobile_modal_title: 
       stamen_html: אריחי מפה על ידי <a href="http://stamen.com">אבקן עיצוב,</a> תחת <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0.</a> נתונים על ידי <a href="http://openstreetmap.org">OpenStreetMap,</a> תחת <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA.</a>
       welcome_modal_html: נפילת פירות היא מפה סיבית, שיתוף פעולה של היבול העירוני. מאחד את המאמצים של מלקטי מזון, יערנים, וfreegans בכל מקום, המפה כבר מצביעה על מעל חצי מיליון מקומות ייצור מזון בעולם (מצמחים ופטריות לבארות מים ופחי אשפה). קהילת המשתמשים גדלו במהירות שלנו באופן פעיל לחקור, עריכה, ולהוסיף למפה. <br/><br/> הצטרפו אלינו בחוגגים את השפע להתעלם מרחובות העיר שלנו! השתמש באתר בעילום שם או <a href="/users/sign_up?locale=he">להירשם</a> לחשבון כדי לגשת לתכונות נוספות.
       welcome_modal_title: 
@@ -259,6 +263,8 @@ he:
       url_for_this_location: URL עבור מיקום זה
     searchbar:
       embed_hover: שבץ HTML
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: כתובת אתר למפה הנוכחית
       tree_inventories_modal: מלאי עץ מופקים על ידי מוסדות המבקשים מסמך טוב יותר וטיפול לעצים שלהם. נתונים אלה נאספים בדרך כלל על ידי arborists המאומן ושניהם מפורטים וממצים. אנחנו בוחרים בקפידה את מינים אכילים מהמלאי אלה ולהוסיף אותם למפה בשבילך. אתה יכול לעזור לנו מפת השכונה שלך על ידי לשאול העיר או באוניברסיטה שלך, אם מלאי עץ קיים והאם הוא יכול להיות משותף עם נפילת פירות.
       tree_inventories_modal_title: 

@@ -105,6 +105,7 @@ it:
     imported_datasets: Dataset importati
     imports: Importazioni
     info: Info
+    invasive: 
     italy: Italia
     labels: Etichette
     links:
@@ -140,6 +141,7 @@ it:
     sign_up: Iscriviti
     street_view: Street View
     submit: Inoltrare
+    switzerland: Svizzera
     tree_inventories:
       one: inventario degli alberi
       other: inventari degli alberi
@@ -215,6 +217,8 @@ it:
       freegan_modal_title: Benvenuti nella nostra mappa!
       grafter_modal_html: 
       grafter_modal_title: 
+      mobile_modal_html: 
+      mobile_modal_title: 
       stamen_html: Mappa piastrelle di <a href="http://stamen.com">Stamen design</a> , sotto <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> . I dati di <a href="http://openstreetmap.org">OpenStreetMap</a> , sotto <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a> .
       welcome_modal_html: Falling Fruit è una grande mappa condivisa sulla raccolta urbana di frutta. Grazie alla collaborazione di raccoglitori, forestali e freegans, la mappa indica già a oltre un milione e mezzo di luoghi destinati alla produzione alimentare in tutto il mondo (da piante e funghi a pozzi d'acqua e discariche). La nostra comunità e in rapida crescita ed è attivamente coinvolta in esplorazioni e aggiungendo alla mappa. <br/><br/> Unitevi a noi per celebrare l'abbondante produzione delle nostre strade cittadine! Potete utilizzare il sito in forma anonima oppure <a href="/users/sign_up?locale=it">registrarsi</a> creare un vostro account per accedere a tutte le funzioni aggiuntive.
       welcome_modal_title: Benvenuti a Fallen Fruit!
@@ -265,6 +269,8 @@ it:
       url_for_this_location: URL per questa posizione
     searchbar:
       embed_hover: Embed code
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL alla mappa attuale
       tree_inventories_modal: Gli inventari degli alberi sono redatti da istituzioni che hanno l'obiettivo di documentare e curare i loro alberi. Questi dati sono in genere raccolti da arboricoltori specializzati e sono dettagliati ed esaurienti. Da questi inventari noi selezioniamo attentamente le specie commestibili e le aggiungiamo per voi alla mappa. Aiutateci a mappare il vostro quartiere, chiedendo al vostro Municipio (o Università, Comitato di quartiere, etc) se esiste un inventario degli alberi e se può essere condiviso da Fallen Fruit.
       tree_inventories_modal_title: Che cosa è un inventario degli alberi?

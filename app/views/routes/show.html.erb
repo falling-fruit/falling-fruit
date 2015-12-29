@@ -14,7 +14,7 @@
     <% @route_locations.each{ |lr| %>
       <li>
           <%= hidden_field_tag('route_location_id',lr.id) %>
-          <a href="#" onclick="sidebar_pan_to_location(<%= lr.location.id %>,<%= lr.location.lat %>,<%= lr.location.lng %>);return false;" onmouseover="show_pointer(<%= lr.location.lat %>,<%= lr.location.lng %>);" onmouseout="hide_pointer();">
+          <a href="#" onclick="open_marker_by_id(<%= lr.location.id %>);return false;" onmouseover="show_pointer(<%= lr.location.lat %>,<%= lr.location.lng %>);" onmouseout="hide_pointer();">
             <%= lr.location.title %>
           </a>
     <% } %>
@@ -43,12 +43,12 @@
                      "{location: new google.maps.LatLng(#{lr.location.lat},#{lr.location.lng})}" }.join(",")
                 %>];
   var type = google.maps.MapTypeId.ROADMAP;
-  var travelMode = '<%= @route.transport_type.upcase %>';
+  var travelMode = '<%= @route.transport_type %>';
   var bounds = new google.maps.LatLngBounds();
   <% @route_locations.each{ |lr| %>
     bounds.extend(new google.maps.LatLng(<%= lr.location.lat %>,<%= lr.location.lng %>));
   <% } %>
-  var cats = undefined;
+  type_filter = undefined;
   
   // ================= functions =================
   

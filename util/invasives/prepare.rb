@@ -1,4 +1,5 @@
-require 'rgeo/shapefile'
+require '../../config/environment'
+require 'rgeo'
 
 # ADW	"A" designated weed
 # AW	A list (noxious weeds)
@@ -45,30 +46,40 @@ SRID=4269 # NAD83
 
 n = 0
 state_hash = {}
-CSV.foreach("usda.txt") do |row|
+CSV.foreach("usda.csv") do |row|
   n += 1
   next if n == 1
   #"Symbol","Synonym Symbol","Scientific Name","Common Name","Federal Noxious Status","State Noxious Status","Native Status"
-  latin_name = row[2].gsub(" L.","")
-  common_name = row[3]
-  tids = Type.select("id").where("scientific_name ILIKE '%#{latin_name}%' OR name ILIKE '%#{common_name}%'").collect{ |r| r.id }
+  latin_name = row[2].gsub(" L.","").strip
+  common_name = row[3].strip
+  if common_name.blank?
+    tids = Type.select("id").where("scientific_name ILIKE ?","%#{latin_name}%").collect{ |r| r.id }
+  else
+    tids = Type.select("id").where("scientific_name ILIKE ? OR name ILIKE ?","%#{latin_name}%","%#{common_name}%").collect{ |r| r.id }
+  end
+  next if tids.nil? or tids.empty?
+  $stderr.puts "#{common_name} #{latin_name} #{tids.join(",")}"
   row[5].split(/, /).each{ |r|
     if r =~ /([A-Z]{2}) \((.*)\)/
       state = $1
       status = $2.split(/, /)
-      next unless status.any{ |s| Noxious.include? s }
-      state_hash = [] if state_hash[state].nil?
+      next unless status.any?{ |s| Noxious.include? s }
+      state_hash[state] = [] if state_hash[state].nil?
       state_hash[state] += tids
     end
   }
 end
 
 RGeo::Shapefile::Reader.open('cb_2014_us_state_20m.shp') do |file|
-  puts "File contains #{file.num_records} records."
+  $stderr.puts "File contains #{file.num_records} records."
   file.each do |record|
     state = record.attributes["STUSPS"]
     geom = record.geometry.as_text
     types = state_hash[state]
-    puts "#{state} #{types.join(",")}" 
+    next if types.nil? or types.empty?
+    $stderr.puts "#{state} #{types.join(",")}"
+    types.each{ |t|
+      puts "INSERT INTO invasives (type_id,source,regions) VALUES (#{t},'USDA Noxious or Invasive (by State)',ST_Transform(ST_Force2D(ST_GeomFromText('#{geom}',#{SRID})),4326));"
+    }
   end
 end

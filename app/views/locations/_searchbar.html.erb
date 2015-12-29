@@ -38,12 +38,19 @@
    <!-- Tree inventories -->
    <span class="nowrap">
      <b><%= I18n.t("glossary.tree_inventories", :count => 2) %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
-
      <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> >
+   </span>
+   <span class="nowrap" style="display: none;" id="invasive_span">
+     <b><%= I18n.t("glossary.invasive", :count => 2) %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_invasive_help_modal();">[?]</span>
+     <input type="checkbox" id="invasive" value="1" onclick="clear_markers();update_display(true);">
    </span>
    <div id="tree_inventories_help" style="display:none;" title="<%= I18n.t("locations.searchbar.tree_inventories_modal_title") %>">
      <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200">
      <%= I18n.t("locations.searchbar.tree_inventories_modal") %>
+   </div>
+   <div id="tree_invasive_help" style="display:none;" title="<%= I18n.t("locations.searchbar.invasive_modal_title") %>">
+     <img src="/himalayanblackberry1_300x.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Himalayan Blackberry, image via Washington State Noxious Weed Control Board">
+     <%= I18n.t("locations.searchbar.invasive_modal") %>
    </div>
    
    <!-- Download -->
@@ -59,54 +66,71 @@
 
 <% content_for :page_scripts do %>
 <script type="text/javascript">
-  var base_type_data = <%= Type.hash_tree((@perma.nil? or @perma[:cats].nil?) ? Type::DefaultCategories : @perma[:cats].split(/,/)).to_json.html_safe %>;
-  function filter_by_types_hash(children){
+  var base_type_data_original = <%= Type.hash_tree(@categories).to_json.html_safe %>;
+  // FIXME: Dirty hack to keep filter_by_types_hash from modifying base_type_data_original
+  function filter_by_types_hash_wrapper(x) {
+  	var base_type_data = $.extend(true, [], x);
+  	return filter_by_types_hash(base_type_data);
+  }
+  function filter_by_types_hash(children) {
     var mp = markersPartial ? "+" : "";
-    var ret = children.filter(function(obj){ return types_hash[obj["id"]] != undefined; })
-    for(var i = 0; i < ret.length; i++){
-      ret[i]["text"] = ret[i]["name"] + " (" + types_hash[ret[i]["id"]] + mp + ")";
-      if(ret[i]["children"] != undefined){
+    var ret = children.filter(function (obj) {
+    	return (obj["children"] != undefined && obj["children"].length > 0) || types_hash[obj["id"]] != undefined; 
+    });
+    for (var i = ret.length-1; i >= 0; i--) {
+    	var count = types_hash[ret[i]["id"]] ? types_hash[ret[i]["id"]] : 0;
+      //ret[i]["count"] = count;
+      ret[i]["text"] = ret[i]["name"] + " (" + count + mp + ")";
+      if (ret[i]["children_ids"].length > 0) {
+      	ret[i]["id"] = [ret[i]["id"], ret[i]["children_ids"]].join(",");
+      }
+      if (ret[i]["children"] != undefined) {
         ret[i]["children"] = filter_by_types_hash(ret[i]["children"])
+        if (ret[i]["children"].length == 0 && count == 0) {
+        	ret.splice(i, 1);
+        }
       }
     }
     return ret;
   }
-
-jQuery(document).ready(function(){
-  $('#type_filter').select2({
-    <% unless @types.nil? or @types.empty? %>
-      placeholder: "<%= @types.collect{ |t| t.name }.join(" + ") %>",
-      val: type_filter,
-    <% else %>
-    	placeholder: "<%= I18n.t("glossary.edible_type") %>",
-    <% end %>
-      data: function(term,page){
-          return { text:'text', results: filter_by_types_hash(base_type_data) };
-    },
-    allowClear: true,
-    allowedMethods: ['updateResults']
-  });
-  // Needed so that default placeholder (not type name) is shown when select is cleared
-  $('#type_filter').attr("placeholder", "<%= I18n.t("glossary.edible_type") %>");
-  $('#s2id_type_filter').select2('disable', true);
-  $('#type_filter').on("change",function() {
-    if ($("#type_filter").val() == "") {
-      type_filter = undefined;
-      if (map.getZoom() <= 12) { // getZoom is critical!
-        update_display(true);
-      } else {
-        clear_type_filter();
-      }
-    } else {
-      type_filter = [parseFloat($("#type_filter").val())];
-      if (map.getZoom() <= 12) {
-        update_display(true);
-      } else {
-        apply_type_filter();
-      }
-    }
-    update_permalink();
-  });
-});
+	//var temp = null;
+		
+	jQuery(document).ready(function(){
+		//temp = filter_by_types_hash_wrapper(base_type_data_original);
+		$('#type_filter').select2({
+			<% unless @types.nil? or @types.empty? %>
+				placeholder: "<%= @types.collect{ |t| t.name }.join(" + ") %>",
+				val: type_filter,
+			<% else %>
+				placeholder: "<%= I18n.t("glossary.edible_type") %>",
+			<% end %>
+				data: function (term,page) {
+						return { text: 'text', results: filter_by_types_hash_wrapper(base_type_data_original) };
+				},
+				allowClear: true,
+				allowedMethods: ['updateResults']
+		});
+		// Needed so that default placeholder (not type name) is shown when select is cleared
+		$('#type_filter').attr("placeholder", "<%= I18n.t("glossary.edible_type") %>");
+		$('#type_filter').on("change",function() {
+			var zoom = map.getZoom();
+			if ($("#type_filter").val() == "") {
+				type_filter = undefined;
+				if (zoom <= 12) {
+					update_display();
+				} else {
+					clear_type_filter();
+				}
+			} else {
+				type_filter = $("#type_filter").val().split(',').map(Number);
+				if (zoom <= 12) {
+					update_display();
+				} else {
+					apply_type_filter();
+				}
+			}
+			update_permalink();
+		});
+	});
 </script>
 <% end %>

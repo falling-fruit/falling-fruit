@@ -105,6 +105,7 @@ de:
     imported_datasets: Importierte Datensätze
     imports: Importe
     info: Info
+    invasive: 
     italy: Italien
     labels: Etiketten
     links:
@@ -140,6 +141,7 @@ de:
     sign_up: Anmelden
     street_view: Street View
     submit: Einreichen
+    switzerland: Schweiz
     tree_inventories:
       one: Bauminventar
       other: Bauminventare
@@ -215,6 +217,8 @@ de:
       freegan_modal_title: Willkommen zur Falling Fruit's Freegan Karte!
       grafter_modal_html: 
       grafter_modal_title: 
+      mobile_modal_html: 
+      mobile_modal_title: 
       stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit ist eine riesige, user-generierte Karte der urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler' zeigt unsere Karte weltweit bereits zu einer halben Million Standorten, an denen Essbares wächst oder gratis erhältlich ist (von Pflanzen und Pilzen zu Brunnen und Müllcontainern). Unsere stetig wachsende User-Community ist unermüdlich dabei, wertvolle Standorte zu erkunden oder zu bearbeiten, um sie der Karte hinzuzufügen. <br/><br/> Hilf uns, den vernachlässigten Reichtum an unseren Strassen zum Leben zu erwecken! Verwende die Website anonym oder melde dich als <a href="/users/sign_up?locale=de">Benutzer</a> an, um sämtliche Funktionen nutzen zu können.
       welcome_modal_title: Willkommen bei Falling Fruit!
@@ -265,6 +269,8 @@ de:
       url_for_this_location: URL für diesen Standort
     searchbar:
       embed_hover: Einbettungscode
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL der aktuellen Karte
       tree_inventories_modal: Bauminverntare werden in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden meistens durch ausgebildetes Personal erhoben und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich in unsere Karte ein. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
       tree_inventories_modal_title: Was ist ein Bauminventar?

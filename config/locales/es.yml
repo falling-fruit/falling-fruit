@@ -105,6 +105,7 @@ es:
     imported_datasets: Datos importados
     imports: Importaciones
     info: Info
+    invasive: 
     italy: Italia
     labels: Etiquetas
     links:
@@ -140,6 +141,7 @@ es:
     sign_up: Registrarse
     street_view: Street View
     submit: Enviar
+    switzerland: Suiza
     tree_inventories:
       one: Inventario de árboles
       other: Inventarios de árboles
@@ -215,6 +217,8 @@ es:
       freegan_modal_title: ¡Bienvenido a nuestro mapa freegan!
       grafter_modal_html: 
       grafter_modal_title: 
+      mobile_modal_html: 
+      mobile_modal_title: 
       stamen_html: Mapa azulejos por <a href="http://stamen.com">Stamen Design</a>, bajo <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Datos por <a href="http://openstreetmap.org">OpenStreetMap</a>, bajo <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit es un mapa enorme, en colaboración de la cosecha urbana. Uniendo los esfuerzos de los cazadores-recolectores, silvicultores y freegans por todas partes, el mapa ya apunta a más de medio millón de lugares productores de alimentos de todo el mundo (de las plantas y los hongos a los pozos de agua y contenedores de basura). Nuestra comunidad de usuarios en rápido crecimiento está explorando activamente, editar y agregar al mapa. <br/><br/> Únete a nosotros en la celebración de la generosidad de nuestros vecinos calles de la ciudad! Utilice el sitio de forma anónima o <a href="/users/sign_up?locale=es">inscribirse</a> para una cuenta para acceder a funciones adicionales.
       welcome_modal_title: ¡Bienvenido a Falling Fruit!
@@ -265,6 +269,8 @@ es:
       url_for_this_location: URL para esta ubicación
     searchbar:
       embed_hover: Código de inserción
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL al mapa actual
       tree_inventories_modal: Inventarios de árboles son compilados por instituciones que tratan de documentar mejor y la atención a sus árboles. Estos datos se recogen típicamente por arbolistas entrenados y son a la vez detallada y exhaustiva. Escogemos cuidadosamente las especies comestibles de estos inventarios y agregarlos al mapa para usted. Usted puede ayudarnos a Mapa de su vecindario pidiendo tu ciudad o universidad si existe un inventario de árboles y si puede ser compartida con la caída de la fruta.
       tree_inventories_modal_title: ¿Qué es un inventario de árboles?

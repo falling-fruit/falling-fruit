@@ -21,6 +21,11 @@
   <%= I18n.t("locations.index.grafter_modal_html").html_safe %>
 </div>
 
+<div id="mobile_modal" style="display:none;" title="<%= I18n.t("locations.index.mobile_modal_title") %>">
+  <img src="/new_logo_300x.jpg" style="float:right;margin:0.4em 0 0.5em 1em;width: 200px;">
+  <%= I18n.t("locations.index.mobile_modal_html").html_safe %>
+</div>
+
 <%= render 'searchbar' %>
 
 <% unless @show_sidebar.nil? or not @show_sidebar %>
@@ -38,16 +43,15 @@
 <script type="text/javascript" charset="utf-8">
 	
   // ================= globals ==================
+  
   var lat = 36.45662936733231;
   var lng = -49.57030500000002;
   var zoom = 2;
   var type = google.maps.MapTypeId.ROADMAP;
-  var cats = undefined;
 	<% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
 	<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
 	<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
 	<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
-  <% unless @perma[:cats].nil? %>cats = '<%= @perma[:cats] %>';<% end %>
   muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>;
   labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var skip_ids = null;
@@ -86,15 +90,13 @@
       place_add_marker(event.latLng);
     });
     
-    /*google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-      console.log("update");
-      update_display(true,zoom);
-      if($("#labels").is(":checked")) labelize_markers();
-      // Ensures that labels come on again if labels = true and zoom <= 12
-      if ($('#labels').length > 0) {
-        labelsOn = $("#labels").is(":checked");
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+      if (labels && zoom > 12) labelize_markers();
+      // Ensures that labels come on again if labels = true and zoom <= 12:
+      if (labels && zoom <= 12) {
+        labelsOn = true;
       }
-    });*/
+    });
     
     // Far less redundant event trigger
     google.maps.event.addListener(map, 'idle', function() {
@@ -116,7 +118,16 @@
     navigator.geolocation.getCurrentPosition(function(position){},function(error){
       $('#recenter_button').hide();
     });
-    <% if @freegan %>
+
+    <% if mobile_device? %>
+    if ($.cookie('mobile_modal_shown') == null) {
+      $.cookie('mobile_modal_shown', 'yes', { expires: 14, path: '/' });
+      $('#mobile_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
+      $("#mobile_modal").bind("clickoutside", function(event){
+        $(this).dialog('close');
+      });
+    }
+    <% elsif @freegan %>
       if ($.cookie('freegan_modal_shown') == null) {
         $.cookie('freegan_modal_shown', 'yes', { expires: 365, path: '/' });
         $('#freegan_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
@@ -126,9 +137,9 @@
       }
     <% elsif @grafter %>
       if ($.cookie('grafter_modal_shown') == null) {
-        $.cookie('grafter_modal_shown', 'yes', { expires: 365, path: '/' });
-        $('#grafter_modal').dialog({modal:true,width:650,resizable:false,draggable:false});
-        $("#grafter_modal").bind("clickoutside", function(event){
+        $.cookie('grafter_modal_shown', 'yes', {expires: 365, path: '/'});
+        $('#grafter_modal').dialog({modal: true, width: 650, resizable: false, draggable: false});
+        $("#grafter_modal").bind("clickoutside", function (event) {
           $(this).dialog('close');
         });
       }

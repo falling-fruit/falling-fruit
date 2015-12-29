@@ -105,6 +105,7 @@ pt-BR:
     imported_datasets: Banco de dados importados
     imports: Importações
     info: Informações
+    invasive: 
     italy: Itália
     labels: Etiquetas
     links:
@@ -142,6 +143,7 @@ pt-BR:
     sign_up: Inscreva-se
     street_view: Street View
     submit: Enviar
+    switzerland: Suíça
     tree_inventories:
       one: Inventário de árvores
       other: Inventários de árvores
@@ -217,6 +219,8 @@ pt-BR:
       freegan_modal_title: Bem vindo ao mapa fregan do Falling Fruit!
       grafter_modal_html: 
       grafter_modal_title: 
+      mobile_modal_html: 
+      mobile_modal_title: 
       stamen_html: Bloco do mapa por <a href="http://stamen.com">estame projeto</a>, sob <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dados de <a href="http://openstreetmap.org">OpenStreetMap</a>, sob <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       welcome_modal_html: Falling Fruit é um enorme mapa colaborativo sobre colheita urbana. Unindo os esforços de coletores, florestais e freegans em todos os lugares, o mapa já identifica mais de meio milhão de fontes de alimentos em todo o mundo (desde plantas e fungos até poços de água e lixeiras). Nossa crescente comunidade de usuários ativamente explora, editar e adiciona ao mapa. <br/><br/> Junte-se a nós na celebração da abundancia negligenciada de nossas ruas! Use o site anonimamente ou <a href="/users/sign_up?locale=pt">se inscreva</a> para acessar recursos adicionais.
       welcome_modal_title: ! 'Bem vindo ao Falling Fruit! '
@@ -267,6 +271,8 @@ pt-BR:
       url_for_this_location: URL para este local
     searchbar:
       embed_hover: Código embutido
+      invasive_modal: 
+      invasive_modal_title: 
       link_hover: URL para o mapa atual
       tree_inventories_modal: Inventários de árvores são compilados por instituições que procuram a melhor documentação e cuidados para suas árvores. Esses dados são tipicamente coletados por arboristas treinados e são ambos detalhados e exaustivos. Nós cuidadosamente escolhemos espécies comestíveis a partir desses inventários e as adicionamos ao mapa para você. Você pode nos ajudar a mapear sua comunidade, descobrindo se um inventário da árvores existe e se ele pode ser compartilhado com a Falling Fruit.
       tree_inventories_modal_title: O que o inventário de árvores?

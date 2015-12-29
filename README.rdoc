@@ -20,22 +20,34 @@ Please contact us (info@fallingfruit.org) if you have any questions.
 If you want to help with development, feel free to fork the project. If you have something
 to submit upstream, send a pull request from your fork. Cool? Cool.
 
-== How do I run it?
+== How do I run the site?
 
 Something like this will start it on your local machine, assuming you have the various
 pre-requisites installed (ruby 1.9.3, rvm, postgis 2.1, etc.)
 
-  caleb@krige:~$ bash --login
-  caleb@krige:~$ rvm use 1.9.3
-  Using /home/caleb/.rvm/gems/ruby-1.9.3-p392
-  caleb@krige:~$ cd Checkouts/fallingfruit-webapp/
-  caleb@krige:~$ cp config/database.yml.dist config/database.yml
-  caleB@krige:~$ cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
-  caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle install
-  caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle exec rake db:migrate
-  caleb@krige:~/Checkouts/fallingfruit-webapp$ bundle exec thin start
+  git clone https://github.com/somerandomsequence/falling-fruit.git
+  cd falling-fruit
+  cp config/database.yml.dist config/database.yml
+  cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+  rvm use 1.9.3
+  bundle install
+  bundle exec rake db:migrate
+  bundle exec thin start
   
-You'll want to change config/database.yml and config/intializers/secret_token.rb too.
+You'll need to edit config/database.yml and config/intializers/secret_token.rb accordingly.
+
+=== How do I run the API?
+
+Something like this will start it on your local machine, assuming you have the various
+pre-requisites installed (nvm)
+
+  cd api
+  nvm install 0.12
+  nvm use 0.12
+  npm install
+  make start
+
+You'll need to make sure the javascript api_key variable matches an entry in the api_keys database table.
 
 == Translations
 

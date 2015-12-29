@@ -158,6 +158,11 @@ locations.list = function (req, res) {
   if(req.query.locale) name = common.i18n_name(req.query.locale); 
   var mfilter = "";
   if(req.query.muni == 0) mfilter = "AND NOT muni";
+  var ifilter = "";
+  if(req.query.invasive) {
+    if (req.query.invasive == 1) ifilter = "AND invasive";
+    else if (req.query.invasive == 0) ifilter = "AND NOT invasive";
+  }
   var bfilter = undefined;
   if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
     bfilter = common.postgis_bbox("location",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
@@ -172,7 +177,7 @@ locations.list = function (req, res) {
   }
   var limit = req.query.limit ? __.min([parseInt(req.query.limit),1000]) : 1000;
   var offset = req.query.offset ?parseInt(req.query.offset) : 0;
-  var filters = __.reject([bfilter,mfilter],__.isUndefined).join(" ");
+  var filters = __.reject([bfilter,mfilter,ifilter],__.isUndefined).join(" ");
   var distance = "";
   if(__.every([req.query.lat,req.query.lng])){
     var coords = common.sanitize_wgs84_coords(req.query.lat,req.query.lng);

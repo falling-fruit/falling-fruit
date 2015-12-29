@@ -16,7 +16,7 @@ class Location < ActiveRecord::Base
 	
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
                   :no_season, :unverified, :access, :type_ids, :import_id, :photo_url, :user, :user_id,
-                  :category_mask, :observations_attributes, :destroyed?
+                  :category_mask, :observations_attributes, :destroyed?, :invasive
   attr_accessor :import_link
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   reverse_geocoded_by :lat, :lng do |obj,results|
@@ -36,6 +36,14 @@ class Location < ActiveRecord::Base
   }
   # manually update postgis location object
   after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
+  # update invasiveness bit
+  after_validation { |record|
+    if Invasive.where("ARRAY[?] @> ARRAY[invasives.type_id] AND ST_INTERSECTS(?,invasives.regions)",record.type_ids,record.location).count > 0
+      record.invasive = true
+    else
+      record.invasive = false
+    end
+  }
   #after_initialize :default_values
 
   public
@@ -126,7 +134,7 @@ class Location < ActiveRecord::Base
   def accepted_type_names
     self.accepted_types.collect{ |t| t.name }.compact
   end
-
+  
   def title
     lt = self.type_names
     if lt.empty?
@@ -134,7 +142,7 @@ class Location < ActiveRecord::Base
     elsif lt.length == 2
       "#{lt[0]} & #{lt[1]}"
     elsif lt.length > 2
-      "#{lt[0]} & Others"
+      "#{lt[0]} (+#{lt.length-1})"
     elsif lt.length == 1
       lt[0]
     end

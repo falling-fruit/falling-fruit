@@ -15,91 +15,65 @@
   // 2) We aren't given a lat/lng in the post params, but we're able to use the geolocation
   //    library to guess the user's position. We'll know this because location_lat and location_lng
   //    will be empty and geolocation will succeed.
-  // 3) We aren't given a lat/lng and geolocation fails. In this case marker will be left set to null,
-  //    and nothing should be placed on the map until the user enters an address or lat/lng
+  // 3) We aren't given a lat/lng and geolocation fails. In this case, marker is placed at origin.
 
   // ================= globals ==================
 	
 	var marker = null;
-  var type = google.maps.MapTypeId.ROADMAP;
-  // Needed for opening marker windows. 
-  // FIXME: Shouldn't this be set by the session?
-  var cats = undefined;
+	var lat = $("#location_lat").val();
+  var lng = $("#location_lng").val();
+  var zoom = 19;
+  var type = google.maps.MapTypeId.HYBRID;
 
   // ================= functions =================
   
   function initialize() {
-  
+
     // No user-provided lat/lng
     // (location_lat and location_lng will be empty)
-    if ($('#location_lat').val() == "" && $('#location_lng').val() == "") {
-      
-      // Attempt geolocation
+    if (lat == "" || lng == "") {
+      type = google.maps.MapTypeId.ROADMAP;
       navigator.geolocation.getCurrentPosition(function(position){
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-        var zoom = 15;
-        basemap(lat,lng,zoom,type);
-        place_edit_marker(lat,lng);
-      	$('#location_lat').val(lat);
-        $('#location_lng').val(lng);
-      }, function(error) {
-        //use error.code to determine what went wrong
-      });
-
-      watchID = navigator.geolocation.watchPosition(function(position) {
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-        var latlng = new google.maps.LatLng(lat,lng)
-        if (marker != null) marker.setPosition(latlng);
-				map.panTo(latlng);
+        // Geolocation successful
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+        zoom = 15;
+        load_map(lat,lng,zoom,type);
         $('#location_lat').val(lat);
         $('#location_lng').val(lng);
       }, function(error) {
-        //...
-      }, {enableHighAccuracy:true, maximumAge:30000, timeout:30000});
-      
-      // If geolocation failed, load map without marker
-      if ($('#location_lat').val() == "" && $('#location_lng').val() == "") {
-      	var lat = 0;
-  			var lng = 0;
-  			var zoom = 1;
-  			basemap(lat,lng,zoom,type);
-      }
-      
-    // User provided lat/lng
-    // (location_lat and location_lng will have values)
+        // Geolocation failed
+        lat = 0;
+        lng = 0;
+        zoom = 1;
+        load_map(lat,lng,zoom,type);
+        $('#location_lat').val(lat);
+        $('#location_lng').val(lng);
+      });
+    
+    // User-provided lat/lng
     } else {
-      var lat = $("#location_lat").val();
-      var lng = $("#location_lng").val();
-      var zoom = 19;
-      var type = google.maps.MapTypeId.HYBRID;
-      basemap(lat,lng,zoom,type);
-      place_edit_marker(lat,lng,watchID)
-    }
-
-    // Update markers once we're done panning and zooming
-		google.maps.event.addListenerOnce(map, 'idle', function() {
-				do_markers(map.getBounds(),null,true);
+      load_map(lat,lng,zoom,type);
+    } 
+	}
+	
+	// Ensures events are added only once basemap() has been called
+	function load_map(lat,lng,zoom,type) {
+	  basemap(lat,lng,zoom,type);
+    marker = load_edit_marker(lat,lng);
+    
+    // Update markers once done panning and zooming
+		google.maps.event.addListener(map, 'idle', function() {
+      if (map.getZoom() > 12) {
+        do_markers(map.getBounds(),null,true,undefined,cats);
+      }
 		});
 		
-		// Update location markers when bounds change
-		google.maps.event.addListener(map, 'bounds_changed', function() {
-			google.maps.event.addListenerOnce(map, 'idle', function() {
-				var zoom = map.getZoom();
-				var bounds = map.getBounds();
-				if (prior_bounds == null && prior_zoom == null) {
-					prior_zoom = zoom;
-					prior_bounds = bounds;
-					return;
-				}
-				if (zoom > 12 && prior_bounds != bounds) {
-					do_markers(bounds,null,true);
-				}
-				prior_zoom = zoom;
-				prior_bounds = bounds;
-			});
-		});
+		// Move marker if map is clicked
+	  // Warning: Click also closes any open marker infowindow
+	  google.maps.event.addListener(map, 'click', function(event) {
+		  marker.setPosition(event.latLng);
+	  });
 	}
 
   // ================== main-level code ===================

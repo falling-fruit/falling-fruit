@@ -17,8 +17,8 @@ function update_permalink(){
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
      typeid + '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale;
-  if (type_filter != undefined) {
-  	permalink = permalink + "&f=" + type_filter;
+  if (type_filter && type_filter.length > 0) {
+  	permalink = permalink + "&f=" + type_filter.join(",");
   }
   if (cats != undefined){
     permalink = permalink + "&c=" + cats;
@@ -48,8 +48,8 @@ function show_embed_html(object){
   var http = location.protocol;
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
-  if (type_filter != undefined) {
-  	var fstr = "&f=" + type_filter;
+  if (type_filter && type_filter.length > 0) {
+  	var fstr = "&f=" + type_filter.join(",");
   } else {
     var fstr = "";
   }
@@ -93,7 +93,6 @@ function show_observation_html(object){
 }
 
 function update_display(force,force_zoom,force_bounds){
-  $('#s2id_type_filter').select2('disable', true);
   var zoom = map.getZoom();
   if (force_zoom != undefined) zoom = force_zoom;
   var bounds = map.getBounds();
@@ -102,22 +101,21 @@ function update_display(force,force_zoom,force_bounds){
   if (zoom <= 12) {
     if (prior_zoom > 12) hide_map_controls();
     do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
-    do_cluster_types(bounds,zoom,$('#muni').is(':checked'));
   } else if (zoom >= 13) {
     if (prior_zoom < 13) {
       types_hash = {};
       show_map_controls();
     }
-    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter,cats);
+    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter,cats,$('#invasive').is(':checked'));
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
-  $('#s2id_type_filter').select2('enable', true);
 }
 
 function hide_map_controls() {
   $('#hidden_controls').hide();
   $('#export_data').hide();
+  $('#invasive_span').hide();
   resize_map();
 }
 
@@ -125,6 +123,7 @@ function show_map_controls() {
   $('#get_data_link').attr('href',data_link());
   $('#hidden_controls').show();
   $('#export_data').show();
+  $('#invasive_span').show();
 	resize_map();
 }
 
@@ -150,7 +149,7 @@ function update_display_embedded(force, force_zoom, muni) {
     else if ((zoom != prior_zoom) || force)
       do_clusters(undefined,zoom,muni,type_filter);
   } else if (zoom >= 13) {
-    do_markers(bounds,null,muni,type_filter,cats);
+    do_markers(bounds,null,muni,type_filter,cats,false);
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
