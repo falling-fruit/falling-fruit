@@ -7,6 +7,8 @@ types.list = function (req, res) {
   if(req.query.locale) name = common.i18n_name(req.query.locale); 
   var mfilter = "";
   if(req.query.muni == 0) mfilter = "AND NOT muni";
+  var pfilter = "NOT pending AND";
+  if(req.query.pending == 1) pfilter = "";
   var bfilter = undefined;
   var zfilter = "AND zoom=2";
   if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
@@ -24,8 +26,11 @@ types.list = function (req, res) {
       function(callback){
         if(bfilter){
           filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
-          client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name,SUM(count) as count \
-                        FROM types t, clusters c WHERE c.type_id=t.id AND NOT pending \
+          client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name, \
+                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                        synonyms, scientific_synonyms, pending, taxonomic_rank, \
+                        SUM(count) as count \
+                        FROM types t, clusters c WHERE "+pfilter+" c.type_id=t.id \
                         AND (category_mask & $1)>0 "+filters+" GROUP BY t.id, name, scientific_name \
                         ORDER BY name,scientific_name;",
                        [cmask],function(err, result) {
@@ -37,8 +42,10 @@ types.list = function (req, res) {
             return callback(null);
           });
         }else{
-          client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name FROM types WHERE NOT \
-                        pending AND (category_mask & $1)>0 ORDER BY name,scientific_name;",
+          client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name, \
+                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                        synonyms, scientific_synonyms, pending, taxonomic_rank \
+                        FROM types WHERE "+pfilter+" (category_mask & $1)>0 ORDER BY name,scientific_name;",
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');
             res.send(result.rows);
