@@ -2,7 +2,9 @@ var types = {};
 
 types.list = function (req, res) {
   var cmask = common.default_catmask;
-  if(req.query.c) cmask = common.catmask(req.query.c.split(",")); 
+  if(req.query.c) cmask = common.catmask(req.query.c.split(","));
+  var cfilter = "";
+  if(req.query.uncategorized) cfilter = "category_mask=0 OR category_mask IS NULL OR "; 
   var name = "name";
   if(req.query.locale) name = common.i18n_name(req.query.locale); 
   var mfilter = "";
@@ -28,10 +30,10 @@ types.list = function (req, res) {
           filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
           client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name, \
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
-                        synonyms, scientific_synonyms, pending, taxonomic_rank, \
+                        synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask, \
                         SUM(count) as count \
                         FROM types t, clusters c WHERE "+pfilter+" c.type_id=t.id \
-                        AND (category_mask & $1)>0 "+filters+" GROUP BY t.id, name, scientific_name \
+                        AND ("+cfilter+"(category_mask & $1)>0) "+filters+" GROUP BY t.id, name, scientific_name \
                         ORDER BY name,scientific_name;",
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');
@@ -44,8 +46,9 @@ types.list = function (req, res) {
         }else{
           client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name, \
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
-                        synonyms, scientific_synonyms, pending, taxonomic_rank \
-                        FROM types WHERE "+pfilter+" (category_mask & $1)>0 ORDER BY name,scientific_name;",
+                        synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
+                        FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
+                        ORDER BY name,scientific_name;",
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');
             res.send(result.rows);
