@@ -1,11 +1,11 @@
 he:
   changes:
-    change_in_city: 
+    change_in_city: ! '%{type} ב%{city}'
     recent_changes: שינויים אחרונים
     type:
-      added: 
-      edited: 
-      grafted: 
+      added: נוספו
+      edited: נערכו
+      grafted: מורכב
       visited: 
   devise:
     confirmations:
@@ -16,22 +16,22 @@ he:
       already_authenticated: את/ה כבר מחובר/ת
       inactive: חשבונך טרם הופעל.
       invalid: כתובת אימייל או סיסמא שגויה.
-      invalid_token: 
+      invalid_token: סימן אימות לא בתוקף
       locked: חשבונך ננעל.
-      not_approved: 
+      not_approved: חשבונך טרם אושר על ידי מנהל האתר
       timeout: פג תוקף החיבור לאתר, אנא התחבר מחדש.
       unauthenticated: עליך להתחבר או להרשם על-מנת להמשיך.
       unconfirmed: עליך לאשר את הרשמתך לפני שתוכל להמשיך.
     mailer:
       confirmation_instructions:
-        subject: 
+        subject: הוראות לאישור
       reset_password_instructions:
-        subject: 
+        subject: הוראות לאתחול סיסמא
       unlock_instructions:
-        subject: 
+        subject: הוראות לפתיחת נעילה
     omniauth_callbacks:
       failure: לא הצלחנו לאמת את זהותך מסוג %{kind} בגלל "%{reason}"
-      success: 
+      success: ! 'אומת בהצלחה מחשבון %{kind} '
     passwords:
       no_token: אינך יכול/ה לגשת לעמוד זה אם לא הופנת מאימייל לשינוי סיסמא. אם את/ה כן מגיע משם, אנא ודא/י שהשתמשת בכתובת אינטרנט המלאה.
       send_instructions: בדקות הקרובות יגיע אליך אימייל עם הנחיות כיצד לאפס את סיסמתך.
@@ -43,7 +43,7 @@ he:
       signed_up: נרשמת בהצלחה. אם נדרש, יישלח אליך אימייל לאישור הרשמתך.
       signed_up_but_inactive: ההרשמה בוצעה בהצלחה, אך לא יכולנו להכניס אותך למערכת מכיוון שעוד לא הפעלת את חשבונך
       signed_up_but_locked: ההרשמה בוצעה בהצלחה, אך לא יכולנו להכניס אותך למערכת מכיוון שחשבונתך נעול.
-      signed_up_but_not_approved: 
+      signed_up_but_not_approved: נרשמת בהצלחה אך חשבונך טרם אושר על ידי מנהל האתר
       signed_up_but_unconfirmed: הודעה עם לינק לאישור חשבונך נשלח לאימייל שלך. אנא פתח/י את הלינק על מנת להפעיל את חשבונך.
       update_needs_confirmation: עידכנת את חשבונך בהצלחה, אבל אנחנו צריכים לאשר את האימייל החדש שלך. אנא בדק/י את האימייל שלך ולחצ/י על הלינק על מנת לאשר את חשבון האימייל החדש.
       updated: עדכנת בהצלחה את חשבונך.
@@ -56,148 +56,154 @@ he:
       unlocked: הנעילה הוסרה בהצלחה. כעת הנך מחובר/ת.
   errors:
     messages:
-      after: 
-      already_confirmed: כבר אושר, אני נסה להיכנס למערכת
-      before: 
+      after: מוכרח להיות אחרי %{restriction}
+      already_confirmed: כבר אושר, אנא נסה/י להיכנס למערכת
+      before: מוכרח להיות לפני %{restriction}
       expired: פג תוקף, אנא בקש אחד חדש
-      invalid_date: 
-      invalid_datetime: 
-      invalid_time: 
-      is_at: 
+      invalid_date: אינו תאריך תקף
+      invalid_datetime: אינו זמן ותאריך תקף
+      invalid_time: אינו זמן תקף
+      is_at: מוכרח להיות ב%{restriction}
       not_found: לא נמצא
       not_locked: לא היה נעול
       not_saved:
         one: ! 'שגיאה אחת מנעה את ה%{resource} מלהישמר:'
         other: ! '%{count} שגיאות מנעו מ%{resource} מלהישמר:'
-      on_or_after: 
-      on_or_before: 
+      on_or_after: מוכרח להיות ב או לאחר %{restriction}
+      on_or_before: חייב להיות על או לפני  %{restriction}
   glossary:
     about: אודות
     access: גישה
     account: חשבון
     activity: פעילות
     add_source: הוסף מקור
-    address: 
+    address: כתובת
     anonymous: אנונימי
     are_you_sure: האם אתה בטוח?
     australia: אוסטרליה
-    belgium: 
-    by_author: 
+    belgium: בלגיה
+    by_author: ע"י %{author}
     canada: קנדה
-    common_name: שם נפוץ
+    common_name: שם עממי
     data: נתונים
     delete: מחק
     description: תיאור
     details: פרטים
     download: הורדה
-    edible_type: בחר את הסוג אכיל
+    edible_type: סוג אכיל
     edit: עריכה
-    email: 
-    embed: שבץ
+    email: כתובת דוא"ל
+    embed: הטמע
     error: שגיאה
     favorites: מועדפים
     fiji: פיג'י
     filter: מסנן
     france: צרפת
-    global: גלובל
+    global: גלובלי
     home: בית
     imported: מיובא
     imported_datasets: מערכי נתונים מיובאים
-    imports: יבוא
+    imports: מייבא
     info: מידע
-    invasive: 
-    italy: 
+    invasive: פולשני
+    italy: איטליה
     labels: תוויות
     links:
       one: קישור
       other: קישורים
-    locations: מיקומים
+    locations:
+      one: מיקום
+      other: מיקומים
     login: כניסה
     logout: התנתקות
     map: מפה
-    miles: 
+    miles: מיילים
     name: שם
-    options: 
-    password: 
-    pending_types: ממתין לסוגים
+    options: אפשרויות
+    password: סיסמה
+    pending_types: סוגים בהמתנה
     photo: תמונה
-    position: 
-    problems: צרות
-    public: ציבור
+    position: מיקום
+    problems: בעיות
+    public: ציבורי
     quality: איכות
-    report: דו"ח
+    report: דיווח תקלה
     report_a_problem: דווח על בעיה
-    reviews: ביקורות
+    reviews:
+      one: ביקורת
+      other: ביקורות
     routes: מסלולים
-    save_changes: על שמור שינויים
+    save_changes: שמור שינויים
     scientific_name: שם מדעי
     season: עונה
-    send: 
+    send: שלח
     show: הצג
     sign_up: הרשמה
-    street_view: Street View
+    street_view: תצוגת רחוב
     submit: שלח
     switzerland: שווייץ
-    tree_inventories: מלאי עץ
-    type_and_press_enter: הקלד ולחץ תנטר
+    tree_inventories:
+      one: רשימת מצאי עצים
+      other: רשימות מצאי עצים
+    type_and_press_enter: הקלד ולחץ enter
     types: סוגים
     united_kingdom: בריטניה
     united_states: ארצות הברית
     unknown: לא ידוע
     unverified: לא מאומת
-    updated: עדכון
+    updated: מעודכן
     user: משתמש
     users: משתמשים
-    visited: ביקר לאחרונה
-    world: העולם
-    yield: תשואה
+    visited: ביקר
+    world: עולם
+    yield: תנובה
     zoom: זום
-    zoom_to_current_location: להחזיר את התצוגה למיקום נוכחי
-    zoom_to_me: להחזיר את התצוגה לי
-    zoom_to_this_location: להחזיר את התצוגה למיקום זה
+    zoom_to_current_location: החזר תצוגה למיקום נוכחי
+    zoom_to_me: החזר תצוגה למיקומי
+    zoom_to_this_location: התמקד למיקום זה
   layouts:
     application:
-      feed_people_not_landfills: אנשים להאכיל, לא מזבלות!
+      feed_people_not_landfills: האכילו אנשים, לא מזבלות!
       mapping_the_urban_harvest: מיפוי הקציר העירוני!
       menu:
-        approved_types: סוגים אושרו
+        approved_types: סוגים מאושרים
         in_the_press: בעיתונות
         list_imports: יבוא רשימה
         new_import: יבוא חדש
         new_type: סוג חדש
         sharing_the_harvest: שיתוף הקציר
-        the_project: הפרויקט
-      or_right-click_on_map: (לחץ לחיצה ימנית או על המפה)
+        the_project: המיזם
+      or_right-click_on_map: (או לחץ בלחצן עכבר ימיני על מפה)
       pending_types_help: אנחנו לאכוף טקסונומיה של סוגי מאכל כדי לשמור על המפה המאורגנת וניתן לחיפוש. סוגי רומן שהוגשו על ידי משתמשים מודגשים ברגע שתלוי ועומד עד לאישורן או כסוג חדש או התמזג עם סוג קיימים בטקסונומיה. במקרים נדירים שבם ההגשה היא אקראית או מעורפל כדי להצדיק הסוג שלה מדי, היא נמשכת על המפה במדינה שאינה מאושרת.
       unverified_help: מקורות מסומנים שכלא אומת אם הזהות, המיקום, או קיומם שנוי במחלוקת. מקורות רבים מיובאים ממלאי עץ מסומנים שכלא אומת, כי האכילות שלהם אינה ודאית (לדוגמא, "אגס" יכול להיות גם מגוון אכיל או דקורטיבי). משתמשים מוזמנים לנסוע למקומות אלה ומדווחים על ממצאיהם.
       unverified_help_title: 
   locations:
     errors:
-      geocode_failed: 
-      latitude_too_large: 
+      geocode_failed: החיפוש נכשל
+      latitude_too_large: המערכת תומכת רק בקואורדינטות רוחב הקטנות מ-85 מעלות בכיוון צפון או דרום
     form:
-      access_subtext: מצב גישה של מקור זה. שאר ריק אם אתה don't יודע.
+      access_subtext: מצב גישה למקור. להשאיר ריק אם לא בטוחים.
       address_subtext_html: כתובת <span class="subtext-inline">ניתן להשתמש כדי למקם את הסמן במהירות. התאם לפי צורך לפני הגשה.</span>
-      author_subtext: מוצג על המפה. שאר ריק אם אתם מעדיפים להישאר בעילום שם.
-      comments_subtext: עדכונים, בעיות גישה, בריאות צמח ...
-      create_another: צור אחר
-      date_visited: תאריך ביקר
-      description_subtext: פרטי מיקום, בעיות גישה, בריאות צמח ...
-      form_error: שגיאה אסורה מיקום זה מלהינצל
-      form_intro_html: ערוך את המיקום מתחת, או <a href="/observations/new?location_id=%{location_id}&locale=he" data-ajax="false" rel="external" title="סקירת מיקום זה">להשתמש בטופס זה</a> כדי לסקור, תגובה, ולפרסם תמונות.
-      fruiting_status: מעמד פרי
-      fruiting_subtext: מהו הפרי עושה עכשיו? (אם רלוונטי)
-      have_you: האם ביקר מיקום זה?
+      author_subtext: מוצג במפה. השאירו ריק אם אתם מעדיפים להישאר בעילום שם.
+      comments_subtext: עדכונים, נגישות, בריאות הצמח ...
+      create_another: צור עוד
+      date_visited: תאריך ביקור
+      description_subtext: פרטי מיקום, נגישות, בריאות הצמח ...
+      form_error: שגיאה מנעה ממקור זה להישמר
+      form_intro_html: ערוך את המיקום מתחת, או <a href="/observations/new?location_id=%{location_id}&locale=he" data-ajax="false" rel="external" title="ערוך מיקום זה">השתמש בטופס זה</a> כדי לערוך, להגיב, ולפרסם תמונות.
+      fruiting_status: מצב הפרי
+      fruiting_subtext: באיזה שלב עץ הפרי נמצא כעת? (אם רלוונטי)
+      have_you: האם ביקרת מיקום זה?
       move_marker: העבר סמן לקואורדינטות
-      move_marker_address: העבר סמן כדי לטפל
-      name_subtext: שאר ריק אם אתם מעדיפים להישאר בעילום שם.
+      move_marker_address: העבר סמן לכתובת
+      name_subtext: השאר/י ריק אם את/ה מעדיף/ה להישאר בעילום שם.
       no_season: אין עונה
-      or: 
-      photo_caption: כיתוב תמונה
-      photo_subtext: לחלופין, להעלות תמונה של המקור. אם זה תמונה של מישהו אחר ", ודא שיש לך את ההרשאות נחוצות ואשראי הצלם בכיתוב.
-      position_subtext: נקבע מהמיקום הנוכחי שלך (כאשר זמין) או סמנך להציב. התאם את המיקום על ידי הזזת סמן המפה.
-      quality_subtext: דרג את טיב טעם מקור זה (אם רלוונטי)
-      season_subtext: כאשר יכול להיות שנקטפו המקור? שאר ריק אם אתה לא יודע.
+      or: או
+      photo_caption: כותרת התמונה
+      photo_subtext: הוסיפו תמונה של המקור. אם התמונה איננה שלכם, וודאו כי יש לכם אישור להשתמש בה ותנו קרדיט לצלם בכיתוב התמונה
+      position_subtext: נקבע מהמיקום הנוכחי שלך (כאשר זמין) או מהסמן שמיקמת. התאימו את המיקום על ידי הזזת הסמן.
+      quality_subtext: דרג את איכות המקור (אם רלוונטי)
+      season_subtext: מתי ניתן לקטוף מהעץ? השאירו ריק אם לא יודעים
       to: 
       types_subtext: בחר מהרשימה הנפתחת, הגשת שמות חדשים רק אם אפשרויות מתאימות לא קיימות כבר.
       unverified_subtext: אם אתה מטיל ספק בקיום, מיקום, או זהותו של מקור זה.
@@ -208,9 +214,9 @@ he:
       addmarker_html: 
       editmarker_html: 
       freegan_modal_html: בנוסף למאמצינו למפות את <a href="/?locale=he">הצמחים האכילים גדלו בערים,</a> we've יצא מפת פחי אשפת מזון נושאות בעולם. כמעט 50% ממיוצר בעולם המפותח כל המזון מעולם לא אכל. We're מקווה להעלות את המודעות סביב נושא זה, להקל על שחרורו של מזון מושלך, ולעודד עסקים <a href="/sharing?locale=he">ללתרום מזון</a> במקום. <br><br> בתמיכה של אורח חיים נמוך פסולת, אנחנו מעודדים את המיפוי של כל המקומות (מפחי אשפה לתיבות חינם) עם מוצרים שהושלכו אך שימושיים, אם אכיל או אחר.
-      freegan_modal_title: 
-      grafter_modal_html: 
-      grafter_modal_title: 
+      freegan_modal_title: ברוכים הבאים למפת "אכול חינם" (freegan) שלנו!
+      grafter_modal_html: ! 'מרכיבי גרילה מרכיבים ענפים נותני פרי על עצי נוי שלא נותנים פרי. כעבור זמן, פרות מזינים וטעימים גדלים על הענפים ונגישים לתושבים מענפים מורכבים אלו. ניתן ללמוד עוד על פרויקט זה ב ></a href="http://guerrillagrafters.org">gurillagrafters.org</a><br>br. ערים בצפון אמריקה לעתים משתמשים בעצי פרי עקרים לשם פריחת האביב הצבעונית שלהם. מפה זו מציגה חלק מעצי פרי המשמשים לנוי הנפוצים ביותר. אם אתה מרכיב, גנן, או מתלהב מעצי פרי, תרום לידע הציבורי וסמן עצים בשכונה שלך או בחצר האחורית שלך אשר יכולים להיות מורכבים עם ענפי נותני פרי! '
+      grafter_modal_title: ברוך הבא למפת ההרכבות שלנו!
       mobile_modal_html: 
       mobile_modal_title: 
       stamen_html: אריחי מפה על ידי <a href="http://stamen.com">אבקן עיצוב,</a> תחת <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0.</a> נתונים על ידי <a href="http://openstreetmap.org">OpenStreetMap,</a> תחת <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA.</a>
@@ -282,11 +288,13 @@ he:
     freegan_title: 
   pages:
     about:
-      about_the_site: אודות האתר
-      about_us: אודותינו
-      advisory_board: 
-      caleb_bio_html: כלב הוא תשוקה דמויות אדם הולכת על שתיים חסרת נוצות על צדק מזון ומציאת דרכים יצירתיות להשתמש בטכנולוגיה כדי לטפל בבעיות חברתיות. כשהוא 'לא רכיבה על אופניים סביב פה פעור בעצים, הוא מאזן את מאמציו בין יום העבודה שלו כפרופסור למדעי מחשב <a href="http://cs.colorado.edu">באוניברסיטת קולורדו</a> שבו הוא עושה מחקר, כיועץ בעיקר בתחום הכיסוי של רשת אלחוטית מיפוי, וכמו דבורה עובד עבור מספר הארגונים ללא מטרות רווח <a href="http://www.growbiointensive.org/">(אקולוגיה הפעולה</a> באזור המפרץ סן פרנסיסקו, <a href="http://boulderfoodrescue.org">בולדר מזון ההצלה</a> בבולדר, קולורדו). חוץ מזה כל דברים עבודה, הוא אוהב לטפס סלעים, שבילים לרוץ, לרכב על אופניים, ובאופן כללי להיות בחוץ כמה שאפשר.
-      celebration: פירות נופלים הוא חגיגה של השפע הקולינרי להתעלם מרחובות העיר שלנו. על ידי כימותי משאב זה על מפה, אנחנו מקווים להקל קשרים אינטימיים בין אנשים, אוכל, ואורגניזמים הטבעיים הולכים וגדלו בשכונות שלנו. לא רק ארוחות חינם! לקטים במאה ה -21 הוא הזדמנות לחקר עירוני, כדי להילחם בנגע של מדרכות מוכתמות, ולהתחבר מחדש למקורות הבוטניים של מזון.
+      about_the_site: אודות המיזם
+      about_us: הועד המנהל
+      advisory_board: צוות היועצים
+      caleb_bio_html: ! 'קיילב הוא מכונה דמויית אדם חסרת נוצות מהלכת על שתים, בעלת תשוקה לצדק במזון המוצאת <a href="http://smallwhitecube.com">דרכים יצירתיות לשימוש בטכנולוגיה</a> כדי לטפל בבעיות חברתיות.
+
+        כשהוא לא רוכב להנאתו על אופניים ומתפעל מעצים, הוא מאזן את מאמציו בין העבודה שלו כמידען ב<a href="http://nrel.gov">מעבדה הלאומית לאנרגיות מתחדשות</a> בעיר גולדן שבמדינת קולורדו, מרצה למדעי המחשב ב<a href="http://cs.colorado.edu">אוניברסיטת קולורדו</a>, ודבורה עמלה עבור מספר ארגונים ללא מטרות רווח (<a href="http://www.foodrescuealliance.org/">השותפות להצלת מזון</a> בדנוור ו<a href="http://boulderfoodrescue.org">הצלת מזון בולדר</a> בעיר בולדר שבמדינת קולורדו). חוץ מהמון עבודה, קיילב אוהב לטפס על סלעים, לרוץ בשבילים, לרכוב על אופניים ובכלל להיות בחוץ כמה שאפשר.'
+      celebration: Falling Fruit הוא חגיגה של השפע הקולינרי שברחובות העיר שלנו אשר לא הבחינו בו עד כה. על ידי כימות משאב זה במפה חכמה, אנחנו מקווים להקל על יצירת קשרים אינטימיים בין אנשים, אוכל ושאר יצירי הטבע הגדלים בשכונות שלנו. לא רק ארוחה חינם! ליקוט במאה ה-21 זו הזדמנות לחקר עירוני, לשמירת המדרכות נקיות ולהתחברות מחדש למקורות המזון מהצומח.
       closing_remarks: דברי סיכום
       closing_remarks_para1_html: פירות נופלים הוא 3 ארגון 501 (ג) (פטור ממס) ללא מטרות רווח רשום בבולדר, קולורדו. כתוצאה מכך, תרומות בתוך ארצות הברית ניתנות לניכוי מס. ייתכן שהבדיקה שלנו <a href="/501c3.pdf">המכתב של פטור</a> ממס ההכנסה ולוודא העמידה שלנו עם <a href="http://www.sos.state.co.us/biz/BusinessEntityDetail.do?quitButtonDestination=BusinessEntityResults&nameTyp=ENT&entityId2=20141104200&srchTyp=ENTITY&fileId=20141104200&masterFileId=20141104200">מזכירת המדינה קולורדו.</a> זמין גם הם נוכחי שלטון <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">חוקי עזר</a> וישיבת דירקטוריון ציבורי <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">דקות.</a>
       closing_remarks_para2_html: מזון קציר בסביבה עירונית מגיע עם שיקולים מעשיים ומוסריים מסוימים. לקבלת מבוא לאתיקה של ליקוט עירוני, אנו ממליצים סיכום מצוין באתר של אחינו - פורטלנד, 'של אורגון <a href="http://urbanedibles.org/project/ethics">מאכל עירוני.</a>
@@ -295,42 +303,42 @@ he:
       craig_durkin_bio_html: 
       cristina_rubke_bio_html: 
       david_craft_bio_html: 
-      donate: 
+      donate: תרומה לאתר
       ethan_bio_html: מciders התפוח ובירות פירות לריבות <a href="http://en.wikipedia.org/wiki/Rumtopf">וRumtopf,</a> איתן נראה למסד הנתונים שלו של עצי שכונה (ולחץ על התפוח הרעוע שלו) כדי לקבל השראה קולינרית. בעוד בבית בבולדר, הוא Geeks על פני מפות, נתונים, וזמן לשגות של נסיגת קרחונים לדוקטורט שלו <a href="http://instaar.colorado.edu/people/ethan-welty/">באוניברסיטת קולורדו,</a> אבל הוא לעתים קרובות משאיר המסלול המקומי שלו ללכת, לדבר, לאכול, ולצלם את דרכו על פני יבשות .
       give_gittip: 
-      give_paypal: 
+      give_paypal: תרומה מאובטחת דרך אתר Paypal
       give_us_money: אנחנו על טהרת ההתנדבות, פטורות ממס ללא מטרות רווח, ולהסתמך על תרומות מהמשתמשים שלנו לפעול. אם אתה מוכן ומסוגל, אנא שקול תרומה כספית. תרומות בתוך ארצות הברית ניתנות לניכוי מס.
       jeff_bio_html: מאז קצירת שחורה ואוכמניות עם משפחה כילד, ולאחרונה, הבחין בשפע של עצי פרי ציבוריים ברחבי קולורדו, ג'ף פיתח הערכה עמוקה לשפע של פירות גדל בערים שלנו. המשימה הראשונה שלו לנפילת פירות הייתה לסרוק מפות נייר בולדר וסולט לייק סיטי, ביד, כדי להקליט עצי פרי. כאשר לא פועל כדי לשפר את יעילות אנרגיית בניין, הוא בדרך כלל עוזר בקהילה או נע במהירות מעל הרים ברגל, סקי, או באופניים.
       join_us_html: הצטרפו אלינו בחוגגים המקומי ואכיל! <a href="/?locale=he">המפה</a> פתוחה לכל אחד לערוך, מסד הנתונים יכולים להיות <a href="/data?locale=he">שהורדו</a> בלחיצה אחת, <a href="https://github.com/somerandomsequence/falling-fruit">והקוד</a> הוא קוד פתוח. אתם מוזמנים גם לחלוק את הפרס עם בני אדם הבחור שלך. שלנו <a href="/sharing?locale=he">דף שיתוף</a> מאות רשימות של ארגונים המקומיים נטיעת יערות מזון ומטעי ציבור, לקטוף פירות-מבוזבזים אחרת וירקות מעצי עיר ושדות של חקלאים ", ולהחליף עם ולתת לשכנים ולנזקקים.
       more_about_html: המפה של מאכל העירוני שלנו היא לא הראשונה מסוגו, אבל אנחנו שואפים להיות מקיפים ביותר בעולם. בעוד המשתמשים שלנו לתרום במיקומים שלהם, אנחנו סורקים את האינטרנט לידע קיים מראש, המבקש לאחד את המאמצים של מלקטי מזון, יערנים, וfreegans בכל מקום. <a href="/datasets?locale=he">מערכי נתונים המיובאים</a> נעים בין מפות ליקוט שכונה קטנות למלאי עץ מקצועי הידור עצומים. כמויות עד כה ל%{types} סוגים שונים של דברי מאכל (רוב, אך לא כולם, מיני צמחים) מפוזרים על פני %{locations} מקומות. מעבר לטפחתי ודבר שבשגרה לטעמים האקזוטיים של צמחים זרים והשימושים קולינריים הנשכחים של צמחים מקומיים, ליקוט בשכונה שלך הוא מסע בזמן ועל פני תרבויות.
-      translate: 
-      translate_for_us_html: 
-      translators: 
+      translate: תרגום
+      translate_for_us_html: רוצה להתנדב בצוות התרגום? שלח/י לנו דוא"ל להצטרפות ב-<a href="http://www.localeapp.com/projects/7532">Locale</a>, האתר שבו התרגום מתנהל.
+      translators: מתרגמים
       tristram_stuart_bio_html: 
       write: 
     data:
       beware_html: אבל צריך להיזהר. ברגע שלא דחוס, הנתונים הופכים קובץ ענק שגורם לתוכנת הגיליון האלקטרוני ביותר לקרוס. רק מי שמתעניייין במניפולציה של נתונים בו שלמות צריך ללכת בדרך זו. עבור רוב, חלופה טובה יותר היא כדי לאחזר באופן סלקטיבי נקודות עניין שימוש באפשרות להורדה שולבה <a href="/?locale=he">במפה.</a>
       caveat_emptor_html: זה צריך ללכת בלי לומר כי אנו לא לוקחים אחריות על דיוקם של הנתונים - זה מסופק כהוא, <i>ייזהר קונה.</i> אם אתה עושה משהו מגניב עם נתונים, אנא <a href="mailto:feedback@fallingfruit.org">יידעו אותנו!</a>
-      data_unavailable_html: הנתונים אינו זמין כעת. בדקו שוב מאוחר יותר או <a href="mailto:info@fallingfruit.org">צורו איתנו קשר.</a>
+      data_unavailable_html: הנתונים אינו זמין כעת. בדקו שוב מאוחר יותר או <a href="mailto:info@fallingfruit.org">צרו איתנו קשר</a>.
       intro: נפילת פירות בנוי על נתונים ציבוריים והנדיבות של לקטים עירוניים מוכנים לשתף הממצאים שלהם עם אחרים. אנחנו רוצים מקורות מזון עירוניים כדי להגיע לאנשים רבים ככל האפשר, ואנו מאמינים שלכולם תהיה גישה שווה לפרותי העבודה הקולקטיבית שלנו. ברוח של נתונים פתוחים, והנה! כל מסד נתונים
-      license_html: אם אתם מעוניינים בשימוש בנתונים בפרויקט שלך, במיוחד עבור יישומים מסחריים, אנו מציעים לך ליצור איתנו קשר <a href="mailto:info@fallingfruit.org">(info@fallingfruit.org).</a> כאשר לא צוין אחרת, הנתונים הוא תחת רישיון <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons (ייחוס, שאינו מסחרי, מניות כאחד)</a> רישיון. זה אומר שאתה חופשי להשתמש ולהפיץ את הנתונים כל עוד אתה שומר על ייחוס מחבר / מקור המקורי ולא משתמש בו (ללא אישור) עבור יישומים מסחריים. קוד המקור של הפירות נופלים הוא גם פתוח. ניתן למצוא פרטים נוספים על שעל <a href="https://github.com/somerandomsequence/falling-fruit">מאגר GitHub שלנו.</a>
+      license_html: אם את/ה מעוניינ/ת בשימוש בנתונים בפרויקט שלך, במיוחד עבור יישומים מסחריים, אנו מציעים לך ליצור איתנו קשר <a href="mailto:info@fallingfruit.org">(info@fallingfruit.org).</a> כאשר לא צוין אחרת, הנתונים הוא תחת רישיון <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons (ייחוס, שאינו מסחרי, מניות כאחד)</a> רישיון. זה אומר שאת/ה חופשי/ת להשתמש ולהפיץ את הנתונים כל עוד את/ה שומר על ייחוס מחבר / מקור המקורי ולא משתמש בו (ללא אישור) עבור יישומים מסחריים. קוד המקור של הפירות נופלים הוא גם פתוח. ניתן למצוא פרטים נוספים על שעל <a href="https://github.com/somerandomsequence/falling-fruit">מאגר GitHub שלנו.</a>
       summary_description: המאגר מכיל כיום %{types} סוגים שונים של דברי מאכל (רוב, אך לא כולם, הם מיני צמחים) מפוזרים על פני %{locations} מקומות. עבור כל סוג, הטבלה הבאה מפרטת שם אנגלית נפוצה (ים), שם מדעי (ים), קישורים לאזכור מחוץ, וספירה כוללת.
-      summary_of_sources: סיכום של מקורות
+      summary_of_sources: סיכום מקורות
     datasets:
-      community_map: מפת הקהילה
+      community_map: מפת קהילתית
       date_imported: תאריך מיובא
-      google_fusion_table: לוח Fusion Google
-      google_map: Google Map
-      google_maps_engine: מנוע Google Maps
+      google_fusion_table: טבלת Google Fusion
+      google_map: מפת Google
+      google_maps_engine: עורך מפות Google
       intro_html: פירות נופלים שואפים להיות בסיס הנתונים גיאוגרפיים המקיף ופתוחים ביותר בעולם "של דברי מאכל עירוניים. בעוד המשתמשים שלנו לחקור, לערוך, ולהוסיף מיקומים באמצעותנו <"a href="/?locale=he>המפה,</a> אנחנו סורקים את היקום הידוע מראש קיימים מערכי נתונים ולייבא אותם ישירות לתוך <a href="/data?locale=he">מסד הנתונים,</a> המאחדים את המאמצים של מלקטי מזון, יערנים, וfreegans בכל מקום. אם ידוע לכם על בסיס נתוני we've החמיץ, אנא <a href="mailto:info@fallingfruit.org">יידעו אותנו!</a> גם אתה יכול לעזור לנו עם תהליך היבוא על ידי עיצוב נתונים באמצעות <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">תבנית היבוא.</a> שים לב כי מאז יבוא חייב להתבצע באופן ידני, שינויים נוספים בנתונים המקוריים אינם באים לידי ביטוי בנפילת פירות.
       no_license: אין רישיון צוין, להניח <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"> Creative Commons (ייחוס, שאינו מסחרי, מניות כאחד) </a>
       table_info: כל מערך נתונים מופיעים בשמו, מספר מקומות, ותאריך מיובא. הרחבת כל שורה מגלה פרטים נוספים על הנתונים המקוריים, תהליך היבוא, והרישיון המסדירים כיצד ניתן להשתמש בנתונים.
       type: סוג
       types_of_data: מערכי נתונים מיובאים לפירות נופלים מתחלקים לשתי קטגוריות עיקריות. "מפות קהילה" בנויות על ידי מלקטי מזון וfreegans כפי שהם לעיין סביבתם לדברים לאכול. אנו חייבים תודה לאזרח הקרטוגרפים החרוצים שיש הידור נתונים זה. "מלאי עץ" מופקים על ידי ערים, אוניברסיטאות, ומוסדות אחרים המבקשים מסמך טוב יותר ולדאוג לעצים שלהם. אנו כורים מערכי נתונים עצומים אלה למיני ייצור מזון ולהוסיף אותם למפה. כדי לעזור לנו לקבל בשכונה שלך על המפה, פנה לבית הספר או העיר שלך ועודד אותם לשתף מלאי העץ שלהם איתנו.
     sharing:
-      food_banks: בנקים מזון
+      food_banks: בנקי מזון
       food_banks_intro: מלקטי מזון ובעלי העץ פרטיים מוכרעים על ידי הקציר שלהם מוזמנים לתרום עודפי התוצרת שלהם לצדקה. לשקול שיתוף פעולה עם קבוצות כמו אלה שצוינו לעיל, או תרומה ישירות לארגונים מקומיים האכלה רעבה בקהילה שלך. רשתות בנק מזון העיקריות המפורטים להלן; מקלטים לחסרי בית, בתי ספר, ומרכזים בכירים באזור שלך הם גם שווים לשקול.
-      grow_pick_and_distribute: לגדול · פיק · הפץ
+      grow_pick_and_distribute: גדלו · לקטו · הפיצו
       intro_html: המפורטים להלן הם ארגונים מקומיים הגדלים מזון (יערות מזון ומטעי ציבור), לאסוף מזון (ליקוט עירוני ולקט החווה), או בדרך אחרת להפיץ מזון (עסקות החלף ותרומות). ארגונים רשומים לפי מדינה, מדינה, ועיר. אלה עם שמות דהויים ועזיבה הם האמינו להיות לא פעילים. אם ידוע לכם על אחרים שצריכה להיות ברשימה זו, <a href="mailto:info@fallingfruit.org">צור איתנו קשר!</a>
   problems:
     description_subtext: 
@@ -339,49 +347,69 @@ he:
   routes:
     mode_of_travel: מצב של מסעות
     modes_of_travel:
-    - 
-    - 
-    - 
+    - הליכה
+    - אופניים
+    - רכב
   time:
-    days: 
+    days:
+      one: יום
+      other: ! '%{count} ימים'
     last_24_hours: 24 שעות אחרונות
-    months: 
-    this_month: בחודש זה
+    months:
+      one: חודש
+      other: ! '%{count} חודשים'
+    this_month: החודש
     this_week: השבוע
-    time_ago: 
+    time_ago: לפני %{time}
   users:
-    address_subtext: 
-    bio: 
-    change_password: 
-    clear_map: 
-    confirm_account: 
-    current_password: 
-    current_password_subtext: 
-    delete_account: 
-    edit_account: 
-    foraging_map_subtext: 
-    foraging_radius: 
-    foraging_radius_subtext: 
-    foraging_range: 
-    forgot_password: 
+    address_subtext: מרכז אזור הליקוט העיקרי שלך (למשל כתובת מגוריך)
+    bio: אודותיך
+    change_password: החלף את הסיסמה שלי
+    clear_map: נקה מפה
+    confirm_account: אשר את החשבון האישי
+    current_password: סיסמה נוכחית
+    current_password_subtext: דרוש לשינויים בחשבון האישי
+    delete_account: בטל את החשבון האישי
+    edit_account: עריכת החשבון
+    foraging_map_subtext: להגדרת תחום הליקוט שלך, יש להשתמש בכלים מצולע או מלבן במפה מטה. אם בחרת להשתמש בכלי מצולע, חשוב לסגור את הצורה ע"י חיבור הנקודה האחרונה לראשונה.
+    foraging_radius: טווח מרחק
+    foraging_radius_subtext: מרחק תחום הליקוט מהמרכז שבכתובת לעיל
+    foraging_range: תחום הליקוט
+    forgot_password: איפוס סיסמה
     mailer:
-      confirmation_instructions_html: 
-      reset_password_instructions_html: 
-      unlock_instructions_html: 
-    new_password: 
+      confirmation_instructions_html: ! '<p>ברוכים הבאים לאתר Falling Fruit,</p>
+
+        <p>להפעלת החשבון האישי, עליך לאשר את כתובת הדוא"ל שלך (%{email}) באמצעות הקישור הבא:
+
+        <br/>%{link}</p>
+
+        <p>אתר Falling Fruit מופעל ע"י המשתמשים. אם יש לך את האפשרות לעזור לנו לשפר את האתר - בבקשה. ליקוט מהנה!</p>'
+      reset_password_instructions_html: ! '<p>שלום %{email},</p>
+
+        <p>מישהו (כנראה את/ה) ביקשו לקבל קישור לשינוי הסיסמה שלך:
+
+        <br />%{link}</p>
+
+        <p>אם הבקשה לא הגיעה ממך, הודעה זו לא רלוונטית. הסיסמה לא תשתנה אלא אם תיכנס/י לקישור מעלה ותחליף/י אותה.</p>'
+      unlock_instructions_html: ! '<p>שלום %{email},</p>
+
+        <p>חשבונך ננעל עקב ניסיונות התחברות כושלים רבים:
+
+        <br />%{link}</p>'
+    new_password: סיסמה חדשה
     options:
-      add_anonymously: 
-      range_updates_email: 
-    range_by_map: 
-    range_by_radius: 
-    remember_me: 
-    resend_confirmation_instructions: 
-    resend_unlock_instructions: 
-    send_password_instructions: 
-    sign_in: 
-    sign_in_with: 
-    type_it_twice: 
-    unlock_account: 
+      add_anonymously: עריכת מפה אנונימית (גם במצב חשבון מחובר)
+      range_updates_email: קבלת עדכונים בדוא"ל אודות הפעילות השבועית בטווח הליקוט שלך (המוגדר מטה)
+    range_by_map: שרטט/י במפה
+    range_by_radius: כתובת וטווח המרחק
+    remember_me: זכור אותי
+    resend_confirmation_instructions: שלח שוב הוראות לאישור
+    resend_unlock_instructions: שלח שוב הנחיות ביטול נעילה
+    send_password_instructions: שלח הנחיות איפוס סיסמה
+    sign_in: התחברות לחשבון
+    sign_in_with: התחברות באמצעות %{provider}
+    type_it_twice: נא להקליד פעמיים לאימות
+    unlock_account: בטל את נעילת החשבון האישי
   validates_timeliness:
     error_value_formats:
       date: 
