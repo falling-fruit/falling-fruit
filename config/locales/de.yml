@@ -5,7 +5,7 @@ de:
     type:
       added: hinzugefügt
       edited: editiert
-      grafted: 
+      grafted: aufgepfropft
       visited: besucht
   devise:
     confirmations:
@@ -105,7 +105,7 @@ de:
     imported_datasets: Importierte Datensätze
     imports: Importe
     info: Info
-    invasive: 
+    invasive: invasiv
     italy: Italien
     labels: Etiketten
     links:
