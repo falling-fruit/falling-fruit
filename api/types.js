@@ -46,7 +46,7 @@ types.list = function (req, res) {
         }else{
           client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name, \
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
-                        synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask, \
+                        synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
                         FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
                         ORDER BY name,scientific_name;",
                        [cmask],function(err, result) {
