@@ -46,7 +46,7 @@ types.list = function (req, res) {
         }else{
           client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name, \
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
-                        synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
+                        synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask, \
                         FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
                         ORDER BY name,scientific_name;",
                        [cmask],function(err, result) {
@@ -62,6 +62,39 @@ types.list = function (req, res) {
       if(message) common.send_error(res,message,err);
     }); 
   });
-}
+};
+
+types.show = function (req, res) {
+  var id = parseInt(req.params.id);
+  db.pg.connect(db.conString, function(err, client, done) {
+    if (err){ 
+      common.send_error(res,'error fetching client from pool',err);
+      return done();
+    }
+    async.waterfall([
+      function(callback){ common.check_api_key(req,client,callback) },
+      function(callback){
+        client.query("SELECT id, created_at, updated_at, \
+                      scientific_name, scientific_synonyms, taxonomic_rank, parent_id, \
+                      name as en_name, synonyms as en_synonyms, \
+                      es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                      usda_symbol, wikipedia_url, eat_the_weeds_url, foraging_texas_url, \
+                      urban_mushrooms_url, fruitipedia_url, \
+                      pending, category_mask, edability as edibility, notes \
+                      FROM types WHERE id=$1;",
+                     [id],function(err, result) {
+          if (err) callback(err,'error running query');
+          if (result.rowCount == 0) return res.send({});
+          res.send(result.rows[0]);
+        });
+      },
+      function(callback){ common.log_api_call("GET","/types/:id.json",1,req,client,callback); }
+    ],
+    function(err,message){
+      done();
+      if(message) common.send_error(res,message,err);
+    }); 
+  });
+};
 
 module.exports = types;

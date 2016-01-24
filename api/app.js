@@ -41,7 +41,9 @@ router.get('/logout.json',auth.logout);
 // Note: grid parameter replaced by zoom
 // Note: now can accept a bounding box, deprecating the cluster_types.json endpoint
 //router.get('/types.json',apicache('1 hour'),types.list);
-router.get('/types.json',types.list);
+router.get('/types.json', types.list);
+// Note: renaming name => en_name, synonyms => en_synonyms, edability => edibility
+router.get('/types/:id(\\d+).json', types.show);
 
 // Note: GET /locations.json replaces both /markers.json and nearby.json
 // Note: types renamed to type_ids
