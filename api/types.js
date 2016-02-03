@@ -12,6 +12,8 @@ types.list = function (req, res) {
   var pfilter = "NOT pending AND";
   if(req.query.pending == 1) pfilter = "";
   var bfilter = undefined;
+  var urls = "";
+  if(req.query.urls == 1) urls = "usda_symbol, wikipedia_url, eat_the_weeds_url, foraging_texas_url, urban_mushrooms_url, fruitipedia_url,";
   var zfilter = "AND zoom=2";
   if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
     bfilter = common.postgis_bbox("cluster_point",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
@@ -28,8 +30,9 @@ types.list = function (req, res) {
       function(callback){
         if(bfilter){
           filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
-          client.query("SELECT t.id, COALESCE("+name+",name) as name,scientific_name, \
+          client.query("SELECT t.id, COALESCE("+name+",name) as name, scientific_name, \
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                        "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask, \
                         SUM(count) as count \
                         FROM types t, clusters c WHERE "+pfilter+" c.type_id=t.id \
@@ -46,6 +49,7 @@ types.list = function (req, res) {
         }else{
           client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name, \
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                        "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
                         FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
                         ORDER BY name,scientific_name;",
