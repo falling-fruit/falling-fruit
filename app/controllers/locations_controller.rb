@@ -17,7 +17,7 @@ class LocationsController < ApplicationController
   def data
     max_n = 500
     cat_mask = array_to_mask(Type::DefaultCategories,Type::Categories)
-    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
+    mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT locations.muni"
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
@@ -26,7 +26,7 @@ class LocationsController < ApplicationController
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
-                     author, import_id, locations.created_at, locations.updated_at, imports.muni").
+                     author, import_id, locations.created_at, locations.updated_at, locations.muni").
              where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|
