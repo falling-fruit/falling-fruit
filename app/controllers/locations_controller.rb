@@ -26,7 +26,7 @@ class LocationsController < ApplicationController
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
-                     author, import_id, locations.created_at, locations.updated_at, muni").
+                     author, import_id, locations.created_at, locations.updated_at, imports.muni").
              where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|
