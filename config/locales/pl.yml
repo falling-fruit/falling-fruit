@@ -1,12 +1,12 @@
 pl:
   changes:
-    change_in_city: 
+    change_in_city: ! '%{type} w %{city}'
     recent_changes: Ostatnie zmiany
     type:
-      added: 
-      edited: 
-      grafted: 
-      visited: 
+      added: dodane
+      edited: edytowane
+      grafted: szczepione
+      visited: odwiedzane
   devise:
     confirmations:
       confirmed: Konto zostało poprawnie aktywowane.
@@ -18,7 +18,7 @@ pl:
       invalid: Niepoprawny adres e-mail lub hasło.
       invalid_token: Niepoprawny token.
       locked: Twoje konto jest zablokowane.
-      not_approved: 
+      not_approved: Twoje konto nie zostało jeszcze zatwierdzone przez administratora
       timeout: Sesja wygasła, aby kontynuować zaloguj się ponownie.
       unauthenticated: Aby kontynuować zaloguj lub zarejestruj się.
       unconfirmed: Aby kontynuować aktywuj konto.
@@ -39,11 +39,11 @@ pl:
       updated: Hasło zmienione poprawnie. Zostałeś automatycznie zalogowany.
       updated_not_active: Hasło zmienione poprawnie.
     registrations:
-      destroyed: Konto zostało usunięte.
+      destroyed: Do widzenia! Konto zostało usunięte. Mamy nadzieję, że do nas wrócisz.
       signed_up: Witaj! Rejestracja zakończyła się sukcesem.
       signed_up_but_inactive: Konto zostało utworzone pomyślnie. Zanim się jednak zalogujesz, musi ono zostać jeszcze aktywowane.
       signed_up_but_locked: Konto zostało utworzone pomyślnie. Nie możesz się jednak zalogować, ponieważ jest ono zablokowane.
-      signed_up_but_not_approved: 
+      signed_up_but_not_approved: Konto zostało utworzone pomyślnie, ale Twoje konto nie zostało jeszcze zatwierdzone przez administratora.
       signed_up_but_unconfirmed: Wiadomość z linkiem aktywacyjnym została wysłana na podany adres e-mail. Otwórz link w celu aktywacji konta.
       update_needs_confirmation: Konto zostało zaktualizowane, musimy jednak potwierdzić nowy adres e-mail. Sprawdź swoją skrzynkę pocztową i otwórz link aktywacyjny, aby ukończyć zmianę adresu.
       updated: Konto zostało pomyślnie zaktualizowane.
@@ -56,45 +56,45 @@ pl:
       unlocked: Twoje konto zostało odblokowane. Zaloguj się, aby kontynuować.
   errors:
     messages:
-      after: 
+      after: Musi być po %{restriction}
       already_confirmed: już został aktywowany, możesz się zalogować
-      before: 
+      before: Musi być przed %{restriction}
       expired: stracił ważność, wyślij zapytanie o nowy
-      invalid_date: 
-      invalid_datetime: 
-      invalid_time: 
-      is_at: 
+      invalid_date: Nie jest daty ważnej
+      invalid_datetime: Nie jest dataczas ważnego
+      invalid_time: Nie jest czasu ważnego
+      is_at: Musi być u %{restriction}
       not_found: nie znaleziono
       not_locked: nie był zablokowany
       not_saved:
         few: ! '%{resource} nie został zapisany z powodu %{count} błędów:'
         one: ! '%{resource} nie został zapisany z powodu jednego błędu:'
         other: ! '%{resource} nie został zapisany z powodu %{count} błędów:'
-      on_or_after: 
-      on_or_before: 
+      on_or_after: Musi być na lub po %{restriction}
+      on_or_before: Musi być na lub przed %{restriction}
   glossary:
     about: O
     access: Dostęp
     account: Konto
     activity: Aktywność
     add_source: Dodaj źródło
-    address: 
+    address: Adres
     anonymous: Anonimowy
     are_you_sure: Czy na pewno?
     australia: Australia
-    belgium: 
-    by_author: 
+    belgium: Belgia
+    by_author: według %{author}
     canada: Kanada
     common_name: Nazwa zwyczajowa
-    data: Danych
+    data: Dane
     delete: Usuń
     description: Opis
     details: Szczegóły
     download: Pobierz
-    edible_type: Wybierz rodzaj jadalnego
+    edible_type: Wybierz rodzaj rośliny jadalnej
     edit: Edytuj
-    email: 
-    embed: Embed
+    email: Email
+    embed: Umieść
     error: Błąd
     favorites: Ulubione
     fiji: Fidżi
@@ -118,7 +118,7 @@ pl:
     map: Mapa
     miles: 
     name: Nazwa
-    options: 
+    options: Opcje
     password: 
     pending_types: W oczekiwaniu typy
     photo: Zdjęcia

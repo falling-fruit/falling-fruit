@@ -82,6 +82,7 @@ gem 'rails-i18n'
 gem 'localeapp'
 gem 'world-flags'
 gem 'i18n-js'
+gem 'i18n_viz'
 
 # Allows us to use postgres native types like arrays
 gem 'postgres_ext'

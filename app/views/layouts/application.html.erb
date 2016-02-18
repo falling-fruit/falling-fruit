@@ -70,6 +70,10 @@
     $(window).resize(function() {
       resize_content();
     });
+    // set I18nViz external urls (initializer didn't work)
+    if (I18nViz) {
+      I18nViz.external_tool_url = "https://www.localeapp.com/projects/7532/translations?utf8=✓&search=";
+    }
   </script>
 	
   <!-- Load infowindow only after locale is set -->
