@@ -1,26 +1,26 @@
 <p>
-  <%= I18n.t("pages.datasets.intro_html").html_safe %>
+  <%= translate("pages.datasets.intro_html").html_safe %>
 </p>
 
-<h2><%= I18n.t("glossary.imported_datasets") %></h2>
+<h2><%= translate("glossary.imported_datasets") %></h2>
 
 <p>
-  <%= I18n.t("pages.datasets.types_of_data") %>
+  <%= translate("pages.datasets.types_of_data") %>
 </p>
 
 <p>
-  <%= I18n.t("pages.datasets.table_info") %>
+  <%= translate("pages.datasets.table_info") %>
 </p>
 
 <table id="import_list">
 <thead>
   <tr>
     <th></th>
-    <th><%= I18n.t("glossary.details") %></th>
-    <th><%= I18n.t("pages.datasets.type") %></th>
-    <th><%= I18n.t("glossary.name") %></th>
-    <th><%= I18n.t("glossary.locations", :count => 2) %></th>
-    <th><%= I18n.t("pages.datasets.date_imported") %></th>
+    <th><%= translate("glossary.details") %></th>
+    <th><%= translate("pages.datasets.type") %></th>
+    <th><%= translate("glossary.name") %></th>
+    <th><%= translate("glossary.locations", :count => 2) %></th>
+    <th><%= translate("pages.datasets.date_imported") %></th>
   </tr>
 </thead>
 <tbody>
@@ -44,10 +44,10 @@ Import.order("id").reverse.each do |import|
       <b><%= import.name %></b><br />
       <% unless import.url.blank? %>
         <%= link_to import.url do %>
-        <%= !import.url.match('google.com/maps|maps.google').nil? ? I18n.t("pages.datasets.google_map") : (!import.url.match('google.com/fusiontables').nil? ? I18n.t("pages.datasets.google_fusion_table")  : (!import.url.match('mapsengine.google').nil? ? I18n.t("pages.datasets.google_maps_engine") : import.url)) %>
+        <%= !import.url.match('google.com/maps|maps.google').nil? ? translate("pages.datasets.google_map") : (!import.url.match('google.com/fusiontables').nil? ? translate("pages.datasets.google_fusion_table")  : (!import.url.match('mapsengine.google').nil? ? translate("pages.datasets.google_maps_engine") : import.url)) %>
         <% end %><br />
       <% end %>
-      <%= import.muni ? I18n.t("pages.datasets.tree_inventory") : I18n.t("pages.datasets.community_map") %> | <%= I18n.t("pages.datasets.imported") %> <i><%= import.created_at.to_s %></i><br />
+      <%= import.muni ? translate("pages.datasets.tree_inventory") : translate("pages.datasets.community_map") %> | <%= translate("pages.datasets.imported") %> <i><%= import.created_at.to_s %></i><br />
       <hr style="border:1px solid #eee;margin:1.5em 0;">
       -->
       <!-- Comments -->
@@ -58,11 +58,11 @@ Import.order("id").reverse.each do |import|
       <% unless import.license.blank? %>
         <%= raw import.license.gsub("\n","<br>") %>
       <% else %>
-        <i><%= I18n.t("pages.datasets.no_license").html_safe %></i>.
+        <i><%= translate("pages.datasets.no_license").html_safe %></i>.
       <% end %>
     </td>
     <td>
-      <%= import.muni ? I18n.t("glossary.tree_inventories", :count => 1) : I18n.t("pages.datasets.community_map") %>
+      <%= import.muni ? translate("glossary.tree_inventories", :count => 1) : translate("pages.datasets.community_map") %>
     </td>
     <td>
 	    <% unless import.url.blank? %>

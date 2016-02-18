@@ -1,34 +1,34 @@
 <p>
-<%= I18n.t("pages.data.intro") %>:
+<%= translate("pages.data.intro") %>:
 </p>
 
 <% if File.exists?(Rails.root.join("public","locations.csv.bz2")) and File.exists?(Rails.root.join("public","types.csv.bz2")) %>
 		<blockquote>
 		<a href="/locations.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br>
-		<i><%= I18n.t("glossary.updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
+		<i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
     <br>
     <a href="/types.csv.bz2">types.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024) %> KB)<br>
-    <i><%= I18n.t("glossary.updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+    <i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 		</blockquote>
 <% else %>
 		<blockquote>
-		<em><%= I18n.t("pages.data.data_unavailable_html").html_safe %></em>
+		<em><%= translate("pages.data.data_unavailable_html").html_safe %></em>
 		</blockquote>
 <% end %>
 
 <p>
-<%= I18n.t("pages.data.beware_html").html_safe %>
+<%= translate("pages.data.beware_html").html_safe %>
 </p>
 
 <p>
-<%= I18n.t("pages.data.license_html").html_safe %>
+<%= translate("pages.data.license_html").html_safe %>
 </p>
 
 <p>
-<%= I18n.t("pages.data.caveat_emptor_html").html_safe %>
+<%= translate("pages.data.caveat_emptor_html").html_safe %>
 </p>
 
-<h2><%= I18n.t("pages.data.summary_of_sources").html_safe %></h2>
+<h2><%= translate("pages.data.summary_of_sources").html_safe %></h2>
 
 <%
 
@@ -41,17 +41,17 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 %>
 
 <p>
-<%= I18n.t("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)).html_safe %>
+<%= translate("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)).html_safe %>
 </p>
 <br/>
 
 <table id="type_summary">
 <thead>
 <tr>
- <th><%= I18n.t("glossary.common_name") %></th>
- <th><%= I18n.t("glossary.scientific_name") %></th>
- <th><%= I18n.t("glossary.links", :count => 2) %></th>
- <th><%= I18n.t("glossary.locations", :count => 2) %></th>
+ <th><%= translate("glossary.common_name") %></th>
+ <th><%= translate("glossary.scientific_name") %></th>
+ <th><%= translate("glossary.links", :count => 2) %></th>
+ <th><%= translate("glossary.locations", :count => 2) %></th>
 </tr>
 </thead>
 <tbody>

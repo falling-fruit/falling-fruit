@@ -2,18 +2,18 @@
 <div id="sidebar">
   <!-- Tab Menu -->
   <ul>
-    <li id="activity-tab"><a href="#sidebar-tab-1"><span><%= I18n.t("glossary.activity") %></span></a></li>
-    <li id="review-tab"><a href="#sidebar-tab-2"><span><%= I18n.t("glossary.favorites") %></span></a></li>
-    <li id="routes-tab"><a href="#sidebar-tab-3"><span><%= I18n.t("glossary.routes") %></span></a></li>
+    <li id="activity-tab"><a href="#sidebar-tab-1"><span><%= translate("glossary.activity") %></span></a></li>
+    <li id="review-tab"><a href="#sidebar-tab-2"><span><%= translate("glossary.favorites") %></span></a></li>
+    <li id="routes-tab"><a href="#sidebar-tab-3"><span><%= translate("glossary.routes") %></span></a></li>
     <li id="close-arrow"><a href="#" class="sidebar_arrow" onclick="$('#mainmap_container').css('left','0px'); $('#sidebar_button').show(); google.maps.event.trigger(map, 'resize');"><span>◀</span></a></li>
   </ul>
 
   <!-- ACTIVITY TAB -->
   <div id="sidebar-tab-1">
     <% if current_user.range.nil? %>
-      <%= I18n.t("locations.sidebar.you_havent_defined_html").html_safe %>.
+      <span><%= translate("locations.sidebar.you_havent_defined_html").html_safe %></span>.
     <% else %>
-      <%= I18n.t("locations.sidebar.changed_within_html").html_safe %>:
+      <span><%= translate("locations.sidebar.changed_within_html").html_safe %></span>:
     <% end %>
     <br/><br/>
     <%
@@ -21,40 +21,40 @@
        @changes.each do |c|
          next if c["description"] == "grafted" and (not user_signed_in? or not current_user.is? :grafter)
          types = c["type_title"]
-         action = I18n.t("changes.type." + c["description"])
+         action = translate("changes.type." + c["description"])
          c["days_ago"] = c["days_ago"].to_i
          lab = nil
          mday = Time.zone.today.day
          wday = Time.zone.today.wday
          if c["days_ago"] <= 0
-           lab = I18n.t("time.last_24_hours")
+           lab = translate("time.last_24_hours")
          elsif c["days_ago"] <= wday
-           lab = I18n.t("time.this_week")
+           lab = translate("time.this_week")
          elsif c["days_ago"] <= mday
-           lab = I18n.t("time.this_month")
+           lab = translate("time.this_month")
          else
-           lab = I18n.t("time.time_ago", :time => I18n.t("time.months", :count => 1 + (c["days_ago"]-mday)/30))
+           lab = translate("time.time_ago", :time => translate("time.months", :count => 1 + (c["days_ago"]-mday)/30))
          end
          if last_lab.nil? or last_lab != lab
            if last_lab.nil?
-             header = lab + "<blockquote>"
+             header = "<span>" + lab + "</span><blockquote>"
            else
-             header = "</blockquote>#{lab}<blockquote>"
+             header = "</blockquote><span>" + lab + "</span><blockquote>"
            end
            last_lab = lab
          end
-    %>
+      %>
       <%= raw header %>
       <% unless c["location_id"].nil? %>
         <!-- On one line to avoid underlined trailing spaces -->
-        <a href="#" onclick="open_marker_by_id(<%= c["location_id"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();"><%= types.nil? ? I18n.t("glossary.unknown") : types %></a>
+        <a href="#" onclick="open_marker_by_id(<%= c["location_id"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();"><%= types.nil? ? translate("glossary.unknown") : types %></a>
         <% unless c["city"].nil? %>
-          <%= I18n.t("changes.change_in_city", :type => action, :city => c["city"]) %>
+          <span><%= translate("changes.change_in_city", :type => action, :city => c["city"]) %></span>
         <% else %>
-          <%= action %>
+          <span><%= action %></span>
         <% end %>
         <% unless c["change_author"].blank? %>
-          <%= I18n.t("glossary.by_author", :author => c["change_author"]) %>
+          <span><%= translate("glossary.by_author", :author => c["change_author"]) %></span>
         <% end %>
         <br/>
     <% end %>
@@ -68,14 +68,14 @@
   <!-- FAVORITES TAB -->
   <div id="sidebar-tab-2">
     <% if @mine.empty? %>
-      <%= I18n.t("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in") %>.
+      <span><%= translate("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in") %></span>.
     <% else %>
-      <%= I18n.t("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %>:
+      <span><%= translate("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %></span>:
       <br/>
       <% @mine.each do |o| %>
         <div class="favorite">
-          <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();"><%= o.location.types(@cat_filter).collect{ |t| t.name.nil? ? I18n.t("glossary.unknown") : t.name }.join(", ") %></a><br/>
-          <%= I18n.t("glossary.visited") %> <%= I18n.t("time.time_ago", :time => time_ago_in_words(o.created_at)).downcase_first %>
+          <a href="#" onclick="sidebar_pan_to_location(<%= o.location_id %>,<%= o.lat %>,<%= o.lng %>);return false;" onmouseover="show_pointer(<%= o.lat %>,<%= o.lng %>);" onmouseout="hide_pointer();"><%= o.location.types(@cat_filter).collect{ |t| t.name.nil? ? translate("glossary.unknown") : t.name }.join(", ") %></a><br/>
+          <span><%= translate("glossary.visited") %></span> <span><%= translate("time.time_ago", :time => time_ago_in_words(o.created_at)).downcase_first %></span>
         </div>
       <% end %>
     <% end %>
@@ -84,7 +84,7 @@
   <!-- ROUTES TAB -->
   <div id="sidebar-tab-3">
     <% if @routes.length > 0 %>
-      <%= I18n.t("locations.sidebar.click_here_to_manage_your_routes_html", :routes_path => routes_path).html_safe %>.
+      <span><%= translate("locations.sidebar.click_here_to_manage_your_routes_html", :routes_path => routes_path).html_safe %></span>.
       <br/>
       <%
          lcounts = {}
@@ -93,15 +93,15 @@
          }
          @routes.each do |route| %>
         <div class="route">
-          <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<%= route.is_public ? I18n.t("glossary.public") : I18n.t("locations.sidebar.in") %>)
+          <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<span><%= route.is_public ? translate("glossary.public") : translate("locations.sidebar.in") %></span>)
           <br/>
-          <%= lcounts[route.id] %> <%= I18n.t("glossary.locations", :count => lcounts[route.id].to_i).downcase_first %> &middot;
-          <%= (route.transport_type.nil? ? "" : I18n.t("routes.modes_of_travel")[route.transport_type] + " &middot;").html_safe %> <%= I18n.t("glossary.updated") %> <%= I18n.t("time.time_ago", :time => time_ago_in_words(route.updated_at)).downcase_first %>
+          <%= lcounts[route.id] %> <span><%= translate("glossary.locations", :count => lcounts[route.id].to_i).downcase_first %></span> &middot;
+          <span><%= (route.transport_type.nil? ? "" : translate("routes.modes_of_travel")[route.transport_type] + " &middot;").html_safe %></span> <span><%= translate("glossary.updated") %></span> <span><%= translate("time.time_ago", :time => time_ago_in_words(route.updated_at)).downcase_first %></span>
         </div>
       <% end %>
       </ul>
   <% else %>
-    <%= I18n.t("locations.sidebar.you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route") %>
+    <span><%= translate("locations.sidebar.you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route") %></span>
     <% end %>
   </div>
 </div>

@@ -149,10 +149,8 @@ en:
     street_view: Street View
     submit: Submit
     switzerland: Switzerland
-    tree_inventories:
-      content_item: ! '
-
-'
+    tree_inventory:
+      content_item: Tree inventory
       one: Tree inventory
       other: Tree inventories
     type_and_press_enter: Type and press enter
@@ -168,6 +166,7 @@ en:
     world: World
     yield: Yield
     zoom: Zoom
+    zoom_to_address: Zoom to address
     zoom_to_current_location: Zoom to current location
     zoom_to_me: Zoom to me
     zoom_to_this_location: Zoom to this location
@@ -183,9 +182,9 @@ en:
         new_type: New type
         sharing_the_harvest: Sharing the harvest
         the_project: The project
-      or_right-click_on_map: (or right-click on map)
+      or_right-click_on_map: or right-click on map
       pending_types_help: We enforce a taxonomy of edible types to keep the map organized and searchable. Novel types submitted by users are highlighted on the map as pending until they are added to the taxonomy or merged with an existing type. Some proposed types are so unique or ambiguous that they persist as unapproved indefinitely.
-      unverified_help: Sources are marked as unverified if their identity, location, or existence is disputed. Many sources imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
+      unverified_help: Locations are marked as unverified if their position, identity, or existence is disputed. Many locations imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
       unverified_help_title: Why unverified?
   locations:
     errors:
@@ -193,8 +192,9 @@ en:
       latitude_too_large: We do not support latitudes beyond ±85 degrees.
     form:
       access_subtext: Access status of the source. Leave blank if you don't know.
-      address_subtext_html: Address <span class="subtext-inline">can be used to position the marker. Adjust it as needed before submitting.</span>
+      address_subtext: can be used to position the marker. Adjust it as needed before submitting.
       author_subtext: Displayed on map. Leave blank if you prefer to remain anonymous.
+      comments: Comments
       comments_subtext: Updates, access issues, plant health...
       create_another: Create another
       date_visited: Date visited
@@ -209,15 +209,16 @@ en:
       name_subtext: Leave blank if you prefer to remain anonymous.
       no_season: No season
       or: or
+      original_author: Original author
       photo_caption: Photo caption
       photo_subtext: Post a photo of the source. If it isn't yours, ensure you have permission and credit the photographer in the caption.
       position_subtext: Determined from your current position (when available) or a marker you placed. Adjust by moving the map marker.
       quality_subtext: Rate the quality of the source (if applicable)
       season_subtext: When can the source be harvested? Leave blank if you don't know.
-      to: to
       types_subtext: Choose from the dropdown list, submitting new types only if appropriate choices do not already exist.
       unverified_subtext: If you doubt the existence, location, or identity of this source.
-      verify_subtext: The source is currently flagged as Unverified
+      verify: Verify
+      verify_subtext: This location is currently flagged as "Unverified"
       yield_subtext: Rate the productivity of the source (if applicable)
       your_name: Your name
     index:
@@ -327,7 +328,7 @@ en:
       david_craft_bio_html: ! 'David is a researcher in the Department of Radiation Oncology at the <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvard Medical School</a> in Boston, Massachusetts. He is also an avid forager and author of the book <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging: Finding and Eating Wild Plants in the City</a> (<a href="/docs/David Craft - Urban Foraging.pdf">free download</a>).'
       donate: Donate
       ethan_bio_html: From apple ciders and fruit beers to jams and <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan looks to his database of neighborhood trees (and his cider press) for culinary inspiration. While at home in Boulder, he geeks out over maps, data, and time-lapse of retreating glaciers for his PhD at the <a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a>, but he often goes into orbit to walk, talk, eat, and <a href="http://www.weltyphotography.com">photograph</a> his way across continents.
-      give_gittip: Tip via Gittip
+      give_gratipay: Pay via Gratipay
       give_paypal: Donate via Paypal
       give_us_money: We are a volunteer-run 501(c)(3) nonprofit and rely on donations to operate. If you are willing and able, please consider making a financial contribution. Donations within the United States are tax deductible.
       jeff_bio_html: Since harvesting black and blueberries with his family as a child and, more recently, noticing the wealth of public fruit trees throughout Colorado, Jeff has developed a deep appreciation for the abundance of fruit growing in our cities. His first mission for Falling Fruit was to comb Boulder and Salt Lake City, paper maps in-hand, to record fruiting trees. When not working to improve building energy efficiency, he is usually helping out in the community or moving quickly over mountains by foot, ski, or bicycle.
@@ -358,10 +359,13 @@ en:
       type: Type
       types_of_data: Datasets imported into Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their communities for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us map your neighborhood fruit trees, contact your school or city urging them to share their tree inventory with us.
     sharing:
+      ample_harvest: American food banks that accept produce donations.
       food_banks: Food banks
+      food_banks_canada: Food banks throughout Canada.
       food_banks_intro: Foragers and private tree owners are encouraged to donate their surplus produce to charity. Consider partnering with groups like those listed above, or donating directly to organizations feeding the hungry in your community. The major food bank networks are listed below; homeless shelters, schools, and senior centers are also worth considering.
+      global_foodbanking_network: Food bank networks throughout the world.
       grow_pick_and_distribute: Grow · Pick · Distribute
-      intro_html: Listed below are organizations that grow food in public urban spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (swaps, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
+      intro_html: Listed below are organizations that grow food in public spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (swaps, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
   problems:
     description_subtext: Any information that might help us evaluate the problem
     problem_type: Problem type
