@@ -2,8 +2,8 @@
   <img src="/ethan-oranges.jpg"><img src="/jeff-tree.jpg"><img src="/plums.jpg"><img src="/amittai-mulberries.jpg">
 </div>
 
-<p class="announcement"><b><%= t("pages.about.donate") %></b>
-  <%= t("pages.about.give_us_money") %>
+<p class="announcement"><b><%= translate("pages.about.donate") %></b>
+  <span><%= translate("pages.about.give_us_money") %></span>
 </p>
 
 	<blockquote>
@@ -16,30 +16,32 @@
 		<input type="hidden" name="item_name" value="Falling Fruit Donation">
 		<input type="hidden" name="no_shipping" value="1">
 		$ <input name="amount" type="text" size="4" style="text-align:right;padding:0.25em 0.4em;font-size:inherit;" placeholder="0.00">
-		<input type="submit" value=<%= raw "\"" + t("pages.about.give_paypal") + "\"" %> style="padding:0.25em 0.4em;">
+		<input type="submit" value=<%= raw "\"" + translate("pages.about.give_paypal") + "\"" %> style="padding:0.25em 0.4em;">
+		<span style="<%= (params[:i18n_viz].present? and params[:i18n_viz] == 'true') ? '' : 'display: none;' %>"><%= translate("pages.about.give_paypal") %></span>
 	</form>
 	
-	&nbsp; or &nbsp;
+	&nbsp; &middot; &nbsp;
 	
-	<!-- Gittip  -->
-	<form action="https://www.gittip.com/Falling_Fruit/" style="display:inline;">
-		<input type="submit" value=<%= raw "\"" + t("pages.about.give_gittip") + "\"" %> style="padding:0.25em 0.4em;">
+	<!-- Gratipay  -->
+	<form action="https://gratipay.com/falling-fruit/" style="display:inline;">
+		<input type="submit" value=<%= raw "\"" + translate("pages.about.give_gratipay") + "\"" %> style="padding:0.25em 0.4em;">
+		<span style="<%= (params[:i18n_viz].present? and params[:i18n_viz] == 'true') ? '' : 'display: none;' %>"><%= translate("pages.about.give_gratipay") %></span>
 	</form>
 	    
 	</blockquote>
 
-<p class="announcement"><b><%= t("pages.about.write") %></b>
-  <%= t("pages.about.contact_us_html").html_safe %>
+<p class="announcement"><b><%= translate("pages.about.write") %></b>
+  <span><%= translate("pages.about.contact_us_html").html_safe %></span>
 </p>
 
-<p class="announcement"><b><%= t("pages.about.translate") %></b>
-  <%= t("pages.about.translate_for_us_html").html_safe %>
+<p class="announcement"><b><%= translate("pages.about.translate") %></b>
+  <span><%= translate("pages.about.translate_for_us_html").html_safe %></span>
 </p>
 
-<h2><%= t("pages.about.about_the_site") %></h2>
+<h2><%= translate("pages.about.about_the_site") %></h2>
 
 <p>
-  <%= t("pages.about.celebration").html_safe %>
+  <%= translate("pages.about.celebration").html_safe %>
 </p>
 
 <%
@@ -52,7 +54,7 @@
 %>
 
 <p>
-  <%= t("pages.about.more_about_html",
+  <%= translate("pages.about.more_about_html",
       :types => number_with_delimiter(@types.length),
       :locations => number_with_delimiter(@lt_count)).html_safe %>
 </p>
@@ -61,10 +63,10 @@
 <% end %>
 
 <p>
-  <%= t("pages.about.join_us_html").html_safe %>
+  <%= translate("pages.about.join_us_html").html_safe %>
 </p>
 
-<h2><%= t("pages.about.about_us") %></h2>
+<h2><%= translate("pages.about.about_us") %></h2>
 
 <div class="big-bios">
 
@@ -76,7 +78,7 @@
   <a href="mailto:caleb@fallingfruit.org">caleb@fallingfruit.org</a><br>
   Boulder, Colorado, USA<br>
   <p>
-    <%= t("pages.about.caleb_bio_html").html_safe %>
+    <%= translate("pages.about.caleb_bio_html").html_safe %>
   </p>
  </div>
 </div>
@@ -90,7 +92,7 @@
   <a href="mailto:ethan@fallingfruit.org">ethan@fallingfruit.org</a><br>
   Boulder, Colorado, USA<br>
   <p>
-    <%= t("pages.about.ethan_bio_html").html_safe %>
+    <%= translate("pages.about.ethan_bio_html").html_safe %>
   </p>
  </div>
 </div>
@@ -104,14 +106,14 @@
     <a href="mailto:jeff@fallingfruit.org">jeff@fallingfruit.org</a><br>
     Snowmass, Colorado, USA<br>
     <p>
-      <%= t("pages.about.jeff_bio_html").html_safe %>
+      <%= translate("pages.about.jeff_bio_html").html_safe %>
     </p>
   </div>
 </div>
 
 </div>
 
-<h2><%= t("pages.about.advisory_board") %></h2>
+<h2><%= translate("pages.about.advisory_board") %></h2>
 
 <div class="small-bios">
 
@@ -120,7 +122,7 @@
   <div class="bio">
     <b>Craig Durkin</b><br>
     <p>
-      <%= t("pages.about.craig_durkin_bio_html").html_safe %>
+      <%= translate("pages.about.craig_durkin_bio_html").html_safe %>
     </p>
   </div>
 </div>
@@ -130,7 +132,7 @@
   <div class="bio">
     <b>Cristina Rubke</b><br>
     <p>
-      <%= t("pages.about.cristina_rubke_bio_html").html_safe %>
+      <%= translate("pages.about.cristina_rubke_bio_html").html_safe %>
     </p>
   </div>
 </div>
@@ -140,7 +142,7 @@
   <div class="bio">
     <b>David Craft</b><br>
     <p>
-      <%= t("pages.about.david_craft_bio_html").html_safe %>
+      <%= translate("pages.about.david_craft_bio_html").html_safe %>
     </p>
   </div>
 </div>
@@ -150,12 +152,12 @@
   <div class="bio">
     <b>Tristram Stuart</b><br>
     <p>
-      <%= t("pages.about.tristram_stuart_bio_html").html_safe %>
+      <%= translate("pages.about.tristram_stuart_bio_html").html_safe %>
     </p>
   </div>
 </div>
 
-<h2><%= t("pages.about.translators") %></h2>
+<h2><%= translate("pages.about.translators") %></h2>
 
 <p>
 <b>Ana Carolina de Lima</b> – Português<br/>
@@ -171,17 +173,17 @@
 </p>
 
 <img src="/bycolorado.svg" style="height: 150px;margin: 0 0 1.5em 1.5em;display: block;float:right;" />
-<h2><%= t("pages.about.closing_remarks") %></h2>
+<h2><%= translate("pages.about.closing_remarks") %></h2>
 
 <p>
-<%= t("pages.about.closing_remarks_para1_html").html_safe %>
+<%= translate("pages.about.closing_remarks_para1_html").html_safe %>
 <blockquote>Falling Fruit<br/>PO Box 284, Boulder, CO, 80306, USA<br/>EIN: 46-5363428</blockquote>
 </p>
  
 <p>
-<%= t("pages.about.closing_remarks_para2_html").html_safe %>
+<%= translate("pages.about.closing_remarks_para2_html").html_safe %>
 </p>
 
 <p>
-<%= t("pages.about.closing_remarks_para3_html".html_safe) %>
+<%= translate("pages.about.closing_remarks_para3_html".html_safe) %>
 </p>

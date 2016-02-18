@@ -87,15 +87,28 @@ function basemap(lat,lng,zoom,type,bounds){
   var mapOptions = {
     zoom: zoom,
     mapTypeId: type,
+    mapTypeControl: true,
     mapTypeControlOptions: {
-    mapTypeIds: [
-      google.maps.MapTypeId.ROADMAP, 
-      google.maps.MapTypeId.TERRAIN, 
-      google.maps.MapTypeId.SATELLITE, 
-      google.maps.MapTypeId.HYBRID, 
-      toner]
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      position: google.maps.ControlPosition.TOP_RIGHT,
+      mapTypeIds: [
+        google.maps.MapTypeId.ROADMAP, 
+        google.maps.MapTypeId.TERRAIN, 
+        google.maps.MapTypeId.SATELLITE, 
+        google.maps.MapTypeId.HYBRID, 
+        toner]
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_CENTER
+    },
+    scaleControl: true,
+    streetViewControl: true,
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.LEFT_CENTER
     }
   };
+  
   map = new google.maps.Map(document.getElementById('map'),mapOptions);
   if (bounds == undefined) { 
     map.setCenter(new google.maps.LatLng(lat,lng));
@@ -123,7 +136,7 @@ function basemap(lat,lng,zoom,type,bounds){
   
   // Progress bar
   pb = progressBar();
-  map.controls[google.maps.ControlPosition.RIGHT].push(pb.getDiv());
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(pb.getDiv());
   
   // Key Drag Zoom
   keyDragZoom(map);
@@ -1038,18 +1051,20 @@ function add_bicycle_control(map) {
 }
 
 // Adds Key Drag Zoom to the map
+// TODO: Translate tooltips, adjust size to match new controls
 // http://google-maps-utility-library-v3.googlecode.com/svn/tags/keydragzoom/
 function keyDragZoom(map) {
   map.enableKeyDragZoom({
     visualEnabled: true,
-    visualPosition: google.maps.ControlPosition.LEFT,
-    visualPositionOffset: new google.maps.Size(35, 0),
-    visualPositionIndex: null,
-    visualSprite: "//maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
+    visualPosition: google.maps.ControlPosition.LEFT_CENTER,
+    visualPositionOffset: new google.maps.Size(15, 0),
     visualSize: new google.maps.Size(20, 20),
+    //visualPositionIndex: null,
+    visualSprite: "//maps.gstatic.com/mapfiles/ftr/controls/dragzoom_btn.png",
     key: "shift",
-    boxStyle: {border: "1px solid #736AFF"},
-    veilStyle: {backgroundColor: "transparent", cursor: "crosshair"}
+    boxStyle: {border: "2px solid rgba(0, 0, 0, 0.4)"},
+    veilStyle: {backgroundColor: "transparent", cursor: "crosshair"},
+    visualTips: {off: "Turn on drag zoom mode", on: "Turn off drag zoom mode"}
    });
 }
 

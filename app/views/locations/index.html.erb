@@ -6,24 +6,24 @@
    end
 %>
 
-<div id="welcome_modal" style="display:none;" title="<%= I18n.t("locations.index.welcome_modal_title") %>">
+<div id="welcome_modal" style="display:none;" title="<%= translate("locations.index.welcome_modal_title") %>">
   <img src="/fb-avatar.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="180">
-  <%= I18n.t("locations.index.welcome_modal_html").html_safe %>
+  <%= translate("locations.index.welcome_modal_html").html_safe %>
 </div>
 
-<div id="freegan_modal" style="display:none;" title="<%= I18n.t("locations.index.freegan_modal_title") %>">
+<div id="freegan_modal" style="display:none;" title="<%= translate("locations.index.freegan_modal_title") %>">
   <img src="/dumpster-score.jpg" style="float:right;margin:0.4em 0 0.5em 1em;">
-  <%= I18n.t("locations.index.freegan_modal_html").html_safe %>
+  <%= translate("locations.index.freegan_modal_html").html_safe %>
 </div>
 
-<div id="grafter_modal" style="display:none;" title="<%= I18n.t("locations.index.grafter_modal_title") %>">
+<div id="grafter_modal" style="display:none;" title="<%= translate("locations.index.grafter_modal_title") %>">
   <img src="/guerrilla-grafter-logo-resize.jpg" style="float:right;margin:0.4em 0 0.5em 1em;">
-  <%= I18n.t("locations.index.grafter_modal_html").html_safe %>
+  <%= translate("locations.index.grafter_modal_html").html_safe %>
 </div>
 
-<div id="mobile_modal" style="display:none;" title="<%= I18n.t("locations.index.mobile_modal_title") %>">
+<div id="mobile_modal" style="display:none;" title="<%= translate("locations.index.mobile_modal_title") %>">
   <img src="/new_logo_300x.jpg" style="float:right;margin:0.4em 0 0.5em 1em;width: 200px;">
-  <%= I18n.t("locations.index.mobile_modal_html").html_safe %>
+  <%= translate("locations.index.mobile_modal_html").html_safe %>
 </div>
 
 <%= render 'searchbar' %>
@@ -34,7 +34,7 @@
 <div id="mainmap_container">
   <div id="map"></div>
   <p id="stamen_attribution" style="display:none;">
-    <%= I18n.t("locations.index.stamen_html").html_safe %>
+    <%= translate("locations.index.stamen_html").html_safe %>
   </p>
 </div>
 

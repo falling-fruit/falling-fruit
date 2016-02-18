@@ -64,7 +64,7 @@ jQuery(document).ready(function(){
   <!-- Errors -->
   <% if @obs.errors.any? %>
     <div id="error_explanation">
-      <strong><%= I18n.t("locations.form.form_error") %>:</strong>
+      <strong><%= translate("locations.form.form_error") %>:</strong>
         <ul>
       <% @obs.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -78,14 +78,14 @@ jQuery(document).ready(function(){
 
   <!-- Date -->
   <div class="field first">
-    <%= f.label I18n.t("locations.form.date_visited") %><br />
+    <%= f.label :observed_on, translate("locations.form.date_visited") %><br />
     <%= f.text_field(:observed_on, :placeholder => 'yyyy-mm-dd') %>
   </div>
   
   <!-- Comments -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.comments") %><br />
-    <span class="subtext"><%= I18n.t("locations.form.comments_subtext") %></span><br />
+    <%= f.label :comment, translate("locations.form.comments") %><br />
+    <span class="subtext"><%= translate("locations.form.comments_subtext") %></span><br />
     <%= f.text_area :comment, :size => "40x3" %>
   </div>
   
@@ -93,56 +93,56 @@ jQuery(document).ready(function(){
 
   <!-- Fruiting -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.fruiting_status") %><br />
-    <span class="subtext"><%= I18n.t("locations.form.fruiting_subtext") %></span><br />
-    <%= f.select(:fruiting,I18n.t("locations.infowindow.fruiting").collect{ |r| [r,I18n.t("locations.infowindow.fruiting").index(r)] },:include_blank => true) %>
-    <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.fruiting")[2] %></div></div>
+    <%= f.label :fruiting, translate("locations.form.fruiting_status") %><br />
+    <span class="subtext"><%= translate("locations.form.fruiting_subtext") %></span><br />
+    <%= f.select(:fruiting, I18n.translate("locations.infowindow.fruiting").collect{ |r| [r, translate("locations.infowindow.fruiting").index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div><%= translate("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.fruiting")[2] %></div></div>
   </div>
   
   <!-- Yield Rating -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.yield") %><br />
-    <span class="subtext"><%= I18n.t("locations.form.yield_subtext") %></span><br />
-    <%= f.select(:yield_rating,I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] },:include_blank => true) %>
-    <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
+    <%= f.label :yield_rating, translate("glossary.yield") %><br />
+    <span class="subtext"><%= translate("locations.form.yield_subtext") %></span><br />
+    <%= f.select(:yield_rating, I18n.translate("locations.infowindow.rating").collect{ |r| [r, translate("locations.infowindow.rating").index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
   </div>
   
   <!-- Quality Rating -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.quality") %><br />
-    <span class="subtext"><%= I18n.t("locations.form.quality_subtext") %></span><br />
-    <%= f.select(:quality_rating,I18n.t("locations.infowindow.rating").collect{ |r| [r,I18n.t("locations.infowindow.rating").index(r)] },:include_blank => true) %>
-    <div class="slider-legend"><div><%= I18n.t("locations.infowindow.unsure") %></div><div><%= I18n.t("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.t("locations.infowindow.rating")[2] %></div><div><%= I18n.t("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.t("locations.infowindow.rating")[4] %></div></div>
+    <%= f.label :quality_rating, translate("glossary.quality") %><br />
+    <span class="subtext"><%= translate("locations.form.quality_subtext") %></span><br />
+    <%= f.select(:quality_rating, I18n.translate("locations.infowindow.rating").collect{ |r| [r, translate("locations.infowindow.rating").index(r)] },:include_blank => true) %>
+    <div class="slider-legend"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
   </div>
 
   <% if @obs.location.unverified %>
-  <!-- Verify -->
-  <div class="field">
-    <%= f.label I18n.t("locations.form.verify") %> <%= check_box_tag(:verify) %> Yes<br />
-    <span class="subtext"><%= I18n.t("locations.form.verify_subtext") %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:9px;" onclick="$('#unverified_help').dialog({autoOpen:true, title:'Why Unverified?', width:500, modal:true, resizable:false, draggable:false})">[?]</span>. Can you confirm that type and location are indeed correct?</span>
-  </div>
+    <!-- Verify -->
+    <div class="field">
+      <%= f.label :verify, translate("locations.form.verify") %> <%= check_box_tag(:verify) %> Yes<br />
+      <span class="subtext"><span><%= translate("locations.form.verify_subtext") %></span><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:9px;" onclick="$('#unverified_help').dialog({autoOpen:true, width:500, modal:true, resizable:false, draggable:false})">[?]</span></span>
+    </div>
   <% end %>
   
   <% if user_signed_in? and current_user.is? :grafter %>
-  <!-- Graft -->
-  <div class="field">
-    Graft? <%= f.check_box(:graft) %><br />
-    <span class="subtext">Grafts will only be visible to other grafters.</span>
-  </div>
+    <!-- Graft -->
+    <div class="field">
+      Graft? <%= f.check_box(:graft) %><br />
+      <span class="subtext">Grafts will only be visible to other grafters.</span>
+    </div>
   <% end %>
   
 	<hr />
   
   <!-- Photo -->
   <div class="field">
-   <%= f.label I18n.t("locations.form.photo") %><br />
-   <span class="subtext"><%= I18n.t("locations.form.photo_subtext") %></span><br />
+   <%= f.label :photo, translate("glossary.photo") %><br />
+   <span class="subtext"><%= translate("locations.form.photo_subtext") %></span><br />
    <%= f.file_field :photo %>
   </div>
 
   <!-- Caption -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.photo_caption") %><br />
+    <%= f.label :photo_caption, translate("locations.form.photo_caption") %><br />
     <%= f.text_field :photo_caption, :size => "40" %>
   </div>
   
@@ -150,8 +150,8 @@ jQuery(document).ready(function(){
 
   <!-- Author (if new or admin) -->
   <div class="field">
-    <%= f.label I18n.t("locations.form.your_name") %><br />
-    <span class="subtext"><%= I18n.t("locations.form.name_subtext") %></span><br />
+    <%= f.label :author, translate("locations.form.your_name") %><br />
+    <span class="subtext"><%= translate("locations.form.name_subtext") %></span><br />
     <% if (user_signed_in? and !current_user.add_anonymously?) %>
     	<%= f.text_field :author, :value => current_user.name %>
     <% else %>
@@ -171,7 +171,7 @@ jQuery(document).ready(function(){
   
   <!-- Submit -->
   <div class="actions">
-    <%= f.submit I18n.t("glossary.submit") %>
+    <%= f.submit translate("glossary.submit") %>
   </div>
   
 <% end %>

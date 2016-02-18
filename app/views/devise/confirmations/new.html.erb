@@ -1,15 +1,15 @@
-<h2><%= I18n.t("users.resend_confirmation_instructions") %></h2>
+<h2><%= translate("users.resend_confirmation_instructions") %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
   <div>
-    <%= f.label :email, I18n.t("glossary.email") %><br />
+    <%= f.label :email, translate("glossary.email") %><br />
     <%= f.email_field :email %>
   </div>
 
   <br/>
-  <div><%= f.submit I18n.t("glossary.send") %></div>
+  <div><%= f.submit translate("glossary.send") %></div>
 <% end %>
 
 <%= render "devise/shared/links" %>
