@@ -16,16 +16,14 @@
 		<input type="hidden" name="item_name" value="Falling Fruit Donation">
 		<input type="hidden" name="no_shipping" value="1">
 		$ <input name="amount" type="text" size="4" style="text-align:right;padding:0.25em 0.4em;font-size:inherit;" placeholder="0.00">
-		<input type="submit" value=<%= raw "\"" + translate("pages.about.give_paypal") + "\"" %> style="padding:0.25em 0.4em;">
-		<span style="<%= (params[:i18n_viz].present? and params[:i18n_viz] == 'true') ? '' : 'display: none;' %>"><%= translate("pages.about.give_paypal") %></span>
+		<button type="submit" style="padding:0.25em 0.4em;"><%= translate("pages.about.give_paypal") %></button>
 	</form>
 	
 	&nbsp; &middot; &nbsp;
 	
 	<!-- Gratipay  -->
 	<form action="https://gratipay.com/falling-fruit/" style="display:inline;">
-		<input type="submit" value=<%= raw "\"" + translate("pages.about.give_gratipay") + "\"" %> style="padding:0.25em 0.4em;">
-		<span style="<%= (params[:i18n_viz].present? and params[:i18n_viz] == 'true') ? '' : 'display: none;' %>"><%= translate("pages.about.give_gratipay") %></span>
+		<button type="submit" style="padding:0.25em 0.4em;"><%= translate("pages.about.give_gratipay") %></button>
 	</form>
 	    
 	</blockquote>

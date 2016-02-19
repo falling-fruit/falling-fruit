@@ -38,7 +38,7 @@ LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where
 </table>
 
 <br><br>
-<%= submit_tag translate("glossary.save_changes") %>
+<%= button_tag translate("glossary.save_changes") %>
 
 <% end %>
 
