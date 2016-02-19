@@ -258,7 +258,7 @@ jQuery(document).ready(function(){
   
   <!-- Submit -->
   <div class="actions">
-    <%= f.submit translate("glossary.submit") %>
+    <%= f.button translate("glossary.submit") %>
     <% if @current_action == "new" or @current_action == "create" %>
       <%= check_box_tag(:create_another, '1', false) %> <span><%= translate("locations.form.create_another") %></span><br>
     <% end %>
