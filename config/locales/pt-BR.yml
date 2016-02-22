@@ -121,6 +121,7 @@ pt-BR:
     map: Mapa
     miles: milhas
     name: Nome
+    new_zealand: 
     options: Opções
     password: Senha
     pending_types: Tipos pendentes
@@ -144,7 +145,7 @@ pt-BR:
     street_view: Street View
     submit: Enviar
     switzerland: Suíça
-    tree_inventories:
+    tree_inventory:
       one: Inventário de árvores
       other: Inventários de árvores
     type_and_press_enter: Escreva e pressione enter
@@ -160,6 +161,7 @@ pt-BR:
     world: Mundo
     yield: Produção
     zoom: Zoom
+    zoom_to_address: 
     zoom_to_current_location: Zoom para a localização atual
     zoom_to_me: Zoom para mim
     zoom_to_this_location: Zoom para este local
@@ -175,7 +177,7 @@ pt-BR:
         new_type: Novo Tipo
         sharing_the_harvest: Compartilhando a Colheita
         the_project: O Projeto
-      or_right-click_on_map: (Ou clique com o botão direito no mapa)
+      or_right-click_on_map: ou clique com o botão direito no mapa
       pending_types_help: Nós aplicamos o uso da taxonomia de tipos de plantas comestíveis para manter o mapa organizado e para permitir a pesquisa. Novos tipos de plantas apresentados pelos usuários são destacados como pendentes até que sejam adicionados a taxonomia ou integrados a um tipo já presente na taxonomia. Alguns tipos apresentados são tão únicos ou ambíguos que persistem indefinidamente como não aprovados.
       unverified_help: Fontes são marcados como não verificadas caso sua identidade, localização ou existência seja contestada. Muitas fontes importadas a partir de inventários de árvores são marcadas como não verificadas porque a sua comestibilidade é incerta (por exemplo, "pera" poderia ser tanto uma variedade comestível ou ornamental). Os usuários são encorajados a viajar para esses locais e relatar suas descobertas.
       unverified_help_title: ''
@@ -185,8 +187,9 @@ pt-BR:
       latitude_too_large: Nós não comportamos latitudes além de +/- 85 graus.
     form:
       access_subtext: Indique a condição dessa fonte. Deixe em branco caso não saiba.
-      address_subtext_html: O endereço <span class="subtext-inline">pode ser usado para posicionar  o marcador. Ajuste conforme necessário antes de enviar.</span>
+      address_subtext: pode ser usado para posicionar  o marcador. Ajuste conforme necessário antes de enviar.
       author_subtext: Mostrados no mapa. Deixe em branco se preferir permanecer anônimo.
+      comments: 
       comments_subtext: Atualizações, problemas de acesso, fitossanidade ...
       create_another: Crie outra
       date_visited: Data em que visitou
@@ -201,14 +204,15 @@ pt-BR:
       name_subtext: Deixe em branco se preferir permanecer anônimo.
       no_season: Sem estação
       or: ou
+      original_author: 
       photo_caption: Legenda da foto
       photo_subtext: Poste uma foto da fonte. Se a foto não for sua, verificque as permissões necessárias e insira o nome do fotógrafo na legenda.
       position_subtext: Determinado a partir de sua localização atual (quando disponível) ou um marcador colocado por você. Ajuste a localização movendo o marcador do mapa.
       quality_subtext: Classifique a qualidade da fonte (se aplicável)
       season_subtext: Quando a fonte pode ser colhido? Deixe em branco se você não sabe.
-      to: para
       types_subtext: Escolha a partir da lista suspensa, apresentação de novos tipos somente se já não existem escolhas adequadas.
       unverified_subtext: Se você duvidar da existência, localização ou identidade dessa fonte.
+      verify: 
       verify_subtext: Esta fonte foi previamente marcada como não confirmada
       yield_subtext: Classifique a produtividade dessa fonte (se aplicável)
       your_name: Seu nome
@@ -305,7 +309,7 @@ pt-BR:
       david_craft_bio_html: ! 'David é pesquisador do departamento de Oncologia da Radiação na <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Escola de Medicina de Harvard</a> em Boston, Massachusetts. Ele também é um ávido coletor e autor do livro <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging: Finding and Eatng Wild Plants in the City</a> (<a href="/docs/david Craft - Urban Foraging.pdf">free download</a>).'
       donate: Contribua
       ethan_bio_html: De sidras de maçã e cervejas de frutas a geléias e <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan olha para seu banco de dados de árvores da vizinhança (e sua prensa de maçã ) em busca de inspiração culinária. Enquanto em casa, em Boulder, ele procura por mapas, dados e imagens time-lapse de geleiras retraindo para o seu doutorado na <a href="http://instaar.colorado.edu/people/ethan-welty/">Universidade do Colorado</a>, mas muitas vezes ele entra em órbita para andar, falar, comer e <a href="http?//www.wltyphotography.com">fotografar</a> o seu caminho através de continentes.
-      give_gittip: Gorjeta via Gittip
+      give_gratipay: Pagar via Gratipay
       give_paypal: Doe através do Paypal
       give_us_money: Somos mantidos de forma voluntária, sem fins lucrativos e dependemos de doações para operar. Se você está disposto e capaz, por favor considere fazer uma contribuição financeira. Doações dentro dos Estados Unidos são dedutíveis de impostos.
       jeff_bio_html: Desde que colhia framboesas e blueberries com a família quando criança e, mais recentemente, percebendo a riqueza de árvores frutíferas públicas em todo Colorado, Jeff desenvolveu um profundo apreço pela abundância de fruticultura em nossas cidades. Sua primeira missão para a Falling Fruit foi de fazer um pente-fino em Boulder e Salt Lake City, com mapas em papel em mãos, para registrar árvores frutíferas. Quando não está trabalhando para melhorar a eficiência energética, ele geralmente esta ajudando a comunidade ou movendo-se rapidamente sobre as montanhas a pé, ski, ou de bicicleta.
@@ -336,8 +340,11 @@ pt-BR:
       type: Tipo
       types_of_data: Os conjuntos de dados importados no Falling Fruit entram em duas categorias principais. "Mapas comunitários" são construídas por coletores e freegans enquanto procuram alimentos em suas comunidades. Estamos em dívida com os cidadãos-cartógrafos que compilaram os dados. "Inventários de árvores" são compilados por munícipios, universidades e outras instituições que desejam documentar melhor e cuidar de suas árvores. Nós garimpamos esses vastos conjuntos de dados para espécies produtoras de alimentos e os adicionamos ao mapa. Para nos ajudar a mapear sua comunidade, entre em contato com sua escola ou cidade instando-os a partilhar o seu inventário de árvores com a gente.
     sharing:
+      ample_harvest: 
       food_banks: Bancos de alimentos
+      food_banks_canada: 
       food_banks_intro: Coletores e proprietários privados de árvore proprietários privados são incentivados a doar seus excedentes para a caridade. Considere parceria com grupos como os listados acima, ou doar diretamente para organizações locais que alimentam os famintos em sua comunidade. As grandes redes de bancos de alimentos estão listados abaixo; abrigos, escolas e centros de idosos em sua área são também valem a pena serem considerados.
+      global_foodbanking_network: 
       grow_pick_and_distribute: Crescer · Colher · Distribuir
       intro_html: Abaixo estão listadas as organizações locais que cultivam alimentos em locais públicos (florestas e pomares), colhem alimentos (coleta urbana e hortas), ou de outra forma redistribuirem alimentos (trocas e doações). As organizações estão listados por país, estado e cidade. Aqueles com nomes riscados são inativos. Se você souber de outros que deveriam estar nesta lista, <a href="mailto:info@fallingfruit.org">entre em contato conosco</a>!
   problems:

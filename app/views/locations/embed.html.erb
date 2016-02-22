@@ -8,21 +8,21 @@
 <div id="mainmap_container">
   <div id="map"></div>
   <p id="stamen_attribution" style="display:none;">
-    <%= I18n.t("locations.index.stamen_html").html_safe %>
+    <%= translate("locations.index.stamen_html").html_safe %>
   </p>
   <div id="embed_branding">
     <%= link_to("falling fruit",root_url,:id => "falling_fruit") %>
 		<div class="hr-like"></div>
     <span>mini</span>
     <%= link_to(new_location_url(:c => @perma[:cats].to_s),:id => "add_source") do %>
-      <%= I18n.t("glossary.add_source") %>
+      <%= translate("glossary.add_source") %>
     <% end %>
   </div>
 </div>
 
 <!-- Unverified? -->
 <div id="unverified_help" style="display:none;">
- <%= I18n.t("locations.infowindow.unverified") %>
+ <%= translate("locations.infowindow.unverified") %>
 </div>
 
 <script type="text/javascript" charset="utf-8">

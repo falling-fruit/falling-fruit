@@ -1,27 +1,27 @@
-<h2><%= I18n.t("users.edit_account") %></h2>
+<h2><%= translate("users.edit_account") %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :name, I18n.t("glossary.name") %><br />
+    <%= f.label :name, translate("glossary.name") %><br />
     <%= f.text_field :name %>
   </div>
 
   <div class="field confirmation">
-    <%= f.label :email, I18n.t("glossary.email") %>
+    <%= f.label :email, translate("glossary.email") %>
     <%= f.email_field :email %>
   </div>
   
   <div class="field">
-    <%= f.label :about_you, I18n.t("users.bio") %><br/>
+    <%= f.label :about_you, translate("users.bio") %><br/>
     <%= f.text_area :bio, :size => "40x6" %>
   </div>
   
   <div class="field">
-    <%= f.label :options, I18n.t("glossary.options") %><br />
-    <%= f.check_box :range_updates_email %> <%= I18n.t("users.options.range_updates_email") %><br />
-    <%= f.check_box :add_anonymously %> <%= I18n.t("users.options.add_anonymously") %>
+    <%= f.label :options, translate("glossary.options") %><br />
+    <%= f.check_box :range_updates_email %> <span><%= translate("users.options.range_updates_email") %></span><br />
+    <%= f.check_box :add_anonymously %> <span><%= translate("users.options.add_anonymously") %></span>
   </div>
 
   <br/>
@@ -29,24 +29,24 @@
   <br/>
   
   <div class="field confirmation">
-    <%= f.label :new_password %>
-    <span class="subtext">Only if you want to change it. Type it in twice to confirm.</span>
+    <%= f.label :new_password, translate("users.new_password") %>
+    <span class="subtext"><%= translate("users.type_it_twice") %></span>
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
   </div>
   
   <div class="field">
-    <b><%= f.label :current_password, I18n.t("users.current_password") %></b><br />
-    <span class="subtext"><%= I18n.t("users.current_password_subtext") %></span><br />
+    <b><%= f.label :current_password, translate("users.current_password") %></b><br />
+    <span class="subtext"><%= translate("users.current_password_subtext") %></span><br />
     <%= f.password_field :current_password %>
   </div>
 
   <div class="field">
-    <%= f.submit I18n.t("glossary.save_changes") %>
+    <%= f.button translate("glossary.save_changes") %>
   </div>
   
 <% end %>
 
 <p>
-<%= link_to I18n.t("users.delete_account"), registration_path(resource_name), :data => { :confirm => I18n.t("glossary.are_you_sure") }, :method => :delete %>
+  <%= link_to translate("users.delete_account"), registration_path(resource_name), :data => { :confirm => translate("glossary.are_you_sure") }, :method => :delete %>
 </p>

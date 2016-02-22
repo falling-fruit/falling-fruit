@@ -1,5 +1,5 @@
 <p>
-<b><%= I18n.t("changes.recent_changes") %></b>
+  <b><%= translate("changes.recent_changes") %></b>
 </p>
 
 <% 
@@ -10,44 +10,44 @@ last_days_ago = nil
   unless c["country"].nil?
     city = [c["city"],c["state"],c["country"]].compact.join(", ")
   end
-  action = I18n.t("changes.type." + c["description"])
+  action = translate("changes.type." + c["description"])
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
     if c["days_ago"] <= 0
-      header = I18n.t("time.last_24_hours")
+      header = translate("time.last_24_hours")
     else
-      header = I18n.t("time.time_ago", :time => (I18n.t("time.days", :count => c["days_ago"])))
+      header = translate("time.time_ago", :time => (translate("time.days", :count => c["days_ago"])))
     end
     if last_days_ago.nil? 
-      header = header + "<blockquote>"
+      header = "<span>" + header + "</span><blockquote>"
     else
-      header = "</blockquote>#{header}<blockquote>"
+      header = "</blockquote><span>" + header + "</span><blockquote>"
     end
     last_days_ago = c["days_ago"]
   end
-%>
-<%= raw header %>
-<% unless c["location_id"].nil? %>
-  <%= link_to location_path(c["location_id"]) do %>
-    <%= types.nil? ? I18n.t("glossary.unknown") : types %>
-  <% end %>
-  (#<%= c["location_id"] %>)
-  <% unless city.nil? %>
-    <%= I18n.t("changes.change_in_city", :type => action, :city => city) %>
-  <% else %>
-    <%= action %>
-  <% end %>
-  <% if user_signed_in? and current_user.is? :admin %>
-    &middot; <span style="color: #E35809;">
-    <% if c["user_id"].nil? %>
-      <%= c["remote_ip"] %>
-    <% else %>
-      <%= I18n.t("glossary.user") %> #<%= c["user_id"] %>
+  %>
+  <%= raw header %>
+  <% unless c["location_id"].nil? %>
+    <%= link_to location_path(c["location_id"]) do %>
+      <span><%= types.nil? ? translate("glossary.unknown") : types %></span>
     <% end %>
-    </span>
+    (#<%= c["location_id"] %>)
+    <% unless city.nil? %>
+      <span><%= translate("changes.change_in_city", :type => action, :city => city) %></span>
+    <% else %>
+      <span><%= action %></span>
+    <% end %>
+    <% if user_signed_in? and current_user.is? :admin %>
+      &middot; <span style="color: #E35809;">
+      <% if c["user_id"].nil? %>
+        <%= c["remote_ip"] %>
+      <% else %>
+        <span><%= translate("glossary.user") %> #<%= c["user_id"] %></span>
+      <% end %>
+      </span>
+    <% end %>
+    <br>
   <% end %>
-  <br>
-<% end %>
 <% end %>
 <% if @changes.length > 0 %>
   </blockquote>

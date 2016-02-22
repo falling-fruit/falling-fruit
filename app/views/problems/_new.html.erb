@@ -17,25 +17,24 @@
   <%= f.hidden_field :location_id %>
 
 	<!-- Problem -->
-	<!-- FIXME: Translate problem code -->
   <div class="field first">
-    <%= f.label :problem_type, I18n.t("problems.problem_type") %><br />
+    <%= f.label :problem_type, translate("problems.problem_type") %><br />
     <%= f.select(:problem_code, Problem::Codes.collect{ |r| [r,Problem::Codes.index(r)] }, :include_blank => true) %>
   </div>
 
 	<!-- Explanation -->
   <div class="field">
-    <%= f.label :description, I18n.t("glossary.description") %><br />
-    <span class="subtext"><%= I18n.t("problems.description_subtext") %></span><br />
+    <%= f.label :description, translate("glossary.description") %><br />
+    <span class="subtext"><%= translate("problems.description_subtext") %></span><br />
     <%= f.text_area(:comment) %>
   </div>
   
   <% unless user_signed_in? %>
   	<!-- Contact info -->
     <div class="field">
-   		<%= f.label :your_contact_info, I18n.t("problems.your_contact_info") %><br />
-   		<%= f.text_field(:name, :placeholder => I18n.t("glossary.name")) %><br />
-   		<div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder =>  I18n.t("users.email")) %></div>
+   		<%= f.label :your_contact_info, translate("problems.your_contact_info") %><br />
+   		<%= f.text_field(:name, :placeholder => translate("glossary.name")) %><br />
+   		<div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder =>  translate("users.email")) %></div>
   	</div>
 
    	<br />
@@ -49,7 +48,7 @@
   <br />
   <!-- Submit -->
   <div class="actions">
-    <%= f.submit "Submit" %>
+    <%= f.button translate("glossary.submit") %>
   </div>
   
 <% end %>
