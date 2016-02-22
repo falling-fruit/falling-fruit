@@ -31,7 +31,7 @@ a:hover {
   color: #E35809;
 }
 
-a, summary, input[type=submit], input[type=file] {
+a, summary, input[type=submit], input[type=file], button {
   cursor: pointer;
 }
 
@@ -108,7 +108,7 @@ div#map {
 
 div#maptype_button {
   background-color: #FFF;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
   cursor: pointer;
   text-align: center;
   width: 5em;
@@ -117,8 +117,8 @@ div#maptype_button {
   font-size: 11px;
   font-weight: normal;
   color: #565656;
-  padding: 1px 6px;
-  margin-top: 5px;
+  padding: 8px 5px;
+  margin-top: 10px;
   z-index: 1;
 }
 
@@ -443,7 +443,8 @@ form select {
 }
 
 form input[type=submit], 
-form input[type=file] {
+form input[type=file],
+button {
   font-family: inherit;
   font-size: inherit;
   color: #555;
@@ -455,7 +456,8 @@ form input[type=file] {
   cursor: pointer;
 }
 
-form input[type=submit]:hover {
+form input[type=submit]:hover,
+button:hover {
   background-color: #C6E1F7;
 }
 
@@ -796,8 +798,8 @@ div#embed_branding {
   display: block;
   height: 30px;
   position: absolute;
-  left: 80px;
-  top: 16px;
+  left: 15px;
+  top: 10px;
   font-size: 15px;
   font-family: helvetica, arial, verdana, sans-serif;
   color: #FFF;

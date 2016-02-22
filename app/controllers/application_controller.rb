@@ -30,7 +30,11 @@ class ApplicationController < ActionController::Base
   # http://guides.rubyonrails.org/i18n.html
   def default_url_options(options = {})
     @categories = Type::DefaultCategories if @categories.nil?
-    { locale: I18n.locale, c: @categories.join(",") }.merge options
+    default_options = options.merge({ locale: I18n.locale, c: @categories.join(",") })
+    if (params[:i18n_viz].present? and params[:i18n_viz] == 'true')
+      default_options.merge!({ i18n_viz: 'true' })
+    end
+    return default_options
   end
 
   # used by devise to determine where to send users after login

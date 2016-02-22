@@ -118,6 +118,7 @@ pl:
     map: Mapa
     miles: 
     name: Nazwa
+    new_zealand: 
     options: Opcje
     password: 
     pending_types: W oczekiwaniu typy
@@ -141,7 +142,7 @@ pl:
     street_view: Street View
     submit: Zatwierdź
     switzerland: Szwajcaria
-    tree_inventories: ''
+    tree_inventory: ''
     type_and_press_enter: Typ i naciśnij enter
     types: Rodzaje
     united_kingdom: Wielka Brytania
@@ -155,6 +156,7 @@ pl:
     world: Świat
     yield: Wydajność
     zoom: Przybliżyć
+    zoom_to_address: 
     zoom_to_current_location: Przybliżyć się do bieżącej lokalizacji
     zoom_to_me: Przybliżyć się do Mnie
     zoom_to_this_location: Przybliżyć do tego miejsca
@@ -170,7 +172,7 @@ pl:
         new_type: Nowy Typ
         sharing_the_harvest: Udostępnianie zbiorów
         the_project: Projekt
-      or_right-click_on_map: (Lub kliknij prawym przyciskiem myszy na mapie)
+      or_right-click_on_map: lub kliknij prawym przyciskiem myszy na mapie
       pending_types_help: Wspieramy taksonomii typów jadalnych zachować mapę zorganizowaną i przeszukiwania. Nowe typy złożone przez użytkowników są wyróżnione jako czasu do czasu są one albo zatwierdzony jako nowy typ lub połączone z istniejącym typu w taksonomii. W rzadkich przypadkach, gdy wniosek składany jest zbyt losowe lub niejasne, aby uzasadnić swój typ, to utrzymuje się na mapie w stanie niezatwierdzonych.
       unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
       unverified_help_title: 
@@ -180,8 +182,9 @@ pl:
       latitude_too_large: 
     form:
       access_subtext: Dostęp statusu tego źródła. Pozostaw puste, jeśli don't wiem.
-      address_subtext_html: Adres ten <span class="subtext-inline">może być stosowany do szybkiego położenia znacznika. Dostosować do potrzeb przed złożeniem.</span>
+      address_subtext: 
       author_subtext: Wyświetlane na mapie. Pozostaw puste, jeśli wolisz pozostać anonimowy.
+      comments: 
       comments_subtext: Aktualizacje, kwestie dostępu, ochrony roślin ...
       create_another: Tworzenie innego
       date_visited: Data odwiedził
@@ -196,14 +199,15 @@ pl:
       name_subtext: Pozostaw puste, jeśli wolisz pozostać anonimowy.
       no_season: Nie sezon
       or: 
+      original_author: 
       photo_caption: Tytuł zdjęcia
       photo_subtext: Opcjonalnie, załadować zdjęcie źródła. Jeśli jest ktoś inny "na zdjęcia, upewnij się, że masz niezbędne uprawnienia i kredyt Fotograf w podpisie.
       position_subtext: Określana z aktualnej pozycji (jeśli jest dostępny) lub marker umieściłeś. Wyregulować położenie przesuwając znacznik na mapie.
       quality_subtext: Ocenić smakowitość tego źródła (jeśli dotyczy)
       season_subtext: Kiedy mogą być zbierane źródło? Pozostaw puste, jeśli nie wiesz.
-      to: 
       types_subtext: Wybierz z listy rozwijanej, składając nowe nazwy tylko wtedy, gdy odpowiednie decyzje nie istnieje.
       unverified_subtext: Jeśli masz wątpliwości, istnienia, lokalizacji lub tożsamości tego źródła.
+      verify: 
       verify_subtext: Lokalizacja ta została wcześniej oznaczony jako niezweryfikowana
       yield_subtext: Ocena wydajności tego źródła (jeśli dotyczy)
       your_name: Twoje imię i nazwisko
@@ -300,7 +304,7 @@ pl:
       david_craft_bio_html: 
       donate: 
       ethan_bio_html: Z cydru z jabłek i piw owocowych dżemów i <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> Ethan wygląda na jego bazie drzew sąsiedztwa (i jego kulawym prasy Apple) dla kulinarnych inspiracji., Podczas gdy w domu w Boulder, że maniacy nad map, danych i upływie czasu cofanie się lodowców na jego doktorat na <a href="http://instaar.colorado.edu/people/ethan-welty/">Uniwersytecie w Kolorado</a>, ale często pozostawia swoje lokalne orbitę chodzić, mówić, jeść i sfotografować swoją drogę przez kontynenty.
-      give_gittip: 
+      give_gratipay: 
       give_paypal: 
       give_us_money: Mamy wszystko-wolontariusz, non-profit zwolnione z podatku, i polegać na darowizny od naszych użytkowników, aby działać. Jeśli są chętni i zdolni, należy rozważyć wniesienie wkładu finansowego. Darowizny w Stanach Zjednoczonych można odpisać od podatku.
       jeff_bio_html: Ponieważ zbiór czarny i jagodami z rodziną jako dziecko, a ostatnio, widząc bogactwo drzew owocowych publicznych w całej Colorado, Jeff opracował głębokie uznanie dla obfitości owoców rosnących w naszych miastach. Jego pierwsza misja dla Falling Owoc był czesać Boulder i Salt Lake City, map papierowych w rękę, aby nagrać drzew owocowania. Kiedy nie pracuje nad poprawą efektywności energetycznej budynków, jest on zazwyczaj pomaga w społeczności albo porusza się szybko w górach pieszo, na nartach, czy na rowerze.
@@ -331,8 +335,11 @@ pl:
       type: Typ
       types_of_data: Zestawów danych importowanych do Falling Fruit dzielą się na dwie główne kategorie. "Mapy w portalu dla" są budowane przez paszowe i freegans jak czytać swoje otoczenie za rzeczy do jedzenia. Jesteśmy zobowiązani do pracowitych obywateli-kartografów, którzy zebranych te dane. "Zapasy drzewa" są opracowywane przez miasta, uczelni wyższych i innych instytucji, które chcą lepiej dokumentu i opieki dla swoich drzew. My te ogromne zbiory danych, wydobywać gatunków produkujących żywność i dodaj je do mapy. Aby pomóc nam swoją okolicę na mapie, należy skontaktować się ze szkołą lub miasto wzywając ich do dzielenia się z nami drzewo inwentarza.
     sharing:
+      ample_harvest: 
       food_banks: Banki żywności
+      food_banks_canada: 
       food_banks_intro: Paszowe i prywatni właściciele drzewo przytłoczeni ich zbiorów są zachęcani do oddawania nadwyżek produktów na cele charytatywne. Rozważyć współpracę z grup takich jak te wymienione powyżej, lub darowizny bezpośrednio do lokalnych organizacji karmienia głodnych w swojej społeczności. Główne sieci banków żywności są wymienione poniżej; schroniska dla bezdomnych, szkół i wyższych ośrodków w Twojej okolicy są warte rozważenia.
+      global_foodbanking_network: 
       grow_pick_and_distribute: Rosnąć · Pick · Rozpowszechniać
       intro_html: Poniżej wymienione są lokalne organizacje, które rosną żywności (żywność i sady lasy publiczne), odebrać jedzenie (miejskiego żerowania i gleaning rolniczy), lub w inny sposób rozpowszechniać żywności (swapy i darowizn). Organizacje wymienione są kraje, państwa i miasta. Te z nazwami wyblakłych out są uważane za nieaktywne. Jeśli znasz inne, które powinny być na tej liście, <a href="mailto:info@fallingfruit.org">skontaktuj się z nami</a> !
   problems:

@@ -119,6 +119,7 @@ de:
     map: Karte
     miles: Meilen
     name: Name
+    new_zealand: 
     options: Optionen
     password: Passwort
     pending_types: Unbestätigte Arten
@@ -142,7 +143,7 @@ de:
     street_view: Street View
     submit: Einreichen
     switzerland: Schweiz
-    tree_inventories:
+    tree_inventory:
       one: Bauminventar
       other: Bauminventare
     type_and_press_enter: Eingeben und Enter drücken
@@ -158,6 +159,7 @@ de:
     world: Welt
     yield: Ausbeute
     zoom: Zoom
+    zoom_to_address: 
     zoom_to_current_location: Zoom auf aktuellen Standort
     zoom_to_me: Zoom zu mir
     zoom_to_this_location: Zoom zu diesem Standort
@@ -173,7 +175,7 @@ de:
         new_type: Neue Art
         sharing_the_harvest: Ernte teilen
         the_project: Das Projekt
-      or_right-click_on_map: (oder Rechtsklick in die Karte)
+      or_right-click_on_map: oder Rechtsklick in die Karte
       pending_types_help: Wir bewerten alle Arten auf ihre Geniessbarkeit, um die Karte strukturiert und durchsuchbar zu halten. Neuartige, von den Benutzern ergänzte Arten werden sind als 'hängig' markiert, bis sie entweder als eine neue Art zugelassen oder einer in der Taxonomie vorhandenen Art zugeordnet werden. In seltenen Fällen, wenn die Eingabe entweder zu willkürlich oder vage ist um eine eigene Art zu rechtfertigen, bleibt der Eintrag auf der Karte in einem nicht genehmigten Zustand.
       unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, insbesondere wenn sie von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
       unverified_help_title: Wieso unbestätigt?
@@ -183,8 +185,9 @@ de:
       latitude_too_large: ! 'Wir sie ausserhalb des ±85igsten Breitengrades liegt. '
     form:
       access_subtext: Zugang zu diesem Standort. Freilassen, wenn du es nicht genau weisst.
-      address_subtext_html: Adresse <span class="subtext-inline">kann verwendet werden, um den Marker schnell zu positionieren. Gegebenenfalls anpassen, bevor die Quelle hinzugefügt wird.</span>
+      address_subtext: kann verwendet werden, um den Marker schnell zu positionieren. Gegebenenfalls anpassen, bevor die Quelle hinzugefügt wird.
       author_subtext: Wird auf der Karte angezeigt. Freilassen, wenn du anonym bleiben möchtest.
+      comments: 
       comments_subtext: Beschreibung, Infos zum Zugang, Zustand der Pflanzen ...
       create_another: einen weiteren Standort erstellen
       date_visited: Datum des Besuchs
@@ -199,14 +202,15 @@ de:
       name_subtext: Freilassen, wenn du anonym bleiben möchtest.
       no_season: keine Saison
       or: oder
+      original_author: 
       photo_caption: Bildunterschrift
       photo_subtext: Lade ein Foto dieser Quelle hoch (optional). Falls du das Foto nicht selber gemacht hast, prüfe bitte, ob du das Bild verwenden darfst und führe den Fotographen in der Bildunterschrift auf.
       position_subtext: Bestimmt durch deinen aktuellen Standort (sofern verfügbar) oder einen platzierten Marker. Passe den Standort durch Verschieben des Markers auf der Karte an.
       quality_subtext: Bewerte die Güte dieser Quelle (falls zutreffend)
       season_subtext: Wann kann an diesem Standort geerntet werden? Freilassen, wenn du es nicht weisst.
-      to: bis
       types_subtext: Wähle aus der Dropdown-Liste. Ergänze einen neuen Namen nur, wenn eine passende Wahl noch nicht vorhanden ist.
       unverified_subtext: Wenn du Zweifel an der Existenz, dem Zugang oder der Art an diesem Standort hast.
+      verify: 
       verify_subtext: Dieser Ort wurde vorhergehend als Ungeprüft markiert
       yield_subtext: Bewerte die Produktivität dieser Quelle (falls zutreffend)
       your_name: Dein Name
@@ -307,7 +311,7 @@ de:
       david_craft_bio_html: Autor von <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging</a> (gratis download <a href="/docs/David Craft - Urban Foraging.pdf">hier</a>)
       donate: Spenden
       ethan_bio_html: Vom Apfelwein zum Fruchtbier, von der Marmelade zum <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan findet in der Datenbank aller Bäume und Büsche in seiner Nachbarschaft (und seiner klapprigen Apfelpresse) stets neue kulinarische Inspirationen. Er lebt in Boulder,Co, wo er seine Zeit im Rahmen seiner Doktorarbeit an der <a href="http://instaar.colorado.edu/people/ethan-welty/">Universität von Colorado</a> unmengen von Daten, Karten und Zeitraffersequenzen schmelzender Gletscher widmet. Man trifft ihn aber häufig weit weg von zu Hause an, wenn er sich auf einer neuen Reise irgendwo quer durch die Landschaft plaudert, wandert, isst und <a href="http://www.weltyphotography.com">fotografiert</a>.
-      give_gittip: Tip via Gittip
+      give_gratipay: Bezahlen via Gratipay
       give_paypal: Spende via Paypal
       give_us_money: Wir sind eine komplett auf frewilliger Basis betriebene, gemeinnützige Organisation und sind auf Spenden angewiesen, um diese Seite aufrecht zu halten. Falls du die Möglichkeit hast, einen finanziellen Beitrag zu leisten, sind wir dir herzlich dankbar!
       jeff_bio_html: Auf der Suche nach Heidelbeeren, Himbeeren und Brombeeren durfte Jeff schon als Kind stundenlang durch die Wälder streuen. Seit geraumer Zeit hat er sich nun den urbaneren Standorten zugewandt und für Falling Fruit, auf der Suche nach Obstbäumen und Beerensträuchern, tagelang die Strassen von Boulder und Salt Lake City  abgeklappert. Am Schreibtisch widmet er sich der Verbesserung der Energieeffizienz von Gebäuden, nebenher investiert er gerne viel Zeit in gemmeinnützige Öffentlichkeitsarbeit oder überquert zu Fuss, zu Rad oder zu Ski die Berge in seiner Umgebung.
@@ -338,8 +342,11 @@ de:
       type: Art
       types_of_data: Datensätze die von Falling Fruit importiert werden, fallen in zwei Hauptkategorien. "Gemeinschaftskarten" werden von Sammlerinnen und Freeganern erstellt, indem sie in ihrem Umfeld öffentliche Nahrungsmittel-Quellen suchen und kartieren. Ein Riesiges Dankeschön geht an alle, die tagtäglich auf der Suche sind und uns ihre Daten übermitteln. "Bauminventare" werden durch Städte, Universitäten oder andere Institutionen zusammengestellt, die ihren Baumbestand überblicken und erhalten möchten. Wir filtern aus diesen riesigen Datenmengen die essbaren Arten heraus und fügen sie unserer Karte hinzu. Wenn in deiner Ecke der Welt noch Daten fehlen, dann kontaktiere deine Stadt oder deine Gemeinde und fordere sie auf, allfällig vorhandene Daten mit uns zu teilen! Wir sind für jede Hilfe dankbar!
     sharing:
+      ample_harvest: 
       food_banks: Lebensmittelbanken
+      food_banks_canada: 
       food_banks_intro: Wer du aus dem eigenen Garten oder von anderen Quellen (auch selber gesammelt) überschüssige Nahrungsmittel hat,den fordern wir auf, die Überschüsse für wohltätige Zwecke zu spenden. Überlege dir zum Beispiel eine Partnerschaft mit Gruppen wie jene, die oben aufgeführt sind, oder spende direkt an lokale Organisationen die in deiner Gemeinde Essen an Bedürftige verteilen. Die großen Nahrungsmittelbank-Netzwerke sind unten aufgelistet; Obdachlosenheime, Schulen und Seniorenzentren in deiner Nähe sind aber häufig auch dankbar, wenn sie etwas Frisches bekommen!
+      global_foodbanking_network: 
       grow_pick_and_distribute: Pflanze · Ernte · Verteile
       intro_html: Im Folgenden sind lokale Organisationen aufgeführt, die Lebensmittel anpflanzen (z.B. in Gemeinschaftsgärten), ernten (z.B. 'urban gardening'), oder auf andere Art und Weise verteilen und teilen. Organisationen werden nach Land, Bundesland/Kanton und Stadt aufgeführt. Organisationen mit durchgestrichenem Namen sind zur Zeit vermutlich inaktiv. Wenn du Organisationen kennst, die auf dieser Liste auftauchen müssten, dann <a href="mailto:info@fallingfruit.org">sag uns Bescheid</a>!
   problems:

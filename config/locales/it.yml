@@ -119,6 +119,7 @@ it:
     map: Mappa
     miles: miglia
     name: Nome
+    new_zealand: 
     options: Opzioni
     password: Password
     pending_types: Tipi in attesa
@@ -142,9 +143,9 @@ it:
     street_view: Street View
     submit: Inoltrare
     switzerland: Svizzera
-    tree_inventories:
-      one: inventario degli alberi
-      other: inventari degli alberi
+    tree_inventory:
+      one: Inventario degli alberi
+      other: Inventari degli alberi
     type_and_press_enter: Immetti e premi enter
     types: Tipi
     united_kingdom: Regno Unito
@@ -158,6 +159,7 @@ it:
     world: Mondo
     yield: Raccolta
     zoom: Zoom
+    zoom_to_address: 
     zoom_to_current_location: Zoom su posizione corrente
     zoom_to_me: Ingrandisci
     zoom_to_this_location: Zoom a questa posizione
@@ -173,7 +175,7 @@ it:
         new_type: Nuovo tipo
         sharing_the_harvest: Condivisione del raccolto
         the_project: Il progetto
-      or_right-click_on_map: (O tasto destro del mouse sulla cartina)
+      or_right-click_on_map: o tasto destro del mouse sulla cartina
       pending_types_help: Noi applichiamo una tassonomia di tipologie commestibili per mantenere la mappa organizzata e utilizzabile. Tipi Novel inviati dagli utenti sono evidenziati sulla mappa come sospeso fino a quando non vengono aggiunti alla tassonomia o fuse con un tipo esistente. Alcuni tipi di proposte sono così unico o ambigue che persistono come non approvato a tempo indeterminato.
       unverified_help: Le fonti sono contrassegnate come non verificate se la loro identità, posizione o esistenza è controversa. Molte fonti sugli alberi, importate da cataloghi ed elenchi, sono contrassegnate come non verificate perché non è stata verificata la loro effettiva commestibilità  (ad esempio, "pera" potrebbe essere una varietà commestibile o solo decorativa). Gli utenti sono invitati a recarsi in quei luoghi e a documentare lo stato di fatto.
       unverified_help_title: Perché non verificato?
@@ -183,8 +185,9 @@ it:
       latitude_too_large: Noi non andiamo a latitudini superiori o inferiori di 85 gradi
     form:
       access_subtext: Stato di accesso della sorgente. Lasciare vuoto se non si conosce.
-      address_subtext_html: L'indirizzo <span class="subtext-inline">può essere utilizzato per posizionare il marcatore. Regolare come necessario prima di inviarlo.</span>
+      address_subtext: può essere utilizzato per posizionare il marcatore. Regolare come necessario prima di inviarlo.
       author_subtext: Individuate sulla mappa. Lasciare in bianco se si preferisce rimanere anonimi.
+      comments: 
       comments_subtext: Aggiornamenti, problemi di accesso, stato di salute delle piante ...
       create_another: Creare altro
       date_visited: Data della visita
@@ -199,14 +202,15 @@ it:
       name_subtext: Lasciare in bianco se si preferisce rimanere anonimi.
       no_season: No stagione
       or: o
+      original_author: 
       photo_caption: Didascalia foto
       photo_subtext: Pubblica una foto della fonte. Se non è tua, assicurarti di avere il permesso e inserisci il credito corretto del fotografo nella didascalia.
       position_subtext: Determinato dalla posizione corrente (se disponibile) o un marcatore è stato posizionato. Regolare spostando la mappa marker.
       quality_subtext: Vota la qualità della sorgente (se applicabile)
       season_subtext: Quando può essere raccolta la frutta? Lasciare in bianco se non si sa.
-      to: a
       types_subtext: Selezionare dalla lista, scegliere nuove tipologie solo se non esistono già.
       unverified_subtext: Se avete dei dubbi sull'esistenza, la posizione o l'identità di questa fonte.
+      verify: 
       verify_subtext: A ttualmente la fonte è contrassegnata come non verificata
       yield_subtext: Vota la produttività della sorgente (se applicabile)
       your_name: Il tuo nome
@@ -303,7 +307,7 @@ it:
       david_craft_bio_html: ! 'Davide è ricercatore al Dipartimento di Radiazioni Oncologiche al <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvard Medical School</a> a Boston, Massachusetts. E'' anche un avido raccoglitore e autore di <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging: Finding and Eating Wild Plants in the City</a> ( <a href="/docs/David Craft - Urban Foraging.pdf">free download</a> )'
       donate: Donate
       ethan_bio_html: Dal sidro di mele e dalla birra alla frutta alle marmellate e <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> , Ethan guarda alla sua banca dati degli alberi del suo quartiere (e alla sua pressa per il sidro) per nuove ispirazioni culinarie. Quando è a casa a Boulder, si diverte a lavorare a mappe e dati, e a vedere in time-lapse il ritiro dei ghiacciai per il suo dottorato di ricerca presso l'<a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a> , ma va spesso in orbita a camminare, parlare, mangiare e <a href="http://www.weltyphotography.com">fotografare</a> a viaggiare attraverso i continenti.
-      give_gittip: Consigli via Gittip
+      give_gratipay: Paga via Gratipay
       give_paypal: Contribuisci via Paypal
       give_us_money: Siamo un'associazione di volontari, senza scopo di lucro e contiamo sulle donazioni per lavorare. Se fosse possibile, vi preghiamo di offrire un vostro contributo finanziario. Le donazioni negli Stati Uniti sono deducibili dalle tasse.
       jeff_bio_html: Da quando, da bambino, comincia a raccogliere mirtilli con la sua famiglia e, più recentemente, osservando l'abbondanza degli alberi da frutto pubblici in tutto Colorado, Jeff ha sviluppato un profondo amore per la profusione della frutticoltura nelle nostre città. La sua prima missione per Falling Fruit è stata la creazione di mappe cartacee di Boulder e Salt Lake City per registrare tutti gli alberi da frutto. Quando non lavora per migliorare l'efficienza energetica degli edifici, di solito aiuta la comunità o si muove rapidamente sulle montagne, a piedi, con gli sci o in bicicletta.
@@ -334,8 +338,11 @@ it:
       type: Tipo
       types_of_data: ! 'I dati importati in Falling Fruit rientrano in due categorie principali: le "mappe condivise" che  sono create da raccoglitori e volontari mentre indagano attivamente le loro comunità alla ricerca di cibo e siamo grati ai laboriosi cittadini-cartografi che hanno elaborato tutte queste informazioni; gli "inventari arborei" che sono stati redatti dai Comuni, dalle università e da altre istituzioni che vogliono documentare e curare il loro patrimonio arboreo. Noi estraiamo da questi inventari le specie produttive e le aggiungiamo alla mappa. Per aiutarci a mappare gli alberi da frutto del vostro quartiere, contattate la vostra scuola o il Comune per invitarli a condividere con noi le loro informazioni e i loro inventari sugli alberi.'
     sharing:
+      ample_harvest: 
       food_banks: Banchi alimentari
+      food_banks_canada: 
       food_banks_intro: I raccoglitori e i proprietari privati degli alberi ​​sono invitati a regalare l'eccedenza dei loro raccolti. Considerate la partnership con gruppi come quelli elencati sopra oppure donate direttamente alle organizzazioni di beneficenza della vostra comunità. I grandi banchi alimentari sono elencati di seguito; considerate anche i ricoveri per senzatetto, le scuole e i centri per anziani.
+      global_foodbanking_network: 
       grow_pick_and_distribute: Crescere · Raccogliere · Distribuire
       intro_html: Di seguito sono elencate le organizzazioni che si occupano di agricoltura urbana negli spazi pubblici (orti urbani, frutteti pubblici), o raccolgono frutta, erbe e ortaggi (raccolta urbana, orti urbani) o distribuiscono prodotti alimentari (donazioni). Le organizzazioni sono suddivise per paese, stato (se applicabile) e città. Quelli con nomi sbarrati si pensa che siano inattivi. Se siete a conoscenza di altri dati che dovrebbero essere in questa lista, <a href="mailto:info@fallingfruit.org">contattaci</a> !
   problems:
