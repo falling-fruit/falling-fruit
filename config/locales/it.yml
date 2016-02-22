@@ -119,6 +119,7 @@ it:
     map: Mappa
     miles: miglia
     name: Nome
+    new_zealand: 
     options: Opzioni
     password: Password
     pending_types: Tipi in attesa
