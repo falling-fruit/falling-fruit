@@ -11,7 +11,7 @@
     <span class="nowrap">  
      <!-- Address -->
      <b><%= translate("glossary.address", ) %></b>
-     <input id="address" name="address" placeholder="<%= translate("glossary.type_and_press_enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
+     <input type="text" id="address" name="address" placeholder="<%= translate("glossary.type_and_press_enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
       <span id="recenter_button">
         &middot;
         <button onclick="recenter_map()"><%= translate("glossary.zoom_to_me") %></button>
