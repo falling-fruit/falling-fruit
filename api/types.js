@@ -37,7 +37,7 @@ types.list = function (req, res) {
                         SUM(count) as count \
                         FROM types t, clusters c WHERE "+pfilter+" c.type_id=t.id \
                         AND ("+cfilter+"(category_mask & $1)>0) "+filters+" GROUP BY t.id, name, scientific_name \
-                        ORDER BY name,scientific_name;",
+                        ORDER BY scientific_name, taxonomic_rank, name;",
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');
             res.send(__.map(result.rows,function(x){ 
@@ -52,7 +52,7 @@ types.list = function (req, res) {
                         "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
                         FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
-                        ORDER BY name,scientific_name;",
+                        ORDER BY scientific_name, taxonomic_rank, name;",
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');
             res.send(result.rows);
