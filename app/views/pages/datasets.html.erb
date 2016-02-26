@@ -58,11 +58,11 @@ Import.order("id").reverse.each do |import|
       <% unless import.license.blank? %>
         <%= raw import.license.gsub("\n","<br>") %>
       <% else %>
-        <i><%= translate("pages.datasets.no_license").html_safe %></i>.
+        <i><%= translate("pages.datasets.no_license").html_safe %></i>
       <% end %>
     </td>
     <td>
-      <%= import.muni ? translate("glossary.tree_inventories", :count => 1) : translate("pages.datasets.community_map") %>
+      <%= import.muni ? translate("glossary.tree_inventory", :count => 1) : translate("pages.datasets.community_map") %>
     </td>
     <td>
 	    <% unless import.url.blank? %>
