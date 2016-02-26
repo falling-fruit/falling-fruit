@@ -182,14 +182,14 @@ class Location < ActiveRecord::Base
           query = ""
           if not name.nil?
             name = name.squish
-            query = "name = " + ActiveRecord::Base.connection.quote(name)
+            query = "lower(name) = " + ActiveRecord::Base.connection.quote(name.downcase)
           end
           if not scientific_name.nil?
             scientific_name = scientific_name.squish
             if query != ""
               query += " and "
             end
-            query += "scientific_name = " + ActiveRecord::Base.connection.quote(scientific_name)
+            query += "lower(scientific_name) = " + ActiveRecord::Base.connection.quote(scientific_name.downcase)
           end
           if query != ""
             types = Type.where(query)
