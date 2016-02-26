@@ -419,67 +419,84 @@ task(:import_type_translations => :environment) do
 end
 
 task(:import => :environment) do
-   if File.exists? "public/import/lockfile"
-     puts "Lockfile exists, not running"
-     exit
-   end 
-   FileUtils.touch "public/import/lockfile"
-   typehash = {}
-   Type.all.each{ |t|
-     typehash[t.name] = t
-   }
-   dh = Dir.open("public/import")
-   dh.each{ |l|
-     next unless l =~ /^(\d+).csv$/
-     import_id = $1.to_i
-     begin
-       import = Import.find(import_id)
-     rescue ActiveRecord::RecordNotFound => e
-       next
-     end
-     next if import.nil?
-     print "#{import_id}: "
-     n = 0
-     errs = []
-     text_errs = []
-     ok_count = 0
-     CSV.foreach("public/import/#{l}") do |row|
-       n += 1
-       next if n == 1 or row.join.blank?
-       print "."
-       location = Location.build_from_csv(row,typehash,import.default_category_mask)
-       location.import = import
-       location.client = 'import'
-       if (location.lat.nil? or location.lng.nil?) and !location.address.blank?
-         print "G"
-         location.geocode
-       end
-       if location.type_ids.length > 0 and location.valid?
-         ok_count += 1
-         print "S"
-         if location.save and import.auto_cluster == true
-           print "C"
-           cluster_increment(location)
-         end
-       else
-         text_errs << location.errors
-         errs << row
-       end
-     end
-     c = Change.new
-     c.description = "#{ok_count} new locations imported from #{import.name} (#{import.url})"
-     c.save
-     if errs.any?
-       errFile ="public/import/#{import_id}_error.csv"
-       errs.insert(0,Location.csv_header)
-       errCSV = CSV.open(errFile,"wb") do |csv|
-         errs.each {|row| csv << row}
-       end
-     end
-     #FIXME _done should only contain locations imported successfully
-     FileUtils.mv "public/import/#{l}", "public/import/#{import_id}_done.csv"
-     puts
-   } 
-   dh.close
-   FileUtils.rm_f "public/import/lockfile"
+  # Check for lockfile
+  if File.exists? "public/import/lockfile"
+    puts "Lockfile exists, not running!"
+    exit
+  end 
+  # Check for duplicate types
+  names = Type.all.collect{ |t| t.full_name }
+  if not names.detect{ |name| names.rindex(name) != names.index(name) }.nil?
+    puts "Duplicate types detected, not running!"
+    puts names.select{ |name| names.count(name) > 1 }.uniq
+    exit
+  end
+  FileUtils.touch "public/import/lockfile"
+  dh = Dir.open("public/import")
+  dh.each{ |l|
+    next unless l =~ /^(\d+).csv$/
+    import_id = $1.to_i
+    begin
+      import = Import.find(import_id)
+    rescue ActiveRecord::RecordNotFound => e
+      next
+    end
+    next if import.nil?
+    print "#{import_id}: "
+    n = 0
+    errs = []
+    done = []
+    errsFile = "public/import/#{import_id}_error.csv"
+    if File.exist?(errsFile)
+      csvfile = errsFile
+    else
+      csvfile = "public/import/#{import_id}.csv"
+    end
+    CSV.foreach(csvfile) do |row|
+      n += 1
+      next if n == 1 or row.join.blank?
+      print "."
+      location = Location.build_from_csv(row, import.default_category_mask)
+      location.import = import
+      location.client = 'import'
+      if (location.lat.nil? or location.lng.nil?) and !location.address.blank?
+        print "G"
+        location.geocode
+      end
+      if location.type_ids.length > 0 and location.valid? and location.save
+        print "S"
+        if import.auto_cluster == true
+          print "C"
+          cluster_increment(location)
+        end
+        done << row
+      else
+        errs << row
+      end
+    end
+    c = Change.new
+    c.description = "#{done.length} new locations imported from #{import.name} (#{import.url})"
+    c.save
+    doneFile = "public/import/#{import_id}_done.csv"
+    if done.any?
+      unless File.exist?(doneFile)
+        done.insert(0, Location.csv_header)
+      end
+      doneCSV = CSV.open(doneFile, "ab+") do |csv|
+        done.each{ |row| csv << row }
+      end
+    end
+    if errs.any?
+      errs.insert(0, Location.csv_header)
+      errsCSV = CSV.open(errsFile, "wb") do |csv|
+        errs.each{ |row| csv << row }
+      end
+    else
+      FileUtils.rm_f errsFile
+      FileUtils.rm_f "public/import/#{l}"
+    end
+    puts
+  } 
+  dh.close
+  FileUtils.rm_f "public/import/lockfile"
 end
