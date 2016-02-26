@@ -158,7 +158,8 @@ class Location < ActiveRecord::Base
     ["Id","Type","Description","Lat","Lng","Address","Season Start","Season Stop",
      "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
   end
-
+  
+  # Expects type = "id: name [scientific_name]" (or any subset of those parts)
   def self.build_from_csv(row,typehash=nil,default_category_mask=0)
     id,type,desc,lat,lng,address,season_start,season_stop,no_season,
       access,unverified,yield_rating,quality_rating,author,photo_url = row
@@ -167,23 +168,33 @@ class Location < ActiveRecord::Base
     loc.original_id = id
     loc.type_ids = []
     unless type.blank?
-      type.split(/[;,:]/).each{ |t|
-        safer_type = t.gsub(/[^[:word:]\s\(\)\-\'\[\]]/,'')
-        name = safer_type[/([^\[]+)/,1]
-        scientific_name = safer_type[/\[(.+)\]/,1]
-        query = ""
-        unless name.nil?
-          name = name.squish.capitalize
-          query = "name = " + ActiveRecord::Base.connection.quote(name)
+      type.split(/\s*,\s*/).each{ |t|
+        safer_type = t.gsub(/[^[:word:]\s\(\)\-\'\[\]\.:]/,'')
+        id = safer_type[/^([0-9]+)/, 1]
+        name = safer_type[/(^(?![0-9])|:\s*)([^\[]+)/, 2]
+        scientific_name = safer_type[/\[(.+)\]/, 1]
+        types = []
+        if not id.nil?
+          query = "id = " + ActiveRecord::Base.connection.quote(id)
+          types = Type.where(query)
         end
-        unless scientific_name.nil?
-          scientific_name = scientific_name.squish.capitalize
-          unless query == ""
-            query += " and "
+        if types.length == 0
+          query = ""
+          if not name.nil?
+            name = name.squish
+            query = "name = " + ActiveRecord::Base.connection.quote(name)
           end
-          query += "scientific_name = " + ActiveRecord::Base.connection.quote(scientific_name)
+          if not scientific_name.nil?
+            scientific_name = scientific_name.squish
+            if query != ""
+              query += " and "
+            end
+            query += "scientific_name = " + ActiveRecord::Base.connection.quote(scientific_name)
+          end
+          if query != ""
+            types = Type.where(query)
+          end
         end
-        types = Type.where(query)
         if types.length == 0
           nt = Type.new
           nt.name = name
