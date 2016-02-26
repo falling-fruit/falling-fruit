@@ -34,7 +34,7 @@ def getLatLng(address, sensor = 'false', key = 'AIzaSyBB8Abarc_SZdsJoK1C0xAJoXcN
 	j = json.load(response)
 	status = j['status']
 	if status == 'OK':
-	  print str(j['results'][0]["geometry"]["location"]["lat"]) + '\t' + str(j['results'][0]["geometry"]["location"]["lng"])
+	  print str(j['results'][0]["geometry"]["location"]["lat"]) + '\t' + str(j['results'][0]["geometry"]["location"]["lng"]) + '\t' + str(j['results'][0]["types"])
 	else:
 	  print 'ERROR' + '\t' + status
 	
