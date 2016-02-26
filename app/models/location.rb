@@ -160,7 +160,7 @@ class Location < ActiveRecord::Base
   end
   
   # Expects type = "id: name [scientific_name]" (or any subset of those parts)
-  def self.build_from_csv(row,typehash=nil,default_category_mask=0)
+  def self.build_from_csv(row, default_category_mask = 0)
     id,type,desc,lat,lng,address,season_start,season_stop,no_season,
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
