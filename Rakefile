@@ -454,7 +454,7 @@ task(:import => :environment) do
          print "G"
          location.geocode
        end
-       if location.valid?
+       if location.type_ids.length > 0 and location.valid?
          ok_count += 1
          print "S"
          if location.save and import.auto_cluster == true
