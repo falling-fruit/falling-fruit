@@ -212,8 +212,9 @@ class Location < ActiveRecord::Base
         end
       }
     end
+    return loc if (loc.type_ids.length == 0)
     loc.type_ids.uniq!
-
+    
     unless lat.blank? or lng.blank?
       loc.lat = lat.to_f
       loc.lng = lng.to_f
