@@ -80,7 +80,7 @@ types.show = function (req, res) {
       function(callback){
         client.query("SELECT id, created_at, updated_at, \
                       scientific_name, scientific_synonyms, taxonomic_rank, parent_id, \
-                      name as en_name, synonyms as en_synonyms, \
+                      name, synonyms, \
                       es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
                       usda_symbol, wikipedia_url, eat_the_weeds_url, foraging_texas_url, \
                       urban_mushrooms_url, fruitipedia_url, \

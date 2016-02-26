@@ -48,7 +48,7 @@ class Type < ActiveRecord::Base
   end
 
   # Default to english name if requested is nil or empty
-  def i18n_name(locale=I18n.locale.to_s)
+  def i18n_name(locale = I18n.locale.to_s)
     ([self[Type.i18n_name_field(locale)], self.name].reject(&:blank?).first)
   end
 
@@ -58,7 +58,7 @@ class Type < ActiveRecord::Base
     #end
   end
 
-  def Type.i18n_name_field(locale=I18n.locale.to_s)
+  def Type.i18n_name_field(locale = I18n.locale.to_s)
     lang = locale.tr("-","_")
     lang = "scientific" if lang == "la"
     return lang == "en" ? "name" : "#{lang}_name"
@@ -110,17 +110,19 @@ class Type < ActiveRecord::Base
   end
   
   # Location types
-  def Type.full_list(cats=DefaultCategories)
+  def Type.full_list(cats = DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
-    Rails.cache.fetch('types_full_list' + cat_mask.to_s + I18n.locale.to_s,:expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+    Rails.cache.fetch('types_full_list' + cat_mask.to_s + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
       Type.where("NOT pending AND (category_mask & ?)>0",cat_mask).default_sort.collect{ |t| t.full_name }
     end
   end
 
   # Type editing (NO CACHE)
-  def Type.full_list_with_ids(cats=DefaultCategories)
-    cat_mask = array_to_mask(cats,Categories)
-    Type.where("NOT pending AND (category_mask & ?)>0",cat_mask).default_sort.collect{ |t| {:id => t.id, :text => t.full_name} }
+  def Type.full_list_with_ids(cats = DefaultCategories, uncategorized = false, pending = false)
+    cat_mask_str = array_to_mask(cats, Categories).to_s
+    uncategorized_str = uncategorized ? "OR category_mask = 0" : ""
+    pending_str = pending ? "" : "NOT pending AND "
+    Type.where(pending_str + "((category_mask & " + cat_mask_str + ") > 0" + uncategorized_str + ")").default_sort.collect{ |t| {:id => t.id, :text => t.full_name} }
   end
 
   def Type.sorted_with_parents
@@ -131,7 +133,8 @@ class Type < ActiveRecord::Base
   
   # Default sorting scheme
   def Type.default_sort
-    Type.order('scientific_name ASC NULLS LAST').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
+  	#Type.order('scientific_name ASC NULLS LAST, taxonomic_rank ASC').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
+    self.select("*, COALESCE(" + Type.i18n_name_field + ", name) as i18n_name_sql").order("scientific_name ASC NULLS LAST, taxonomic_rank, i18n_name_sql")
   end
   
   def locations
