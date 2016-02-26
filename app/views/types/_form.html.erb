@@ -133,10 +133,10 @@
 <% content_for :form_scripts do %>
   <script type="text/javascript" charset="utf-8">
     <% if @current_action == "new" %>
-      var type_list = <%= Type.full_list_with_ids(Type::Categories).to_json.html_safe %>;
+      var type_list = <%= Type.full_list_with_ids(Type::Categories, uncategorized = true).to_json.html_safe %>;
     <% else %>
       // Remove self from type dropdowns
-      var type_list = <%= Type.full_list_with_ids(Type::Categories).reject{ |t| t[:id] == @type.id}.to_json.html_safe %>;
+      var type_list = <%= Type.full_list_with_ids(Type::Categories, uncategorized = true).reject{ |t| t[:id] == @type.id}.to_json.html_safe %>;
     <% end %>
     jQuery(document).ready(function(){
       // Parent
