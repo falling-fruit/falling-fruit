@@ -1,427 +1,249 @@
 ####
-## Install libraries (run once)
-#install.packages(c('plyr','foreign','doSNOW','foreach','rgdal'))
-
-####
 ## Load libraries
-library(plyr)    # data frame manipulation
-library(foreign) # reading shapefile *.dbf
-library(doSNOW)  # parallel processing
-library(foreach)
-
-####
-## Start cluster (set # of CPUs)
-cl = makeCluster(6, type = "SOCK")
-registerDoSNOW(cl)
-## Stop cluster
-#stopCluster(cl)
-
+library(data.table) # fast data.frame
+library(stringdist) # fuzzy matching
 
 ####
 ## FUNCTIONS
 
-####
-## Load
-
-## Load Dataset
-load.data = function(file, latlng = c("Lat","Lng")) {
+## Load external dataset
+load_data <- function(file, latlng = c("lat", "lng"), id = "id") {
   
   # Read file
-  if (grepl("\\.csv",file)) {
-    dt = read.csv(file, stringsAsFactors=F)
-  } else if (grepl("\\.dbf",file)) {
+  if (grepl("\\.csv", file)) {
+    df <- read.csv(file, stringsAsFactors = FALSE)
+  } else if (grepl("\\.dbf", file)) {
     library(foreign)
-    dt = read.dbf(file,as.is=T)
-  } else if (grepl("\\.shp",file)) {
+    df <- read.dbf(file, as.is = TRUE)
+  } else if (grepl("\\.shp", file)) {
     library(rgdal)
-    shp = readOGR(file, layer = ogrListLayers(file)[1])
-    shp = spTransform(shp, CRS("+proj=longlat +ellps=WGS84"))
-    dt = shp@data
-    ind = sapply(dt, is.factor)
-    dt[ind] = lapply(dt[ind], as.character)
-    dt$Lng = shp@coords[,1]
-    dt$Lat = shp@coords[,2]
-  } else if (grepl("\\.kml",file)) {
+    shp <- readOGR(file, layer = ogrListLayers(file)[1])
+    shp <- spTransform(shp, CRS("+proj=longlat +ellps=WGS84"))
+    df <- shp@data
+    ind <- sapply(df, is.factor)
+    df[ind] <- lapply(df[ind], as.character)
+    df$lng <- shp@coords[, 1]
+    df$lat <- shp@coords[, 2]
+  } else if (grepl("\\.kml", file)) {
     # get layer name from ogrinfo
-    shp = readOGR(file, "Features")
-    shp = spTransform(shp, CRS("+proj=longlat +ellps=WGS84"))
-    dt = shp@data
-    ind = sapply(dt, is.factor)
-    dt[ind] = lapply(dt[ind], as.character)
-    dt$Lng = shp@coords[,1]
-    dt$Lat = shp@coords[,2]
+    shp <- readOGR(file, "Features")
+    shp <- spTransform(shp, CRS("+proj=longlat +ellps=WGS84"))
+    df <- shp@data
+    ind <- sapply(df, is.factor)
+    df[ind] <- lapply(df[ind], as.character)
+    df$lng <- shp@coords[, 1]
+    df$lat <- shp@coords[, 2]
   }
   
-  # Standardize lat,lng to "Lat","Lng"
-  if (all(latlng %in% names(dt))) {
-    names(dt)[names(dt) == latlng[1]] = "Lat"
-    names(dt)[names(dt) == latlng[2]] = "Lng"
+  # Standardize lat,lng to "lat","lng"
+  if (all(!is.empty(latlng), latlng %in% names(df))) {
+    names(df)[names(df) == latlng[1]] = "lat"
+    names(df)[names(df) == latlng[2]] = "lng"
   } else {
     warning('No coordinates available!')
   }
   
-  # return
-  return(dt)
-}
-
-## Load Template
-# see: http://fallingfruit.org/locations/import
-load.template = function() {
-  fields = c('Type','Type.Other','Description','Lat','Lng','Address','Season.Start','Season.Stop','No.Season','Access','Unverified','Yield.Rating','Quality.Rating','Author','Photo.URL')
-  template = data.frame(t(rep(NA,length(fields))))
-  names(template) = fields
-  template
-}
-
-## Load Key
-# Builds the standard format used for filtering databases of species names. Expects a UTF-8 tab delimited file that includes the following fields...
-# Common : Common name of the plant, must be the same as Falling Fruit type
-# Scientific : Scientific name of the plant, as Genus or Genus species
-# Rating : -1 = avoid, 1 = include, 2 = include (but maybe disable in database), 3 = research further
-load.key = function(keyfile = NULL) {
-  if (is.null(keyfile)) {
-    keyfile = '~/sites/falling-fruit/data/species_key.csv'
+  # Standardize id to "id"
+  if (all(!is.empty(id), id %in% names(df))) {
+    names(df)[names(df) == id] = "id"
+  } else {
+    df$id <- 1:nrow(df)
   }
-	key = read.csv(keyfile, stringsAsFactors=F)
-	key$Common = gsub("[ ]+"," ",key$Common)
-	key$Common = gsub("[ ]+$|^[ ]+","",key$Common)
-	key$Common = capwords(key$Common, strict = T, first = T)
-	key$Scientific = gsub("[ ]+"," ",key$Scientific)
-	key$Scientific = gsub("[ ]+$|^[ ]+","",key$Scientific)
-	temp = strsplit(key$Scientific," ")
-	for (i in 1:length(temp)) {
-		key$Genus[i] = temp[[i]][1]
-		if (length(temp[[i]]) > 1) {
-			key$Species[i] = temp[[i]][2]
-		} else {
-			key$Species[i] = ""
-		}
-	}
-	key$ScientificSP[key$Species == ""] = paste(key$Scientific[key$Species == ""],"sp",sep=" ")
-	key$ScientificSP[key$Species != ""] = key$Scientific[key$Species != ""]
-	return(key)
+  
+  # return
+  return(data.table(df, key = "id"))
+}
+
+## Load types
+# TODO: Add language support
+load_types = function(categories = c("forager", "freegan", "honeybee", "grafter"), uncategorized = TRUE, pending = FALSE, locale = "en", urls = FALSE) {
+  types <- get_ff_types(categories = categories, uncategorized = uncategorized, pending = pending, locale = locale, urls = urls)
+  types <- data.table(types, key = "id")
+  common_names <- types[, list(list(c(name, strsplit(synonyms, "[ ]*,[ ]*")[[1]], na.rm = TRUE))), by = id][[2]]
+  scientific_names <- types[, list(list(c(scientific_name, strsplit(scientific_synonyms, "[ ]*,[ ]*")[[1]], na.rm = TRUE))), by = id][[2]]
+  types$printed_common_names <- sapply(common_names, format_strings, types = "printed_common_name")
+  types$matched_common_names <- sapply(common_names, format_strings, types = "matched_common_name")
+  types$printed_scientific_names <- sapply(scientific_names, format_strings, types = "printed_scientific_name")
+  types$matched_scientific_names <- sapply(scientific_names, format_strings, types = "matched_scientific_name")
+  return(types)
 }
 
 ####
 ## Format
 
-## Capitalize first letter of each word
-capwords = function(s, strict = FALSE, first = FALSE) {
-	cap = function(s) {
-		paste(toupper(substring(s,1,1)), {s = substring(s,2); if(strict) tolower(s) else s}, sep = "", collapse = " " )
-	}
+## Capitalize first letter of each word. 
+# Skips numbers at start of words (e.g. 3-in-1 pear).
+capitalize_words <- function(x, strict = FALSE, first = FALSE) {
+  if (strict) {
+    x <- tolower(x)
+  }
 	if (first) {
-	  s = sapply(s, cap, USE.NAMES = !is.null(names(s))) # Capitalize first character
-	  s = gsub("^([^a-zA-Z]*)([a-zA-Z])", "\\1\\U\\2", s, perl = T)
+	  x <- gsub("^([^\\p{L}0-9]*)(\\p{L})", "\\1\\U\\2", x, perl = TRUE)
 	} else {
-	  s = sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s))) # Capitalize letter proceeding " "
-	  s = gsub("(,|\\.|/|\\()([a-z])", "\\1\\U\\2", s, perl=T)	# Capitalize letter proceeding (,/
-	  s = gsub("'([a-z])([a-z])", "'\\U\\1\\L\\2", s, perl=T)	# Capitalize letter proceeding ' if followed by letter
-	}
-	return(s)
-}
-
-## Format specialty string fields (scientific name, address)
-format.field = function(x,types='') {
-	x = gsub("^[ ]+|[ ]+$","",x)	# remove trailing spaces
-	x = gsub("[ ]+"," ",x)	# remove duplicate spaces
-	x = gsub("`|\\\"","'",x)	# quotes -> '
-	x = gsub("[ ]*\\([ ]*\\)","",x)	# empty parenthesis
-	x = gsub("\\.[ ]*\\.",".",x)	# trailing period (occurs when pasting empty strings)
-	x = gsub("^[ ]*\\.[ ]*","",x)	# leading period
-	if ('address' %in% types) {
-		x = capwords(x,strict=T)	# uppercase each word
-		x = gsub("\\.","",x)	# remove periods
-		x = gsub("Se( |$)","SE\\1",x)	# capitalize SE,SW,NE,NW
-		x = gsub("Sw( |$)","SW\\1",x)
-		x = gsub("Ne( |$)","NE\\1",x)
-		x = gsub("Nw( |$)","NW\\1",x)
-		x = gsub("Mc([a-z])","Mc\\U\\1",x,perl=T)	# restore McCaps
-		x = gsub("Av( |$)","Ave\\1",x)	# Av -> Ave
-	}
-	if ('species' %in% types) {
-		x = gsub("\\.","",x)	# remove periods
-		x = gsub(" species| spp( |$)| ssp( |$)| sp( |$)"," sp\\1",x,ignore.case=T) # species -> sp
-		x = gsub("(^[a-zA-Z]+$)","\\1 sp",x) # Genus -> add sp
-		x = capwords(x, strict = F, first = T)
+	  x <- gsub("(^|\\s)([^\\s\\p{L}0-9]*)(\\p{L})", "\\1\\2\\U\\3", x, perl = TRUE)
 	}
 	return(x)
 }
 
-####
-## Filter
-filter.data = function(dt, genus = TRUE) {
-
-	# load key
-	key = load.key()
-	# remove common name synonyms and multi-species
-	key = key[key$Tag != "cyn" & key$Tag != "msp",]
-	
-	# pre-filter (genus)
-	if (genus) {
-		ind = grepl(paste(unique(key$Genus[key$Rating > 0]),collapse="|^"),dt$Scientific,ignore.case=T)
-		dt = dt[ind,]
-	}
-		
-	# filter (species)
-	dt$Type = NA
-	dt$Rating = NA
-	dt$Human = NA
-	dt$Tag = NA
-	CPU = 6
-	blocks = CPU
-	N = nrow(dt)
-	starts = seq(1,N,round(N/CPU))
-	stops = c(starts[-1]-1,N)
-	dt = foreach(i=1:length(starts),.combine = rbind) %dopar% { 
-		cdt = dt[starts[i]:stops[i],]
-		cropind = rep(TRUE,nrow(cdt))
-		for (i in 1:nrow(key)) {
-			ind = grepl(paste(key$ScientificSP[i],"( |$)",sep=""),cdt$Scientific[cropind],ignore.case=T)
-			if (sum(ind) > 0) {
-				cdt$Type[cropind][ind] = key$Common[i]
-				cdt$Rating[cropind][ind] = key$Rating[i]
-				cdt$Human[cropind][ind] = key$Human[i]
-				cdt$Tag[cropind][ind] = key$Tag[i]
-				cropind[cropind][ind] = FALSE
-			}
-		}
-		cdt
-	}
-}
-
-filter.data.common = function(dt) {
-
-	# load key
-	key = load.key()
-	# remove latin synonyms, misspelled latin names, and empty common names
-	key = key[key$Tag != "syn" & key$Tag != "mis" & key$Common != "",]
-
-	# filter
-	dt$Type = NA
-	dt$Scientific = NA
-	dt$Rating = NA
-	dt$Human = NA
-	dt$Tag = NA
-	CPU = 6
-	blocks = CPU
-	N = nrow(dt)
-	starts = seq(1,N,round(N/CPU))
-	stops = c(starts[-1]-1,N)
-	dt = foreach(i=1:length(starts),.combine = rbind) %dopar% { 
-		cdt = dt[starts[i]:stops[i],]
-		cropind = rep(TRUE,nrow(cdt))
-		for (i in 1:nrow(key)) {
-			ind = grepl(paste("^",key$Common[i],"$",sep=""),cdt$Common[cropind],ignore.case=T)
-			if (sum(ind) > 0) {
-				cdt$Type[cropind][ind] = key$Common[i]
-				cdt$Scientific[cropind][ind] = key$ScientificSP[i]
-				cdt$Rating[cropind][ind] = key$Rating[i]
-				cdt$Human[cropind][ind] = key$Human[i]
-				cdt$Tag[cropind][ind] = key$Tag[i]
-				cropind[cropind][ind] = FALSE
-			}
-		}
-		cdt
-	}
-	
-	# switch out common name synonyms
-  ind = !is.na(dt$Tag) & dt$Tag == "cyn"
-  if (sum(ind) > 0) {
-    dt = rbind(dt[!ind,], filter.data(dt[ind,], genus = F))
-  }
+## Clean up messy strings
+clean_strings <- function(x) {
+  start_x <- x
   
-  return(dt)
-}
-
-# export a csv with unique species field combinations for manual review
-initialize.manual.key = function(dt, keyfile, speciesfields = intersect(names(dt),c("Common","Scientific_ori")), manualfields = c("Scientific","Type","Unverified","Description"), sortfield = ifelse("Scientific_ori" %in% names(dt), "Scientific_ori", "Common")) {
-  if (!file.exists(keyfile)) {
-    inc = dt[is.na(dt$Type), c(speciesfields), drop = F]
-    inc = inc[order(inc[sortfield]), , drop = F]
-    inc[manualfields] = ""
-    write.csv(unique(inc), keyfile, row.names = F)
-  } else {
-    warning('File already exists!')
-  }
-}
-
-# load manually entered matches
-load.manual.key = function(dt, keyfile, speciesfields = c("Common","Scientific_ori")) {
-  if (file.exists(keyfile)) {
-   
-    # prepare key
-    species = read.csv(keyfile, stringsAsFactors=F)
-    speciesfields = names(species)[names(species) %in% speciesfields]
-    manualfields = names(species)[!names(species) %in% speciesfields]
-    ind = rowSums(is.na(species[, manualfields]) | species[, manualfields] == "") < length(manualfields)
-    species = species[ind,]
-    if ("Scientific" %in% manualfields) {
-      species$Scientific = format.field(species$Scientific, 'species')
-    }
-    if ("Common" %in% manualfields) {
-      species$Common = species$Common
-    }
-    
-    # apply key
-    speciesString = apply(dt[,speciesfields, drop = F], 1, paste, collapse = " ")
-    dt[manualfields[!manualfields %in% names(dt)]] = NA
-    for (i in 1:nrow(species)) {
-      ind = speciesString == apply(species[i,speciesfields, drop = F], 1, paste, collapse = " ")
-      dt[ind, manualfields] = species[i, manualfields]
-    }
-
-    # update from latin name
-    ind = (is.na(dt$Type) | dt$Type == "") & !is.na(dt$Scientific)
-    if (sum(ind) > 0) {
-      temp = filter.data(dt[ind,], genus = T)
-      dt = rbind(dt[!ind,], temp)
-    }
-
-    # update from common name
-    ind = (!is.na(dt$Type) & dt$Type != "") & (is.na(dt$Rating) | is.na(dt$Scientific) | dt$Scientific == "")
-    if (sum(ind) > 0) {
-      temp = dt[ind,]
-      temp$Common = temp$Type
-      temp = filter.data.common(temp)
-      temp$Common = dt$Common[ind]
-      ddply(temp[fields], fields, summarise, Count = length(Type))
-      dt = rbind(dt[!ind,], temp)
-    }
-
-    # switch out common name synonyms
-    ind = !is.na(dt$Tag) & dt$Tag == "cyn"
-    if (sum(ind) > 0) {
-      dt = rbind(dt[!ind,], filter.data(dt[ind,], genus = F))
-    }
-    
-    return(dt)
-    
-  } else {
-    error('File does not exist!')
-  }
-}
-
-
-####
-## Flatten
-# requires: Lat Lng | Address, Type, (Description), (Notes), (Unverified), (Author)
-flatten.data = function(data, notesep = ". ") {
-	
-	# dpply parameters
-	parallel = FALSE
-	if (parallel) {
-		progress = "none"
-	} else {
-		progress = "text"
-	}
-	
-	# add missing fields
-	reqfields = c("Description","Notes","Unverified","Author","Access")
-	misfields = setdiff(reqfields, names(data))
-	data[misfields] = NA
-	
-	# group by type	
-	typefields = intersect(names(data), c("Type","Description"))
-	if (!("Type" %in% names(data))) {
-		stop("Missing type!")
-	}
-	
-	# group by position
-	posfields = intersect(names(data), c("Lat","Lng","Address"))
-	posfields = posfields[colSums(is.na(data[posfields])) < nrow(data)]
-	if (length(posfields) == 1 && posfields != "Address") {
-		stop(paste("Location incorrectly defined: ",paste(posfields,collapse=", ")))
-	} else if (length(posfields) == 2 & !all(posfields %in% c("Lat","Lng"))) {
-		stop(paste("Location incorrectly defined: ",paste(posfields,collapse=", ")))
-	} else if (length(posfields) > 2 & all(posfields %in% c("Lat","Lng"))) {
-		warning(paste("Using Lat & Lng, but location over-defined: ",paste(posfields,collapse=", ")))
-	} else if (length(posfields) == 0) {
-	  stop("No location fields (either Lat & Lng, or Address) found.")
-	}
-	
-	# keep only required fields (since processing singles separately)
-	data = data[unique(c(posfields,typefields,reqfields))]
-	
-	# find overlapping
-	fdind = duplicated(data[,posfields],fromLast= F)
-	ldind = duplicated(data[,posfields],fromLast= T)
-	dind = fdind | ldind
-
-	# flatten overlapping data
-	if (sum(dind) > 0) {
-		ddata = data[dind,]
-		ddata = ddply(ddata, c(posfields,typefields), summarize, Description = paste("[",length(Type),"x] ",Description[1],sep=""), Notes = unique.na(Notes), Unverified = max(Unverified,na.rm=T), Access = unique.na(Access), Author = unique.na(Author), .progress = progress, .parallel = parallel)
-		ddata = ddply(ddata, posfields, summarize, Type = paste(unique(Type), collapse=","), Description = paste(Description, collapse=", "), Notes = unique.na(Notes), Unverified = max(Unverified,na.rm=T), Access = unique.na(Access), Author = Author[1], .progress = progress, .parallel = parallel)
-	}
-	
-	# Recombine
-	if (sum(dind) != nrow(data)) {
-    data = data[!dind,]
-    data$Description = paste("[1x] ",data$Description,sep="") # COMMENT OUT to remove "[1x]"
-    if (sum(dind) > 0) {
-      data = rbind(ddata, data)
-    }
-  } else {
-    data = ddata
-  }
+  # Non-empty substitutions
+  x <- gsub("`|\\\"", "'", x, perl = TRUE)  # quotes -> '
+  x <- gsub("\\s*(\\s*\\.+)+", ".", x, perl = TRUE)  # remove duplicate periods
+  x <- gsub("(\\s*,+\\s*)+", ",", x, perl = TRUE)  # remove duplicate commas
+  x <- gsub("([\\s,]*\\.+(\\s*,+)*)+", ".", x, perl = TRUE)  # merge punctuation
+  x <- gsub("(\\s)+", " ", x, perl = TRUE)  # squish white space
   
-	# append surviving notes to item description
-	hasdesc = !is.na(data$Description)
-	hasnote = !is.na(data$Notes)
-	data$Description[hasdesc & hasnote] = paste(data$Description[hasdesc & hasnote], notesep, data$Notes[hasdesc & hasnote], sep="")
-	data$Description[!hasdesc & hasnote] = data$Notes[!hasdesc & hasnote]
-	#data$Description = gsub(paste("[ ]+",notesep,"[ ]+$|^[ ]+|[ ]+$",sep=""),"",data$Description)
-	#data$Description = gsub(paste("[ ]{2,}",sep=" "),"",data$Description)
-	
-	# check results
-	N = nrow(data)
-	Npos = nrow(unique(data[posfields]))
-	if (N != Npos) {
-		warning(paste(N-Npos,"placemarks still overlap!"))
-	}
-	
-	# return result
-	return(data)
+  # Empty substitutions
+  remove <- paste(
+    "\\(\\s*\\)|\\[\\s*\\]", # empty parentheses and brackets
+    "'(\\s*'*\\s*)'", # empty quotes
+    "^\\s+|\\s+$|\\s+(?=[\\.|,])", # trailing white space
+    "^[,\\.\\s]+|[\\s,]+$", # leading punctuation, trailing commas
+    sep = "|")
+  x <- gsub(remove, "", x, perl = TRUE)
+  
+  # Iterate
+  if (all(x == start_x)) {
+    return(x)
+  } else {
+    clean_strings(x)
+  }
 }
 
-## Return unique, or NA
-# Helper function for flatten.data()
-unique.na = function(x) {
-	ux = unique(x)
-	if (length(ux) == 1) {
-		return(ux)
-	} else {
-		return(NA)
-	}
+# Format specialty string fields (scientific name, address)
+format_strings <- function(x, types = "", clean = TRUE) {
+  start_x <- x
+  if (clean) {
+    x <- clean_strings(x)
+  }
+  if ("address" %in% types) {
+    x <- capitalize_words(x, strict = TRUE)	# force lowercase, then capitalize each word
+    x <- gsub("\\.", "", x)	# remove periods
+    x <- gsub("(se|sw|ne|nw)( |$)", "\\U\\1\\2", x, perl = TRUE, ignore.case = TRUE)	# capitalize SE, SW, NE, NW
+    x <- gsub("Mc([a-z])", "Mc\\U\\1", x, perl = TRUE, ignore.case = TRUE)	# restore McCaps
+    x <- gsub("Av( |$)", "Ave\\1", x, ignore.case = TRUE)	# Av -> Ave
+  }
+  if ("printed_common_name" %in% types) {
+    x <- capitalize_words(x, strict = TRUE, first = TRUE) # force lowercase, then capitalize first word
+  }
+  if ("matched_common_name" %in% types) {
+    x <- tolower(x)
+    x <- gsub("\\s*\\(.*\\)(\\s|$)", "\\1", x) # remove disambiguation "(category)"
+  }
+  if ("printed_scientific_name" %in% types) {
+    x <- capitalize_words(x, strict = TRUE, first = TRUE) # force lowercase, then capitalize first word
+    x <- gsub("'([a-z])([a-z])", "'\\U\\1\\L\\2", x, perl = TRUE)  # capitalize letter proceeding ' if followed by letter
+    x <- gsub("(subsp|var|subvar|f|subf)( |$)", "\\1.\\2", x) # add . to infraspecific abbreviations
+    x <- gsub(" (species|spp|ssp|sp)( |$)", " sp.\\1", x, ignore.case = TRUE) # species -> sp
+    x <- gsub("(^[a-z]+$)", "\\1 sp.", x, ignore.case = TRUE) # Genus -> add sp FIXME: What if higher taxonomy?
+    x <- gsub("([ ]+[a-z×][ ]+)", "\\L\\1", x, ignore.case = TRUE, perl = TRUE) # standardize hybrid x (Genus x species)
+  }
+  if ("matched_scientific_name" %in% types) {
+    x <- tolower(x)
+    x <- gsub(" (species|spp|ssp|sp)( |$)", "\\2", x) # remove species
+    x <- gsub(" (subsp\\.*|var\\.*|subvar\\.*|f\\.*|subf\\.*)( |$)", "\\2", x) # remove infraspecific abbreviations
+    x <- gsub("([ ]+[a-z×][ ]+)", " ", x) # remove hybrid x
+    x <- gsub("'.*'", "", x) # remove quotes (around variety names)
+  }
+  if (all(x == start_x)) {
+    return(x)
+  } else {
+    format_strings(x, types = types, clean = clean)
+  }
 }
 
 ####
 ## Export
-export.data = function(dt, file, dropfields = T) {
-	template = load.template()
-  extrafields = setdiff(names(dt), names(template)) 
-	addfields = setdiff(names(template), names(dt))
-	dt = cbind(dt,template[addfields])
-	dt = dt[c(names(template), extrafields)]
-	if (dropfields) {
-	  dt = dt[,!(names(dt) %in% extrafields)]
+# see: http://fallingfruit.org/locations/import
+
+export_data <- function(dt, file, drop_extra_fields = TRUE) {
+  
+  # Initialize
+  template_fields <- c('Id','Type','Description','Lat','Lng','Address','Season Start','Season Stop','No Season','Access','Unverified','Yield Rating','Quality Rating','Author','Photo URL')
+  setnames(dt, capitalize_words(gsub("\\.|_", " ", names(dt))))
+  extra_fields <- setdiff(names(dt), template_fields) 
+	missing_fields <- setdiff(template_fields, names(dt))
+  
+  # Copy data.table and format columns
+  dt <- copy(dt)
+  if (length(missing_fields) > 0) {
+    dt[, (missing_fields) := NA] 
+  }
+  setcolorder(dt, c(template_fields, extra_fields))
+	if (drop_extra_fields & length(extra_fields) > 0) {
+	  dt[, (extra_fields) := NULL]
 	}
-	names(dt) = gsub("\\."," ",names(dt))
-	write.csv(dt, gsub('\\.csv|\\.dbf|\\.shp','-FINAL.csv',file), na= "", row.names = F)
+  
+  # Write result to file
+	write.csv(dt, file, na = "", row.names = FALSE)
 }
 
 ##########
-## Quality Control
+## Helper functions
 
-## Check for overlapping placemarks
-# files = dir('.','*-FINAL\\.csv',recursive=T)
-# for (file in files) {
-	# df = read.csv(file,stringsAsFactors = F)
-	# print(file)
-	# if (is.na(df$Lat[1]) | df$Lat[1] == "") {
-		# print(sum(duplicated(df[c("Address")])))
-	# } else {
-		# print(sum(duplicated(df[c("Lat","Lng")])))
-	# }
-# }
+is.empty <- function(x) {
+  if (!exists(as.character(substitute(x)))) {
+    return(TRUE)
+  }
+  if (any(is.null(x), length(x) == 0, nrow(x) == 0)) {
+    return(TRUE)
+  }
+  results <- sapply(x, function(x_i) {
+    suppressWarnings(any(
+      is.null(x_i), 
+      length(x_i) == 0, 
+      nrow(x_i) == 0, 
+      is.na(x_i), 
+      all(is.character(x_i) == 1 && x_i == "")
+    ))
+  })
+  return(as.vector(results))
+}
+
+# Extend c()
+c <- function(..., na.rm = FALSE) {
+  x <- base::c(...)
+  if (na.rm) {
+    x <- x[!is.na(x)]
+  }
+  return(x)
+}
+
+build_type_strings <- function(ids = NULL, common_names = NULL, scientific_names = NULL, science_in = "[]") {
+  type_strings <- clean_strings(paste0(ids, ": ", common_names, " ", substr(science_in, 1, 1), scientific_names, substr(science_in, 2, 2)))
+  type_strings <- gsub("(:\\s*$)|(^: )", "", type_strings)
+  return(type_strings)
+}
+
+# [nx] type string, [yx] type string, ... + sep + note
+build_description <- function(type_strings, note = NULL, sep = ". ", frequency_in = "[]") {
+  frequencies <- summary(as.factor(type_strings))
+  description <- paste0(substr(frequency_in, 1, 1), frequencies, "x", substr(frequency_in, 2, 2), " ", attr(frequencies, "names"), collapse = ", ")
+  if (!is.empty(note)) {
+    description <- paste0(description, sep, note)
+  }
+  return(description)
+}
+
+# Return single unique, or NA
+unique_na <- function(x) {
+  ux <- unique(x)
+  if (length(ux) == 1) {
+    return(ux)
+  } else {
+    return(as(NA, class(x)))
+  }
+}
+
+# Convert Swiss Projection CH1903 (E, N) to WGS84 (lat, lng)
+# http://www.swisstopo.admin.ch/internet/swisstopo/de/home/topics/survey/sys/refsys/switzerland.parsysrelated1.24280.downloadList.87003.DownloadFile.tmp/ch1903wgs84de.pdf (but switch x and y)
+ch1903.to.wgs84 = function(X) {
+  x <- (X[, 1] - 6e5) / 1e6
+  y <- (X[, 2] - 2e5) / 1e6
+  lng <- (2.6779094 + 4.728982 * x + 0.791484 * x * y + 0.1306 * x * y^2 - 0.0436 * x^3) * (100 / 36)
+  lat <- (16.9023892 + 3.238272 * y - 0.270978 * x^2 - 0.002528 * y^2 - 0.0447 * x^2 * y - 0.014 * y^3) * (100 / 36)
+  return(cbind(lng, lat))
+}

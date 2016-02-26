@@ -1,17 +1,16 @@
 ##################################################################################
-# City
-# Name
-# URL
-# Notes
-# License
+# City: 
+# Name: 
+# URL: 
+# Notes: 
+# License: 
 
 ## Initialize
-root = "~/sites/falling-fruit-data/muni/"
-file = ""
-author = ""
+root <- '~/sites/falling-fruit-data/muni/'
+file <- ''
+author <- ''
 setwd(root)
-dt = load.data(file)
-
+dt <- load.data(file)
 
 ####
 ## Filter: Common name
@@ -25,7 +24,6 @@ ddply(ddply(dt, .(Common), summarise, Count = length(Common)), .(Common))
 
 # apply key (auto)
 temp = filter.data.common(dt)
-
 
 ####
 ## Filter: Latin name
@@ -50,14 +48,12 @@ ddply(ddply(dt, intersect(names(dt), c("Common", "Scientific")), summarise, Coun
 # apply key (auto)
 temp = filter.data(dt, genus = T)
 
-
 ####
 ## Filter: Manual
 
 keyfile = paste(dirname(file), '/', 'species.csv', sep  = '')
 initialize.manual.key(temp, keyfile)
 #temp = load.manual.key(temp, keyfile)
-
 
 ####
 ## Evaluate
@@ -75,7 +71,6 @@ ddply(temp, fields, summarise, Count = length(Type))
 # trim
 dt = temp[!is.na(temp$Type) & temp$Type != "" & !is.na(temp$Rating) & temp$Rating > 0,]
 ddply(dt[fields], fields, summarise, Count = length(Type))
-
 
 ####
 ## Format fields
@@ -124,7 +119,6 @@ cityString = ""
 dt$Street = format.field(dt[,streetCol], 'address')
 dt$Address = paste(dt[,addressCol], " ", dt$Street, ", ", cityString, sep = "")
 sort(unique(dt$Address))
-
 
 ####
 ## Flatten

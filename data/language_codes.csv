@@ -1,0 +1,532 @@
+ISO6391,ISO6392,ISO6392.syn,en_name,scope,type
+aa,aar,aar,afar,individual,living
+ab,abk,abk,abkhazian,individual,living
+ae,ave,ave,avestan,individual,ancient
+af,afr,afr,afrikaans,individual,living
+ak,aka,aka,akan,macrolanguage,living
+am,amh,amh,amharic,individual,living
+an,arg,arg,aragonese,individual,living
+ar,ara,ara,arabic,macrolanguage,living
+as,asm,asm,assamese,individual,living
+av,ava,ava,avaric,individual,living
+ay,aym,aym,aymara,macrolanguage,living
+az,aze,aze,azerbaijani,macrolanguage,living
+ba,bak,bak,bashkir,individual,living
+be,bel,bel,belarusian,individual,living
+bg,bul,bul,bulgarian,individual,living
+bh,bih,bih,bihari languages,collective,
+bi,bis,bis,bislama,individual,living
+bm,bam,bam,bambara,individual,living
+bn,ben,ben,bengali,individual,living
+bo,bod,tib,tibetan,individual,living
+br,bre,bre,breton,individual,living
+bs,bos,bos,bosnian,individual,living
+ca,cat,cat,catalan,individual,living
+ce,che,che,chechen,individual,living
+ch,cha,cha,chamorro,individual,living
+co,cos,cos,corsican,individual,living
+cr,cre,cre,cree,macrolanguage,living
+cs,ces,cze,czech,individual,living
+cu,chu,chu,church slavic,individual,ancient
+cv,chv,chv,chuvash,individual,living
+cy,cym,wel,welsh,individual,living
+da,dan,dan,danish,individual,living
+de,deu,ger,german,individual,living
+dv,div,div,dhivehi,individual,living
+dz,dzo,dzo,dzongkha,individual,living
+ee,ewe,ewe,ewe,individual,living
+el,ell,gre,modern greek,individual,living
+en,eng,eng,english,individual,living
+eo,epo,epo,esperanto,individual,constructed
+es,spa,spa,spanish,individual,living
+et,est,est,estonian,macrolanguage,living
+eu,eus,baq,basque,individual,living
+fa,fas,per,persian,macrolanguage,living
+ff,ful,ful,fulah,macrolanguage,living
+fi,fin,fin,finnish,individual,living
+fj,fij,fij,fijian,individual,living
+fo,fao,fao,faroese,individual,living
+fr,fra,fre,french,individual,living
+fy,fry,fry,western frisian,individual,living
+ga,gle,gle,irish,individual,living
+gd,gla,gla,scottish gaelic,individual,living
+gl,glg,glg,galician,individual,living
+gn,grn,grn,guarani,macrolanguage,living
+gu,guj,guj,gujarati,individual,living
+gv,glv,glv,manx,individual,living
+ha,hau,hau,hausa,individual,living
+he,heb,heb,hebrew,individual,living
+hi,hin,hin,hindi,individual,living
+ho,hmo,hmo,hiri motu,individual,living
+hr,hrv,hrv,croatian,individual,living
+ht,hat,hat,haitian,individual,living
+hu,hun,hun,hungarian,individual,living
+hy,hye,arm,armenian,individual,living
+hz,her,her,herero,individual,living
+ia,ina,ina,interlingua,individual,constructed
+id,ind,ind,indonesian,individual,living
+ie,ile,ile,interlingue,individual,constructed
+ig,ibo,ibo,igbo,individual,living
+ii,iii,iii,sichuan yi,individual,living
+ik,ipk,ipk,inupiaq,macrolanguage,living
+io,ido,ido,ido,individual,constructed
+is,isl,ice,icelandic,individual,living
+it,ita,ita,italian,individual,living
+iu,iku,iku,inuktitut,macrolanguage,living
+ja,jpn,jpn,japanese,individual,living
+jv,jav,jav,javanese,individual,living
+ka,kat,geo,georgian,individual,living
+kg,kon,kon,kongo,macrolanguage,living
+ki,kik,kik,kikuyu,individual,living
+kj,kua,kua,kuanyama,individual,living
+kk,kaz,kaz,kazakh,individual,living
+kl,kal,kal,kalaallisut,individual,living
+km,khm,khm,central khmer,individual,living
+kn,kan,kan,kannada,individual,living
+ko,kor,kor,korean,individual,living
+kr,kau,kau,kanuri,macrolanguage,living
+ks,kas,kas,kashmiri,individual,living
+ku,kur,kur,kurdish,macrolanguage,living
+kv,kom,kom,komi,macrolanguage,living
+kw,cor,cor,cornish,individual,living
+ky,kir,kir,kirghiz,individual,living
+la,lat,lat,latin,individual,ancient
+lb,ltz,ltz,luxembourgish,individual,living
+lg,lug,lug,ganda,individual,living
+li,lim,lim,limburgan,individual,living
+ln,lin,lin,lingala,individual,living
+lo,lao,lao,lao,individual,living
+lt,lit,lit,lithuanian,individual,living
+lu,lub,lub,luba-katanga,individual,living
+lv,lav,lav,latvian,macrolanguage,living
+mg,mlg,mlg,malagasy,macrolanguage,living
+mh,mah,mah,marshallese,individual,living
+mi,mri,mao,maori,individual,living
+mk,mkd,mac,macedonian,individual,living
+ml,mal,mal,malayalam,individual,living
+mn,mon,mon,mongolian,macrolanguage,living
+mr,mar,mar,marathi,individual,living
+ms,msa,may,malay,macrolanguage,living
+mt,mlt,mlt,maltese,individual,living
+my,mya,bur,burmese,individual,living
+na,nau,nau,nauru,individual,living
+nb,nob,nob,norwegian bokmål,individual,living
+nd,nde,nde,north ndebele,individual,living
+ne,nep,nep,nepali,macrolanguage,living
+ng,ndo,ndo,ndonga,individual,living
+nl,nld,dut,dutch,individual,living
+nn,nno,nno,norwegian nynorsk,individual,living
+no,nor,nor,norwegian,macrolanguage,living
+nr,nbl,nbl,south ndebele,individual,living
+nv,nav,nav,navajo,individual,living
+ny,nya,nya,nyanja,individual,living
+oc,oci,oci,occitan,individual,living
+oj,oji,oji,ojibwa,macrolanguage,living
+om,orm,orm,oromo,macrolanguage,living
+or,ori,ori,odiya,macrolanguage,living
+os,oss,oss,ossetian,individual,living
+pa,pan,pan,panjabi,individual,living
+pi,pli,pli,pali,individual,ancient
+pl,pol,pol,polish,individual,living
+ps,pus,pus,pushto,macrolanguage,living
+pt,por,por,portuguese,individual,living
+qu,que,que,quechua,macrolanguage,living
+rm,roh,roh,romansh,individual,living
+rn,run,run,rundi,individual,living
+ro,ron,rum,romanian,individual,living
+ru,rus,rus,russian,individual,living
+rw,kin,kin,kinyarwanda,individual,living
+sa,san,san,sanskrit,individual,ancient
+sc,srd,srd,sardinian,macrolanguage,living
+sd,snd,snd,sindhi,individual,living
+se,sme,sme,northern sami,individual,living
+sg,sag,sag,sango,individual,living
+si,sin,sin,sinhala,individual,living
+sk,slk,slo,slovak,individual,living
+sl,slv,slv,slovenian,individual,living
+sm,smo,smo,samoan,individual,living
+sn,sna,sna,shona,individual,living
+so,som,som,somali,individual,living
+sq,sqi,alb,albanian,macrolanguage,living
+sr,srp,srp,serbian,individual,living
+ss,ssw,ssw,swati,individual,living
+st,sot,sot,southern sotho,individual,living
+su,sun,sun,sundanese,individual,living
+sv,swe,swe,swedish,individual,living
+sw,swa,swa,swahili,macrolanguage,living
+ta,tam,tam,tamil,individual,living
+te,tel,tel,telugu,individual,living
+tg,tgk,tgk,tajik,individual,living
+th,tha,tha,thai,individual,living
+ti,tir,tir,tigrinya,individual,living
+tk,tuk,tuk,turkmen,individual,living
+tl,tgl,tgl,tagalog,individual,living
+tn,tsn,tsn,tswana,individual,living
+to,ton,ton,tonga,individual,living
+tr,tur,tur,turkish,individual,living
+ts,tso,tso,tsonga,individual,living
+tt,tat,tat,tatar,individual,living
+tw,twi,twi,twi,individual,living
+ty,tah,tah,tahitian,individual,living
+ug,uig,uig,uighur,individual,living
+uk,ukr,ukr,ukrainian,individual,living
+ur,urd,urd,urdu,individual,living
+uz,uzb,uzb,uzbek,macrolanguage,living
+ve,ven,ven,venda,individual,living
+vi,vie,vie,vietnamese,individual,living
+vo,vol,vol,volapük,individual,constructed
+wa,wln,wln,walloon,individual,living
+wo,wol,wol,wolof,individual,living
+xh,xho,xho,xhosa,individual,living
+yi,yid,yid,yiddish,macrolanguage,living
+yo,yor,yor,yoruba,individual,living
+za,zha,zha,zhuang,macrolanguage,living
+zh,zho,chi,chinese,macrolanguage,living
+zu,zul,zul,zulu,individual,living
+,aav,aav,austro-asiatic languages,collective,
+,ace,ace,achinese,individual,living
+,ach,ach,acoli,individual,living
+,ada,ada,adangme,individual,living
+,ady,ady,adyghe,individual,living
+,afa,afa,afro-asiatic languages,collective,
+,afh,afh,afrihili,individual,constructed
+,ain,ain,ainu,individual,living
+,akk,akk,akkadian,individual,ancient
+,ale,ale,aleut,individual,living
+,alg,alg,algonquian languages,collective,
+,alt,alt,southern altai,individual,living
+,alv,alv,atlantic-congo languages,collective,
+,ang,ang,old english,individual,historical
+,anp,anp,angika,individual,living
+,apa,apa,apache languages,collective,
+,aqa,aqa,alacalufan languages,collective,
+,aql,aql,algic languages,collective,
+,arc,arc,official aramaic,individual,ancient
+,arn,arn,mapudungun,individual,living
+,arp,arp,arapaho,individual,living
+,art,art,artificial languages,collective,
+,arw,arw,arawak,individual,living
+,ast,ast,asturian,individual,living
+,ath,ath,athapascan languages,collective,
+,auf,auf,arauan languages,collective,
+,aus,aus,australian languages,collective,
+,awa,awa,awadhi,individual,living
+,awd,awd,arawakan languages,collective,
+,azc,azc,uto-aztecan languages,collective,
+,bad,bad,banda languages,collective,
+,bai,bai,bamileke languages,collective,
+,bal,bal,baluchi,macrolanguage,living
+,ban,ban,balinese,individual,living
+,bas,bas,basa,individual,living
+,bat,bat,baltic languages,collective,
+,bej,bej,beja,individual,living
+,bem,bem,bemba,individual,living
+,ber,ber,berber languages,collective,
+,bho,bho,bhojpuri,individual,living
+,bik,bik,bikol,macrolanguage,living
+,bin,bin,bini,individual,living
+,bla,bla,siksika,individual,living
+,bnt,bnt,bantu languages,collective,
+,bra,bra,braj,individual,living
+,btk,btk,batak languages,collective,
+,bua,bua,buriat,macrolanguage,living
+,bug,bug,buginese,individual,living
+,byn,byn,bilin,individual,living
+,cad,cad,caddo,individual,living
+,cai,cai,central american indian languages,collective,
+,car,car,galibi carib,individual,living
+,cau,cau,caucasian languages,collective,
+,cba,cba,chibchan languages,collective,
+,ccn,ccn,north caucasian languages,collective,
+,ccs,ccs,south caucasian languages,collective,
+,cdc,cdc,chadic languages,collective,
+,cdd,cdd,caddoan languages,collective,
+,ceb,ceb,cebuano,individual,living
+,cel,cel,celtic languages,collective,
+,chb,chb,chibcha,individual,extinct
+,chg,chg,chagatai,individual,extinct
+,chk,chk,chuukese,individual,living
+,chm,chm,mari,macrolanguage,living
+,chn,chn,chinook jargon,individual,living
+,cho,cho,choctaw,individual,living
+,chp,chp,chipewyan,individual,living
+,chr,chr,cherokee,individual,living
+,chy,chy,cheyenne,individual,living
+,cmc,cmc,chamic languages,collective,
+,cop,cop,coptic,individual,extinct
+,cpe,cpe,english based creoles and pidgins,collective,
+,cpf,cpf,french-based creoles and pidgins,collective,
+,cpp,cpp,portuguese-based creoles and pidgins,collective,
+,crh,crh,crimean tatar,individual,living
+,crp,crp,creoles and pidgins,collective,
+,csb,csb,kashubian,individual,living
+,csu,csu,central sudanic languages,collective,
+,cus,cus,cushitic languages,collective,
+,dak,dak,dakota,individual,living
+,dar,dar,dargwa,individual,living
+,day,day,land dayak languages,collective,
+,del,del,delaware,macrolanguage,living
+,den,den,slave,macrolanguage,living
+,dgr,dgr,dogrib,individual,living
+,din,din,dinka,macrolanguage,living
+,dmn,dmn,mande languages,collective,
+,doi,doi,dogri,macrolanguage,living
+,dra,dra,dravidian languages,collective,
+,dsb,dsb,lower sorbian,individual,living
+,dua,dua,duala,individual,living
+,dum,dum,middle dutch,individual,historical
+,dyu,dyu,dyula,individual,living
+,efi,efi,efik,individual,living
+,egx,egx,egyptian languages,collective,
+,egy,egy,egyptian,individual,ancient
+,eka,eka,ekajuk,individual,living
+,elx,elx,elamite,individual,ancient
+,enm,enm,middle english,individual,historical
+,esx,esx,eskimo-aleut languages,collective,
+,euq,euq,basque languages,collective,
+,ewo,ewo,ewondo,individual,living
+,fan,fan,fang,individual,living
+,fat,fat,fanti,individual,living
+,fil,fil,filipino,individual,living
+,fiu,fiu,finno-ugrian languages,collective,
+,fon,fon,fon,individual,living
+,fox,fox,formosan languages,collective,
+,frm,frm,middle french,individual,historical
+,fro,fro,old french,individual,historical
+,frr,frr,northern frisian,individual,living
+,frs,frs,eastern frisian,individual,living
+,fur,fur,friulian,individual,living
+,gaa,gaa,ga,individual,living
+,gay,gay,gayo,individual,living
+,gba,gba,gbaya,macrolanguage,living
+,gem,gem,germanic languages,collective,
+,gez,gez,geez,individual,ancient
+,gil,gil,gilbertese,individual,living
+,gme,gme,east germanic languages,collective,
+,gmh,gmh,middle high german,individual,historical
+,gmq,gmq,north germanic languages,collective,
+,gmw,gmw,west germanic languages,collective,
+,goh,goh,old high german,individual,historical
+,gon,gon,gondi,macrolanguage,living
+,gor,gor,gorontalo,individual,living
+,got,got,gothic,individual,ancient
+,grb,grb,grebo,macrolanguage,living
+,grc,grc,ancient greek,individual,historical
+,grk,grk,greek languages,collective,
+,gsw,gsw,swiss german,individual,living
+,gwi,gwi,gwichʼin,individual,living
+,hai,hai,haida,macrolanguage,living
+,haw,haw,hawaiian,individual,living
+,hil,hil,hiligaynon,individual,living
+,him,him,himachali languages,collective,
+,hit,hit,hittite,individual,ancient
+,hmn,hmn,hmong,macrolanguage,living
+,hmx,hmx,hmong-mien languages,collective,
+,hok,hok,hokan languages,collective,
+,hsb,hsb,upper sorbian,individual,living
+,hup,hup,hupa,individual,living
+,hyx,hyx,armenian languages,collective,
+,iba,iba,iban,individual,living
+,iir,iir,indo-iranian languages,collective,
+,ijo,ijo,ijo languages,collective,
+,ilo,ilo,iloko,individual,living
+,inc,inc,indic languages,collective,
+,ine,ine,indo-european languages,collective,
+,inh,inh,ingush,individual,living
+,ira,ira,iranian languages,collective,
+,iro,iro,iroquoian languages,collective,
+,itc,itc,italic languages,collective,
+,jbo,jbo,lojban,individual,constructed
+,jpr,jpr,judeo-persian,individual,living
+,jpx,jpx,japanese languages,collective,
+,jrb,jrb,judeo-arabic,macrolanguage,living
+,kaa,kaa,kara-kalpak,individual,living
+,kab,kab,kabyle,individual,living
+,kac,kac,kachin,individual,living
+,kam,kam,kamba,individual,living
+,kar,kar,karen languages,collective,
+,kaw,kaw,kawi,individual,ancient
+,kbd,kbd,kabardian,individual,living
+,kdo,kdo,kordofanian languages,collective,
+,kha,kha,khasi,individual,living
+,khi,khi,khoisan languages,collective,
+,kho,kho,khotanese,individual,ancient
+,kmb,kmb,kimbundu,individual,living
+,kok,kok,konkani,macrolanguage,living
+,kos,kos,kosraean,individual,living
+,kpe,kpe,kpelle,macrolanguage,living
+,krc,krc,karachay-balkar,individual,living
+,krl,krl,karelian,individual,living
+,kro,kro,kru languages,collective,
+,kru,kru,kurukh,individual,living
+,kum,kum,kumyk,individual,living
+,kut,kut,kutenai,individual,living
+,lad,lad,ladino,individual,living
+,lah,lah,lahnda,macrolanguage,living
+,lam,lam,lamba,individual,living
+,lez,lez,lezghian,individual,living
+,lol,lol,mongo,individual,living
+,loz,loz,lozi,individual,living
+,lua,lua,luba-lulua,individual,living
+,lui,lui,luiseno,individual,living
+,lun,lun,lunda,individual,living
+,luo,luo,luo,individual,living
+,lus,lus,lushai,individual,living
+,mad,mad,madurese,individual,living
+,mag,mag,magahi,individual,living
+,mai,mai,maithili,individual,living
+,mak,mak,makasar,individual,living
+,man,man,mandingo,macrolanguage,living
+,map,map,austronesian languages,collective,
+,mas,mas,masai,individual,living
+,mdf,mdf,moksha,individual,living
+,mdr,mdr,mandar,individual,living
+,men,men,mende,individual,living
+,mga,mga,middle irish,individual,historical
+,mic,mic,mi'kmaq,individual,living
+,min,min,minangkabau,individual,living
+,mkh,mkh,mon-khmer languages,collective,
+,mnc,mnc,manchu,individual,living
+,mni,mni,manipuri,individual,living
+,mno,mno,manobo languages,collective,
+,moh,moh,mohawk,individual,living
+,mos,mos,mossi,individual,living
+,mun,mun,munda languages,collective,
+,mus,mus,creek,individual,living
+,mwl,mwl,mirandese,individual,living
+,mwr,mwr,marwari,macrolanguage,living
+,myn,myn,mayan languages,collective,
+,myv,myv,erzya,individual,living
+,nah,nah,nahuatl languages,collective,
+,nai,nai,north american indian languages,collective,
+,nap,nap,neapolitan,individual,living
+,nds,nds,low german,individual,living
+,new,new,nepal bhasa,individual,living
+,ngf,ngf,trans-new guinea languages,collective,
+,nia,nia,nias,individual,living
+,nic,nic,niger-kordofanian languages,collective,
+,niu,niu,niuean,individual,living
+,nog,nog,nogai,individual,living
+,non,non,old norse,individual,historical
+,nqo,nqo,n'ko,individual,living
+,nso,nso,pedi,individual,living
+,nub,nub,nubian languages,collective,
+,nwc,nwc,classical newari,individual,historical
+,nym,nym,nyamwezi,individual,living
+,nyn,nyn,nyankole,individual,living
+,nyo,nyo,nyoro,individual,living
+,nzi,nzi,nzima,individual,living
+,omq,omq,oto-manguean languages,collective,
+,omv,omv,omotic languages,collective,
+,osa,osa,osage,individual,living
+,ota,ota,ottoman turkish,individual,historical
+,oto,oto,otomian languages,collective,
+,paa,paa,papuan languages,collective,
+,pag,pag,pangasinan,individual,living
+,pal,pal,pahlavi,individual,ancient
+,pam,pam,pampanga,individual,living
+,pap,pap,papiamento,individual,living
+,pau,pau,palauan,individual,living
+,peo,peo,old persian,individual,historical
+,phi,phi,philippine languages,collective,
+,phn,phn,phoenician,individual,ancient
+,plf,plf,central malayo-polynesian languages,collective,
+,pon,pon,pohnpeian,individual,living
+,poz,poz,malayo-polynesian languages,collective,
+,pqe,pqe,eastern malayo-polynesian languages,collective,
+,pqw,pqw,western malayo-polynesian languages,collective,
+,pra,pra,prakrit languages,collective,
+,pro,pro,old provençal,individual,historical
+,qwe,qwe,quechuan languages,collective,
+,raj,raj,rajasthani,macrolanguage,living
+,rap,rap,rapanui,individual,living
+,rar,rar,rarotongan,individual,living
+,roa,roa,romance languages,collective,
+,rom,rom,romany,macrolanguage,living
+,rup,rup,macedo-romanian,individual,living
+,sad,sad,sandawe,individual,living
+,sah,sah,yakut,individual,living
+,sai,sai,south american indian languages,collective,
+,sal,sal,salishan languages,collective,
+,sam,sam,samaritan aramaic,individual,extinct
+,sas,sas,sasak,individual,living
+,sat,sat,santali,individual,living
+,scn,scn,sicilian,individual,living
+,sco,sco,scots,individual,living
+,sdv,sdv,eastern sudanic languages,collective,
+,sel,sel,selkup,individual,living
+,sem,sem,semitic languages,collective,
+,sga,sga,old irish,individual,historical
+,sgn,sgn,sign languages,collective,
+,shn,shn,shan,individual,living
+,sid,sid,sidamo,individual,living
+,sio,sio,siouan languages,collective,
+,sit,sit,sino-tibetan languages,collective,
+,sla,sla,slavic languages,collective,
+,sma,sma,southern sami,individual,living
+,smi,smi,sami languages,collective,
+,smj,smj,lule sami,individual,living
+,smn,smn,inari sami,individual,living
+,sms,sms,skolt sami,individual,living
+,snk,snk,soninke,individual,living
+,sog,sog,sogdian,individual,ancient
+,son,son,songhai languages,collective,
+,sqi,sqi,albanian languages,collective,
+,srn,srn,sranan tongo,individual,living
+,srr,srr,serer,individual,living
+,ssa,ssa,nilo-saharan languages,collective,
+,suk,suk,sukuma,individual,living
+,sus,sus,susu,individual,living
+,sux,sux,sumerian,individual,ancient
+,syc,syc,classical syriac,individual,historical
+,syd,syd,samoyedic languages,collective,
+,syr,syr,syriac,macrolanguage,living
+,tai,tai,tai languages,collective,
+,tbq,tbq,tibeto-burman languages,collective,
+,tem,tem,timne,individual,living
+,ter,ter,tereno,individual,living
+,tet,tet,tetum,individual,living
+,tig,tig,tigre,individual,living
+,tiv,tiv,tiv,individual,living
+,tkl,tkl,tokelau,individual,living
+,tlh,tlh,klingon,individual,constructed
+,tli,tli,tlingit,individual,living
+,tmh,tmh,tamashek,macrolanguage,living
+,tog,tog,tonga,individual,living
+,tpi,tpi,tok pisin,individual,living
+,trk,trk,turkic languages,collective,
+,tsi,tsi,tsimshian,individual,living
+,tum,tum,tumbuka,individual,living
+,tup,tup,tupi languages,collective,
+,tut,tut,altaic languages,collective,
+,tuw,tuw,tungus languages,collective,
+,tvl,tvl,tuvaluan,individual,living
+,tyv,tyv,tuvinian,individual,living
+,udm,udm,udmurt,individual,living
+,uga,uga,ugaritic,individual,ancient
+,umb,umb,umbundu,individual,living
+,urj,urj,uralic languages,collective,
+,vai,vai,vai,individual,living
+,vot,vot,votic,individual,living
+,wak,wak,wakashan languages,collective,
+,wal,wal,wolaytta,individual,living
+,war,war,waray,individual,living
+,was,was,washo,individual,living
+,wen,wen,sorbian languages,collective,
+,xal,xal,kalmyk,individual,living
+,xgn,xgn,mongolian languages,collective,
+,xnd,xnd,na-dene languages,collective,
+,yao,yao,yao,individual,living
+,yap,yap,yapese,individual,living
+,ypk,ypk,yupik languages,collective,
+,zap,zap,zapotec,macrolanguage,living
+,zbl,zbl,blissymbols,individual,constructed
+,zen,zen,zenaga,individual,living
+,zgh,zgh,standard moroccan tamazight,individual,living
+,zhx,zhx,chinese languages,collective,
+,zle,zle,east slavic languages,collective,
+,zls,zls,south slavic languages,collective,
+,zlw,zlw,west slavic languages,collective,
+,znd,znd,zande languages,collective,
+,zun,zun,zuni,individual,living
+,zza,zza,zaza,macrolanguage,living
