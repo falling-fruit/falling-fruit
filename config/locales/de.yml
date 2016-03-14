@@ -84,6 +84,7 @@ de:
     belgium: Belgien
     by_author: von %{author}
     canada: Kanada
+    chile: 
     common_name: Umgangssprachlier Name
     data: Daten
     delete: Löschen
@@ -140,6 +141,7 @@ de:
     send: Abschicken
     show: zeige
     sign_up: Anmelden
+    spain: 
     street_view: Street View
     submit: Einreichen
     switzerland: Schweiz
