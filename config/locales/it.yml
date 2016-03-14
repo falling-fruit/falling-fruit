@@ -84,6 +84,7 @@ it:
     belgium: Belgio
     by_author: da %{author}
     canada: Canada
+    chile: 
     common_name: Nome comune
     data: Dati
     delete: Cancellare
@@ -140,6 +141,7 @@ it:
     send: Invia
     show: Dimostra
     sign_up: Iscriviti
+    spain: 
     street_view: Street View
     submit: Inoltrare
     switzerland: Svizzera

@@ -85,6 +85,7 @@ pl:
     belgium: Belgia
     by_author: według %{author}
     canada: Kanada
+    chile: 
     common_name: Nazwa zwyczajowa
     data: Dane
     delete: Usuń
@@ -102,30 +103,33 @@ pl:
     france: Francja
     global: Globalny
     home: Strona główna
-    imported: Sprowadzone
-    imported_datasets: Importowane Zbiory danych
-    imports: Przywóz
+    imported: Ściągnięte
+    imported_datasets: Ściągnięte zbiory danych
+    imports: Zaimportowane
     info: Informacje
-    invasive: 
-    italy: 
+    invasive: Inwazyjne
+    italy: Włochy
     labels: Etykiety
     links:
       one: Link
       other: Linki
-    locations: Lokalizacje
+    locations:
+      few: Lokalizacje
+      one: Lokalizacja
+      other: Lokalizacja
     login: Zaloguj się
     logout: Wyloguj
     map: Mapa
-    miles: 
+    miles: mile
     name: Nazwa
-    new_zealand: 
+    new_zealand: Nowa Zelandia
     options: Opcje
-    password: 
-    pending_types: W oczekiwaniu typy
+    password: Hasło
+    pending_types: W oczekiwaniu na potwierdzenie
     photo: Zdjęcia
-    position: 
-    problems: Kłopot
-    public: Publicznych
+    position: Stanowisko
+    problems: Problemy
+    public: Publiczne
     quality: Jakość
     report: Raport
     report_a_problem: Zgłoś problem
@@ -136,70 +140,74 @@ pl:
     save_changes: Zapisz zmiany
     scientific_name: Nazwa naukowa
     season: Sezon
-    send: 
+    send: Wyślij
     show: Pokaż
     sign_up: Zarejestruj się
+    spain: 
     street_view: Street View
     submit: Zatwierdź
     switzerland: Szwajcaria
-    tree_inventory: ''
+    tree_inventory:
+      few: Spisy drzew
+      one: Spis drzew
+      other: Spis drzew
     type_and_press_enter: Typ i naciśnij enter
     types: Rodzaje
     united_kingdom: Wielka Brytania
     united_states: Stany Zjednoczone
     unknown: Nieznany
-    unverified: Niezweryfikowana
+    unverified: Niezweryfikowane
     updated: Zaktualizowane
     user: Użytkownik
-    users: Użytkowników
+    users: Użytkownicy
     visited: Ostatnia wizyta
     world: Świat
     yield: Wydajność
     zoom: Przybliżyć
-    zoom_to_address: 
-    zoom_to_current_location: Przybliżyć się do bieżącej lokalizacji
-    zoom_to_me: Przybliżyć się do Mnie
-    zoom_to_this_location: Przybliżyć do tego miejsca
+    zoom_to_address: Zbliż do adresu
+    zoom_to_current_location: Zbliż do bieżącej lokalizacji
+    zoom_to_me: Zbliż do mnie
+    zoom_to_this_location: Zbliż do tego miejsca
   layouts:
     application:
-      feed_people_not_landfills: Ludzie żywią, nie wysypiska!
-      mapping_the_urban_harvest: Mapowanie zbiorów miejskich!
+      feed_people_not_landfills: Żyw ludzi, nie wysypiska!
+      mapping_the_urban_harvest: Zaznaczaj miejsca miejskich plonów!
       menu:
         approved_types: Zatwierdzone typy
-        in_the_press: W prasie
+        in_the_press: Media o nas
         list_imports: Import list
-        new_import: Nowy importu
-        new_type: Nowy Typ
-        sharing_the_harvest: Udostępnianie zbiorów
+        new_import: Nowy import
+        new_type: Nowy typ
+        sharing_the_harvest: Udostępnianie plonów
         the_project: Projekt
       or_right-click_on_map: lub kliknij prawym przyciskiem myszy na mapie
-      pending_types_help: Wspieramy taksonomii typów jadalnych zachować mapę zorganizowaną i przeszukiwania. Nowe typy złożone przez użytkowników są wyróżnione jako czasu do czasu są one albo zatwierdzony jako nowy typ lub połączone z istniejącym typu w taksonomii. W rzadkich przypadkach, gdy wniosek składany jest zbyt losowe lub niejasne, aby uzasadnić swój typ, to utrzymuje się na mapie w stanie niezatwierdzonych.
+      pending_types_help: Aby dało się dobrze wyszukiwać rośliny na mapie, używamy taksonomii typów roślin jadalnych. Nowe typy dodane przez użytkowników są wyróżnione na mapie jako oczekujące aż nie zostaną dodane do taksonomii lub połączone z istniejącymi typami. Niektóre sugerowane typy są tak rzadkie lub niejasne, że zostają jako niezatwierdzone bezterminowo.
       unverified_help: Źródła są oznaczone jako niezweryfikowana jeśli ich tożsamość, lokalizację, czy istnienie jest kwestionowane. Wiele źródeł importowane z zapasów drzewa są oznaczone jako niezweryfikowana ponieważ ich przydatność jest niepewna (na przykład, "gruszka" może być jadalne lub ozdobne odmiany). Użytkownicy są zachęcani do podróży do tych miejsc, a wyniki swoich obserwacji.
-      unverified_help_title: 
+      unverified_help_title: Dlaczego niezweryfikowane?
   locations:
     errors:
-      geocode_failed: 
-      latitude_too_large: 
+      geocode_failed: Twoje wyszukiwanie nie powiodło się
+      latitude_too_large: Nie można dodać szerokości geograficznych dalszych niż +-85 stopni.
     form:
-      access_subtext: Dostęp statusu tego źródła. Pozostaw puste, jeśli don't wiem.
+      access_subtext: Dostęp do tego źródła. Pozostaw to miejsce puste, jeśli nie wiesz.
       address_subtext: 
       author_subtext: Wyświetlane na mapie. Pozostaw puste, jeśli wolisz pozostać anonimowy.
-      comments: 
-      comments_subtext: Aktualizacje, kwestie dostępu, ochrony roślin ...
-      create_another: Tworzenie innego
-      date_visited: Data odwiedził
-      description_subtext: Usytuowanie, kwestie dostępu, zdrowia roślin ...
-      form_error: Błąd zabronione tę lokalizację ze zbawienia
+      comments: Komentarze
+      comments_subtext: Aktualizacje, kwestie dostępu, stan zdrowotny rośliny ...
+      create_another: Stwórz inne
+      date_visited: Data odwiedzenia
+      description_subtext: Usytuowanie, kwestie dostępu, stan zdrowotny rośliny ...
+      form_error: Błąd nie pozwolił na zapisanie tej rośliny
       form_intro_html: Edytowanie lokalizacji poniżej lub <a href="/observations/new?location_id=%{location_id}&locale=pl" data-ajax="false" rel="external" title="Recenzję tej lokalizacji">skorzystaj z poniższego formularza</a> recenzję, komentarz, i dodawać zdjęcia.
-      fruiting_status: Typ owocowania
-      fruiting_subtext: Co to jest owoc robi teraz? (Jeśli dotyczy)
-      have_you: Czy odwiedziłeś to miejsce?
+      fruiting_status: Stan owocowania
+      fruiting_subtext: W jakim etapie są teraz owoce? (Jeśli dotyczy)
+      have_you: Czy odwiedziłeś/aś to miejsce?
       move_marker: Przesuń znacznik do współrzędnych
-      move_marker_address: Przesuń znacznik do zajęcia
-      name_subtext: Pozostaw puste, jeśli wolisz pozostać anonimowy.
-      no_season: Nie sezon
-      or: 
-      original_author: 
+      move_marker_address: Przesuń znacznik do adresu
+      name_subtext: Pozostaw to miejsce puste, jeśli wolisz pozostać anonimowy/a.
+      no_season: Niesezonowe
+      or: lub
+      original_author: Pierwotny autor/ka
       photo_caption: Tytuł zdjęcia
       photo_subtext: Opcjonalnie, załadować zdjęcie źródła. Jeśli jest ktoś inny "na zdjęcia, upewnij się, że masz niezbędne uprawnienia i kredyt Fotograf w podpisie.
       position_subtext: Określana z aktualnej pozycji (jeśli jest dostępny) lub marker umieściłeś. Wyregulować położenie przesuwając znacznik na mapie.
@@ -207,17 +215,17 @@ pl:
       season_subtext: Kiedy mogą być zbierane źródło? Pozostaw puste, jeśli nie wiesz.
       types_subtext: Wybierz z listy rozwijanej, składając nowe nazwy tylko wtedy, gdy odpowiednie decyzje nie istnieje.
       unverified_subtext: Jeśli masz wątpliwości, istnienia, lokalizacji lub tożsamości tego źródła.
-      verify: 
+      verify: Zweryfikuj
       verify_subtext: Lokalizacja ta została wcześniej oznaczony jako niezweryfikowana
       yield_subtext: Ocena wydajności tego źródła (jeśli dotyczy)
-      your_name: Twoje imię i nazwisko
+      your_name: Twoje imię i nazwisko albo pseudonim
     index:
       addmarker_html: 
       editmarker_html: 
       freegan_modal_html: Oprócz naszych wysiłków mapowania <a href="/?locale=pl">jadalnych roślin rosnących w miastach</a>, we've określone do mapy świata dumpsters jedzenie-łożyska. Prawie 50% całej żywności produkowanej w krajach rozwiniętych nie jest spożywane. We're nadzieję na zwiększenie świadomości tego problemu, ułatwiać wyzwolenie wyrzucić jedzenie, i zachęcać przedsiębiorców do <a href="/sharing?locale=pl">oddania jedzenie</a> zamiast. <br><br> W uzasadnieniu do życia niższe ilości odpadów, zachęcamy odwzorowanie wszystkich miejsc (od śmietników do wolnych pól) z odrzuconych ale przydatnych towarów, zarówno jadalne lub w inny sposób.
       freegan_modal_title: 
       grafter_modal_html: 
-      grafter_modal_title: 
+      grafter_modal_title: Witamy na naszej mapie roślinnych grabieżców!
       mobile_modal_html: 
       mobile_modal_title: 
       stamen_html: Mapa płytki według <a href="http://stamen.com">Stamen projekt</a>, w ramach <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dane według <a href="http://openstreetmap.org">OpenStreetMap</a>, pod <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
