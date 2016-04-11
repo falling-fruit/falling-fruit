@@ -59,7 +59,7 @@ class Type < ActiveRecord::Base
   end
 
   def Type.i18n_name_field(locale = I18n.locale.to_s)
-    lang = locale.tr("-","_")
+    lang = locale.tr("-","_").downcase
     lang = "scientific" if lang == "la"
     return lang == "en" ? "name" : "#{lang}_name"
   end

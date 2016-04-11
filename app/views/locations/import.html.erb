@@ -16,8 +16,8 @@ Errors:
   <blockquote style="font-family:Courier;">
   <%= Location.csv_header.join(", ") %>
   </blockquote>
-  <p><b>Id:</b> Unique identifier of the location in the original data source.</p>
-  <p><b>Type:</b> Name of the source types at each location, in the format "English common name" or "English common name [Scientific name]". If the name does not match an <%= link_to types_path do %>existing type<% end %>, a new pending type is created. If the name matches multiple existing types, an error is returned. Separate multiple types with commas (eg. "Apple [Malus domestica],U-pick").</p>
+  <p><b>Ids:</b> Unique identifiers of the corresponding location(s) in the original data source, as a comma seperated list (e.g. "ID1, ID2"). For data without a unique identifer, row order should be used instead.</p>
+  <p><b>Types:</b> The types of each location, in the format "id: English common name [scientific name]", or any subset of those parts (e.g. "id", "[scientific name]", etc). If the name does not match an <%= link_to types_path do %>existing type<% end %>, a new pending type is created. If the name matches multiple existing types, an error is returned. Separate multiple types with commas (eg. "Apple [Malus domestica], U-pick").</p>
   <p><b>Description:</b> Whatever information should be displayed in the location's infobox (location details, access issues, plant health, etc). &lt;br&gt; (HTML line break) tags are converted to \n (newline) characters. No other markup is currently supported.</p>
   <p><b>Lat/Lng:</b> Latitude and longitude in decimal degrees (WGS84).</p>
   <p><b>Address:</b> Full street address of the location (number, street, city, state / province, zip code, country). It is geocoded and converted to coordinates, so don't provide an address if you are already providing Lat and Lng.</p>

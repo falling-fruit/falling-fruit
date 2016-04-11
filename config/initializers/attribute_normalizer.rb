@@ -3,7 +3,7 @@ AttributeNormalizer.configure do |config|
   # :squeeze Squeezes repeating spaces to single, and repeating new lines to double
   config.normalizers[:squeeze] = lambda do |value, options|
     if value.is_a?(String)
-      value.gsub(/[ ]+/, ' ').gsub(/[\r\n]{2,}/, "\n\n")
+      value.gsub(/[ ]+/, ' ').gsub(/(\n|\r\n){2,}/, "\\1\\1")
     else
       value
     end
