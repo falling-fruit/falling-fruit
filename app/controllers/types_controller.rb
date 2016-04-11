@@ -92,9 +92,9 @@ class TypesController < ApplicationController
           @child.save
         }
         if @type.pending
-          format.html { redirect_to grow_types_path, notice: "Type was successfully created." }
+          format.html { redirect_to grow_types_path, notice: "Type #{@type.id} was successfully created." }
         else
-          format.html { redirect_to types_path, notice: "Type was successfully created." }
+          format.html { redirect_to types_path, notice: "Type #{@type.id} was successfully created." }
         end
         format.json { render json: @type, status: :created, location: @type }
       else
