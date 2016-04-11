@@ -358,9 +358,9 @@ de:
   routes:
     mode_of_travel: Fortbewegungsmittel
     modes_of_travel:
-    - zu Fuss
-    - mit dem Fahrrad
-    - motorisiert
+    - Zu Fuß
+    - Mit dem Fahrrad
+    - Mit dem Auto
   time:
     days:
       one: ! '%{count} Tag'
