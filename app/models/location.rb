@@ -155,30 +155,30 @@ class Location < ActiveRecord::Base
   #### CLASS METHODS ####
 
   def self.csv_header
-    ["Id","Type","Description","Lat","Lng","Address","Season Start","Season Stop",
+    ["Ids","Types","Description","Lat","Lng","Address","Season Start","Season Stop",
      "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
   end
   
-  # Expects type = "id: name [scientific_name]" (or any subset of those parts)
+  # Expects types = "id: name [scientific_name], ..." (or any subset of those parts)
   def self.build_from_csv(row, default_category_mask = 0)
-    id,type,desc,lat,lng,address,season_start,season_stop,no_season,
+    ids,types,desc,lat,lng,address,season_start,season_stop,no_season,
       access,unverified,yield_rating,quality_rating,author,photo_url = row
 
     loc = Location.new
-    loc.original_id = id
+    loc.original_ids = ids.to_s.split(/\s*,\s*/)
     loc.type_ids = []
-    unless type.blank?
-      type.split(/\s*,\s*/).each{ |t|
+    unless types.blank?
+      types.split(/\s*,\s*/).each{ |t|
         safer_type = t.gsub(/[^[:word:]\s\(\)\-\'\[\]\.:]/,'')
         id = safer_type[/^([0-9]+)/, 1]
         name = safer_type[/(^(?![0-9])|:\s*)([^\[]+)/, 2]
         scientific_name = safer_type[/\[(.+)\]/, 1]
-        types = []
+        matching_types = []
         if not id.nil?
           query = "id = " + ActiveRecord::Base.connection.quote(id)
-          types = Type.where(query)
+          matching_types = Type.where(query)
         end
-        if types.length == 0
+        if matching_types.length == 0
           query = ""
           if not name.nil?
             name = name.squish
@@ -192,19 +192,19 @@ class Location < ActiveRecord::Base
             query += "lower(scientific_name) = " + ActiveRecord::Base.connection.quote(scientific_name.downcase)
           end
           if query != ""
-            types = Type.where(query)
+            matching_types = Type.where(query)
           end
         end
-        if types.length == 0
-          nt = Type.new
-          nt.name = name
-          nt.scientific_name = scientific_name
-          nt.category_mask = default_category_mask
-          nt.pending = true
-          nt.save
-          loc.type_ids.push(nt.id)
-        elsif types.length == 1
-          loc.type_ids.push(types.shift.id)
+        if matching_types.length == 0
+          new_type = Type.new
+          new_type.name = name
+          new_type.scientific_name = scientific_name
+          new_type.category_mask = default_category_mask
+          new_type.pending = true
+          new_type.save
+          loc.type_ids.push(new_type.id)
+        elsif matching_types.length == 1
+          loc.type_ids.push(matching_types.shift.id)
         else
           # Multiple matches. Return empty!
           loc.type_ids = []
