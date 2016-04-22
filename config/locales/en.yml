@@ -248,7 +248,11 @@ en:
         100% of proceeds from app sales go to support our hard costs (servers and infrastructure to keep the site online). We''re a 501(c)3 nonprofit organization, so this cost is also tax-deductible in the US.'
       mobile_modal_title: But wait, there's a mobile app!
       stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>.
-      welcome_modal_html: Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and foresters everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up?locale=en">sign up</a> to access additional features.
+      welcome_modal_html: ! 'Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and foresters everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up?locale=en">sign up</a> to access additional features.
+
+        <br/><br/>
+
+        <em>Falling Fruit is not associated with Fallen Fruit. Fallen Fruit can be found at <a href="http://fallenfruit.org">fallenfruit.org</a>.</em>'
       welcome_modal_title: Welcome to Falling Fruit!
     infowindow:
       access:
@@ -331,6 +335,7 @@ en:
       david_craft_bio_html: ! 'David is a researcher in the Department of Radiation Oncology at the <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvard Medical School</a> in Boston, Massachusetts. He is also an avid forager and author of the book <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging: Finding and Eating Wild Plants in the City</a> (<a href="/docs/David Craft - Urban Foraging.pdf">free download</a>).'
       donate: Donate
       ethan_bio_html: From apple ciders and fruit beers to jams and <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan looks to his database of neighborhood trees (and his cider press) for culinary inspiration. While at home in Boulder, he geeks out over maps, data, and time-lapse of retreating glaciers for his PhD at the <a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a>, but he often goes into orbit to walk, talk, eat, and <a href="http://www.weltyphotography.com">photograph</a> his way across continents.
+      ff_disclaimer: <em>Falling Fruit is not associated with Fallen Fruit. Fallen Fruit can be found at <a href="http://fallenfruit.org">fallenfruit.org</a>.</em>
       give_gratipay: Pay via Gratipay
       give_paypal: Donate via Paypal
       give_us_money: We are a volunteer-run 501(c)(3) nonprofit and rely on donations to operate. If you are willing and able, please consider making a financial contribution. Donations within the United States are tax deductible.
