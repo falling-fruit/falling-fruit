@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150920184333) do
+ActiveRecord::Schema.define(:version => 20160411162746) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(:version => 20150920184333) do
     t.integer  "user_id"
     t.integer  "type_ids",                                                                                                    :array => true
     t.boolean  "muni",                                                                     :default => false
-    t.integer  "original_id"
+    t.string   "original_ids", :limit => nil,                                                                                 :array => true
     t.boolean  "invasive",                                                                 :default => false
   end
 
