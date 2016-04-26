@@ -42,6 +42,13 @@ while todo.nil? or ((page-1)*PerPage < todo)
     l = Location.new
     o = Observation.new
     o.observed_on = result["observed_on_details"]["date"] unless result["observed_on_details"].nil?
+
+    unless result["photos"].empty? or result["photos"][0]["url"].nil?
+      photo_url = result["photos"][0]["url"]
+      photo_url.gsub!(/square/i,"large") if photo_url =~ /square/
+      puts photo_url
+      o.photo = open(photo_url)
+    end
  
     tids = [] 
     species_guess = result["species_guess"]
