@@ -72,7 +72,7 @@ while todo.nil? or ((page-1)*PerPage < todo)
     l.lat = result["geojson"]["coordinates"][1]
     l.author = result["user"]["login"]
     o.author = l.author
-    l.description = result["uri"]
+    l.description = "iNaturalist location #{id}: #{result["uri"]}"
     l.type_ids = [tids[0]]
     l.import_id = i.id
     l.inaturalist_id = id
@@ -81,6 +81,7 @@ while todo.nil? or ((page-1)*PerPage < todo)
 
     l.save
     o.save
+    cluster_increment(l)
 
     puts "...okay (type = #{tids.first}, location = #{l.id})"
   }
