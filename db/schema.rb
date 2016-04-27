@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150920184333) do
+ActiveRecord::Schema.define(:version => 20160425203759) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -95,21 +95,22 @@ ActiveRecord::Schema.define(:version => 20150920184333) do
     t.integer  "season_stop"
     t.boolean  "no_season"
     t.text     "address"
-    t.datetime "created_at",                                                                                  :null => false
-    t.datetime "updated_at",                                                                                  :null => false
-    t.boolean  "unverified",                                                               :default => false
+    t.datetime "created_at",                                                                                    :null => false
+    t.datetime "updated_at",                                                                                    :null => false
+    t.boolean  "unverified",                                                                 :default => false
     t.integer  "access"
     t.integer  "import_id"
-    t.spatial  "location",     :limit => {:srid=>4326, :type=>"point", :geographic=>true}
-    t.string   "client",                                                                   :default => "web"
+    t.spatial  "location",       :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.string   "client",                                                                     :default => "web"
     t.string   "city"
     t.string   "state"
     t.string   "country"
     t.integer  "user_id"
-    t.integer  "type_ids",                                                                                                    :array => true
-    t.boolean  "muni",                                                                     :default => false
-    t.integer  "original_id"
-    t.boolean  "invasive",                                                                 :default => false
+    t.integer  "type_ids",                                                                                                      :array => true
+    t.boolean  "muni",                                                                       :default => false
+    t.string   "original_ids",   :limit => nil,                                                                                 :array => true
+    t.boolean  "invasive",                                                                   :default => false
+    t.integer  "inaturalist_id"
   end
 
   create_table "locations_routes", :force => true do |t|
