@@ -125,6 +125,7 @@ fr:
     password: Mot de passe
     pending_types: Types en attente
     photo: Photo
+    portugal: Portugal
     position: Position
     problems: Problèmes
     public: Public
@@ -309,6 +310,7 @@ fr:
       david_craft_bio_html: Auteur de <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging</a> (<a href="/docs/David Craft - Urban Foraging.pdf">téléchargement gratuit</a>)
       donate: Contribuer
       ethan_bio_html: Cidres, bières fruitées, confitures et <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan contemple sa base de données d'arbres du quartier (et son pressoir à fruits) pour l'inspiration culinaire. Chez lui à Boulder, il se passionne des cartes, des données, et des time-lapses de la retraite des glaciers pour son doctorat à l'<a href="http://instaar.colorado.edu/people/ethan-welty/">Université du Colorado</a>, mais il entre souvent en orbite pour marcher, parler, manger, et <a href="http://www.weltyphotography.com">photographier</a> son chemin à travers les continents.
+      ff_disclaimer: 
       give_gratipay: Payer avec Gratipay
       give_paypal: Faire un don Paypal
       give_us_money: Nous sommes une association bénévole à but non lucratif 501(c)(3); nous comptons sur les dons pour survivre. Si vous êtes capable, pensez faire une contribution financière. Les dons sont déductibles d'impôt par les personnes résidentes aux États-Unis.

@@ -125,6 +125,7 @@ es:
     password: Contraseña
     pending_types: Tipos pendiente
     photo: Foto
+    portugal: Portugal
     position: Posición
     problems: Problemas
     public: Pública
@@ -309,6 +310,7 @@ es:
       david_craft_bio_html: 
       donate: Donar
       ethan_bio_html: De sidras y cervezas de frutas de manzana a mermeladas y <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan se ve a su base de datos de árboles de barrio (y su desvencijada prensa de manzana) en busca de inspiración culinaria. En su casa en Boulder, que frikis hacia fuera sobre mapas, datos y time-lapse de retroceso de los glaciares para su doctorado en la <a href="http://instaar.colorado.edu/people/ethan-welty/">Universidad de Colorado</a>, pero a menudo sale de su órbita local para caminar, hablar, comer, y fotografiar a su manera a través de los continentes.
+      ff_disclaimer: 
       give_gratipay: Pagar vía Gratipay
       give_paypal: Donar vía Paypal
       give_us_money: Somos una de voluntarios, sin fines de lucro y exenta de impuestos, y se basan en donaciones de nuestros usuarios para operar. Si usted está dispuesto y capaz, por favor considere hacer una contribución financiera. Donaciones dentro de los Estados Unidos son deducibles de impuestos.
