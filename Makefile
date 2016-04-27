@@ -5,10 +5,12 @@ bounce:
 	bundle install
 	bundle --deployment
 	bundle exec rake db:migrate
-	sudo chmod -R 777 tmp
-	bundle exec rake assets:precompile
 	sudo chown -R www-data:www-data tmp
-	sudo /etc/init.d/thin restart -C /etc/thin1.9.1/fallingfruit.yml
+	sudo chmod -R 777 tmp
+	bundle exec rake tmp:cache:clear
+	bundle exec rake assets:precompile
+	thin -C /etc/thin/fallingfruit.yaml restart
+	#sudo /etc/init.d/thin restart -C /etc/thin1.9.1/fallingfruit.yml
 
 export:
 	#cp export_csv.sql /tmp/
