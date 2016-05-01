@@ -2,14 +2,16 @@
   <img src="/ethan-oranges.jpg"><img src="/jeff-tree.jpg"><img src="/plums.jpg"><img src="/amittai-mulberries.jpg">
 </div>
 
-<%= translate("pages.about.ff_disclaimer").html_safe %>
+<p>
+  <em><%= translate("pages.about.ff_disclaimer_html").html_safe %></em>
+</p>
 
-<p class="announcement"><b><%= translate("pages.about.donate") %></b>
+<p class="announcement"><b><%= translate("glossary.donate") %></b>
   <span><%= translate("pages.about.give_us_money") %></span>
 </p>
 
 	<blockquote>
-	
+
 	<!-- Paypal -->
 	<form action="https://www.paypal.com/cgi-bin/webscr" method="POST" style="display:inline;">
 		<input type="hidden" name="cmd" value="_donations">
@@ -20,14 +22,14 @@
 		$ <input name="amount" type="text" size="4" style="text-align:right;padding:0.25em 0.4em;font-size:inherit;" placeholder="0.00">
 		<button type="submit" style="padding:0.25em 0.4em;"><%= translate("pages.about.give_paypal") %></button>
 	</form>
-	
+
 	&nbsp; &middot; &nbsp;
-	
+
 	<!-- Gratipay  -->
 	<form action="https://gratipay.com/falling-fruit/" style="display:inline;">
 		<button type="submit" style="padding:0.25em 0.4em;"><%= translate("pages.about.give_gratipay") %></button>
 	</form>
-	    
+
 	</blockquote>
 
 <p class="announcement"><b><%= translate("pages.about.write") %></b>
@@ -66,7 +68,9 @@
   <%= translate("pages.about.join_us_html").html_safe %>
 </p>
 
-<h2><%= translate("pages.about.about_us") %></h2>
+<h2>
+  <%= translate("pages.about.about_us") %>
+</h2>
 
 <div class="big-bios">
 
@@ -113,77 +117,90 @@
 
 </div>
 
-<h2><%= translate("pages.about.advisory_board") %></h2>
+<h2>
+  <%= translate("pages.about.advisory_board") %>
+</h2>
 
 <div class="small-bios">
+  <div class="profile">
+    <img class="avatar" src="/craig_durkin.jpg">
+    <div class="bio">
+      <b>Craig Durkin</b><br>
+      <p>
+        <%= translate("pages.about.craig_durkin_bio_html").html_safe %>
+      </p>
+    </div>
+  </div>
+  <br>
+  <div class="profile">
+    <img class="avatar" src="/cristina_rubke.jpg">
+    <div class="bio">
+      <b>Cristina Rubke</b><br>
+      <p>
+        <%= translate("pages.about.cristina_rubke_bio_html").html_safe %>
+      </p>
+    </div>
+  </div>
+  <br>
+  <div class="profile">
+    <img class="avatar" src="/david_craft.jpg">
+    <div class="bio">
+      <b>David Craft</b><br>
+      <p>
+        <%= translate("pages.about.david_craft_bio_html").html_safe %>
+      </p>
+    </div>
+  </div>
+  <br>
+  <div class="profile">
+    <img class="avatar" src="/tristram_stuart.jpg">
+    <div class="bio">
+      <b>Tristram Stuart</b><br/>
+      <p>
+        <%= translate("pages.about.tristram_stuart_bio_html").html_safe %>
+      </p>
+    </div>
+  </div>
+</div>
 
-<div class="profile">
-  <img class="avatar" src="/craig_durkin.jpg">
-  <div class="bio">
-    <b>Craig Durkin</b><br>
-    <p>
-      <%= translate("pages.about.craig_durkin_bio_html").html_safe %>
-    </p>
-  </div>
-</div>
-<br>
-<div class="profile">
-  <img class="avatar" src="/cristina_rubke.jpg">
-  <div class="bio">
-    <b>Cristina Rubke</b><br>
-    <p>
-      <%= translate("pages.about.cristina_rubke_bio_html").html_safe %>
-    </p>
-  </div>
-</div>
-<br>
-<div class="profile">
-  <img class="avatar" src="/david_craft.jpg">
-  <div class="bio">
-    <b>David Craft</b><br>
-    <p>
-      <%= translate("pages.about.david_craft_bio_html").html_safe %>
-    </p>
-  </div>
-</div>
-<br>
-<div class="profile">
-  <img class="avatar" src="/tristram_stuart.jpg">
-  <div class="bio">
-    <b>Tristram Stuart</b><br>
-    <p>
-      <%= translate("pages.about.tristram_stuart_bio_html").html_safe %>
-    </p>
-  </div>
-</div>
-
-<h2><%= translate("pages.about.translators") %></h2>
+<h2>
+  <%= translate("pages.about.translators") %>
+</h2>
 
 <p>
-<b>Ana Carolina de Lima</b> – Português<br/>
-<b>Daniela Marini</b> – Español<br/>
-<b>Ethan Welty</b> – Français<br/>
-<b>Jadalnia Warszawa</b> – Polski<br/>
-<b>Kira Dell</b> – Português, Español<br/>
-<b>Maria Noel Silvera</b> – Español<br/>
-<b>Mylène Jacquemart</b> – Deutsch, Italiano<br/>
-<b>Raven Lyn</b> – Português<br/>
-<b>Thomaz Brandão Teixeira</b> – Português<br/>
-<b>Michela Pasquali</b> – Italiano<br/>
+  <b>Ana Carolina de Lima</b> – Português<br/>
+  <b>Daniela Marini</b> – Español<br/>
+  <b>Ethan Welty</b> – Français<br/>
+  <b>Jadalnia Warszawa</b> – Polski<br/>
+  <b>Karolina Hansen</b> - Polski<br/>
+  <b>Kira Dell</b> – Português, Español<br/>
+  <b>Maria Noel Silvera</b> – Español<br/>
+  <b>Michela Pasquali</b> – Italiano<br/>
+  <b>Mylène Jacquemart</b> – Deutsch, Italiano<br/>
+  <b>Raven Lyn</b> – Português<br/>
+  <b>Sifis Diamantidis</b> - Ελληνικά<br/>
+  <b>Thomaz Brandão Teixeira</b> – Português<br/>
 </p>
 
 <img src="/bycolorado.svg" style="height: 150px;margin: 0 0 1.5em 1.5em;display: block;float:right;" />
-<h2><%= translate("pages.about.closing_remarks") %></h2>
+
+<h2>
+  <%= translate("pages.about.closing_remarks") %>
+</h2>
 
 <p>
-<%= translate("pages.about.closing_remarks_para1_html").html_safe %>
-<blockquote>Falling Fruit<br/>PO Box 284, Boulder, CO, 80306, USA<br/>EIN: 46-5363428</blockquote>
-</p>
- 
-<p>
-<%= translate("pages.about.closing_remarks_para2_html").html_safe %>
+  <%= translate("pages.about.closing_remarks_para1_html").html_safe %>
+  <blockquote>
+    Falling Fruit<br/>
+    PO Box 284, Boulder, CO, 80306, USA<br/>
+    EIN: 46-5363428
+  </blockquote>
 </p>
 
 <p>
-<%= translate("pages.about.closing_remarks_para3_html".html_safe) %>
+  <%= translate("pages.about.closing_remarks_para2_html").html_safe %>
+</p>
+
+<p>
+  <%= translate("pages.about.closing_remarks_para3_html".html_safe) %>
 </p>

@@ -91,6 +91,7 @@ pl:
     delete: Usuń
     description: Opis
     details: Szczegóły
+    donate: 
     download: Pobierz
     edible_type: Wybierz rodzaj rośliny jadalnej
     edit: Edytuj
@@ -311,9 +312,8 @@ pl:
       craig_durkin_bio_html: 
       cristina_rubke_bio_html: 
       david_craft_bio_html: 
-      donate: 
       ethan_bio_html: Z cydru z jabłek i piw owocowych dżemów i <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> Ethan wygląda na jego bazie drzew sąsiedztwa (i jego kulawym prasy Apple) dla kulinarnych inspiracji., Podczas gdy w domu w Boulder, że maniacy nad map, danych i upływie czasu cofanie się lodowców na jego doktorat na <a href="http://instaar.colorado.edu/people/ethan-welty/">Uniwersytecie w Kolorado</a>, ale często pozostawia swoje lokalne orbitę chodzić, mówić, jeść i sfotografować swoją drogę przez kontynenty.
-      ff_disclaimer: 
+      ff_disclaimer_html: 
       give_gratipay: Zapłać za pomocą Gratipay
       give_paypal: Wesprzyj nas przez Paypal
       give_us_money: Mamy wszystko-wolontariusz, non-profit zwolnione z podatku, i polegać na darowizny od naszych użytkowników, aby działać. Jeśli są chętni i zdolni, należy rozważyć wniesienie wkładu finansowego. Darowizny w Stanach Zjednoczonych można odpisać od podatku.

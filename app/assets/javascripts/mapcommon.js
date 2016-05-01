@@ -80,10 +80,10 @@ google.maps.event.addListener(infowindow,'closeclick',function() {
 // ================= basemap =================
 
 function basemap(lat,lng,zoom,type,bounds){
-  
+
   // Enable the visual refresh
   google.maps.visualRefresh = true;
-  
+
   var mapOptions = {
     zoom: zoom,
     mapTypeId: type,
@@ -92,10 +92,10 @@ function basemap(lat,lng,zoom,type,bounds){
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       position: google.maps.ControlPosition.TOP_RIGHT,
       mapTypeIds: [
-        google.maps.MapTypeId.ROADMAP, 
-        google.maps.MapTypeId.TERRAIN, 
-        google.maps.MapTypeId.SATELLITE, 
-        google.maps.MapTypeId.HYBRID, 
+        google.maps.MapTypeId.ROADMAP,
+        google.maps.MapTypeId.TERRAIN,
+        google.maps.MapTypeId.SATELLITE,
+        google.maps.MapTypeId.HYBRID,
         toner]
     },
     zoomControl: true,
@@ -108,15 +108,15 @@ function basemap(lat,lng,zoom,type,bounds){
       position: google.maps.ControlPosition.LEFT_CENTER
     }
   };
-  
+
   map = new google.maps.Map(document.getElementById('map'),mapOptions);
-  if (bounds == undefined) { 
+  if (bounds == undefined) {
     map.setCenter(new google.maps.LatLng(lat,lng));
     map.setZoom(zoom);
   } else {
     map.fitBounds(bounds);
   }
-  
+
   // Street View Pano (full screen, still in beta)
   pano = map.getStreetView();
 
@@ -133,14 +133,14 @@ function basemap(lat,lng,zoom,type,bounds){
 
   // Bicycle map (and control)
   add_bicycle_control(map);
-  
+
   // Progress bar
   pb = progressBar();
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(pb.getDiv());
-  
+
   // Key Drag Zoom
   keyDragZoom(map);
-  
+
   // Pointer
   pointer = new google.maps.Marker({
     position: map.getCenter(),
@@ -156,7 +156,7 @@ function basemap(lat,lng,zoom,type,bounds){
     visible: false,
     zIndex: 1e3
   });
-  
+
   // Search crosshair
   var w = 19;
 	var h = 19;
@@ -179,12 +179,12 @@ function basemap(lat,lng,zoom,type,bounds){
   google.maps.event.addListener(map, 'click', function(event) {
     close_infowindow();
   });
-  
+
   // Update attribution when map type changes
   google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
     update_attribution();
   });
-  
+
   google.maps.event.addListener(map, 'zoom_changed', function(event) {
   	zoom = map.getZoom();
   });
@@ -340,7 +340,7 @@ function clear_markers() {
 }
 
 function clear_offscreen_markers(){
-  if (markersArray == undefined || markersArray.length == 0) return;    
+  if (markersArray == undefined || markersArray.length == 0) return;
   var bounds = map.getBounds();
   var len = markersArray.length;
   for (var i = 0; i < len; i++ ) {
@@ -410,7 +410,7 @@ function do_clusters(bounds,zoom,muni,type_filter) {
       // Call from here to ensure the data is available
       do_cluster_types(bounds,zoom,muni);
     });
-    request.fail(function() {  
+    request.fail(function() {
       if(pb != null) pb.hide();
     });
 }
@@ -427,7 +427,7 @@ function do_cluster_types(bounds,zoom,muni) {
     url: url,
     dataType: 'json'
   });
-  request.done(function(json){		    
+  request.done(function(json){
     types_hash = {};
     if(json.length > 0){
       for(var i = 0;i < json.length; i++){
@@ -456,10 +456,10 @@ function type_names_to_title(type_names) {
 function setup_streetview_tab(marker,distance,visible) {
   var latlng = marker.getPosition();
   var nearestPano = null;
-  panoClient.getPanoramaByLocation(latlng, distance, function(result, status) { 		
-    if (status == google.maps.StreetViewStatus.OK) { 
+  panoClient.getPanoramaByLocation(latlng, distance, function(result, status) {
+    if (status == google.maps.StreetViewStatus.OK) {
       if (visible) {
-        nearestPano = result.location.pano; 
+        nearestPano = result.location.pano;
         panoPosition = result.location.latLng;
         var heading = google.maps.geometry.spherical.computeHeading(panoPosition, latlng);
         pano_tab = new google.maps.StreetViewPanorama(document.getElementById("tab-3"), {
@@ -472,7 +472,7 @@ function setup_streetview_tab(marker,distance,visible) {
           linksControl: false,
         });
         var pano_marker = new google.maps.Marker({
-          position: marker.getPosition(), 
+          position: marker.getPosition(),
           map: pano_tab
         });
         // Calculate pitch from Google Elevation API
@@ -501,7 +501,7 @@ function setup_streetview_tab(marker,distance,visible) {
       $("#streetview-toggle").remove();
       return(false);
     }
-  });		
+  });
 }
 
 // Finds nearest imagery from Street View Service, then calculates the heading.
@@ -512,9 +512,9 @@ function streetview_toggle(marker,distance) {
   } else {
     var latlng = marker.getPosition();
     var nearestPano = null;
-    panoClient.getPanoramaByLocation(latlng, distance, function(result, status) { 		
-      if (status == google.maps.StreetViewStatus.OK) { 
-        nearestPano = result.location.pano; 
+    panoClient.getPanoramaByLocation(latlng, distance, function(result, status) {
+      if (status == google.maps.StreetViewStatus.OK) {
+        nearestPano = result.location.pano;
         panoPosition = result.location.latLng;
         var heading = google.maps.geometry.spherical.computeHeading(panoPosition, latlng);
         // Calculate pitch from Google Elevation API
@@ -545,16 +545,16 @@ function streetview_toggle(marker,distance) {
         $("#streetview-toggle").remove();
         return(false);
       }
-    });		
+    });
   }
 }
 
 function open_problem_modal(id){
   $('#problem_modal').load('/problems/new?location_id=' + id + '&locale=' + I18n.locale).dialog({
     autoOpen:true,
-    width:425, 
-    modal:true, 
-    resizable:false, 
+    width:425,
+    modal:true,
+    resizable:false,
     draggable:false,
     position: {my: "center", at: "center", of: "#searchbar"},
     close:function(){
@@ -566,9 +566,9 @@ function open_problem_modal(id){
 function open_unverified_help_modal(){
   $('#unverified_help').dialog({
     autoOpen:true,
-    width:500, 
-    modal:true, 
-    resizable:false, 
+    width:500,
+    modal:true,
+    resizable:false,
     draggable:false
   });
 }
@@ -576,9 +576,9 @@ function open_unverified_help_modal(){
 function open_inventories_help_modal(){
   $('#tree_inventories_help').dialog({
     autoOpen:true,
-    width:640, 
-    modal:true, 
-    resizable:false, 
+    width:640,
+    modal:true,
+    resizable:false,
     draggable:false
   });
 }
@@ -595,10 +595,10 @@ function open_invasive_help_modal(){
 
 function open_pending_types_help_modal(){
   $('#pending_types_help').dialog({
-    autoOpen:true, 
-    width:500, 
-    modal:true, 
-    resizable:false, 
+    autoOpen:true,
+    width:500,
+    modal:true,
+    resizable:false,
     draggable:false
   });
 }
@@ -678,9 +678,9 @@ function open_marker(marker) {
       setup_streetview_tab(infowindow.marker,50,false);
     });
   });
-}    
-    
-function add_marker_infowindow(i) { 
+}
+
+function add_marker_infowindow(i) {
   var marker = markersArray[i].marker;
   marker.id = markersArray[i].id;
   google.maps.event.addListener(marker,'click',function() {
@@ -725,7 +725,7 @@ function open_marker_by_id(id) {
 }
 
 function add_clicky_cluster(marker){
-  google.maps.event.addListener(marker, 'click', function(){      
+  google.maps.event.addListener(marker, 'click', function(){
     var z = map.getZoom();
     if(z >= 10) z = 13;
     else z += 2;
@@ -760,7 +760,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,cats,invasive) {
   request.done(function(json){
     //console.log(json);
     if(pb != null) pb.setTotal(json.length);
-    // remove any cluster-type markers 
+    // remove any cluster-type markers
     var i = find_marker(null);
     while((i != undefined) && (i >= 0)){
       if(markersArray[i].marker != undefined){
@@ -817,14 +817,14 @@ function remove_add_marker(){
 // Add a marker with an open infowindow
 function place_add_marker(latlng) {
   var marker = new google.maps.Marker({
-      position: latlng, 
+      position: latlng,
       map: map,
       draggable: true
   });
   markersArray.push({marker: marker, id: -1, type: "point"});
   // Set and open infowindow
-  var html = $('<div id="addmarker"><a href="/locations/new?lat=' 
-    + latlng.lat() + '&lng=' + latlng.lng() + '&locale=' + I18n.locale 
+  var html = $('<div id="addmarker"><a href="/locations/new?lat='
+    + latlng.lat() + '&lng=' + latlng.lng() + '&locale=' + I18n.locale
     + '" data-ajax="false" rel="external">' + I18n.t("locations.index.addmarker_html") + '</div>');
   var infowindow = new google.maps.InfoWindow({
     content: html[0]
@@ -858,9 +858,9 @@ function labelize_markers() {
 			 strokeWeight: 5,
 			 align: 'center'
 		 });
-		 markersArray[i].label = mapLabel; 
+		 markersArray[i].label = mapLabel;
 		 markersArray[i].marker.bindTo('map', mapLabel);
-	 } 
+	 }
 	 labelsOn = true;
 }
 
@@ -959,7 +959,7 @@ function update_attribution() {
     $('#stamen_attribution').hide();
   }
 }
- 
+
 function recenter_map() {
 	navigator.geolocation.getCurrentPosition(function(position){
 			var lat = position.coords.latitude;
@@ -969,9 +969,9 @@ function recenter_map() {
 	},function(error){
 		console.log("Geocode error [" + error.code + "]: " + error.message);
 	});
-} 
+}
 
-// see: https://developers.google.com/maps/documentation/javascript/geocoding 
+// see: https://developers.google.com/maps/documentation/javascript/geocoding
 function recenter_map_to_address() {
 	// Bypass geocoder if already lat, lng
 	// (geocoder snaps to nearest address, so not exact)
@@ -1121,7 +1121,7 @@ function update_marker_address() {
 	// If empty, do nothing
 	if($("#location_address").val() == "") return;
 	geocoder.geocode({'address': $("#location_address").val()}, function(results, status) {
-		
+
 		// If valid address, move existing (or place new) marker
 		if (status == google.maps.GeocoderStatus.OK) {
 			var lat = results[0].geometry.location.lat();
@@ -1156,14 +1156,14 @@ function update_marker_latlng() {
 
 	// If bogus, do nothing
 	if (isNaN(lat) || isNaN(lng)) return;
-	
+
 	// If latitude > 85, return error
 	// Google Maps cannot display lat > 85 properly, and lat > 85 breaks clusters.
 	if (Math.abs(lat) > 85) {
 	  alert(I18n.t("locations.errors.latitude_too_large"));
 	  return;
 	}
-	
+
 	// Otherwise, and if numeric, move marker
 	// If out of range, longitude is converted to [-180, 180]
 	var latlng = new google.maps.LatLng(lat,lng, false);
@@ -1191,13 +1191,13 @@ function decodeHtml(html) {
 
 // Initialize map marker (marker) and infowindow (nag)
 function load_edit_marker(lat,lng) {
-	
+
 	var latlng = new google.maps.LatLng(lat,lng)
-	
+
 	// Initialize marker
 	var marker = new google.maps.Marker({
 		icon: '',
-		position: latlng, 
+		position: latlng,
 		map: map,
 		draggable: true
 	});
@@ -1208,25 +1208,25 @@ function load_edit_marker(lat,lng) {
 		content: html[0]
 	});
 	var nagOpen = false;
-	
+
 	// Event listeners
-	// Open nag once tiles loaded 
+	// Open nag once tiles loaded
 	google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
 		nag.open(map,marker);
 		nagOpen = true;
 	});
-	
+
 	// Update lat,lng fields when marker moved
 	google.maps.event.addListener(marker, 'position_changed', function() {
 		$("#location_lat").val(this.getPosition().lat());
 		$("#location_lng").val(this.getPosition().lng());
 	});
-	
+
 	// Record closing of nag
 	google.maps.event.addListener(nag, 'closeclick', function(event) {
 		nagOpen = false;
 	});
-	
+
 	// Toggle nag open/close on click of marker
 	google.maps.event.addListener(marker, 'click', function(event) {
 		if (nagOpen) {
@@ -1237,6 +1237,6 @@ function load_edit_marker(lat,lng) {
 			nagOpen = true;
 		}
 	});
-	
+
 	return marker;
 }

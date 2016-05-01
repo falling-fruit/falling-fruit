@@ -90,6 +90,9 @@ he:
     delete: מחק
     description: תיאור
     details: פרטים
+    donate: ! 'תרומה
+
+'
     download: הורדה
     edible_type: סוג אכיל
     edit: עריכה
@@ -313,11 +316,8 @@ he:
       craig_durkin_bio_html: 
       cristina_rubke_bio_html: 
       david_craft_bio_html: 
-      donate: ! 'תרומה
-
-'
       ethan_bio_html: אם להכנת סיידר תפוחים, מגוון בירות פרי, ריבות או <a href="http://en.wikipedia.org/wiki/Rumtopf">רומטופף</a> איתן מחפש השראה במאגר העצים השכונתי (ובמכבש הסיידר שלו). בעוד שבביתו בעיר בולדר הוא מתחנחן על מפות, מידע וסרטוני רצף-זמן של נסיגת קרחונים לדוקטוראט ב<a href="http://instaar.colorado.edu/people/ethan-welty/">אוניברסיטת קולורדו</a>, לעיתים תכופות יוצא לו לשוטט בין יבשות תוך הליכה, שיח, אכילה ו<a href="http://www.weltyphotography.com">צילום</a>.
-      ff_disclaimer: 
+      ff_disclaimer_html: 
       give_gratipay: 
       give_paypal: Paypal תרומה מאובטחת באתר
       give_us_money: אנו עמותה התנדבותית וללא מטרות רווח, ואנו מתבססים על תרומותיכם בלבד. אם אתם מעוניינים ויכולים לתרום כסף למיזם, אנא מכם עשו זאת. התרומות מזכות בניקוי מס בארה"ב.
