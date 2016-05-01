@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-  
+
   <!-- Metadata -->
   <title>Falling Fruit</title>
   <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
   <meta property="og:site_name" content="Falling Fruit" />
-  <meta property="og:type" content="website" /> 
+  <meta property="og:type" content="website" />
   <meta property="fb:admins" content="10708811" /><!-- Ethan Welty -->
   <meta property="fb:admins" content="42001954" /><!-- Caleb Phillips -->
   <meta property="fb:admins" content="5246945" /><!-- Jeff Wanner -->
-  
+
   <% if (I18n.locale == :en) %>
     <meta property="og:locale" content="en_US" />
   <% elsif (I18n.locale == :de) %>
@@ -21,13 +21,16 @@
     <meta property="og:locale" content="pt_BR" />
   <% elsif (I18n.locale == :"it") %>
     <meta property="og:locale" content="it_IT" />
+  <% elsif (I18n.locale == :"el") %>
+      <meta property="og:locale" content="el_GR" />
   <% end %>
 	<meta property="og:locale:alternate" content="en_US" />
 	<meta property="og:locale:alternate" content="de_DE" />
 	<meta property="og:locale:alternate" content="fr_FR" />
 	<meta property="og:locale:alternate" content="pt_BR" />
 	<meta property="og:locale:alternate" content="it_IT" />
- 
+  <meta property="og:locale:alternate" content="el_GR" />
+
   <% if @freegan %>
     <meta property="og:title" content="<%= translate("meta.freegan_title") %>" />
     <meta property="og:url" content="http://fallingfruit.org/dumpsters?locale=<%= I18n.locale %>" />
@@ -50,11 +53,11 @@
   <% if @freegan %>
     <%= stylesheet_link_tag "freegan" %>
   <% end %>
-  
+
   <!-- Javascript -->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  
+
   <!-- app globals -->
   <% host = request.local? ? "localhost" : "fallingfruit.org" %>
   <% if host == "localhost" %>
@@ -75,14 +78,14 @@
       I18nViz.external_tool_url = "https://www.localeapp.com/projects/7532/translations?utf8=✓&search=";
     }
   </script>
-	
+
   <!-- Load infowindow only after locale is set -->
   <%= javascript_include_tag "shadowbox-i18n" %>
   <%= javascript_include_tag "shadowbox-infowindow" %>
-  
+
   <!-- Recaptcha -->
   <script type="text/javascript" src="<%= request.protocol%>www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
-  
+
   <!-- Helper JS functions -->
   <script type="text/javascript">
     // Show recaptcha
@@ -132,7 +135,7 @@
 <script type="text/javascript">
 	var w1 = '<%= notice %>';
 	var w2 = '<%= alert %>';
-	$('#warnings_dialog').dialog({ 
+	$('#warnings_dialog').dialog({
 		closeText: "close",
 		minHeight: '5em',
 		resizable: false,
@@ -153,13 +156,14 @@
     <select id="locale_select">
       <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
       <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
+      <!--<option value="el" <%= (I18n.locale == :el) ? "selected" : "" %>>Ελληνικά</option>-->
       <!-- <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option> -->
       <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
-      <!-- <option value="he" <%= (I18n.locale == :he) ? "selected" : "" %>>עברית</option> -->
       <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
+      <!-- <option value="he" <%= (I18n.locale == :he) ? "selected" : "" %>>עברית</option> -->
       <!--<option value="pl" <%= (I18n.locale == :pl) ? "selected" : "" %>>Polski</option>-->
       <option value="pt-BR" <%= (I18n.locale == :"pt-BR") ? "selected" : "" %>>Português</option>
-    </select>		
+    </select>
   </div>
 
  <!-- Sharing -->
@@ -187,10 +191,10 @@
 		</a>
 	</div>
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
-  
+
 	<!-- Google+ Linking -->
-	<div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></div>	
-  
+	<div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></div>
+
  <!-- Title -->
  <a id="falling_fruit" href="/">falling fruit</a>
  <span id="subtitle">
@@ -201,7 +205,7 @@
    <%= translate("layouts.application.mapping_the_urban_harvest") %>
  <% end %>
  </span>
- <!-- 
+ <!--
  <% ['forager', 'freegan', 'grafter'].each do |c| %>
  		<% if @categories.include?(c) %>
  			<b><%= c %></b>
@@ -224,12 +228,12 @@
 			<%= link_to(translate("glossary.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(translate("glossary.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
 		<% end %>
  </div>
- 
+
  <!-- Menu -->
  <% basepath = path.split('?')[0] %>
  <div id="menu">
     <ul>
-    
+
     <!-- Map -->
     <% unless user_signed_in? %>
       <li><%= link_to(translate("glossary.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
@@ -237,7 +241,7 @@
       <li><%= link_to(translate("glossary.home"), home_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
       <li><%= link_to(translate("glossary.world"), root_path, :class => (['/','/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
     <% end %>
-    
+
     <!-- About -->
     <li><%= link_to(translate("glossary.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
     <ul>
@@ -246,22 +250,22 @@
       <li><%= link_to(translate("layouts.application.menu.sharing_the_harvest"), sharing_path, :class => (basepath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
       <li><%= link_to(translate("layouts.application.menu.in_the_press"), press_path, :class => (basepath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
     </ul>
-    
+
     <!-- Data -->
     <li><%= link_to(translate("glossary.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
-    
+
     <!-- Activity -->
     <li><%= link_to(translate("glossary.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
-    
+
     <!-- Routes -->
 		<% if user_signed_in? %>
 			<li><%= link_to(translate("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
 			<% if current_user.is? :admin %>
-				
+
 				<!-- Problems -->
 				<li><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
-				
+
 				<!-- Types -->
 				<li><%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
 				<ul>
@@ -270,7 +274,7 @@
 						<li><%= link_to(translate("layouts.application.menu.new_type"), new_type_path, :class => (basepath == '/types/new') ? "currentpage" : "notcurrentpage") %></li>
 				</ul>
 				</li>
-		
+
 				<!-- Imports -->
 				<li><%= link_to(translate("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
 				<ul>
@@ -278,21 +282,21 @@
 						<li><%= link_to(translate("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
 				</ul>
 				</li>
-		
+
 				<!-- Users -->
 				<li><%= link_to(translate("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
 			<% end %>
 		<% end %>
-		
+
 		<!-- Add Source -->
 		<li><%= link_to("+ " + translate("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
 			<span>(<%= translate("layouts.application.or_right-click_on_map") %>)</span>
 		<% end %>
     </li>
-    
+
     </ul>
-    
+
  </div>
 </div>
 
@@ -305,7 +309,7 @@
 <div id="pending_types_help" style="display:none;" title="<%= translate("glossary.pending_types") %>">
 <%= translate("layouts.application.pending_types_help") %>
 </div>
-   
+
 <!-- Content -->
 <% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show")  or (@current_controller == "observations") %>
 
@@ -313,7 +317,7 @@
 	<!-- Allow full-width content for very large tables in admin views -->
 	<div id="content" <% if (@current_controller == "types" and @current_action == "index") or (@current_controller == "users" and @current_action == "index") %>style="max-width:100%;"<% end %>>
 	 <%= yield %>
- 
+
 	 <!-- Footer -->
 	 <div id="footer">
 		<a href="http://www.gnu.org/copyleft/gpl.html" />Copyleft</a> © <%= Time.now.year %> Falling Fruit

@@ -90,6 +90,7 @@ it:
     delete: Cancellare
     description: Descrizione
     details: Dettagli
+    donate: Donate
     download: Scarica
     edible_type: Tipo commestibile
     edit: Modifica
@@ -308,9 +309,8 @@ it:
       craig_durkin_bio_html: Craig è il cofondatore di <a href="http://www.concrete-jungle.org/">Concrete Jungle</a>, un'organizzazione di Atlanta, in Georgia, che ha l'obiettivo di crescere ortaggi e di raccogliere frutta in città da regalare a mense sociali e banche alimentari. Come <a href="http://www.gatech.edu/">Georgia Tech</a> studioso, ha sempre cercato nuove maniere di combinare la raccolta della frutta con le nuove tecnologie e presto si servirà di un nuovo drone in grado di cercare alberi da frutta e di misurare il grado di maturazione della frutta.
       cristina_rubke_bio_html: Cristina è avvocato in uno studio <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis Friese LLP</a> di San Francisco, California,  dove lavora sulla difesa e sulla consulenza dei marchi. E' anche membro del <a href="//www.sfmta.com/">San Francisco Municipal Transportation Agency</a>, che sovrintende il trasporto pubblico, i parcheggi e il traffico di San Francisco. Nel suo tempo libero, Cristina naviga nella baia di San Francisco con il <a href="//www.baads.org/">Bay Area Association of Disabled Sailors</a>  e compete con regate locali e internazionali.
       david_craft_bio_html: ! 'Davide è ricercatore al Dipartimento di Radiazioni Oncologiche al <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvard Medical School</a> a Boston, Massachusetts. E'' anche un avido raccoglitore e autore di <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging: Finding and Eating Wild Plants in the City</a> ( <a href="/docs/David Craft - Urban Foraging.pdf">free download</a> )'
-      donate: Donate
       ethan_bio_html: Dal sidro di mele e dalla birra alla frutta alle marmellate e <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> , Ethan guarda alla sua banca dati degli alberi del suo quartiere (e alla sua pressa per il sidro) per nuove ispirazioni culinarie. Quando è a casa a Boulder, si diverte a lavorare a mappe e dati, e a vedere in time-lapse il ritiro dei ghiacciai per il suo dottorato di ricerca presso l'<a href="http://instaar.colorado.edu/people/ethan-welty/">University of Colorado</a> , ma va spesso in orbita a camminare, parlare, mangiare e <a href="http://www.weltyphotography.com">fotografare</a> a viaggiare attraverso i continenti.
-      ff_disclaimer: 
+      ff_disclaimer_html: 
       give_gratipay: Paga via Gratipay
       give_paypal: Contribuisci via Paypal
       give_us_money: Siamo un'associazione di volontari, senza scopo di lucro e contiamo sulle donazioni per lavorare. Se fosse possibile, vi preghiamo di offrire un vostro contributo finanziario. Le donazioni negli Stati Uniti sono deducibili dalle tasse.
