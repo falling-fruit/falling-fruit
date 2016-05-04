@@ -56,7 +56,7 @@ h2 {
 
 .announcement {
   font-style: italic;
-  font-size: 115%;  
+  font-size: 115%;
 }
 
 .nowrap {
@@ -111,20 +111,19 @@ div#maptype_button {
   border-radius: 2px;
   cursor: pointer;
   text-align: center;
-  width: 5em;
   box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.5);
   font-family: Roboto, Arial, sans-serif;
   font-size: 11px;
   font-weight: normal;
   color: #565656;
-  padding: 8px 5px;
+  padding: 8px 8px;
   margin-top: 10px;
   z-index: 1;
 }
 
 div#maptype_button:hover {
   background-color: rgb(235,235,235);
-  color: #000;  
+  color: #000;
 }
 
 /*** Map Credits ***/
@@ -171,17 +170,17 @@ div#location_infowindow {
   color: #333;
   padding: 0 0 0.5em 0;
   overflow: auto;
-  
+
   .ui-tabs-nav a {
   	font-weight: 300;
   }
-  
+
   .ui-tabs-panel a {
   	text-decoration: none;
 		border-bottom: 1px solid #DDD;
 		color: #999;
 	}
-	
+
 	.ui-tabs-panel a:hover {
 		border-color: #999;
   	color: #333;
@@ -198,7 +197,7 @@ div#tab-1 {
 
 div#tab-1 div#type_list {
   margin-bottom: 0.4em;
-  
+
   li {
 		list-style: none;
 		margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
@@ -207,7 +206,7 @@ div#tab-1 div#type_list {
 		padding: 0.1em 0.4em;
 		font-size: 1.15em;
 	}
-	
+
 	img.type_icon {
   	height: 0.9em;
 	}
@@ -249,7 +248,7 @@ div#tab-1 table#footer {
   /* for embed: overrides browser css */
   color: inherit;
   font-size: inherit;
-  font-weight: inherit;  
+  font-weight: inherit;
 }
 
 div#tab-1 table#footer td#controls {
@@ -282,7 +281,7 @@ div#tab-1 table#footer a#add_review:hover {
 div.observation {
   border-top: 1px solid #EEE;
   padding: 0.75em 0;
-  
+
   a { /* 'x' visible to admins */
   	border-bottom: none !important;
   }
@@ -343,7 +342,7 @@ div#tab-2 label {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
-} 
+}
 .ui-tabs .ui-tabs-panel {
   padding: 0;
 }
@@ -366,16 +365,16 @@ div#tab-2 label {
 .ui-tabs .ui-tabs-nav .ui-corner-top > a {
   padding: 0 0.5em;
 }
-.ui-tabs .ui-tabs-nav li:not(.ui-state-active) { 
+.ui-tabs .ui-tabs-nav li:not(.ui-state-active) {
   background: transparent;
   border-color: transparent;
-} 
-.ui-tabs .ui-tabs-nav .ui-state-active { 
+}
+.ui-tabs .ui-tabs-nav .ui-state-active {
   border-bottom: 1px solid #FFF;
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
   border-top: 1px solid #CCC;
-} 
+}
 
 /* Hiding by putting off screen rather than using display:none so that dimensions are still reported */
 .ui-tabs .ui-tabs-hide { /* my_tabs-1 contains google map */
@@ -422,9 +421,9 @@ form span.subtext-inline {  /* Regular behavior, shorthand. */
   color: #888;
 }
 
-form input[type=text], 
+form input[type=text],
 form input[type=password],
-form input[type=email], 
+form input[type=email],
 form textarea {
   font-family: inherit;
   color: inherit;
@@ -442,7 +441,7 @@ form select {
   margin: 0;
 }
 
-form input[type=submit], 
+form input[type=submit],
 form input[type=file],
 button {
   font-family: inherit;
@@ -468,7 +467,7 @@ form input[type=checkbox] {
   top: -1px;
 }
 
-form input#user_password_confirmation, 
+form input#user_password_confirmation,
 form input#user_email_confirmation {
   display: block; /* forces to next line, robust to confirmation failure */
   margin-top: 0.25em;
@@ -478,7 +477,7 @@ form div.confirmation span,
 form div.confirmation input[type=text],
 form div.confirmation label {
   display: block;
-} 
+}
 
 form div.field_with_errors {
   display: inline; /* since label becomes div on error, avoids extra line breaks */
@@ -700,7 +699,7 @@ div#slider{
 .dialog_yellow {
   border: 2px solid #ECECDC;
   top: -2px ! important;
-}  
+}
 
 .dialog_yellow .ui-dialog-titlebar {
   background: #F6F6A8;
@@ -756,36 +755,36 @@ div#slider{
 /********************** Shadowbox *************************/
 /**********************************************************/
 
-/* Caption */ 
+/* Caption */
 
 div#sb-title-inner {
   font-size: inherit;
   font-family: Roboto, Arial, sans-serif;;
 }
 
-/* Custom navigation controls */ 
-/* (previous currently unused) */ 
+/* Custom navigation controls */
+/* (previous currently unused) */
 
-#sb-custom-nav-next, 
-#sb-custom-nav-previous { 
-  position: absolute; 
-  display: block; 
-  top: 0; 
-  height: 100%; 
+#sb-custom-nav-next,
+#sb-custom-nav-previous {
+  position: absolute;
+  display: block;
+  top: 0;
+  height: 100%;
 }
-#sb-custom-nav-next { 
+#sb-custom-nav-next {
   width: 100%;
-  right: 0; 
-} 
-#sb-custom-nav-previous { 
+  right: 0;
+}
+#sb-custom-nav-previous {
   width: 0%;
-  left: 0; 
+  left: 0;
 }
 /*
-#sb-custom-nav-next:hover { 
+#sb-custom-nav-next:hover {
   cursor: asset-url('/icons/arrow_right.cur'), default;
-} 
-#sb-custom-nav-previous:hover { 
+}
+#sb-custom-nav-previous:hover {
   cursor: asset-url('/icons/arrow_left.cur'), default;
 }
 */
