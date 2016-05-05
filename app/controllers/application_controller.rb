@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::Base
   @categories = Type::DefaultCategories
-   
+
   before_filter :redirect_to_https
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :instantiate_controller_and_action_names
   before_filter :set_locale
   before_filter :set_categories
   after_filter :set_access_control_headers
-  
+
   protect_from_forgery
 
   # catch all perms errors and punt to root
@@ -143,7 +143,7 @@ class ApplicationController < ActionController::Base
   #
 
   def set_locale
-    new_locale = extract_locale_from_subdomain || extract_locale_from_url
+    new_locale = find_matching_locale(extract_locale_from_subdomain || extract_locale_from_url)
     unless new_locale.nil?
       I18n.locale = new_locale
     else
@@ -153,24 +153,31 @@ class ApplicationController < ActionController::Base
 
   def extract_locale_from_subdomain
     host_parts = request.host.split(/\./)
-    if (host_parts.length == 3 and host_parts[1] == "fallingfruit") or
-      (host_parts.length == 2 and host_parts[1] == "localhost")
-      I18n.available_locales.map(&:to_s).include?(host_parts.first) ? host_parts.first : nil
+    if (host_parts.length > 1) and (host_parts[1] == "fallingfruit" or host_parts[1] == "localhost")
+      host_parts.first
     else
       nil
     end
   end
 
   def extract_locale_from_url
-    return nil unless params.has_key? :locale
-    locale = params[:locale].gsub('_','-')
-    I18n.available_locales.map(&:to_s).include?(locale) ? locale : (I18n.available_locales.map(&:to_s).include?(locale[0,2]) ? locale[0,2] : nil)
+    return (params.has_key? :locale) ? params[:locale] : nil
   end
-  
+
+  def find_matching_locale(string)
+    return nil if string.nil?
+    string = string.gsub('_','-')
+    match = I18n.available_locales.find{ |x| x.casecmp(string.to_sym).zero? }
+    if match.nil?
+      match = I18n.available_locales.find{ |x| x[0,2].casecmp(string[0,2]).zero? }
+    end
+    return match ? match : nil
+  end
+
   #
   # =================== TYPE CATEGORIES ========================
   #
-    
+
   def set_categories
     new_categories = extract_categories_from_url
     unless new_categories.nil?
@@ -185,11 +192,11 @@ class ApplicationController < ActionController::Base
     categories = params[:c].split(",")
     return Type::Categories & categories
   end
-  
+
   #
   # =================== HTTPS STUFF ========================
   #
-  
+
   # Redirect only if logged in user is arriving at live site with http
   # see http://stackoverflow.com/questions/11252910/rails-redirect-to-https-while-keeping-all-parameters
   def redirect_to_https
@@ -197,11 +204,11 @@ class ApplicationController < ActionController::Base
       redirect_to({:protocol => 'https://'}.merge(params), :flash => flash)
     end
   end
-  
+
   #
   # =================== SELECT2 STUFF ========================
   #
-  
+
   def s_to_i_array(string, sep = ',')
     result = [string[0..-1].gsub(/\[|\]/,'').split(sep).reject(&:blank?).collect! {|n| n.to_i}].flatten
   end

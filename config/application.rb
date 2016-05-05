@@ -31,8 +31,9 @@ module FallingfruitWebapp
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.available_locales = [:en, :fr, :es, :de, 'pt-BR', :he, :pl, :it, :el]
+    config_files = Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.load_path += config_files
+    config.i18n.available_locales = config_files.map{ |x| x[/\/([a-z\-_]*)\./, 1] }.map(&:to_sym)
     config.i18n.default_locale = 'en'
 
     # Makes default (en) appear when translation missing
