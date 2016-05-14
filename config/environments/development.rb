@@ -45,5 +45,6 @@ FallingfruitWebapp::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  # NOTE: Switched to false because true was breaking select2
+  config.assets.debug = false
 end
