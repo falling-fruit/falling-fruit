@@ -994,7 +994,7 @@ function recenter_map_to_address() {
 			apply_geocode(latlng,bounds);
 			return;
 		} else {
-			alert(I18n.t("locations.errors.geocode_failed") + ": " + status);
+			alert(I18n.t("locations.messages.geocode_failed") + ": " + status);
 		}
 	});
 }
@@ -1064,7 +1064,7 @@ function keyDragZoom(map) {
     key: "shift",
     boxStyle: {border: "2px solid rgba(0, 0, 0, 0.4)"},
     veilStyle: {backgroundColor: "transparent", cursor: "crosshair"},
-    visualTips: {off: "Turn on drag zoom mode", on: "Turn off drag zoom mode"}
+    visualTips: {off: I18n.t("locations.index.turn_on_dragzoom"), on: I18n.t("locations.index.turn_off_dragzoom")}
    });
 }
 
@@ -1144,7 +1144,7 @@ function update_marker_address() {
 			}
 		// Otherwise, return geocoding errors
 		} else {
-			alert(I18n.t("locations.errors.geocode_failed") + ": " + status);
+			alert(I18n.t("locations.messages.geocode_failed") + ": " + status);
 		}
 	});
 }
@@ -1160,7 +1160,7 @@ function update_marker_latlng() {
 	// If latitude > 85, return error
 	// Google Maps cannot display lat > 85 properly, and lat > 85 breaks clusters.
 	if (Math.abs(lat) > 85) {
-	  alert(I18n.t("locations.errors.latitude_too_large"));
+	  alert(I18n.t("locations.messages.latitude_too_large"));
 	  return;
 	}
 

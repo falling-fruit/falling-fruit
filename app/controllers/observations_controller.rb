@@ -13,7 +13,7 @@ class ObservationsController < ApplicationController
   def create
     @obs = Observation.new(params[:observation])
     @obs.user = current_user if user_signed_in?
-    if params[:observation][:observed_on].blank? 
+    if params[:observation][:observed_on].blank?
       @obs.observed_on = nil
     else
       @obs.observed_on = Timeliness.parse(params[:observation][:observed_on], :format => 'yyyy-mm-dd')
@@ -23,7 +23,7 @@ class ObservationsController < ApplicationController
       @obs.location.save
     end
     respond_to do |format|
-      test = user_signed_in? ? true : verify_recaptcha(:model => @obs, 
+      test = user_signed_in? ? true : verify_recaptcha(:model => @obs,
                                                        :message => "ReCAPCHA error!")
       if test and @obs.save
         if @obs.graft
@@ -31,7 +31,7 @@ class ObservationsController < ApplicationController
         else
           log_changes(@obs.location,"visited",@obs)
         end
-        format.html { redirect_to @obs.location, notice: 'You review was added successfully.' }
+        format.html { redirect_to @obs.location, notice: I18n.translate("observations.created") }
       else
         format.html { render action: "new" }
       end

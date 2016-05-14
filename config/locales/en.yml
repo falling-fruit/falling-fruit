@@ -192,9 +192,6 @@ en:
       unverified_help: Locations are marked as unverified if their position, identity, or existence is disputed. Many locations imported from tree inventories are marked as unverified because their edibility is uncertain (for example, "Pear" could be either an edible or decorative variety). Users are encouraged to travel to these locations and report their findings.
       unverified_help_title: Why unverified?
   locations:
-    errors:
-      geocode_failed: Your search failed
-      latitude_too_large: We do not support latitudes beyond ±85 degrees.
     form:
       access_subtext: Access status of the source. Leave blank if you don't know.
       address_subtext: can be used to position the marker. Adjust it as needed before submitting.
@@ -250,6 +247,8 @@ en:
         100% of proceeds from app sales go to support our hard costs (servers and infrastructure to keep the site online). We''re a 501(c)3 nonprofit organization, so this cost is also tax-deductible in the US.'
       mobile_modal_title: But wait, there's a mobile app!
       stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>.
+      turn_off_dragzoom: Turn off drag zoom mode
+      turn_on_dragzoom: Turn on drag zoom mode
       welcome_modal_html: ! 'Falling Fruit is a massive, collaborative map of the urban harvest. By uniting the efforts of foragers, freegans, and foresters everywhere, the map already points to over a half million food sources around the world (from plants and fungi to water wells and dumpsters). Our rapidly growing user community is actively exploring, editing, and adding to the map.<br/><br/>Join us in celebrating the overlooked bounty of our city streets! Use the site anonymously or <a href="/users/sign_up?locale=en">sign up</a> to access additional features.
 
         <br/><br/>
@@ -301,6 +300,13 @@ en:
       unsure: Unsure
       unsure_other: Unsure/Other
       url_for_this_location: URL for this location
+    messages:
+      created: Location was successfully created
+      geocode_failed: Your search failed
+      latitude_too_large: We do not support latitudes beyond ±85 degrees.
+      not_created: Location could not be created
+      not_updated: Location could not be updated
+      updated: Location was successfully updated
     searchbar:
       embed_hover: Embed code
       invasive_modal: Invasive plants are non-native (or alien) plants in a given region that out-compete native plants. We highlight invasive plants on Falling Fruit so that you can seek them out and eat them---fight invasive, noxious species one tasty bite at a time! Invasive plants on Falling Fruit are only listed for the United States and are based on USDA state-level noxious and invasive species lists.
@@ -320,6 +326,8 @@ en:
     forager_description: A massive, collaborative map of the urban harvest uniting the efforts of foragers, freegans, and foresters around the world. Explore and share information about the sources of free food in your neighborhood.
     freegan_description: By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead.
     freegan_title: World Dumpster Map
+  observations:
+    created: Your review was added successfully
   pages:
     about:
       about_the_site: About the project
@@ -352,7 +360,7 @@ en:
       beware_html: But beware! Once uncompressed, the database is a huge file that will crush most spreadsheet software. If you only need data for a small region, first try retrieving them using the download tool integrated into the <a href="/?locale=en">map</a>.
       caveat_emptor_html: We take no responsibility for the accuracy of the data - it is provided as is, <i>caveat emptor</i>. If you do something cool with the data, please <a href="mailto:feedback@fallingfruit.org">let us know</a>!
       data_unavailable_html: Data currently unavailable. Come back later or <a href="mailto:info@fallingfruit.org">contact us</a>.
-      intro: Falling Fruit is built on public data and the generosity of foragers willing to share their finds. We want urban foraging to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of open data, behold! The entire database
+      intro: Falling Fruit is built on public data and the generosity of our users. We want urban foraging to reach as many people as possible, and we believe that everyone should have equal access to the fruits of our collective labor. In the spirit of openness, behold! The entire database
       license_html: If you are interested in using the data in your project, especially a commercial project, we suggest you contact us (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>). Unless otherwise specified, data are licensed as <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike). This means that you are free to use and distribute the data so long as you preserve the original author/source attributions and do not use it (without permission) for commercial applications. The source code for Falling Fruit is also open, and available on <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
       summary_description: The database currently contains %{types} different types of edibles (most, but not all, are plant species) distributed over %{locations} locations. For each type, the following table lists common names, scientific names, links to outside references, and total count.
       summary_of_sources: Summary of sources
@@ -364,7 +372,7 @@ en:
       google_maps_engine: Google Maps Engine
       intro_html: Falling Fruit aspires to be the most comprehensive and open geographic dataset of urban edibles. While our users explore, edit, and add locations using our <a href="/?locale=en">map</a>, we comb the known universe for pre-existing datasets and import them directly into the <a href="/data?locale=en">database</a>, uniting the efforts of foragers, foresters, and freegans everywhere. If you know of a dataset we've missed, please <a href="mailto:info@fallingfruit.org">let us know</a>! You can also help us with the import process by formatting the data using the <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">import template</a>. Note that since imports must be performed manually, all changes to the original data made after the import are not reflected on Falling Fruit.
       no_license: No license specified, assume <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike).
-      table_info: Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the original data, the import process, and the license governing how the data may be used.
+      table_info: Each dataset is listed by name, number of locations, and date imported. Expanding each row reveals further details about the data, the import process, and the license governing how the data may be used.
       type: Type
       types_of_data: Datasets imported into Falling Fruit fall into two main categories. "Community maps" are built by foragers and freegans as they peruse their communities for things to eat. We are indebted to the hardworking citizen-cartographers who have compiled this data. "Tree inventories" are compiled by cities, universities, and other institutions wishing to better document and care for their trees. We mine these vast datasets for food-producing species and add them to the map. To help us map your neighborhood fruit trees, contact your school or city urging them to share their tree inventory with us.
     sharing:
@@ -376,15 +384,20 @@ en:
       grow_pick_and_distribute: Grow · Pick · Distribute
       intro_html: Listed below are organizations that grow food in public spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (swaps, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
   problems:
+    created: Thank you for letting us know!
     description_subtext: Any information that might help us evaluate the problem
     problem_type: Problem type
     your_contact_info: Your contact info
   routes:
+    denied: You do not have permission to view that route
     mode_of_travel: Mode of travel
     modes_of_travel:
     - Walking
     - Bicycling
     - Driving
+    order_not_updated: Problems updating order
+    order_updated: Order updated
+    updated: Route was successfully updated
   time:
     days:
       content_item: day

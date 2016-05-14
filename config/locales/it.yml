@@ -184,9 +184,6 @@ it:
       unverified_help: Le fonti sono contrassegnate come non verificate se la loro identità, posizione o esistenza è controversa. Molte fonti sugli alberi, importate da cataloghi ed elenchi, sono contrassegnate come non verificate perché non è stata verificata la loro effettiva commestibilità  (ad esempio, "pera" potrebbe essere una varietà commestibile o solo decorativa). Gli utenti sono invitati a recarsi in quei luoghi e a documentare lo stato di fatto.
       unverified_help_title: Perché non verificato?
   locations:
-    errors:
-      geocode_failed: La tua ricerca è fallita
-      latitude_too_large: Noi non andiamo a latitudini superiori o inferiori di 85 gradi
     form:
       access_subtext: Stato di accesso della sorgente. Lasciare vuoto se non si conosce.
       address_subtext: può essere utilizzato per posizionare il marcatore. Regolare come necessario prima di inviarlo.
@@ -228,6 +225,8 @@ it:
       mobile_modal_html: 
       mobile_modal_title: 
       stamen_html: Mappa piastrelle di <a href="http://stamen.com">Stamen design</a> , sotto <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> . I dati di <a href="http://openstreetmap.org">OpenStreetMap</a> , sotto <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a> .
+      turn_off_dragzoom: 
+      turn_on_dragzoom: 
       welcome_modal_html: Falling Fruit è una grande mappa condivisa sulla raccolta urbana di frutta. Grazie alla collaborazione di raccoglitori, forestali e freegans, la mappa indica già a oltre un milione e mezzo di luoghi destinati alla produzione alimentare in tutto il mondo (da piante e funghi a pozzi d'acqua e discariche). La nostra comunità e in rapida crescita ed è attivamente coinvolta in esplorazioni e aggiungendo alla mappa. <br/><br/> Unitevi a noi per celebrare l'abbondante produzione delle nostre strade cittadine! Potete utilizzare il sito in forma anonima oppure <a href="/users/sign_up?locale=it">registrarsi</a> creare un vostro account per accedere a tutte le funzioni aggiuntive.
       welcome_modal_title: Benvenuti a Fallen Fruit!
     infowindow:
@@ -275,6 +274,13 @@ it:
       unsure: Incerto
       unsure_other: Incerto/Altro
       url_for_this_location: URL per questa posizione
+    messages:
+      created: 
+      geocode_failed: La tua ricerca è fallita
+      latitude_too_large: Noi non andiamo a latitudini superiori o inferiori di 85 gradi
+      not_created: 
+      not_updated: 
+      updated: 
     searchbar:
       embed_hover: Embed code
       invasive_modal: 
@@ -294,6 +300,8 @@ it:
     forager_description: Una grande mappa collaborativa che unisce il lavoro di raccoglitori urbani, botanici e forestali di tutto il mondo. Esplora e condividi le informazioni sulle risorse di cibo gratuito nel tuo quartiere.
     freegan_description: Mappando i contenitori di cibo scartato, speriamo di sensibilizzare sullo spreco del cibo, di facilitare l'utilizzo del cibo che viene scartato e piuttosto di incoraggiare le imprese a regalarlo.
     freegan_title: Mappa dei contenitori di cibo scartato
+  observations:
+    created: 
   pages:
     about:
       about_the_site: Informazioni sul progetto
@@ -350,15 +358,20 @@ it:
       grow_pick_and_distribute: Crescere · Raccogliere · Distribuire
       intro_html: Di seguito sono elencate le organizzazioni che si occupano di agricoltura urbana negli spazi pubblici (orti urbani, frutteti pubblici), o raccolgono frutta, erbe e ortaggi (raccolta urbana, orti urbani) o distribuiscono prodotti alimentari (donazioni). Le organizzazioni sono suddivise per paese, stato (se applicabile) e città. Quelli con nomi sbarrati si pensa che siano inattivi. Se siete a conoscenza di altri dati che dovrebbero essere in questa lista, <a href="mailto:info@fallingfruit.org">contattaci</a> !
   problems:
+    created: 
     description_subtext: Ogni informazione che ci possa aiutare a valutare il problema
     problem_type: Tipo di problema
     your_contact_info: Le tue informazioni di contatto
   routes:
+    denied: 
     mode_of_travel: Modalità di viaggio
     modes_of_travel:
     - A piedi
     - Bicicletta
     - Guida
+    order_not_updated: 
+    order_updated: 
+    updated: 
   time:
     days:
       one: ! '%{count} giorno'

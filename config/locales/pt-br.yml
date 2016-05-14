@@ -186,9 +186,6 @@ pt-br:
       unverified_help: Fontes são marcados como não verificadas caso sua identidade, localização ou existência seja contestada. Muitas fontes importadas a partir de inventários de árvores são marcadas como não verificadas porque a sua comestibilidade é incerta (por exemplo, "pera" poderia ser tanto uma variedade comestível ou ornamental). Os usuários são encorajados a viajar para esses locais e relatar suas descobertas.
       unverified_help_title: ''
   locations:
-    errors:
-      geocode_failed: Sua busca não foi bem sucedida
-      latitude_too_large: Nós não comportamos latitudes além de +/- 85 graus.
     form:
       access_subtext: Indique a condição dessa fonte. Deixe em branco caso não saiba.
       address_subtext: pode ser usado para posicionar  o marcador. Ajuste conforme necessário antes de enviar.
@@ -230,6 +227,8 @@ pt-br:
       mobile_modal_html: 
       mobile_modal_title: 
       stamen_html: Bloco do mapa por <a href="http://stamen.com">estame projeto</a>, sob <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dados de <a href="http://openstreetmap.org">OpenStreetMap</a>, sob <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      turn_off_dragzoom: 
+      turn_on_dragzoom: 
       welcome_modal_html: Falling Fruit é um enorme mapa colaborativo sobre colheita urbana. Unindo os esforços de coletores, florestais e freegans em todos os lugares, o mapa já identifica mais de meio milhão de fontes de alimentos em todo o mundo (desde plantas e fungos até poços de água e lixeiras). Nossa crescente comunidade de usuários ativamente explora, editar e adiciona ao mapa. <br/><br/> Junte-se a nós na celebração da abundancia negligenciada de nossas ruas! Use o site anonimamente ou <a href="/users/sign_up?locale=pt">se inscreva</a> para acessar recursos adicionais.
       welcome_modal_title: ! 'Bem vindo ao Falling Fruit! '
     infowindow:
@@ -277,6 +276,13 @@ pt-br:
       unsure: Incerto
       unsure_other: Incerto/Outro
       url_for_this_location: URL para este local
+    messages:
+      created: 
+      geocode_failed: Sua busca não foi bem sucedida
+      latitude_too_large: Nós não comportamos latitudes além de +/- 85 graus.
+      not_created: 
+      not_updated: 
+      updated: 
     searchbar:
       embed_hover: Código embutido
       invasive_modal: 
@@ -296,6 +302,8 @@ pt-br:
     forager_description: Um grande mapa colaborativo da colheita urbana, que une os esforços de coletores, freegans e floresteiros de todo o mundo. Pesquise e divida informações sobre as fontes de alimentos grátis no seu bairro.
     freegan_description: ! 'Mapeando as lixeiras do mundo que contém alimentos, esperamos sensibilizar as pessoas sobre o disperdício de alimentos, facilitar a liberação do uso de alimentos que são descartados, e, ao contrário de disperdiçar, incentivar empresas a doar esses alimentos. '
     freegan_title: Mapa das Lixeiras Mundiais
+  observations:
+    created: 
   pages:
     about:
       about_the_site: Sobre o projeto
@@ -352,15 +360,20 @@ pt-br:
       grow_pick_and_distribute: Crescer · Colher · Distribuir
       intro_html: Abaixo estão listadas as organizações locais que cultivam alimentos em locais públicos (florestas e pomares), colhem alimentos (coleta urbana e hortas), ou de outra forma redistribuirem alimentos (trocas e doações). As organizações estão listados por país, estado e cidade. Aqueles com nomes riscados são inativos. Se você souber de outros que deveriam estar nesta lista, <a href="mailto:info@fallingfruit.org">entre em contato conosco</a>!
   problems:
+    created: 
     description_subtext: Informações que poderiam nos ajudar a avaliar o problema
     problem_type: Tipo de problema
     your_contact_info: Suas informações de contato
   routes:
+    denied: 
     mode_of_travel: Modo de viagem
     modes_of_travel:
     - Andando
     - Pedalando
     - Dirigindo
+    order_not_updated: 
+    order_updated: 
+    updated: 
   time:
     days:
       one: ! '%{count} dia'

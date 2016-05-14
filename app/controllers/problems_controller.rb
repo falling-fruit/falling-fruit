@@ -24,7 +24,7 @@ class ProblemsController < ApplicationController
       test = user_signed_in? ? true : verify_recaptcha(:model => @problem,
                                                        :message => "ReCAPCHA error!")
       if test and @problem.save
-        format.html { render :text => 'Thank you for letting us know!' }
+        format.html { render :text => I18n.translate("problems.created") }
       else
         format.html { render :partial => "/problems/new", :locals => {:problem => @problem} }
       end
@@ -38,7 +38,7 @@ class ProblemsController < ApplicationController
       format.html
     end
   end
-  
+
   def update
     @problem = Problem.find(params[:id])
     params[:problem][:responder] = User.find(params[:responder_id])
@@ -50,7 +50,7 @@ class ProblemsController < ApplicationController
           Spammer.respond_to_problem(@problem).deliver
         end
         format.html { redirect_to problems_path, notice: 'Problem was successfully resolved.' }
-      else 
+      else
         format.html { redirect_to problems_path, notice: 'Problem failed to udpate.' }
       end
     end

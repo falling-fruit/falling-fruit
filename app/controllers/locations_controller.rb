@@ -222,15 +222,15 @@ class LocationsController < ApplicationController
         log_changes(@location,"added")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
-          format.html { redirect_to new_location_path, notice: 'Location was successfully created.' }
+          format.html { redirect_to new_location_path, notice: I18n.translate('locations.messages.created') }
           format.json { render json: {"status" => 0, "id" => @location.id} }
         else
-          format.html { redirect_to @location, notice: 'Location was successfully created.' }
+          format.html { redirect_to @location, notice: I18n.translate('locations.messages.created') }
           format.json { render json: {"status" => 0, "id" => @location.id} }
         end
       else
-        format.html { render action: "new", notice: 'Location could not be created.' }
-        format.json { render json: {"status" => 2, "error" => "Failed to create: #{(@location.errors.full_messages + @observation.errors.full_messages).join(";")}" } }
+        format.html { render action: "new", notice: I18n.translate('locations.messages.not_created') }
+        format.json { render json: {"status" => 2, "error" => I18n.translate('locations.messages.not_created') + ": #{(@location.errors.full_messages + @observation.errors.full_messages).join(";")}" } }
       end
     end
   end
@@ -284,12 +284,12 @@ class LocationsController < ApplicationController
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_location)
         cluster_increment(@location)
         expire_things
-        format.html { redirect_to @location, notice: 'Location was successfully updated.' }
+        format.html { redirect_to @location, notice: I18n.translate('locations.messages.updated') }
         format.json { render json: {"status" => 0} }
       else
         cluster_increment(@location) # do increment even if we fail so that clusters don't slowly deplete :/
-        format.html { render action: "edit", notice: 'Location could not be updated.' }
-        format.json { render json: {"status" => 2, "error" => "Failed to update: #{(@location.errors.full_messages + @observation.errors.full_messages).join(";")}" } }
+        format.html { render action: "edit", notice: I18n.translate('locations.messages.not_updated') }
+        format.json { render json: {"status" => 2, "error" => I18n.translate('locations.messages.not_updated') + ": #{(@location.errors.full_messages + @observation.errors.full_messages).join(";")}" } }
       end
     end
   end

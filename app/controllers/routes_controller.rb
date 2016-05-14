@@ -15,7 +15,7 @@ class RoutesController < ApplicationController
         format.html
       end
     else
-      redirect_to root_path, notice: "You do not have permission to view that route."
+      redirect_to root_path, notice: I18n.translate("routes.denied")
     end
   end
 
@@ -40,9 +40,9 @@ class RoutesController < ApplicationController
     end
     @route_location.position = new_position
     if @route_location.save and checks.all?
-      flash[:notice] = "Order updated!"
+      flash[:notice] = I18n.translate("routes.order_updated")
     else
-      flash[:notice] = "Problems updating order!"
+      flash[:notice] = I18n.translate("routes.order_not_updated")
     end
     redirect_to route_path(@route)
   end
@@ -71,12 +71,12 @@ class RoutesController < ApplicationController
       else
         data[:is_public] = false
       end
-      route.update_attributes(data) 
+      route.update_attributes(data)
     }.all?
 
     respond_to do |format|
       if okay
-        format.html { redirect_to routes_path, notice: 'Route was successfully updated.' }
+        format.html { redirect_to routes_path, notice: I18n.translate("routes.updated") }
         format.json { head :no_content }
       else
         format.html { render action: "index" }

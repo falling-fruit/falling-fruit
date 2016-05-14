@@ -184,9 +184,6 @@ de:
       unverified_help: Quellen werden als unbestätigt markiert, wenn ihre Identität, der Ort, oder ihre Existenz umstritten ist. Viele Quellen, insbesondere wenn sie von Bauminventaren importiert wurden, sind daher als als unbestätigt markiert, weil beispielsweise unklar ist, ob es sich um einen geniessbaren Typ oder nur eine dekorative Art handelt. Wir möchten alle Benutzer aufforden, solche Standorte zu besuchen und uns ihre Beobachtungen mitzuteilen.
       unverified_help_title: Wieso unbestätigt?
   locations:
-    errors:
-      geocode_failed: Ihre Suche ausgefallen
-      latitude_too_large: ! 'Wir sie ausserhalb des ±85igsten Breitengrades liegt. '
     form:
       access_subtext: Zugang zu diesem Standort. Freilassen, wenn du es nicht genau weisst.
       address_subtext: kann verwendet werden, um den Marker schnell zu positionieren. Gegebenenfalls anpassen, bevor die Quelle hinzugefügt wird.
@@ -228,6 +225,8 @@ de:
       mobile_modal_html: 
       mobile_modal_title: 
       stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      turn_off_dragzoom: 
+      turn_on_dragzoom: 
       welcome_modal_html: Falling Fruit ist eine riesige, user-generierte Karte der urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler' zeigt unsere Karte weltweit bereits zu einer halben Million Standorten, an denen Essbares wächst oder gratis erhältlich ist (von Pflanzen und Pilzen zu Brunnen und Müllcontainern). Unsere stetig wachsende User-Community ist unermüdlich dabei, wertvolle Standorte zu erkunden oder zu bearbeiten, um sie der Karte hinzuzufügen. <br/><br/> Hilf uns, den vernachlässigten Reichtum an unseren Strassen zum Leben zu erwecken! Verwende die Website anonym oder melde dich als <a href="/users/sign_up?locale=de">Benutzer</a> an, um sämtliche Funktionen nutzen zu können.
       welcome_modal_title: Willkommen bei Falling Fruit!
     infowindow:
@@ -275,6 +274,13 @@ de:
       unsure: Unsicher
       unsure_other: Unklar/Anderes
       url_for_this_location: URL für diesen Standort
+    messages:
+      created: 
+      geocode_failed: Ihre Suche ausgefallen
+      latitude_too_large: ! 'Wir sie ausserhalb des ±85igsten Breitengrades liegt. '
+      not_created: 
+      not_updated: 
+      updated: 
     searchbar:
       embed_hover: Einbettungscode
       invasive_modal: 
@@ -294,6 +300,8 @@ de:
     forager_description: ! 'Eine riesige, gemeinschaftliche Karte der urbanen Ernte die die urbanen Jäger und Sammler weltweit vereinen soll! Teile Informationen über kostenlose Essensquellen in deiner Nachbarschaft und erkundige, was andere kartiert haben. '
     freegan_description: ! 'In dem wir weltweit essenshaltige Kontainer kartieren, möchten wir das Thema ''Foold Waste'' auf den Tisch und in die warmen Stuben bringen, die ''Rettung'' solcher Lebensmittel vereinfachen und Firmen dazu ermutigen, die Lebensmittel an Bedürftige zu spenden, statt zu verschwenden. '
     freegan_title: Kontainer Weltkarte
+  observations:
+    created: 
   pages:
     about:
       about_the_site: Über diese Seite
@@ -354,15 +362,20 @@ de:
       grow_pick_and_distribute: Pflanze · Ernte · Verteile
       intro_html: Im Folgenden sind lokale Organisationen aufgeführt, die Lebensmittel anpflanzen (z.B. in Gemeinschaftsgärten), ernten (z.B. 'urban gardening'), oder auf andere Art und Weise verteilen und teilen. Organisationen werden nach Land, Bundesland/Kanton und Stadt aufgeführt. Organisationen mit durchgestrichenem Namen sind zur Zeit vermutlich inaktiv. Wenn du Organisationen kennst, die auf dieser Liste auftauchen müssten, dann <a href="mailto:info@fallingfruit.org">sag uns Bescheid</a>!
   problems:
+    created: 
     description_subtext: Jeglicher Hinweis kann uns helfen, das Problem zu lösen.
     problem_type: Problem Art
     your_contact_info: Deine Kontaktinfo
   routes:
+    denied: 
     mode_of_travel: Fortbewegungsmittel
     modes_of_travel:
     - Zu Fuß
     - Mit dem Fahrrad
     - Mit dem Auto
+    order_not_updated: 
+    order_updated: 
+    updated: 
   time:
     days:
       one: ! '%{count} Tag'
