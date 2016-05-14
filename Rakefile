@@ -45,7 +45,7 @@ end
 task(:replace_blanks => :environment) do
   Rails.application.eager_load!
   ActiveRecord::Base.descendants.reject{ |m| m.name.include? "ActiveRecord::" }.each{ |model|
-   model.columns.each{ |column| 
+   model.columns.each{ |column|
      unless column.array
        if [:text,:string].include? column.type
          blanks = model.where(column.name => '')
@@ -72,7 +72,7 @@ task(:replace_blanks => :environment) do
   }
 end
 
-# Removes types with no locations
+# Removes pending types with no locations
 task(:delete_unused_pending_types => :environment) do
   Type.where("pending").each do |type|
     if type.locations.blank? and type.children.blank?
@@ -137,171 +137,12 @@ task(:geocode => :environment) do
   }
 end
 
-# Fetch common names from Encyclopedia of Life (EOL)
-task(:eol_names => :environment) do
-  
-  # Initialize csv
-  CSV.open("data/eol_names.csv","wb") do |csv|
-    cols = ["ff_id","ff_rank","ff_name","ff_scientific","eol_id","eol_scientific","language","eol_names"]
-    csv << cols
-    # For each type with a scientific name
-    Type.where("scientific_name is not null and scientific_name != ''").order(:scientific_name).each{ |t|
-    
-      # Show progress
-      puts t.scientific_name
-      rank = Type::Ranks[t.taxonomic_rank]
-      
-      # Search EOL
-      # Gets page id of first (top) result
-      search_url = "http://eol.org/api/search/1.0.json?q=%22" + t.scientific_name.gsub(" ","+") + "%22&exact=true"
-      search = JSON.parse(open(search_url).read)
-      if search["totalResults"] > 0
-        eol_id = search["results"][0]["id"]
-      else
-        csv << [t.id, rank, t.name, t.scientific_name, '', '', '', '']
-        next
-      end
-      
-      # Get EOL species info
-      page_url = "http://eol.org/api/pages/1.0/" + eol_id.to_s + ".json?common_names=true"
-      page = JSON.parse(open(page_url).read)
-      eol_scientific = page["scientificName"]
-      names = page["vernacularNames"].group_by{ |x| x['language'] }
-      languages = names.keys
-      languages.each{ |l|
-        l_names = names[l].sort_by{ |n| (n.key?("eol_preferred") and n["eol_preferred"])? 0 : 1 }.collect{ |n| n["vernacularName"] }.join(", ")
-        csv << [t.id, rank, t.name, t.scientific_name, eol_id, eol_scientific, l, l_names]
-      }
-      # Sleep
-      sleep 0.1
-    }
-  end
-end
-
-# Fetch Wikipedia page links and parse out common names
-task :wikipedia_names, [:language] => [:environment] do |t, args|
-  language = args[:language] || nil
-
-  # Initialize csv
-  CSV.open("data/wikipedia_names.csv","wb") do |csv|
-    cols = ["ff_id","ff_rank","ff_name","ff_scientific","language","wiki_title","wiki_url","wiki_names","ambiguous"]
-    csv << cols
-    # For each type
-    Type.order(:scientific_name).each{ |t|
-      
-      # Show progress
-      lang = "en"
-      puts "[S] " + t.scientific_name.to_s + " [" + lang + "] " + t.name.to_s
-      rank = Type::Ranks[t.taxonomic_rank]
-      
-      # English page title
-      # from database
-      if (not t.wikipedia_url.blank?)
-        en_title = t.wikipedia_url.split('/').last
-      # or try scientific name
-      elsif (not(t.scientific_name.blank?))
-        en_title = t.scientific_name
-      else
-        puts "=> No page title (" + lang + ")"
-        #csv << [t.id, rank, t.name, t.scientific_name, lang, '', '', '', '']
-        next
-      end
-      
-      # Fetch English page
-      api_url = URI.escape("https://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + en_title)
-      page = JSON.parse(open(api_url).read)
-      if (page.has_key?("parse") and page["parse"].has_key?("title"))
-        title = page["parse"]["title"]
-        url = "https://" + lang + ".wikipedia.org/wiki/" + title
-        if (is_disambiguation_page(page))
-          puts "=> Ambiguous (" + lang + ")"
-          if lang == language
-            csv << [t.id, rank, t.name, t.scientific_name, lang, title, url, '', 1]
-          end
-        else
-          names = get_wikipedia_names(page).join(", ")
-          puts "[" + lang + "] " + names
-          if lang == language
-            csv << [t.id, rank, t.name, t.scientific_name, lang, title, url, names, 0]
-          end
-        end
-      else
-        puts "=> No page found (" + lang + ")"
-        #csv << [t.id, rank, t.name, t.scientific_name, lang, en_title, '', '', '']
-        next
-      end
-      
-      # Get other language pages
-      if (page["parse"].has_key?("langlinks")) and language != "en"
-        page["parse"]["langlinks"].each{ |l|
-          lang = l["lang"] 
-          if (language and language != lang)
-            next
-          end
-          title = l["*"]
-          url = l["url"]
-          api_url = URI.escape("https://" + lang + ".wikipedia.org/w/api.php?format=json&action=parse&redirects&page=" + title)
-          page = JSON.parse(open(api_url).read)
-          if (is_disambiguation_page(page))
-            puts "=> Ambiguous (" + lang + ")"
-            csv << [t.id, rank, t.name, t.scientific_name, lang, title.to_s, url, '', 1]
-          else
-            names = get_wikipedia_names(page).join(", ")
-            puts "[" + lang + "] " + names.to_s
-            csv << [t.id, rank, t.name, t.scientific_name, lang, title.to_s, url, names.to_s, 0]
-          end
-        }
-      end
-
-      # Sleep
-      sleep 0.1
-    }
-  end
-end
-
-# Helper function: Parse wikipedia common names
-def get_wikipedia_names(page)
-  
-  # Extract common names
-  content = Nokogiri::HTML(page["parse"]["text"]["*"])
-  first_p = content.css('body > p')[0]
-  if not first_p.nil?
-    first_p.css('i').remove
-    first_p_bold = first_p.css('b').collect{ |n| n.text }
-  else
-    first_p_bold = []
-  end
-  biotabox_header = content.css('table.infobox.biota th')[0]
-  if (biotabox_header.nil?)
-    biotabox_title = ''
-  else
-    biotabox_header.css('i').remove
-    biotabox_title = biotabox_header.text
-  end
-  
-  # Return as array
-  temp = first_p_bold
-  temp.push(biotabox_title)
-  names = temp.compact.uniq.collect{ |s| s.gsub(/\.|,|\n|\t|\?|\(|\)|"/, '').strip.gsub('[ ]+', ' ') }.reject(&:blank?)
-  return names
-end
-
-# Helper function: Check if page is a disambiguation page
-def is_disambiguation_page(page)
-  properties = page["parse"]["properties"].collect{ |p| p["name"]}
-  if (properties.include?("disambiguation"))
-    return true
-  else
-    return false
-  end
-end
-
 task(:range_changes => :environment) do
   sent_okay = 0
   User.where('range_updates_email AND range IS NOT NULL').each{ |u|
     m = Spammer.range_changes(u,7)
     next if m.nil?
-    if SendEmails 
+    if SendEmails
       begin
         m.deliver
       rescue
@@ -312,7 +153,7 @@ task(:range_changes => :environment) do
     else
       puts m
     end
-  } 
+  }
   $stderr.puts "Sent #{sent_okay} messages successfully"
 end
 
@@ -423,7 +264,7 @@ task(:import => :environment) do
   if File.exists? "public/import/lockfile"
     puts "Lockfile exists, not running!"
     exit
-  end 
+  end
   # Check for duplicate types
   names = Type.all.collect{ |t| t.full_name }
   if not names.detect{ |name| names.rindex(name) != names.index(name) }.nil?
@@ -496,7 +337,7 @@ task(:import => :environment) do
       FileUtils.rm_f "public/import/#{l}"
     end
     puts
-  } 
+  }
   dh.close
   FileUtils.rm_f "public/import/lockfile"
 end
