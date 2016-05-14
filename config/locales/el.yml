@@ -320,6 +320,7 @@ el:
     freegan_title: Παγκόσμιος χάρτης κάδων απόρριψης τροφίμων
   observations:
     created: 
+    empty: 
   pages:
     about:
       about_the_site: Σχετικά με το project

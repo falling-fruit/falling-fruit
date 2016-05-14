@@ -128,7 +128,7 @@ jQuery(document).ready(function(){
   <div class="field">
     <label for="location_address"><span><%= translate("glossary.position") %></span> <span class="subtext">*</span></label><br>
     <span class="subtext"><%= translate("locations.form.position_subtext") %></span><br />
-    Lat, Lng <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br />
+    Lat, Lng <%= f.text_field :lat, :value => @lat.nil? ? "" : @lat.round(6) %>, <%= f.text_field :lng, :value => @lng.nil? ? "" : @lng.round(6) %><br />
     <a href="#" onclick="update_marker_latlng();">>> <%= translate("locations.form.move_marker") %></a>
 
   	<!-- Address (if new) -->

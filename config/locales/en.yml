@@ -328,6 +328,7 @@ en:
     freegan_title: World Dumpster Map
   observations:
     created: Your review was added successfully
+    empty: Reviews cannot be empty
   pages:
     about:
       about_the_site: About the project

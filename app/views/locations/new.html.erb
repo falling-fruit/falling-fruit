@@ -39,8 +39,8 @@
         lng = position.coords.longitude;
         zoom = 15;
         load_map(lat,lng,zoom,type);
-        $('#location_lat').val(lat);
-        $('#location_lng').val(lng);
+        $('#location_lat').val(lat.toFixed(6));
+        $('#location_lng').val(lng.toFixed(6));
       }, function(error) {
         // Geolocation failed
         lat = 0;

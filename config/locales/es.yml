@@ -306,6 +306,7 @@ es:
     freegan_title: Mapa Mundial de la Basura
   observations:
     created: 
+    empty: 
   pages:
     about:
       about_the_site: Acerca del proyecto

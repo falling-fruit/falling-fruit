@@ -304,6 +304,7 @@ pt-br:
     freegan_title: Mapa das Lixeiras Mundiais
   observations:
     created: 
+    empty: 
   pages:
     about:
       about_the_site: Sobre o projeto

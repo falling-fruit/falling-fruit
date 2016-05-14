@@ -305,6 +305,7 @@ pl:
     freegan_title: ! 'Freegańska Mapa Śmietnikowa '
   observations:
     created: 
+    empty: 
   pages:
     about:
       about_the_site: O stronie

@@ -302,6 +302,7 @@ it:
     freegan_title: Mappa dei contenitori di cibo scartato
   observations:
     created: 
+    empty: 
   pages:
     about:
       about_the_site: Informazioni sul progetto

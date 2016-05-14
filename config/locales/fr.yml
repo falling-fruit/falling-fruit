@@ -302,6 +302,7 @@ fr:
     freegan_title: Carte des Poubelles du Monde
   observations:
     created: 
+    empty: 
   pages:
     about:
       about_the_site: À propos du projet
