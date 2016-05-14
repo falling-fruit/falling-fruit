@@ -25,23 +25,23 @@ class LocationsController < ApplicationController
     @locations = Location.joins("INNER JOIN types ON types.id=ANY(locations.type_ids)").
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, locations.id as id,
-                     description, lat, lng, address, season_start, season_stop, no_season, access, unverified, 
+                     description, lat, lng, address, season_start, season_stop, no_season, access, unverified,
                      author, import_id, locations.created_at, locations.updated_at, locations.muni").
              where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|
       format.json { render json: @locations }
-      format.csv { 
+      format.csv {
         csv_data = CSV.generate do |csv|
           cols = ["id","lat","lng","unverified","description","season_start","season_stop",
                   "no_season","quality_rating","yield_rating","author","address","created_at","updated_at",
                   "access","import_link","muni","types"]
           csv << cols
           @locations.each{ |l|
-          
+
           	quality_rating = Location.find(l.id).mean_quality_rating
           	yield_rating = Location.find(l.id).mean_yield_rating
-          	
+
             csv << [l.id,l.lat,l.lng,l.unverified,l.description,
             				l.season_start.nil? ? nil : I18n.t("date.month_names")[l.season_start+1],
                     l.season_stop.nil? ? nil : I18n.t("date.month_names")[l.season_stop+1],
@@ -51,7 +51,7 @@ class LocationsController < ApplicationController
                     l.author,l.address,l.created_at,l.updated_at,
                     l.access.nil? ? nil : I18n.t("locations.infowindow.access_short")[l.access],
                     l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
-                    l.import_id.nil? ? false : (l.muni ? true : false), 
+                    l.import_id.nil? ? false : (l.muni ? true : false),
                     l.name]
           }
         end
@@ -71,7 +71,7 @@ class LocationsController < ApplicationController
       FileUtils.chmod 0666, filepath
       flash[:notice] = "Import #{import.id} queued for processing..."
     end
-  end      
+  end
 
   def infobox
     @location = Location.find(params[:id])
@@ -116,7 +116,7 @@ class LocationsController < ApplicationController
     params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
-  
+
   # GET /graftable
   # GET /grafter
   def grafter_index
@@ -128,13 +128,13 @@ class LocationsController < ApplicationController
     params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
-  
+
   # GET /honeybee
   def honeybee_index
     params[:c] = 'honeybee'
     index and return
   end
-  
+
   # GET /locations/home
   def home
     prepare_for_sidebar if user_signed_in?
@@ -215,7 +215,7 @@ class LocationsController < ApplicationController
     log_api_request("api/locations/create",1)
     respond_to do |format|
       # FIXME: recaptcha check should go right at the beginning (before doing anything else)
-      test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location,
                                                        :message => "ReCAPCHA error!")
       if test and @location.save and (@observation.nil? or @observation.save)
         cluster_increment(@location)
@@ -245,7 +245,7 @@ class LocationsController < ApplicationController
     update_okay = ["author","description","observation","type_ids","lat",
                    "lng","season_start","season_stop","no_season","unverified","access"]
     params[:location] = params[:location].delete_if{ |k,v| not update_okay.include? k }
-    
+
     # set aside observations params for manually processing
     obs_params = params[:location][:observation]
     params[:location].delete(:observation)
@@ -278,7 +278,7 @@ class LocationsController < ApplicationController
     log_api_request("api/locations/update",1)
     respond_to do |format|
       # FIXME: recaptcha check should go right at the beginning (before doing anything else)
-      test = user_signed_in? ? true : verify_recaptcha(:model => @location, 
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location,
                                                        :message => "ReCAPCHA error!")
       if test and @location.update_attributes(params[:location]) and (@observation.nil? or @observation.save)
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_location)
@@ -392,16 +392,17 @@ class LocationsController < ApplicationController
   def normalize_create_types(params)
     type_ids = []
 
-    params[:types].split(/,/).uniq.each{ |type_name|
+    params[:types].split(/\s*,\s*/).uniq.each{ |type_name|
       nf = Type.i18n_name_field
       tn = ActionController::Base.helpers.sanitize(type_name)
-      t = Type.where("(#{nf} || CASE WHEN scientific_name IS NULL THEN '' ELSE ' ['||scientific_name||']' END)='#{tn}'")
+      t = Type.where("(COALESCE(#{nf}, name) || CASE WHEN scientific_name IS NULL THEN '' ELSE ' ['||scientific_name||']' END)='#{tn}'")
+
       # if it's not found, make it a pending type
       if t.nil? or t.empty?
         t = Type.new
         t.name = type_name
         t.pending = true # this is database default, but setting here just in case
-        t.category_mask = params[:c].blank? ? array_to_mask(["forager"],Type::Categories) : 
+        t.category_mask = params[:c].blank? ? array_to_mask(["forager"],Type::Categories) :
                                               array_to_mask(params[:c].split(/,/),Type::Categories)
         t.save
       else
