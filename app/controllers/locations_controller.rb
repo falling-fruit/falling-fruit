@@ -196,8 +196,7 @@ class LocationsController < ApplicationController
     check_api_key!("api/locations/create") if request.format.json?
 
     # sanitize input parameters
-    create_okay = ["author","description","observation","type_ids",
-                   "lat","lng","season_start","season_stop","no_season","unverified","access"]
+    create_okay = ["author","description","observation","type_ids","lat","lng","season_start","season_stop","no_season","unverified","access"]
     params[:location] = params[:location].delete_if{ |k,v| not create_okay.include? k }
 
     # hold onto obs params to parse separately
@@ -206,20 +205,19 @@ class LocationsController < ApplicationController
 
     # start creating things!
     @location = Location.new(params[:location])
-    @location.author = current_user.name unless (not user_signed_in?) or (current_user.add_anonymously)
-    @observation = prepare_observation(obs_params,@location)
-    @observation.author = @location.author unless @observation.nil?
     @location.type_ids = normalize_create_types(params)
     @location.user = current_user if user_signed_in?
+    @location.author = current_user.name unless (not user_signed_in?) or (current_user.add_anonymously)
+    @observation = prepare_observation(obs_params, @location)
+    @observation.author = @location.author unless @observation.nil?
 
-    log_api_request("api/locations/create",1)
+    log_api_request("api/locations/create", 1)
     respond_to do |format|
       # FIXME: recaptcha check should go right at the beginning (before doing anything else)
-      test = user_signed_in? ? true : verify_recaptcha(:model => @location,
-                                                       :message => "ReCAPCHA error!")
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")
       if test and @location.save and (@observation.nil? or @observation.save)
         cluster_increment(@location)
-        log_changes(@location,"added")
+        log_changes(@location, "added")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
           format.html { redirect_to new_location_path, notice: I18n.translate('locations.messages.created') }
@@ -269,9 +267,10 @@ class LocationsController < ApplicationController
     former_type_ids = @location.type_ids
     former_location = @location.location
 
-    # parase and normalize types
+    # parse and normalize types
     params[:location][:type_ids] = normalize_create_types(params)
 
+    # FIXME: Only decrement cluster if save is successful
     # decrement cluster (since location may have moved into a different cluster)
     cluster_decrement(@location)
 

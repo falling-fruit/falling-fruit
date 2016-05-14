@@ -1127,8 +1127,8 @@ function update_marker_address() {
 			var lat = results[0].geometry.location.lat();
 			var lng = results[0].geometry.location.lng();
 			var latlng = results[0].geometry.location
-			$("#location_lat").val(lat);
-			$("#location_lng").val(lng);
+			$("#location_lat").val(lat.toFixed(6));
+			$("#location_lng").val(lng.toFixed(6));
 			map.panTo(latlng);
 			map.setZoom(15);
 			if (marker != null) {
@@ -1218,8 +1218,8 @@ function load_edit_marker(lat,lng) {
 
 	// Update lat,lng fields when marker moved
 	google.maps.event.addListener(marker, 'position_changed', function() {
-		$("#location_lat").val(this.getPosition().lat());
-		$("#location_lng").val(this.getPosition().lng());
+		$("#location_lat").val(this.getPosition().lat().toFixed(6));
+		$("#location_lng").val(this.getPosition().lng().toFixed(6));
 	});
 
 	// Record closing of nag

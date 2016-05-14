@@ -10,7 +10,7 @@
 <script type="text/javascript" charset="utf-8">
   // There are three scenarios here:
   // 1) We are given a lat/lng in the post params (user clicked on the map to add something).
-  //    Which we'll know because @location will be a new object with lat/lng set and 
+  //    Which we'll know because @location will be a new object with lat/lng set and
   //    the location_lat and location_lng fields will have stuff in them.
   // 2) We aren't given a lat/lng in the post params, but we're able to use the geolocation
   //    library to guess the user's position. We'll know this because location_lat and location_lng
@@ -18,7 +18,7 @@
   // 3) We aren't given a lat/lng and geolocation fails. In this case, marker is placed at origin.
 
   // ================= globals ==================
-	
+
 	var marker = null;
 	var lat = $("#location_lat").val();
   var lng = $("#location_lng").val();
@@ -26,7 +26,7 @@
   var type = google.maps.MapTypeId.HYBRID;
 
   // ================= functions =================
-  
+
   function initialize() {
 
     // No user-provided lat/lng
@@ -47,28 +47,28 @@
         lng = 0;
         zoom = 1;
         load_map(lat,lng,zoom,type);
-        $('#location_lat').val(lat);
-        $('#location_lng').val(lng);
+        $('#location_lat').val();
+        $('#location_lng').val();
       });
-    
+
     // User-provided lat/lng
     } else {
       load_map(lat,lng,zoom,type);
-    } 
+    }
 	}
-	
+
 	// Ensures events are added only once basemap() has been called
 	function load_map(lat,lng,zoom,type) {
 	  basemap(lat,lng,zoom,type);
     marker = load_edit_marker(lat,lng);
-    
+
     // Update markers once done panning and zooming
 		google.maps.event.addListener(map, 'idle', function() {
       if (map.getZoom() > 12) {
         do_markers(map.getBounds(),null,true,undefined,cats);
       }
 		});
-		
+
 		// Move marker if map is clicked
 	  // Warning: Click also closes any open marker infowindow
 	  google.maps.event.addListener(map, 'click', function(event) {

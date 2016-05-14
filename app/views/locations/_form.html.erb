@@ -1,13 +1,13 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-	
+
 	// Access
 	$("#location_access").select2({
 		minimumResultsForSearch: Infinity,
 		placeholderOption: function () { return undefined; } //preserves blank option
 	});
-	
+
 	// Season
 	$("#location_season_start").select2({
 		minimumResultsForSearch: Infinity
@@ -15,27 +15,27 @@ jQuery(document).ready(function(){
 	$("#location_season_stop").select2({
 		minimumResultsForSearch: Infinity
 	});
-	
+
 	// Date observed
   $("#location_observation_observed_on").datepicker({
     dateFormat: "yy-mm-dd",
     firstDay: 1, // week starts on Monday
     maxDate: 0
   });
-  
+
   // Type selector
   $('#typeselect2').select2({
   	tokenSeparators: [","],
     tags: <%= Type.full_list(@cats.nil? ? Type::DefaultCategories : @cats).to_json.html_safe %>
   });
-  
+
   $("#typeselect2").select2("container").find("ul.select2-choices").sortable({
     containment: 'parent',
     start: function() { $("#typeselect2").select2("onSortStart"); },
     update: function() { $("#typeselect2").select2("onSortEnd"); }
 	});
-  
-  // Quality rating slider        
+
+  // Quality rating slider
   var select = $( "#location_observation_quality_rating" );
   if (select.length > 0) {
   var slider = jQuery( "<div id='slider'></div>" ).insertAfter( select ).slider({
@@ -52,7 +52,7 @@ jQuery(document).ready(function(){
   });
   select.hide();
 	}
-	
+
 	// Yield rating slider
   var select2 = $( "#location_observation_yield_rating" );
 	if (select2.length > 0) {
@@ -70,7 +70,7 @@ jQuery(document).ready(function(){
   });
   select2.hide();
 	}
-	
+
 	// Fruiting slider
   var select3 = $( "#location_observation_fruiting" );
   if (select3.length > 0) {
@@ -88,7 +88,7 @@ jQuery(document).ready(function(){
   });
   select3.hide();
 	}
-	
+
 });
 </script>
 <% end %>
@@ -109,7 +109,7 @@ jQuery(document).ready(function(){
 
   <%= f.hidden_field :id %>
   <%= f.hidden_field :client, :value => 'web' %>
-  
+
   <!-- Observations! -->
   <% if @current_action == "edit" %>
     <p style="border:1px solid #ddd;background-color:#FCE7E4;padding:0.5em;font-size:95%;line-height:125%;">
@@ -123,14 +123,14 @@ jQuery(document).ready(function(){
     <span class="subtext"><%= translate("locations.form.types_subtext") %></span><br />
     <%= hidden_field_tag('types', @location.types.collect{ |t| t.full_name }.join(","), :id=>"typeselect2") %>
   </div>
- 
+
   <!-- Position -->
   <div class="field">
     <label for="location_address"><span><%= translate("glossary.position") %></span> <span class="subtext">*</span></label><br>
     <span class="subtext"><%= translate("locations.form.position_subtext") %></span><br />
     Lat, Lng <%= f.text_field :lat, :value => @lat %>, <%= f.text_field :lng, :value => @lng %><br />
     <a href="#" onclick="update_marker_latlng();">>> <%= translate("locations.form.move_marker") %></a>
-    
+
   	<!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
       <div style="margin-top:0.25em;">
@@ -141,7 +141,7 @@ jQuery(document).ready(function(){
       <a href="#" onclick="update_marker_address();">>> <%= translate("locations.form.move_marker_address") %></a>
     <% end %>
   </div>
-  
+
   <!-- Author (new) -->
   <div class="field">
     <label for="location_author"><%= translate("locations.form.your_name") %></label><br />
@@ -152,7 +152,7 @@ jQuery(document).ready(function(){
       <%= text_field_tag :author, ((user_signed_in? and not current_user.add_anonymously?) ? current_user.name : "") %>
     <% end %>
   </div>
-  
+
   <!-- Author (edit: admin only) -->
   <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
   	<div class="field">
@@ -168,7 +168,7 @@ jQuery(document).ready(function(){
     <span class="subtext"><%= translate("locations.form.description_subtext") %></span><br />
     <%= f.text_area :description %>
   </div>
-  
+
   <!-- Season -->
   <!-- FIXME: Multiple inputs for one label -->
   <div class="field">
@@ -178,20 +178,20 @@ jQuery(document).ready(function(){
     <%= f.select(:season_stop, I18n.translate("date.month_names").collect{ |m| [m, I18n.translate("date.month_names").index(m)-1] },:include_blank => true) %>, <span><%= translate("locations.form.or") %></span>
     <%= f.check_box(:no_season) %> <span><%= translate("locations.form.no_season") %></span>
   </div>
-  
+
     <!-- Access -->
   <div class="field">
     <label for="location_access"><%= translate("glossary.access") %></label><br />
     <span class="subtext"><%= translate("locations.form.access_subtext") %></span><br />
     <%= f.select(:access, I18n.translate("locations.infowindow.access_mode").collect{ |r| [r, I18n.translate("locations.infowindow.access_mode").index(r)] }, :include_blank => true) %>
   </div>
-  
+
   <!-- Unverified -->
   <div class="field">
     <label for="location_unverified"><%= translate("glossary.unverified") %></label> <%= f.check_box(:unverified) %><br />
     <span class="subtext"><%= translate("locations.form.unverified_subtext") %></span>
   </div>
-  
+
   <br />
   <!-- Observations -->
   <details>
@@ -204,7 +204,7 @@ jQuery(document).ready(function(){
       <label for="location_observation_observed_on"><%= translate("locations.form.date_visited") %></label><br />
       <%= fo.text_field(:observed_on, :placeholder => 'yyyy-mm-dd') %>
     </div>
-  
+
     <!-- Fruiting -->
     <div class="field">
       <label for="location_observation_fruiting"><%= translate("locations.form.fruiting_status") %></label><br />
@@ -212,7 +212,7 @@ jQuery(document).ready(function(){
       <%= fo.select(:fruiting, I18n.translate("locations.infowindow.fruiting").collect{ |r| [r, I18n.translate("locations.infowindow.fruiting").index(r)] },:include_blank => true) %>
       <div class="slider-legend"><div><%= translate("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.fruiting")[2] %></div></div>
     </div>
-  
+
     <!-- Quality Rating -->
     <div class="field">
       <label for="location_observation_quality"><%= translate("glossary.quality") %></label><br />
@@ -220,7 +220,7 @@ jQuery(document).ready(function(){
       <%= fo.select(:quality_rating, I18n.translate("locations.infowindow.rating").collect{ |r| [r, I18n.translate("locations.infowindow.rating").index(r)] },:include_blank => true) %>
       <div class="slider-legend"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
     </div>
-  
+
     <!-- Yield Rating -->
     <div class="field">
       <label for="location_observation_yield"><%= translate("glossary.yield") %></label><br />
@@ -247,7 +247,7 @@ jQuery(document).ready(function(){
   </details>
 
   <hr />
-  
+
   <!-- Captcha -->
   <% unless user_signed_in? %>
   	<div id="captcha">
@@ -255,7 +255,7 @@ jQuery(document).ready(function(){
   	</div>
   <br />
 	<% end %>
-  
+
   <!-- Submit -->
   <div class="actions">
     <%= f.button translate("glossary.submit") %>
@@ -263,5 +263,5 @@ jQuery(document).ready(function(){
       <%= check_box_tag(:create_another, '1', false) %> <span><%= translate("locations.form.create_another") %></span><br>
     <% end %>
   </div>
-  
+
 <% end %>

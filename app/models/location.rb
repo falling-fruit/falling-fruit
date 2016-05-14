@@ -1,19 +1,19 @@
 class Location < ActiveRecord::Base
   include ActionView::Helpers::TextHelper # for word_wrap
-  
+
   has_many :observations
   has_many :changes, :dependent => :delete_all
   belongs_to :import
   belongs_to :user
 
   accepts_nested_attributes_for :observations, :reject_if => :all_blank
-  
+
   normalize_attributes *character_column_symbols
   validates :type_ids, :presence => true
-  validates :lat, numericality: {greater_than_or_equal_to: -85.0, less_than_or_equal_to: 85.0, allow_nil: false}
-  validates :lng, numericality: {greater_than_or_equal_to: -180.0, less_than_or_equal_to: 180.0, allow_nil: false}
+  validates :lat, :numericality => { :greater_than_or_equal_to => -85.0, :less_than_or_equal_to => 85.0 }, :allow_nil => false
+  validates :lng, :numericality => { :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0 }, :allow_nil => false
   validates :access, :numericality => { :only_integer => true }, :allow_nil => true
-	
+
   attr_accessible :address, :author, :description, :lat, :lng, :season_start, :season_stop, :client,
                   :no_season, :unverified, :access, :type_ids, :import_id, :photo_url, :user, :user_id,
                   :category_mask, :observations_attributes, :destroyed?, :invasive
@@ -28,16 +28,18 @@ class Location < ActiveRecord::Base
   end
   before_validation { |record|
     begin
-      record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?) 
+      record.geocode if (record.lat.nil? or record.lng.nil?) and (!record.address.nil?)
       record.reverse_geocode unless record.lat.nil? or record.lng.nil? or (!record.import.nil? and record.import.reverse_geocode == false)
     rescue
       # if geocoding throws an error, ignore it
     end
   }
-  # manually update postgis location object
-  after_validation { |record| record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? } }
-  # update invasiveness bit
   after_validation { |record|
+    # require a valid record
+    return false unless record.errors.empty?
+    # manually update postgis location object
+    record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? }
+    # update invasiveness bit
     if Invasive.where("ARRAY[?] @> ARRAY[invasives.type_id] AND ST_INTERSECTS(?,invasives.regions)",record.type_ids,record.location).count > 0
       record.invasive = true
     else
@@ -81,27 +83,27 @@ class Location < ActiveRecord::Base
     y = self.observations.collect{ |o| o.yield_rating }.compact
     y.length == 0 ? nil : (y.sum.to_f/y.length).ceil
   end
-  
+
   def mean_quality_rating
     q = self.observations.collect{ |o| o.quality_rating }.compact
     q.length == 0 ? nil : (q.sum.to_f/q.length).ceil
   end
-  
+
   # WARNING: Simple ordering, ignores the fact that seasonality may wrap to next calendar year
   def nobs_months_flowering
-    m = self.observations.reject{ |o| 
-          o.fruiting.nil? or o.fruiting != 0 or o.observed_on.nil? 
+    m = self.observations.reject{ |o|
+          o.fruiting.nil? or o.fruiting != 0 or o.observed_on.nil?
         }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
-  
+
   def nobs_months_fruiting
-    m = self.observations.reject{ |o| 
+    m = self.observations.reject{ |o|
       o.fruiting.nil? or o.fruiting != 1 or o.observed_on.nil?
     }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
-  
+
   def nobs_months_ripe
-    m = self.observations.reject{ |o| 
+    m = self.observations.reject{ |o|
       o.fruiting.nil? or o.fruiting != 2 or o.observed_on.nil?
     }.collect{ |o| o.observed_on.month - 1 }.sort.group_by{|x| x}.collect{ |k,v| [k,v.length] }
   end
@@ -134,7 +136,7 @@ class Location < ActiveRecord::Base
   def accepted_type_names
     self.accepted_types.collect{ |t| t.name }.compact
   end
-  
+
   def title
     lt = self.type_names
     if lt.empty?
@@ -158,7 +160,7 @@ class Location < ActiveRecord::Base
     ["Ids","Types","Description","Lat","Lng","Address","Season Start","Season Stop",
      "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
   end
-  
+
   # Expects types = "id: name [scientific_name], ..." (or any subset of those parts)
   def self.build_from_csv(row, default_category_mask = 0)
     ids,types,desc,lat,lng,address,season_start,season_stop,no_season,
@@ -214,12 +216,12 @@ class Location < ActiveRecord::Base
     end
     return loc if (loc.type_ids.length == 0)
     loc.type_ids.uniq!
-    
+
     unless lat.blank? or lng.blank?
       loc.lat = lat.to_f
       loc.lng = lng.to_f
     end
-    
+
     # NOTE: -1 shifts because input is 1-index but database is 0-index
     loc.access = (access.to_i - 1) unless access.blank?
     loc.description = desc.gsub(/(\\n|<br>)/,"\n") unless desc.blank?
@@ -249,7 +251,7 @@ class Location < ActiveRecord::Base
   end
 
   private
-  
+
   def default_values
     self["type_ids"] ||= []
   end
