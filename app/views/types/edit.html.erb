@@ -16,8 +16,8 @@
 <h2>Merge</h2>
 
 <form action="/types/<%= @type.id %>/merge">
-    <%= hidden_field_tag(:into_id, [], :class => "mergeselect2") %>
-    <%= submit_tag "Merge" %>
+  <%= hidden_field_tag(:into_id, [], :class => "mergeselect2") %>
+  <%= submit_tag "Merge" %>
 </form>
 
 <h2>Edit</h2>
@@ -34,4 +34,3 @@ jQuery(document).ready(function(){
 });
 </script>
 <% end %>
-

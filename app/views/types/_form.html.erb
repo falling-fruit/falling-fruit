@@ -10,46 +10,49 @@
       </ul>
     </div>
   <% end %>
-  
+
   <h3>Common names</h3>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label "English" %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :synonyms %><br />
+    <%= f.label "English synonyms" %><br />
     <span class="subtext">comma-separated list, e.g., Foo, Bar, Baz</span><br>
     <%= f.text_field :synonyms %>
   </div>
   <div class="field">
-    <%= f.label :french %><br />
-    <%= f.text_field :fr_name %>
-  </div>
-  <div class="field">
-    <%= f.label :german %><br />
+    <%= f.label "German (de)" %><br />
     <%= f.text_field :de_name %>
   </div>
   <div class="field">
-    <%= f.label :spanish %><br />
+    <%= f.label "Greek (el)" %><br />
+    <%= f.text_field :el_name %>
+  </div>
+  <div class="field">
+    <%= f.label "Spanish (es)" %><br />
     <%= f.text_field :es_name %>
   </div>
   <div class="field">
-    <%= f.label :portuguese %><br />
-    <%= f.text_field :pt_br_name %>
+    <%= f.label "French (fr)" %><br />
+    <%= f.text_field :fr_name %>
   </div>
   <div class="field">
-    <%= f.label :italian %><br />
+    <%= f.label "Hebrew (he)" %><br />
+    <%= f.text_field :he_name %>
+  </div>
+  <div class="field">
+    <%= f.label "Italian (it)" %><br />
     <%= f.text_field :it_name %>
   </div>
   <div class="field">
-    <%= f.label :polish %><br />
+    <%= f.label "Polish (pl)" %><br />
     <%= f.text_field :pl_name %>
   </div>
   <div class="field">
-    <%= f.label :hebrew %><br />
-    <%= f.text_field :he_name %>
+    <%= f.label "Portuguese (pt-br)" %><br />
+    <%= f.text_field :pt_br_name %>
   </div>
-  
   <h3>Scientific taxonomy</h3>
   <div class="field">
     <%= f.label :scientific_name %><br />
@@ -71,7 +74,7 @@
     <%= f.label :taxonomic_rank %><br/>
     <%= f.select(:taxonomic_rank,Type::Ranks.collect{ |id,name| [name,id] },:include_blank=>true) %>
   </div>
-  
+
   <h3>Links</h3>
   <div class="field">
     <a href="http://plants.usda.gov/classification.html">USDA</a> (symbol)<br />
@@ -112,21 +115,13 @@
     <%= f.text_area(:notes, rows: 15, cols: 80) %>
   </div>
   <div class="field">
-    <b><%= f.label :pending %></b>
     <%= f.check_box(:pending, :checked => false) %>
+    <b><%= f.label :pending %></b>
   </div>
-  
-  <!-- Custom marker (unused)
-  <div class="field">
-    <%= f.label :custom_marker %><br />
-    <span class="subtext">Currently unused...</span><br>
-    <%= f.file_field :marker %>
-  </div>
-  -->
-  
+
   <br />
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit @current_action == "new" ? "Create" : "Update" %>
   </div>
 <% end %>
 
@@ -141,7 +136,7 @@
     jQuery(document).ready(function(){
       // Parent
       $(".parentselect2").select2({
-        width: "20.5em",
+        width: "30em",
         data: type_list,
         allowClear: true,
         placeholder: " ",
