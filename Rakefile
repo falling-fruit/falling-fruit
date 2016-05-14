@@ -300,6 +300,7 @@ task(:import => :environment) do
       location = Location.build_from_csv(row, import.default_category_mask)
       location.import = import
       location.client = 'import'
+      location.muni = import.muni
       if (location.lat.nil? or location.lng.nil?) and !location.address.blank?
         print "G"
         location.geocode
@@ -315,9 +316,6 @@ task(:import => :environment) do
         errs << row
       end
     end
-    c = Change.new
-    c.description = "#{done.length} new locations imported from #{import.name} (#{import.url})"
-    c.save
     doneFile = "public/import/#{import_id}_done.csv"
     if done.any?
       unless File.exist?(doneFile)
