@@ -442,10 +442,13 @@ class LocationsController < ApplicationController
       WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id #{rangeq}
       GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at, c.author ORDER BY c.created_at DESC LIMIT 100");
     @changes = r.collect{ |row| row }
-    @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
-      where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
-      order('observations.created_at desc')
-    @mine.uniq!{ |o| o.location_id }
+    # @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
+    #   where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
+    #   order('observations.created_at desc')
+    # @mine.uniq!{ |o| o.location_id }
+
+    @mine = Change.select('max(created_at) as created_at, user_id, location_id, description').where("user_id = ?", current_user.id).group("location_id, user_id, description").order('created_at desc').uniq!{ |c| c.location_id }
+
     @routes = Route.where("user_id = ?",current_user.id)
     @zoom_to_polygon = current_user.range
     @show_sidebar = true
