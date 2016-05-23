@@ -121,18 +121,6 @@ ActiveRecord::Schema.define(:version => 20160501155720) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "new_clusters", :force => true do |t|
-    t.text     "geohash"
-    t.integer  "type_id"
-    t.boolean  "muni"
-    t.float    "lat"
-    t.float    "lng"
-    t.integer  "count"
-    t.integer  "zoom"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "observations", :force => true do |t|
     t.integer  "location_id"
     t.text     "comment"
