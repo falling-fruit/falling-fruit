@@ -93,10 +93,10 @@ pl:
     details: Szczegóły
     donate: Wspomóż nas
     download: Pobierz
-    edible_type: Wybierz rodzaj rośliny jadalnej
+    edible_type: Typ jadalne
     edit: Edytuj
     email: Email
-    embed: Umieść link na swojej stronie
+    embed: Osadzać
     error: Błąd
     favorites: Ulubione
     fiji: Fidżi
@@ -117,6 +117,7 @@ pl:
       other: Linki
     locations:
       few: Lokalizacje
+      many: Lokalizacje
       one: Lokalizacja
       other: Lokalizacja
     login: Zaloguj się
@@ -218,7 +219,7 @@ pl:
       verify: Zweryfikuj
       verify_subtext: Ta lokalizacja jest obecnie oznaczona jako "niezweryfikowana".
       yield_subtext: Oceń wydajność tego źródła (jeśli dotyczy)
-      your_name: Twoje imię i nazwisko albo pseudonim
+      your_name: Twoje imię
     index:
       addmarker_html: Dodaj źródło tutaj</a><br><span class="subtext">Możesz mnie przesunąć do</span>
       editmarker_html: <b>Przesuń do pozycji źródła.</b><br><br>Sprawdź widok satelitarny - źródło może być widoczne z powietrza!
