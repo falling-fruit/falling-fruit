@@ -1,37 +1,38 @@
 <p>
-<%= translate("pages.data.intro") %>:
+	<%= translate("pages.data.intro") %>:
 </p>
 
 <% if File.exists?(Rails.root.join("public","locations.csv.bz2")) and File.exists?(Rails.root.join("public","types.csv.bz2")) %>
 		<blockquote>
-		<a href="/locations.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br>
-		<i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
-    <br>
-    <a href="/types.csv.bz2">types.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024) %> KB)<br>
-    <i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
+			<a href="/locations.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br/>
+			<i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br/>
+	    <br/>
+	    <a href="/types.csv.bz2">types.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024) %> KB)<br/>
+	    <i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
 		</blockquote>
 <% else %>
 		<blockquote>
-		<em><%= translate("pages.data.data_unavailable_html").html_safe %></em>
+			<em><%= translate("pages.data.data_unavailable_html").html_safe %></em>
 		</blockquote>
 <% end %>
 
 <p>
-<%= translate("pages.data.beware_html").html_safe %>
+	<%= translate("pages.data.beware_html").html_safe %>
 </p>
 
 <p>
-<%= translate("pages.data.license_html").html_safe %>
+	<%= translate("pages.data.license_html").html_safe %>
 </p>
 
 <p>
-<%= translate("pages.data.caveat_emptor_html").html_safe %>
+	<%= translate("pages.data.caveat_emptor_html").html_safe %>
 </p>
 
-<h2><%= translate("pages.data.summary_of_sources").html_safe %></h2>
+<h2>
+	<%= translate("pages.data.summary_of_sources").html_safe %>
+</h2>
 
 <%
-
 cache "pages_data_type_summary_table_#{I18n.locale}" do
   i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
   @types = Location.joins("LEFT OUTER JOIN types ON types.id=ANY(locations.type_ids)").
@@ -41,55 +42,58 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 %>
 
 <p>
-<%= translate("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)).html_safe %>
+	<%= translate("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)).html_safe %>
 </p>
 <br/>
 
 <table id="type_summary">
-<thead>
-<tr>
- <th><%= translate("glossary.common_name") %></th>
- <th><%= translate("glossary.scientific_name") %></th>
- <th><%= translate("glossary.links", :count => 2) %></th>
- <th><%= translate("glossary.locations", :count => 2) %></th>
-</tr>
-</thead>
-<tbody>
-<% @types.select{ |t| t.pending == "f" and (["forager", "freegan"] & mask_to_array(t.category_mask.to_i,Type::Categories)).any? }.each{ |t| %>
-<tr>
-<td>
-	<%= t.cname unless t.cname.blank? %>
-	<%= "(#{t["synonyms"]})" unless t["synonyms"].blank? %>
-</td>
-<td>
-<i><%= t["scientific_name"] unless t["scientific_name"].blank? %>
-<%= "(#{t["scientific_synonyms"]})" unless t["scientific_synonyms"].blank? %>
-</i>
-</td>
-<td>
-<% unless t["wikipedia_url"].blank? %>
- <a href="<%= t["wikipedia_url"] %>" title="Wikipedia"><img class="link_icon" src="/wikipedia_icon.png"></a>
-<% end %>
-<% unless t["fruitipedia_url"].blank? %>
- <a href="<%= t["fruitipedia_url"] %>" title="Fruitipedia"><img class="link_icon" src="/fruitipedia_icon.png"></a>
-<% end %>
-<% unless t["urban_mushrooms_url"].blank? %>
- <a href="<%= t["urban_mushrooms_url"] %>" title="Urban Mushrooms"><img class="link_icon" src="/urban_mushrooms_icon.png"></a>
-<% end %>
-<% unless t["foraging_texas_url"].blank? %>
- <a href="<%= t["foraging_texas_url"] %>" title="Foraging Texas"><img class="link_icon" src="/foraging_texas_icon.png"></a>
-<% end %>
-<% unless t["eat_the_weeds_url"].blank? %>
- <a href="<%= t["eat_the_weeds_url"] %>" title="Eat The Weeds"><img class="link_icon" src="/eat_the_weeds_icon.png"></a>
-<% end %>
-<% unless t["usda_symbol"].blank? %>
- <a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>" title="USDA"><img class="link_icon" src="/usda_icon.png"></a>
-<% end %>
-</td>
-<td style="test-align: right;"><%= t["count"] %></td>
-</tr>
-<% } %>
-</tbody>
+	<thead>
+		<tr>
+			<th><%= translate("glossary.common_name") %></th>
+		 	<th><%= translate("glossary.scientific_name") %></th>
+		 	<th><%= translate("glossary.links", :count => 2) %></th>
+		 	<th><%= translate("glossary.locations", :count => 2) %></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @types.select{ |t| t.pending == "f" and (["forager", "freegan"] & mask_to_array(t.category_mask.to_i,Type::Categories)).any? }.each{ |t| %>
+		<tr>
+			<td>
+				<%= t.cname unless t.cname.blank? %>
+				<%= "(#{t["synonyms"]})" unless t["synonyms"].blank? %>
+			</td>
+			<td>
+				<i>
+					<%= t["scientific_name"] unless t["scientific_name"].blank? %>
+					<%= "(#{t["scientific_synonyms"]})" unless t["scientific_synonyms"].blank? %>
+				</i>
+			</td>
+			<td>
+			<% unless t["wikipedia_url"].blank? %>
+				<a href="<%= t["wikipedia_url"] %>" title="Wikipedia"><img class="link_icon" src="/wikipedia_icon.png"></a>
+			<% end %>
+			<% unless t["fruitipedia_url"].blank? %>
+				<a href="<%= t["fruitipedia_url"] %>" title="Fruitipedia"><img class="link_icon" src="/fruitipedia_icon.png"></a>
+			<% end %>
+			<% unless t["urban_mushrooms_url"].blank? %>
+				<a href="<%= t["urban_mushrooms_url"] %>" title="Urban Mushrooms"><img class="link_icon" src="/urban_mushrooms_icon.png"></a>
+			<% end %>
+			<% unless t["foraging_texas_url"].blank? %>
+				<a href="<%= t["foraging_texas_url"] %>" title="Foraging Texas"><img class="link_icon" src="/foraging_texas_icon.png"></a>
+			<% end %>
+			<% unless t["eat_the_weeds_url"].blank? %>
+				<a href="<%= t["eat_the_weeds_url"] %>" title="Eat The Weeds"><img class="link_icon" src="/eat_the_weeds_icon.png"></a>
+			<% end %>
+			<% unless t["usda_symbol"].blank? %>
+				<a href="http://plants.usda.gov/java/profile?symbol=<%= t["usda_symbol"] %>" title="USDA"><img class="link_icon" src="/usda_icon.png"></a>
+			<% end %>
+			</td>
+			<td style="test-align: right;">
+				<%= t["count"] %>
+			</td>
+		</tr>
+	<% } %>
+	</tbody>
 </table>
 
 <!-- cache ends -->

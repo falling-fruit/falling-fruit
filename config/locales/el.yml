@@ -397,7 +397,7 @@ el:
       other: ! '%{count} μέρες'
     last_24_hours: Τελευταίες 24 ώρες
     months:
-      one: 1 μήνας
+      one: ! '%{count} μήνας'
       other: ! '%{count} μήνες'
     this_month: Τρέχων μήνας
     this_week: Τρέχουσα βδομάδα

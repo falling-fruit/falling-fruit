@@ -73,7 +73,7 @@ pl:
       on_or_after: Musi być na lub po %{restriction}
       on_or_before: Musi być na lub przed %{restriction}
   glossary:
-    about: O
+    about: O nas
     access: Dostęp
     account: Konto
     activity: Aktywność
@@ -96,7 +96,7 @@ pl:
     edible_type: Wybierz rodzaj rośliny jadalnej
     edit: Edytuj
     email: Email
-    embed: Umieść
+    embed: Umieść link na swojej stronie
     error: Błąd
     favorites: Ulubione
     fiji: Fidżi
@@ -112,6 +112,7 @@ pl:
     italy: Włochy
     labels: Etykiety
     links:
+      few: Linki
       one: Link
       other: Linki
     locations:
@@ -122,7 +123,7 @@ pl:
     logout: Wyloguj
     map: Mapa
     miles: mile
-    name: Nazwa
+    name: Login
     new_zealand: Nowa Zelandia
     options: Opcje
     password: Hasło
@@ -153,8 +154,8 @@ pl:
       few: Spisy drzew
       one: Spis drzew
       other: Spis drzew
-    type_and_press_enter: Typ i naciśnij enter
-    types: Rodzaje
+    type_and_press_enter: Wpisz i naciśnij enter
+    types: Rodzaj
     united_kingdom: Wielka Brytania
     united_states: Stany Zjednoczone
     unknown: Nieznany
@@ -209,7 +210,7 @@ pl:
       original_author: Pierwotny autor/ka
       photo_caption: Podpis zdjęcia
       photo_subtext: Załaduj zdjęcie źródła/rośliny. Jeśli nie jest to Twoje zdjęcie, upewnij się, że masz niezbędne uprawnienia i wspomnij autora/kę w podpisie zdjęcia.
-      position_subtext: Określane z Twojego aktualnego położenia (jeśli jest dostępne) lub miejsca, gdzie umieściłeś znacznik. Dostosuj położenie przesuwając znacznik na mapie.
+      position_subtext: Określane z Twojego aktualnego położenia (jeśli jest dostępne) lub miejsca, gdzie umieściłeś/aś znacznik. Dostosuj położenie przesuwając znacznik na mapie.
       quality_subtext: Oceń jakość tego źródła (jeśli dotyczy)
       season_subtext: Kiedy można zbierać plony? Pozostaw to miejsce puste, jeśli nie wiesz.
       types_subtext: Wybierz z listy rozwijanej. Dodawaj nowe typy tylko jeśli odpowiednie jeszcze nie istnieją.
@@ -311,24 +312,24 @@ pl:
       about_the_site: O stronie
       about_us: O nas (zarząd)
       advisory_board: O nas (doradcy)
-      caleb_bio_html: Caleb jest featherless dwunożnych humanoidalne pasjonatem sprawiedliwości żywności oraz znalezienie kreatywnych sposobów wykorzystania technologii w celu rozwiązania problemów społecznych. Kiedy on nie jest rowerem wokół gapić na drzewach, że równoważy jego wysiłki między jego dzień pracy jako profesor informatyki na <a href="http://cs.colorado.edu">Uniwersytecie w Kolorado</a>, gdzie robi badania, głównie jako konsultant w dziedzinie odwzorowania zasięgu sieci bezprzewodowej, a jako Pszczoła pracownika dla wielu organizacji non-profit ( <a href="http://www.growbiointensive.org/">Ekologia działania</a> w San Francisco Bay Area, <a href="http://boulderfoodrescue.org">Boulder Żywności Rescue</a> w Boulder, Colorado). Poza tym wszystkie te rzeczy do pracy, lubi się wspinać skały, działają szlaki, na rowerach, na zewnątrz i ogólnie być w jak największym stopniu.
-      celebration: Falling Fruit cieszy się kulinarnymi darami natury na ulicach naszych miast. Przez konkretne pokazanie tych zasobów na mapie, mamy nadzieję, że ułatwimy bezpośredni kontakt i związek między ludźmi, żywnością i naturalnymi organizmami rosnącymi w naszej okolicy. To nie tylko darmowe jedzenie! Zbieractwo w 21 wieku jest okazją do eksploracji miast, szansą na walkę z plagą betonu i na ponowne odkrycie roślin i ich natury jako źródeł naszej żywności.
+      caleb_bio_html: 
+      celebration: Falling Fruit cieszy się kulinarnymi darami natury na ulicach naszych miast. Przez pokazanie tych zasobów na mapie, mamy nadzieję, że ułatwimy bezpośredni kontakt i związek między ludźmi, żywnością i naturalnymi organizmami rosnącymi w naszej okolicy. To nie tylko darmowe jedzenie! Zbieractwo w 21 wieku jest okazją do eksploracji miast, szansą na walkę z plagą betonu i na ponowne odkrycie roślin i ich natury jako źródeł naszej żywności.
       closing_remarks: Uwagi końcowe
-      closing_remarks_para1_html: Falling Fruit jest 501 (c) 3 (zwolnione z podatku), organizacja non-profit, zarejestrowana w Boulder, Colorado. W wyniku darowizny w Stanach Zjednoczonych można odpisać od podatku. Możesz się z naszą <a href="/501c3.pdf">list zwolnienia</a> z IRS i zweryfikować naszą sytuację z <a href="http://www.sos.state.co.us/biz/BusinessEntityDetail.do?quitButtonDestination=BusinessEntityResults&nameTyp=ENT&entityId2=20141104200&srchTyp=ENTITY&fileId=20141104200&masterFileId=20141104200">Sekretarzem Stanu Kolorado</a>. Dostępne są również nasze obecne rządzące <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">regulamin</a> i planszowe publicznych spotkań <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">minut</a>.
-      closing_remarks_para2_html: Zbioru żywności w miejskich pochodzi z pewnych względów praktycznych i moralnych. Na wprowadzenie do etyki miejskiej żerowania, polecamy wspaniałe podsumowanie na naszej stronie rodzeństwa - Portland, Oregon "jest <a href="http://urbanedibles.org/project/ethics">Miejskie spożywczymi</a>.
-      closing_remarks_para3_html: Większość żerujących mapy migracji do Falling Fruit gościły na publicznych stronach Google Maps, w której to wszystko było zbyt łatwo przypadkowo przesunąć znaczniki. Jeżeli adres podany w opisie nie zgadza się z położeniem na mapie, marker może został przypadkowo na pierwotnej mapy. Proszę zaktualizować lokalizacje tych markerów odpowiednio, gdy inspekcja pole określa adres (i nie odwzorowany lokalizacji) za prawidłowe.
+      closing_remarks_para1_html: Falling Fruit to organizacja non-profit, zarejestrowana w Boulder, Colorado. Darowizny pochodzące ze Stanów Zjednoczonych można odpisać od podatku.
+      closing_remarks_para2_html: Zbieranie żywności w mieście wiąże się z pewnymi względami praktycznymi i moralnymi. Jako wprowadzenie do etyki zbieractwa miejskiego, polecamy wspaniałe podsumowanie tych tematów na bliźniaczej nam stronie z Portland, Oregon <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
+      closing_remarks_para3_html: Informacje na stronie Falling Fruit mogą nie być zgodne z prawdą albo być nieaktualne. Na przykład wiele z map, które zaimportowano do Falling Fruit było na publicznych stronach Google Maps, na których znaczniki mogły być niedokładne albo marker mógł zostać przypadkowo przesunięty. Podobnie, spisy drzew w mieście są aktualizowane rzadko. Proszę, bądźcie przygotowani na pojawiające się czasem niezgodności i poprawiajcie mapę zgodnie z waszymi odkryciami w terenie. Od nas wszystkich zależy czy rośliny na mapie będą dobrze zidentyfikowane i opisane. Dzięki wysiłkowi nas wszystkich mapa ta będzie coraz lepsza.
       contact_us_html: Ta strona internetowa została stworzona przez i dla zbieraczy - chcemy, aby była najlepszym dostępnym narzędziem dla współczesnych zbieraczy. Napisz do nas na <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>. Chętnie usłyszymy Twoje komentarze!
       craig_durkin_bio_html: 
       cristina_rubke_bio_html: 
       david_craft_bio_html: 
-      ethan_bio_html: Z cydru z jabłek i piw owocowych dżemów i <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> Ethan wygląda na jego bazie drzew sąsiedztwa (i jego kulawym prasy Apple) dla kulinarnych inspiracji., Podczas gdy w domu w Boulder, że maniacy nad map, danych i upływie czasu cofanie się lodowców na jego doktorat na <a href="http://instaar.colorado.edu/people/ethan-welty/">Uniwersytecie w Kolorado</a>, ale często pozostawia swoje lokalne orbitę chodzić, mówić, jeść i sfotografować swoją drogę przez kontynenty.
+      ethan_bio_html: 
       ff_disclaimer_html: Falling Fruit nie jest zrzeszone z Fallen Fruit. Fallen Fruit można znaleźć pod <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Zapłać za pomocą Gratipay
       give_paypal: Wesprzyj nas przez Paypal
       give_us_money: Jesteśmy organizacją non-profit opartą na wolontariacie. Nasze funkcjonowanie zależy od datków. Jeśli możesz, rozważ przekazanie nam darowizny. Darowizny (przynajmniej w obrębie Stanów Zjednoczonych) można odpisać od podatku.
-      jeff_bio_html: Ponieważ zbiór czarny i jagodami z rodziną jako dziecko, a ostatnio, widząc bogactwo drzew owocowych publicznych w całej Colorado, Jeff opracował głębokie uznanie dla obfitości owoców rosnących w naszych miastach. Jego pierwsza misja dla Falling Owoc był czesać Boulder i Salt Lake City, map papierowych w rękę, aby nagrać drzew owocowania. Kiedy nie pracuje nad poprawą efektywności energetycznej budynków, jest on zazwyczaj pomaga w społeczności albo porusza się szybko w górach pieszo, na nartach, czy na rowerze.
-      join_us_html: Dołącz do nas w obchodach lokalnych i jadalne! <a href="/?locale=pl">Mapa</a> jest otwarta dla każdego, kto do edycji bazy danych można <a href="/data?locale=pl">pobrać</a> za pomocą jednego kliknięcia, a <a href="https://github.com/somerandomsequence/falling-fruit">kod</a> jest open-source. Ci są również zachęcani do dzielenia nagrodę ze swoimi bliźnimi. Nasza <a href="/sharing?locale=pl">strona udostępnianie</a> wymienia setki lokalnych organizacji sadzenia lasów żywności i sady publicznych, zbieranie inaczej-zmarnowane owoce i warzywa z drzew miejskich i "pól rolników i wymieniających się i dając do sąsiadów i potrzebujących.
-      more_about_html: Nasza mapa spożywczymi miejskich nie jest pierwszym w swoim rodzaju, ale pragną być na świecie jest najbardziej wszechstronne. Podczas gdy nasi użytkownicy przyczyniają lokalizacje własne, my grzebień internet dla już istniejącej wiedzy, dążąc do zjednoczenia wysiłków paszowe, leśników i freegans wszędzie. Te <a href="/datasets?locale=pl">importowane zestawy danych</a> w zakresie od małych mapach sąsiedztwo żerowania na rozległych profesjonalnie opracowanych zapasów drzewa. Ten tak daleko kwoty %{types} różnych rodzajów spożywczymi (większość, ale nie wszystkich gatunków roślin) rozłożone %{locations} miejscach. Poza uprawiane i powszechne do egzotycznych smaków roślin obcych i dawno zapomnianych kulinarnych zastosowań rodzimych roślin, żerują w Twojej okolicy jest podróż w czasie i różnych kulturach.
+      jeff_bio_html: 
+      join_us_html: Dołącz do nas w świętowaniu lokalnego jedzenia! <a href="/?locale=pl">Mapa</a> jest otwarta na każdego, bazę danych można <a href="/data?locale=pl">pobrać</a> za pomocą jednego kliknięcia, a jej <a href="https://github.com/somerandomsequence/falling-fruit">kod</a> jest  dostępny dla każdego (open-source). Zachęcamy, dziel się tą mapą z innymi! Na naszej <a href="/sharing?locale=pl">stronie udostępniania</a> znajdziesz setki lokalnych organizacji które zakładają publiczne sady i ogrody, zbierają owoce i warzywa z drzew i ogrodów w mieście, odbierają od rolników produkty, które inaczej by się zmarnowały i wreszcie dzielą się tym wszystkim z sąsiadami i osobami potrzebującymi.
+      more_about_html: Nasza mapa nie jest pierwszą tego rodzaju mapą, ale mamy nadzieję, że będzie ona najbardziej wyczerpującą taką mapą na świecie. Podczas gdy nasi użytkownicy dodają własne miejsca na mapie, my przeczesujemy Internet szukając już istniejących informacji i staramy się połączyć siły zbieraczy, botaników, leśników i freegan na całym świecie. Zbieramy też bazy danych o roślinności w mieście. Importowane przez nas <a href="/datasets?locale=pl"> bazy danych</a> mają zakres od lokalnych map sąsiedztwa do profesjonalnie opracowanych spisów drzew. W ten sposób zebraliśmy %{types} typów różnych rodzajów roślin jadalnych w %{locations} miejscach. Poza roślinami uprawnymi i powszechnymi są też na mapie rośliny egzotyczne, ale też dawno zapomniane rośliny rodzime. Zbieractwo w Twojej okolicy to podróż w czasie i poznawanie różnych kultur.
       translate: Przetłumacz
       translate_for_us_html: Chcesz pomóc w tłumaczeniach? Napisz do nas a zaprosimy Cię do dołączenia do <a href="http://www.localeapp.com/projects/7532">Locale</a>, gdzie zarządzamy tłumaczeniami.
       translators: Tłumaczenia
@@ -370,21 +371,24 @@ pl:
     denied: 
     mode_of_travel: Tryb travel
     modes_of_travel:
-    - 
-    - 
-    - 
+    - Pieszo
+    - Rowerem
+    - Samochodem
     order_not_updated: 
     order_updated: 
     updated: 
   time:
     days:
+      few: ! '%{count} dni'
+      many: ! '%{count} dni'
       one: ! '%{count} dzień'
       other: ! '%{count} dni'
     last_24_hours: Ostatnie 24 godziny
     months:
       few: ! '%{count} miesięcy'
-      one: 1 miesiąc
-      other: miesiąc
+      many: ! '%{count} miesięcy'
+      one: ! '%{count} miesiąc'
+      other: ! '%{count} miesięcy'
     this_month: W tym miesiącu
     this_week: W tym tygodniu
     time_ago: ! '%{time} temu'
@@ -401,7 +405,7 @@ pl:
     foraging_map_subtext: 
     foraging_radius: Promień
     foraging_radius_subtext: Promień obszaru zbieractwa z centrum w podanym adresie
-    foraging_range: Obszar "łowów"
+    foraging_range: Obszar zbieractwa
     forgot_password: Zresetuj hasło
     mailer:
       confirmation_instructions_html: 
@@ -411,7 +415,7 @@ pl:
     options:
       add_anonymously: Edytuj punkty na mapie anonimowo (nawet kiedy jestem zalogowany/a)
       range_updates_email: Otrzymuj cotygodniowe emaile z aktualnościami w Twojej okolicy (określonej poniżej)
-    range_by_map: Rysuj na mapie
+    range_by_map: Zaznacz na mapie
     range_by_radius: Adres i promień
     remember_me: Zapamiętaj mnie
     resend_confirmation_instructions: 

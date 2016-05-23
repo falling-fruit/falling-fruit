@@ -435,21 +435,15 @@ class LocationsController < ApplicationController
   def prepare_for_sidebar
     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
     rangeq = current_user.range.nil? ? "" : "AND ST_INTERSECTS(l.location,(SELECT range FROM users u2 WHERE u2.id=#{current_user.id}))"
-    r = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),', ') as type_title,
+    changes_query = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}t.name),', ') as type_title,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state,
       l.country, l.lat, l.lng, l.description as location_description, c.author as change_author, l.id
       FROM changes c, locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id #{rangeq}
       GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at, c.author ORDER BY c.created_at DESC LIMIT 100");
-    @changes = r.collect{ |row| row }
-    # @mine = Observation.joins(:location).select('max(observations.created_at) as created_at,observations.user_id,location_id,lat,lng').
-    #   where("observations.user_id = ?",current_user.id).group("location_id,observations.user_id,lat,lng,observations.created_at").
-    #   order('observations.created_at desc')
-    # @mine.uniq!{ |o| o.location_id }
-
-    @mine = Change.select('max(created_at) as created_at, user_id, location_id, description').where("user_id = ?", current_user.id).group("location_id, user_id, description").order('created_at desc').uniq!{ |c| c.location_id }
-
-    @routes = Route.where("user_id = ?",current_user.id)
+    @changes = changes_query.collect{ |row| row }
+    @my_changes = Change.select('max(created_at) as created_at, user_id, location_id, description').where("user_id = ? and location_id is not null", current_user.id).group("location_id, user_id, description").order('created_at desc').uniq!{ |c| c.location_id }
+    @routes = Route.where("user_id = ?", current_user.id)
     @zoom_to_polygon = current_user.range
     @show_sidebar = true
   end

@@ -401,13 +401,11 @@ en:
     updated: Route was successfully updated
   time:
     days:
-      content_item: day
       one: ! '%{count} day'
       other: ! '%{count} days'
     last_24_hours: Last 24 hours
     months:
-      content_item: month
-      one: 1 month
+      one: ! '%{count} month'
       other: ! '%{count} months'
     this_month: This month
     this_week: This week

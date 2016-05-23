@@ -67,16 +67,16 @@
 
   <!-- FAVORITES TAB -->
   <div id="sidebar-tab-2">
-    <% if @mine.empty? %>
+    <% if @my_changes.blank? %>
       <span><%= translate("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in") %></span>.
     <% else %>
       <span><%= translate("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %></span>:
       <br/>
-      <% @mine.each do |c| %>
+      <% @my_changes.each do |c| %>
         <div class="favorite">
-          <a href="#" onclick="open_marker_by_id(<%= c.location_id %>);return false;" onmouseover="show_pointer(<%= c.location.lat %>,<%= c.location.lng %>);" onmouseout="hide_pointer();"><%= c.location.types(@cat_filter).collect{ |t| t.name.nil? ? translate("glossary.unknown") : t.name }.join(", ") %></a>
+          <a href="#" onclick="open_marker_by_id(<%= c.location.id %>);return false;" onmouseover="show_pointer(<%= c.location.lat %>,<%= c.location.lng %>);" onmouseout="hide_pointer();"><%= c.location.types(@cat_filter).collect{ |t| t.i18n_name.nil? ? translate("glossary.unknown") : t.i18n_name }.join(", ") %></a>
           <% unless c.location.country.nil? %>
-            <i style="font-size: 85%;"><%= [c.location.city, c.location.state, c.location.country].reject{ |x| x.nil? }.join(", ") %></i>
+            <br/><i style="font-size: 85%;"><%= [c.location.city, c.location.state, c.location.country].reject{ |x| x.nil? }.join(", ") %></i>
           <% end %>
           <br/>
           <span><%= translate("changes.type." + c.description).upcase_first %> <%= translate("time.time_ago", :time => time_ago_in_words(c.created_at)).downcase_first %></span>

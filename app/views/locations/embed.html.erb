@@ -22,17 +22,17 @@
 
 <!-- Unverified? -->
 <div id="unverified_help" style="display:none;">
- <%= translate("locations.infowindow.unverified") %>
+ <%= translate("glossary.unverified") %>
 </div>
 
 <script type="text/javascript" charset="utf-8">
   // Load I18n locale into JS
   I18n.defaultLocale = "<%= I18n.default_locale %>";
-  I18n.locale = "<%= I18n.locale %>";  
+  I18n.locale = "<%= I18n.locale %>";
 </script>
 <%= stylesheet_link_tag "shadowbox" %>
 <%= javascript_include_tag "shadowbox-i18n" %>
-<%= javascript_include_tag "shadowbox-infowindow" %>  
+<%= javascript_include_tag "shadowbox-infowindow" %>
 <%= render 'map_includes' %>
 <script type="text/javascript" charset="utf-8">
 
@@ -58,7 +58,7 @@
   <% unless @type.nil? %>
     type_filter = <%= @type.id %>;
   <% end %>
-  
+
   // state variable used to leave out certain info_window features (report)
   <% $embed = (not request.fullpath.match('/locations/embed[.]*').nil?) %>
 
@@ -75,7 +75,7 @@
       remove_add_marker();
       place_add_marker(event.latLng);
     });
-    
+
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       update_display_embedded(true,zoom,muni);
       if (labels && zoom > 12) {
@@ -86,7 +86,7 @@
         labelsOn = true;
       }
     });
-    
+
     google.maps.event.addListener(map, 'idle', function() {
       update_display_embedded(false,null,muni);
     });
@@ -124,7 +124,7 @@
   // ================== main-level code ===================
 
   google.maps.event.addDomListener(window, 'load', initialize);
-  
+
 </script>
 <%= javascript_include_tag "maplabel" %>
 <%= javascript_include_tag "progressBar" %>

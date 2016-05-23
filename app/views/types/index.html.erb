@@ -39,7 +39,11 @@
       <td style="text-align:right"><%= type.id %></td>
       <td style="text-align:right"><%= type.parent_id %></td>
       <td><%= type.children.length %></td>
-      <td><%= type.taxonomic_rank.to_s + " " + Type::Ranks[type.taxonomic_rank] %></td>
+      <td>
+      <% unless type.taxonomic_rank.blank? %>
+        <%= type.taxonomic_rank.to_s + " " + Type::Ranks[type.taxonomic_rank] %>
+      <% end %>
+      </td>
       <td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.blank? %></td>
       <td>
        <%= type.name %>

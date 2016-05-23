@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
 
   # http://railscasts.com/episodes/199-mobile-devices
   def mobile_device?
-    if session[:mobile_param]
+    if not session.nil? and session[:mobile_param]
       session[:mobile_param] == "1"
     else
       # this hideous thing is from: http://detectmobilebrowsers.com/download/rails

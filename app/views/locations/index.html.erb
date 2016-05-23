@@ -41,7 +41,7 @@
 <% content_for :page_scripts do %>
 <%= render 'map_includes' %>
 <script type="text/javascript" charset="utf-8">
-	
+
   // ================= globals ==================
 
   var lat = 36.45662936733231;
@@ -59,17 +59,17 @@
   <% unless @types.nil? %>
     type_filter = [<%= @types.collect{ |t| t.id }.join(",") %>];
   <% end %>
-  
+
    // state variable used to leave out certain info_window features (report)
    <% $embed = (not (request.fullpath.match('/locations/embed[.]*').nil?)) %>
 
   var obj;
 
   // ================= functions =================
-  
+
   function initialize() {
     console.log('initializing');
-  
+
     <% if @zoom_to_polygon.nil? %>
       basemap(lat,lng,zoom,type);
     <% else %>
@@ -89,7 +89,7 @@
       remove_add_marker();
       place_add_marker(event.latLng);
     });
-    
+
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       if (labels && zoom > 12) labelize_markers();
       // Ensures that labels come on again if labels = true and zoom <= 12:
@@ -97,7 +97,7 @@
         labelsOn = true;
       }
     });
-    
+
     // Far less redundant event trigger
     google.maps.event.addListener(map, 'idle', function() {
       console.log("update");
@@ -153,7 +153,7 @@
       }
     <% end %>
   });
-  
+
   $(window).resize(function() {
     resize_map();
     google.maps.event.trigger(map,'resize');

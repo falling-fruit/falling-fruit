@@ -379,7 +379,7 @@ it:
       other: ! '%{count} giorni'
     last_24_hours: Ultime 24 ore
     months:
-      one: 1 mese
+      one: ! '%{count} mese'
       other: ! '%{count} mesi'
     this_month: Questo mese
     this_week: Questa settimana

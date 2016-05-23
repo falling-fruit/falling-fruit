@@ -386,9 +386,9 @@ he:
     days:
       one: יום
       other: ! '%{count} ימים'
-    last_24_hours: 24 שעות אחרונות
+    last_24_hours: 24 השעות האחרונות
     months:
-      one: חודש
+      one: ! '%{count} חודש'
       other: ! '%{count} חודשים'
     this_month: החודש
     this_week: השבוע

@@ -24,7 +24,7 @@
   </tr>
 </thead>
 <tbody>
-<% 
+<%
 lcounts = {}
 Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l|
   lcounts[l.import_id] = l.count
@@ -40,23 +40,13 @@ Import.order("id").reverse.each do |import|
       <img src="/details_open.png" style="cursor:pointer;"/>
     </td>
     <td style="display:none;">
-      <!-- To match /imports/#
-      <b><%= import.name %></b><br />
-      <% unless import.url.blank? %>
-        <%= link_to import.url do %>
-        <%= !import.url.match('google.com/maps|maps.google').nil? ? translate("pages.datasets.google_map") : (!import.url.match('google.com/fusiontables').nil? ? translate("pages.datasets.google_fusion_table")  : (!import.url.match('mapsengine.google').nil? ? translate("pages.datasets.google_maps_engine") : import.url)) %>
-        <% end %><br />
-      <% end %>
-      <%= import.muni ? translate("pages.datasets.tree_inventory") : translate("pages.datasets.community_map") %> | <%= translate("pages.datasets.imported") %> <i><%= import.created_at.to_s %></i><br />
-      <hr style="border:1px solid #eee;margin:1.5em 0;">
-      -->
       <!-- Comments -->
       <% unless import.comments.blank? %>
-        <%= raw import.comments.gsub("\n","<br>") %><br /><br />
+        <%= raw import.comments.gsub("\n","<br/>") %><br /><br />
       <% end %>
       <!-- License -->
       <% unless import.license.blank? %>
-        <%= raw import.license.gsub("\n","<br>") %>
+        <%= raw import.license.gsub("\n","<br/>") %>
       <% else %>
         <i><%= translate("pages.datasets.no_license").html_safe %></i>
       <% end %>
@@ -89,10 +79,10 @@ Import.order("id").reverse.each do |import|
 function fnFormatDetails ( oTable, nTr )
 {
     var aData = oTable.fnGetData( nTr );
-    
+
     var sOut = '<div style="margin:0 auto 0 42px;padding:10px;">';
-    if (aData[1].length > 0) {  
-      sOut += aData[1];	
+    if (aData[1].length > 0) {
+      sOut += aData[1];
     }
     sOut += '</div>';
     return sOut;
@@ -107,7 +97,7 @@ jQuery(document).ready(function(){
             { "bVisible": false, "aTargets": [ 1 ] }
         ]
     });
-    
+
     $('#import_list tbody td img').live('click', function () {
         var nTr = $(this).parents('tr')[0];
         if ( oTable.fnIsOpen(nTr) )
@@ -123,6 +113,6 @@ jQuery(document).ready(function(){
             oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
         }
     } );
-    
+
 });
 </script>
