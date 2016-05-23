@@ -47,10 +47,9 @@
 </p>
 
 <%
-  cache "pages_about_stats" do
+  cache "pages_about_stats_#{I18n.locale}" + ((params[:i18n_viz].present? and params[:i18n_viz] == 'true') ? "_i18nviz" : "")  do
     @types_count = Location.select("type_ids").collect{ |l| l.type_ids }.flatten.uniq.length
     @locations_count = Location.count
-  end
 %>
 
 <p>
@@ -58,6 +57,9 @@
       :types => number_with_delimiter(@types_count),
       :locations => number_with_delimiter(@locations_count)).html_safe %>
 </p>
+
+<!-- cache end -->
+<% end %>
 
 <p>
   <%= translate("pages.about.join_us_html").html_safe %>

@@ -73,6 +73,7 @@
       <span><%= translate("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %></span>:
       <br/>
       <% @my_changes.each do |c| %>
+        <% next if c.location.nil? %>
         <div class="favorite">
           <a href="#" onclick="open_marker_by_id(<%= c.location.id %>);return false;" onmouseover="show_pointer(<%= c.location.lat %>,<%= c.location.lng %>);" onmouseout="hide_pointer();"><%= c.location.types(@cat_filter).collect{ |t| t.i18n_name.nil? ? translate("glossary.unknown") : t.i18n_name }.join(", ") %></a>
           <% unless c.location.country.nil? %>
