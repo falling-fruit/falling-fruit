@@ -13,11 +13,13 @@
 
   <% if (I18n.locale == :en) %>
     <meta property="og:locale" content="en_US" />
+  <% elsif (I18n.locale == :"es") %>
+    <meta property="og:locale" content="es_LA" />
   <% elsif (I18n.locale == :de) %>
     <meta property="og:locale" content="de_DE" />
   <% elsif (I18n.locale == :fr) %>
     <meta property="og:locale" content="fr_FR" />
-  <% elsif (I18n.locale == :"pt-BR") %>
+  <% elsif (I18n.locale == :"pt-br") %>
     <meta property="og:locale" content="pt_BR" />
   <% elsif (I18n.locale == :"it") %>
     <meta property="og:locale" content="it_IT" />
@@ -27,7 +29,8 @@
     <meta property="og:locale" content="pl_PL" />
   <% end %>
 	<meta property="og:locale:alternate" content="en_US" />
-	<meta property="og:locale:alternate" content="de_DE" />
+  <meta property="og:locale:alternate" content="es_LA" />
+  <meta property="og:locale:alternate" content="de_DE" />
 	<meta property="og:locale:alternate" content="fr_FR" />
 	<meta property="og:locale:alternate" content="pt_BR" />
 	<meta property="og:locale:alternate" content="it_IT" />

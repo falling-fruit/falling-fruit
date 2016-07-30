@@ -406,7 +406,7 @@ fr:
 
         <br/>%{link}</p>
 
-        <p>Falling Fruit est propulsé par ses utilisateurs, donc si vous pouvez y ajouter ou améliorer, faites-le. Joyeux glanage! </ P>'
+        <p>Falling Fruit est propulsé par ses utilisateurs, donc si vous pouvez y ajouter ou améliorer, faites-le. Joyeux glanage! </p>'
       reset_password_instructions_html: ! '<p>Bonjour %{email},</p>
 
         <p>Quelqu''un (probablement vous) a demandé un lien pour modifier votre mot de passe:
