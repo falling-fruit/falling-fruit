@@ -35,3 +35,8 @@ config/create.log
 .idea/
 
 .localeapp
+
+# R
+.Rproj.user
+.Rhistory
+.RData
