@@ -4,9 +4,9 @@ types.list = function (req, res) {
   var cmask = common.default_catmask;
   if(req.query.c) cmask = common.catmask(req.query.c.split(","));
   var cfilter = "";
-  if(req.query.uncategorized) cfilter = "category_mask=0 OR category_mask IS NULL OR "; 
+  if(req.query.uncategorized) cfilter = "category_mask=0 OR category_mask IS NULL OR ";
   var name = "name";
-  if(req.query.locale) name = common.i18n_name(req.query.locale); 
+  if(req.query.locale) name = common.i18n_name(req.query.locale);
   var mfilter = "";
   if(req.query.muni == 0) mfilter = "AND NOT muni";
   var pfilter = "NOT pending AND";
@@ -21,7 +21,7 @@ types.list = function (req, res) {
     if(req.query.zoom) zfilter = "AND zoom="+parseInt(req.query.zoom);
   }
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -31,7 +31,7 @@ types.list = function (req, res) {
         if(bfilter){
           filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
           client.query("SELECT t.id, COALESCE("+name+",name) as name, scientific_name, \
-                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
                         "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask, \
                         SUM(count) as count \
@@ -40,15 +40,15 @@ types.list = function (req, res) {
                         ORDER BY scientific_name, taxonomic_rank, name;",
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');
-            res.send(__.map(result.rows,function(x){ 
-              x.count = parseInt(x.count); 
-              return x; 
+            res.send(__.map(result.rows,function(x){
+              x.count = parseInt(x.count);
+              return x;
             }));
             return callback(null);
           });
         }else{
           client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name, \
-                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
                         "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
                         FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
@@ -64,14 +64,14 @@ types.list = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
 types.show = function (req, res) {
   var id = parseInt(req.params.id);
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -81,7 +81,7 @@ types.show = function (req, res) {
         client.query("SELECT id, created_at, updated_at, \
                       scientific_name, scientific_synonyms, taxonomic_rank, parent_id, \
                       name, synonyms, \
-                      es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, \
+                      es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
                       usda_symbol, wikipedia_url, eat_the_weeds_url, foraging_texas_url, \
                       urban_mushrooms_url, fruitipedia_url, \
                       pending, category_mask, edability as edibility, notes \
@@ -97,7 +97,7 @@ types.show = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 

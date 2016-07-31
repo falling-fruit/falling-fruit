@@ -1,0 +1,29 @@
+Package: fruitr
+Type: Package
+Version: 0.1.0
+Date: 2016-05-04
+Authors@R: person("Ethan", "Welty", email = "ethan@fallingfruit.org", role = c("aut", "cre"))
+Title: R functions for Falling Fruit
+Description: Functions for species common name translations and location data
+    import.
+License: GPL-3
+LazyData: TRUE
+URL: https://github.com/somerandomsequence/falling-fruit
+BugReports: https://github.com/somerandomsequence/falling-fruit/issues
+Depends:
+    R (>= 3.2.0)
+Imports:
+    data.table,
+    DBI,
+    foreign,
+    httr,
+    Rcpp,
+    rgdal,
+    RJSONIO,
+    RPostgreSQL,
+    stringdist,
+    stringr,
+    XML
+Remotes:
+    github::rstats-db/RPostgres
+RoxygenNote: 5.0.1

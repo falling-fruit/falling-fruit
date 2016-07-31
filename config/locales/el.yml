@@ -222,15 +222,15 @@ el:
       freegan_modal_title: Καλωσήρθατε στον χάρτη freegan!
       grafter_modal_html: Οι Αντάρτες Μοσχευμάτων (Guerrilla Grafters) μπολιάζουν με κλαδιά οπωροφόρων μη οπωροφόρα, καλλωπιστικά δέντρα. Με την πάροδο του χρόνου, νόστιμα, θρεπτικά φρούτα διατίθεται σε γειτονιές μέσω αυτών των μοσχευμάτων. Μπορείτε να μάθετε περισσότερα για αυτήν τη δράση στο <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>Πόλεις στη Βόρεια Αμερική χρησιμοποιούν συχνά στείρα οπωροφόρα δέντρα για τα πολύχρωμα ανοιξιάτικά τους άνθη. Αυτός ο χάρτης δείχνει μερικές από τις πιο κοινές καλλωπιστικές ποικιλίες οπωροφόρων δέντρων. Αν μπολιάζετε, είστε κηπουρός ή αγαπάτε τα οπωροφόρα δένδρα, συμβάλλετε στην επίτευξη των κοινών πληροφοριών και επισημάνετε τα δέντρα στην αυλή ή στη γειτονιά σας που μπορούν να μπολιαστούν με κλαδιά οπωροφόρων!
       grafter_modal_title: Καλωσήρθατε στον χάρτη εμβολιαστών!
-      mobile_modal_html: ! 'Γειά σου! Φαίνεται ότι έχετε προσπελάσει το Falling Fruit από <strong>κινητή συσκευή</strong>. Κυκλοφορήσαμε πρόσφατα μια crowdfunded εφαρμογή για κινητά και για τις δύο κινητές πλατφόρμες Android και Apple. Νομίζουμε ότι θα βρείτε πολύ πιο ευχάριστο να χρησιμοποιήσετε την κινητή συσκευή σας:
+      mobile_modal_html: ! 'Γειά σου! Φαίνεται ότι έχετε προσπελάσει το Falling Fruit από <strong>κινητή συσκευή</strong>. Κυκλοφορήσαμε πρόσφατα μια crowdfunded εφαρμογή για κινητά και για τις δύο κινητές πλατφόρμες Android και iOS. Νομίζουμε ότι θα βρείτε πολύ πιο ευχάριστο να χρησιμοποιήσετε την κινητή συσκευή σας:
 
         <br><br>
 
         <ul>
 
-        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit για Apple Phones</a>
+        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit για iOS</a>
 
-        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit για Android Phones</a>
+        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit για Android</a>
 
         </ul>
 

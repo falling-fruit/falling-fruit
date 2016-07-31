@@ -76,7 +76,7 @@ en:
     access: Access
     account: Account
     activity: Activity
-    add_source: Add source
+    add_source: Add location
     address: Address
     anonymous: Anonymous
     are_you_sure: Are you sure?
@@ -226,19 +226,19 @@ en:
     index:
       addmarker_html: Add a source here</a><br><span class="subtext">You can move me too</span>
       editmarker_html: <b>Move to the position of the source.</b><br><br>Check the satellite view - the source may be visible from space!
-      freegan_modal_html: In addition to our efforts mapping the <a href="/?locale=en">edible plants growing in cities</a>, we've set out to map the world's food-bearing dumpsters. Nearly half of all food produced in the developed world is never eaten. We're hoping to raise awareness around food waste, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing?locale=en">donate their food</a> instead.<br/><br/>In support of a lower-waste lifestyle, we are encouraging the mapping of all freegan sources (from dumpsters to free boxes) with discarded but useful goods, edible or otherwise.
+      freegan_modal_html: In addition to our efforts mapping the <a href="/?locale=en">edible plants</a> growing in cities, we've set out to map the world's food-bearing dumpsters. Nearly half of all food produced in the developed world is never eaten. We're hoping to raise awareness around food waste, facilitate the liberation of discarded food, and encourage businesses to <a href="/sharing?locale=en">donate their food</a> instead.<br/><br/>In support of a lower-waste lifestyle, we are encouraging the mapping of all freegan sources (from dumpsters to free boxes) with discarded but useful goods, edible or otherwise.
       freegan_modal_title: Welcome to our freegan map!
-      grafter_modal_html: Guerrilla Grafters graft fruit-bearing branches onto non-fruit-bearing, ornamental fruit trees. Over time, delicious, nutritious fruit is made available to neighborhoods through these grafts. You can learn more about this project at <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>Cities in North America often use sterile fruit trees for their colorful spring blossoms. This map shows some of the most common ornamental fruit trees. If you are a grafter, a gardener, or a fruit tree enthusiast, contribute to the information commons and tag the trees in your yard or neighborhood that can be grafted with fruit-bearing branches!
+      grafter_modal_html: Guerrilla Grafters graft fruit-bearing branches onto ornamental, non-fruiting fruit tree varieties (for example, cities often use sterile fruit trees for their colorful spring blossoms). Over time, delicious, nutritious fruit is made available to neighborhoods thanks to these grafts. You can learn more about the project at <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>This map shows some of the most common ornamental fruit trees. If you are a grafter, a gardener, or a fruit tree enthusiast, contribute to the information commons and tag the trees in your yard or neighborhood that can be grafted with fruit-bearing branches!
       grafter_modal_title: Welcome to our grafter map!
-      mobile_modal_html: ! 'Hello! It looks like you''re accessing Falling Fruit from a <strong>mobile device</strong>. We recently released a crowdfunded mobile app for both Android and Apple mobile platforms. I think you''ll find it''s much more pleasant to use on your mobile device:
+      mobile_modal_html: ! 'Hello! It looks like you''re accessing Falling Fruit from a <strong>mobile device</strong>. We recently released a crowdfunded mobile app for both Android and iOS mobile platforms. I think you''ll find it''s much more pleasant to use on your mobile device:
 
         <br><br>
 
         <ul>
 
-        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit for Apple Phones</a>
+        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit for iOS</a>
 
-        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit for Android Phones</a>
+        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit for Android</a>
 
         </ul>
 
@@ -301,15 +301,15 @@ en:
       unsure_other: Unsure/Other
       url_for_this_location: URL for this location
     messages:
-      created: Location was successfully created
+      created: Location was added
       geocode_failed: Your search failed
       latitude_too_large: We do not support latitudes beyond ±85 degrees.
-      not_created: Location could not be created
+      not_created: Location could not be added
       not_updated: Location could not be updated
-      updated: Location was successfully updated
+      updated: Location was updated
     searchbar:
       embed_hover: Embed code
-      invasive_modal: Invasive plants are non-native (or alien) plants in a given region that out-compete native plants. We highlight invasive plants on Falling Fruit so that you can seek them out and eat them---fight invasive, noxious species one tasty bite at a time! Invasive plants on Falling Fruit are only listed for the United States and are based on USDA state-level noxious and invasive species lists.
+      invasive_modal: Invasive plants are non-native plants in a given region that outcompete native plants. We highlight invasive plants on Falling Fruit so that you can seek them out and eat them, fighting back invasions one tasty bite at a time! Invasive species are currently only listed for the United States and based on U.S. Department of Agriculture (USDA) state-level noxious and invasive species lists.
       invasive_modal_title: What is an invasive species?
       link_hover: URL to the current map
       tree_inventories_modal: Tree inventories are compiled by institutions seeking to better document and care for their trees. These data are typically collected by trained arborists and are both detailed and exhaustive. We carefully pick out edible species from these inventories and add them to the map for you. Help us map your neighborhood by asking your city (or university, canton, etc) if a tree inventory exists and whether it can be shared on Falling Fruit.
@@ -320,14 +320,14 @@ en:
       in: in
       locations_added_or_reviewed_by_you_while_logged_in: Locations added or reviewed by you (while logged in)
       you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed any sources yet (while logged in)
-      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any foraging routes yet. Click on a source, then on "routes", to start making one.
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: You haven't defined any routes yet. Click on a location, then on "routes", to start making one.
       you_havent_defined_html: You haven't defined a foraging range. <a href="/users/edit?locale=en">Click here</a> to do that now
   meta:
     forager_description: A massive, collaborative map of the urban harvest uniting the efforts of foragers, freegans, and foresters around the world. Explore and share information about the sources of free food in your neighborhood.
     freegan_description: By mapping the world's food-bearing dumpsters, we hope to raise awareness about food waste, facilitate the liberation of discarded food, and encourage businesses to donate the food instead.
     freegan_title: World Dumpster Map
   observations:
-    created: Your review was added successfully
+    created: Your review was added
     empty: Reviews cannot be empty
   pages:
     about:
@@ -355,7 +355,7 @@ en:
       translate: Translate
       translate_for_us_html: Interested in volunteering as a translator? Email us and we'll invite you to join us on <a href="http://www.localeapp.com/projects/7532">Locale</a>, where our translations are managed.
       translators: Translators
-      tristram_stuart_bio_html: ! 'As a teenager, Tristram raised pigs on surplus food that he collected from his school kitchens, the local baker and village greengrocer. Noticing that a lot of this food was still suitable for human consumption led him to the realisation that good, fresh food was being wasted on a colossal scale. Tristram has since worked tirelessly to bring this issue to the attention of the public, the media, and policy-makers. He founded the food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> and wrote <a href="//tristramstuart.co.uk/">Waste: Uncovering the Global Food Scandal</a> to demonstrate the extent of the problem on a global scale. In 2011, Tristram was awarded <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">The Sophie Prize</a> for his fight against food waste.'
+      tristram_stuart_bio_html: ! 'As a teenager, Tristram raised pigs on surplus food that he collected from his school kitchens, the local baker and village greengrocer. Noticing that a lot of this food was still suitable for human consumption led him to the realization that good, fresh food was being wasted on a colossal scale. Tristram has since worked tirelessly to bring this issue to the attention of the public, the media, and policy-makers. He founded the food waste campaign organization <a href="//feedbackglobal.org">Feedback Global</a> and wrote <a href="//tristramstuart.co.uk/">Waste: Uncovering the Global Food Scandal</a> to demonstrate the extent of the problem on a global scale. In 2011, Tristram was awarded <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">The Sophie Prize</a> for his fight against food waste.'
       write: Write
     data:
       beware_html: But beware! Once uncompressed, the database is a huge file that will crush most spreadsheet software. If you only need data for a small region, first try retrieving them using the download tool integrated into the <a href="/?locale=en">map</a>.
@@ -383,9 +383,9 @@ en:
       food_banks_intro: Foragers and private tree owners are encouraged to donate their surplus produce to charity. Consider partnering with groups like those listed above, or donating directly to organizations feeding the hungry in your community. The major food bank networks are listed below; homeless shelters, schools, and senior centers are also worth considering.
       global_foodbanking_network: Food banks networks throughout the world
       grow_pick_and_distribute: Grow · Pick · Distribute
-      intro_html: Listed below are organizations that grow food in public spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (swaps, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
+      intro_html: Listed below are organizations that grow food in public spaces (food forests, public orchards), pick food (urban foraging, farm gleaning), or distribute food (exchanges, donations). Organizations are listed by country, state (if applicable), and city. Those with crossed-out names are believed to be inactive. If you know of others that should be on this list, <a href="mailto:info@fallingfruit.org">contact us</a>!
   problems:
-    created: Thank you for letting us know!
+    created: Thank you for reporting the problem!
     description_subtext: Any information that might help us evaluate the problem
     problem_type: Problem type
     your_contact_info: Your contact info
@@ -396,9 +396,9 @@ en:
     - Walking
     - Bicycling
     - Driving
-    order_not_updated: Problems updating order
-    order_updated: Order updated
-    updated: Route was successfully updated
+    order_not_updated: Order could no be updated
+    order_updated: Order was updated
+    updated: Route was updated
   time:
     days:
       one: ! '%{count} day'
@@ -422,7 +422,7 @@ en:
     edit_account: Edit account
     foraging_map_subtext: Use the polygon or rectangle tool in the map below to define your foraging range. If using the polygon tool, make sure to close your polygon by joining the last point to the first.
     foraging_radius: Radius
-    foraging_radius_subtext: Radius of a circular foraging range centered on the address above
+    foraging_radius_subtext: Radius of the circular foraging range centered on the address given above
     foraging_range: Foraging range
     forgot_password: Reset your password
     mailer:
