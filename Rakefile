@@ -265,6 +265,8 @@ task(:import => :environment) do
     puts "Lockfile exists, not running!"
     exit
   end
+  # Delete unused pending types
+  Rake::Task["delete_unused_pending_types"].invoke
   # Check for duplicate types
   names = Type.all.collect{ |t| t.full_name }
   if not names.detect{ |name| names.rindex(name) != names.index(name) }.nil?

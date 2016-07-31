@@ -16,7 +16,7 @@ else
 end
 
 csv = CSV.open(csvfile,"wb")
-csv << ["Id","Type","Description","Lat","Lng","Address","Season Start","Season Stop",
+csv << ["Ids","Types","Description","Lat","Lng","Address","Season Start","Season Stop",
         "No Season","Access","Unverified","Yield Rating","Quality Rating","Author","Photo URL"]
 @doc = Nokogiri::XML(File.open(ARGV[0]))
 
