@@ -1,64 +1,63 @@
 <div id="searchbar">
   <div id="searchcontrols">
- 
-    <!-- Permalink | Embed -->
+  <!-- Permalink | Embed -->
     <span class="nowrap" id="rightcontrols">
-     <a href="#" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= translate("locations.searchbar.link_hover") %>"><%= translate("glossary.links", :count => 1) %></a> |
-     <a href="#" id="embedlink" onclick="show_embed_html('#embed_modal'); return false;" title="<%= translate("locations.searchbar.embed_hover") %>"><%= translate("glossary.embed") %></a>
-     <div id="embed_modal" style="display:none;" title="<%= translate("locations.searchbar.embed_hover") %> (iFrame HTML)"></div>
+      <a href="#" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= translate("locations.searchbar.link_hover") %>"><%= translate("glossary.links", :count => 1) %></a> |
+      <a href="#" id="embedlink" onclick="show_embed_html('#embed_modal'); return false;" title="<%= translate("locations.searchbar.embed_hover") %>"><%= translate("glossary.embed") %></a>
+      <div id="embed_modal" style="display:none;" title="<%= translate("locations.searchbar.embed_hover") %> (iFrame HTML)"></div>
     </span>
-  
-    <span class="nowrap">  
-     <!-- Address -->
-     <b><%= translate("glossary.address", ) %></b>
-     <input type="text" id="address" name="address" placeholder="<%= translate("glossary.type_and_press_enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
+
+    <span class="nowrap">
+      <!-- Address -->
+      <b><%= translate("glossary.address", ) %></b>
+      <input type="text" id="address" name="address" placeholder="<%= translate("glossary.type_and_press_enter") %>" onkeypress="if(event.keyCode == 13){ recenter_map_to_address(); }" size="25" style="margin-right:0;">
+      &middot;
       <span id="recenter_button">
-        &middot;
         <button onclick="recenter_map()"><%= translate("glossary.zoom_to_me") %></button>
       </span>
-      &middot; 
     </span>
-  
+
     <!-- Type Filter -->
+    &middot;
     <span class="nowrap">
       <b><%= translate("glossary.filter") %></b>
       <%= text_field_tag(:type_filter) %>
-      &middot;
     </span>
-  
+
     <!-- Tree inventories -->
+    &middot;
     <span class="nowrap">
-      <b><%= translate("glossary.tree_inventory", :count => 2) %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
       <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> >
+      <b><%= translate("glossary.tree_inventory", :count => 2) %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
     </span>
     <div id="tree_inventories_help" style="display:none;" title="<%= translate("locations.searchbar.tree_inventories_modal_title") %>">
       <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200">
       <span><%= translate("locations.searchbar.tree_inventories_modal") %></span>
     </div>
-   
+
     <!-- Hidden controls -->
     <span id="hidden_controls" style="display:none;">
-    
-      &middot;
+
       <!-- Invasives -->
+      &middot;
       <span class="nowrap" id="invasive_span">
-        <b><%= translate("glossary.invasive") %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_invasive_help_modal();">[?]</span>
         <input type="checkbox" id="invasive" value="1" onclick="clear_markers();update_display(true);">
+        <b><%= translate("glossary.invasive") %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_invasive_help_modal();">[?]</span>
       </span>
       <div id="tree_invasive_help" style="display:none;" title="<%= translate("locations.searchbar.invasive_modal_title") %>">
         <img src="/himalayanblackberry1_300x.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200" title="Himalayan Blackberry, image via Washington State Noxious Weed Control Board">
         <span><%= translate("locations.searchbar.invasive_modal") %></span>
       </div>
-   
-      &middot;
+
       <!-- Labels -->
-      <span class="nowrap">
-        <b><%= translate("glossary.labels") %></b>
-        <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %> > 
-      </span>
-    
       &middot;
+      <span class="nowrap">
+        <input type="checkbox" id="labels" value="1" onclick="if(!this.checked){ delabelize_markers() }else{ labelize_markers(); } update_permalink();" <%= "checked" if (!@perma.nil? and !@perma[:labels].nil? and @perma[:labels]) %> >
+        <b><%= translate("glossary.labels") %></b>
+      </span>
+
       <!-- Download -->
+      &middot;
       <span id="export_data">
         <span class="nowrap">
           <a href="#" id="get_data_link"><%= translate("glossary.download") %></a>
@@ -81,7 +80,7 @@
   function filter_by_types_hash(children) {
     var mp = markersPartial ? "+" : "";
     var ret = children.filter(function (obj) {
-    	return (obj["children"] != undefined && obj["children"].length > 0) || types_hash[obj["id"]] != undefined; 
+    	return (obj["children"] != undefined && obj["children"].length > 0) || types_hash[obj["id"]] != undefined;
     });
     for (var i = ret.length-1; i >= 0; i--) {
     	var count = types_hash[ret[i]["id"]] ? types_hash[ret[i]["id"]] : 0;
@@ -100,7 +99,7 @@
     return ret;
   }
 	//var temp = null;
-		
+
 	jQuery(document).ready(function(){
 		//temp = filter_by_types_hash_wrapper(base_type_data_original);
 		$('#type_filter').select2({
