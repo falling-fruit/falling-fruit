@@ -5,7 +5,8 @@
 \title{Get Encyclopedia of Life (EOL) Page}
 \usage{
 get_eol_page(id, common_names = TRUE, synonyms = TRUE, references = TRUE,
-  taxonomy = TRUE, details = TRUE, iucn = TRUE, images = 75)
+  taxonomy = TRUE, details = TRUE, iucn = TRUE, images = 75,
+  content_only = TRUE)
 }
 \description{
 Get Encyclopedia of Life (EOL) Page

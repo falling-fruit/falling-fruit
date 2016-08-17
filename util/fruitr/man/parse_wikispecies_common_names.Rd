@@ -10,15 +10,17 @@ parse_wikispecies_common_names(xml)
 Parse Wikispecies Common Names
 }
 \examples{
-xml <- content(GET("https://species.wikimedia.org/wiki/Malus_domestica"))
+xml <- get_page("https://species.wikimedia.org/wiki/Malus_domestica")
 parse_wikispecies_common_names(xml)
+xml <- get_page("https://en.wikipedia.org/wiki/Abelmoschus")
+parse_wikispecies_common_names(xml) # no names
 }
 \seealso{
 Other Wiki functions: \code{\link{build_wiki_url}},
-  \code{\link{get_wiki_page}},
+  \code{\link{get_page}}, \code{\link{get_wiki_page}},
   \code{\link{parse_wiki_url}},
   \code{\link{parse_wikicommons_common_names}},
-  \code{\link{parse_wikipedia_langlinks}},
-  \code{\link{parse_wikipedia_names}}
+  \code{\link{parse_wikipedia_common_names}},
+  \code{\link{parse_wikipedia_langlinks}}
 }
 

@@ -4,15 +4,18 @@
 \alias{normalize_language}
 \title{Normalize Language}
 \usage{
-normalize_language(x, type = "code")
+normalize_language(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T",
+  "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia", "autonym", "en", "fr",
+  "de", "ru", "es", "zh"))
 }
 \description{
-Returns the highest level ISO language code corresponding to the ISO language code, language name, autonym, or Wikipedia provided. If the input matches zero or multiple entries, the input is returned and a warning is raised.
+Returns the highest level ISO or Wikipedia language code corresponding to the ISO or Wikipedia language code, language name, or autonym provided. If the input matches zero or multiple entries, the input is returned and a warning is raised.
 }
 \examples{
-normalize_language("spa", "code")
-normalize_language("spanish", "en")
-normalize_language("español", "autonym")
+normalize_language("spa")
+normalize_language("Spanish")
+normalize_language("Español")
+normalize_language("Espagnol")
 }
 \seealso{
 Other helper functions: \code{\link{ch1903_to_wgs84}},

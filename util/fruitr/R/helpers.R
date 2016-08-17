@@ -249,45 +249,38 @@ format_strings <- function(x, types = "", clean = TRUE) {
 
 #' Normalize Language
 #'
-#' Returns the highest level ISO language code corresponding to the ISO language code, language name, autonym, or Wikipedia provided. If the input matches zero or multiple entries, the input is returned and a warning is raised.
+#' Returns the highest level ISO or Wikipedia language code corresponding to the ISO or Wikipedia language code, language name, or autonym provided. If the input matches zero or multiple entries, the input is returned and a warning is raised.
 #'
 #' @family helper functions
 #' @export
 #' @examples
-#' normalize_language("spa", "code")
-#' normalize_language("spanish", "en")
-#' normalize_language("español", "autonym")
-normalize_language = function(x, type = "code") {
-  if (is.empty(x)) return(NA)
-  x <- tolower(x)
-  if (type == "code") {
-    if (nchar(x) > 4) {
-      warning(paste("Not a valid ISO language code (longer than 4 characters):", x))
-      return(x)
-    }
-    if (nchar(x) == 2) {
-      ind <- which(Language_codes$ISO639.1 %in% x)
-    }
-    if (nchar(x) == 3) {
-      ind <- which(Language_codes$ISO639.2B %in% x | Language_codes$ISO639.2T %in% x)
-    }
-    if (nchar(x) == 4) {
-      ind <- which(Language_codes$ISO639.6 %in% x)
-    }
-  } else if (type %in% names(Language_codes)) {
-    ind <- which(grepl(paste0("(^|,\\s*)", x, "($|,)"), Language_codes[[type]]))
-  } else {
-    stop(paste("Type", type, "not recognized."))
+#' normalize_language("spa")
+#' normalize_language("Spanish")
+#' normalize_language("Español")
+#' normalize_language("Espagnol")
+normalize_language = function(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T", "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia", "autonym", "en", "fr", "de", "ru", "es", "zh")) {
+  if (is.empty(x)) {
+    return(NA)
   }
+  x <- tolower(x)
+  cols <- intersect(types, names(Language_codes))
+  ind <- unique(unlist(sapply(cols, function(col) {
+    which(grepl(paste0("(^|,\\s*)", x, "($|,)"), Language_codes[[col]]))
+  })))
   if (length(ind) == 0) {
-    warning(paste('Language not recognized:', x))
+    warning(paste0("[", x, "] Language not recognized"))
     return(x)
   } else if (length(ind) > 1) {
-    warning(paste('Language found multiple times:', x))
+    warning(paste0("[", x, "] Language found multiple times"))
     return(x)
   } else {
-    codes <- with(Language_codes[ind], c(ISO639.1, ISO639.2B, ISO639.2T, ISO639.6))
-    return(codes[which(!is.na(codes))[1]])
+    codes <- with(Language_codes[ind], c(ISO639.1, ISO639.2B, ISO639.2T, ISO639.6, ISO639.3_macro, wikipedia))
+    if (all(is.empty(codes))) {
+      warning(paste0("[", x, "] Language does not have a supported code"))
+      return(x)
+    } else {
+      return(codes[which(!is.na(codes))[1]])
+    }
   }
 }
 

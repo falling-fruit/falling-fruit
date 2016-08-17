@@ -1,141 +1,100 @@
 #### Collect data --------------
+# output_dir <- "~/sites/falling-fruit-data/fruitr/"
+# dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
-# Intialize
+# Single type test
 ff_types <- get_ff_types(urls = TRUE)
-ff_types$queries = list(NULL)
-output_dir <- "~/sites/falling-fruit-data/fruitr-type_queries/"
-dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+ff_id = 2546
+ff_type <- ff_types[id == ff_id]
+responses <- query_sources_about_type(ff_type)
 
-####
-# Place queries, Save responses
-
-get_ff_type_queries <- function(ff_type, sources = c("eol", "col", "inaturalist", "wikipedia", "wikicommons", "wikispecies")) {
-
-  # Initialize type
-  en_name <- ff_type$name
-  scientific_name <- ff_type$scientific_name
-  taxonomic_rank <- ff_type$taxonomic_rank
-  wikipedia_url <- ff_type$wikipedia_url
-  has_binomial_scientific_name <- all(length(strsplit(scientific_name, " ")[[1]]) == 2, !grepl("'", scientific_name))
-  has_canonical_scientific_name <- !any(is.na(scientific_name), taxonomic_rank %in% c("Polyphyletic", "Multispecies"), (taxonomic_rank == "Subspecies" && has_binomial_scientific_name))
-
-  # Initialize results
-  queries <- list()
-
-  ## Scientific databases
-  if (has_canonical_scientific_name) {
-    if ("eol" %in% sources) {
-      id <- get_eol_id(scientific_name)
-      if (!is.null(id)) {
-        queries <- append(queries, list(source = "eol", response = get_eol_page(id, content_only = FALSE)))
-      }
-    }
-    if ("col" %in% sources) {
-      id <- get_col_id(scientific_name)
-      if (!is.null(id)) {
-        queries <- append(queries, list(source = "col", response = get_col_page(id, content_only = FALSE)))
-      }
-    }
-    if ("inaturalist" %in% sources) {
-      id <- get_inaturalist_id(scientific_name)
-      if (!is.null(id)) {
-        queries <- append(queries, list(source = "inaturalist", response = get_inaturalist_page(id, content_only = FALSE)))
-      }
-    }
+# Aggregate common names
+common_name_lists <- lapply(responses, function(response) {
+  temp <- eval(parse(text = paste0("parse_", response$source, "_common_names(response$", ifelse(is.null(response$xml), "json", "xml"), ")")))
+  if (length(temp) > 0) {
+    return(mapply(c, source = response$source, temp, SIMPLIFY = FALSE, USE.NAMES = FALSE))
+  } else {
+    return(NULL)
   }
+})
+common_names <- rbindlist(lapply(common_name_lists, rbindlist), fill = TRUE)
 
-  ## Wikis
-  if (any(grepl("^wiki", sources))) {
-    page_title <- NULL
-    if (!is.empty(wikipedia_url)) {
-      page_title <- parse_wiki_url(wikipedia_url)[3]
-    } else if (has_canonical_scientific_name) {
-      page_title <- scientific_name
-    }
-    if (!is.empty(page_title)) {
-      if ("wikipedia" %in% sources) {
-        json <- get_wiki_page("en", "wikipedia", page_title)
-        if (!is.empty(json)) {
-          urls <- c(build_wiki_url("en", "wikipedia", page_title), sapply(json$langlinks, "[", "url"))
-          for (url in urls) {
-            response <- GET(url)
-            response$content <- content(response)
-            queries <- append(queries, list(source = "wikipedia", response = response))
-          }
-        }
-      }
-      if ("wikicommons" %in% sources) {
-        if (!is.empty(get_wiki_page("commons", "wikimedia", page_title))) {
-          url <- build_wiki_url("commons", "wikimedia", page_title)
-          response <- GET(url)
-          response$content <- content(response)
-          queries <- append(queries, list(source = "wikicommons", response = response))
-        }
-      }
-      if ("wikispecies" %in% sources) {
-        if (!is.empty(get_wiki_page("species", "wikimedia", page_title))) {
-          url <- build_wiki_url("species", "wikimedia", page_title)
-          response <- GET(url)
-          response$content <- content(response)
-          queries <- append(queries, list(source = "wikispecies", response = response))
-        }
-      }
-    }
+# Normalize languages
+# sapply(common_names$language, normalize_language)
+codes <- c("ISO639.1", "ISO639.2B", "ISO639.2T", "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia")
+common_names$language <- sapply(common_names$language, function(language) {
+  count <- sum(sapply(codes, function(code) {
+    any(!is.na(Language_codes[[code]]) & Language_codes[[code]] == language)
+  }))
+  if (count == 0) {
+    normalize_language(language, types = setdiff(names(Language_codes), codes))
+  } else {
+    normalize_language(language, types = codes)
   }
+})
 
-  # Return result
-  return(queries)
+# Filter names
+# TODO: filter source name tables?
+common_names <- common_names[!(name %in% ff_type$scientific_names)] # remove if matches any scientific name
+# TODO: Repeated names?
+
+# Search names
+# TODO: No scientific name?
+common_names[, google_cs_results := count_google_cs_results(paste0("\"", ff_type$scientific_names[1], "\"+\"", name, "\""), intersect(language, Google_cs_languages)), by = 1:nrow(common_names)]
+
+# Rank names
+# TODO: language and google_language (or forget about searching by language?)
+# TODO: run subsetting and ranking for each language seperately, leave original search results intact
+google_cs_results <- common_names$google_cs_results
+# If same or subset of scientific name, NA search results
+# TODO: Skip search for same_as_scientific
+same_as_scientific <- sapply(paste0("(^| )", common_names$name, "($| )"), grepl, x = ff_type$scientific_names[1], ignore.case = TRUE)
+google_cs_results[same_as_scientific] <- NA
+# TODO: Run baseline search with just scientific name, and convert results as fractions of all results?
+
+# If subset of other names, difference search results
+# [test] Pine: 20, Blue pine: 17, White blue pine: 10, White: 20 => 3, 7, 10, 10
+# x <- c("Pine", "Blue pine", "White blue pine", "White")
+# google_results <- c(20, 17, 10, 20)
+# [test] Pine: 20, Blue pine: 17, Blue pine a: 10, Blue pine b: 5, Blue pine b c: 1 => 3, 2, 10, 4, 1
+# x <- c("Pine", "Blue pine", "Blue pine a", "Blue pine b", "Blue pine b c")
+# google_results <- c(20, 17, 10, 5, 1)
+# [test] Pine: 20, Blue: 15, Blue pine: 10, Pine blue: 3 => 7, 2, 10, 3
+# x <- c("Pine", "Blue", "Blue pine", "Pine blue")
+# google_results <- c(20, 15, 10, 3)
+subsets <- do.call("rbind", lapply(paste0(common_names$name, " | ", common_names$name), grepl, x = common_names$name, ignore.case = TRUE))
+# Go in order of least to most children, most to least parents
+n_children <- rowSums(subsets)
+n_parents <- colSums(subsets)
+node_sequence <- seq_len(length(common_names$name))[order(n_children, -n_parents)]
+for (node in node_sequence) {
+  # skip leaf nodes (children == 0)
+  if (n_children[node] > 0) {
+    is_child <- subsets[node, ]
+    google_cs_results[node] <- google_cs_results[node] - sum(google_cs_results[is_child])
+  }
 }
+common_names$google_cs_results <- google_cs_results
 
-for (i in seq_len(nrow(ff_types))) {
+# TODO: Rank by multiple sources
+# TODO: Rank by preferred
 
-  # Load type
-  en_name <- ff_types$name[i]
-  scientific_name <- ff_types$scientific_name[i]
-  taxonomic_rank <- ff_types$taxonomic_rank[i]
-  wikipedia_url <- ff_types$wikipedia_url[i]
-  has_species_name <- all(length(strsplit(scientific_name, " ")[[1]]) == 2, !grepl("'", scientific_name))
-  has_canonical_name <- !any(is.na(scientific_name), taxonomic_rank %in% c("Polyphyletic", "Multispecies"), (taxonomic_rank == "Subspecies" && has_species_name))
-  print(paste0(en_name, " [", scientific_name, "]"))
-  queries <- list()
+# Response list to table
+dt <- rbindlist(lapply(responses, "[", c("source", "date", "url", "status_code")), fill = TRUE)
+dt[, xml := sapply(responses, "[", "xml")]
+dt[, json := sapply(responses, "[", "json")]
+dt[, id := ff_id]
 
-  ## Scientific databases
-  if (has_canonical_name) {
-    # EOL
-    eol_id <- get_eol_id(scientific_name)
-    if (!is.null(eol_id)) {
-      queries <- append(queries, list(get_eol_page(eol_id)))
-    }
-    # COL
-    col_id <- get_col_id(scientific_name)
-    if (!is.null(col_id)) {
-      queries <- append(queries, list(get_col_page(col_id)))
-    }
-  }
 
-  ## Wikimedia
-  page_title <- NA
-  if (!is.na(wikipedia_url)) {
-    page_title <- tail(strsplit(wikipedia_url, "/")[[1]], 1)
-  } else if (has_canonical_name) {
-    page_title <- scientific_name
-  }
-  # Wikipedia
-  if (!is.na(page_title)) {
-    queries <- append(queries, list(get_wikipedia_page(page_title, language = "en", langlinks = TRUE)))
-  }
-  # Wikicommons
-  if (has_canonical_name) {
-    page_title <- scientific_name
-    queries <- append(queries, list(get_wikicommons_page(page_title)))
-  }
 
-  ## Save results
-  ff_types$queries[[i]] <- queries
-  saveRDS(ff_types[i, ], file = paste0(output_dir, ff_types$id[i], ".rds"))
-}
 
-saveRDS(ff_types, file = paste0(output_dir, "ff_types-queries.rds"))
+
+
+
+
+
+#saveRDS(responses, file = paste0(output_dir, ff_types$id[i], ".rds"))
+#saveRDS(ff_types, file = paste0(output_dir, "ff_types-queries.rds"))
 
 ####
 # Parse responses

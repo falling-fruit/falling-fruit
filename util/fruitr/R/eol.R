@@ -1,12 +1,17 @@
 #' Get Encyclopedia of Life (EOL) ID
 #'
+#' For reliable results, search string must be a scientific name.
+#' See documentation at http://eol.org/api/docs/search.
+#'
 #' @family EOL functions
 #' @export
 #' @examples
-#' get_eol_id("Malus domestica")
-get_eol_id <- function(search_string) {
+#' get_eol_id("Malus pumila")
+#' get_eol_id("Abelmoschus")
+#' get_eol_id("Prunus")
+get_eol_id <- function(search_string, exact = TRUE) {
   url <- parse_url("http://eol.org/api/search/1.0.json")
-  query <- list(exact = TRUE, q = search_string)
+  query <- list(exact = TRUE, q = search_string, exact = exact)
   json <- content(GET(url, query = query))
   if (is.list(json) && length(json$results) > 0 ) {
     return(json$results[[1]]$id)
@@ -14,6 +19,8 @@ get_eol_id <- function(search_string) {
 }
 
 #' Get Encyclopedia of Life (EOL) Page
+#'
+#' See documentation at http://eol.org/api/docs/pages.
 #'
 #' @family EOL functions
 #' @export
@@ -23,7 +30,7 @@ get_eol_id <- function(search_string) {
 get_eol_page <- function(id, common_names = TRUE, synonyms = TRUE, references = TRUE, taxonomy = TRUE, details = TRUE, iucn = TRUE, images = 75, content_only = TRUE) {
   url <- parse_url(paste0("http://eol.org/api/pages/1.0/", id, ".json"))
   query <- mget(c("common_names", "synonyms", "references", "taxonomy", "details", "iucn", "images"))
-  response <- as.list(GET(url, query = query))
+  response <- GET(url, query = query)
   json <- content(response)
   if (!is.list(json) || length(json) == 0 ) {
     json <- NULL
@@ -31,8 +38,7 @@ get_eol_page <- function(id, common_names = TRUE, synonyms = TRUE, references = 
   if (content_only) {
     return(json)
   } else {
-    response$content <- json
-    return(response)
+    return(list(source = "eol", date = response$date, url = response$url, status_code = response$status_code, json = json))
   }
 }
 

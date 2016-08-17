@@ -4,7 +4,7 @@
 \alias{get_inaturalist_page}
 \title{Get iNaturalist Taxon Page}
 \usage{
-get_inaturalist_page(id)
+get_inaturalist_page(id, content_only = TRUE)
 }
 \description{
 Get iNaturalist Taxon Page

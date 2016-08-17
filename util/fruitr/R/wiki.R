@@ -27,7 +27,7 @@ build_wiki_url <- function(wiki, type, page) {
   return(paste0("https://", wiki, ".", type, ".org/wiki/", gsub(" ", "_", page)))
 }
 
-#' Get Wiki Page
+#' Get Wiki Page from API
 #'
 #' @export
 #' @family Wiki functions
@@ -46,8 +46,29 @@ get_wiki_page <- function(wiki, type, page, content_only = TRUE) {
   if (content_only) {
     return(json)
   } else {
-    response$content <- json
-    return(response)
+    return(list(source = type, date = response$date, url = response$url, status_code = response$status_code, json = json))
+  }
+}
+
+#' Get Any Page from URL
+#'
+#' @export
+#' @family Wiki functions
+#' @examples
+#' str(get_page("https://en.wikipedia.org/wiki/Malus_domestica"))
+get_page <- function(url, content_only = TRUE) {
+  response <- GET(url)
+  parsed_content <- content(response)
+  if (content_only) {
+    return(parsed_content)
+  } else {
+    temp <- list(date = response$date, url = response$url, status_code = response$status_code, content = parsed_content)
+    if ("xml_document" %in% class(parsed_content)) {
+      names(temp)[4] <- "xml"
+    } else if (is.list(parsed_content)) {
+      names(temp)[4] <- "json"
+    }
+    return(temp)
   }
 }
 
@@ -70,23 +91,24 @@ parse_wikipedia_langlinks <- function(json) {
   return(langlinks)
 }
 
-#' Parse Wikipedia Names
+#' Parse Wikipedia Common Names
 #'
 #' @family Wiki functions
 #' @export
 #' @examples
-#' xml <- content(GET("https://en.wikipedia.org/wiki/Malus_domestica"))
-#' parse_wikipedia_names(xml)
-parse_wikipedia_names <- function(xml) {
-  first_heading <- xpathApply(xml, path = "//h1[@id='firstHeading']")
-  first_regular_bolds <- xpathApply(xml, path = "//div[@id='mw-content-text']/p[position() < 3]//b[not(parent::*[self::i]) and not(i)]")
-  first_italic_bolds <- xpathApply(xml, path = "//div[@id='mw-content-text']/p[position() < 3]//b[parent::*[self::i] or i]")
-  biotabox_header <- xpathApply(xml, path = "//table[contains(@class, 'infobox biota')]//th[1][not(i)]")
-  names <- sapply(c(first_heading, first_regular_bolds, first_italic_bolds, biotabox_header), xmlValue)
-  # names <- unique(unlist(strsplit(names, "[ ]*,[ ]*")))
-  # names <- gsub("\\.|\\n|\\t|\\?|[ ]*\\(.*\\)|\"", "", names)
-  # names <- trimws(names)
-  return(names)
+#' xml <- get_page("https://en.wikipedia.org/wiki/Malus_domestica")
+#' parse_wikipedia_common_names(xml)
+#' xml <- get_page("https://en.wikipedia.org/wiki/Abelmoschus")
+#' parse_wikipedia_common_names(xml) # no names
+parse_wikipedia_common_names <- function(xml, language = parse_wiki_url(xml_attr(xml_find_one(xml, xpath = "//link[@rel='canonical']"), "href"))[[1]]) {
+  names_xml <- list(
+    #first_regular_heading = xml_find_all(xml, xpath = "//h1[@id='firstHeading'][not(i)]"),
+    first_regular_bolds = xml_find_all(xml, xpath = "//div[@id='mw-content-text']/p[position() < 3]//b[not(parent::*[self::i]) and not(i)]"),
+    regular_biotabox_header <- xml_find_all(xml, xpath = "(//table[contains(@class, 'infobox biota')]//th)[1][not(i)]")
+  )
+  names <- unique(unlist(sapply(names_xml, xml_text)))
+  common_names <- lapply(names, function(name) { list(name = name, language = language) })
+  return(common_names)
 }
 
 # Wikimedia ----------------
@@ -96,8 +118,10 @@ parse_wikipedia_names <- function(xml) {
 #' @family Wiki functions
 #' @export
 #' @examples
-#' xml <- content(GET("https://commons.wikimedia.org/wiki/Malus_domestica"))
+#' xml <- get_page("https://commons.wikimedia.org/wiki/Malus_domestica")
 #' parse_wikicommons_common_names(xml)
+#' xml <- get_page("https://en.wikipedia.org/wiki/Abelmoschus")
+#' parse_wikicommons_common_names(xml) # no names
 parse_wikicommons_common_names = function(xml) {
   ## XML formats:
   # <bdi class="vernacular" lang="en"><a href="">name</a></bdi>
@@ -106,11 +130,11 @@ parse_wikicommons_common_names = function(xml) {
   # name1 / name2
   # name1, name2
   # name (category)
-  vernacular_html <- xpathApply(xml, path = "//bdi[@class='vernacular']")
+  vernacular_html <- xml_find_all(xml, xpath = "//bdi[@class='vernacular']")
   common_names <- lapply(vernacular_html, function(x) {
-    attributes <- xmlAttrs(x)
+    attributes <- xml_attrs(x)
     language <- attributes[["lang"]]
-    name <- trimws(gsub("[ ]*\\(.*\\)", "", xmlValue(x)))
+    name <- trimws(gsub("[ ]*\\(.*\\)", "", xml_text(x)))
     list(
       name = name,
       language = language
@@ -124,18 +148,20 @@ parse_wikicommons_common_names = function(xml) {
 #' @family Wiki functions
 #' @export
 #' @examples
-#' xml <- content(GET("https://species.wikimedia.org/wiki/Malus_domestica"))
+#' xml <- get_page("https://species.wikimedia.org/wiki/Malus_domestica")
 #' parse_wikispecies_common_names(xml)
+#' xml <- get_page("https://en.wikipedia.org/wiki/Abelmoschus")
+#' parse_wikispecies_common_names(xml) # no names
 parse_wikispecies_common_names <- function(xml) {
   # XML formats:
   # <b>language:</b>&nbsp;[name|<a>name</a>]
   # Name formats:
   # name1, name2
-  vernacular_html <- xpathApply(xml, path = "//h2/span[@id='Vernacular_names']/parent::*/following-sibling::div[1]")[[1]]
-  languages_html <- xpathApply(vernacular_html, path = "b")
-  languages <- sapply(gsub("\\s*:\\s*", "", sapply(languages_html, xmlValue)), normalize_language, USE.NAMES = FALSE)
-  names_html <- xpathApply(vernacular_html, path = "b[not(following-sibling::*[1][self::a])]/following-sibling::text()[1] | b/following-sibling::*[1][self::a]/text()")
-  names <- trimws(sapply(names_html, xmlValue))
+  vernacular_html <- xml_find_all(xml, xpath = "(//h2/span[@id='Vernacular_names']/parent::*/following-sibling::div)[1]")
+  languages_html <- xml_find_all(vernacular_html, xpath = "b")
+  languages <- gsub("\\s*:\\s*", "", sapply(languages_html, xml_text))
+  names_html <- xml_find_all(vernacular_html, xpath = "b[not(following-sibling::*[1][self::a])]/following-sibling::text()[1] | b/following-sibling::*[1][self::a]/text()")
+  names <- gsub("^\\s*", "", sapply(names_html, xml_text))
   common_names <- mapply(list, name = names, language = languages, SIMPLIFY = FALSE, USE.NAMES = FALSE)
   return(common_names)
 }

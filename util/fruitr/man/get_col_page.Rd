@@ -4,7 +4,7 @@
 \alias{get_col_page}
 \title{Get Catalogue of Life (COL) Page}
 \usage{
-get_col_page(id)
+get_col_page(id, content_only = TRUE)
 }
 \description{
 Get Catalogue of Life (COL) Page

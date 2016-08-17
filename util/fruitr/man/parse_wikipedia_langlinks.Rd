@@ -15,10 +15,10 @@ parse_wikipedia_langlinks(json)
 }
 \seealso{
 Other Wiki functions: \code{\link{build_wiki_url}},
-  \code{\link{get_wiki_page}},
+  \code{\link{get_page}}, \code{\link{get_wiki_page}},
   \code{\link{parse_wiki_url}},
   \code{\link{parse_wikicommons_common_names}},
-  \code{\link{parse_wikipedia_names}},
+  \code{\link{parse_wikipedia_common_names}},
   \code{\link{parse_wikispecies_common_names}}
 }
 

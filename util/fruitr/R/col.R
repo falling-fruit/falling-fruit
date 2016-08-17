@@ -1,19 +1,38 @@
 #' Get Catalogue of Life (COL) ID
 #'
+#' See documentation at http://webservice.catalogueoflife.org/col/webservice
+#'
 #' @family COL functions
 #' @export
 #' @examples
 #' get_col_id("Malus domestica")
-get_col_id <- function(search_string) {
+#' get_col_id("Abelmoschus")
+#' get_col_id("Prunus")
+get_col_id <- function(search_string, scientific_name = TRUE) {
   url <- parse_url("http://www.catalogueoflife.org/col/webservice")
-  query <- list(format = "json", name = search_string)
+  query <- list(format = "json", response = "terse", start = 0, name = search_string)
   json <- content(GET(url, query = query))
   if (is.list(json) && length(json$results) > 0) {
-    return(json$results[[1]]$id)
+    if (scientific_name) {
+      ind <- which(sapply(json$results, "[", "name") == search_string & sapply(json$results, "[", "name_status") != "common name")
+    } else {
+      ind <- which(sapply(json$results, "[", "name") == search_string & sapply(json$results, "[", "name_status") == "common name")
+    }
+    if (length(ind) == 1) {
+      if (json$results[[ind]]$name_status == "common name") {
+        return(json$results[[ind]]$accepted_name$id)
+      } else {
+        return(json$results[[ind]]$id)
+      }
+    } else {
+      warning(paste0("[", search_string, "] Multiple results found"))
+    }
   }
 }
 
 #' Get Catalogue of Life (COL) Page
+#'
+#' See documentation at http://webservice.catalogueoflife.org/col/webservice.
 #'
 #' @family COL functions
 #' @export
@@ -27,8 +46,8 @@ get_col_page <- function(id, content_only = TRUE) {
   json <- content(response)
   if (length(json$results) > 1) {
     warning(paste0("Multiple page results for ID ", id, ". Only the top result will be returned."))
-    json <- json$results[[1]]
   }
+  json <- json$results[[1]]
   if (length(json$accepted_name) > 0) {
     json <- json$accepted_name
   }
@@ -36,8 +55,7 @@ get_col_page <- function(id, content_only = TRUE) {
   if (content_only) {
     return(json)
   } else {
-    response$content <- json
-    return(response)
+    return(list(source = "col", date = response$date, url = response$url, status_code = response$status_code, json = json))
   }
 }
 

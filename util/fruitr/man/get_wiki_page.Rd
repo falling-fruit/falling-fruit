@@ -2,22 +2,22 @@
 % Please edit documentation in R/wiki.R
 \name{get_wiki_page}
 \alias{get_wiki_page}
-\title{Get Wiki Page}
+\title{Get Wiki Page from API}
 \usage{
-get_wiki_page(wiki, type, page)
+get_wiki_page(wiki, type, page, content_only = TRUE)
 }
 \description{
-Get Wiki Page
+Get Wiki Page from API
 }
 \examples{
 str(get_wiki_page("en", "wikipedia", "Malus domestica"))
 }
 \seealso{
 Other Wiki functions: \code{\link{build_wiki_url}},
-  \code{\link{parse_wiki_url}},
+  \code{\link{get_page}}, \code{\link{parse_wiki_url}},
   \code{\link{parse_wikicommons_common_names}},
+  \code{\link{parse_wikipedia_common_names}},
   \code{\link{parse_wikipedia_langlinks}},
-  \code{\link{parse_wikipedia_names}},
   \code{\link{parse_wikispecies_common_names}}
 }
 

@@ -15,7 +15,7 @@ get_ff_types <- function(categories = c("forager", "freegan", "honeybee", "graft
 
   # Json to data.table
   json <- replace_values_in_list(json, NULL, NA)
-  dt <- rbindlist(json, use.names = TRUE, fill = TRUE)
+  dt <- rbindlist(json, fill = TRUE)
   dt[, order := .I]
   setkey(dt, id)
 

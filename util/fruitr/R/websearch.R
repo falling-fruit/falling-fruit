@@ -10,7 +10,7 @@
 count_google_cs_results = function(string, language = NULL) {
   url <- parse_url("https://www.googleapis.com/customsearch/v1")
   query <- list(key = "AIzaSyDm7gTRTOlOIsum_KOwfM-X13RYexMW41M", cx = "017771660208863495094:7npb6irvsc0", q = string)
-  if (!is.null(language)) {
+  if (!is.empty(language)) {
     if (!(language %in% Google_cs_languages)) {
       stop("Unsupported language: '", language, "'")
     } else {

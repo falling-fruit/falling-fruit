@@ -23,7 +23,8 @@ Imports:
     RPostgreSQL,
     stringdist,
     stringr,
-    XML
+    XML,
+    xml2
 Remotes:
     github::rstats-db/RPostgres
 RoxygenNote: 5.0.1
