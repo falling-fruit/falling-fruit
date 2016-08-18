@@ -1,0 +1,55 @@
+Dear Falling Fruit User,
+
+<p>We haven't written our users for more than three years. It's our policy to email you as little as possible. However, we're writing now because we have a few very important things to tell you about:</p>
+
+<strong>## Research on Urban Foraging with SUNY</strong>
+
+<blockquote>
+<p>We are reaching out to see if you'd be interested in participating in a brief survey on foraging trends. Your participation is voluntary and you can withdraw from the survey at any time. The results of this research survey, administered by State University of New York, College of Environmental Science and Forestry, will be used to better understand urban foraging trends and our use of technology for urban foraging. We're excited about this research collaboration and growing interest in understanding foraging behavior in academic circles. We will not associate your name or contact information with any responses to the survey.</p>
+
+<p>If you're interested in participating, please visit this link:<br>
+https://docs.google.com/forms/d/e/1FAIpQLSe3pXptm2s1wKhiDUNOGmERs6XfoO_52dSXWJ8z21Vt3AXMUA/viewform
+</p>
+</blockquote>
+
+<strong>## Falling Fruit Mobile App Version 0.2</strong>
+
+<blockquote>
+<p>We're excited to announce the second version of our mobile foraging app following our successful crowdfunding campaign!</p>
+
+<ul>
+<li>Apple/iOS – https://itunes.apple.com/us/app/falling-fruit/id380859409?mt=8
+<li>Google/Android – https://play.google.com/store/apps/details?id=uh.fallingfruit.app&hl=en
+</ul>
+
+<p>All funds from app sales help pay to keep our servers online and ensure that our website remains free to use globally. If you have a smartphone and haven't yet purchased the app, please do so! We appreciate your support and think you will love the convenience of searching and adding to the map while out and about.</p>
+</blockquote>
+
+<strong>## Falling Fruit Around the World</strong>
+
+<blockquote>
+<p>Thanks to the hard work of many multi-lingual Falling Fruit users around the world, the website is now fully translated to:</p>
+
+<ul>
+<li>Deutsch (German): http://fallingfruit.org/?locale=de
+<li>Ελληνικά (Greek): http://fallingfruit.org/?locale=el
+<li>Español (Spanish): http://fallingfruit.org/?locale=es
+<li>Français (French): http://fallingfruit.org/?locale=fr
+<li>Italiano (Italian): http://fallingfruit.org/?locale=it
+<li>Polski (Polish): http://fallingfruit.org/?locale=pl
+<li>Português (Brazillian Portuguese): http://fallingfruit.org/?locale=pt-br
+</ul>
+
+<p>And soon, Hebrew too! If you'd like to contribute to a translation, please let us know.</p>
+</blockquote>
+
+<p>Thanks again for using Falling Fruit. Happy foraging!</p>
+
+<p>Sincerely,</p>
+
+<p>
+--<br>
+Caleb, Ethan and Jeff<br>
+The Falling Fruit Team<br>
+http://fallingfruit.org
+</p>
