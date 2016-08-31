@@ -416,6 +416,7 @@ it:
     new_password: Nuova password
     options:
       add_anonymously: Modifica la mappa in modo anonimo (anche se hai fatto il login)
+      announcements_email: 
       range_updates_email: Ricevi un'e-mail settimanale che riporta le attività recenti sulla vostra varietà di raccolta (definita sopra)
     range_by_map: Segnala sulla mappa
     range_by_radius: Indirizzo e raggio

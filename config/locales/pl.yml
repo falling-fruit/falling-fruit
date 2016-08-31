@@ -415,6 +415,7 @@ pl:
     new_password: Nowe hasło
     options:
       add_anonymously: Edytuj punkty na mapie anonimowo (nawet kiedy jestem zalogowany/a)
+      announcements_email: 
       range_updates_email: Otrzymuj cotygodniowe emaile z aktualnościami w Twojej okolicy (określonej poniżej)
     range_by_map: Zaznacz na mapie
     range_by_radius: Adres i promień

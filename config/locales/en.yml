@@ -448,6 +448,7 @@ en:
     new_password: New password
     options:
       add_anonymously: Edit the map anonymously (even while logged in)
+      announcements_email: Receive emails with important announcements and opportunities (1-2 per year)
       range_updates_email: Receive a weekly email reporting recent activity in your foraging range (defined below)
     range_by_map: Draw on map
     range_by_radius: Address and radius

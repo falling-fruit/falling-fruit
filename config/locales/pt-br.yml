@@ -418,6 +418,7 @@ pt-br:
     new_password: Senha nova
     options:
       add_anonymously: Editar o mapa anonimamente (mesmo quando estiver conectado)
+      announcements_email: 
       range_updates_email: ! 'Receber um email semanal que reporta atividade recente no seu alcance de forrageamento '
     range_by_map: Desenhar no mapa
     range_by_radius: Endereço e radio
