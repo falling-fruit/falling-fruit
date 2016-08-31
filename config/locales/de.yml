@@ -426,6 +426,7 @@ de:
     new_password: Neues Passwort
     options:
       add_anonymously: Karte anonym bearbeiten (auch während du eingeloggt bist)
+      announcements_email: 
       range_updates_email: Erhalte wöchentlich eine Email, die dich über alle Aktivitäten innerhalb deines Ernte-Radius (unten definiert) informieren.
     range_by_map: Zeichne in Karte
     range_by_radius: Adresse und Radius

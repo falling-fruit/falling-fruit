@@ -12,29 +12,30 @@
     <%= f.label :email, translate("glossary.email") %>
     <%= f.email_field :email %>
   </div>
-  
+
   <div class="field">
     <%= f.label :about_you, translate("users.bio") %><br/>
     <%= f.text_area :bio, :size => "40x6" %>
   </div>
-  
+
   <div class="field">
     <%= f.label :options, translate("glossary.options") %><br />
+    <%= f.check_box :add_anonymously %> <span><%= translate("users.options.add_anonymously") %></span><br />
     <%= f.check_box :range_updates_email %> <span><%= translate("users.options.range_updates_email") %></span><br />
-    <%= f.check_box :add_anonymously %> <span><%= translate("users.options.add_anonymously") %></span>
+    <%= f.check_box :announcements_email %> <span><%= translate("users.options.announcements_email") %></span>
   </div>
 
   <br/>
   <%= render :partial => "range_map", :locals => {:f => f} %>
   <br/>
-  
+
   <div class="field confirmation">
     <%= f.label :new_password, translate("users.new_password") %>
     <span class="subtext"><%= translate("users.type_it_twice") %></span>
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
   </div>
-  
+
   <div class="field">
     <b><%= f.label :current_password, translate("users.current_password") %></b><br />
     <span class="subtext"><%= translate("users.current_password_subtext") %></span><br />
@@ -44,7 +45,7 @@
   <div class="field">
     <%= f.button translate("glossary.save_changes") %>
   </div>
-  
+
 <% end %>
 
 <p>

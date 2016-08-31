@@ -431,6 +431,7 @@ he:
     new_password: סיסמה חדשה
     options:
       add_anonymously: עריכת מפה אנונימית (גם במצב חשבון מחובר)
+      announcements_email: 
       range_updates_email: קבלת עדכונים בדוא"ל אודות הפעילות השבועית בטווח הליקוט שלך (המוגדר מטה)
     range_by_map: שרטט/י במפה
     range_by_radius: כתובת וטווח המרחק

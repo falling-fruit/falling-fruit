@@ -440,6 +440,7 @@ es:
     new_password: Nueva contraseña
     options:
       add_anonymously: Editar el mapa de forma anónima (incluso mientras está conectado)
+      announcements_email: 
       range_updates_email: Recibe un correo semanal informando de actividad reciente en tu zona de alimentación (definido abajo)
     range_by_map: Dibujar en el mapa
     range_by_radius: Dirección y radio
