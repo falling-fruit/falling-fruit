@@ -84,7 +84,7 @@ de:
     belgium: Belgien
     by_author: von %{author}
     canada: Kanada
-    chile: 
+    chile: Chile
     common_name: Umgangssprachlier Name
     data: Daten
     delete: Löschen
@@ -121,7 +121,7 @@ de:
     map: Karte
     miles: Meilen
     name: Name
-    new_zealand: 
+    new_zealand: Neuseeland
     options: Optionen
     password: Passwort
     pending_types: Unbestätigte Arten
@@ -143,7 +143,7 @@ de:
     send: Abschicken
     show: zeige
     sign_up: Anmelden
-    spain: 
+    spain: Spanien
     street_view: Street View
     submit: Einreichen
     switzerland: Schweiz
@@ -163,7 +163,7 @@ de:
     world: Welt
     yield: Ausbeute
     zoom: Zoom
-    zoom_to_address: 
+    zoom_to_address: Zur Adresse zoomen
     zoom_to_current_location: Zoom auf aktuellen Standort
     zoom_to_me: Zoom zu mir
     zoom_to_this_location: Zoom zu diesem Standort
@@ -188,7 +188,7 @@ de:
       access_subtext: Zugang zu diesem Standort. Freilassen, wenn du es nicht genau weisst.
       address_subtext: kann verwendet werden, um den Marker schnell zu positionieren. Gegebenenfalls anpassen, bevor die Quelle hinzugefügt wird.
       author_subtext: Wird auf der Karte angezeigt. Freilassen, wenn du anonym bleiben möchtest.
-      comments: 
+      comments: Kommentare
       comments_subtext: Beschreibung, Infos zum Zugang, Zustand der Pflanzen ...
       create_another: einen weiteren Standort erstellen
       date_visited: Datum des Besuchs
@@ -203,7 +203,7 @@ de:
       name_subtext: Freilassen, wenn du anonym bleiben möchtest.
       no_season: keine Saison
       or: oder
-      original_author: 
+      original_author: Originalverfasser
       photo_caption: Bildunterschrift
       photo_subtext: Lade ein Foto dieser Quelle hoch (optional). Falls du das Foto nicht selber gemacht hast, prüfe bitte, ob du das Bild verwenden darfst und führe den Fotographen in der Bildunterschrift auf.
       position_subtext: Bestimmt durch deinen aktuellen Standort (sofern verfügbar) oder einen platzierten Marker. Passe den Standort durch Verschieben des Markers auf der Karte an.
@@ -211,7 +211,7 @@ de:
       season_subtext: Wann kann an diesem Standort geerntet werden? Freilassen, wenn du es nicht weisst.
       types_subtext: Wähle aus der Dropdown-Liste. Ergänze einen neuen Namen nur, wenn eine passende Wahl noch nicht vorhanden ist.
       unverified_subtext: Wenn du Zweifel an der Existenz, dem Zugang oder der Art an diesem Standort hast.
-      verify: 
+      verify: Verifizieren
       verify_subtext: Dieser Ort wurde vorhergehend als Ungeprüft markiert
       yield_subtext: Bewerte die Produktivität dieser Quelle (falls zutreffend)
       your_name: Dein Name
@@ -220,10 +220,24 @@ de:
       editmarker_html: <b>Gehe zum Standort dieser Quelle.</b><br><br>Satellitenansicht betrachten - der Standort könnte aus dem All sichtbar sein!
       freegan_modal_html: Zusätzlich zu unseren Bemühungen, <a href="/?locale=de"> alle essbaren Pflanzen in den Städten </a> zu kartieren, möchten wir am liebsten auch alle Container erfassen, in denen so oft noch brauchbare Lebensmittel landen. Fast 50% aller in der entwickelten Welt produzierten Lebensmittel werden nie gegessen. Wir hoffen, mit unseren Bemühungen das Bewusstsein um dieses Problem zu erhöhen und die Rettung von übeflüssig weggeworfenen Nahrungsmitteln zu erleichtern. Zudem möchten wir Unternehmen dazu ermutigen, solche Nahrungsmittel <a href="/sharing?locale=de">gemeinnützigen Organisation zu spenden</a> statt sie in der Mülltonne zu deponieren. <br><br> Und weil wir weiter überzeugt sind, dass allgemein weniger weggeworfen werden sollte, ermutigen wir die Kartierung aller Standorte, an denen weggeworfene aber noch brauchbare Güter erhältlich sind (Müllcontainer, Gratis-zum-Mitnehmen Kisten etc.). Essbar oder nicht!
       freegan_modal_title: Willkommen zur Falling Fruit's Freegan Karte!
-      grafter_modal_html: 
-      grafter_modal_title: 
-      mobile_modal_html: 
-      mobile_modal_title: 
+      grafter_modal_html: ! ' '
+      grafter_modal_title: Willkommen zu unserer Karte für Propfer
+      mobile_modal_html: ! 'Hallo! Es sieht so aus, als würden sie von einem <strong>mobilen Gerät</strong> auf Falling Fruit zugreifen. Wir haben vor kurzem eine mobile App für Android und iOS gestartet. Wir glauben, dass die Apps auf Ihrem mobilen Gerät wesentlich benutzerfreundlicher sind:
+
+        <br><br>
+
+        <ul>
+
+        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit für iOS</a>
+
+        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit für Android</a>
+
+        </ul>
+
+        <br>
+
+        Wir benutzen 100% der App-Einkünfte zur Finanzierung unserer Hardware (Server und Infrastruktur, um die Site online zu halten). Wir sind eine amerikanische gemeinnützige Organisation (501(c)3), die Kosten für die App sind also in den USA steuerlich absetzbar.'
+      mobile_modal_title: Aber Moment mal, es gibt ja auch eine mobile App!
       stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
       turn_off_dragzoom: 
       turn_on_dragzoom: 
@@ -275,16 +289,16 @@ de:
       unsure_other: Unklar/Anderes
       url_for_this_location: URL für diesen Standort
     messages:
-      created: 
+      created: Platz hinzugefügt.
       geocode_failed: Ihre Suche ausgefallen
       latitude_too_large: ! 'Wir sie ausserhalb des ±85igsten Breitengrades liegt. '
-      not_created: 
-      not_updated: 
-      updated: 
+      not_created: Konnte den Platz nicht hinzufügen.
+      not_updated: Konnte den Platz nicht aktualisieren.
+      updated: Platz wurde aktualisiert.
     searchbar:
       embed_hover: Einbettungscode
-      invasive_modal: 
-      invasive_modal_title: 
+      invasive_modal: Invasive Pflanzen sind in einer bestimmten Region nicht-einheimische Pflanzen, die einheimische Pflanzen überwuchern. Wir markieren invasive Pflanzen auf Falling Fruit, so dass Sie sie gezielt aufsuchen und essen können. Auf diese Weise bekämpfen sie die Eindringlinge, einen leckern Biss nach dem anderen! Invasive Arten sind im Moment nur in den Vereinigten Staaten erfasst, auf der Basis der Liste schädlicher und invasiver Arten des US Landwirtschaftsministeriums.
+      invasive_modal_title: Was sind invasive Arten?
       link_hover: URL der aktuellen Karte
       tree_inventories_modal: Bauminverntare werden in der Regel durch private oder öffentliche Institutionen erstellt. Die Daten werden meistens durch ausgebildetes Personal erhoben und sind detailliert und vollständig. Wir wählen daraus die essbaren Arten und fügen sie für dich in unsere Karte ein. Hilf mit, indem du bei der verantwortlichen Stelle in deiner Stadt oder an deiner Universiät nachfragst, ob Bauminventare exisitieren, und ob sie mit Falling Fruit geteilt würden.
       tree_inventories_modal_title: Was ist ein Bauminventar?
@@ -301,8 +315,8 @@ de:
     freegan_description: ! 'In dem wir weltweit essenshaltige Kontainer kartieren, möchten wir das Thema ''Foold Waste'' auf den Tisch und in die warmen Stuben bringen, die ''Rettung'' solcher Lebensmittel vereinfachen und Firmen dazu ermutigen, die Lebensmittel an Bedürftige zu spenden, statt zu verschwenden. '
     freegan_title: Kontainer Weltkarte
   observations:
-    created: 
-    empty: 
+    created: Ihre Rezension wurde hinzugefügt
+    empty: Eine Rezension darf nicht leer sein
   pages:
     about:
       about_the_site: Über diese Seite
@@ -363,7 +377,7 @@ de:
       grow_pick_and_distribute: Pflanze · Ernte · Verteile
       intro_html: Im Folgenden sind lokale Organisationen aufgeführt, die Lebensmittel anpflanzen (z.B. in Gemeinschaftsgärten), ernten (z.B. 'urban gardening'), oder auf andere Art und Weise verteilen und teilen. Organisationen werden nach Land, Bundesland/Kanton und Stadt aufgeführt. Organisationen mit durchgestrichenem Namen sind zur Zeit vermutlich inaktiv. Wenn du Organisationen kennst, die auf dieser Liste auftauchen müssten, dann <a href="mailto:info@fallingfruit.org">sag uns Bescheid</a>!
   problems:
-    created: 
+    created: Danke, dass Sie das Problem gemeldet haben!
     description_subtext: Jeglicher Hinweis kann uns helfen, das Problem zu lösen.
     problem_type: Problem Art
     your_contact_info: Deine Kontaktinfo
