@@ -1,30 +1,30 @@
 sv:
   changes:
-    change_in_city: 
-    recent_changes: 
+    change_in_city: ! '%{type} i %{city}'
+    recent_changes: Senaste ändringar
     type:
-      added: 
-      edited: 
-      grafted: 
-      visited: 
+      added: tillagd
+      edited: ändrad
+      grafted: ympat
+      visited: besökt
   devise:
     confirmations:
-      confirmed: 
-      send_instructions: 
-      send_paranoid_instructions: 
+      confirmed: Din epost har bekräftats.
+      send_instructions: Du kommer snart att få en epost med instruktioner för hur du bekräftar din epost adress.
+      send_paranoid_instructions: Du kommer att få instruktioner för att bekräfta din adress, om adressen finns i vår databas.
     failure:
-      already_authenticated: 
-      inactive: 
-      invalid: 
-      invalid_token: 
-      locked: 
-      not_approved: 
+      already_authenticated: Du är redan inloggad.
+      inactive: Ditt konto är inte aktiverat än.
+      invalid: Ogiltig epost eller lösenord
+      invalid_token: Ogiltig authentication token.
+      locked: Ditt konto är låst.
+      not_approved: Ditt konto har inte bekräftats av en administratör.
       timeout: 
-      unauthenticated: 
-      unconfirmed: 
+      unauthenticated: Du behöver anmäla dig eller logga in för att fortsätta.
+      unconfirmed: Du behöver bekräfta din epost för att fortsätta.
     mailer:
       confirmation_instructions:
-        subject: 
+        subject: Instruktioner för att bekräfta
       reset_password_instructions:
         subject: 
       unlock_instructions:
@@ -36,10 +36,10 @@ sv:
       no_token: 
       send_instructions: 
       send_paranoid_instructions: 
-      updated: 
-      updated_not_active: 
+      updated: Ditt lösenord har ändrats. Du är inloggad.
+      updated_not_active: Ditt lösenord har ändrats.
     registrations:
-      destroyed: 
+      destroyed: Hej då! Ditt konto har tagits bort. Hoppas vi ses igen snart!
       signed_up: 
       signed_up_but_inactive: 
       signed_up_but_locked: 
