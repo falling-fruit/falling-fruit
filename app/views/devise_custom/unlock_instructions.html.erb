@@ -1,0 +1,1 @@
+<%= I18n.t("users.mailer.unlock_instructions_html", :email => @resource.email, :link => link_to I18n.t("users.unlock_account"), unlock_url(@resource, :unlock_token => @resource.unlock_token)).html_safe %>

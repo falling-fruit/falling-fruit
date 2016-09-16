@@ -1,0 +1,8 @@
+<%= I18n.t("users.mailer.confirmation_instructions_html",
+           :email => @resource.email,
+           :link => link_to(I18n.t("users.confirm_account"),
+                            confirmation_url(@resource, :confirmation_token => @resource.confirmation_token))).html_safe %>
+<p>
+  --<br />
+  Caleb &amp; Ethan | fallingfruit.org
+</p>

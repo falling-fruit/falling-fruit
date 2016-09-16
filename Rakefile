@@ -4,7 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-SendEmails = true
+SendEmails = false
 
 FallingfruitWebapp::Application.load_tasks
 

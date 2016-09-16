@@ -10,11 +10,10 @@ User.where("announcements_email").each{ |u|
       to      u.email
       subject 'News From Falling Fruit'
       html_part do
+        content_type 'text/html; charset=UTF-8'
         body    File.read('spam.txt')
       end
     end
-    puts u.email
   rescue
-    puts "problem with #{u.email}"
   end
 }
