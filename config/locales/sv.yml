@@ -19,75 +19,75 @@ sv:
       invalid_token: Ogiltig authentication token.
       locked: Ditt konto är låst.
       not_approved: Ditt konto har inte bekräftats av en administratör.
-      timeout: 
+      timeout: Din session är inte längre giltig, vänligen logga in igen för att fortsätta.
       unauthenticated: Du behöver anmäla dig eller logga in för att fortsätta.
       unconfirmed: Du behöver bekräfta din epost för att fortsätta.
     mailer:
       confirmation_instructions:
         subject: Instruktioner för att bekräfta
       reset_password_instructions:
-        subject: 
+        subject: Instruktioner för återställning av lösenord
       unlock_instructions:
-        subject: 
+        subject: Instruktioner för upplåsning av konto
     omniauth_callbacks:
-      failure: 
-      success: 
+      failure: Kunde inte autentisera dig med %{kind} för "%{reason}".
+      success: Autentiserat med %{kind}-konto.
     passwords:
-      no_token: 
-      send_instructions: 
-      send_paranoid_instructions: 
+      no_token: Tillgång till den här sidan kräver att du kommer från ett mejl som sätter tillbaka ditt lösenord. Om du kom hit från ett sånt mejl, säkerställ att du har använt hela URL:en.
+      send_instructions: Du kommer få epost med instruktioner för hur du kan återställa ditt lösenord inom några minuter.
+      send_paranoid_instructions: Om din epostadress finns i vår databas kommer du att få en lösenordslänk skickad till din epost.
       updated: Ditt lösenord har ändrats. Du är inloggad.
       updated_not_active: Ditt lösenord har ändrats.
     registrations:
       destroyed: Hej då! Ditt konto har tagits bort. Hoppas vi ses igen snart!
-      signed_up: 
-      signed_up_but_inactive: 
-      signed_up_but_locked: 
-      signed_up_but_not_approved: 
-      signed_up_but_unconfirmed: 
-      update_needs_confirmation: 
-      updated: 
+      signed_up: Välkommen! Ditt nya konto har skapats.
+      signed_up_but_inactive: Du är nu registrerad. Däremot kunde vi inte logga in dig, eftersom ditt konto ännu inte aktiverats.
+      signed_up_but_locked: Du är nu registrerad. Däremot kunde vi inte logga in dig, eftersom ditt konto är låst.
+      signed_up_but_not_approved: Du har registrerat ditt konto, men en administratör behöver godkänna den först.
+      signed_up_but_unconfirmed: Ett meddelande med en länk för att bekräfta din registrering har skickats till din epostadress. Följ länken för att aktivera ditt konto.
+      update_needs_confirmation: Ditt konto uppdaterades, men vi behöver verifiera din nya epostadress. Kontrollera din epost och klicka på länken för att bekräfta din nya epostadress.
+      updated: Ditt konto har uppdaterats.
     sessions:
-      signed_in: 
-      signed_out: 
+      signed_in: Loggade in.
+      signed_out: Loggade ut.
     unlocks:
-      send_instructions: 
-      send_paranoid_instructions: 
-      unlocked: 
+      send_instructions: Du kommer få epost med instruktioner om hur du kan låsa upp ditt konto inom några minuter.
+      send_paranoid_instructions: Om ditt konto finns, kommer du att få ett email med instruktioner om hur du låser upp det inom några minuter.
+      unlocked: Ditt konto har låsts upp. Du är nu inloggad.
   errors:
     messages:
       after: 
-      already_confirmed: 
-      before: 
-      expired: 
-      invalid_date: 
-      invalid_datetime: 
-      invalid_time: 
+      already_confirmed: har redan bekräftats, vänligen prova logga in
+      before: måste vara före %{restriction}
+      expired: har gått ut, ansök om en ny
+      invalid_date: är inget giltigt datum
+      invalid_datetime: är inget giltigt datum/tid
+      invalid_time: är ingen giltig tid
       is_at: 
-      not_found: 
-      not_locked: 
+      not_found: hittades inte
+      not_locked: var inte låst
       not_saved: 
-      on_or_after: 
-      on_or_before: 
+      on_or_after: måste vara fr.o.m. %{restriction}
+      on_or_before: måste vara t.o.m. %{restriction}
   glossary:
-    about: 
-    access: 
-    account: 
-    activity: 
-    add_source: 
-    address: 
-    anonymous: 
-    are_you_sure: 
-    australia: 
-    belgium: 
+    about: Om
+    access: Tillträde
+    account: Konto
+    activity: Aktivitet
+    add_source: Lägg till plats
+    address: Address
+    anonymous: Anonym
+    are_you_sure: Är du säker?
+    australia: Australien
+    belgium: Belgien
     by_author: 
-    canada: 
-    chile: 
+    canada: Kanada
+    chile: Chile
     common_name: 
-    data: 
-    delete: 
-    description: 
-    details: 
+    data: Data
+    delete: Ta bort
+    description: Beskrivning
+    details: Detaljer
     donate: 
     download: 
     edible_type: 
@@ -97,27 +97,31 @@ sv:
     error: 
     favorites: 
     fiji: 
-    filter: 
-    france: 
-    global: 
-    home: 
-    imported: 
-    imported_datasets: 
-    imports: 
-    info: 
-    invasive: 
-    italy: 
+    filter: Filter
+    france: Frankrike
+    global: Globalt
+    home: Hem
+    imported: Importerad
+    imported_datasets: Importerade data
+    imports: Importer
+    info: Info
+    invasive: Invasiva
+    italy: Italien
     labels: 
-    links: 
-    locations: 
-    login: 
-    logout: 
-    map: 
-    miles: 
-    name: 
-    new_zealand: 
+    links:
+      one: Länk
+      other: Länkar
+    locations:
+      one: Plats
+      other: Platser
+    login: Inloggning
+    logout: Utloggning
+    map: Karta
+    miles: mil
+    name: Namn
+    new_zealand: Nya Zeeland
     options: 
-    password: 
+    password: Lösenord
     pending_types: 
     photo: 
     portugal: 
@@ -136,26 +140,26 @@ sv:
     show: 
     sign_up: 
     spain: 
-    street_view: 
+    street_view: Gatuperspektiv
     submit: 
-    switzerland: 
+    switzerland: Schweiz
     tree_inventory: 
     type_and_press_enter: 
-    types: 
-    united_kingdom: 
-    united_states: 
-    unknown: 
-    unverified: 
-    updated: 
-    user: 
-    users: 
+    types: Typer
+    united_kingdom: Storbrittanien
+    united_states: USA
+    unknown: Okänd
+    unverified: Overifierad
+    updated: Uppdaterad
+    user: Användare
+    users: Användare
     visited: 
-    world: 
+    world: Värld
     yield: 
-    zoom: 
-    zoom_to_address: 
-    zoom_to_current_location: 
-    zoom_to_me: 
+    zoom: Zoom
+    zoom_to_address: Zooma till adress
+    zoom_to_current_location: Zooma till aktuell plats
+    zoom_to_me: Zooma till mig
     zoom_to_this_location: 
   layouts:
     application:
@@ -272,12 +276,12 @@ sv:
     empty: 
   pages:
     about:
-      about_the_site: 
-      about_us: 
-      advisory_board: 
+      about_the_site: Om projektet
+      about_us: Styrelse
+      advisory_board: Rådgivare
       caleb_bio_html: 
       celebration: 
-      closing_remarks: 
+      closing_remarks: Avslutande kommentarer
       closing_remarks_para1_html: 
       closing_remarks_para2_html: 
       closing_remarks_para3_html: 
@@ -286,8 +290,8 @@ sv:
       cristina_rubke_bio_html: 
       david_craft_bio_html: 
       ethan_bio_html: 
-      ff_disclaimer_html: 
-      give_gratipay: 
+      ff_disclaimer_html: Falling Fruit har ingenting att göra med Fallen Fruit. Fallen Fruit finns på <a href="http://fallenfruit.org">fallenfruit.org</a>
+      give_gratipay: Betala via Gratipay
       give_paypal: 
       give_us_money: 
       jeff_bio_html: 
@@ -346,13 +350,13 @@ sv:
     time_ago: 
   users:
     address_subtext: 
-    bio: 
-    change_password: 
-    clear_map: 
-    confirm_account: 
-    current_password: 
+    bio: Om dig
+    change_password: Byt lösenord
+    clear_map: Rensa kartan
+    confirm_account: Bekräfta kontot
+    current_password: Nuvarande lösenord
     current_password_subtext: 
-    delete_account: 
+    delete_account: Avsluta mitt konto
     edit_account: 
     foraging_map_subtext: 
     foraging_radius: 

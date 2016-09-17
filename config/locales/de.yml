@@ -333,11 +333,11 @@ de:
       contact_us_html: ! 'Diese Website wurde von und für SammlerInnen aufgebaut - wir wollen, dass es das beste Werkzeug für den urbanen Jäger und Sammler wird. Schreib uns an <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a> - wir freuen uns, von dir zu hören!
 
 '
-      craig_durkin_bio_html: Gründer der <a href="//www.concrete-jungle.org/">Concrete Jungle</a> Ernte Organisation (Atlanta).
+      craig_durkin_bio_html: Craig ist der Gründer der <a href="//www.concrete-jungle.org/">Concrete Jungle</a>, einer Organisation in Atlanta, Georgia, die in der Stadt Nahrung anbaut und Früchte sammelt, um sie an Obdachlosenunterkünfte und Essensausgaben zu spenden. Als Absolvent von <a href="http://www.gatech.edu/">Georgia Tech</a> ist er ständig dabei das Pflücken von Früchten mit neuen Technologien zu kombinieren. Craig wird bald seine Früchte-suchende Drohne und seinen twitternden Sensor für reife Früchte einsetzen...
       cristina_rubke_bio_html: ! 'Anwalt bei <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis Friese LLP</a>, San Francisco. '
       david_craft_bio_html: Autor von <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban Foraging</a> (gratis download <a href="/docs/David Craft - Urban Foraging.pdf">hier</a>)
       ethan_bio_html: Vom Apfelwein zum Fruchtbier, von der Marmelade zum <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan findet in der Datenbank aller Bäume und Büsche in seiner Nachbarschaft (und seiner klapprigen Apfelpresse) stets neue kulinarische Inspirationen. Er lebt in Boulder,Co, wo er seine Zeit im Rahmen seiner Doktorarbeit an der <a href="http://instaar.colorado.edu/people/ethan-welty/">Universität von Colorado</a> unmengen von Daten, Karten und Zeitraffersequenzen schmelzender Gletscher widmet. Man trifft ihn aber häufig weit weg von zu Hause an, wenn er sich auf einer neuen Reise irgendwo quer durch die Landschaft plaudert, wandert, isst und <a href="http://www.weltyphotography.com">fotografiert</a>.
-      ff_disclaimer_html: 
+      ff_disclaimer_html: Falling Fruit hat nichts mit Fallen Fruit zu tun. Fallen Fruit finden sie unter <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Bezahlen via Gratipay
       give_paypal: Spende via Paypal
       give_us_money: Wir sind eine komplett auf frewilliger Basis betriebene, gemeinnützige Organisation und sind auf Spenden angewiesen, um diese Seite aufrecht zu halten. Falls du die Möglichkeit hast, einen finanziellen Beitrag zu leisten, sind wir dir herzlich dankbar!
@@ -369,11 +369,11 @@ de:
       type: Art
       types_of_data: Datensätze die von Falling Fruit importiert werden, fallen in zwei Hauptkategorien. "Gemeinschaftskarten" werden von Sammlerinnen und Freeganern erstellt, indem sie in ihrem Umfeld öffentliche Nahrungsmittel-Quellen suchen und kartieren. Ein Riesiges Dankeschön geht an alle, die tagtäglich auf der Suche sind und uns ihre Daten übermitteln. "Bauminventare" werden durch Städte, Universitäten oder andere Institutionen zusammengestellt, die ihren Baumbestand überblicken und erhalten möchten. Wir filtern aus diesen riesigen Datenmengen die essbaren Arten heraus und fügen sie unserer Karte hinzu. Wenn in deiner Ecke der Welt noch Daten fehlen, dann kontaktiere deine Stadt oder deine Gemeinde und fordere sie auf, allfällig vorhandene Daten mit uns zu teilen! Wir sind für jede Hilfe dankbar!
     sharing:
-      ample_harvest: 
+      ample_harvest: Amerikanische Tafeln, die Erntespenden annehmen
       food_banks: Lebensmittelbanken
-      food_banks_canada: 
+      food_banks_canada: Tafeln in Kanada
       food_banks_intro: Wer du aus dem eigenen Garten oder von anderen Quellen (auch selber gesammelt) überschüssige Nahrungsmittel hat,den fordern wir auf, die Überschüsse für wohltätige Zwecke zu spenden. Überlege dir zum Beispiel eine Partnerschaft mit Gruppen wie jene, die oben aufgeführt sind, oder spende direkt an lokale Organisationen die in deiner Gemeinde Essen an Bedürftige verteilen. Die großen Nahrungsmittelbank-Netzwerke sind unten aufgelistet; Obdachlosenheime, Schulen und Seniorenzentren in deiner Nähe sind aber häufig auch dankbar, wenn sie etwas Frisches bekommen!
-      global_foodbanking_network: 
+      global_foodbanking_network: Tafel-Netzwerke in der ganzen Welt
       grow_pick_and_distribute: Pflanze · Ernte · Verteile
       intro_html: Im Folgenden sind lokale Organisationen aufgeführt, die Lebensmittel anpflanzen (z.B. in Gemeinschaftsgärten), ernten (z.B. 'urban gardening'), oder auf andere Art und Weise verteilen und teilen. Organisationen werden nach Land, Bundesland/Kanton und Stadt aufgeführt. Organisationen mit durchgestrichenem Namen sind zur Zeit vermutlich inaktiv. Wenn du Organisationen kennst, die auf dieser Liste auftauchen müssten, dann <a href="mailto:info@fallingfruit.org">sag uns Bescheid</a>!
   problems:
@@ -390,7 +390,7 @@ de:
     - Mit dem Auto
     order_not_updated: 
     order_updated: 
-    updated: 
+    updated: Die Route wurde aktualisiert
   time:
     days:
       one: ! '%{count} Tag'
@@ -440,7 +440,7 @@ de:
     new_password: Neues Passwort
     options:
       add_anonymously: Karte anonym bearbeiten (auch während du eingeloggt bist)
-      announcements_email: 
+      announcements_email: Empfange Emails mit wichtigen Bekanntmachungen und Gelegenheiten (1-2 pro Jahr)
       range_updates_email: Erhalte wöchentlich eine Email, die dich über alle Aktivitäten innerhalb deines Ernte-Radius (unten definiert) informieren.
     range_by_map: Zeichne in Karte
     range_by_radius: Adresse und Radius
