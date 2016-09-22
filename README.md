@@ -46,7 +46,7 @@ If you want to help with development, feel free to fork the project. If you have
   gem install bundler
   ```
 
-  * Install project gems
+  * Install project gems:
 
   ```
   bundle install
@@ -54,7 +54,7 @@ If you want to help with development, feel free to fork the project. If you have
 
   If `therubyracer (0.11.4)` fails to install, change the corresponding line in `Gemfile.lock` to `therubyracer (0.12.2)`.
 
-  * Initialize configuration files
+  * Initialize configuration files:
 
   ```
   cp config/database.yml.dist config/database.yml
@@ -62,7 +62,7 @@ If you want to help with development, feel free to fork the project. If you have
   cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   ```
 
-  Edit `config/database.yml` with your desired development database name, username, and password.
+  Edit `config/database.yml` with your desired development database name, username, and password. Since all files (photos) are stored on Amazon S3 servers, you'll need to add Amazon S3 credentials to your `config/s3.yml` file. Contact us ([info@fallingfruit.org](mailto:info@fallingfruit.org)) for a key.
 
 ### Prepare database
 
