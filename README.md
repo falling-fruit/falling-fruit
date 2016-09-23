@@ -147,13 +147,15 @@ If you want to help with development, feel free to fork the project. If you have
   \q
   ```
 
-  Finally, to start the thin web server, run:
+  * To start the thin web server, run:
 
   ```
   bundle exec thin start
   ```
 
-  and visit [localhost:3000/users/sign_up](http://localhost:3000/users/sign_up). Register an account, then force-confirm your account and make yourself an admin:
+  and visit [localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) to register an account.
+
+  * Finally, force-confirm your account (so that you can sign in) and make yourself an admin (so that you have access to all site features):
 
   ```
   psql fallingfruit_new_db
@@ -204,6 +206,16 @@ If you want to help with development, feel free to fork the project. If you have
   You can test the API by visiting [localhost:3100/api/0.2/types.json?api_key=APIKEY](http://localhost:3100/api/0.2/types.json?api_key=APIKEY). The page should return `[]` until you create a new type at [localhost:3000/types/new](http://localhost:3000/types/new).
 
   The API is currently (poorly) documented [here](https://docs.google.com/document/d/1YMA_d6dT0IZjrJuN5ndz7jzrpSiuwFEsnGcqp9gKgo8/).
+
+### API Versioning
+
+Since we have multiple versions of the mobile app in the wild, using different versions of the API, more care is needed with respect to branching and versioning the API than with other Falling Fruit code. As of 23 September 2016, we are running two versions of the API in parallel:
+
+  - v0.1 ([api-release-0.1](https://github.com/falling-fruit/falling-fruit/tree/api-release-0.1) branch) - A Rails-based API existing entirely within `app/controller/api`. All versions of the mobile app (v0.1 & 0.2) use this version of the API.
+  - v0.2 ([api-release-0.2](https://github.com/falling-fruit/falling-fruit/tree/api-release-0.2) branch) - The first version of the NodeJS-based API. The current website uses this version of the API.
+  - v0.3 (under construction in master branch) - The next release of the API, which will be NodeJS-based and both the mobile app and website should use it.
+
+API v0.1 will need to persist for the foreseeable future (unless/until we decide to force upgrade all v0.1 and v0.2 installs of the mobile app). API v0.2 can presumably be removed once v0.3 is released since only the website uses it. Starting with API v0.3, we will need to run parallel versions of the API to allow backwards compatibility.
 
 ## Translations
 
