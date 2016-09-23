@@ -4,36 +4,42 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
-# Ignore bundler config
+# Bundler
 /.bundle
 
-# Ignore the default SQLite database.
+# Default SQLite database
 /db/*.sqlite3
 
-# Ignore all logfiles and tempfiles.
+# Log, temp, and derived config files
 /log/*.log
 /log/*.log.*
 /tmp
-db/data.yml
-config/database.yml
-config/initializers/secret_token.rb
-config/initializers/secret_token.rb.example
-config/i18n-tasks.yml
+/db/data.yml
+/config/s3.yml
+/config/database.yml
+/config/initializers/secret_token.rb
+/config/i18n-tasks.yml
+/config/create.log
+
+# NodeJS
+node_modules/
 
 # Other stuff
-db/backups/*.sql
-public/*.csv*
-db/data.yml.bz2
-public/data.yml.bz2
+/db/backups/*.sql
+/public/*.csv*
+/db/data.yml.bz2
+/public/data.yml.bz2
+/public/system
 *~
-config/create.log
 
-# Ignore Mac OS
+# Mac OS
 .DS_Store
 
-# Ignore RubyMine
+# RubyMine
 .idea/
 
+# LocaleApp
+/log/localeapp.yml
 .localeapp
 
 # R
