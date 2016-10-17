@@ -1,0 +1,1 @@
+cd api && ./node_modules/.bin/nodemon -e js,pug,html --watch ./ ./app.js
