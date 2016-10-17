@@ -5,7 +5,7 @@
 \title{Parse Wikipedia Common Names}
 \usage{
 parse_wikipedia_common_names(xml,
-  language = parse_wiki_url(xml_attr(xml_find_one(xml, xpath =
+  language = parse_wiki_url(xml_attr(xml_find_first(xml, xpath =
   "//link[@rel='canonical']"), "href"))[[1]])
 }
 \description{

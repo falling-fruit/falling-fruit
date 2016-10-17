@@ -9,7 +9,7 @@ get_eol_page(id, common_names = TRUE, synonyms = TRUE, references = TRUE,
   content_only = TRUE)
 }
 \description{
-Get Encyclopedia of Life (EOL) Page
+See documentation at http://eol.org/api/docs/pages.
 }
 \examples{
 id <- get_eol_id("Malus domestica")

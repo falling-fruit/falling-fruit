@@ -100,7 +100,7 @@ parse_wikipedia_langlinks <- function(json) {
 #' parse_wikipedia_common_names(xml)
 #' xml <- get_page("https://en.wikipedia.org/wiki/Abelmoschus")
 #' parse_wikipedia_common_names(xml) # no names
-parse_wikipedia_common_names <- function(xml, language = parse_wiki_url(xml_attr(xml_find_one(xml, xpath = "//link[@rel='canonical']"), "href"))[[1]]) {
+parse_wikipedia_common_names <- function(xml, language = parse_wiki_url(xml_attr(xml_find_first(xml, xpath = "//link[@rel='canonical']"), "href"))[[1]]) {
   names_xml <- list(
     #first_regular_heading = xml_find_all(xml, xpath = "//h1[@id='firstHeading'][not(i)]"),
     first_regular_bolds = xml_find_all(xml, xpath = "//div[@id='mw-content-text']/p[position() < 3]//b[not(parent::*[self::i]) and not(i)]"),

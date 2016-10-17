@@ -4,13 +4,15 @@
 \alias{get_col_id}
 \title{Get Catalogue of Life (COL) ID}
 \usage{
-get_col_id(search_string)
+get_col_id(search_string, scientific_name = TRUE)
 }
 \description{
-Get Catalogue of Life (COL) ID
+See documentation at http://webservice.catalogueoflife.org/col/webservice
 }
 \examples{
 get_col_id("Malus domestica")
+get_col_id("Abelmoschus")
+get_col_id("Prunus")
 }
 \seealso{
 Other COL functions: \code{\link{build_col_scientific_name}},

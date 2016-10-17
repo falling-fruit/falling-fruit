@@ -4,13 +4,16 @@
 \alias{get_eol_id}
 \title{Get Encyclopedia of Life (EOL) ID}
 \usage{
-get_eol_id(search_string)
+get_eol_id(search_string, exact = TRUE)
 }
 \description{
-Get Encyclopedia of Life (EOL) ID
+For reliable results, search string must be a scientific name.
+See documentation at http://eol.org/api/docs/search.
 }
 \examples{
-get_eol_id("Malus domestica")
+get_eol_id("Malus pumila")
+get_eol_id("Abelmoschus")
+get_eol_id("Prunus")
 }
 \seealso{
 Other EOL functions: \code{\link{get_eol_page}},

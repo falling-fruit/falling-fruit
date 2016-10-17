@@ -19,6 +19,7 @@ Other helper functions: \code{\link{clean_strings}},
   \code{\link{melt_by_listcol}}, \code{\link{na.remove}},
   \code{\link{normalize_language}},
   \code{\link{replace_values_in_list}},
+  \code{\link{subset_search_results}},
   \code{\link{unique_na}}
 }
 

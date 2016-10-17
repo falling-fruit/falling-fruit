@@ -4,13 +4,14 @@
 \alias{get_inaturalist_id}
 \title{Get iNaturalist Taxon ID}
 \usage{
-get_inaturalist_id(search_string)
+get_inaturalist_id(search_string, scientific_name = TRUE)
 }
 \description{
-Get iNaturalist Taxon ID
+Returns the id of the taxon whose name exactly and uniquely matches the search string.
 }
 \examples{
 get_inaturalist_id("Malus domestica")
+get_inaturalist_id("Abelmoschus")
 }
 \seealso{
 Other iNaturalist functions: \code{\link{get_inaturalist_page}},

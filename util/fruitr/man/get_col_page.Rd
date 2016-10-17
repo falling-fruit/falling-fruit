@@ -7,7 +7,7 @@
 get_col_page(id, content_only = TRUE)
 }
 \description{
-Get Catalogue of Life (COL) Page
+See documentation at http://webservice.catalogueoflife.org/col/webservice.
 }
 \examples{
 id <- get_col_id("Malus domestica")

@@ -1,351 +1,185 @@
-#### Collect data --------------
-# output_dir <- "~/sites/falling-fruit-data/fruitr/"
-# dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+library(data.table)
 
-# Single type test
+# Save settings
+output_dir <- "~/sites/falling-fruit-data/fruitr/"
+dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+
+## Load types
 ff_types <- get_ff_types(urls = TRUE)
-ff_id = 2546
-ff_type <- ff_types[id == ff_id]
-responses <- query_sources_about_type(ff_type)
+for (ff_id in ff_types$id) {
+  ff_type <- ff_types[id == ff_id]
 
-# Aggregate common names
-common_name_lists <- lapply(responses, function(response) {
-  temp <- eval(parse(text = paste0("parse_", response$source, "_common_names(response$", ifelse(is.null(response$xml), "json", "xml"), ")")))
-  if (length(temp) > 0) {
-    return(mapply(c, source = response$source, temp, SIMPLIFY = FALSE, USE.NAMES = FALSE))
-  } else {
-    return(NULL)
-  }
-})
-common_names <- rbindlist(lapply(common_name_lists, rbindlist), fill = TRUE)
+  #### Collect data ####
+  # responses: source | url | date | status_code | xml/json/...
+  # common_names: source | url | name | language | country | preferred
+  # scientific_names: source | url | name | rank | preferred
+  # search_results: search_string | language | results | date | url
 
-# Normalize languages
-# sapply(common_names$language, normalize_language)
-codes <- c("ISO639.1", "ISO639.2B", "ISO639.2T", "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia")
-common_names$language <- sapply(common_names$language, function(language) {
-  count <- sum(sapply(codes, function(code) {
-    any(!is.na(Language_codes[[code]]) & Language_codes[[code]] == language)
-  }))
-  if (count == 0) {
-    normalize_language(language, types = setdiff(names(Language_codes), codes))
-  } else {
-    normalize_language(language, types = codes)
-  }
-})
+  ## Query sources
+  responses <- query_sources_about_type(ff_type)
+  # responses <- mapply(c, id = ff_id, responses, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  # Response list to table
+  # dt <- rbindlist(lapply(responses, "[", c("source", "date", "url", "status_code")), fill = TRUE)
+  # dt[, xml := sapply(responses, "[", "xml")]
+  # dt[, json := sapply(responses, "[", "json")]
+  # dt[, id := ff_id]
 
-# Filter names
-# TODO: filter source name tables?
-common_names <- common_names[!(name %in% ff_type$scientific_names)] # remove if matches any scientific name
-# TODO: Repeated names?
-
-# Search names
-# TODO: No scientific name?
-common_names[, google_cs_results := count_google_cs_results(paste0("\"", ff_type$scientific_names[1], "\"+\"", name, "\""), intersect(language, Google_cs_languages)), by = 1:nrow(common_names)]
-
-# Rank names
-# TODO: language and google_language (or forget about searching by language?)
-# TODO: run subsetting and ranking for each language seperately, leave original search results intact
-google_cs_results <- common_names$google_cs_results
-# If same or subset of scientific name, NA search results
-# TODO: Skip search for same_as_scientific
-same_as_scientific <- sapply(paste0("(^| )", common_names$name, "($| )"), grepl, x = ff_type$scientific_names[1], ignore.case = TRUE)
-google_cs_results[same_as_scientific] <- NA
-# TODO: Run baseline search with just scientific name, and convert results as fractions of all results?
-
-# If subset of other names, difference search results
-# [test] Pine: 20, Blue pine: 17, White blue pine: 10, White: 20 => 3, 7, 10, 10
-# x <- c("Pine", "Blue pine", "White blue pine", "White")
-# google_results <- c(20, 17, 10, 20)
-# [test] Pine: 20, Blue pine: 17, Blue pine a: 10, Blue pine b: 5, Blue pine b c: 1 => 3, 2, 10, 4, 1
-# x <- c("Pine", "Blue pine", "Blue pine a", "Blue pine b", "Blue pine b c")
-# google_results <- c(20, 17, 10, 5, 1)
-# [test] Pine: 20, Blue: 15, Blue pine: 10, Pine blue: 3 => 7, 2, 10, 3
-# x <- c("Pine", "Blue", "Blue pine", "Pine blue")
-# google_results <- c(20, 15, 10, 3)
-subsets <- do.call("rbind", lapply(paste0(common_names$name, " | ", common_names$name), grepl, x = common_names$name, ignore.case = TRUE))
-# Go in order of least to most children, most to least parents
-n_children <- rowSums(subsets)
-n_parents <- colSums(subsets)
-node_sequence <- seq_len(length(common_names$name))[order(n_children, -n_parents)]
-for (node in node_sequence) {
-  # skip leaf nodes (children == 0)
-  if (n_children[node] > 0) {
-    is_child <- subsets[node, ]
-    google_cs_results[node] <- google_cs_results[node] - sum(google_cs_results[is_child])
-  }
-}
-common_names$google_cs_results <- google_cs_results
-
-# TODO: Rank by multiple sources
-# TODO: Rank by preferred
-
-# Response list to table
-dt <- rbindlist(lapply(responses, "[", c("source", "date", "url", "status_code")), fill = TRUE)
-dt[, xml := sapply(responses, "[", "xml")]
-dt[, json := sapply(responses, "[", "json")]
-dt[, id := ff_id]
-
-
-
-
-
-
-
-
-
-#saveRDS(responses, file = paste0(output_dir, ff_types$id[i], ".rds"))
-#saveRDS(ff_types, file = paste0(output_dir, "ff_types-queries.rds"))
-
-####
-# Parse responses
-
-for (i in seq_len(nrow(ff_types))) {
-  for (j in seq_len(length(ff_types$queries[[i]]))) {
-    query <- ff_types$queries[[i]][[j]]
-    if (!is.null(query)) {
-      type <- query$type
-      ff_types$queries[[i]][[j]]$parse <-
-        switch(type,
-               eol = parse_eol_page(query),
-               col = parse_col_page(query),
-               wikipedia = parse_wikipedia_page(query),
-               wikicommons = parse_wikicommons_page(query)
-        )
-    }
-  }
-}
-
-saveRDS(ff_types, file = paste0(output_dir, "ff_types-parse.rds"))
-
-####
-# Collapse common names
-
-ff_types$common_names = list(NULL)
-for (i in seq_len(nrow(ff_types))) {
-  common_name_lists <- lapply(ff_types$queries[[i]], function(query) {
-    if (length(query$parse$common_names) > 0) {
-      df <- list_to_dataframe(query$parse$common_names)
-      df$source <- query$type
-      return(df)
-    }
-  })
-  common_name_df <- do.call("rbind.fill", common_name_lists)
-  if (!is.null(common_name_df)) {
-    # remove forbidden characters (allow letters, single spaces, ', and -)
-    common_name_df$name <- gsub("[^\\p{L}\\p{Nd} \\'\\-]|[0-9]", "", common_name_df$name, perl = TRUE)
-    common_name_df$name <- gsub("[ ]+", " ", common_name_df$name, perl = TRUE)
-    # group duplicates (ignore case)
-    common_name_df$name <- tolower(common_name_df$name)
-    #common_names <- group_dataframe_by_columns(common_name_df, "name")
-    #names(common_names)[names(common_names) == "language"] = "languages"
-    ff_types$common_names[[i]] <- common_name_df
-  }
-}
-
-saveRDS(ff_types, file = paste0(output_dir, "ff_types-names.rds"))
-
-#################
-## Choose names
-output_dir <- "~/sites/falling-fruit-data/names/"
-
-####
-# Search common names
-language <- "el"
-google_cs_language <- NULL
-if (any(Google_cs_languages %in% language)) {
-  google_cs_language <- language
-}
-
-# Count names
-#total_names <- sum(unlist(sapply(ff_types$common_names, nrow)))
-#total_languages <- length(unique(unlist(sapply(ff_types$common_names, function(x) {x$languages} ))))
-#total_types <- nrow(ff_types)
-n_names <- sapply(ff_types$common_names, function(common_names) {
-  n <- sum(unlist(common_names$languages) == language)
-  ifelse(is.na(n), 0, n)
-})
-sum(n_names) # names
-sum(n_names[n_names > 1]) # names that need ranking
-sum(n_names > 0) # types with names
-
-# Search names
-have_names <- which(n_names > 0)
-have_multiple_names <- which(n_names > 1)
-for (i_type in have_multiple_names) {
-
-  # Initialize column only if doesn't already exist
-  df <- ff_types$common_names[[i_type]]
-  if (!("search" %in% names(df))) {
-    df$search <- list(NULL)
-  }
-
-  # Run searches (only as needed)
-  scientific_name <- ff_types$scientific_name[i_type]
-  have_language <- which(sapply(df$languages, function(languages) {
-    any(languages %in% language)
-  }))
-  for (i_name in have_language) {
-    common_name <- df$name[i_name]
-    if (is.na(scientific_name)) {
-      search_string <- paste0("\"", common_name, "\"")
-    } else {
-      search_string <- paste0("\"", scientific_name, "\"+\"", common_name, "\"")
-    }
-    print(search_string)
-    is_new_search <- any(is.null(df$search[[i_name]]$string), search_string != df$search[[i_name]]$string)
-    is_updated <- FALSE
-    if (is_new_search) {
-      search <- list()
-      search$string <- search_string
-      search$google_cs_results <- count_google_cs_results(search$string, language = google_cs_language)
-      search$gigablast_results <- count_gigablast_results(search$string)
-      search$date <- Sys.time()
-      df$search[[i_name]] <- search
-      is_updated <- TRUE
-    } else {
-      if (is.null(df$search[[i_name]]$google_cs_results)) {
-        df$search[[i_name]]$google_cs_results <- count_google_cs_results(search_string, language = google_cs_language)
-        is_updated <- TRUE
-      }
-      if (is.null(df$search[[i_name]]$gigablast_results)) {
-        df$search[[i_name]]$gigablast_results <- count_gigablast_results(search_string)
-        is_updated <- TRUE
-      }
-      if (is_updated) {
-        df$search[[i_name]]$date <- Sys.time()
-      }
-    }
-    print(paste(df$search[[i_name]]$google_cs_results,
-                df$search[[i_name]]$gigablast_results,
-                sep = ", "))
-    if (is.null(df$search[[i_name]]$gigablast_results)) {
-      warning("Gigablast quota exceeded!")
-    }
-    if (is.null(df$search[[i_name]]$google_cs_results)) {
-      warning("Google Custom Search quota exceeded!")
-    }
-    if (is_updated) {
-      ff_types$common_names[[i_type]] <- df
-      Sys.sleep(1)
-    }
-  }
-}
-
-saveRDS(ff_types, file = paste0(output_dir, "ff_types-search.rds"))
-
-####
-# Evaluate common names
-# id | language | taxonomic_rank | scientific_name | en_name | en_wikipedia_url | wikipedia_url | names
-
-# Initialize
-name_table <- data.frame(
-  id = ff_types$id,
-  language = language,
-  categories <- sapply(ff_types$category_mask, function(x) { paste(expand_category_mask(x), collapse = ", ") } ),
-  taxonomic_rank = ff_types$taxonomic_rank,
-  scientific_name = ff_types$scientific_name,
-  en_name = ff_types$name,
-  en_wikipedia_url = ff_types$wikipedia_url,
-  wikipedia_url = NA,
-  names = NA,
-  robot_choice = NA,
-  human_choice = NA,
-  stringsAsFactors = FALSE
-)
-
-# Process common names
-for (i_type in seq_len(nrow(ff_types))) {
-
-  # Initialize
-  df <- ff_types$common_names[[i_type]]
-
-  # Wikipedia url
-  wikipedia_url <- unlist(sapply(ff_types$queries[[i_type]], function(query) {
-    if (!is.null(query) && query$type == "wikipedia") {
-      sapply(query$parse$pages, function(page) {
-        if (page$language == language) {
-          page$url
-        }
-      })
-    }
-  }))
-  name_table$wikipedia_url[i_type] <- ifelse(is.null(wikipedia_url), NA, wikipedia_url)
-
-  # Skip if no names for language
-  if (n_names[i_type] == 0) {
+  ## Save results
+  saveRDS(responses, paste0(output_dir, ff_id, "_responses.rds"))
+  if (length(responses) == 0) {
     next
   }
 
-  # Filter by language
-  language_filter <- sapply(df$languages, function(languages) {language %in% languages} )
-  df <- df[language_filter, ]
+  #### Parse scientific names ####
 
-  # Skip if < 2 names for language
-  if (n_names[i_type] == 1) {
-    name_table$names[i_type] <- df$name
-    name_table$robot_choice[i_type] <- df$name
-    next
-  }
-
-  # Get search results
-  google_cs_results <- sapply(df$search, function(search) {
-    ifelse(is.null(search$google_cs_results), NA, search$google_cs_results)
-  })
-  gigablast_results <- sapply(df$search, function(search) {
-    ifelse(is.null(search$gigablast_results), NA, search$gigablast_results)
-  })
-
-  # If same or subset of scientific name, zero search results
-  same_as_scientific <- sapply(paste0("(^| )", df$name, "($| )"), grepl, x = ff_types$scientific_name[i_type], ignore.case = TRUE)
-  google_cs_results[same_as_scientific] <- 0
-  gigablast_results[same_as_scientific] <- 0
-
-  # If subset of other names, difference search results
-  # [test] Pine: 20, Blue pine: 17, White blue pine: 10, White: 20 => 3, 7, 10, 10
-  # x <- c("Pine", "Blue pine", "White blue pine", "White")
-  # google_results <- c(20, 17, 10, 20)
-  # [test] Pine: 20, Blue pine: 17, Blue pine a: 10, Blue pine b: 5, Blue pine b c: 1 => 3, 2, 10, 4, 1
-  # x <- c("Pine", "Blue pine", "Blue pine a", "Blue pine b", "Blue pine b c")
-  # google_results <- c(20, 17, 10, 5, 1)
-  # [test] Pine: 20, Blue: 15, Blue pine: 10, Pine blue: 3 => 7, 2, 10, 3
-  # x <- c("Pine", "Blue", "Blue pine", "Pine blue")
-  # google_results <- c(20, 15, 10, 3)
-  subsets <- do.call("rbind", lapply(paste0(df$name, " | ", df$name), grepl, x = df$name, ignore.case = TRUE))
-  # Go in order of least to most children, most to least parents
-  n_children <- rowSums(subsets)
-  n_parents <- colSums(subsets)
-  node_sequence <- seq_len(length(df$name))[order(n_children, -n_parents)]
-  for (node in node_sequence) {
-    # skip leaf nodes (children == 0)
-    if (n_children[node] > 0) {
-      is_child <- subsets[node, ]
-      google_cs_results[node] <- google_cs_results[node] - sum(google_cs_results[is_child])
-      gigablast_results[node] <- gigablast_results[node] - sum(gigablast_results[is_child])
+  ## Aggregate scientific names
+  scientific_name_lists <- lapply(responses, function(response) {
+    if (response$source %in% c("eol", "col", "inaturalist")) {
+      temp <- eval(parse(text = paste0("parse_", response$source, "_scientific_names(response$", ifelse(is.null(response$xml), "json", "xml"), ")")))
+      if (length(temp) > 0) {
+        return(mapply(c, temp, source = response$source, url = response$url, SIMPLIFY = FALSE, USE.NAMES = FALSE))
+      }
     }
+  })
+  scientific_names <- rbindlist(lapply(scientific_name_lists, rbindlist), fill = TRUE)
+  # Clean name strings
+  scientific_names[, name := clean_strings(name)]
+  #scientific_names[, id := ff_id]
+
+  ## Rank scientific names
+  # # Count search results
+  # scientific_names[, search_results := count_google_cs_results(paste0("\"", name, "\"")), by = name]
+  # scientific_names[, subset_search_results := subset_search_results(name, search_results)]
+  # Count preferred
+  preferred_scientific_names <- scientific_names[preferred == TRUE, .(n = length(unique(source))), by = name][n == max(n), name]
+  preferred_scientific_name <- ifelse(length(preferred_scientific_names) == 1, preferred_scientific_names, ff_type$scientific_names[1])
+  if (preferred_scientific_name != ff_type$scientific_names[[1]][1]) {
+    warning(paste0(ff_id, ": Preferred scientific name change [", ff_type$scientific_names[1], " => ", preferred_scientific_name, "]"))
   }
+  scientific_names[name == preferred_scientific_name, ff_preferred := TRUE]
 
-  # Prepare filters
-  preferred_filter <- sapply(df$preferred, function(preferred) {TRUE %in% preferred} )
-  multisource_filter <- sapply(df$sources, function(sources) {length(sources)} )
+  ## Save results
+  saveRDS(scientific_names, paste0(output_dir, ff_id, "_scientific_names.rds"))
 
-  # Rank names
-  name_order <- order(rank(rowMeans(cbind(
-    rank(google_cs_results),
-    rank(gigablast_results),
-    rank(multisource_filter)
-  ))), decreasing = TRUE)
-  name_table$names[i_type] <- paste(df$name[name_order], collapse = ", ")
-  name_table$robot_choice[i_type] <- df$name[name_order][1]
+  #### Parse common names ####
+
+  ## Aggregate common names
+  common_name_lists <- lapply(responses, function(response) {
+    temp <- eval(parse(text = paste0("parse_", response$source, "_common_names(response$", ifelse(is.null(response$xml), "json", "xml"), ")")))
+    if (length(temp) > 0) {
+      return(mapply(c, temp, source = response$source, url = response$url, SIMPLIFY = FALSE, USE.NAMES = FALSE))
+    }
+  })
+  common_names <- rbindlist(lapply(common_name_lists, rbindlist), fill = TRUE)
+  # Clean name strings
+  common_names[, name := clean_strings(name)]
+  # Clean language strings
+  common_names[, language := clean_strings(language)]
+  # Normalize language strings
+  common_names[, language := normalize_language(language), by = language]
+  #common_names[, id := ff_id]
+
+  ## Filter common names
+  # != scientific names (or whole word subset)
+  # common_names <- common_names[!(name %in% scientific_names$name)]
+  is_scientific_substring <- colSums(sapply(paste0("(^| )", common_names$name, "($| )"), grepl, x = scientific_names$name, ignore.case = TRUE)) > 1
+  common_names <- common_names[!is_scientific_substring]
+
+  ## Search common names (appended to preferred scientific name)
+  # Count search results
+  # NOTE: "-" equivalent to " " in Google Search
+  common_names[, search_name := tolower(gsub("-", " ", name))]
+  # Skip duplicate name-language pairs
+  common_names[, search_string := paste0("'", preferred_scientific_name, "'+'", search_name, "'"), by = search_name]
+  common_names[, search_results := count_google_cs_results(search_string, language), by = .(search_string, language)]
+  # Subset results by language
+  common_names[, subset_search_results := subset_search_results(name, search_results), by = language]
+  # Convert to fraction of max search results
+  # common_names[, max_search_results := count_google_cs_results(paste0("'", preferred_scientific_name, "'"), language), by = language]
+  # common_names[, subset_fractional_search_results := subset_search_results / max_search_results]
+
+  ## Rank common names
+  # Top name by most preferred
+  # common_names[, .(n = sum(preferred, na.rm = TRUE)), by = .(search_name, language)][, .(search_name = search_name[max(n) == n]), by = language]
+  # Top name by most sources
+  # common_names[, .(n = length(unique(source))), by = .(search_name, language)][, .(search_name = search_name[max(n) == n]), by = language]
+  # Top name by most search results
+  # common_names[, .(n = unique(subset_search_results)), by = .(search_name, language)][, .(search_name = search_name[max(n) == n]), by = language]
+  # Rank names by search results
+  # common_names[order(-subset_search_results), .(n = unique(subset_search_results)), by = .(search_name, language)][, .(search_names = list(search_name)), by = language]
+
+  ## Save results
+  saveRDS(common_names, paste0(output_dir, ff_id, "_common_names.rds"))
 }
 
-# Export names table
-saveRDS(name_table, file = paste0(output_dir, language, "_names_pending.rds"))
-write.csv(name_table, file = paste0(output_dir, language, "_names_pending.csv"), row.names = FALSE, na = "")
 
-####
-#### NEW names table (en_GB)
+#### Format results ####
 
-types <- load_types(urls = TRUE)
-types$categories <- sapply(types$category_mask, function(x) { paste(expand_category_mask(x), collapse = ", ") })
-name_table <- types[order(scientific_name, taxonomic_rank_order, name), .(id, language = "en", categories, taxonomic_rank, scientific_name, wikipedia_url, en_names = ifelse(is.na(synonyms), name, paste(name, synonyms, sep = ", ")), en_GB = "", en_IE = "")]
-write.csv(name_table, file = "~/desktop/en_GB_names_pending.csv", row.names = FALSE, na = "")
+## Falling Fruit (present)
+# {locale}_names.csv
+# ff_id | translated_name
+
+languages = unique(common_names$language)
+for (l in languages) {
+  dt <- data.table(
+    ff_id = ff_id,
+    translated_name = common_names[language == l, .(n = unique(subset_search_results)), by = search_name][n == max(n), search_name])
+  write.csv(dt, paste0("~/desktop/", l, "_names.csv"), row.names = FALSE)
+}
+
+## EOL
+# common names.txt (by source, excluding eol)
+# taxonID | vernacularName | source | language | locality | countryCode | isPreferredName | taxonRemarks
+
+eol_id <- responses[sapply(responses, "[", "source") == "eol"][[1]]$json$identifier
+sources = unique(common_names$source)
+if ("eol" %in% sources) {
+  for (s in sources[sources != "eol"]) {
+    dt <- data.table(
+      taxonID = eol_id,
+      vernacularName = common_names[source == s, search_name],
+      source = common_names[source == s, url],
+      language = common_names[source == s, language],
+      locality = NA,
+      countryCode = NA,
+      isPreferredName = tolower(common_names[source == s, preferred]),
+      taxonRemarks = common_names[source == s, paste0("Google search results (", search_string, "): ", search_results, " total / ", subset_search_results, " after subsetting.")]
+    )
+    dir.create(paste0("~/desktop/", s), showWarnings = FALSE)
+    write.table(dt, paste0("~/desktop/", s, "/common names.txt"), row.names = FALSE, na = "", sep = "\t", quote = FALSE)
+  }
+}
+
+## Falling Fruit (future)
+# ff_id | name | language | country | wikipedia_url | ...
+
+# id:
+# scientific_name:
+# scientific_synonyms:
+# locales: {
+#   en: {
+#     name:
+#     synonyms:
+#     wikipedia_url:
+#   },
+#   en-US: { ... },
+#   en-BR: { ... },
+#   de: {
+#     wikipedia_url:
+#   },
+#   de-CH: { ... },
+# }
+
+dt_names <- common_names[order(-subset_search_results), .(n = unique(subset_search_results)), by = .(search_name, language)][, .(name = search_name[1], synonyms = list(search_name[-1])), by = language]
+dt_wikipedia_urls <- common_names[source == "wikipedia", .(url = unique(url)), by = language]
+dt <- merge(dt_names, dt_wikipedia_urls, by = "language")
+# locales <- apply(dt, 1, function(x) {
+#   list(names = x$search_names, wikipedia_url = x$url)
+# })
+# names(locales) <- dt$language
+locales <- dt[, .(locale = list(list(name = name, synonyms = ifelse(is.empty(unlist(synonyms)), NA, unlist(synonyms)), wikipedia_url = url))), by = language]$locale
+names(locales) <- dt$language
+scientific_names[, .(n = length(unique(source))), by = name][n == max(n), name]
+locales <- list(id = ff_id, scientific_name = preferred_scientific_name, scientific_synonyms = scientific_names[name != preferred_scientific_name, name], locales = locales)
+# scientific_names[, .(n = length(unique(source))), by = name][n == max(n), name]
+locales <- replace_values_in_list(locales, list(NA, character(0)), NULL)

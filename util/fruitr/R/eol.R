@@ -58,19 +58,14 @@ parse_eol_scientific_names <- function(json) {
       preferred = TRUE)
   }))
   synonyms <- unique(lapply(json$synonyms, function(x) {
-    name <- gsub("\\s*\\([^\\)]*\\)|,.*$", "", x$synonym) # Parentheses or after first comma
-    name <- gsub("( [A-Za-z]+\\.)+$", "", name) # Ending abbreviated words
-    if (name %in% sapply(canonical_names, `[`, "name")) {
-      return(NULL)
-    } else {
-      list(
-        name = name,
-        rank = NA,
-        preferred = FALSE
-      )
-    }
+    list(
+      name = format_strings(x$synonym, "printed_scientific_name"),
+      rank = NA,
+      preferred = FALSE
+    )
   }))
-  return(c(canonical_names, synonyms[!is.empty(synonyms)]))
+  scientific_names <- c(canonical_names, synonyms)
+  return(scientific_names[!duplicated(sapply(scientific_names, "[", "name"))])
 }
 
 #' Parse Encyclopedia of Life (EOL) Common Names

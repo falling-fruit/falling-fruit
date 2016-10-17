@@ -13,6 +13,9 @@ Parse iNaturalist Common Names
 id <- get_inaturalist_id("Malus domestica")
 json <- get_inaturalist_page(id)
 parse_inaturalist_common_names(json)
+id <- get_inaturalist_id("Abelmoschus")
+json <- get_inaturalist_page(id)
+parse_inaturalist_common_names(json)
 }
 \seealso{
 Other iNaturalist functions: \code{\link{get_inaturalist_id}},

@@ -202,6 +202,9 @@ clean_strings <- function(x) {
 #' format_strings(" 123 SE. MCDONALD AV ", types = "address")
 #' format_strings("Malus X Domestica Subsp gala 'gala'", types = "printed_scientific_name")
 #' format_strings("Malus X Domestica Subsp gala 'gala'", types = "matched_scientific_name")
+#' format_strings("Tamarix rubella Batt.", types = "printed_scientific_name")
+#' format_strings("Tamarix lucronensis Sennen & Elias", types = "printed_scientific_name")
+#' format_strings("Tamarix laxa var. subspicata Ehrenb.", types = "printed_scientific_name")
 format_strings <- function(x, types = "", clean = TRUE) {
   start_x <- x
   if (clean) {
@@ -221,6 +224,11 @@ format_strings <- function(x, types = "", clean = TRUE) {
     x <- tolower(x)
     # TODO: Remove following?
     x <- gsub("\\s*\\(.*\\)(\\s|$)", "\\1", x) # remove disambiguation "(category)"
+  }
+  if (any(c("printed_scientific_name", "matched_scientific_name") %in% types)) {
+    x <- gsub("\\s*\\([^\\)]*\\)|,.*$", "", x) # clear parentheses or after first comma
+    x <- gsub("^([A-Z].*?)\\s([A-Z].*)", "\\1", x, perl = TRUE)  # clear after second capital letter (if preceded by space)
+    x <- gsub("(auct.|auctt.)+\\s(nec|non|mult.)*", "", x, perl = TRUE) # clear auctorum notation
   }
   if ("printed_scientific_name" %in% types) {
     x <- capitalize_words(x, strict = TRUE, first = TRUE) # force lowercase, then capitalize first word
@@ -259,11 +267,30 @@ format_strings <- function(x, types = "", clean = TRUE) {
 #' normalize_language("Español")
 #' normalize_language("Espagnol")
 normalize_language = function(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T", "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia", "autonym", "en", "fr", "de", "ru", "es", "zh")) {
+
+  # Prepare input
   if (is.empty(x)) {
     return(NA)
   }
   x <- tolower(x)
   cols <- intersect(types, names(Language_codes))
+
+  # Prioritize code (over name) column matches if both selected
+  code_cols <- c("ISO639.1", "ISO639.2B", "ISO639.2T", "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia")
+  selected_code_cols <- intersect(cols, code_cols)
+  selected_name_cols <- setdiff(cols, code_cols)
+  if (length(selected_code_cols) > 0 && length(selected_name_cols) > 0) {
+    n_matching_codes <- sum(sapply(selected_code_cols, function(code) {
+      any(!is.na(Language_codes[, code, with = FALSE]) & Language_codes[, code, with = FALSE] == x)
+    }))
+    if (n_matching_codes > 0) {
+      cols <- selected_code_cols
+    } else {
+      cols <- selected_name_cols
+    }
+  }
+
+  # Search and filter results
   ind <- unique(unlist(sapply(cols, function(col) {
     which(grepl(paste0("(^|,\\s*)", x, "($|,)"), Language_codes[[col]]))
   })))
@@ -274,7 +301,7 @@ normalize_language = function(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T",
     warning(paste0("[", x, "] Language found multiple times"))
     return(x)
   } else {
-    codes <- with(Language_codes[ind], c(ISO639.1, ISO639.2B, ISO639.2T, ISO639.6, ISO639.3_macro, wikipedia))
+    codes <- as.character(Language_codes[ind, code_cols, with = FALSE])
     if (all(is.empty(codes))) {
       warning(paste0("[", x, "] Language does not have a supported code"))
       return(x)
@@ -283,6 +310,50 @@ normalize_language = function(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T",
     }
   }
 }
+
+
+#' Subset Search Results
+#'
+#' Difference search results based on subsetting of search strings (interpreted as search phrases).
+#'
+#' @family helper functions
+#' @export
+#' @examples
+#' # Pine: 20, Blue pine: 17
+#' strings <- c("Pine", "Blue pine")
+#' results <- c(20, 17)
+#' subset_search_results(strings, results) # 3, 17
+#' # Pine: 20, Blue pine: 17, White blue pine: 10, White: 20
+#' strings <- c("Pine", "Blue pine", "White blue pine", "White")
+#' results <- c(20, 17, 10, 20)
+#' subset_search_results(strings, results) # 3, 7, 10, 10
+#' # Pine: 20, Blue pine: 17, Blue pine a: 10, Blue pine b: 5, Blue pine b c: 1
+#' strings <- c("Pine", "Blue pine", "Blue pine a", "Blue pine b", "Blue pine b c")
+#' results <- c(20, 17, 10, 5, 1)
+#' subset_search_results(strings, results) # 3, 2, 10, 4, 1
+#' # Pine: 20, Blue: 15, Blue pine: 10, Pine blue: 3
+#' strings <- c("Pine", "Blue", "Blue pine", "Pine blue")
+#' results <- c(20, 15, 10, 3)
+#' subset_search_results(strings, results) # 7, 2, 10, 3
+#' # Pine: 200, Blue pine: 100, White pine: 100
+subset_search_results <- function(strings, values, ignore.case = TRUE) {
+  subsets <- do.call("rbind", lapply(paste0(strings, " | ", strings), grepl, x = strings, ignore.case = ignore.case))
+  # Proceed in order of least to most children, most to least parents
+  n_children <- rowSums(subsets)
+  n_parents <- colSums(subsets)
+  node_sequence <- seq_len(length(strings))[order(n_children, -n_parents)]
+  for (node in node_sequence) {
+    # skip leaf nodes (children == 0)
+    if (n_children[node] > 0) {
+      is_child <- subsets[node, ]
+      is_direct_child <- is_child & n_parents == min(n_parents[is_child])
+      values[node] <- values[node] - sum(values[is_child])
+      #values[node] <- values[node] - max(values[is_direct_child]) - sum(values[is_child & !is_direct_child])
+    }
+  }
+  return(values)
+}
+
 
 # Datum Conversions --------------
 

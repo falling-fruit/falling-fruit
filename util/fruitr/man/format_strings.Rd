@@ -13,6 +13,9 @@ Supports species common names, latin names, and addresses.
 format_strings(" 123 SE. MCDONALD AV ", types = "address")
 format_strings("Malus X Domestica Subsp gala 'gala'", types = "printed_scientific_name")
 format_strings("Malus X Domestica Subsp gala 'gala'", types = "matched_scientific_name")
+format_strings("Tamarix rubella Batt.", types = "printed_scientific_name")
+format_strings("Tamarix lucronensis Sennen & Elias", types = "printed_scientific_name")
+format_strings("Tamarix laxa var. subspicata Ehrenb.", types = "printed_scientific_name")
 }
 \seealso{
 Other helper functions: \code{\link{ch1903_to_wgs84}},
@@ -22,6 +25,7 @@ Other helper functions: \code{\link{ch1903_to_wgs84}},
   \code{\link{na.remove}},
   \code{\link{normalize_language}},
   \code{\link{replace_values_in_list}},
+  \code{\link{subset_search_results}},
   \code{\link{unique_na}}
 }
 

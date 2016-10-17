@@ -15,6 +15,9 @@ get_col_id <- function(search_string, scientific_name = TRUE) {
   if (is.list(json) && length(json$results) > 0) {
     if (scientific_name) {
       ind <- which(sapply(json$results, "[", "name") == search_string & sapply(json$results, "[", "name_status") != "common name")
+      if (length(ind) > 1) {
+        ind <- ind[sapply(json$results, "[", "name_status") == "accepted name"]
+      }
     } else {
       ind <- which(sapply(json$results, "[", "name") == search_string & sapply(json$results, "[", "name_status") == "common name")
     }
@@ -95,7 +98,7 @@ parse_col_common_names <- function(json) {
   common_names <- lapply(json$common_names, function(x) {
     list(
       name = x$name,
-      language = normalize_language(x$language),
+      language = x$language,
       country = x$country
     )
   })
