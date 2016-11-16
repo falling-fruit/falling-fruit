@@ -7,7 +7,10 @@
 #' @examples
 #' count_google_cs_results("'Malus domestica'+'Apfel'", "en")
 #' count_google_cs_results("'Malus domestica'+'Apfel'", "de")
-count_google_cs_results = function(string, language = NULL) {
+count_google_cs_results = function(string, language = NULL, pause = FALSE) {
+  if (pause) {
+    Sys.sleep(1.1)
+  }
   url <- parse_url("https://www.googleapis.com/customsearch/v1")
   query <- list(key = "AIzaSyDm7gTRTOlOIsum_KOwfM-X13RYexMW41M", cx = "017771660208863495094:7npb6irvsc0", q = string)
   if (!is.empty(language)) {
@@ -23,7 +26,7 @@ count_google_cs_results = function(string, language = NULL) {
   }
 }
 
-#' Count Gigablast Search Results
+#' Count Gigablast Search Results (DEPRECATED)
 #'
 #' Free. No quota is specified, but requests are often blocked. See https://gigablast.com/api.html
 #'

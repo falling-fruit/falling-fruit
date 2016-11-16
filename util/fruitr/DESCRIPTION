@@ -4,8 +4,7 @@ Version: 0.1.0
 Date: 2016-05-04
 Authors@R: person("Ethan", "Welty", email = "ethan@fallingfruit.org", role = c("aut", "cre"))
 Title: R functions for Falling Fruit
-Description: Functions for species common name translations and location data
-    import.
+Description: Functions for species common name translations and location data import.
 License: GPL-3
 LazyData: TRUE
 URL: https://github.com/somerandomsequence/falling-fruit
@@ -23,8 +22,8 @@ Imports:
     RPostgreSQL,
     stringdist,
     stringr,
-    XML,
-    xml2
+    xml2,
+    RCurl
 Remotes:
     github::rstats-db/RPostgres
 RoxygenNote: 5.0.1

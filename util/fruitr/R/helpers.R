@@ -180,6 +180,7 @@ clean_strings <- function(x) {
     "'(\\s*'*\\s*)'", # empty quotes
     "^\\s+|\\s+$|\\s+(?=[\\.|,])", # trailing white space
     "^[,\\.\\s]+|[\\s,]+$", # leading punctuation, trailing commas
+    "^[\\-]+|[\\-]+$", # trailing dashes
     sep = "|")
   x <- gsub(remove, "", x, perl = TRUE)
 
@@ -253,6 +254,10 @@ format_strings <- function(x, types = "", clean = TRUE) {
   return(x)
 }
 
+unescape_html <- function(str){
+  xml2::xml_text(xml2::read_html(paste0("<x>", str, "</x>")))
+}
+
 # Translations --------------
 
 #' Normalize Language
@@ -266,22 +271,22 @@ format_strings <- function(x, types = "", clean = TRUE) {
 #' normalize_language("Spanish")
 #' normalize_language("Español")
 #' normalize_language("Espagnol")
-normalize_language = function(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T", "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia", "autonym", "en", "fr", "de", "ru", "es", "zh")) {
+normalize_language = function(x, types = c("locale", "variant", "ISO639.1", "ISO639.2T", "ISO639.2B", "ISO639.3", "ISO639.6", "wikipedia", "other", "autonym", "en", "fr", "de", "ru", "es", "it", "zh")) {
 
   # Prepare input
   if (is.empty(x)) {
-    return(NA)
+    return(NA_character_)
   }
   x <- tolower(x)
   cols <- intersect(types, names(Language_codes))
 
   # Prioritize code (over name) column matches if both selected
-  code_cols <- c("ISO639.1", "ISO639.2B", "ISO639.2T", "ISO639.3", "ISO639.6", "ISO639.3_macro", "wikipedia")
+  code_cols <- c("locale", "variant", "ISO639.1", "ISO639.2T", "ISO639.2B", "ISO639.3", "ISO639.6", "wikipedia", "other")
   selected_code_cols <- intersect(cols, code_cols)
   selected_name_cols <- setdiff(cols, code_cols)
   if (length(selected_code_cols) > 0 && length(selected_name_cols) > 0) {
     n_matching_codes <- sum(sapply(selected_code_cols, function(code) {
-      any(!is.na(Language_codes[, code, with = FALSE]) & Language_codes[, code, with = FALSE] == x)
+      any(!is.na(Language_codes[[code]]) & grepl(paste0("(^|,\\s*)", quotemeta(x), "($|,)"), Language_codes[[code]]))
     }))
     if (n_matching_codes > 0) {
       cols <- selected_code_cols
@@ -292,14 +297,16 @@ normalize_language = function(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T",
 
   # Search and filter results
   ind <- unique(unlist(sapply(cols, function(col) {
-    which(grepl(paste0("(^|,\\s*)", x, "($|,)"), Language_codes[[col]]))
+    which(grepl(paste0("(^|,\\s*)", quotemeta(x), "($|,)"), Language_codes[[col]]))
   })))
+  # # Return full result?
+  # return(apply(Language_codes[ind], 1, as.list))
   if (length(ind) == 0) {
     warning(paste0("[", x, "] Language not recognized"))
-    return(x)
+    return(NA_character_)
   } else if (length(ind) > 1) {
     warning(paste0("[", x, "] Language found multiple times"))
-    return(x)
+    return(NA_character_)
   } else {
     codes <- as.character(Language_codes[ind, code_cols, with = FALSE])
     if (all(is.empty(codes))) {
@@ -310,7 +317,6 @@ normalize_language = function(x, types = c("ISO639.1", "ISO639.2B", "ISO639.2T",
     }
   }
 }
-
 
 #' Subset Search Results
 #'
@@ -353,7 +359,6 @@ subset_search_results <- function(strings, values, ignore.case = TRUE) {
   }
   return(values)
 }
-
 
 # Datum Conversions --------------
 

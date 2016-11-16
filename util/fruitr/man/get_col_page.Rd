@@ -4,19 +4,20 @@
 \alias{get_col_page}
 \title{Get Catalogue of Life (COL) Page}
 \usage{
-get_col_page(id, content_only = TRUE)
+get_col_page(id, format = "json", response = "full")
 }
 \description{
-See documentation at http://webservice.catalogueoflife.org/col/webservice.
+See documentation at \url{http://webservice.catalogueoflife.org/col/webservice}.
 }
 \examples{
-id <- get_col_id("Malus domestica")
-str(get_col_page(id))
+s <- get_col_search("Malus domestica")
+id <- parse_col_search(s, "ids")$ids[1]
+str(content(get_col_page(id)))
 }
 \seealso{
 Other COL functions: \code{\link{build_col_scientific_name}},
-  \code{\link{get_col_id}},
-  \code{\link{parse_col_common_names}},
-  \code{\link{parse_col_scientific_names}}
+  \code{\link{get_col_search}},
+  \code{\link{parse_col_page}},
+  \code{\link{parse_col_search}}
 }
 

@@ -4,18 +4,19 @@
 \alias{get_inaturalist_page}
 \title{Get iNaturalist Taxon Page}
 \usage{
-get_inaturalist_page(id, content_only = TRUE)
+get_inaturalist_page(id)
 }
 \description{
-Get iNaturalist Taxon Page
+Undocumented, but equivalent to the HTML equivalent \url{http://www.inaturalist.org/taxa/:id.json}.
 }
 \examples{
-id <- get_inaturalist_id("Malus domestica")
-str(get_inaturalist_page(id))
+s <- get_inaturalist_search("Malus domestica")
+id <- parse_inaturalist_search(s, "ids")$ids[1]
+str(content(get_inaturalist_page(id)))
 }
 \seealso{
-Other iNaturalist functions: \code{\link{get_inaturalist_id}},
-  \code{\link{parse_inaturalist_common_names}},
-  \code{\link{parse_inaturalist_scientific_names}}
+Other iNaturalist functions: \code{\link{get_inaturalist_search}},
+  \code{\link{parse_inaturalist_page}},
+  \code{\link{parse_inaturalist_search}}
 }
 

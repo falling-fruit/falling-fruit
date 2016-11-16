@@ -4,20 +4,27 @@
 \alias{get_eol_page}
 \title{Get Encyclopedia of Life (EOL) Page}
 \usage{
-get_eol_page(id, common_names = TRUE, synonyms = TRUE, references = TRUE,
-  taxonomy = TRUE, details = TRUE, iucn = TRUE, images = 75,
-  content_only = TRUE)
+get_eol_page(id, batch = FALSE, images_per_page, images_page = 1,
+  videos_per_page, videos_page = 1, sounds_per_page, sounds_page = 1,
+  maps_per_page, maps_page = 1, texts_per_page, texts_page = 1,
+  iucn = FALSE, subjects = "overview", licenses = "all",
+  details = FALSE, common_names = TRUE, synonyms = TRUE,
+  references = FALSE, taxonomy = TRUE, vetted = 0, cache_ttl,
+  language = "en")
 }
 \description{
-See documentation at http://eol.org/api/docs/pages.
+See documentation at \url{http://eol.org/api/docs/pages}. Alterations to default parameter values:
+common_names: FALSE => TRUE
+synonyms: FALSE => TRUE
 }
 \examples{
-id <- get_eol_id("Malus domestica")
-str(get_eol_page(id))
+s <- get_eol_search("Malus domestica")
+id <- parse_eol_search(s, "ids")$ids[1]
+str(content(get_eol_page(id)))
 }
 \seealso{
-Other EOL functions: \code{\link{get_eol_id}},
-  \code{\link{parse_eol_common_names}},
-  \code{\link{parse_eol_scientific_names}}
+Other EOL functions: \code{\link{get_eol_search}},
+  \code{\link{parse_eol_page}},
+  \code{\link{parse_eol_search}}
 }
 

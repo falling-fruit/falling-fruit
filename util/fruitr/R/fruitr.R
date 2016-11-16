@@ -11,7 +11,6 @@
 #' @import RJSONIO
 #' @import stringdist
 #' @import stringr
-#' @import XML
 #' @import xml2
 #' @import rgdal
 #' @import foreign

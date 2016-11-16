@@ -11,14 +11,14 @@ Build Catalogue of Life (COL) Scientific Name
 }
 \examples{
 id <- get_col_id("Malus domestica")
-json <- get_col_page(id)
+json <- content(get_col_page(id))$results[[1]]$accepted_name
 build_col_scientific_name(json)
 str(lapply(json$synonyms, build_col_scientific_name))
 }
 \seealso{
-Other COL functions: \code{\link{get_col_id}},
-  \code{\link{get_col_page}},
-  \code{\link{parse_col_common_names}},
-  \code{\link{parse_col_scientific_names}}
+Other COL functions: \code{\link{get_col_page}},
+  \code{\link{get_col_search}},
+  \code{\link{parse_col_page}},
+  \code{\link{parse_col_search}}
 }
 

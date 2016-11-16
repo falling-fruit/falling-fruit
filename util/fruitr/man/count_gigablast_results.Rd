@@ -2,7 +2,7 @@
 % Please edit documentation in R/websearch.R
 \name{count_gigablast_results}
 \alias{count_gigablast_results}
-\title{Count Gigablast Search Results}
+\title{Count Gigablast Search Results (DEPRECATED)}
 \usage{
 count_gigablast_results(string)
 }

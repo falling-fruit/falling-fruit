@@ -4,20 +4,20 @@
 \alias{get_wiki_page}
 \title{Get Wiki Page from API}
 \usage{
-get_wiki_page(wiki, type, page, content_only = TRUE)
+get_wiki_page(url, wiki, type, page, format = "json", action = "parse",
+  redirects = TRUE)
 }
 \description{
 Get Wiki Page from API
 }
 \examples{
-str(get_wiki_page("en", "wikipedia", "Malus domestica"))
+str(content(get_wiki_page("https://en.wikipedia.org/wiki/Malus_domestica")))
 }
 \seealso{
 Other Wiki functions: \code{\link{build_wiki_url}},
-  \code{\link{get_page}}, \code{\link{parse_wiki_url}},
-  \code{\link{parse_wikicommons_common_names}},
-  \code{\link{parse_wikipedia_common_names}},
-  \code{\link{parse_wikipedia_langlinks}},
-  \code{\link{parse_wikispecies_common_names}}
+  \code{\link{parse_wiki_url}},
+  \code{\link{parse_wikicommons_page}},
+  \code{\link{parse_wikipedia_page}},
+  \code{\link{parse_wikispecies_page}}
 }
 

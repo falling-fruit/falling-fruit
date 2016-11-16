@@ -15,12 +15,10 @@ build_wiki_url("commons", "wikimedia", "Malus domestica")
 build_wiki_url("species", "wikimedia", "Malus domestica")
 }
 \seealso{
-Other Wiki functions: \code{\link{get_page}},
-  \code{\link{get_wiki_page}},
+Other Wiki functions: \code{\link{get_wiki_page}},
   \code{\link{parse_wiki_url}},
-  \code{\link{parse_wikicommons_common_names}},
-  \code{\link{parse_wikipedia_common_names}},
-  \code{\link{parse_wikipedia_langlinks}},
-  \code{\link{parse_wikispecies_common_names}}
+  \code{\link{parse_wikicommons_page}},
+  \code{\link{parse_wikipedia_page}},
+  \code{\link{parse_wikispecies_page}}
 }
 
