@@ -227,7 +227,7 @@ task(:import_type_translations => :environment) do
     trans_cols = []
     puts l
     dbl = l.to_s.downcase.gsub("-", "_")
-    CSV.foreach("data/#{l}_names.csv") do |row|
+    CSV.foreach("util/#{l}_names.csv") do |row|
       if n == 0
         row.each_with_index do |d,i|
           if d =~ /ff_id/
