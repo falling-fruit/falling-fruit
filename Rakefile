@@ -221,7 +221,7 @@ end
 
 task(:import_type_translations => :environment) do
   I18n.available_locales.each do |l|
-    next unless File.exists? "data/#{l}_names.csv"
+    next unless File.exists? "util/#{l}_names.csv"
     n = 0
     id_col = nil
     trans_cols = []
