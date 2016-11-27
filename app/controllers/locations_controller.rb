@@ -8,7 +8,6 @@ class LocationsController < ApplicationController
   end
   authorize_resource :only => [:destroy,:enroute]
 
-
   def expire_things
     expire_fragment "pages_data_type_summary_table"
     expire_fragment "pages_about_stats"
@@ -393,8 +392,8 @@ class LocationsController < ApplicationController
 
     params[:types].split(/\s*,\s*/).uniq.each{ |type_name|
       nf = Type.i18n_name_field
-      tn = ActionController::Base.helpers.sanitize(type_name)
-      t = Type.where("(COALESCE(#{nf}, name) || CASE WHEN scientific_name IS NULL THEN '' ELSE ' ['||scientific_name||']' END)='#{tn}'")
+      tn = ActiveRecord::Base.connection.quote(ActionController::Base.helpers.sanitize(type_name))
+      t = Type.where("(COALESCE(#{nf}, name) || CASE WHEN scientific_name IS NULL THEN '' ELSE ' ['||scientific_name||']' END)=#{tn}")
 
       # if it's not found, make it a pending type
       if t.nil? or t.empty?
