@@ -6,7 +6,7 @@ class Spammer < ActionMailer::Base
     headers['X-SMTPAPI'] = '{"category": "FF-Rails-RangeUpdate"}'
     @changes = Change.where("changes.created_at > NOW() - interval '? days' AND ST_INTERSECTS((SELECT range FROM users WHERE id=?),location)",ndays,user.id).joins(:location)
     @user = user
-    return @changes.length == 0 ? nil : mail(:to => user.email, :subject => "Falling Fruit – Range Update")
+    return ((@changes.length == 0) ? nil : mail(:to => user.email, :subject => "Falling Fruit – Range Update"))
   end
 
   def respond_to_problem(problem)
