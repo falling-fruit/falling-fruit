@@ -122,7 +122,7 @@ class LocationsController < ApplicationController
     @grafter = true
     params[:c] = 'grafter'
     # hack since clusters don't support categories yet
-    @cat_mask = array_to_mask(["grafter"],Type::Categories)
+    @cat_mask = array_to_mask(["grafter"], Type::Categories)
     @cat_filter = "(category_mask & #{@cat_mask})>0"
     params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
@@ -131,6 +131,10 @@ class LocationsController < ApplicationController
   # GET /honeybee
   def honeybee_index
     params[:c] = 'honeybee'
+    # hack since clusters don't support categories yet
+    @cat_mask = array_to_mask(["honeybee"], Type::Categories)
+    @cat_filter = "(category_mask & #{@cat_mask}) > 0"
+    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
