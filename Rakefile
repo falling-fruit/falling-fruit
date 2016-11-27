@@ -120,7 +120,7 @@ end
 
 task(:geocode => :environment) do
   n = Location.where("lat is null and lng is null").count
-  Location.where("lat is null and lng is null").each{ |l|
+  Location.where("lat is null and lng is null").limit(100000).each{ |l|
     begin
       puts n
       l.geocode
@@ -129,6 +129,22 @@ task(:geocode => :environment) do
         l.save
         n -= 1
       end
+      sleep 1
+    rescue Geocoder::OverQueryLimitError => e
+      puts e
+      break
+    end
+  }
+end
+
+task(:reverse_geocode => :environment) do
+  n = Location.where("lat is not null and lng is not null and country is null").count
+  Location.where("lat is not null and lng is not null and country is null").limit(100000).each{ |l|
+    begin
+      puts n
+      l.reverse_geocode
+      l.save
+      n -= 1
       sleep 1
     rescue Geocoder::OverQueryLimitError => e
       puts e
