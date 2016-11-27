@@ -52,8 +52,6 @@ If you want to help with development, feel free to fork the project. If you have
   bundle install
   ```
 
-  If `therubyracer (0.11.4)` fails to install, change the corresponding line in `Gemfile.lock` to `therubyracer (0.12.2)`.
-
   * Initialize configuration files:
 
   ```
@@ -193,9 +191,11 @@ If you want to help with development, feel free to fork the project. If you have
 
   ```
   rails console
-  ApiKey.create(api_key: 'APIKEY')
+  ApiKey.create(api_key: 'EEQRBBUB')
   exit
   ```
+
+  Then set the `api_key` variable in `/app/assets/javascripts/mapcommon.js`.
 
   * Start the API:
 
@@ -203,7 +203,7 @@ If you want to help with development, feel free to fork the project. If you have
   pm2 start app.js
   ```
 
-  You can test the API by visiting [localhost:3100/api/0.2/types.json?api_key=APIKEY](http://localhost:3100/api/0.2/types.json?api_key=APIKEY). The page should return `[]` until you create a new type at [localhost:3000/types/new](http://localhost:3000/types/new).
+  You can test the API by visiting [localhost:3100/api/0.2/types.json?api_key=EEQRBBUB](http://localhost:3100/api/0.2/types.json?api_key=EEQRBBUB). The page should return `[]` until you create a new type at [localhost:3000/types/new](http://localhost:3000/types/new).
 
   The API is currently (poorly) documented [here](https://docs.google.com/document/d/1YMA_d6dT0IZjrJuN5ndz7jzrpSiuwFEsnGcqp9gKgo8/).
 
