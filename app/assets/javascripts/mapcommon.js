@@ -96,7 +96,8 @@ function basemap(lat,lng,zoom,type,bounds){
         google.maps.MapTypeId.TERRAIN,
         google.maps.MapTypeId.SATELLITE,
         google.maps.MapTypeId.HYBRID,
-        toner]
+				toner,
+				"OSM"]
     },
     zoomControl: true,
     zoomControlOptions: {
@@ -127,6 +128,25 @@ function basemap(lat,lng,zoom,type,bounds){
   if(type == toner){
     update_attribution();
   }
+
+	// OSM
+	// http://wiki.openstreetmap.org/wiki/Google_Maps_Example
+	map.mapTypes.set("OSM", new google.maps.ImageMapType({
+    getTileUrl: function(coord, zoom) {
+      // "Wrap" x (logitude) at 180th meridian properly
+      // NOTE: Don't touch coord.x because coord param is by reference, and changing its x property breakes something in Google's lib
+      var tilesPerGlobe = 1 << zoom;
+      var x = coord.x % tilesPerGlobe;
+      if (x < 0) {
+        x = tilesPerGlobe+x;
+      }
+      // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
+      return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+    },
+    tileSize: new google.maps.Size(256, 256),
+    name: "OSM",
+    maxZoom: 18
+  }));
 
   // Turn off 45 deg imagery by default
   map.setTilt(0);
