@@ -268,7 +268,7 @@ saveRDS(searches, paste0(output_dir, "searches.rds"))
 #### Output ####
 
 # TODO: Move up?
-common_names[name == "", is_valid := FALSE]
+common_names[name == "" | is.na(name) | name == "NA", is_valid := FALSE]
 # Normalize common names
 common_names[!is.na(search_results) & is.na(display_name), display_name := normalize_common_name(x = name, x_search = search_name), by = .(language, search_name)]
 
@@ -344,3 +344,15 @@ y <- common_names[is_valid == TRUE & is_recognized_language == TRUE][order(-subs
 z <- merge(x, y, by = "ff_id")
 json <- jsonlite::toJSON(apply(z, 1, "["), pretty = TRUE)
 cat(json, file = paste0(output_dir, "type_locales.json"))
+
+## Human translator
+# human_{locale}_names.csv
+# id | categories | taxonomic_rank | scientific_name | en_name | en_wikipedia_url | {locale}_wikipedia_url | {locale}_names | human_names
+common_names[language == "fr", display_name := normalize_common_name(x = name, x_search = search_name), by = .(language, search_name)]
+
+x <- ff_types[order(order)][pending == FALSE, .(categories = paste(expand_category_mask(category_mask), collapse = ", "), taxonomic_rank, scientific_name, en_name = name, en_wikipedia_url = wikipedia_url, fr_name), by = id]
+y <- common_names[is_valid == TRUE & language == "fr"][order(-subset_search_results)][, .(fr_names = list(unique(display_name)), fr_wikipedia_url = ifelse(sum(source == "wikipedia") == 0, NA_character_, build_wiki_url(url = parse_wiki_url(unique(url[source == "wikipedia"]))))), by = ff_id]
+z <- merge(x, y, by.x = "id", by.y = "ff_id", sort = FALSE, all.x = TRUE)
+setnames(z[, temp := paste(na.omit(unique(c(fr_name, unlist(fr_names)))), collapse = ", "), by = id][, fr_name := NULL][, fr_names := NULL][], "temp", "fr_names")
+setcolorder(z, c("id", "categories", "taxonomic_rank", "scientific_name", "en_name", "en_wikipedia_url", "fr_wikipedia_url", "fr_names"))
+write.csv(z, paste0(output_dir, "human_fr_names.csv"), na = "", row.names = FALSE)
