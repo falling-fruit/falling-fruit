@@ -71,7 +71,7 @@
 		{
 			"id": "1c3f78f3-722f-0b78-dcfa-5293e9f59bfd",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=cphillips@smallwhitecube.com&password=CHANGEME",
+			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=CHANGEME&password=CHANGEME",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -357,7 +357,7 @@
 		{
 			"id": "d91250bc-5480-6536-5873-8f42b2b15577",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=ethan.welty@gmail.com&password=FAKE",
+			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=FAKE@FAKE.COM&password=FAKE",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
