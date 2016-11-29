@@ -16,7 +16,7 @@ function setDirection(selector) {
   for (var i=0; i<string.length; i++) {
     var isRTL = checkRTL( string[i] );
     var dir = isRTL ? 'RTL' : 'LTR';
-    if (dir === 'RTL') var finalDirection = 'RTL';	
+    if (dir === 'RTL') var finalDirection = 'RTL';
     if (finalDirection == 'RTL') dir = 'RTL';
   }
   if (dir=='LTR') {

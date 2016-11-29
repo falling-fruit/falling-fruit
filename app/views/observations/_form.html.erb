@@ -1,7 +1,7 @@
 <% content_for :form_scripts do %>
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-  
+
   // Date observed
   $("#observation_observed_on").datepicker({
     dateFormat: "yy-mm-dd",
@@ -81,14 +81,14 @@ jQuery(document).ready(function(){
     <%= f.label :observed_on, translate("locations.form.date_visited") %><br />
     <%= f.text_field(:observed_on, :placeholder => 'yyyy-mm-dd') %>
   </div>
-  
+
   <!-- Comments -->
   <div class="field">
     <%= f.label :comment, translate("locations.form.comments") %><br />
     <span class="subtext"><%= translate("locations.form.comments_subtext") %></span><br />
     <%= f.text_area :comment, :size => "40x3" %>
   </div>
-  
+
   <hr />
 
   <!-- Fruiting -->
@@ -98,7 +98,7 @@ jQuery(document).ready(function(){
     <%= f.select(:fruiting, I18n.translate("locations.infowindow.fruiting").collect{ |r| [r, translate("locations.infowindow.fruiting").index(r)] },:include_blank => true) %>
     <div class="slider-legend"><div><%= translate("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.fruiting")[2] %></div></div>
   </div>
-  
+
   <!-- Yield Rating -->
   <div class="field">
     <%= f.label :yield_rating, translate("glossary.yield") %><br />
@@ -106,7 +106,7 @@ jQuery(document).ready(function(){
     <%= f.select(:yield_rating, I18n.translate("locations.infowindow.rating").collect{ |r| [r, translate("locations.infowindow.rating").index(r)] },:include_blank => true) %>
     <div class="slider-legend"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
   </div>
-  
+
   <!-- Quality Rating -->
   <div class="field">
     <%= f.label :quality_rating, translate("glossary.quality") %><br />
@@ -122,7 +122,7 @@ jQuery(document).ready(function(){
       <span class="subtext"><span><%= translate("locations.form.verify_subtext") %></span><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:9px;" onclick="$('#unverified_help').dialog({autoOpen:true, width:500, modal:true, resizable:false, draggable:false})">[?]</span></span>
     </div>
   <% end %>
-  
+
   <% if user_signed_in? and current_user.is? :grafter %>
     <!-- Graft -->
     <div class="field">
@@ -130,9 +130,9 @@ jQuery(document).ready(function(){
       <span class="subtext">Grafts will only be visible to other grafters.</span>
     </div>
   <% end %>
-  
-	<hr />
-  
+
+  <hr />
+
   <!-- Photo -->
   <div class="field">
    <%= f.label :photo, translate("glossary.photo") %><br />
@@ -145,7 +145,7 @@ jQuery(document).ready(function(){
     <%= f.label :photo_caption, translate("locations.form.photo_caption") %><br />
     <%= f.text_field :photo_caption, :size => "40" %>
   </div>
-  
+
   <hr />
 
   <!-- Author (if new or admin) -->
@@ -153,26 +153,26 @@ jQuery(document).ready(function(){
     <%= f.label :author, translate("locations.form.your_name") %><br />
     <span class="subtext"><%= translate("locations.form.name_subtext") %></span><br />
     <% if (user_signed_in? and !current_user.add_anonymously?) %>
-    	<%= f.text_field :author, :value => current_user.name %>
+      <%= f.text_field :author, :value => current_user.name %>
     <% else %>
-    	<%= f.text_field :author %>
+      <%= f.text_field :author %>
     <% end %>
     </span>
   </div>
   <br/>
-  
+
   <!-- Captcha -->
-	<% unless user_signed_in? %>
-  	<div id="captcha">
-  		<%= recaptcha_tags(:display => {:theme => 'white'}, :ssl => (request.protocol == 'https://' ? true : false)) %>
-  	</div>
+  <% unless user_signed_in? %>
+    <div id="captcha">
+      <%= recaptcha_tags(:display => {:theme => 'white'}, :ssl => (request.protocol == 'https://' ? true : false)) %>
+    </div>
   <br />
-	<% end %>
-  
+  <% end %>
+
   <!-- Submit -->
   <div class="actions">
     <%= f.button translate("glossary.submit") %>
   </div>
-  
+
 <% end %>
 </form>

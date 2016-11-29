@@ -5,7 +5,7 @@
 <table id="import_list">
 <thead>
   <tr>
-  	<th>ID</th>
+    <th>ID</th>
     <th><%= translate("glossary.name") %></th>
     <th><%= translate("glossary.locations", :count => 2) %></th>
     <th>Autoload</th>
@@ -17,42 +17,42 @@
   </tr>
 </thead>
 <tbody>
-<% 
+<%
 lcounts = {}
 Location.select("count(*), import_id").joins(:import).group(:import_id).each{ |l|
   lcounts[l.import_id] = l.count
 }
 Import.all.each do |import| %>
-  <% 
+  <%
     ofile = File.join("public","import","#{import.id}.csv")
     ifile = File.join("public","import","#{import.id}_done.csv")
     efile = File.join("public","import","#{import.id}_error.csv")
   %>
   <tr>
-  	<td style="text-align:right"><%= link_to import_path(import.id) do %><%= import.id %><% end %></td>
+    <td style="text-align:right"><%= link_to import_path(import.id) do %><%= import.id %><% end %></td>
     <td>
     <% unless import.url.blank? %>
-		  <%= link_to(import.name,import.url) %>
-	  <% else %>
-		  <%= import.name %>
-	  <% end %>
+      <%= link_to(import.name,import.url) %>
+    <% else %>
+      <%= import.name %>
+    <% end %>
     </td>
     <td><%= lcounts[import.id] %></td>
     <td><%= import.autoload ? "x" : "" %></td>
     <td><%= import.muni ? "x" : "" %></td>
     <td>
     <% if File.exists? ofile %>
-		Queued
-	<% end %>
-    <% if File.exists? ifile %> 
-		Done (<%= link_to 'CSV', "/import/#{import.id}_done.csv" %>)<%= "," if File.exists? efile %>
-	<% end %>
-	<% if File.exists? efile %> 
-		<span style="color:red;"><%= translate("glossary.error") %></span> (<%= link_to 'CSV', "/import/#{import.id}_error.csv" %>)
-	<% end %>
-	<% if !File.exists? ofile and !File.exists? ifile and !File.exists? efile  %>
-		Done (Legacy)
-	<% end %>
+    Queued
+  <% end %>
+    <% if File.exists? ifile %>
+    Done (<%= link_to 'CSV', "/import/#{import.id}_done.csv" %>)<%= "," if File.exists? efile %>
+  <% end %>
+  <% if File.exists? efile %>
+    <span style="color:red;"><%= translate("glossary.error") %></span> (<%= link_to 'CSV', "/import/#{import.id}_error.csv" %>)
+  <% end %>
+  <% if !File.exists? ofile and !File.exists? ifile and !File.exists? efile  %>
+    Done (Legacy)
+  <% end %>
     </td>
     <td><%= import.created_at %></td>
     <td><%= link_to translate("glossary.edit"), edit_import_path(import) %></td>

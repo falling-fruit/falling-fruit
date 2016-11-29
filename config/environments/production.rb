@@ -68,8 +68,8 @@ FallingfruitWebapp::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   #config.assets.precompile += %w( *.png *.jpg *.jpeg *.gif
   #                                application.css  base.css  EZWmobile.css  mobile.css  pages.css  routes.css.scss
-  #				  application.js  infowindowShadowbox.js  mainmap.mobile.js  maplabel.js  progressBar.js
-  #                               routes.js.coffee  wicket-gmap3.src.js mainmap.js mapcommon.js       mobile.js    
+  #          application.js  infowindowShadowbox.js  mainmap.mobile.js  maplabel.js  progressBar.js
+  #                               routes.js.coffee  wicket-gmap3.src.js mainmap.js mapcommon.js       mobile.js
   #                                richmarker.js   sprintf.js        wicket.src.js
   #                              )
 

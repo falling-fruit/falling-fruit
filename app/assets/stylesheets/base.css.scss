@@ -172,19 +172,19 @@ div#location_infowindow {
   overflow: auto;
 
   .ui-tabs-nav a {
-  	font-weight: 300;
+    font-weight: 300;
   }
 
   .ui-tabs-panel a {
-  	text-decoration: none;
-		border-bottom: 1px solid #DDD;
-		color: #999;
-	}
+    text-decoration: none;
+    border-bottom: 1px solid #DDD;
+    color: #999;
+  }
 
-	.ui-tabs-panel a:hover {
-		border-color: #999;
-  	color: #333;
-	}
+  .ui-tabs-panel a:hover {
+    border-color: #999;
+    color: #333;
+  }
 }
 
 /*** Info Tab Only ***/
@@ -199,17 +199,17 @@ div#tab-1 div#type_list {
   margin-bottom: 0.4em;
 
   li {
-		list-style: none;
-		margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
-		display: inline-block;
-		background-color: #EEE;
-		padding: 0.1em 0.4em;
-		font-size: 1.15em;
-	}
+    list-style: none;
+    margin: 0 0 .2em 0; /* for appropriate "line height" if list longer than one line */
+    display: inline-block;
+    background-color: #EEE;
+    padding: 0.1em 0.4em;
+    font-size: 1.15em;
+  }
 
-	img.type_icon {
-  	height: 0.9em;
-	}
+  img.type_icon {
+    height: 0.9em;
+  }
 }
 
 /* Description */
@@ -283,12 +283,12 @@ div.observation {
   padding: 0.75em 0;
 
   a { /* 'x' visible to admins */
-  	border-bottom: none !important;
+    border-bottom: none !important;
   }
 }
 
 .graft {
-	background: rgb(182, 253, 183);
+  background: rgb(182, 253, 183);
 }
 
 div.observation_text {
@@ -618,8 +618,8 @@ div#slider{
   .select2-default:hover,
   .select2-default:hover .select2-arrow,
   .select2-arrow:hover {
-		background-color: #C6E1F7 ! important;
-	}
+    background-color: #C6E1F7 ! important;
+  }
 }
 
 /* Alternate shading of results */

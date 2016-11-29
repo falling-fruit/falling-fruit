@@ -28,7 +28,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
 
   createLatLng: (lat, lng)->
     return new OpenLayers.LonLat(lng, lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")) # transform from WGS 1984 to Spherical Mercator Projection
-              
+
   createAnchor: (offset)->
     return null if offset == null
     return new OpenLayers.Pixel(offset[0], offset[1])
@@ -38,7 +38,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
 
   createLatLngBounds: ->
      return new OpenLayers.Bounds()
-  
+
   createMap: ->
     #//todo add customization: kind of map and other map options
     map = new OpenLayers.Map(@map_options.id)
@@ -54,9 +54,9 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
   createMarker: (args) ->
     style_mark = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default'])
     style_mark.fillOpacity = 1
-  
-    #//creating markers' dedicated layer 
-    if (@markersLayer == null) 
+
+    #//creating markers' dedicated layer
+    if (@markersLayer == null)
       @markersLayer = new OpenLayers.Layer.Vector("Markers", null)
       @serviceObject.addLayer(@markersLayer)
       #//TODO move?
@@ -66,7 +66,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
       @serviceObject.addControl(@markersControl)
       @markersControl.activate()
     #//showing default pic if none available
-    if args.marker_picture == ""  
+    if args.marker_picture == ""
       #style_mark.graphicWidth = 24
       style_mark.graphicHeight = 30
       style_mark.externalGraphic = "http://openlayers.org/dev/img/marker-blue.png"
@@ -76,7 +76,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
       style_mark.graphicHeight   = args.marker_height
       style_mark.externalGraphic = args.marker_picture
       #//adding anchor if any
-      if args.marker_anchor != null 
+      if args.marker_anchor != null
         style_mark.graphicXOffset = args.marker_anchor[0]
         style_mark.graphicYOffset = args.marker_anchor[1]
       #//adding shadow if any
@@ -88,7 +88,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
         if args.shadow_anchor != null
           style_mark.backgroundXOffset = args.shadow_anchor[0]
           style_mark.backgroundYOffset = args.shadow_anchor[1]
-      
+
     style_mark.graphicTitle = args.title
     marker = new OpenLayers.Feature.Vector(
                new OpenLayers.Geometry.Point(args.Lng, args.Lat),
@@ -98,7 +98,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
     marker.geometry.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"))
     #//adding layer to the map
     @markersLayer.addFeatures([marker])
-  
+
     return marker
 
   #//clear markers
@@ -106,14 +106,14 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
     @clearMarkersLayerIfExists()
     @markersLayer = null
     @boundsObject = new OpenLayers.Bounds()
-  
-  clearMarkersLayerIfExists: -> 
+
+  clearMarkersLayerIfExists: ->
     @serviceObject.removeLayer(@markersLayer) if @markersLayer != null and @serviceObject.getLayer(@markersLayer.id) != null
-  
+
   extendBoundsWithMarkers: ->
     console.log "here"
     for marker in @markers
-      @boundsObject.extend(@createLatLng(marker.lat,marker.lng))        
+      @boundsObject.extend(@createLatLng(marker.lat,marker.lng))
 
   #////////////////////////////////////////////////////
   #/////////////////// Clusterer //////////////////////
@@ -121,7 +121,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
   #//too ugly to be considered valid :(
 
   createClusterer: (markers_array)->
-     options = 
+     options =
        pointRadius: "${radius}"
        fillColor: "#ffcc66"
        fillOpacity: 0.8
@@ -136,26 +136,26 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
            pix = 2
            pix = Math.min(feature.attributes.count, 7) + 2 if feature.cluster
            return pix
-     
+
      style = new OpenLayers.Style options, funcs
-   
+
      strategy = new OpenLayers.Strategy.Cluster()
-   
-     clusters = new OpenLayers.Layer.Vector "Clusters", 
+
+     clusters = new OpenLayers.Layer.Vector "Clusters",
        strategies: [strategy]
        styleMap: new OpenLayers.StyleMap
          "default": style
-         "select": 
+         "select":
             fillColor: "#8aeeef"
             strokeColor: "#32a8a9"
-       
+
      @clearMarkersLayerIfExists()
      @serviceObject.addLayer(clusters)
      clusters.addFeatures(markers_array)
      return clusters
-   
+
    clusterize: ->
-   
+
      if @markers_conf.do_clustering == true
        #//first clear the existing clusterer if any
        if @markerClusterer != null
@@ -164,7 +164,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
        for marker in @markers
          markers_array.push(marker.serviceObject)
        @markerClusterer = @createClusterer markers_array
-   
+
    clearClusterer: ->
      @serviceObject.removeLayer @markerClusterer
 
@@ -175,13 +175,13 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
   #// creates infowindows
   createInfoWindow: (marker_container) ->
     marker_container.serviceObject.infoWindow = marker_container.description if marker_container.description?
-  
+
   onPopupClose: (evt) ->
     #// 'this' is the popup.
     @markersControl.unselect @feature
-  
+
   onFeatureSelect: (evt) ->
-    feature = evt.feature    
+    feature = evt.feature
     popup = new OpenLayers.Popup.FramedCloud("featurePopup",
                                feature.geometry.getBounds().getCenterLonLat(),
                                new OpenLayers.Size(300,200),
@@ -204,7 +204,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
   #////////////////////////////////////////////////////
 
   create_polyline : (polyline) ->
-	
+
     if(@polylinesLayer == null)
       @polylinesLayer = new OpenLayers.Layer.Vector("Polylines", null)
       @serviceObject.addLayer(@polylinesLayer)
@@ -212,7 +212,7 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
       @polylinesLayer.events.register("featureunselected", @polylinesLayer, @onFeatureUnselect)
       @polylinesControl = new OpenLayers.Control.DrawFeature(@polylinesLayer, OpenLayers.Handler.Path)
       @serviceObject.addControl(@polylinesControl)
-    
+
     polyline_coordinates = []
 
     for element in polyline
@@ -222,16 +222,16 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
         strokeOpacity = element.strokeOpacity || @polylines_conf.strokeOpacity
         strokeWeight  = element.strokeWeight  || @polylines_conf.strokeWeight
         clickable     = element.clickable     || @polylines_conf.clickable
-        zIndex        = element.zIndex        || @polylines_conf.zIndex	  
-      
+        zIndex        = element.zIndex        || @polylines_conf.zIndex
+
       #add latlng if positions provided
       if element.lat? && element.lng?
         latlng = new OpenLayers.Geometry.Point(element.lng, element.lat)
         polyline_coordinates.push(latlng)
-    
+
     line_points = new OpenLayers.Geometry.LineString(polyline_coordinates);
     line_style = { strokeColor: strokeColor, strokeOpacity: strokeOpacity, strokeWidth: strokeWeight };
-   
+
     polyline = new OpenLayers.Feature.Vector(line_points, null, line_style);
     polyline.geometry.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"))
 
@@ -240,22 +240,22 @@ class @Gmaps4RailsOpenlayers extends Gmaps4Rails
     return polyline
 
   updateBoundsWithPolylines: ()->
-  
+
   updateBoundsWithPolygons: ()->
-    
+
   updateBoundsWithCircles: ()->
-  
+
   # #////////////////////////////////////////////////////
   # #/////////////////// Other methods //////////////////
   # #////////////////////////////////////////////////////
- 
+
   fitBounds: ->
     @serviceObject.zoomToExtent(@boundsObject, true)
-  
+
   centerMapOnUser: ->
     @serviceObject.setCenter @userLocation
-    
+
   extendMapBounds :->
-    
+
   adaptMapToBounds: ->
     @fitBounds()

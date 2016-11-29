@@ -133,7 +133,7 @@ class Type < ActiveRecord::Base
 
   # Default sorting scheme
   def Type.default_sort
-  	#Type.order('scientific_name ASC NULLS LAST, taxonomic_rank ASC').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
+    #Type.order('scientific_name ASC NULLS LAST, taxonomic_rank ASC').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
     self.select("*, COALESCE(" + Type.i18n_name_field + ", name) as i18n_name_sql").order("scientific_name ASC NULLS LAST, taxonomic_rank, i18n_name_sql")
   end
 

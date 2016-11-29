@@ -16,7 +16,7 @@
 <td><%= problem.created_at.strftime('%Y-%m-%d') %></td>
 <td>
   <%
-  unless problem.reporter.nil? 
+  unless problem.reporter.nil?
     email = problem.reporter.email
     email_name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
     display_name = problem.reporter.name.nil? ? email : problem.reporter.name
@@ -28,7 +28,7 @@
   display_name = display_name.nil? ? '' : display_name
   unless email.nil?
     location_url = problem.location.nil? ? '' : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
-    mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>' 
+    mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>'
   else
     mailto = display_name
   end
@@ -38,7 +38,7 @@
 <td>
 <% if problem.location.nil? %>
   Deleted
-<% else %>    
+<% else %>
   <%= link_to problem.location.id, location_path(problem.location.id) %>
 <% end %>
 </td>
@@ -48,7 +48,7 @@
     <br><em><%= problem.comment %></em>
   <% end %>
 </td>
-<td>  
+<td>
 <%= form_for(problem) do |f| %>
   <%= hidden_field_tag :responder_id, current_user.id %>
   <%= f.hidden_field :id %>
@@ -84,7 +84,7 @@
 <td><%= problem.created_at %></td>
 <td>
   <%
-  unless problem.reporter.nil? 
+  unless problem.reporter.nil?
     email = problem.reporter.email
     email_name = problem.reporter.name.nil? ? '' : '%20' + problem.reporter.name
     display_name = problem.reporter.name.nil? ? email : problem.reporter.name
@@ -96,7 +96,7 @@
   display_name = display_name.nil? ? '' : display_name
   unless email.nil?
     location_url = problem.location.nil? ? '' : '%0D%0A%0D%0Ahttp://fallingfruit.org/locations/' + problem.location_id.to_s
-    mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>' 
+    mailto = '<a href="mailto:' + email + '?subject=Falling%20Fruit%20Location #' + problem.location_id.to_s + '&body=Hi' + email_name + ',' + location_url + '">' + display_name + '</a>'
   else
     mailto = display_name
   end
@@ -106,7 +106,7 @@
 <td>
 <% if problem.location.nil? %>
   Deleted
-<% else %>    
+<% else %>
   <%= link_to problem.location.id, location_path(problem.location.id) %>
 <% end %>
 </td>
@@ -134,12 +134,12 @@ jQuery(document).ready(function(){
     jQuery('#open_problems_table').dataTable({
       "aaSorting": [[0,"asc"]],
       "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-						"iDisplayLength" : -1
+            "iDisplayLength" : -1
     });
     jQuery('#closed_problems_table').dataTable({
       "aaSorting": [[0,"asc"]],
       "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-						"iDisplayLength" : -1
+            "iDisplayLength" : -1
     });
 });
 </script>

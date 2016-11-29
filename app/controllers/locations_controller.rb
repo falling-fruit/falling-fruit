@@ -38,11 +38,11 @@ class LocationsController < ApplicationController
           csv << cols
           @locations.each{ |l|
 
-          	quality_rating = Location.find(l.id).mean_quality_rating
-          	yield_rating = Location.find(l.id).mean_yield_rating
+            quality_rating = Location.find(l.id).mean_quality_rating
+            yield_rating = Location.find(l.id).mean_yield_rating
 
             csv << [l.id,l.lat,l.lng,l.unverified,l.description,
-            				l.season_start.nil? ? nil : I18n.t("date.month_names")[l.season_start+1],
+                    l.season_start.nil? ? nil : I18n.t("date.month_names")[l.season_start+1],
                     l.season_stop.nil? ? nil : I18n.t("date.month_names")[l.season_stop+1],
                     l.no_season,
                     quality_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[quality_rating],
@@ -418,12 +418,12 @@ class LocationsController < ApplicationController
     if params[:location].present? and params[:location][:type_ids].present?
       v = []
       if params[:location][:type_ids].kind_of? Hash
-      	v = params[:location][:type_ids].values.map{ |x| x.to_i }
+        v = params[:location][:type_ids].values.map{ |x| x.to_i }
       elsif params[:location][:type_ids].kind_of? Array
         v = params[:location][:type_ids].map{ |x| x.to_i }
       else
-      	# if we couldn't get it in a reasonable format, delete it
-      	params[:location].delete(:type_ids)
+        # if we couldn't get it in a reasonable format, delete it
+        params[:location].delete(:type_ids)
       end
       logger.debug Type.ids
       logger.debug v

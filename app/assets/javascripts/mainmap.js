@@ -1,5 +1,5 @@
 // ================= functions =================
-  
+
 function data_link(){
   var muni = $('#muni').is(':checked');
   var bounds = map.getBounds();
@@ -18,7 +18,7 @@ function update_permalink(){
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
      typeid + '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale;
   if (type_filter && type_filter.length > 0) {
-  	permalink = permalink + "&f=" + type_filter.join(",");
+    permalink = permalink + "&f=" + type_filter.join(",");
   }
   if (cats != undefined){
     permalink = permalink + "&c=" + cats;
@@ -33,12 +33,12 @@ function update_url(object) {
 // Force url updates before leaving page (does not work on refresh)
 // better?: http://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page/3354511#3354511
 // $(window).unload(function () {
-// 	if ($('#location_link').length > 0) {
-// 		update_url('#location_link');
-// 	} else if ($('#permalink').length > 0) {
-// 		update_permalink();
-// 		update_url('#permalink');
-// 	}
+//   if ($('#location_link').length > 0) {
+//     update_url('#location_link');
+//   } else if ($('#permalink').length > 0) {
+//     update_permalink();
+//     update_url('#permalink');
+//   }
 // });
 
 function show_embed_html(object){
@@ -49,7 +49,7 @@ function show_embed_html(object){
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
   if (type_filter && type_filter.length > 0) {
-  	var fstr = "&f=" + type_filter.join(",");
+    var fstr = "&f=" + type_filter.join(",");
   } else {
     var fstr = "";
   }
@@ -60,16 +60,16 @@ function show_embed_html(object){
   }
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + fstr + cstr +
-    '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale + 
-    '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
-      closeText: "close", 
-      modal: true, 
+    '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale +
+    '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({
+      closeText: "close",
+      modal: true,
       width: 'auto',
       minHeight: '5em',
       resizable: false,
       draggable: false,
       dialogClass: "dialog_grey"
-    }); 
+    });
 }
 
 function show_observation_html(object){
@@ -80,16 +80,16 @@ function show_observation_html(object){
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + 
-    '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({ 
-      closeText: "close", 
-      modal: true, 
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid +
+    '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({
+      closeText: "close",
+      modal: true,
       width: 'auto',
       minHeight: '5em',
       resizable: true,
       draggable: false,
       dialogClass: "dialog_grey"
-    }); 
+    });
 }
 
 function update_display(force,force_zoom,force_bounds){
@@ -124,18 +124,18 @@ function show_map_controls() {
   $('#hidden_controls').show();
   $('#export_data').show();
   $('#invasive_span').show();
-	resize_map();
+  resize_map();
 }
 
 function resize_map() {
   if(document.getElementById('searchbar') == undefined) return;
   var headerHeight = document.getElementById('searchbar').offsetHeight + document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
-	if (document.getElementById('mainmap_container') != undefined) {
-		document.getElementById('mainmap_container').style.top = headerHeight + 'px';
-	}
-	if (document.getElementById('sidebar_container') != undefined) {
-		document.getElementById('sidebar_container').style.top = headerHeight + 'px';
-	}
+  if (document.getElementById('mainmap_container') != undefined) {
+    document.getElementById('mainmap_container').style.top = headerHeight + 'px';
+  }
+  if (document.getElementById('sidebar_container') != undefined) {
+    document.getElementById('sidebar_container').style.top = headerHeight + 'px';
+  }
 }
 
 function update_display_embedded(force, force_zoom, muni) {

@@ -20,155 +20,155 @@
  */
 
 (function (global) {
-	var beginsWith, endsWith, root, Wkt;
+  var beginsWith, endsWith, root, Wkt;
 
-	// Establish the root object, window in the browser, or exports on the server
-	root = this;
+  // Establish the root object, window in the browser, or exports on the server
+  root = this;
 
-	/**
-	 * @desc The Wkt namespace.
-	 * @property    {String}    delimiter   - The default delimiter for separating components of atomic geometry (coordinates)
-	 * @namespace
-	 * @global
-	 */
-	Wkt = function (obj) {
-		if (obj instanceof Wkt) return obj;
-		if (!(this instanceof Wkt)) return new Wkt(obj);
-		this._wrapped = obj;
-	};
+  /**
+   * @desc The Wkt namespace.
+   * @property    {String}    delimiter   - The default delimiter for separating components of atomic geometry (coordinates)
+   * @namespace
+   * @global
+   */
+  Wkt = function (obj) {
+    if (obj instanceof Wkt) return obj;
+    if (!(this instanceof Wkt)) return new Wkt(obj);
+    this._wrapped = obj;
+  };
 
-	// Following Underscore module pattern (http://underscorejs.org/docs/underscore.html)
-	if (typeof exports !== 'undefined') {
-		if (typeof module !== 'undefined' && module.exports) {
-			exports = module.exports = Wkt;
-		}
-		exports.Wkt = Wkt;
-	} else {
-		root.Wkt = Wkt;
-	}
+  // Following Underscore module pattern (http://underscorejs.org/docs/underscore.html)
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = Wkt;
+    }
+    exports.Wkt = Wkt;
+  } else {
+    root.Wkt = Wkt;
+  }
 
-	/**
-	 * Returns true if the substring is found at the beginning of the string.
-	 * @param   str {String}    The String to search
-	 * @param   sub {String}    The substring of interest
-	 * @return      {Boolean}
-	 * @private
-	 */
-	beginsWith = function (str, sub) {
-		return str.substring(0, sub.length) === sub;
-	};
+  /**
+   * Returns true if the substring is found at the beginning of the string.
+   * @param   str {String}    The String to search
+   * @param   sub {String}    The substring of interest
+   * @return      {Boolean}
+   * @private
+   */
+  beginsWith = function (str, sub) {
+    return str.substring(0, sub.length) === sub;
+  };
 
-	/**
-	 * Returns true if the substring is found at the end of the string.
-	 * @param   str {String}    The String to search
-	 * @param   sub {String}    The substring of interest
-	 * @return      {Boolean}
-	 * @private
-	 */
-	endsWith = function (str, sub) {
-		return str.substring(str.length - sub.length) === sub;
-	};
+  /**
+   * Returns true if the substring is found at the end of the string.
+   * @param   str {String}    The String to search
+   * @param   sub {String}    The substring of interest
+   * @return      {Boolean}
+   * @private
+   */
+  endsWith = function (str, sub) {
+    return str.substring(str.length - sub.length) === sub;
+  };
 
-	/**
-	 * The default delimiter for separating components of atomic geometry (coordinates)
-	 * @ignore
-	 */
-	Wkt.delimiter = ' ';
+  /**
+   * The default delimiter for separating components of atomic geometry (coordinates)
+   * @ignore
+   */
+  Wkt.delimiter = ' ';
 
-	/**
-	 * Determines whether or not the passed Object is an Array.
-	 * @param   obj {Object}    The Object in question
-	 * @return      {Boolean}
-	 * @member Wkt.isArray
-	 * @method
-	 */
-	Wkt.isArray = function (obj) {
-		return !!(obj && obj.constructor === Array);
-	};
+  /**
+   * Determines whether or not the passed Object is an Array.
+   * @param   obj {Object}    The Object in question
+   * @return      {Boolean}
+   * @member Wkt.isArray
+   * @method
+   */
+  Wkt.isArray = function (obj) {
+    return !!(obj && obj.constructor === Array);
+  };
 
-	/**
-	 * Removes given character String(s) from a String.
-	 * @param   str {String}    The String to search
-	 * @param   sub {String}    The String character(s) to trim
-	 * @return      {String}    The trimmed string
-	 * @member Wkt.trim
-	 * @method
-	 */
-	Wkt.trim = function (str, sub) {
-		sub = sub || ' '; // Defaults to trimming spaces
-		// Trim beginning spaces
-		while (beginsWith(str, sub)) {
-			str = str.substring(1);
-		}
-		// Trim ending spaces
-		while (endsWith(str, sub)) {
-			str = str.substring(0, str.length - 1);
-		}
-		return str;
-	};
+  /**
+   * Removes given character String(s) from a String.
+   * @param   str {String}    The String to search
+   * @param   sub {String}    The String character(s) to trim
+   * @return      {String}    The trimmed string
+   * @member Wkt.trim
+   * @method
+   */
+  Wkt.trim = function (str, sub) {
+    sub = sub || ' '; // Defaults to trimming spaces
+    // Trim beginning spaces
+    while (beginsWith(str, sub)) {
+      str = str.substring(1);
+    }
+    // Trim ending spaces
+    while (endsWith(str, sub)) {
+      str = str.substring(0, str.length - 1);
+    }
+    return str;
+  };
 
-	/**
-	 * An object for reading WKT strings and writing geographic features
-	 * @constructor this.Wkt.Wkt
-	 * @param   initializer {String}    An optional WKT string for immediate read
-	 * @property            {Array}     components      - Holder for atomic geometry objects (internal representation of geometric components)
-	 * @property            {String}    delimiter       - The default delimiter for separating components of atomic geometry (coordinates)
-	 * @property            {Object}    regExes         - Some regular expressions copied from OpenLayers.Format.WKT.js
-	 * @property            {String}    type            - The Well-Known Text name (e.g. 'point') of the geometry
-	 * @property            {Boolean}   wrapVerticies   - True to wrap vertices in MULTIPOINT geometries; If true: MULTIPOINT((30 10),(10 30),(40 40)); If false: MULTIPOINT(30 10,10 30,40 40)
-	 * @return              {this.Wkt.Wkt}
-	 * @memberof Wkt
-	 */
-	Wkt.Wkt = function (initializer) {
+  /**
+   * An object for reading WKT strings and writing geographic features
+   * @constructor this.Wkt.Wkt
+   * @param   initializer {String}    An optional WKT string for immediate read
+   * @property            {Array}     components      - Holder for atomic geometry objects (internal representation of geometric components)
+   * @property            {String}    delimiter       - The default delimiter for separating components of atomic geometry (coordinates)
+   * @property            {Object}    regExes         - Some regular expressions copied from OpenLayers.Format.WKT.js
+   * @property            {String}    type            - The Well-Known Text name (e.g. 'point') of the geometry
+   * @property            {Boolean}   wrapVerticies   - True to wrap vertices in MULTIPOINT geometries; If true: MULTIPOINT((30 10),(10 30),(40 40)); If false: MULTIPOINT(30 10,10 30,40 40)
+   * @return              {this.Wkt.Wkt}
+   * @memberof Wkt
+   */
+  Wkt.Wkt = function (initializer) {
 
-		/**
-		 * The default delimiter between X and Y coordinates.
-		 * @ignore
-		 */
-		this.delimiter = Wkt.delimiter || ' ';
+    /**
+     * The default delimiter between X and Y coordinates.
+     * @ignore
+     */
+    this.delimiter = Wkt.delimiter || ' ';
 
-		/**
-		 * Configuration parameter for controlling how Wicket seralizes
-		 * MULTIPOINT strings. Examples; both are valid WKT:
-		 * If true: MULTIPOINT((30 10),(10 30),(40 40))
-		 * If false: MULTIPOINT(30 10,10 30,40 40)
-		 * @ignore
-		 */
-		this.wrapVertices = true;
+    /**
+     * Configuration parameter for controlling how Wicket seralizes
+     * MULTIPOINT strings. Examples; both are valid WKT:
+     * If true: MULTIPOINT((30 10),(10 30),(40 40))
+     * If false: MULTIPOINT(30 10,10 30,40 40)
+     * @ignore
+     */
+    this.wrapVertices = true;
 
-		/**
-		 * Some regular expressions copied from OpenLayers.Format.WKT.js
-		 * @ignore
-		 */
-		this.regExes = {
-			'typeStr': /^\s*(\w+)\s*\(\s*(.*)\s*\)\s*$/,
-			'spaces': /\s+|\+/, // Matches the '+' or the empty space
-			'numeric': /-*\d+(\.*\d+)?/,
-			'comma': /\s*,\s*/,
-			'parenComma': /\)\s*,\s*\(/,
-			'coord': /-*\d+\.*\d+ -*\d+\.*\d+/, // e.g. "24 -14"
-			'doubleParenComma': /\)\s*\)\s*,\s*\(\s*\(/,
-			'trimParens': /^\s*\(?(.*?)\)?\s*$/,
-			'ogcTypes': /^(multi)?(point|line|polygon|box)?(string)?$/i, // Captures e.g. "Multi","Line","String"
-			'crudeJson': /^{.*"(type|coordinates|geometries|features)":.*}$/ // Attempts to recognize JSON strings
-		};
+    /**
+     * Some regular expressions copied from OpenLayers.Format.WKT.js
+     * @ignore
+     */
+    this.regExes = {
+      'typeStr': /^\s*(\w+)\s*\(\s*(.*)\s*\)\s*$/,
+      'spaces': /\s+|\+/, // Matches the '+' or the empty space
+      'numeric': /-*\d+(\.*\d+)?/,
+      'comma': /\s*,\s*/,
+      'parenComma': /\)\s*,\s*\(/,
+      'coord': /-*\d+\.*\d+ -*\d+\.*\d+/, // e.g. "24 -14"
+      'doubleParenComma': /\)\s*\)\s*,\s*\(\s*\(/,
+      'trimParens': /^\s*\(?(.*?)\)?\s*$/,
+      'ogcTypes': /^(multi)?(point|line|polygon|box)?(string)?$/i, // Captures e.g. "Multi","Line","String"
+      'crudeJson': /^{.*"(type|coordinates|geometries|features)":.*}$/ // Attempts to recognize JSON strings
+    };
 
-		/**
-		 * The internal representation of geometry--the "components" of geometry.
-		 * @ignore
-		 */
-		this.components = undefined;
+    /**
+     * The internal representation of geometry--the "components" of geometry.
+     * @ignore
+     */
+    this.components = undefined;
 
-		// An initial WKT string may be provided
-		if (initializer && typeof initializer === 'string') {
-			this.read(initializer);
-		} else if (initializer && typeof initializer !== undefined) {
-			this.fromObject(initializer);
-		} 
+    // An initial WKT string may be provided
+    if (initializer && typeof initializer === 'string') {
+      this.read(initializer);
+    } else if (initializer && typeof initializer !== undefined) {
+      this.fromObject(initializer);
+    }
 
-	};
+  };
 
-	global.Wkt = Wkt;
+  global.Wkt = Wkt;
 
 }(this));
 
@@ -215,11 +215,11 @@ this.Wkt.Wkt.prototype.sameCoords = function (a, b) {
 this.Wkt.Wkt.prototype.fromObject = function (obj) {
     var result;
 
-	if (obj.hasOwnProperty('type') && obj.hasOwnProperty('coordinates')) {
-		result = this.fromJson(obj);
-	} else {
-		result = this.deconstruct.call(this, obj);
-	}
+  if (obj.hasOwnProperty('type') && obj.hasOwnProperty('coordinates')) {
+    result = this.fromJson(obj);
+  } else {
+    result = this.deconstruct.call(this, obj);
+  }
 
     this.components = result.components;
     this.isRectangle = result.isRectangle || false;
@@ -250,87 +250,87 @@ this.Wkt.Wkt.prototype.toString = function (config) {
 
 /**
  * Parses a JSON representation as an Object.
- * @param	obj	{Object}	An Object with the GeoJSON schema
- * @return    	{this.Wkt.Wkt}	The object itself
+ * @param  obj  {Object}  An Object with the GeoJSON schema
+ * @return      {this.Wkt.Wkt}  The object itself
  * @memberof this.Wkt.Wkt
  * @method
  */
 this.Wkt.Wkt.prototype.fromJson = function (obj) {
-	var i, j, k, coords, iring, oring;
+  var i, j, k, coords, iring, oring;
 
-	this.type = obj.type.toLowerCase();
-	this.components = [];
+  this.type = obj.type.toLowerCase();
+  this.components = [];
 
-	coords = obj.coordinates;
+  coords = obj.coordinates;
 
-	if (!Wkt.isArray(coords[0])) { // Point
-		this.components.push({
-			x: coords[0],
-			y: coords[1]
-		});
+  if (!Wkt.isArray(coords[0])) { // Point
+    this.components.push({
+      x: coords[0],
+      y: coords[1]
+    });
 
-	} else {
+  } else {
 
-		for (i in coords) {
-			if (coords.hasOwnProperty(i)) {
+    for (i in coords) {
+      if (coords.hasOwnProperty(i)) {
 
-				if (!Wkt.isArray(coords[i][0])) { // LineString
+        if (!Wkt.isArray(coords[i][0])) { // LineString
 
-					if (this.type === 'multipoint') { // MultiPoint
-						this.components.push([{
-							x: coords[i][0],
-							y: coords[i][1]
-						}]);
+          if (this.type === 'multipoint') { // MultiPoint
+            this.components.push([{
+              x: coords[i][0],
+              y: coords[i][1]
+            }]);
 
-					} else {
-						this.components.push({
-							x: coords[i][0],
-							y: coords[i][1]
-						});
+          } else {
+            this.components.push({
+              x: coords[i][0],
+              y: coords[i][1]
+            });
 
-					}
+          }
 
-				} else {
+        } else {
 
-					oring = [];
-					for (j in coords[i]) {
-						if (coords[i].hasOwnProperty(j)) {
+          oring = [];
+          for (j in coords[i]) {
+            if (coords[i].hasOwnProperty(j)) {
 
-							if (!Wkt.isArray(coords[i][j][0])) {
-								oring.push({
-									x: coords[i][j][0],
-									y: coords[i][j][1]
-								});
+              if (!Wkt.isArray(coords[i][j][0])) {
+                oring.push({
+                  x: coords[i][j][0],
+                  y: coords[i][j][1]
+                });
 
-							} else {
+              } else {
 
-								iring = [];
-								for (k in coords[i][j]) {
-									if (coords[i][j].hasOwnProperty(k)) {
+                iring = [];
+                for (k in coords[i][j]) {
+                  if (coords[i][j].hasOwnProperty(k)) {
 
-										iring.push({
-											x: coords[i][j][k][0],
-											y: coords[i][j][k][1]
-										});
+                    iring.push({
+                      x: coords[i][j][k][0],
+                      y: coords[i][j][k][1]
+                    });
 
-									}
-								}
+                  }
+                }
 
-								oring.push(iring);
+                oring.push(iring);
 
-							}
+              }
 
-						}
-					}
+            }
+          }
 
-					this.components.push(oring);
-				}
-			}
-		}
+          this.components.push(oring);
+        }
+      }
+    }
 
-	}
+  }
 
-	return this;
+  return this;
 };
 
 /**
@@ -340,100 +340,100 @@ this.Wkt.Wkt.prototype.fromJson = function (obj) {
  * @method
  */
 Wkt.Wkt.prototype.toJson = function () {
-	var cs, json, i, j, k, ring, rings;
+  var cs, json, i, j, k, ring, rings;
 
-	cs = this.components;
+  cs = this.components;
     json = {
-    	coordinates: [],
-		type: (function () {    
-			var i, type, s;
-		
-			type = this.regExes.ogcTypes.exec(this.type).slice(1);
-			s = [];
-			
-			for (i in type) {
-				if (type.hasOwnProperty(i)) {
-					if (type[i] !== undefined) {
-						s.push(type[i].toLowerCase().slice(0,1).toUpperCase()
-							+ type[i].toLowerCase().slice(1));
-					}
-				}
-			}
-			
-			return s;
-		}.call(this)).join('')
-	}
+      coordinates: [],
+    type: (function () {
+      var i, type, s;
 
-	// Wkt BOX type gets a special bbox property in GeoJSON
-	if (this.type.toLowerCase() === 'box') {
-		json.type = 'Polygon';
-		json.bbox = [];
-		
-		for (i in cs) {
-			if (cs.hasOwnProperty(i)) {
-				json.bbox = json.bbox.concat([cs[i].x, cs[i].y]);
-			}
-		}
-		
-		json.coordinates = [[
-			[cs[0].x, cs[0].y],
-			[cs[0].x, cs[1].y],
-			[cs[1].x, cs[1].y],
-			[cs[1].x, cs[0].y],
-			[cs[0].x, cs[0].y]
-		]];
+      type = this.regExes.ogcTypes.exec(this.type).slice(1);
+      s = [];
 
-		return json;
-	}
-	
-	// For the coordinates of most simple features
-	for (i in cs) {
-		if (cs.hasOwnProperty(i)) {
+      for (i in type) {
+        if (type.hasOwnProperty(i)) {
+          if (type[i] !== undefined) {
+            s.push(type[i].toLowerCase().slice(0,1).toUpperCase()
+              + type[i].toLowerCase().slice(1));
+          }
+        }
+      }
 
-			// For those nested structures
-			if (Wkt.isArray(cs[i])) {
-				rings = [];
+      return s;
+    }.call(this)).join('')
+  }
 
-				for (j in cs[i]) {
-					if (cs[i].hasOwnProperty(j)) {
+  // Wkt BOX type gets a special bbox property in GeoJSON
+  if (this.type.toLowerCase() === 'box') {
+    json.type = 'Polygon';
+    json.bbox = [];
 
-						if (Wkt.isArray(cs[i][j])) { // MULTIPOLYGONS
-							ring = [];
-						
-							for (k in cs[i][j]) {
-								if (cs[i][j].hasOwnProperty(k)) {
-									ring.push([cs[i][j][k].x, cs[i][j][k].y]);
-								}
-							}
-							
-							rings.push(ring);
+    for (i in cs) {
+      if (cs.hasOwnProperty(i)) {
+        json.bbox = json.bbox.concat([cs[i].x, cs[i].y]);
+      }
+    }
 
-						} else { // POLYGONS and MULTILINESTRINGS
-							
-							if (cs[i].length > 1) {
-								rings.push([cs[i][j].x, cs[i][j].y]);
-								
-							} else { // MULTIPOINTS
-								rings = rings.concat([cs[i][j].x, cs[i][j].y]);
-							}
-						}
-					}
-				}
-				
-				json.coordinates.push(rings);
-				
-			} else {
-				if (cs.length > 1) { // For LINESTRING type
-					json.coordinates.push([cs[i].x, cs[i].y]);
-					
-				} else { // For POINT type
-					json.coordinates = json.coordinates.concat([cs[i].x, cs[i].y]);
-				}
-			}
+    json.coordinates = [[
+      [cs[0].x, cs[0].y],
+      [cs[0].x, cs[1].y],
+      [cs[1].x, cs[1].y],
+      [cs[1].x, cs[0].y],
+      [cs[0].x, cs[0].y]
+    ]];
 
-		}
-	}
-	
+    return json;
+  }
+
+  // For the coordinates of most simple features
+  for (i in cs) {
+    if (cs.hasOwnProperty(i)) {
+
+      // For those nested structures
+      if (Wkt.isArray(cs[i])) {
+        rings = [];
+
+        for (j in cs[i]) {
+          if (cs[i].hasOwnProperty(j)) {
+
+            if (Wkt.isArray(cs[i][j])) { // MULTIPOLYGONS
+              ring = [];
+
+              for (k in cs[i][j]) {
+                if (cs[i][j].hasOwnProperty(k)) {
+                  ring.push([cs[i][j][k].x, cs[i][j][k].y]);
+                }
+              }
+
+              rings.push(ring);
+
+            } else { // POLYGONS and MULTILINESTRINGS
+
+              if (cs[i].length > 1) {
+                rings.push([cs[i][j].x, cs[i][j].y]);
+
+              } else { // MULTIPOINTS
+                rings = rings.concat([cs[i][j].x, cs[i][j].y]);
+              }
+            }
+          }
+        }
+
+        json.coordinates.push(rings);
+
+      } else {
+        if (cs.length > 1) { // For LINESTRING type
+          json.coordinates.push([cs[i].x, cs[i].y]);
+
+        } else { // For POINT type
+          json.coordinates = json.coordinates.concat([cs[i].x, cs[i].y]);
+        }
+      }
+
+    }
+  }
+
     return json;
  };
 
@@ -496,25 +496,25 @@ Wkt.Wkt.prototype.read = function (str) {
         }
 
     } else {
-		if (this.regExes.crudeJson.test(str)) {
-			if (typeof JSON === 'object' && typeof JSON.parse === 'function') {
-				this.fromJson(JSON.parse(str));
+    if (this.regExes.crudeJson.test(str)) {
+      if (typeof JSON === 'object' && typeof JSON.parse === 'function') {
+        this.fromJson(JSON.parse(str));
 
-			} else {
-				console.log('JSON.parse() is not available; cannot parse GeoJSON strings');
-				throw {
-					name: 'JSONError',
-					message: 'JSON.parse() is not available; cannot parse GeoJSON strings'
-				};
-			}
+      } else {
+        console.log('JSON.parse() is not available; cannot parse GeoJSON strings');
+        throw {
+          name: 'JSONError',
+          message: 'JSON.parse() is not available; cannot parse GeoJSON strings'
+        };
+      }
 
-		} else {
-			console.log('Invalid WKT string provided to read()');
-			throw {
-				name: 'WKTError',
-				message: 'Invalid WKT string provided to read()'
-			};
-		}
+    } else {
+      console.log('Invalid WKT string provided to read()');
+      throw {
+        name: 'WKTError',
+        message: 'Invalid WKT string provided to read()'
+      };
+    }
     }
 
     return this.components;

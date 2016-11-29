@@ -70,7 +70,7 @@ class @Gmaps4Rails
     @markerClusterer = null  # contains all marker clusterers
     @markerImages = []
 
-	#Polyline Styling
+  #Polyline Styling
     @polylines_conf =         #default style for polylines
       strokeColor: "#FF0000"
       strokeOpacity: 1
@@ -221,7 +221,7 @@ class @Gmaps4Rails
         fillColor     = point.fillColor     || @polygons_conf.fillColor
         fillOpacity   = point.fillOpacity   || @polygons_conf.fillOpacity
         clickable     = point.clickable     || @polygons_conf.clickable
-        
+
     #Construct the polygon
     new_poly = new google.maps.Polygon
       paths:          polygon_coordinates
@@ -236,7 +236,7 @@ class @Gmaps4Rails
     #save polygon in list
     polygon.serviceObject = new_poly
 
-  
+
 
   #////////////////////////////////////////////////////
   #///////////////////// MARKERS //////////////////////
@@ -410,7 +410,7 @@ class @Gmaps4Rails
 
   #//basic function to check existence of a variable
   exists : (var_name) ->
-    return (var_name	!= "" and typeof var_name != "undefined")
+    return (var_name  != "" and typeof var_name != "undefined")
 
 
   #randomize

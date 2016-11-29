@@ -10,13 +10,13 @@
 <% content_for :page_scripts do %>
 <%= render :partial => "/locations/map_includes" %>
 <script type="text/javascript" charset="utf-8">
-	
-	// ================= globals ==================
-		
-	var lat = <%= @location.lat %>;
-	var lng = <%= @location.lng %>;
-	var zoom = 15;
-	var type = google.maps.MapTypeId.ROADMAP;
+
+  // ================= globals ==================
+
+  var lat = <%= @location.lat %>;
+  var lng = <%= @location.lng %>;
+  var zoom = 15;
+  var type = google.maps.MapTypeId.ROADMAP;
 
   // set to true once we open the initial infobox
   var opened_once = false;
@@ -25,17 +25,17 @@
   <% unless @type.nil? %>
     type_filter = <%= @type.id %>;
   <% end %>
-  
+
   // ================= functions =================
-  
+
   function initialize() {
     basemap(lat,lng,zoom,type);
-	
+
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
-    	update_permalink();
+      update_permalink();
       update_attribution();
     });
-    
+
     google.maps.event.addListener(map, 'rightclick', function(event) {
       remove_add_marker();
       place_add_marker(event.latLng);
@@ -49,7 +49,7 @@
         }
       },false);
     });
-        
+
     // Far less redundant event trigger
     google.maps.event.addListener(map, 'idle', function() {
       update_display(false);
@@ -67,7 +67,7 @@
   navigator.geolocation.getCurrentPosition(function(position){},function(error){
     $('#recenter_button').hide();
   });
-  
+
 </script>
 <%= javascript_include_tag "maplabel" %>
 <%= javascript_include_tag "progressBar" %>

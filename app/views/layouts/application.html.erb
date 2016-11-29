@@ -28,12 +28,12 @@
   <% elsif (I18n.locale == :"pl") %>
     <meta property="og:locale" content="pl_PL" />
   <% end %>
-	<meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:locale:alternate" content="es_LA" />
   <meta property="og:locale:alternate" content="de_DE" />
-	<meta property="og:locale:alternate" content="fr_FR" />
-	<meta property="og:locale:alternate" content="pt_BR" />
-	<meta property="og:locale:alternate" content="it_IT" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+  <meta property="og:locale:alternate" content="it_IT" />
   <meta property="og:locale:alternate" content="el_GR" />
   <meta property="og:locale:alternate" content="pl_PL" />
 
@@ -70,9 +70,9 @@
     <meta name="google" value="notranslate">
   <% end %>
   <script type="text/javascript">
-		host = "<%= host %>";
-		cats = <%= raw @categories %>;
-		// load I18n
+    host = "<%= host %>";
+    cats = <%= raw @categories %>;
+    // load I18n
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
     I18n.fallbacks = true;
@@ -140,17 +140,17 @@
  <div id="warnings_dialog" style="display:none;" ></div>
 <% content_for :page_scripts do %>
 <script type="text/javascript">
-	var w1 = '<%= notice %>';
-	var w2 = '<%= alert %>';
-	$('#warnings_dialog').dialog({
-		closeText: "close",
-		minHeight: '5em',
-		resizable: false,
-		draggable: false,
-		position: "top",
-		title: w1 + "\n\n" + w2,
-		dialogClass: "dialog_yellow"
-		});
+  var w1 = '<%= notice %>';
+  var w2 = '<%= alert %>';
+  $('#warnings_dialog').dialog({
+    closeText: "close",
+    minHeight: '5em',
+    resizable: false,
+    draggable: false,
+    position: "top",
+    title: w1 + "\n\n" + w2,
+    dialogClass: "dialog_yellow"
+    });
 </script>
  <% end %>
  <% end %>
@@ -158,7 +158,7 @@
 <!-- Logo Bar -->
 <div id="logobar">
 
-	<!-- Locale -->
+  <!-- Locale -->
   <div id="locale">
     <select id="locale_select">
       <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
@@ -174,33 +174,33 @@
   </div>
 
  <!-- Sharing -->
- 	<script type="text/javascript">
-		var addthis_config = {
-		  // list at http://support.addthis.com/customer/portal/articles/381240-languages
-			ui_language: I18n.locale.substring(0,2)
-		}
-	</script>
-	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
-		<a href="https://www.facebook.com/FallingFruit" title="Facebook" >
-			<img src="/social/facebook.svg" alt="Facebook" />
-		</a>
-		<a href="https://twitter.com/Falling_Fruit" title="Twitter">
-			<img src="/social/twitter.svg" alt="Twitter" />
-		</a>
-		<a href="http://instagram.com/fallingfruit" title="Instagram">
-			<img src="/social/instagram.svg" alt="Instagram" />
-		</a>
-		<a href="https://plus.google.com/114324461382595896953/about" title="Google+">
-			<img src="/social/gplus.svg" alt="Google+"/>
-		</a>
-		<a class="addthis_button_compact" addthis:url="https://fallingfruit.org">
-			<img src="/social/addthis.png" />
-		</a>
-	</div>
+   <script type="text/javascript">
+    var addthis_config = {
+      // list at http://support.addthis.com/customer/portal/articles/381240-languages
+      ui_language: I18n.locale.substring(0,2)
+    }
+  </script>
+  <div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
+    <a href="https://www.facebook.com/FallingFruit" title="Facebook" >
+      <img src="/social/facebook.svg" alt="Facebook" />
+    </a>
+    <a href="https://twitter.com/Falling_Fruit" title="Twitter">
+      <img src="/social/twitter.svg" alt="Twitter" />
+    </a>
+    <a href="http://instagram.com/fallingfruit" title="Instagram">
+      <img src="/social/instagram.svg" alt="Instagram" />
+    </a>
+    <a href="https://plus.google.com/114324461382595896953/about" title="Google+">
+      <img src="/social/gplus.svg" alt="Google+"/>
+    </a>
+    <a class="addthis_button_compact" addthis:url="https://fallingfruit.org">
+      <img src="/social/addthis.png" />
+    </a>
+  </div>
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
 
-	<!-- Google+ Linking -->
-	<div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></div>
+  <!-- Google+ Linking -->
+  <div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></div>
 
  <!-- Title -->
  <a id="falling_fruit" href="/">falling fruit</a>
@@ -214,11 +214,11 @@
  </span>
  <!--
  <% ['forager', 'freegan', 'grafter'].each do |c| %>
- 		<% if @categories.include?(c) %>
- 			<b><%= c %></b>
- 		<% else %>
- 			<%= c %>
- 		<% end %>
+     <% if @categories.include?(c) %>
+       <b><%= c %></b>
+     <% else %>
+       <%= c %>
+     <% end %>
  <% end %>
  -->
 </div>
@@ -227,13 +227,13 @@
 <div id="menubar">
  <div id="rightcontrols">
    <% path = request.fullpath %>
-		<% if user_signed_in? %>
-			<span id="user_email"><%= current_user.email %></span>
+    <% if user_signed_in? %>
+      <span id="user_email"><%= current_user.email %></span>
      <%= link_to(translate("glossary.account"), edit_user_registration_path, :class => (path == '/users/edit') ? 'currentpage' : 'notcurrentpage') %>
      <%= link_to(translate("glossary.logout"), destroy_user_session_path, :method => :delete) %>
-		<% else %>
-			<%= link_to(translate("glossary.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(translate("glossary.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
-		<% end %>
+    <% else %>
+      <%= link_to(translate("glossary.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(translate("glossary.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
+    <% end %>
  </div>
 
  <!-- Menu -->
@@ -265,41 +265,41 @@
     <li><%= link_to(translate("glossary.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
 
     <!-- Routes -->
-		<% if user_signed_in? %>
-			<li><%= link_to(translate("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
+    <% if user_signed_in? %>
+      <li><%= link_to(translate("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
-			<% if current_user.is? :admin %>
+      <% if current_user.is? :admin %>
 
-				<!-- Problems -->
-				<li><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
+        <!-- Problems -->
+        <li><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
 
-				<!-- Types -->
-				<li><%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
-				<ul>
-						<li><%= link_to(translate("layouts.application.menu.approved_types"), types_path, :class => (basepath == '/types') ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(translate("glossary.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(translate("layouts.application.menu.new_type"), new_type_path, :class => (basepath == '/types/new') ? "currentpage" : "notcurrentpage") %></li>
-				</ul>
-				</li>
+        <!-- Types -->
+        <li><%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
+        <ul>
+            <li><%= link_to(translate("layouts.application.menu.approved_types"), types_path, :class => (basepath == '/types') ? "currentpage" : "notcurrentpage") %></li>
+            <li><%= link_to(translate("glossary.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
+            <li><%= link_to(translate("layouts.application.menu.new_type"), new_type_path, :class => (basepath == '/types/new') ? "currentpage" : "notcurrentpage") %></li>
+        </ul>
+        </li>
 
-				<!-- Imports -->
-				<li><%= link_to(translate("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
-				<ul>
-						<li><%= link_to(translate("layouts.application.menu.list_imports"), imports_path, :class => (basepath == '/imports') ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(translate("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
-				</ul>
-				</li>
+        <!-- Imports -->
+        <li><%= link_to(translate("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
+        <ul>
+            <li><%= link_to(translate("layouts.application.menu.list_imports"), imports_path, :class => (basepath == '/imports') ? "currentpage" : "notcurrentpage") %></li>
+            <li><%= link_to(translate("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
+        </ul>
+        </li>
 
-				<!-- Users -->
-				<li><%= link_to(translate("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
-			<% end %>
-		<% end %>
+        <!-- Users -->
+        <li><%= link_to(translate("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
+      <% end %>
+    <% end %>
 
-		<!-- Add Source -->
-		<li><%= link_to("+ " + translate("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
+    <!-- Add Source -->
+    <li><%= link_to("+ " + translate("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
-			<span>(<%= translate("layouts.application.or_right-click_on_map") %>)</span>
-		<% end %>
+      <span>(<%= translate("layouts.application.or_right-click_on_map") %>)</span>
+    <% end %>
     </li>
 
     </ul>
@@ -321,30 +321,30 @@
 <% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show")  or (@current_controller == "observations") %>
 
 <div id="content_container">
-	<!-- Allow full-width content for very large tables in admin views -->
-	<div id="content" <% if (@current_controller == "types" and @current_action == "index") or (@current_controller == "users" and @current_action == "index") %>style="max-width:100%;"<% end %>>
-	 <%= yield %>
+  <!-- Allow full-width content for very large tables in admin views -->
+  <div id="content" <% if (@current_controller == "types" and @current_action == "index") or (@current_controller == "users" and @current_action == "index") %>style="max-width:100%;"<% end %>>
+   <%= yield %>
 
-	 <!-- Footer -->
-	 <div id="footer">
-		<a href="http://www.gnu.org/copyleft/gpl.html" />Copyleft</a> © <%= Time.now.year %> Falling Fruit
-	 </div>
-	</div>
+   <!-- Footer -->
+   <div id="footer">
+    <a href="http://www.gnu.org/copyleft/gpl.html" />Copyleft</a> © <%= Time.now.year %> Falling Fruit
+   </div>
+  </div>
 </div>
 
 <% else %>
 
-	<%= yield %>
+  <%= yield %>
 
 <% end %>
 
 <script type="text/javascript">
-	jQuery(document).ready(function(){
-		$("#locale_select").change(function(){
-			url = add_url_parameter(window.location.href, 'locale', $("#locale_select").val())
-			window.location.href = url;
-		});
-	});
+  jQuery(document).ready(function(){
+    $("#locale_select").change(function(){
+      url = add_url_parameter(window.location.href, 'locale', $("#locale_select").val())
+      window.location.href = url;
+    });
+  });
 </script>
 
 <!-- Per Page Javascripts -->

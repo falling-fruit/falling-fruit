@@ -22,11 +22,11 @@
 
 <!-- Types -->
 <div id="type_list">
-	<% if location.unverified %>
-		<li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">
-		  <%= translate("glossary.unverified") %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span>
-	  </li>
-	<% end %>
+  <% if location.unverified %>
+    <li style="float:right;margin:0 0 1em 1em;background-color:#FCE7E4;">
+      <%= translate("glossary.unverified") %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span>
+    </li>
+  <% end %>
  <% @location.types(@cat_filter).each{ |t| %>
  <% if t.pending %>
    <li style="background-color:#FCE7E4;">
@@ -40,24 +40,24 @@
  <% if t.pending %>
    <span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_pending_types_help_modal();">[?]</span>
  <% else %>
-	 <% unless t.wikipedia_url.blank? %>
-		<a href="<%= t.wikipedia_url %>" target="_blank" title="Wikipedia"><img class="type_icon" src="/wikipedia_icon.png"></a>
-	 <% end %>
-	 	 <% unless t.fruitipedia_url.blank? %>
-		<a href="<%= t.fruitipedia_url %>" target="_blank" title="Fruitipedia"><img class="type_icon" src="/fruitipedia_icon.png"></a>
-	 <% end %>
-	 	 	 <% unless t.urban_mushrooms_url.blank? %>
-		<a href="<%= t.urban_mushrooms_url %>" target="_blank" title="Urban Mushrooms"><img class="type_icon" src="/urban_mushrooms_icon.png"></a>
-	 <% end %>
-	 	 <% unless t.foraging_texas_url.blank? %>
-		<a href="<%= t.foraging_texas_url %>" target="_blank" title="Foraging Texas"><img class="type_icon" src="/foraging_texas_icon.png"></a>
-	 <% end %>
-	 <% unless t.eat_the_weeds_url.blank? %>
-		<a href="<%= t.eat_the_weeds_url %>" target="_blank" title="Eat The Weeds"><img class="type_icon" src="/eat_the_weeds_icon.png"></a>
-	 <% end %>
-	 	 <% unless t.usda_symbol.blank? %>
-		<a href="http://plants.usda.gov/java/profile?symbol=<%= t.usda_symbol %>" target="_blank" title="USDA"><img class="type_icon" src="/usda_icon.png"></a>
-	 <% end %>
+   <% unless t.wikipedia_url.blank? %>
+    <a href="<%= t.wikipedia_url %>" target="_blank" title="Wikipedia"><img class="type_icon" src="/wikipedia_icon.png"></a>
+   <% end %>
+      <% unless t.fruitipedia_url.blank? %>
+    <a href="<%= t.fruitipedia_url %>" target="_blank" title="Fruitipedia"><img class="type_icon" src="/fruitipedia_icon.png"></a>
+   <% end %>
+         <% unless t.urban_mushrooms_url.blank? %>
+    <a href="<%= t.urban_mushrooms_url %>" target="_blank" title="Urban Mushrooms"><img class="type_icon" src="/urban_mushrooms_icon.png"></a>
+   <% end %>
+      <% unless t.foraging_texas_url.blank? %>
+    <a href="<%= t.foraging_texas_url %>" target="_blank" title="Foraging Texas"><img class="type_icon" src="/foraging_texas_icon.png"></a>
+   <% end %>
+   <% unless t.eat_the_weeds_url.blank? %>
+    <a href="<%= t.eat_the_weeds_url %>" target="_blank" title="Eat The Weeds"><img class="type_icon" src="/eat_the_weeds_icon.png"></a>
+   <% end %>
+      <% unless t.usda_symbol.blank? %>
+    <a href="http://plants.usda.gov/java/profile?symbol=<%= t.usda_symbol %>" target="_blank" title="USDA"><img class="type_icon" src="/usda_icon.png"></a>
+   <% end %>
  <% end %>
  </li>
  <% } %>
@@ -65,60 +65,60 @@
 
 <!-- Quality -->
 <% unless location.mean_quality_rating.nil? %>
-	<% ratings = "true" %>
- 	<label><%= translate("glossary.quality") %></label> <%= translate("locations.infowindow.rating")[location.mean_quality_rating] %>
- 	<span class="observation_count">(<%= location.observations.reject{ |o| o.quality_rating.nil? }.length %>)</span>
+  <% ratings = "true" %>
+   <label><%= translate("glossary.quality") %></label> <%= translate("locations.infowindow.rating")[location.mean_quality_rating] %>
+   <span class="observation_count">(<%= location.observations.reject{ |o| o.quality_rating.nil? }.length %>)</span>
 <% end %>
 
 <!-- Yield -->
 <% unless location.mean_yield_rating.nil? %>
-	<% ratings = "true" %>
-	<label><%= translate("glossary.yield") %></label> <%= translate("locations.infowindow.rating")[location.mean_yield_rating] %>
-	<span class="observation_count">(<%= location.observations.reject{ |o| o.yield_rating.nil? }.length %>)</span>
+  <% ratings = "true" %>
+  <label><%= translate("glossary.yield") %></label> <%= translate("locations.infowindow.rating")[location.mean_yield_rating] %>
+  <span class="observation_count">(<%= location.observations.reject{ |o| o.yield_rating.nil? }.length %>)</span>
 <% end %>
 <% unless ratings.nil? %>
-	<br/>
+  <br/>
 <% end %>
 
 <!-- Season -->
 <!-- (use ? to denote nil [old] or -1 [new], brown out of season, green in season) -->
 <% unless location.no_season %>
-	<% current = Date.today.month.to_i - 1
-	   season_class = "out_season"
-	   start_defined = !(location.season_start.nil? or location.season_start < 0)
-	   stop_defined = !(location.season_stop.nil? or location.season_stop < 0)
-	%>
-	<!-- Start - Stop -->	
-	<% unless (!start_defined and !stop_defined)
-		season_class = "in_season" if (current == location.season_start) or (current == location.season_stop)
-		season_class = "in_season" if (start_defined and stop_defined and 
-																		location.season_stop > location.season_start and 
-																		current > location.season_start and current < location.season_stop)
-		season_class = "in_season" if (start_defined and stop_defined and 
-																		location.season_stop < location.season_start and 
-																		(current > location.season_start or current < location.season_stop))
-		pretty_start = start_defined ? translate("date.month_names")[location.season_start+1] : "?"
-		pretty_stop = stop_defined ? translate("date.month_names")[location.season_stop+1] : "?"
-		pretty_season = (pretty_start == pretty_stop) ? pretty_start : pretty_start + " - " + pretty_stop
-	%>
-  	<label><%= translate("glossary.season") %></label> <span class="<%= season_class %>"><%= pretty_season %></span><br/>
+  <% current = Date.today.month.to_i - 1
+     season_class = "out_season"
+     start_defined = !(location.season_start.nil? or location.season_start < 0)
+     stop_defined = !(location.season_stop.nil? or location.season_stop < 0)
+  %>
+  <!-- Start - Stop -->
+  <% unless (!start_defined and !stop_defined)
+    season_class = "in_season" if (current == location.season_start) or (current == location.season_stop)
+    season_class = "in_season" if (start_defined and stop_defined and
+                                    location.season_stop > location.season_start and
+                                    current > location.season_start and current < location.season_stop)
+    season_class = "in_season" if (start_defined and stop_defined and
+                                    location.season_stop < location.season_start and
+                                    (current > location.season_start or current < location.season_stop))
+    pretty_start = start_defined ? translate("date.month_names")[location.season_start+1] : "?"
+    pretty_stop = stop_defined ? translate("date.month_names")[location.season_stop+1] : "?"
+    pretty_season = (pretty_start == pretty_stop) ? pretty_start : pretty_start + " - " + pretty_stop
+  %>
+    <label><%= translate("glossary.season") %></label> <span class="<%= season_class %>"><%= pretty_season %></span><br/>
   <% else %>
   <!-- Observation table -->
-  	<% unless location.observations.length == 0 %>
-			<% unless location.nobs_months_flowering.length == 0 %>			
-				<label><%= translate("locations.infowindow.fruiting")[0] %></label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + translate("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + translate("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
-			<% end %>
-			<% unless location.nobs_months_fruiting.length == 0 %>
-				<label><%= translate("locations.infowindow.fruiting")[1] %></label> <%= location.nobs_months_fruiting.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + translate("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + translate("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
-			<% end %>
-			<% unless location.nobs_months_ripe.length == 0 %>
-				<label><%= translate("locations.infowindow.fruiting")[2] %></label> <%= location.nobs_months_ripe.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + translate("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + translate("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
-			<% end %>
-		<% end %>
+    <% unless location.observations.length == 0 %>
+      <% unless location.nobs_months_flowering.length == 0 %>
+        <label><%= translate("locations.infowindow.fruiting")[0] %></label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + translate("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + translate("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+      <% end %>
+      <% unless location.nobs_months_fruiting.length == 0 %>
+        <label><%= translate("locations.infowindow.fruiting")[1] %></label> <%= location.nobs_months_fruiting.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + translate("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + translate("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+      <% end %>
+      <% unless location.nobs_months_ripe.length == 0 %>
+        <label><%= translate("locations.infowindow.fruiting")[2] %></label> <%= location.nobs_months_ripe.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + translate("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + translate("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
+      <% end %>
+    <% end %>
   <% end %>
 <!-- No Season -->
 <% else %>
-	<label><%= translate("glossary.season") %></label> <span class="in_season"><%= translate("locations.infowindow.january_to_december") %></span><br/>
+  <label><%= translate("glossary.season") %></label> <span class="in_season"><%= translate("locations.infowindow.january_to_december") %></span><br/>
 <% end %>
 
 <!-- Text Description -->
@@ -130,7 +130,7 @@
 </p>
 <!-- Access Statement -->
 <% unless location.access.nil? %>
-	<p><span style="font-style: italic; color: #a9a9a9;"><%= translate("locations.infowindow.access")[location.access] %></span></p>
+  <p><span style="font-style: italic; color: #a9a9a9;"><%= translate("locations.infowindow.access")[location.access] %></span></p>
 <% end %>
 <!-- Last updated (words) -->
 <!--<p><span class="subtext" style="color: #a9a9a9;">Updated <%= distance_of_time_in_words_to_now(location.updated_at) %> ago</span></p>-->
@@ -144,47 +144,47 @@
 <!-- FIXED? div width=100% needed to match footer to window size so that wrapping does not introduce scroll bar -->
 <!--<div style="width:100%;">-->
 <table id="footer">
-	<tr>
- 		<td id="controls">
- 		<!-- Observation -->
- 		<% 
- 		if user_signed_in? and current_user.is? :grafter
+  <tr>
+     <td id="controls">
+     <!-- Observation -->
+     <%
+     if user_signed_in? and current_user.is? :grafter
       review_string = "graft"
     else
       review_string = translate("glossary.reviews", :count => 1).downcase
     end
     %>
     <%= link_to("+ " + review_string, new_observation_path(:location_id => location.id), :title => translate("locations.infowindow.review_this_location")) %>
-		<% if not(!defined?($embed).nil? and $embed) %>
-		  <!-- Problem -->
+    <% if not(!defined?($embed).nil? and $embed) %>
+      <!-- Problem -->
       <a href="#" title="<%= translate("glossary.report_a_problem") %>" id="problem_link" onclick="open_problem_modal(<%= location.id %>);"><%= translate("glossary.report").downcase %></a>
     <% end %>
-		<!-- Zoom -->
- 		<a href="javascript:zoom_to_marker();" data-ajax="false" title="<%= translate("glossary.zoom_to_this_location") %>"><%= translate("glossary.zoom").downcase %></a>
- 		<!-- Street View -->
- 		<% if user_signed_in? and current_user.is? :admin %>
- 		  <a id="streetview-toggle" href="javascript:streetview_toggle(infowindow.marker,50);" data-ajax="false" title="<%= translate("locations.infowindow.see_this_location_in_streetview") %>"><%= translate("glossary.street_view").downcase %></a>
- 		<% end %>
- 		<!-- Link -->
+    <!-- Zoom -->
+     <a href="javascript:zoom_to_marker();" data-ajax="false" title="<%= translate("glossary.zoom_to_this_location") %>"><%= translate("glossary.zoom").downcase %></a>
+     <!-- Street View -->
+     <% if user_signed_in? and current_user.is? :admin %>
+       <a id="streetview-toggle" href="javascript:streetview_toggle(infowindow.marker,50);" data-ajax="false" title="<%= translate("locations.infowindow.see_this_location_in_streetview") %>"><%= translate("glossary.street_view").downcase %></a>
+     <% end %>
+     <!-- Link -->
     <%= link_to(translate("glossary.links", :count => 1).downcase, location_path(location.id), :id => "location_link", :onclick => "update_url('#location_link'); return false;", :title => translate("locations.infowindow.url_for_this_location")) %>
     <!-- Edit -->
     <%= link_to(translate("glossary.edit").downcase, edit_location_path(location.id), :title => translate("locations.infowindow.edit_this_location")) %>
     <!-- Routes -->
- 		<% if user_signed_in? %>
- 			<a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="<%= translate("locations.infowindow.toggle_route_controls") %>"><%= translate("glossary.routes").downcase %></a>
- 		<% end %>
- 		<!-- Delete -->
- 		<% if user_signed_in? and current_user.is? :admin %>
-  			<%= link_to(translate("glossary.delete").downcase, location, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, :title => translate("locations.infowindow.delete_this_location")) %>
- 		<% end %>
- 		</td>	
- 		<!-- Author (source) -->
-  	<td id="added_by"><i style="padding-right:0.5em;"><%= translate("glossary.by_author", :author => (location.author.nil? or (location.author.strip.length == 0)) ? translate("glossary.anonymous") : location.author) %></i>
-  	<% unless location.import.nil? %>
-			(<%= link_to(translate("locations.infowindow.source"), import_path(location.import.id, :title => translate("locations.infowindow.citation_to_the_original_source"))) %>)
-  	<% end %>
-		</td>
- 	</tr>
+     <% if user_signed_in? %>
+       <a id="route_toggle" href="javascript:toggle_route_controls();" data-ajax="false" title="<%= translate("locations.infowindow.toggle_route_controls") %>"><%= translate("glossary.routes").downcase %></a>
+     <% end %>
+     <!-- Delete -->
+     <% if user_signed_in? and current_user.is? :admin %>
+        <%= link_to(translate("glossary.delete").downcase, location, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, :title => translate("locations.infowindow.delete_this_location")) %>
+     <% end %>
+     </td>
+     <!-- Author (source) -->
+    <td id="added_by"><i style="padding-right:0.5em;"><%= translate("glossary.by_author", :author => (location.author.nil? or (location.author.strip.length == 0)) ? translate("glossary.anonymous") : location.author) %></i>
+    <% unless location.import.nil? %>
+      (<%= link_to(translate("locations.infowindow.source"), import_path(location.import.id, :title => translate("locations.infowindow.citation_to_the_original_source"))) %>)
+    <% end %>
+    </td>
+   </tr>
 </table>
 
 <!-- Routes -->
@@ -192,13 +192,13 @@
 <div id="route_controls" style="display:none;border-top:1px solid #F0F0F0;margin-top:0.75em;padding-top:0.75em;width:100%;">
   <%= translate("locations.infowindow.add_to_remove_from") %>:
 <form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">
-	<select id="route_id" name="route_id" style="font-size:85%;">
-		<% Route.where("user_id = ?",current_user.id).each do |r| %>
- 			<option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
-		<% end %>
- 		<option value="-1">-- <%= translate("locations.infowindow.new_route") %> --</option>
-	</select>
-	<input type="submit" value="+ / -" style="padding:0.2em 0.3em;line-height:85%;">
+  <select id="route_id" name="route_id" style="font-size:85%;">
+    <% Route.where("user_id = ?",current_user.id).each do |r| %>
+       <option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where("route_id = ? AND location_id = ?",r.id,location.id).count > 0 ? "(+)" : "" %></option>
+    <% end %>
+     <option value="-1">-- <%= translate("locations.infowindow.new_route") %> --</option>
+  </select>
+  <input type="submit" value="+ / -" style="padding:0.2em 0.3em;line-height:85%;">
 </form>
 </div>
 <% end %>
@@ -212,70 +212,70 @@
   <div style="margin: 0 0 1em 0.25em;">
     <i><%= translate("locations.infowindow.have_you_visited_html", :id => location.id).html_safe %></i>.
   </div>
-	<% location.observations.reverse_order.each{ |o| %>
-	  
-	  <!-- Grafts visible only to grafters -->
-	  <% next if o.graft and (not user_signed_in? or not current_user.is? :grafter) %>
-	  
-		<div class="observation <%= "graft" if o.graft %>">
-		  <!-- Delete controls -->
-			<% if user_signed_in? and current_user.is? :admin %>
-				<div style="float: right;">
-					<%= link_to('x', o, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, title: translate("locations.infowindow.delete_comment")) %>
-					<% unless o.photo_file_size.nil? %> 
-						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="<%= translate("locations.infowindow.delete_photo") %>"><%= translate("glossary.photo") %></a>
-					<% end %>
-				</div>
-			<% end %>
-			
-			<!-- Photo -->
-			<% unless o.photo_file_size.nil? %>
-				<a href="<%= o.photo.url(:original) %>" rel="shadowbox" <% unless o.photo_caption.to_s.empty? %>title="<%= o.photo_caption %>"<% end %> style="text-decoration:none;color:inherit;">
-				  <div class="obsphoto_frame">
-				  <div class="obsphoto">
-				    <img src="<%= o.photo.url(:thumb) %>">
-				    <% unless o.photo_caption.to_s.empty? %>
-				      <%=	truncate(o.photo_caption, :length => 20) %>
-				    <% end %>
-				  </div>
-				  </div>
-				</a>
-			<% end %>
-			
-			<div class="observation_text">
-			<!-- Comment -->
-			<% unless o.comment.blank? %>
-				<span style="color: #000;"><%= o.comment %></span><br/>
-			<% end %>
-			<!-- Ratings -->
-			<% unless o.yield_rating.nil? and o.quality_rating.nil? and o.fruiting.nil? %>
-				<span style="color: #666; font-size: 90%;">
-					<% unless o.quality_rating.nil? %>
-						<label><%= translate("glossary.quality") %></label> <%= translate("locations.infowindow.rating")[o.quality_rating] %>
-					<% end %>
-					<% unless o.yield_rating.nil? %>
-						<% unless o.quality_rating.nil? %>&middot;<% end %>
-						<label><%= translate("glossary.yield") %></label> <%= translate("locations.infowindow.rating")[o.yield_rating] %>
-					<% end %>
-					<% unless o.fruiting.nil? %>
-					  <% unless o.yield_rating.nil? and o.quality_rating.nil? %>&middot;<% end %>
-						<%= translate("locations.infowindow.fruiting")[o.fruiting] %>
-					<% end %>
-					<br />
-				</span>
-			<% end %>
-			<!-- Author -->
-			<span style="color: #999; font-size: 85%;">by <%= o.author.blank? ? translate("glossary.anonymous") : o.author %>
-				<% unless o.observed_on.nil? %>
-				  <% if o.observed_on.year == DateTime.now.year %>
-					  | <%= o.observed_on.strftime('%B %-d') %>
-					<% else %>
-					  | <%= o.observed_on.strftime('%B %-d, %Y') %>
-					<% end %>
-				<% end %>
-			</span>
-			</div>
-			
+  <% location.observations.reverse_order.each{ |o| %>
+
+    <!-- Grafts visible only to grafters -->
+    <% next if o.graft and (not user_signed_in? or not current_user.is? :grafter) %>
+
+    <div class="observation <%= "graft" if o.graft %>">
+      <!-- Delete controls -->
+      <% if user_signed_in? and current_user.is? :admin %>
+        <div style="float: right;">
+          <%= link_to('x', o, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, title: translate("locations.infowindow.delete_comment")) %>
+          <% unless o.photo_file_size.nil? %>
+            | <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="<%= translate("locations.infowindow.delete_photo") %>"><%= translate("glossary.photo") %></a>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Photo -->
+      <% unless o.photo_file_size.nil? %>
+        <a href="<%= o.photo.url(:original) %>" rel="shadowbox" <% unless o.photo_caption.to_s.empty? %>title="<%= o.photo_caption %>"<% end %> style="text-decoration:none;color:inherit;">
+          <div class="obsphoto_frame">
+          <div class="obsphoto">
+            <img src="<%= o.photo.url(:thumb) %>">
+            <% unless o.photo_caption.to_s.empty? %>
+              <%=  truncate(o.photo_caption, :length => 20) %>
+            <% end %>
+          </div>
+          </div>
+        </a>
+      <% end %>
+
+      <div class="observation_text">
+      <!-- Comment -->
+      <% unless o.comment.blank? %>
+        <span style="color: #000;"><%= o.comment %></span><br/>
+      <% end %>
+      <!-- Ratings -->
+      <% unless o.yield_rating.nil? and o.quality_rating.nil? and o.fruiting.nil? %>
+        <span style="color: #666; font-size: 90%;">
+          <% unless o.quality_rating.nil? %>
+            <label><%= translate("glossary.quality") %></label> <%= translate("locations.infowindow.rating")[o.quality_rating] %>
+          <% end %>
+          <% unless o.yield_rating.nil? %>
+            <% unless o.quality_rating.nil? %>&middot;<% end %>
+            <label><%= translate("glossary.yield") %></label> <%= translate("locations.infowindow.rating")[o.yield_rating] %>
+          <% end %>
+          <% unless o.fruiting.nil? %>
+            <% unless o.yield_rating.nil? and o.quality_rating.nil? %>&middot;<% end %>
+            <%= translate("locations.infowindow.fruiting")[o.fruiting] %>
+          <% end %>
+          <br />
+        </span>
+      <% end %>
+      <!-- Author -->
+      <span style="color: #999; font-size: 85%;">by <%= o.author.blank? ? translate("glossary.anonymous") : o.author %>
+        <% unless o.observed_on.nil? %>
+          <% if o.observed_on.year == DateTime.now.year %>
+            | <%= o.observed_on.strftime('%B %-d') %>
+          <% else %>
+            | <%= o.observed_on.strftime('%B %-d, %Y') %>
+          <% end %>
+        <% end %>
+      </span>
+      </div>
+
 <div style="clear: right;"></div>
 </div>
 <% } %>

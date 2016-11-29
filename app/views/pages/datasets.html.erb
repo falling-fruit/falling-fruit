@@ -55,11 +55,11 @@ Import.order("id").reverse.each do |import|
       <%= import.muni ? translate("glossary.tree_inventory", :count => 1) : translate("pages.datasets.community_map") %>
     </td>
     <td>
-	    <% unless import.url.blank? %>
-	      <a href="<%= import.url %>"><%= import.name %></a>
-	    <% else %>
-	      <%= import.name %>
-	    <% end %>
+      <% unless import.url.blank? %>
+        <a href="<%= import.url %>"><%= import.name %></a>
+      <% else %>
+        <%= import.name %>
+      <% end %>
     </td>
     <td><%= lcounts[import.id] %></td>
     <td><%= import.created_at.strftime("%Y-%m-%d") %></td>

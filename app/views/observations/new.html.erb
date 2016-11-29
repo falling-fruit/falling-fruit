@@ -8,9 +8,9 @@
 <% content_for :page_scripts do %>
 <%= render :partial => "/locations/map_includes" %>
 <script type="text/javascript" charset="utf-8">
-  
+
   // ================= globals ==================
-  
+
   var lat = <%= @obs.location.lat %>;
   var lng = <%= @obs.location.lng %>;
   var zoom = 20;
@@ -20,10 +20,10 @@
   var opened_once = false;
 
   // ================= functions =================
-  
+
  function initialize() {
-  	basemap(lat,lng,zoom,type);
-    
+    basemap(lat,lng,zoom,type);
+
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       do_markers(map.getBounds(),$("#observation_location_id").val(),true);
       document.addEventListener("markersloaded",function(event){

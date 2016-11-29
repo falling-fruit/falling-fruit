@@ -28,11 +28,11 @@ markersLoadedEvent.initEvent("markersloaded",true,true);
 var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
 if (host == "localhost") {
-	var api_base = "http://localhost:3100/api/0.2/";
-	var api_key = "AKDJGHSD";
+  var api_base = "http://localhost:3100/api/0.2/";
+  var api_key = "AKDJGHSD";
 } else {
-	var api_base = "https://fallingfruit.org/api/0.2/";
-	var api_key = "EEQRBBUB";
+  var api_base = "https://fallingfruit.org/api/0.2/";
+  var api_key = "EEQRBBUB";
 }
 
 // ================= services ==================
@@ -71,12 +71,12 @@ google.maps.event.addListener(infowindow,'closeclick',function() {
   close_infowindow();
 });
 
-// 	google.maps.event.addListenerOnce(infowindow,'domready',function() {
-// 		setup_tabs(infowindow.marker, infowindow);
-// 	});
-// 	google.maps.event.addListenerOnce(infowindow,'content_changed',function() {
-// 		open_infowindow(infowindow, infowindow.marker);
-// 	});
+//   google.maps.event.addListenerOnce(infowindow,'domready',function() {
+//     setup_tabs(infowindow.marker, infowindow);
+//   });
+//   google.maps.event.addListenerOnce(infowindow,'content_changed',function() {
+//     open_infowindow(infowindow, infowindow.marker);
+//   });
 
 // ================= basemap =================
 
@@ -84,11 +84,11 @@ function basemap(lat,lng,zoom,type,bounds){
 
   // Enable the visual refresh
   google.maps.visualRefresh = true;
-	var mapTypeIds = [];
-	Object.keys(google.maps.MapTypeId).forEach(function(key, index) {
+  var mapTypeIds = [];
+  Object.keys(google.maps.MapTypeId).forEach(function(key, index) {
     mapTypeIds.push(google.maps.MapTypeId[key]);
-	});
-	mapTypeIds.push(toner, "OSM");
+  });
+  mapTypeIds.push(toner, "OSM");
 
   var mapOptions = {
     zoom: zoom,
@@ -129,9 +129,9 @@ function basemap(lat,lng,zoom,type,bounds){
     update_attribution();
   }
 
-	// OSM
-	// http://wiki.openstreetmap.org/wiki/Google_Maps_Example
-	map.mapTypes.set("OSM", new google.maps.ImageMapType({
+  // OSM
+  // http://wiki.openstreetmap.org/wiki/Google_Maps_Example
+  map.mapTypes.set("OSM", new google.maps.ImageMapType({
     getTileUrl: function(coord, zoom) {
       // "Wrap" x (logitude) at 180th meridian properly
       // NOTE: Don't touch coord.x because coord param is by reference, and changing its x property breakes something in Google's lib
@@ -170,7 +170,7 @@ function basemap(lat,lng,zoom,type,bounds){
       scale: 10,
       strokeWeight: 4,
       strokeColor: '#ff666e'
-    	},
+      },
     draggable: false,
     clickable: false,
     visible: false,
@@ -179,21 +179,21 @@ function basemap(lat,lng,zoom,type,bounds){
 
   // Search crosshair
   var w = 19;
-	var h = 19;
+  var h = 19;
   crosshair = new google.maps.Marker({
-		position: map.getCenter(),
-		map: map,
-		icon: {
-			url: '/cross.png',
-			size: new google.maps.Size(w, h),
-			origin: new google.maps.Point(0, 0),
-			anchor: new google.maps.Point(w/2, h/2)
-			},
-		draggable: false,
-		clickable: false,
-		visible: false,
-		zIndex: -1e3 // so that it draws beneath any overlapping marker
-	});
+    position: map.getCenter(),
+    map: map,
+    icon: {
+      url: '/cross.png',
+      size: new google.maps.Size(w, h),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(w/2, h/2)
+      },
+    draggable: false,
+    clickable: false,
+    visible: false,
+    zIndex: -1e3 // so that it draws beneath any overlapping marker
+  });
 
   // Close open location infowindow when map is clicked
   google.maps.event.addListener(map, 'click', function(event) {
@@ -206,7 +206,7 @@ function basemap(lat,lng,zoom,type,bounds){
   });
 
   google.maps.event.addListener(map, 'zoom_changed', function(event) {
-  	zoom = map.getZoom();
+    zoom = map.getZoom();
   });
 }
 
@@ -728,8 +728,8 @@ function open_marker_by_id(id) {
     dataType: 'json'
   });
   requestJson.done(function(json){
-  	// Add marker to map
-  	// Put into array for add_markers_from_json()
+    // Add marker to map
+    // Put into array for add_markers_from_json()
     add_markers_from_json([json]);
     // make marker clickable
     add_marker_infowindow(markersArray.length-1);
@@ -860,28 +860,28 @@ function place_add_marker(latlng) {
 }
 
 function labelize_markers() {
-	 // if we're still in clustered mode, don't label
-	 if(map.getZoom() <= 12) return;
-	 var len = markersArray.length;
-	 for(var i = 0; i < len; i++){
-		 if(!markersArray[i].marker.getVisible()) continue;
-		 if(markersArray[i].label != undefined) continue;
-		 var pos = markersArray[i].marker.getPosition();
-		 var mapLabel = new MapLabel({
-			 text: markersArray[i].marker.getTitle(),
-			 // FIXME: bad hack to prevent marker from overlapping with label
-			 position: new google.maps.LatLng(pos.lat()-0.00003,pos.lng()),
-			 map: map,
-			 fontSize: 13,
-			 fontColor: '#990000',
-			 strokeColor: '#efe8de',
-			 strokeWeight: 5,
-			 align: 'center'
-		 });
-		 markersArray[i].label = mapLabel;
-		 markersArray[i].marker.bindTo('map', mapLabel);
-	 }
-	 labelsOn = true;
+   // if we're still in clustered mode, don't label
+   if(map.getZoom() <= 12) return;
+   var len = markersArray.length;
+   for(var i = 0; i < len; i++){
+     if(!markersArray[i].marker.getVisible()) continue;
+     if(markersArray[i].label != undefined) continue;
+     var pos = markersArray[i].marker.getPosition();
+     var mapLabel = new MapLabel({
+       text: markersArray[i].marker.getTitle(),
+       // FIXME: bad hack to prevent marker from overlapping with label
+       position: new google.maps.LatLng(pos.lat()-0.00003,pos.lng()),
+       map: map,
+       fontSize: 13,
+       fontColor: '#990000',
+       strokeColor: '#efe8de',
+       strokeWeight: 5,
+       align: 'center'
+     });
+     markersArray[i].label = mapLabel;
+     markersArray[i].marker.bindTo('map', mapLabel);
+   }
+   labelsOn = true;
 }
 
 function delabelize_marker(i){
@@ -981,62 +981,62 @@ function update_attribution() {
 }
 
 function recenter_map() {
-	navigator.geolocation.getCurrentPosition(function(position){
-			var lat = position.coords.latitude;
-			var lng = position.coords.longitude;
-			var latlng = new google.maps.LatLng(lat,lng);
-			apply_geocode(latlng,undefined,15);
-	},function(error){
-		console.log("Geocode error [" + error.code + "]: " + error.message);
-	});
+  navigator.geolocation.getCurrentPosition(function(position){
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      var latlng = new google.maps.LatLng(lat,lng);
+      apply_geocode(latlng,undefined,15);
+  },function(error){
+    console.log("Geocode error [" + error.code + "]: " + error.message);
+  });
 }
 
 // see: https://developers.google.com/maps/documentation/javascript/geocoding
 function recenter_map_to_address() {
-	// Bypass geocoder if already lat, lng
-	// (geocoder snaps to nearest address, so not exact)
-	var strsplit = $("#address").val().split(/[\s,]+/);
-	if (strsplit.length == 2) {
-		var lat = parseFloat(strsplit[0]);
-		var lng = parseFloat(strsplit[1]);
-		if (!isNaN(lat) && !isNaN(lng)) {
-			var latlng = new google.maps.LatLng(lat,lng);
-			apply_geocode(latlng,undefined,17);
-			return;
-		}
-	}
+  // Bypass geocoder if already lat, lng
+  // (geocoder snaps to nearest address, so not exact)
+  var strsplit = $("#address").val().split(/[\s,]+/);
+  if (strsplit.length == 2) {
+    var lat = parseFloat(strsplit[0]);
+    var lng = parseFloat(strsplit[1]);
+    if (!isNaN(lat) && !isNaN(lng)) {
+      var latlng = new google.maps.LatLng(lat,lng);
+      apply_geocode(latlng,undefined,17);
+      return;
+    }
+  }
 
-	// Run geocoder for everything else
-	geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			var bounds = results[0].geometry.viewport;
-			var latlng = results[0].geometry.location;
-			apply_geocode(latlng,bounds);
-			return;
-		} else {
-			alert(I18n.t("locations.messages.geocode_failed") + ": " + status);
-		}
-	});
+  // Run geocoder for everything else
+  geocoder.geocode( { 'address': $("#address").val() }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      var bounds = results[0].geometry.viewport;
+      var latlng = results[0].geometry.location;
+      apply_geocode(latlng,bounds);
+      return;
+    } else {
+      alert(I18n.t("locations.messages.geocode_failed") + ": " + status);
+    }
+  });
 }
 
 function apply_geocode(latlng,bounds,zoom) {
-	if (zoom == undefined) {
-		zoom = 17;
-	}
-	if (latlng != undefined) {
-		if (bounds == undefined) {
-			map.setZoom(zoom);
-			map.panTo(latlng);
-		} else {
-			map.fitBounds(bounds);
-			zoom = map.getZoom();
-		}
-		if (zoom > 12) {
-			show_crosshair(latlng);
-		} else {
-			hide_crosshair();
-		}
-	}
+  if (zoom == undefined) {
+    zoom = 17;
+  }
+  if (latlng != undefined) {
+    if (bounds == undefined) {
+      map.setZoom(zoom);
+      map.panTo(latlng);
+    } else {
+      map.fitBounds(bounds);
+      zoom = map.getZoom();
+    }
+    if (zoom > 12) {
+      show_crosshair(latlng);
+    } else {
+      hide_crosshair();
+    }
+  }
 }
 
 // Adds a bicycle layer toggle to the map
@@ -1138,55 +1138,55 @@ function hide_crosshair() {
 // Update marker position from user-provided address
 function update_marker_address() {
 
-	// If empty, do nothing
-	if($("#location_address").val() == "") return;
-	geocoder.geocode({'address': $("#location_address").val()}, function(results, status) {
+  // If empty, do nothing
+  if($("#location_address").val() == "") return;
+  geocoder.geocode({'address': $("#location_address").val()}, function(results, status) {
 
-		// If valid address, move existing (or place new) marker
-		if (status == google.maps.GeocoderStatus.OK) {
-			var lat = results[0].geometry.location.lat();
-			var lng = results[0].geometry.location.lng();
-			var latlng = results[0].geometry.location
-			$("#location_lat").val(lat.toFixed(6));
-			$("#location_lng").val(lng.toFixed(6));
-			map.panTo(latlng);
-			map.setZoom(15);
-			if (marker != null) {
-				marker.setPosition(latlng);
+    // If valid address, move existing (or place new) marker
+    if (status == google.maps.GeocoderStatus.OK) {
+      var lat = results[0].geometry.location.lat();
+      var lng = results[0].geometry.location.lng();
+      var latlng = results[0].geometry.location
+      $("#location_lat").val(lat.toFixed(6));
+      $("#location_lng").val(lng.toFixed(6));
+      map.panTo(latlng);
+      map.setZoom(15);
+      if (marker != null) {
+        marker.setPosition(latlng);
         if(watchID != undefined){
           navigator.geolocation.clearWatch(watchID);
           watchID = null;
         }
       } else {
-				nag = initialize_marker(lat,lng);
+        nag = initialize_marker(lat,lng);
         nag.open(map,marker);
         nagOpen = true;
-			}
-		// Otherwise, return geocoding errors
-		} else {
-			alert(I18n.t("locations.messages.geocode_failed") + ": " + status);
-		}
-	});
+      }
+    // Otherwise, return geocoding errors
+    } else {
+      alert(I18n.t("locations.messages.geocode_failed") + ": " + status);
+    }
+  });
 }
 
 // Update marker position from user-provided latitude and longitude
 function update_marker_latlng() {
-	var lat = parseFloat($("#location_lat").val());
-	var lng = parseFloat($("#location_lng").val());
+  var lat = parseFloat($("#location_lat").val());
+  var lng = parseFloat($("#location_lng").val());
 
-	// If bogus, do nothing
-	if (isNaN(lat) || isNaN(lng)) return;
+  // If bogus, do nothing
+  if (isNaN(lat) || isNaN(lng)) return;
 
-	// If latitude > 85, return error
-	// Google Maps cannot display lat > 85 properly, and lat > 85 breaks clusters.
-	if (Math.abs(lat) > 85) {
-	  alert(I18n.t("locations.messages.latitude_too_large"));
-	  return;
-	}
+  // If latitude > 85, return error
+  // Google Maps cannot display lat > 85 properly, and lat > 85 breaks clusters.
+  if (Math.abs(lat) > 85) {
+    alert(I18n.t("locations.messages.latitude_too_large"));
+    return;
+  }
 
-	// Otherwise, and if numeric, move marker
-	// If out of range, longitude is converted to [-180, 180]
-	var latlng = new google.maps.LatLng(lat,lng, false);
+  // Otherwise, and if numeric, move marker
+  // If out of range, longitude is converted to [-180, 180]
+  var latlng = new google.maps.LatLng(lat,lng, false);
   map.panTo(latlng);
   map.setZoom(15);
   if (marker != null) {
@@ -1212,51 +1212,51 @@ function decodeHtml(html) {
 // Initialize map marker (marker) and infowindow (nag)
 function load_edit_marker(lat,lng) {
 
-	var latlng = new google.maps.LatLng(lat,lng)
+  var latlng = new google.maps.LatLng(lat,lng)
 
-	// Initialize marker
-	var marker = new google.maps.Marker({
-		icon: '',
-		position: latlng,
-		map: map,
-		draggable: true
-	});
+  // Initialize marker
+  var marker = new google.maps.Marker({
+    icon: '',
+    position: latlng,
+    map: map,
+    draggable: true
+  });
 
-	// Infowindow
-	var html = $('<div id="editmarker">' + I18n.t("locations.index.editmarker_html") + '</div>');
-	var nag = new google.maps.InfoWindow({
-		content: html[0]
-	});
-	var nagOpen = false;
+  // Infowindow
+  var html = $('<div id="editmarker">' + I18n.t("locations.index.editmarker_html") + '</div>');
+  var nag = new google.maps.InfoWindow({
+    content: html[0]
+  });
+  var nagOpen = false;
 
-	// Event listeners
-	// Open nag once tiles loaded
-	google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
-		nag.open(map,marker);
-		nagOpen = true;
-	});
+  // Event listeners
+  // Open nag once tiles loaded
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
+    nag.open(map,marker);
+    nagOpen = true;
+  });
 
-	// Update lat,lng fields when marker moved
-	google.maps.event.addListener(marker, 'position_changed', function() {
-		$("#location_lat").val(this.getPosition().lat().toFixed(6));
-		$("#location_lng").val(this.getPosition().lng().toFixed(6));
-	});
+  // Update lat,lng fields when marker moved
+  google.maps.event.addListener(marker, 'position_changed', function() {
+    $("#location_lat").val(this.getPosition().lat().toFixed(6));
+    $("#location_lng").val(this.getPosition().lng().toFixed(6));
+  });
 
-	// Record closing of nag
-	google.maps.event.addListener(nag, 'closeclick', function(event) {
-		nagOpen = false;
-	});
+  // Record closing of nag
+  google.maps.event.addListener(nag, 'closeclick', function(event) {
+    nagOpen = false;
+  });
 
-	// Toggle nag open/close on click of marker
-	google.maps.event.addListener(marker, 'click', function(event) {
-		if (nagOpen) {
-			nag.close();
-			nagOpen = false;
-		} else {
-			nag.open(map,marker);
-			nagOpen = true;
-		}
-	});
+  // Toggle nag open/close on click of marker
+  google.maps.event.addListener(marker, 'click', function(event) {
+    if (nagOpen) {
+      nag.close();
+      nagOpen = false;
+    } else {
+      nag.open(map,marker);
+      nagOpen = true;
+    }
+  });
 
-	return marker;
+  return marker;
 }

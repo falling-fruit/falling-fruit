@@ -2,21 +2,21 @@
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
 
-	// Access
-	$("#location_access").select2({
-		minimumResultsForSearch: Infinity,
-		placeholderOption: function () { return undefined; } //preserves blank option
-	});
+  // Access
+  $("#location_access").select2({
+    minimumResultsForSearch: Infinity,
+    placeholderOption: function () { return undefined; } //preserves blank option
+  });
 
-	// Season
-	$("#location_season_start").select2({
-		minimumResultsForSearch: Infinity
-	});
-	$("#location_season_stop").select2({
-		minimumResultsForSearch: Infinity
-	});
+  // Season
+  $("#location_season_start").select2({
+    minimumResultsForSearch: Infinity
+  });
+  $("#location_season_stop").select2({
+    minimumResultsForSearch: Infinity
+  });
 
-	// Date observed
+  // Date observed
   $("#location_observation_observed_on").datepicker({
     dateFormat: "yy-mm-dd",
     firstDay: 1, // week starts on Monday
@@ -25,7 +25,7 @@ jQuery(document).ready(function(){
 
   // Type selector
   $('#typeselect2').select2({
-  	tokenSeparators: [","],
+    tokenSeparators: [","],
     tags: <%= Type.full_list(@cats.nil? ? Type::DefaultCategories : @cats).to_json.html_safe %>
   });
 
@@ -33,7 +33,7 @@ jQuery(document).ready(function(){
     containment: 'parent',
     start: function() { $("#typeselect2").select2("onSortStart"); },
     update: function() { $("#typeselect2").select2("onSortEnd"); }
-	});
+  });
 
   // Quality rating slider
   var select = $( "#location_observation_quality_rating" );
@@ -51,11 +51,11 @@ jQuery(document).ready(function(){
     slider.slider( "value", this.selectedIndex + 1 );
   });
   select.hide();
-	}
+  }
 
-	// Yield rating slider
+  // Yield rating slider
   var select2 = $( "#location_observation_yield_rating" );
-	if (select2.length > 0) {
+  if (select2.length > 0) {
   var slider2 = jQuery( "<div id='slider'></div>" ).insertAfter( select2 ).slider({
     min: 1,
     max: 6,
@@ -69,9 +69,9 @@ jQuery(document).ready(function(){
     slider2.slider( "value", this.selectedIndex + 1 );
   });
   select2.hide();
-	}
+  }
 
-	// Fruiting slider
+  // Fruiting slider
   var select3 = $( "#location_observation_fruiting" );
   if (select3.length > 0) {
   var slider3 = jQuery( "<div id='slider'></div>" ).insertAfter( select3 ).slider({
@@ -87,7 +87,7 @@ jQuery(document).ready(function(){
     slider3.slider( "value", this.selectedIndex + 1 );
   });
   select3.hide();
-	}
+  }
 
 });
 </script>
@@ -131,7 +131,7 @@ jQuery(document).ready(function(){
     Lat, Lng <%= f.text_field :lat, :value => @lat.nil? ? "" : @lat.round(6) %>, <%= f.text_field :lng, :value => @lng.nil? ? "" : @lng.round(6) %><br />
     <a href="#" onclick="update_marker_latlng();">>> <%= translate("locations.form.move_marker") %></a>
 
-  	<!-- Address (if new) -->
+    <!-- Address (if new) -->
     <% if @current_action == "new" or @current_action == "create" %>
       <div style="margin-top:0.25em;">
         <span><%= translate("glossary.address") %></span>
@@ -155,11 +155,11 @@ jQuery(document).ready(function(){
 
   <!-- Author (edit: admin only) -->
   <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
-  	<div class="field">
+    <div class="field">
       <label for="location_author"><%= translate("locations.form.original_author") %></label><br />
       <span class="subtext"><%= translate("locations.form.author_subtext") %></span><br />
       <%= f.text_field :author %>
-  	</div>
+    </div>
   <% end %>
 
   <!-- Description -->
@@ -250,11 +250,11 @@ jQuery(document).ready(function(){
 
   <!-- Captcha -->
   <% unless user_signed_in? %>
-  	<div id="captcha">
-  		<%= recaptcha_tags(:display => {:theme => 'white'}, :ssl => (request.protocol == 'https://' ? true : false)) %>
-  	</div>
+    <div id="captcha">
+      <%= recaptcha_tags(:display => {:theme => 'white'}, :ssl => (request.protocol == 'https://' ? true : false)) %>
+    </div>
   <br />
-	<% end %>
+  <% end %>
 
   <!-- Submit -->
   <div class="actions">

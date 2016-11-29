@@ -19,8 +19,8 @@
 
   // ================= globals ==================
 
-	var marker = null;
-	var lat = $("#location_lat").val();
+  var marker = null;
+  var lat = $("#location_lat").val();
   var lng = $("#location_lng").val();
   var zoom = 19;
   var type = google.maps.MapTypeId.HYBRID;
@@ -55,26 +55,26 @@
     } else {
       load_map(lat,lng,zoom,type);
     }
-	}
+  }
 
-	// Ensures events are added only once basemap() has been called
-	function load_map(lat,lng,zoom,type) {
-	  basemap(lat,lng,zoom,type);
+  // Ensures events are added only once basemap() has been called
+  function load_map(lat,lng,zoom,type) {
+    basemap(lat,lng,zoom,type);
     marker = load_edit_marker(lat,lng);
 
     // Update markers once done panning and zooming
-		google.maps.event.addListener(map, 'idle', function() {
+    google.maps.event.addListener(map, 'idle', function() {
       if (map.getZoom() > 12) {
         do_markers(map.getBounds(),null,true,undefined,cats);
       }
-		});
+    });
 
-		// Move marker if map is clicked
-	  // Warning: Click also closes any open marker infowindow
-	  google.maps.event.addListener(map, 'click', function(event) {
-		  marker.setPosition(event.latLng);
-	  });
-	}
+    // Move marker if map is clicked
+    // Warning: Click also closes any open marker infowindow
+    google.maps.event.addListener(map, 'click', function(event) {
+      marker.setPosition(event.latLng);
+    });
+  }
 
   // ================== main-level code ===================
 

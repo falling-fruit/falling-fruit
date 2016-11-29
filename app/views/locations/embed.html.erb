@@ -12,7 +12,7 @@
   </p>
   <div id="embed_branding">
     <%= link_to("falling fruit",root_url,:id => "falling_fruit") %>
-		<div class="hr-like"></div>
+    <div class="hr-like"></div>
     <span>mini</span>
     <%= link_to(new_location_url(:c => @perma[:cats].to_s),:id => "add_source") do %>
       <%= translate("glossary.add_source") %>
@@ -44,9 +44,9 @@
   var type = google.maps.MapTypeId.ROADMAP;
   var cats = undefined;
   <% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
-	<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
-	<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
-	<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
+  <% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
+  <% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
+  <% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
   <% unless @perma[:cats].nil? %>cats = '<%= @perma[:cats] %>';<% end %>
   var muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>; // this seems wrong!?
   var labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;

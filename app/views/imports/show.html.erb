@@ -2,41 +2,41 @@
 
 <table style="border-collapse:separate;border-spacing:0 2em;">
 <tr>
-	<td style="vertical-align:top;text-align:right;padding:2em 1.5em 0 0;">
-		#<%= @import.id %>
-		<% if user_signed_in? and current_user.is? :admin %>
-			<br/><%= link_to(translate("glossary.edit"),edit_import_path(@import.id)) %>
-		<% end %>
-	</td>
-	<td style="padding:2em;background-color:#fafafa;">
+  <td style="vertical-align:top;text-align:right;padding:2em 1.5em 0 0;">
+    #<%= @import.id %>
+    <% if user_signed_in? and current_user.is? :admin %>
+      <br/><%= link_to(translate("glossary.edit"),edit_import_path(@import.id)) %>
+    <% end %>
+  </td>
+  <td style="padding:2em;background-color:#fafafa;">
 
-	<!-- Name, URL -->
-	<b><%= @import.name %></b><br />
-	<% unless @import.url.blank? %>
-		<%= link_to @import.url do %>
-		<%= !@import.url.match('google.com/maps|maps.google').nil? ? translate("pages.datasets.google_map") : (!@import.url.match('google.com/fusiontables').nil? ? translate("pages.datasets.google_fusion_table") : (!@import.url.match('mapsengine.google').nil? ? translate("pages.datasets.google_maps_engine") : @import.url)) %>
-		<% end %><br />
-	<% end %>
+  <!-- Name, URL -->
+  <b><%= @import.name %></b><br />
+  <% unless @import.url.blank? %>
+    <%= link_to @import.url do %>
+    <%= !@import.url.match('google.com/maps|maps.google').nil? ? translate("pages.datasets.google_map") : (!@import.url.match('google.com/fusiontables').nil? ? translate("pages.datasets.google_fusion_table") : (!@import.url.match('mapsengine.google').nil? ? translate("pages.datasets.google_maps_engine") : @import.url)) %>
+    <% end %><br />
+  <% end %>
 
-	<!-- Type, Date -->
-	<%= @import.muni ? translate("glossary.tree_inventory", :count => 1) : translate("pages.datasets.community_map") %> | <%= translate("glossary.imported") %> <i><%= @import.created_at.to_s %></i><br />
+  <!-- Type, Date -->
+  <%= @import.muni ? translate("glossary.tree_inventory", :count => 1) : translate("pages.datasets.community_map") %> | <%= translate("glossary.imported") %> <i><%= @import.created_at.to_s %></i><br />
 
-	<hr style="border:1px solid #eee;margin:1.5em 0;">
+  <hr style="border:1px solid #eee;margin:1.5em 0;">
 
-	<span style="font-size:100%;">
-	<!-- Comments -->
-	<% unless @import.comments.blank? %>
-		<%= raw @import.comments.gsub("\n","<br>") %><br /><br />
-	<% end %>
+  <span style="font-size:100%;">
+  <!-- Comments -->
+  <% unless @import.comments.blank? %>
+    <%= raw @import.comments.gsub("\n","<br>") %><br /><br />
+  <% end %>
 
-	<!-- License -->
-	<% unless @import.license.blank? %>
-		<%= raw @import.license.gsub("\n","<br>") %>
-	<% else %>
-		<i><%= translate("pages.datasets.no_license").html_safe %></i>
-	<% end %>
-	</span>
+  <!-- License -->
+  <% unless @import.license.blank? %>
+    <%= raw @import.license.gsub("\n","<br>") %>
+  <% else %>
+    <i><%= translate("pages.datasets.no_license").html_safe %></i>
+  <% end %>
+  </span>
 
-	</td>
+  </td>
 </tr>
 </table>
