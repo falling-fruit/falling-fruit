@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
     c = Change.new
     c.location = location
     c.description = description
-    c.remote_ip = request.remote_ip
+    c.remote_ip = request.headers['CF-Connecting-IP'] || request.remote_ip 
     c.user = current_user if user_signed_in?
     c.observation = observation
     c.description_patch = description_patch
