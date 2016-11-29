@@ -85,7 +85,7 @@ class Type < ActiveRecord::Base
   end
 
   # Type filter 2.0 (forthcoming)
-  def Type.dyna_tree(cats=DefaultCategories)
+  def Type.dyna_tree(cats = DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
     Rails.cache.fetch('types_dyna_tree' + cat_mask.to_s + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
       $seen = {}
@@ -93,7 +93,7 @@ class Type < ActiveRecord::Base
     end
   end
 
-  def to_dyna(cats=DefaultCategories)
+  def to_dyna(cats = DefaultCategories)
     cat_mask = array_to_mask(cats,Categories)
     $seen = {} if $seen.nil?
     return nil unless $seen[self.id].nil?
@@ -109,16 +109,40 @@ class Type < ActiveRecord::Base
     ret
   end
 
+  def Type.dyna_tree_all()
+    Rails.cache.fetch('types_dyna_tree_all' + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      $seen = {}
+      Type.where("NOT pending AND parent_id is NULL").default_sort.collect{ |t| t.to_dyna_all() }
+    end
+  end
+
+  def to_dyna_all()
+    $seen = {} if $seen.nil?
+    return nil unless $seen[self.id].nil?
+    $seen[self.id] = true
+    cs = self.children.where("NOT pending").default_sort
+    if cs.empty?
+      ret = {"key" => self.id, "title" => self.full_name}
+    else
+      ret = {"key" => "_" + self.id.to_s, "title" => self.full_name}
+      ret["children"] = cs.collect{ |c| c.to_dyna_all() }.compact
+      ret["children"].unshift({"key" => self.id, "title" => "..."})
+    end
+    ret
+  end
+
   # Location types
-  def Type.full_list(cats = DefaultCategories)
-    cat_mask = array_to_mask(cats,Categories)
-    Rails.cache.fetch('types_full_list' + cat_mask.to_s + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
-      Type.where("NOT pending AND (category_mask & ?)>0",cat_mask).default_sort.collect{ |t| t.full_name }
+  def Type.full_list(cats = Categories, uncategorized = true, pending = false)
+    cat_mask_str = array_to_mask(cats, Categories).to_s
+    uncategorized_str = uncategorized ? "OR category_mask = 0" : ""
+    pending_str = pending ? "" : "NOT pending AND "
+    Rails.cache.fetch('types_full_list' + cat_mask_str + uncategorized.to_s + pending.to_s + I18n.locale.to_s, :expires_in => 4.hours, :race_condition_ttl => 10.minutes) do
+      Type.where(pending_str + "((category_mask & " + cat_mask_str + ") > 0" + uncategorized_str + ")").default_sort.collect{ |t| t.full_name }
     end
   end
 
   # Type editing (NO CACHE)
-  def Type.full_list_with_ids(cats = DefaultCategories, uncategorized = false, pending = false)
+  def Type.full_list_with_ids(cats = Categories, uncategorized = true, pending = false)
     cat_mask_str = array_to_mask(cats, Categories).to_s
     uncategorized_str = uncategorized ? "OR category_mask = 0" : ""
     pending_str = pending ? "" : "NOT pending AND "

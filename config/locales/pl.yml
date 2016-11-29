@@ -295,7 +295,7 @@ pl:
       tree_inventories_modal_title: Czym jest spis drzew?
     sidebar:
       changed_within_html: Zmiany w Twoim <a href="/users/edit?locale=pl">obszarze zbiorów</a>
-      click_here_to_manage_your_routes_html: Kliknij <a href="%{routes_path}">tutaj</a>, aby zarządzać swoimi trasami
+      click_here_to_manage_your_routes_html: Kliknij <a href="%{routes_path}">tutaj</a>, aby zarządzać swoimi trasami.
       in: w
       locations_added_or_reviewed_by_you_while_logged_in: Lokalizacje dodane lub recenzowane przez Ciebie (widoczne po zalogowaniu się)
       you_havent_added_or_reviewed_anything_while_logged_in: Nie dodałeś/aś ani nie zrecenzowałeś/aś jeszcze niczego (widoczne po zalogowaniu się)

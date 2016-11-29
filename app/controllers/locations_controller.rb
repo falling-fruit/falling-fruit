@@ -79,7 +79,6 @@ class LocationsController < ApplicationController
     else
       @cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
-    @cat_filter = "(category_mask & #{@cat_mask})>0"
     respond_to do |format|
       format.html { render :partial => "/locations/infowindow", :locals => {:location => @location,:cat_filter=>@cat_filter} }
     end
@@ -95,24 +94,18 @@ class LocationsController < ApplicationController
     end
   end
 
+  # GET /forager
+  def forager_index
+    params[:c] = 'forager'
+    index and return
+  end
+
   # GET /dumpsters
   # GET /freegan
   def freegan_index
     @freegan = true
     params[:c] = 'freegan'
     params[:t] = 'toner-lite'
-    # hack since clusters don't support categories yet
-    @cat_mask = array_to_mask(["freegan"],Type::Categories)
-    @cat_filter = "(category_mask & #{@cat_mask})>0"
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
-    index and return
-  end
-
-  def invasivore_index
-    @invasivore = true
-    params[:c] = 'invasivore'
-    # hack since clusters don't support categories yet
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
@@ -121,20 +114,12 @@ class LocationsController < ApplicationController
   def grafter_index
     @grafter = true
     params[:c] = 'grafter'
-    # hack since clusters don't support categories yet
-    @cat_mask = array_to_mask(["grafter"], Type::Categories)
-    @cat_filter = "(category_mask & #{@cat_mask})>0"
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
   # GET /honeybee
   def honeybee_index
     params[:c] = 'honeybee'
-    # hack since clusters don't support categories yet
-    @cat_mask = array_to_mask(["honeybee"], Type::Categories)
-    @cat_filter = "(category_mask & #{@cat_mask}) > 0"
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
@@ -462,7 +447,18 @@ class LocationsController < ApplicationController
     @perma[:cats] = params[:c] if params[:c].present?
     @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
     @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
-    @types = params[:f].present? ? Type.find(params[:f].split(",").collect{ |e| e.to_i }) : []
+    if params[:f].present?
+      @types = Type.find_all_by_id(params[:f].split(",").collect{ |e| e.to_i })
+    else
+      cats = params[:c].nil? ? Type::DefaultCategories : params[:c].split(/\,/, -1)
+      cats = "" if cats.empty?
+      cat_mask = array_to_mask(cats, Type::Categories)
+      if cats.include?("")
+        @types = Type.where("(category_mask & #{cat_mask}) > 0 or category_mask = 0")
+      else
+        @types = Type.where("(category_mask & #{cat_mask}) > 0")
+      end
+    end
   end
 
 end

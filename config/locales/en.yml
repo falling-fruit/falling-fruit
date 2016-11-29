@@ -316,7 +316,7 @@ en:
       tree_inventories_modal_title: What is a tree inventory?
     sidebar:
       changed_within_html: Changes within your <a href="/users/edit?locale=en">foraging range</a>
-      click_here_to_manage_your_routes_html: Click <a href="%{routes_path}">here</a> to manage your routes
+      click_here_to_manage_your_routes_html: Click <a href="%{routes_path}">here</a> to manage your routes.
       in: in
       locations_added_or_reviewed_by_you_while_logged_in: Locations added or reviewed by you (while logged in)
       you_havent_added_or_reviewed_anything_while_logged_in: You haven't added or reviewed any sources yet (while logged in)

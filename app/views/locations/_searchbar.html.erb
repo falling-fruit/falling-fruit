@@ -101,19 +101,13 @@
 	//var temp = null;
 
 	jQuery(document).ready(function(){
-		//temp = filter_by_types_hash_wrapper(base_type_data_original);
 		$('#type_filter').select2({
-			<% unless @types.nil? or @types.empty? %>
-				placeholder: "<%= @types.collect{ |t| t.name }.join(" + ") %>",
-				val: type_filter,
-			<% else %>
-				placeholder: "<%= translate("glossary.edible_type") %>",
-			<% end %>
-				data: function (term,page) {
-						return { text: 'text', results: filter_by_types_hash_wrapper(base_type_data_original) };
-				},
-				allowClear: true,
-				allowedMethods: ['updateResults']
+      placeholder: "<%= translate("glossary.edible_type") %>",
+			data: function (term,page) {
+				return { text: 'text', results: filter_by_types_hash_wrapper(base_type_data_original) };
+			},
+			allowClear: true,
+			allowedMethods: ['updateResults']
 		});
 		// Needed so that default placeholder (not type name) is shown when select is cleared
 		$('#type_filter').attr("placeholder", "<%= translate("glossary.edible_type") %>");

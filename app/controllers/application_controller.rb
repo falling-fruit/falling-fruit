@@ -29,8 +29,9 @@ class ApplicationController < ActionController::Base
   # app/controllers/application_controller.rb
   # http://guides.rubyonrails.org/i18n.html
   def default_url_options(options = {})
-    @categories = Type::DefaultCategories if @categories.nil?
-    default_options = options.merge({ locale: I18n.locale, c: @categories.join(",") })
+    # @categories = Type::DefaultCategories if @categories.nil?
+    # default_options = options.merge({ locale: I18n.locale, c: @categories.join(",") })
+    default_options = options.merge({ locale: I18n.locale })
     if (params[:i18n_viz].present? and params[:i18n_viz] == 'true')
       default_options.merge!({ i18n_viz: 'true' })
     end

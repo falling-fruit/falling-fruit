@@ -2,9 +2,6 @@
 <%= stylesheet_link_tag "jquery.ui.tabs" %>
 <%= stylesheet_link_tag "base" %>
 
-<!-- Force links to open new window. Cross browser? -->
-<!--<base target="_blank" />-->
-
 <div id="mainmap_container">
   <div id="map"></div>
   <p id="stamen_attribution" style="display:none;">
@@ -25,11 +22,15 @@
  <%= translate("glossary.unverified") %>
 </div>
 
+<!-- app globals -->
+<% host = request.local? ? "localhost" : "fallingfruit.org" %>
 <script type="text/javascript" charset="utf-8">
+  host = "<%= host %>";
   // Load I18n locale into JS
   I18n.defaultLocale = "<%= I18n.default_locale %>";
   I18n.locale = "<%= I18n.locale %>";
 </script>
+
 <%= stylesheet_link_tag "shadowbox" %>
 <%= javascript_include_tag "shadowbox-i18n" %>
 <%= javascript_include_tag "shadowbox-infowindow" %>
@@ -52,11 +53,10 @@
   var labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var center_marker = <%= (!@perma[:center_mark].nil? and @perma[:center_mark]) ? "true" : "false" %>;
   var center_radius = <%= (!@perma[:center_radius].nil? and @perma[:center_radius].to_i > 0) ? @perma[:center_radius].to_i : "undefined" %>;
-
   var skip_ids = null;
   var type_filter = undefined;
-  <% unless @type.nil? %>
-    type_filter = <%= @type.id %>;
+  <% unless @types.nil? %>
+    type_filter = [<%= @types.collect{ |t| t.id }.join(",") %>];
   <% end %>
 
   // state variable used to leave out certain info_window features (report)

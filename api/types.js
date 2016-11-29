@@ -1,10 +1,10 @@
 var types = {};
 
 types.list = function (req, res) {
-  var cmask = common.default_catmask;
+  var cmask = cmask = common.catmask(config.cats);
   if(req.query.c) cmask = common.catmask(req.query.c.split(","));
   var cfilter = "";
-  if(req.query.uncategorized) cfilter = "category_mask=0 OR category_mask IS NULL OR ";
+  if(req.query.uncategorized || req.query.t) cfilter = "category_mask=0 OR category_mask IS NULL OR ";
   var name = "name";
   if(req.query.locale) name = common.i18n_name(req.query.locale);
   var mfilter = "";
@@ -15,6 +15,11 @@ types.list = function (req, res) {
   var urls = "";
   if(req.query.urls == 1) urls = "usda_symbol, wikipedia_url, eat_the_weeds_url, foraging_texas_url, urban_mushrooms_url, fruitipedia_url,";
   var zfilter = "AND zoom=2";
+  var tfilter = ""
+  if(req.query.t){
+    var tids = __.map(req.query.t.split(","),function(x){ return parseInt(x) });
+    tfilter = "AND t.id = ANY(ARRAY["+tids+"])";
+  }
   if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
     bfilter = common.postgis_bbox("cluster_point",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
                            parseFloat(req.query.swlat),parseFloat(req.query.swlng),900913);
@@ -29,7 +34,7 @@ types.list = function (req, res) {
       function(callback){ common.check_api_key(req,client,callback) },
       function(callback){
         if(bfilter){
-          filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
+          filters = __.reject([bfilter,mfilter,zfilter,tfilter],__.isUndefined).join(" ");
           client.query("SELECT t.id, COALESCE("+name+",name) as name, scientific_name, \
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
                         "+urls+" \
@@ -51,7 +56,7 @@ types.list = function (req, res) {
                         es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
                         "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
-                        FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
+                        FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) "+tfilter+" \
                         ORDER BY scientific_name, taxonomic_rank, name;",
                        [cmask],function(err, result) {
             if (err) return callback(err,'error running query');

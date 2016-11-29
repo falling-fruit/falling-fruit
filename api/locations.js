@@ -2,7 +2,7 @@ var locations = {};
 
 locations.add = function (req, res) {
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -32,7 +32,7 @@ locations.add = function (req, res) {
                       req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
                       req.query.no_season,req.query.unverified,
                       req.query.access,coords[1],coords[0]],function(err,result){
-          
+
           if(err) return callback(err,'error running query');
           else return callback(null,user);
         });
@@ -97,14 +97,14 @@ locations.add = function (req, res) {
     function(err,message){
       done();
       if(message && (err != 'okay')) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
 locations.edit = function (req, res) {
   var id = parseInt(req.params.id);
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -128,7 +128,7 @@ locations.edit = function (req, res) {
                       req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
                       req.query.no_season,req.query.unverified,
                       req.query.access,coords[1],coords[0],id],function(err,result){
-          
+
           if(err) return callback(err,'error running query');
           else return callback(null,id,user);
         });
@@ -146,16 +146,16 @@ locations.edit = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
 locations.list = function (req, res) {
   var cmask = common.default_catmask;
-  if(req.query.c) cmask = common.catmask(req.query.c.split(",")); 
-  var cfilter = "(bit_or(t.category_mask) & "+cmask+")>0";
+  if(req.query.c) cmask = common.catmask(req.query.c.split(","));
+  var cfilter = "HAVING (bit_or(t.category_mask) & "+cmask+")>0";
   var name = "name";
-  if(req.query.locale) name = common.i18n_name(req.query.locale); 
+  if(req.query.locale) name = common.i18n_name(req.query.locale);
   var mfilter = "";
   if(req.query.muni == 0) mfilter = "AND NOT muni";
   var ifilter = "";
@@ -168,12 +168,13 @@ locations.list = function (req, res) {
     bfilter = common.postgis_bbox("location",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
                            parseFloat(req.query.swlat),parseFloat(req.query.swlng),4326,12);
   }else{
-    return common.send_error(res,'bounding box not defined');    
+    return common.send_error(res,'bounding box not defined');
   }
   var sorted = "1 as sort";
   if(req.query.t){
     var tids = __.map(req.query.t.split(","),function(x){ return parseInt(x) });
     sorted = "CASE WHEN array_agg(t.id) @> ARRAY["+tids+"] THEN 0 ELSE 1 END as sort";
+    cfilter = ""; // override category mask
   }
   var limit = req.query.limit ? __.min([parseInt(req.query.limit),1000]) : 1000;
   var offset = req.query.offset ?parseInt(req.query.offset) : 0;
@@ -192,7 +193,7 @@ locations.list = function (req, res) {
                 ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name";
   }
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -211,7 +212,7 @@ locations.list = function (req, res) {
                       ARRAY_AGG(COALESCE("+name+",name)) AS type_names, \
                       "+sorted+distance+reviews+" FROM locations l, types t\
                       WHERE t.id=ANY(l.type_ids) "+filters+" GROUP BY l.id, l.lat, l.lng, l.unverified \
-                      HAVING "+cfilter+" ORDER BY sort LIMIT $1 OFFSET $2;",
+                      "+cfilter+" ORDER BY sort LIMIT $1 OFFSET $2;",
                      [limit,offset],function(err, result) {
           if (err) return callback(err,'error running query');
           res.send([result.rowCount,total_count].concat(__.map(result.rows,function(x){
@@ -237,9 +238,9 @@ locations.list = function (req, res) {
 locations.show = function (req, res) {
   var id = parseInt(req.params.id);
   var name = "name";
-  if(req.query.locale) name = common.i18n_name(req.query.locale); 
+  if(req.query.locale) name = common.i18n_name(req.query.locale);
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -274,7 +275,7 @@ locations.show = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
 
   });
 };

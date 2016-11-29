@@ -290,7 +290,7 @@ it:
       tree_inventories_modal_title: Che cosa è un inventario degli alberi?
     sidebar:
       changed_within_html: Variazioni della vostra <a href="/users/edit?locale=it"> tipologia di raccolta</a>
-      click_here_to_manage_your_routes_html: Clicca <a href="%{routes_path}">qui</a> per gestire il tuo percorso
+      click_here_to_manage_your_routes_html: Clicca <a href="%{routes_path}">qui</a> per gestire il tuo percorso.
       in: in
       locations_added_or_reviewed_by_you_while_logged_in: Posizioni aggiunte o controllate da voi (mentre si è connessi a)
       you_havent_added_or_reviewed_anything_while_logged_in: Non hai ancora aggiunto o revisionato alcuna fonte (da quando sei connesso)

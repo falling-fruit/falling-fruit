@@ -27,7 +27,7 @@
 		  <%= translate("glossary.unverified") %><span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_unverified_help_modal();">[?]</span>
 	  </li>
 	<% end %>
- <% @location.types(@cat_filter).each{ |t| %>
+ <% @location.types().each{ |t| %>
  <% if t.pending %>
    <li style="background-color:#FCE7E4;">
  <% else %>
@@ -88,14 +88,14 @@
 	   start_defined = !(location.season_start.nil? or location.season_start < 0)
 	   stop_defined = !(location.season_stop.nil? or location.season_stop < 0)
 	%>
-	<!-- Start - Stop -->	
+	<!-- Start - Stop -->
 	<% unless (!start_defined and !stop_defined)
 		season_class = "in_season" if (current == location.season_start) or (current == location.season_stop)
-		season_class = "in_season" if (start_defined and stop_defined and 
-																		location.season_stop > location.season_start and 
+		season_class = "in_season" if (start_defined and stop_defined and
+																		location.season_stop > location.season_start and
 																		current > location.season_start and current < location.season_stop)
-		season_class = "in_season" if (start_defined and stop_defined and 
-																		location.season_stop < location.season_start and 
+		season_class = "in_season" if (start_defined and stop_defined and
+																		location.season_stop < location.season_start and
 																		(current > location.season_start or current < location.season_stop))
 		pretty_start = start_defined ? translate("date.month_names")[location.season_start+1] : "?"
 		pretty_stop = stop_defined ? translate("date.month_names")[location.season_stop+1] : "?"
@@ -105,7 +105,7 @@
   <% else %>
   <!-- Observation table -->
   	<% unless location.observations.length == 0 %>
-			<% unless location.nobs_months_flowering.length == 0 %>			
+			<% unless location.nobs_months_flowering.length == 0 %>
 				<label><%= translate("locations.infowindow.fruiting")[0] %></label> <%= location.nobs_months_flowering.collect{ |v| ((v[0] == current) ? "<span class='in_season'>" + translate("date.month_names")[v[0]+1] + "</span>" : "<span class='out_season'>" + translate("date.month_names")[v[0]+1] + "</span>") + " <span class='observation_count'>(" + v[1].to_s + ")</span>" }.join(", ").html_safe %>
 			<% end %>
 			<% unless location.nobs_months_fruiting.length == 0 %>
@@ -147,7 +147,7 @@
 	<tr>
  		<td id="controls">
  		<!-- Observation -->
- 		<% 
+ 		<%
  		if user_signed_in? and current_user.is? :grafter
       review_string = "graft"
     else
@@ -177,7 +177,7 @@
  		<% if user_signed_in? and current_user.is? :admin %>
   			<%= link_to(translate("glossary.delete").downcase, location, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, :title => translate("locations.infowindow.delete_this_location")) %>
  		<% end %>
- 		</td>	
+ 		</td>
  		<!-- Author (source) -->
   	<td id="added_by"><i style="padding-right:0.5em;"><%= translate("glossary.by_author", :author => (location.author.nil? or (location.author.strip.length == 0)) ? translate("glossary.anonymous") : location.author) %></i>
   	<% unless location.import.nil? %>
@@ -213,21 +213,21 @@
     <i><%= translate("locations.infowindow.have_you_visited_html", :id => location.id).html_safe %></i>.
   </div>
 	<% location.observations.reverse_order.each{ |o| %>
-	  
+
 	  <!-- Grafts visible only to grafters -->
 	  <% next if o.graft and (not user_signed_in? or not current_user.is? :grafter) %>
-	  
+
 		<div class="observation <%= "graft" if o.graft %>">
 		  <!-- Delete controls -->
 			<% if user_signed_in? and current_user.is? :admin %>
 				<div style="float: right;">
 					<%= link_to('x', o, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, title: translate("locations.infowindow.delete_comment")) %>
-					<% unless o.photo_file_size.nil? %> 
+					<% unless o.photo_file_size.nil? %>
 						| <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="<%= translate("locations.infowindow.delete_photo") %>"><%= translate("glossary.photo") %></a>
 					<% end %>
 				</div>
 			<% end %>
-			
+
 			<!-- Photo -->
 			<% unless o.photo_file_size.nil? %>
 				<a href="<%= o.photo.url(:original) %>" rel="shadowbox" <% unless o.photo_caption.to_s.empty? %>title="<%= o.photo_caption %>"<% end %> style="text-decoration:none;color:inherit;">
@@ -241,7 +241,7 @@
 				  </div>
 				</a>
 			<% end %>
-			
+
 			<div class="observation_text">
 			<!-- Comment -->
 			<% unless o.comment.blank? %>
@@ -275,7 +275,7 @@
 				<% end %>
 			</span>
 			</div>
-			
+
 <div style="clear: right;"></div>
 </div>
 <% } %>

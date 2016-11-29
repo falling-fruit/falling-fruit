@@ -1,51 +1,50 @@
 <style type='text/css'>
-.button {
+  .button {
     display: inline-block;
     background: #EEE;
     cursor: pointer;
     padding: 2px 5px;
-}
-.hidden {
+  }
+  .hidden {
     display: none !important;
-}
-.underlined > span > a {
+  }
+  .underlined > span > a {
     text-decoration: underline !important;
-}
-.dynatree-title:focus {
+  }
+  .dynatree-title:focus {
     outline: none;
     border: none;
     color: inherit;
-}
-span.dynatree-active a, span.dynatree-focused a, span.dynatree-selected a {
+  }
+  span.dynatree-active a, span.dynatree-focused a, span.dynatree-selected a {
     color: #000 !important;
     font-style: inherit;
-}
-ul.dynatree-container a:hover {
+  }
+  ul.dynatree-container a:hover {
     background-color: transparent !important;
     border-color: transparent !important;
-}
-span.dynatree-active a {
+  }
+  span.dynatree-active a {
     background-color: transparent !important;
-}
-span.dynatree-focused a, span.dynatree-focused.dynatree-active a {
+  }
+  span.dynatree-focused a, span.dynatree-focused.dynatree-active a {
     background-color: #cce3f6 !important;
-}
-span.dynatree-checkbox:hover {
+  }
+  span.dynatree-checkbox:hover {
     cursor: pointer;
-}
-span.dynatree-node a {
+  }
+  span.dynatree-node a {
     color: #999 !important;
-}
-span.dynatree-focused a, span.dynatree-active a {
+  }
+  span.dynatree-focused a, span.dynatree-active a {
     color: #999 !important;
-}
-span.dynatree-selected a {
+  }
+  span.dynatree-selected a {
     color: #000 !important;
-}
-  </style>
+  }
+</style>
 
-
-<script type='text/javascript'>//<![CDATA[ 
+<script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
 
 $.ui.dynatree.nodedatadefaults["icon"] = false; // Icons off by default
@@ -55,215 +54,214 @@ $.ui.dynatree.nodedatadefaults["expand"] = false; // Not expanded by default
 var treeData= <%= @types.dyna_tree().to_json.html_safe %>;
 
 $(function () {
-    $("#tree").dynatree({
-        checkbox: false,
-        selectMode: 3,
-        persist: true,
-        autoFocus: false,
-        children: treeData,
-        generateIds: true, // Generate id attributes like <span id='IDPREFIX-KEY'>
-        idPrefix: "dynatree-id-",
-        cookieId: "dynatree", // Choose a more unique name, to allow multiple trees.
-        cookie: {
-            expires: null // Days or Date; null: session cookie
-        },
-        onFocus: function (node) {
-            node.activate();
-        },
-        onSelect: function (select, node) {
-            // Get a list of all selected nodes, and convert to a key array:
-            var selKeys = $.map(node.tree.getSelectedNodes(), function (node) {
-                return node.data.key;
-            });
-            $("#selected").html(selKeys.join(", "));
-        },
-        onClick: function (node, event) {
-            if (node.getEventTargetType(event) != 'expander') {
-                node.toggleSelect();
-            }
-        },
-        onKeydown: function (node, event) {
-            if (event.which == 32) {
-                node.toggleSelect();
-                return false;
-            }
-        },
-        classNames: {
-            container: "dynatree-container",
-            node: "dynatree-node",
-            folder: "dynatree-folder",
-            empty: "dynatree-empty",
-            vline: "dynatree-vline",
-            expander: "dynatree-expander",
-            connector: "dynatree-connector",
-            checkbox: "dynatree-checkbox",
-            nodeIcon: "dynatree-icon",
-            title: "dynatree-title",
-            noConnector: "dynatree-no-connector",
-            nodeError: "dynatree-statusnode-error",
-            nodeWait: "dynatree-statusnode-wait",
-            hidden: "dynatree-hidden",
-            combinedExpanderPrefix: "dynatree-exp-",
-            combinedIconPrefix: "dynatree-ico-",
-            hasChildren: "dynatree-has-children",
-            active: "dynatree-active",
-            selected: "dynatree-selected",
-            expanded: "dynatree-expanded",
-            lazy: "dynatree-lazy",
-            focused: "dynatree-focused",
-            partsel: "dynatree-partsel",
-            lastsib: "dynatree-lastsib"
-        },
-        onPostInit: function() {
-            // Load with active node focused (when loading state from cookie)
-            var node = $("#tree").dynatree("getActiveNode");
-            if (node != null) {
-                node.focus();
-            }
-            // Same as onSelect (way to call directly?)
-            var tree = $("#tree").dynatree("getTree");
-            var selKeys = $.map(tree.getSelectedNodes(), function (node) {
-                return node.data.key;
-            });
-            $("#selected").html(selKeys.join(", "));
-        }
-    });
+  $("#tree").dynatree({
+    checkbox: false,
+    selectMode: 3,
+    persist: true,
+    autoFocus: false,
+    children: treeData,
+    generateIds: true, // Generate id attributes like <span id='IDPREFIX-KEY'>
+    idPrefix: "dynatree-id-",
+    cookieId: "dynatree", // Choose a more unique name, to allow multiple trees.
+    cookie: {
+      expires: null // Days or Date; null: session cookie
+    },
+    onFocus: function (node) {
+      node.activate();
+    },
+    onSelect: function (select, node) {
+      // Get a list of all selected nodes, and convert to a key array:
+      var selKeys = $.map(node.tree.getSelectedNodes(), function (node) {
+        return node.data.key;
+      });
+      $("#selected").html(selKeys.join(", "));
+    },
+    onClick: function (node, event) {
+      if (node.getEventTargetType(event) != 'expander') {
+        node.toggleSelect();
+      }
+    },
+    onKeydown: function (node, event) {
+      if (event.which == 32) {
+        node.toggleSelect();
+        return false;
+      }
+    },
+    classNames: {
+      container: "dynatree-container",
+      node: "dynatree-node",
+      folder: "dynatree-folder",
+      empty: "dynatree-empty",
+      vline: "dynatree-vline",
+      expander: "dynatree-expander",
+      connector: "dynatree-connector",
+      checkbox: "dynatree-checkbox",
+      nodeIcon: "dynatree-icon",
+      title: "dynatree-title",
+      noConnector: "dynatree-no-connector",
+      nodeError: "dynatree-statusnode-error",
+      nodeWait: "dynatree-statusnode-wait",
+      hidden: "dynatree-hidden",
+      combinedExpanderPrefix: "dynatree-exp-",
+      combinedIconPrefix: "dynatree-ico-",
+      hasChildren: "dynatree-has-children",
+      active: "dynatree-active",
+      selected: "dynatree-selected",
+      expanded: "dynatree-expanded",
+      lazy: "dynatree-lazy",
+      focused: "dynatree-focused",
+      partsel: "dynatree-partsel",
+      lastsib: "dynatree-lastsib"
+    },
+    onPostInit: function() {
+      // Load with active node focused (when loading state from cookie)
+      var node = $("#tree").dynatree("getActiveNode");
+      if (node != null) {
+        node.focus();
+      }
+      // Same as onSelect (way to call directly?)
+      var tree = $("#tree").dynatree("getTree");
+      var selKeys = $.map(tree.getSelectedNodes(), function (node) {
+        return node.data.key;
+      });
+      $("#selected").html(selKeys.join(", "));
+    }
+  });
 });
 
 // Expand all
 $("#expandAll").click(function() {
-    $("#tree").dynatree("getRoot").visit(function (node) {
-        node.expand(true);
-    });
+  $("#tree").dynatree("getRoot").visit(function (node) {
+    node.expand(true);
+  });
 });
 
 // Collapse all
 $("#collapseAll").click(function() {
-    $("#tree").dynatree("getRoot").visit(function (node) {
-        node.expand(false);
-    });
+  $("#tree").dynatree("getRoot").visit(function (node) {
+    node.expand(false);
+  });
 });
 
 // Select all
 $("#selectAll").click(function() {
-    $("#tree").dynatree("getRoot").visit(function (node) {
-        node.select(true);
-    });
+  $("#tree").dynatree("getRoot").visit(function (node) {
+    node.select(true);
+  });
 });
 
 // Deselect all
 $("#deselectAll").click(function() {
-    $("#tree").dynatree("getRoot").visit(function (node) {
-        node.select(false);
-    });
+  $("#tree").dynatree("getRoot").visit(function (node) {
+    node.select(false);
+  });
 });
 
 // Update count (template)
 $("#updateCount").click(function() {
-    var node = $("#tree").dynatree("getTree").getNodeByKey("Freegan");
-    node.data.title = "Freegan (1052)";
-    node.render();
+  var node = $("#tree").dynatree("getTree").getNodeByKey("Freegan");
+  node.data.title = "Freegan (1052)";
+  node.render();
 });
 
 // Toggle type (template)
 $("#toggleType").click(function() {
-    var node = $("#tree").dynatree("getTree").getNodeByKey("Fruit");
-    //$(node.li).toggle();
-    $(node.li).toggleClass('hidden');
+  var node = $("#tree").dynatree("getTree").getNodeByKey("Fruit");
+  //$(node.li).toggle();
+  $(node.li).toggleClass('hidden');
 });
 
 // Prepare node and level array
 var startNode = $('#tree').dynatree("getRoot");
 var nodes = [];
 startNode.visit(function(node) {
-    nodes.push({"node" : node, "level" : node.getLevel()});
+  nodes.push({"node" : node, "level" : node.getLevel()});
 });
 nodes.sort(function(a,b){return a.level - b.level});
 
 // Search Tree
 var previousSearch = null;
 $('#filter').keyup(function() {
-    
-    var search = $(this).val().trim().toLowerCase();
-    var subsetSearch = search.indexOf(previousSearch) >= 0;
-    
-    if (search.length >= 1) {
-        
-        // Prepare node custom variables
-        nodes.forEach(function(n) {
-            // Remove all visibility locks
-            n.node.keepVisible = false;
-            if (previousSearch == "" | previousSearch == null) {
-                // Save expansion state
-                n.node.previouslyExpanded = n.node.isExpanded()
-            }
-        });
-        
-        // Search nodes
-        nodes.forEach(function(n) {
-            var node = n.node;
-            var level = n.level;
-            
-            // Skip those already hidden if subset of previous search
-            if (subsetSearch & $(node.li).css('display') == 'none') {
-                return true;
-            }
-            
-            // Find node titles matching search term
-            // (we skip class hidden since these correspond to types
-            // not present in the current map view)
-            if (!$(node.li).hasClass('hidden') & node.data.title.toLowerCase().indexOf(search) >= 0) {
-                // Show node, underlined
-                $(node.li).addClass("underlined");
-                $(node.li).show();
-                
-                // Expand parents as needed
-                node.makeVisible();
-                
-                // Keep parents visible
-                node.visitParents(function(node) { 
-                    node.keepVisible = true;
-                    $(node.li).show();
-                    return (node.parent != null);
-                }, false);
-            } else {
-                // Hide the node
-                if (!node.keepVisible) {
-                    $(node.li).hide();
-                }
-            }
-        });
-        
-    } else {
-        
-        // Reset: show all and remove underlines
-        nodes.forEach(function(n) {
-            var node = n.node;
-            node.expand(node.previouslyExpanded);
-            $(node.li).removeClass("underlined");
-            $(node.li).show();
-        });
-        previousSearch = null;
-    }
-    previousSearch = search;
+
+  var search = $(this).val().trim().toLowerCase();
+  var subsetSearch = search.indexOf(previousSearch) >= 0;
+
+  if (search.length >= 1) {
+
+    // Prepare node custom variables
+    nodes.forEach(function(n) {
+      // Remove all visibility locks
+      n.node.keepVisible = false;
+      if (previousSearch == "" | previousSearch == null) {
+        // Save expansion state
+        n.node.previouslyExpanded = n.node.isExpanded()
+      }
+    });
+
+    // Search nodes
+    nodes.forEach(function(n) {
+      var node = n.node;
+      var level = n.level;
+
+      // Skip those already hidden if subset of previous search
+      if (subsetSearch & $(node.li).css('display') == 'none') {
+        return true;
+      }
+
+      // Find node titles matching search term
+      // (we skip class hidden since these correspond to types
+      // not present in the current map view)
+      if (!$(node.li).hasClass('hidden') & node.data.title.toLowerCase().indexOf(search) >= 0) {
+        // Show node, underlined
+        $(node.li).addClass("underlined");
+        $(node.li).show();
+
+        // Expand parents as needed
+        node.makeVisible();
+
+        // Keep parents visible
+        node.visitParents(function(node) {
+          node.keepVisible = true;
+          $(node.li).show();
+          return (node.parent != null);
+        }, false);
+      } else {
+        // Hide the node
+        if (!node.keepVisible) {
+          $(node.li).hide();
+        }
+      }
+    });
+
+  } else {
+
+    // Reset: show all and remove underlines
+    nodes.forEach(function(n) {
+      var node = n.node;
+      node.expand(node.previouslyExpanded);
+      $(node.li).removeClass("underlined");
+      $(node.li).show();
+    });
+    previousSearch = null;
+  }
+  previousSearch = search;
 });
 
-});//]]>  
+});//]]>
 
 </script>
 
 <div style="padding:10px;">
-    <div>
-        <div class="button" id="expandAll">expand</div>
-        &middot; <div class="button" id="collapseAll">collapse</div>
-        &middot; <div class="button" id="selectAll">select all</div>
-        &middot; <div class="button" id="deselectAll">select none</div>
-    </div>
-    <br/>
-    Search : <input type="text" id="filter" /><span id="previousSearch"></span><br/>
-    <br/>
-    <div style="display:block;width:300px;" id="tree"></div>
-    <br/>
-    <div><b>Selected:</b> <span id="selected"></span></div>
+  <div>
+    <div class="button" id="expandAll">expand</div>
+    &middot; <div class="button" id="collapseAll">collapse</div>
+    &middot; <div class="button" id="selectAll">select all</div>
+    &middot; <div class="button" id="deselectAll">select none</div>
+  </div>
+  <br/>
+  Search : <input type="text" id="filter" /><span id="previousSearch"></span><br/>
+  <br/>
+  <div style="display:block;width:300px;" id="tree"></div>
+  <br/>
+  <div><b>Selected:</b> <span id="selected"></span></div>
 </div>
-  
