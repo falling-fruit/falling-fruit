@@ -248,7 +248,8 @@ ff_types[, has_canonical_scientific_name := !is.na(scientific_name) & !taxonomic
 # NOTE: "-" equivalent to " " in Google Search
 common_names[, search_name := tolower(gsub("-", " ", name))]
 languages <- c("es", "el", "pl", "pt", "pt-br", "it", "fr", "de")
-for (i in scientific_names[ff_id >= 963, sort(unique(ff_id))]) {
+languages <- c("pl", "pt", "pt-br", "it", "fr", "de")
+for (i in scientific_names[ff_id >= 1, sort(unique(ff_id))]) {
   if (ff_types[id == i, has_canonical_scientific_name]) {
     print(paste0(build_type_strings(ff_types[id == i, id], ff_types[id == i, name], ff_types[id == i, scientific_name])))
     preferred_scientific_name <- scientific_names[ff_id == i & ff_preferred == TRUE, unique(name)]
@@ -266,8 +267,10 @@ saveRDS(searches, paste0(output_dir, "searches.rds"))
 
 #### Output ####
 
+# TODO: Move up?
+common_names[name == "", is_valid := FALSE]
 # Normalize common names
-common_names[!is.na(search_results) & !is.na(display_name), display_name := normalize_common_name(x = name, x_search = search_name), by = .(language, search_name)]
+common_names[!is.na(search_results) & is.na(display_name), display_name := normalize_common_name(x = name, x_search = search_name), by = .(language, search_name)]
 
 ## Falling Fruit (present)
 # {locale}_names.csv
@@ -275,7 +278,7 @@ common_names[!is.na(search_results) & !is.na(display_name), display_name := norm
 
 languages <- c("es", "el", "pl", "pt", "pt-br", "it", "fr", "de")
 for (lang in languages) {
-  dt <- common_names[is_valid == TRUE & language == lang & !is.na(subset_search_results), .(n = unique(subset_search_results)), by = .(ff_id, display_name)][, .(translated_name = display_name[max(n) == n]), by = ff_id]
+  dt <- common_names[is_valid == TRUE & language == lang & !is.na(subset_search_results), .(n = unique(subset_search_results)), by = .(ff_id, display_name)][, .(translated_name = display_name[max(n) == n][1]), by = ff_id]
   write.csv(dt, paste0(output_dir, lang, "_names.csv"), row.names = FALSE)
 }
 
@@ -337,32 +340,7 @@ for (s in sources[sources != "eol"]) {
 # }
 
 x <- scientific_names[, .(ff_preferred, n = length(unique(source))), by = .(ff_id, name, ff_preferred)][order(ff_id, -ff_preferred, -n)][, .(scientific_names = list(name)), by = ff_id]
-y <- common_names[is_valid == TRUE & is_recognized_language == TRUE][order(-subset_search_results)][, display_name := ifelse(is.na(display_name), search_name, display_name)][, .(locale = list(list(names = display_name, wikipedia_url = ifelse(sum(source == "wikipedia") == 0, NA_character_, build_wiki_url(url = parse_wiki_url(unique(url[source == "wikipedia"]))))))), by = .(ff_id, language)][, .(locales = list(names, wikipedia_url)), by = ff_id]
-
-y$locales <- apply(y, 1, function(yi) {
-  temp <- list()
-  temp[[yi$language]] <- list(names = yi$names, wikipedia_url = yi$wikipedia_url)
-})
+y <- common_names[is_valid == TRUE & is_recognized_language == TRUE][order(-subset_search_results)][, display_name := ifelse(is.na(display_name), search_name, display_name)][, .(locale = list(list(language = language, names = display_name, wikipedia_url = ifelse(sum(source == "wikipedia") == 0, NA_character_, build_wiki_url(url = parse_wiki_url(unique(url[source == "wikipedia"]))))))), by = .(ff_id, language)][, .(locales = list(locale)), by = ff_id]
 z <- merge(x, y, by = "ff_id")
-
-dt_wikipedia_urls <- common_names[ff_id == i & is_valid == TRUE & is_recognized_language == TRUE & source == "wikipedia", .(url = build_wiki_url(url = parse_wiki_url(unique(url)))), by = language]
-
-
-
-type_lists <- list()
-for (i in ff_types[, id]) {
-  t <- list(
-    id = i,
-    scientific_names = scientific_names[ff_id == i, .(ff_preferred, n = length(unique(source))), by = name][order(-ff_preferred), unique(name)]
-  )
-  if (nrow(common_names[ff_id == i & is_valid == TRUE & is_recognized_language == TRUE]) > 0) {
-    dt_names <- common_names[ff_id == i & is_valid == TRUE & is_recognized_language == TRUE][order(-subset_search_results)][, .(results = unique(subset_search_results), display_name = ifelse(is.na(unique(display_name)), search_name, unique(display_name))), by = .(language, search_name)]
-    dt_wikipedia_urls <- common_names[ff_id == i & is_valid == TRUE & is_recognized_language == TRUE & source == "wikipedia", .(url = build_wiki_url(url = parse_wiki_url(unique(url)))), by = language]
-    dt <- merge(dt_names, dt_wikipedia_urls, by = "language")[order(-results)]
-    locales <- dt[, .(locale = list(list(names = display_name, wikipedia_url = url))), by = .(language, url)]$locale
-    names(locales) <- dt[, unique(language)]
-    t$locales <- locales
-    type_lists[[length(type_lists) + 1]] <- t
-  }
-}
-
+json <- jsonlite::toJSON(apply(z, 1, "["), pretty = TRUE)
+cat(json, file = paste0(output_dir, "type_locales.json"))
