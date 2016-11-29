@@ -29,10 +29,11 @@ var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
 if (host == "localhost") {
 	var api_base = "http://localhost:3100/api/0.2/";
+	var api_key = "AKDJGHSD";
 } else {
 	var api_base = "https://fallingfruit.org/api/0.2/";
+	var api_key = "EEQRBBUB";
 }
-var api_key = "EEQRBBUB";
 
 // ================= services ==================
 
