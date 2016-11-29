@@ -83,6 +83,11 @@ function basemap(lat,lng,zoom,type,bounds){
 
   // Enable the visual refresh
   google.maps.visualRefresh = true;
+	var mapTypeIds = [];
+	Object.keys(google.maps.MapTypeId).forEach(function(key, index) {
+    mapTypeIds.push(google.maps.MapTypeId[key]);
+	});
+	mapTypeIds.push(toner, "OSM");
 
   var mapOptions = {
     zoom: zoom,
@@ -91,13 +96,7 @@ function basemap(lat,lng,zoom,type,bounds){
     mapTypeControlOptions: {
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       position: google.maps.ControlPosition.TOP_RIGHT,
-      mapTypeIds: [
-        google.maps.MapTypeId.ROADMAP,
-        google.maps.MapTypeId.TERRAIN,
-        google.maps.MapTypeId.SATELLITE,
-        google.maps.MapTypeId.HYBRID,
-				toner,
-				"OSM"]
+      mapTypeIds: mapTypeIds
     },
     zoomControl: true,
     zoomControlOptions: {
