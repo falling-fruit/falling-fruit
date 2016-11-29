@@ -85,7 +85,18 @@ If you want to help with development, feel free to fork the project. If you have
 
   * Load the database schema:
 
-  If starting from a fresh install, load the full schema:
+  If you have a dump of the production database, it can be copied to your local environment.
+  These commands, although slow, have been found to work reliably:
+
+  ```
+  # remote
+  pg_dump --no-owner fallingfruit_new_db > fallingfruit.latest.dump
+  # local
+  psql -d fallingfruit_new_db < fallingfruit.latest.dump
+  pg_restore --clean --no-owner -d fallingfruit_new_db ~/desktop/fallingfruit.latest.sql
+  ```
+
+  Otherwise, load the database schema:
 
   ```
   bundle exec rake db:schema:load
@@ -97,7 +108,7 @@ If you want to help with development, feel free to fork the project. If you have
   bundle exec rake db:migrate
   ```
 
-  * Now, add a couple required functions to the database:
+  If you're proceeding from an empty database, you'll need to add a couple required functions:
 
   ```
   psql fallingfruit_new_db
