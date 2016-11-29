@@ -52,7 +52,7 @@
 		{
 			"id": "1816642f-ecd2-49cb-7861-53fbd8f821aa",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?api_key=BJBNKMWM&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
+			"url": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
@@ -71,7 +71,7 @@
 		{
 			"id": "1c3f78f3-722f-0b78-dcfa-5293e9f59bfd",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/login.json?api_key=BJBNKMWM&email=cphillips@smallwhitecube.com&password=CHANGEME",
+			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=cphillips@smallwhitecube.com&password=CHANGEME",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -89,7 +89,7 @@
 		{
 			"id": "2e19ce5d-26a4-ab3e-9345-54c29fe00991",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=BJBNKMWM&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1&photo_file_name=foo.jpg",
+			"url": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1&photo_file_name=foo.jpg",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
@@ -115,7 +115,7 @@
 		{
 			"id": "2ebdcc79-fed9-0f7e-6241-023172160a0e",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=BJBNKMWM&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1",
+			"url": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
@@ -134,7 +134,7 @@
 		{
 			"id": "32487e2b-064f-72a8-35ec-d2f3253f751b",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=BJBNKMWM",
+			"url": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=AKDJGHSD",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -152,7 +152,7 @@
 		{
 			"id": "422b3dad-e08a-4843-9c90-b9c1c2008f1a",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/types.json?api_key=BJBNKMWM&pending=1&uncategorized=1",
+			"url": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD&pending=1&uncategorized=1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -170,7 +170,7 @@
 		{
 			"id": "4567ff06-4bab-8ba3-a6db-ba846a9f7da2",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=BJBNKMWM&limit=100&offset=30",
+			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -189,7 +189,7 @@
 		{
 			"id": "477b85fc-8df2-4ed8-17dd-c4a730526556",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/3420.json?api_key=BJBNKMWM",
+			"url": "http://localhost:3100/api/0.2/locations/3420.json?api_key=AKDJGHSD",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -208,7 +208,7 @@
 		{
 			"id": "54834349-f69e-3e66-f7ad-cb80b5239f06",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?api_key=BJBNKMWM&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
+			"url": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
@@ -227,7 +227,7 @@
 		{
 			"id": "64f1681e-0ca9-c343-3c45-f95eeaf80b2a",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/logout.json?api_key=BJBNKMWM&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=",
+			"url": "http://localhost:3100/api/0.2/logout.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -245,7 +245,7 @@
 		{
 			"id": "744b91bd-6d34-4c70-962b-5d819cbe675d",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023/reviews.json?api_key=BJBNKMWM",
+			"url": "http://localhost:3100/api/0.2/locations/1023/reviews.json?api_key=AKDJGHSD",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -264,7 +264,7 @@
 		{
 			"id": "7513ab14-1acd-c127-b021-e95197424a8c",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/types.json?api_key=BJBNKMWM&nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12",
+			"url": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD&nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -283,7 +283,7 @@
 		{
 			"id": "79c54528-c8b0-6ea6-268a-69bd27d01877",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023.json?api_key=BJBNKMWM",
+			"url": "http://localhost:3100/api/0.2/locations/1023.json?api_key=AKDJGHSD",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -301,7 +301,7 @@
 		{
 			"id": "88b12520-d95b-5150-0c2c-5947c9dbb6a9",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=BJBNKMWM&limit=100&offset=30&reviews=1",
+			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30&reviews=1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -320,7 +320,7 @@
 		{
 			"id": "bdd90975-4281-dc08-cdbb-c4e29db577f0",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=BJBNKMWM&t=253,254",
+			"url": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=AKDJGHSD&t=253,254",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -338,7 +338,7 @@
 		{
 			"id": "d5775cbb-3514-601b-bc34-30c8d9b7a40d",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?api_key=BJBNKMWM&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false",
+			"url": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
@@ -357,7 +357,7 @@
 		{
 			"id": "d91250bc-5480-6536-5873-8f42b2b15577",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/login.json?api_key=BJBNKMWM&email=ethan.welty@gmail.com&password=FAKE",
+			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=ethan.welty@gmail.com&password=FAKE",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -376,7 +376,7 @@
 		{
 			"id": "ea263294-7403-b934-ec42-c34fc6f19749",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=BJBNKMWM&limit=100&offset=30&t=253",
+			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30&t=253",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -394,7 +394,7 @@
 		{
 			"id": "ee4aa26d-da64-5ba7-47d7-c199198170b1",
 			"headers": "",
-			"url": "http://localhost:3100/api/0.2/types.json?api_key=BJBNKMWM",
+			"url": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
