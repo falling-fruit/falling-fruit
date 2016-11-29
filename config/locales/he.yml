@@ -292,7 +292,7 @@ he:
       tree_inventories_modal_title: 
     sidebar:
       changed_within_html: שינויים בתוכך <a href="/users/edit?locale=he">מגוון הליקוט</a>
-      click_here_to_manage_your_routes_html: לחץ <a href="%{routes_path}">כאן</a> כדי לנהל את המסלולים שלך
+      click_here_to_manage_your_routes_html: לחץ <a href="%{routes_path}">כאן</a> כדי לנהל את המסלולים שלך.
       in: ב
       locations_added_or_reviewed_by_you_while_logged_in: מקומות נוסף או נסקרו על ידי לך (בזמן מחובר)
       you_havent_added_or_reviewed_anything_while_logged_in: אתה haven't הוסיף או סקורים שום דבר (תוך מחובר)

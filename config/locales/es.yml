@@ -308,7 +308,7 @@ es:
       tree_inventories_modal_title: ¿Qué es un inventario de árboles?
     sidebar:
       changed_within_html: Los cambios dentro de su <a href="/users/edit?locale=es">zona de alimentación</a>
-      click_here_to_manage_your_routes_html: Haga clic <a href="%{routes_path}">aquí</a> para administrar sus rutas
+      click_here_to_manage_your_routes_html: Haga clic <a href="%{routes_path}">aquí</a> para administrar sus rutas.
       in: en
       locations_added_or_reviewed_by_you_while_logged_in: Lugares añadidos o revisados ​​por usted (mientras está conectado)
       you_havent_added_or_reviewed_anything_while_logged_in: Usted no ha añadido o ha revisado nada (mientras está conectado)

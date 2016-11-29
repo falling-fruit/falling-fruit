@@ -292,7 +292,7 @@ pt-br:
       tree_inventories_modal_title: O que o inventário de árvores?
     sidebar:
       changed_within_html: Mudanças dentro da sua <a href="/users/edit?locale=pt">area de coleta</a>
-      click_here_to_manage_your_routes_html: Clique <a href="%{routes_path}">aqui</a> para gerenciar suas rotas
+      click_here_to_manage_your_routes_html: Clique <a href="%{routes_path}">aqui</a> para gerenciar suas rotas.
       in: em
       locations_added_or_reviewed_by_you_while_logged_in: Locais adicionados ou revistos por você (enquando logado)
       you_havent_added_or_reviewed_anything_while_logged_in: Você ainda não adicionou ou revisou nenhuma fonte (enquanto logado)

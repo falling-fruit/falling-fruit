@@ -308,7 +308,7 @@ el:
       tree_inventories_modal_title: Τι είναι οι κατάλογοι δέντρων;
     sidebar:
       changed_within_html: Αλλαγές μέσα στο <a href="/users/edit?locale=el">πεδίο δράσης</a> σας
-      click_here_to_manage_your_routes_html: Κάντε κλικ <a href="%{routes_path}">εδώ</a> να διαχειριστείτε τις διαδρομές σας
+      click_here_to_manage_your_routes_html: Κάντε κλικ <a href="%{routes_path}">εδώ</a> να διαχειριστείτε τις διαδρομές σας.
       in: σε
       locations_added_or_reviewed_by_you_while_logged_in: Τοποθεσίες που έχουν προστεθεί ή αναθεωρηθεί από εσάς (ενώ είστε συνδεδεμένοι)
       you_havent_added_or_reviewed_anything_while_logged_in: Δεν έχετε προσθεσεί ή αναθεωρήσει τοποθεσίες (ενώ είστε συνδεδεμένοι)

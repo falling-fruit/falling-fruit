@@ -304,7 +304,7 @@ de:
       tree_inventories_modal_title: Was ist ein Bauminventar?
     sidebar:
       changed_within_html: Veränderungen in deinem <a href="/users/edit?locale=de">Ernte-Radius</a>
-      click_here_to_manage_your_routes_html: Klicke <a href="%{routes_path}">hier</a>, um deine Routen zu verwalten
+      click_here_to_manage_your_routes_html: Klicke <a href="%{routes_path}">hier</a>, um deine Routen zu verwalten.
       in: in
       locations_added_or_reviewed_by_you_while_logged_in: Hinzugefügte oder von dir überprüfte Standorte (während du eingeloggt warst)
       you_havent_added_or_reviewed_anything_while_logged_in: Du hast nichts geändert oder überprüft (während du eingeloggt warst)
