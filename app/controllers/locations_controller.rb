@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
   respond_to :html
   respond_to :json, only: [:update,:create]
 
-  before_filter :authenticate_user!, :only => [:destroy,:enroute,:home]
+  before_filter :authenticate_user!, :only => [:destroy,:enroute,:index]
   before_filter(:only => [:update,:create]) do |controller|
     authenticate_user! if controller.request.format.json?
   end
@@ -136,10 +136,14 @@ class LocationsController < ApplicationController
   end
 
   def show
-    @location = Location.find(params[:id])
     prepare_from_permalink
-    respond_to do |format|
-      format.html
+    unless (params[:id] =~ /^[0-9]+$/).nil?
+      @location = Location.find(params[:id])
+      respond_to do |format|
+        format.html
+      end
+    else
+      index
     end
   end
 
