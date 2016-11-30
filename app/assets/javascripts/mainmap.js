@@ -231,6 +231,14 @@ function load_type_tree(element, tree_data) {
       if (node != null) {
         node.focus();
       }
+    },
+    onRender: function(node, nodeSpan) {
+      if (node.hidden) {
+        $(nodeSpan).addClass("hidden");
+      }
+      if (node.unavailable) {
+        $(nodeSpan).addClass("unavailable");
+      }
     }
   });
 }
@@ -263,7 +271,8 @@ function hide_unselected() {
   function f(nodes) {
     for (var i = nodes.length; i--;) {
       if (!nodes[i].hasSubSel && !nodes[i].bSelected) {
-        $(nodes[i].li).addClass('hidden');
+        $(nodes[i].li.firstChild).addClass('hidden');
+        nodes[i].hidden = true;
       }
       if (nodes[i].hasChildren()) {
         f(nodes[i].getChildren());
@@ -277,7 +286,8 @@ function show_unselected() {
   function f(nodes) {
     for (var i = nodes.length; i--;) {
       if (!nodes[i].hasSubSel && !nodes[i].bSelected) {
-        $(nodes[i].li).removeClass('hidden');
+        $(nodes[i].li.firstChild).removeClass('hidden');
+        nodes[i].hidden = false;
       }
       if (nodes[i].hasChildren()) {
         f(nodes[i].getChildren());
@@ -309,15 +319,17 @@ function update_tree_from_map() {
     for (var i = nodes.length; i--;) {
       var available = (nodes[i].hasChildren() && f(nodes[i].getChildren())) || types_hash[nodes[i].data.key];
       if (available) {
-        $(nodes[i].li).removeClass("unavailable");
+        $(nodes[i].li.firstChild).removeClass("unavailable");
+        nodes[i].unavailable = false;
         nodes[i].data.title = nodes[i].data.title.replace(/$| \([0-9]+\)$/, " (" + available + ")");
-        nodes[i].render();
         available_children += available;
+        nodes[i].render();
       } else {
-        $(nodes[i].li).addClass('unavailable');
+        $(nodes[i].li.firstChild).addClass("unavailable");
+        nodes[i].unavailable = true;
       }
     }
-    return(available_children)
+    return(available_children);
   }
   f(type_tree_root.getChildren());
 }
@@ -332,58 +344,114 @@ function update_tree_from_type_filter(type_filter) {
   });
 }
 
-function search_tree(string) {
-  var search = string.trim().toLowerCase();
-  var is_subset_search = search.indexOf(previous_search) >= 0;
-  if (search.length >= 1) {
-    // Prepare node custom variables
-    type_nodes.forEach(function(n) {
-      // Remove all visibility locks
-      n.node.keepVisible = false;
-      if (previous_search == "" | previous_search == null) {
-        // Save expansion state
-        n.node.previouslyExpanded = n.node.isExpanded()
+function search_tree(e) {
+  var search = e.value.trim().toLowerCase();
+  var is_subset_search = search.indexOf(previous_type_search) >= 0;
+  var is_new_search = previous_type_search == "" || previous_type_search == null;
+  if (!search.length || !is_subset_search) {
+    // Reset
+    type_tree_root.visit(function(node) {
+      // Show those previously hidden
+      if (node.previouslyVisible) {
+        $(node.li.firstChild).removeClass('hidden');
+        node.hidden = false;
+      }
+      // Close those previously expanded
+      if (node.previouslyClosed) {
+        node.expand(false);
       }
     });
-    // Search nodes
-    type_nodes.forEach(function(n) {
-      var node = n.node;
-      var level = n.level;
-      // Skip those already hidden if subset of previous search
-      if (is_subset_search & $(node.li).css('display') == 'none') {
-        return true;
-      }
-      // Find node titles matching search term
-      // (we skip class unavailable since these correspond to types
-      // not present in the current map view)
-      if (node.data.title == "..." | !$(node.li).hasClass('unavailable') & node.data.title.toLowerCase().indexOf(search) >= 0) {
-        // Show node, underlined
-        // $(node.li).addClass("underlined");
-        $(node.li).show();
-        // Expand parents as needed
-        node.makeVisible();
-        // Keep parents visible
-        node.visitParents(function(node) {
-          node.keepVisible = true;
-          $(node.li).show();
-          return (node.parent != null);
-        }, false);
-      } else {
-        // Hide the node
-        if (!node.keepVisible) {
-          $(node.li).hide();
-        }
-      }
-    });
-  } else {
-    // Reset: show all and remove underlines
-    type_nodes.forEach(function(n) {
-      var node = n.node;
-      node.expand(node.previouslyExpanded);
-      // $(node.li).removeClass("underlined");
-      $(node.li).show();
-    });
-    previous_search = null;
+    if (!search.length) {
+      // Reset search sequence and exit
+      previous_type_search = null;
+      return;
+    }
   }
-  previous_search = search;
+  function f(nodes, select_first_child = false) {
+    var available_children = false;
+    for (var i = nodes.length; i--;) {
+      // If subset search, skip those already hidden
+      // Alternate to classes: $(nodes.li).css('display') == 'none'
+      if (is_subset_search && ($(nodes[i].li.firstChild).hasClass('unavailable') || $(nodes[i].li.firstChild).hasClass('hidden'))) {
+        continue;
+      }
+      var is_available_root = nodes[i].data.title.toLowerCase().indexOf(search) >= 0 || (i == 0 && select_first_child);
+      var has_available_children = (nodes[i].hasChildren() && f(nodes[i].getChildren(), is_available_root));
+      if (has_available_children) {
+        if (is_new_search && !nodes[i].isExpanded()) {
+          // Save expansion state
+          nodes[i].previouslyClosed = true;
+        }
+        nodes[i].expand(true);
+      }
+      if (has_available_children || is_available_root) {
+        if (!available_children) {
+          available_children = true;
+        }
+      } else {
+        // Save visibility state
+        nodes[i].previouslyVisible = true;
+        $(nodes[i].li.firstChild).addClass('hidden');
+        nodes[i].hidden = true;
+      }
+    }
+    return(available_children);
+  }
+  f(type_tree_root.getChildren());
+  previous_type_search = search;
 }
+
+//   var search = e.value.trim().toLowerCase();
+//   var is_subset_search = search.indexOf(previous_type_search) >= 0;
+//   if (search.length >= 1) {
+//     // Prepare node custom variables
+//     type_nodes.forEach(function(n) {
+//       // Remove all visibility locks
+//       n.node.keepVisible = false;
+//       if (previous_type_search == "" | previous_type_search == null) {
+//         // Save expansion state
+//         n.node.previouslyExpanded = n.node.isExpanded()
+//       }
+//     });
+//     // Search nodes
+//     type_nodes.forEach(function(n) {
+//       var node = n.node;
+//       var level = n.level;
+//       // Skip those already hidden if subset of previous search
+//       if (is_subset_search & $(node.li).css('display') == 'none') {
+//         return true;
+//       }
+//       // Find node titles matching search term
+//       // (we skip class unavailable since these correspond to types
+//       // not present in the current map view)
+//       if (node.data.title == "..." | !$(node.li).hasClass('unavailable') & node.data.title.toLowerCase().indexOf(search) >= 0) {
+//         // Show node, underlined
+//         // $(node.li).addClass("underlined");
+//         $(node.li).show();
+//         // Expand parents as needed
+//         node.makeVisible();
+//         // Keep parents visible
+//         node.visitParents(function(node) {
+//           node.keepVisible = true;
+//           $(node.li).show();
+//           return (node.parent != null);
+//         }, false);
+//       } else {
+//         // Hide the node
+//         if (!node.keepVisible) {
+//           $(node.li).hide();
+//         }
+//       }
+//     });
+//   } else {
+//     // Reset: show all and remove underlines
+//     type_nodes.forEach(function(n) {
+//       var node = n.node;
+//       node.expand(node.previouslyExpanded);
+//       // $(node.li).removeClass("underlined");
+//       $(node.li).show();
+//     });
+//     previous_type_search = null;
+//   }
+//   previous_type_search = search;
+// }

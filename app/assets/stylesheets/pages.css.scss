@@ -332,6 +332,11 @@ div#sidebar #filter {
   }
 }
 ul.dynatree-container {
+  // NOTE: Use variables and check layout is stable
+  position: absolute;
+  bottom: 8px;
+  top: 170px;
+  width: 372px;
   a {
     text-decoration: none !important;
     &:hover {
@@ -341,6 +346,12 @@ ul.dynatree-container {
   }
   .hidden, .unavailable {
     display: none !important;
+  }
+  li {
+    padding-top: 0px !important;
+  }
+  .dynatree-node {
+    padding-top: 1px !important;
   }
   .dynatree-partsel:not(.dynatree-selected) {
     background-color: #EEE;
