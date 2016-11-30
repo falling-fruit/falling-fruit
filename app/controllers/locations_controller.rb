@@ -86,7 +86,7 @@ class LocationsController < ApplicationController
 
   def embed
     prepare_from_permalink
-    @type = params[:f].present? ? Type.find(params[:f]) : nil
+    # @type = params[:f].present? ? Type.find(params[:f]) : nil
     @width = params[:width].present? ? params[:width].to_i : 640
     @height = params[:height].present? ? params[:height].to_i : 600
     respond_to do |format|
@@ -449,16 +449,17 @@ class LocationsController < ApplicationController
     @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
     @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
     if params[:f].present?
-      @types = Type.find_all_by_id(params[:f].split(",").collect{ |e| e.to_i })
-    else
-      cats = params[:c].nil? ? Type::DefaultCategories : params[:c].split(/\,/, -1)
-      cats = "" if cats.empty?
-      cat_mask = array_to_mask(cats, Type::Categories)
-      if cats.include?("")
-        @types = Type.where("(category_mask & #{cat_mask}) > 0 or category_mask = 0")
-      else
-        @types = Type.where("(category_mask & #{cat_mask}) > 0")
-      end
+      @perma[:f] = params[:f]
+      # @types = Type.find_all_by_id(params[:f].split(",").collect{ |e| e.to_i })
+    # else
+      # cats = params[:c].nil? ? Type::DefaultCategories : params[:c].split(/\,/, -1)
+      # cats = "" if cats.empty?
+      # cat_mask = array_to_mask(cats, Type::Categories)
+      # if cats.include?("")
+      #   @types = Type.where("(category_mask & #{cat_mask}) > 0 or category_mask = 0")
+      # else
+      #   @types = Type.where("(category_mask & #{cat_mask}) > 0")
+      # end
     end
   end
 

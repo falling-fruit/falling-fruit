@@ -17,14 +17,116 @@ function update_permalink(){
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
      typeid + '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale;
-  if (type_filter && type_filter.length > 0) {
-  	permalink = permalink + "&f=" + type_filter.join(",");
+  if (type_filter && type_filter.length) {
+  	permalink += "&f=" + compress_integers(type_filter);
   }
-  if (cats != undefined){
-    permalink = permalink + "&c=" + cats;
-  }
+  // if (cats != undefined){
+  //   permalink += "&c=" + cats;
+  // }
   $('#permalink').attr('href',permalink);
 }
+
+// Converts integers to compact string
+// NOTE: Integers are sorted first for better compression.
+// TODO: Use bitmap of string lengths instead of divider?
+function compress_integers(x) {
+  // Sort numbers
+  x = x.sort(function(a, b) {
+    return a - b;
+  });
+  // Convert numbers to range endpoints
+  var ranges = [], rstart, rend;
+  for (var i = 0; i < x.length; i++) {
+    rstart = x[i];
+    rend = rstart;
+    while (x[i + 1] - x[i] == 1) {
+      rend = x[i + 1]; // increment the index if the number is sequential
+      i++;
+    }
+    if (rstart == rend) {
+      ranges.push(rstart, rstart);
+    } else {
+      ranges.push(rstart, rend);
+    }
+  }
+  // Convert to delta sequence
+  var seq = [ranges[0]];
+  for (var i = 1; i < ranges.length; i++) {
+    seq.push(ranges[i] - ranges[i - 1]);
+  }
+  // Base 64 radix string
+  var str = "";
+  for (var i = 0; i < seq.length; i++) {
+    str += (seq[i] > 63 || seq[i] < 0) ? "|" + Base64.fromInt(seq[i]) + "|" : Base64.fromInt(seq[i]);
+  }
+  // Concatenate strings
+  return str;
+}
+
+// Recovers integers from output of compress_integers()
+function unpack_integers(str) {
+  // Decode base 64 to delta sequence
+  var seq = [], i = 0;
+  while (i < str.length) {
+    if (str[i] == "|") {
+      var temp = ""; i++;
+      while (str[i] != "|") {
+        temp += str[i];
+        i++;
+      }
+      seq.push(Base64.toInt(temp));
+    } else {
+      seq.push(Base64.toInt(str[i]));
+    }
+    i++;
+  }
+  // Convert to range endpoints
+  for (var i = 1; i < seq.length; i++) {
+    seq[i] = seq[i - 1] + seq[i];
+  }
+  // Expand range endpoints
+  var x = [];
+  for (var i = 0; i < seq.length; i = i + 2) {
+    for (var j = seq[i]; j <= seq[i + 1]; j++) {
+      x.push(j);
+    }
+  }
+  return x;
+}
+
+// Encode integers as 64-radix strings
+// http://stackoverflow.com/a/27696695
+Base64 = (function () {
+  var digitsStr =
+  //   0       8       16      24      32      40      48      56     63
+  //   v       v       v       v       v       v       v       v      v
+      "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+-";
+  var digits = digitsStr.split('');
+  var digitsMap = {};
+  for (var i = 0; i < digits.length; i++) {
+    digitsMap[digits[i]] = i;
+  }
+  return {
+    fromInt: function(int32) {
+      var result = '';
+      while (true) {
+        result = digits[int32 & 0x3f] + result;
+        int32 >>>= 6;
+        if (int32 === 0)
+          break;
+      }
+      return result;
+    },
+    toInt: function(digitsStr) {
+      var result = 0;
+      var digits = digitsStr.split('');
+      for (var i = 0; i < digits.length; i++) {
+        result = (result << 6) + digitsMap[digits[i]];
+      }
+      return result;
+    }
+  };
+})();
 
 function update_url(object) {
   window.history.pushState(undefined, "", $(object).attr('href'));
@@ -37,18 +139,18 @@ function show_embed_html(object){
   var http = location.protocol;
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
-  if (type_filter && type_filter.length > 0) {
-  	var fstr = "&f=" + type_filter.join(",");
+  if (type_filter && type_filter.length) {
+  	var fstr = "&f=" + compress_integers(type_filter);
   } else {
     var fstr = "";
   }
-  if (cats != undefined) {
-    var cstr = "&c=" + cats;
-  } else {
-    var cstr = "";
-  }
+  // if (cats != undefined) {
+  //   var cstr = "&c=" + cats;
+  // } else {
+  //   var cstr = "";
+  // }
   $(object).text('<iframe src="' + host + '/locations/embed?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
-    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + fstr + cstr +
+    '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" + typeid + fstr +
     '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale +
     '" width=640 height=600 scrolling="no" style="border:none;"></iframe>').dialog({
       closeText: "close",

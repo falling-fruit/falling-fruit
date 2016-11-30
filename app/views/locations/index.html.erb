@@ -40,6 +40,11 @@
 
 <% content_for :page_scripts do %>
 <%= render 'map_includes' %>
+<%= javascript_include_tag "maplabel" %>
+<%= javascript_include_tag "progressBar" %>
+<%= javascript_include_tag "richmarker" %>
+<%= javascript_include_tag "mapcommon" %>
+<%= javascript_include_tag "mainmap" %>
 <script type="text/javascript" charset="utf-8">
 
   // ================= globals ==================
@@ -56,9 +61,12 @@
   labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var skip_ids = null;
   var type_filter = undefined;
-  <% unless @types.nil? %>
-    type_filter = [<%= @types.collect{ |t| t.id }.join(",") %>];
+  <% if not @perma[:f].nil? %>
+    type_filter = unpack_integers('<%= @perma[:f] %>');
   <% end %>
+  // <% unless @types.nil? %>
+  //   type_filter = [<%= @types.collect{ |t| t.id }.join(",") %>];
+  // <% end %>
 
    // state variable used to leave out certain info_window features (report)
    <% $embed = (not (request.fullpath.match('/locations/embed[.]*').nil?)) %>
@@ -159,9 +167,4 @@
     google.maps.event.trigger(map,'resize');
   });
 </script>
-<%= javascript_include_tag "maplabel" %>
-<%= javascript_include_tag "progressBar" %>
-<%= javascript_include_tag "richmarker" %>
-<%= javascript_include_tag "mapcommon" %>
-<%= javascript_include_tag "mainmap" %>
 <% end %>
