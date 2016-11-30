@@ -245,31 +245,42 @@ function load_type_tree(element, tree_data) {
 
 function expand_all() {
   type_tree_root.visit(function (node) {
-    node.expand(true);
+    if (!node.isExpanded()) {
+      node.expand(true);
+    }
   });
 }
 
 function collapse_all() {
   type_tree_root.visit(function (node) {
-    node.expand(false);
+    if (node.isExpanded()) {
+      node.expand(false);
+    }
   });
 }
 
 function select_all() {
   type_tree_root.visit(function (node) {
-    node.select(true);
+    if (!node.isSelected()) {
+      node.select(true);
+    }
   });
 }
 
 function deselect_all() {
   type_tree_root.visit(function (node) {
-    node.select(false);
+    if (node.isSelected()) {
+      node.select(false);
+    }
   });
 }
 
 function hide_unselected() {
   function f(nodes) {
     for (var i = nodes.length; i--;) {
+      if (nodes[i].hidden || nodes[i].unavailable) {
+        continue
+      }
       if (!nodes[i].hasSubSel && !nodes[i].bSelected) {
         $(nodes[i].li.firstChild).addClass('hidden');
         nodes[i].hidden = true;
@@ -285,6 +296,9 @@ function hide_unselected() {
 function show_unselected() {
   function f(nodes) {
     for (var i = nodes.length; i--;) {
+      if (nodes[i].unavailable) {
+        continue
+      }
       if (!nodes[i].hasSubSel && !nodes[i].bSelected) {
         $(nodes[i].li.firstChild).removeClass('hidden');
         nodes[i].hidden = false;
@@ -319,7 +333,6 @@ function update_tree_from_map() {
     for (var i = nodes.length; i--;) {
       var available = (nodes[i].hasChildren() && f(nodes[i].getChildren())) || types_hash[nodes[i].data.key];
       if (available) {
-        $(nodes[i].li.firstChild).removeClass("unavailable");
         nodes[i].unavailable = false;
         nodes[i].data.title = nodes[i].data.title.replace(/$| \([0-9]+\)$/, " (" + available + ")");
         available_children += available;
@@ -337,9 +350,13 @@ function update_tree_from_map() {
 function update_tree_from_type_filter(type_filter) {
   type_tree_root.visit(function (node) {
     if (type_filter.includes(parseInt(node.data.key))) {
-      node.select(true);
+      if (!node.isSelected()) {
+        node.select(true);
+      }
     } else {
-      node.select(false);
+      if (node.isSelected()) {
+        node.select(false);
+      }
     }
   });
 }
@@ -372,7 +389,7 @@ function search_tree(e) {
     for (var i = nodes.length; i--;) {
       // If subset search, skip those already hidden
       // Alternate to classes: $(nodes.li).css('display') == 'none'
-      if (is_subset_search && ($(nodes[i].li.firstChild).hasClass('unavailable') || $(nodes[i].li.firstChild).hasClass('hidden'))) {
+      if (is_subset_search && (nodes[i].unavailable || nodes[i].hidden)) {
         continue;
       }
       var is_available_root = nodes[i].data.title.toLowerCase().indexOf(search) >= 0 || (i == 0 && select_first_child);
@@ -400,58 +417,3 @@ function search_tree(e) {
   f(type_tree_root.getChildren());
   previous_type_search = search;
 }
-
-//   var search = e.value.trim().toLowerCase();
-//   var is_subset_search = search.indexOf(previous_type_search) >= 0;
-//   if (search.length >= 1) {
-//     // Prepare node custom variables
-//     type_nodes.forEach(function(n) {
-//       // Remove all visibility locks
-//       n.node.keepVisible = false;
-//       if (previous_type_search == "" | previous_type_search == null) {
-//         // Save expansion state
-//         n.node.previouslyExpanded = n.node.isExpanded()
-//       }
-//     });
-//     // Search nodes
-//     type_nodes.forEach(function(n) {
-//       var node = n.node;
-//       var level = n.level;
-//       // Skip those already hidden if subset of previous search
-//       if (is_subset_search & $(node.li).css('display') == 'none') {
-//         return true;
-//       }
-//       // Find node titles matching search term
-//       // (we skip class unavailable since these correspond to types
-//       // not present in the current map view)
-//       if (node.data.title == "..." | !$(node.li).hasClass('unavailable') & node.data.title.toLowerCase().indexOf(search) >= 0) {
-//         // Show node, underlined
-//         // $(node.li).addClass("underlined");
-//         $(node.li).show();
-//         // Expand parents as needed
-//         node.makeVisible();
-//         // Keep parents visible
-//         node.visitParents(function(node) {
-//           node.keepVisible = true;
-//           $(node.li).show();
-//           return (node.parent != null);
-//         }, false);
-//       } else {
-//         // Hide the node
-//         if (!node.keepVisible) {
-//           $(node.li).hide();
-//         }
-//       }
-//     });
-//   } else {
-//     // Reset: show all and remove underlines
-//     type_nodes.forEach(function(n) {
-//       var node = n.node;
-//       node.expand(node.previouslyExpanded);
-//       // $(node.li).removeClass("underlined");
-//       $(node.li).show();
-//     });
-//     previous_type_search = null;
-//   }
-//   previous_type_search = search;
-// }

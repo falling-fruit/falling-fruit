@@ -165,11 +165,6 @@
     $("#sidebar").tabs();
     $("#sidebar").show();
     load_type_tree($("#type_tree"), <%= Type.dyna_tree_all().to_json.html_safe %>);
-    // NOTE: Why is this pre-processing needed for filtering the tree?
-    type_tree_root.visit(function(node) {
-      type_nodes.push({"node" : node, "level" : node.getLevel()});
-    });
-    type_nodes.sort(function(a,b) {return a.level - b.level});
   });
 </script>
 <% end %>
