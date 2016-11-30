@@ -17,13 +17,6 @@
       </span>
     </span>
 
-    <!-- Type Filter -->
-    &middot;
-    <span class="nowrap">
-      <b><%= translate("glossary.filter") %></b>
-      <%= text_field_tag(:type_filter) %>
-    </span>
-
     <!-- Tree inventories -->
     &middot;
     <span class="nowrap">
@@ -68,68 +61,3 @@
 
   </div>
 </div>
-
-<% content_for :page_scripts do %>
-<script type="text/javascript">
-  var base_type_data_original = <%= Type.hash_tree(@categories).to_json.html_safe %>;
-  // FIXME: Dirty hack to keep filter_by_types_hash from modifying base_type_data_original
-  function filter_by_types_hash_wrapper(x) {
-  	var base_type_data = $.extend(true, [], x);
-  	return filter_by_types_hash(base_type_data);
-  }
-  function filter_by_types_hash(children) {
-    var mp = markersPartial ? "+" : "";
-    var ret = children.filter(function (obj) {
-    	return (obj["children"] != undefined && obj["children"].length > 0) || types_hash[obj["id"]] != undefined;
-    });
-    for (var i = ret.length-1; i >= 0; i--) {
-    	var count = types_hash[ret[i]["id"]] ? types_hash[ret[i]["id"]] : 0;
-      //ret[i]["count"] = count;
-      ret[i]["text"] = ret[i]["name"] + " (" + count + mp + ")";
-      if (ret[i]["children_ids"].length > 0) {
-      	ret[i]["id"] = [ret[i]["id"], ret[i]["children_ids"]].join(",");
-      }
-      if (ret[i]["children"] != undefined) {
-        ret[i]["children"] = filter_by_types_hash(ret[i]["children"])
-        if (ret[i]["children"].length == 0 && count == 0) {
-        	ret.splice(i, 1);
-        }
-      }
-    }
-    return ret;
-  }
-	//var temp = null;
-
-	jQuery(document).ready(function(){
-		$('#type_filter').select2({
-      placeholder: "<%= translate("glossary.edible_type") %>",
-			data: function (term,page) {
-				return { text: 'text', results: filter_by_types_hash_wrapper(base_type_data_original) };
-			},
-			allowClear: true,
-			allowedMethods: ['updateResults']
-		});
-		// Needed so that default placeholder (not type name) is shown when select is cleared
-		$('#type_filter').attr("placeholder", "<%= translate("glossary.edible_type") %>");
-		$('#type_filter').on("change",function() {
-			var zoom = map.getZoom();
-			if ($("#type_filter").val() == "") {
-				type_filter = undefined;
-				if (zoom <= 12) {
-					update_display();
-				} else {
-					clear_type_filter();
-				}
-			} else {
-				type_filter = $("#type_filter").val().split(',').map(Number);
-				if (zoom <= 12) {
-					update_display();
-				} else {
-					apply_type_filter();
-				}
-			}
-			update_permalink();
-		});
-	});
-</script>
-<% end %>
