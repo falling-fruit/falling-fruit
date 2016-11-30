@@ -1,366 +1,355 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#">
-<head>
+  <head>
+    <!-- Metadata: Standard -->
+    <title>Falling Fruit</title>
+    <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
+    <!-- Open Graph: General settings -->
+    <meta property="og:site_name" content="Falling Fruit" />
+    <meta property="og:type" content="website" />
+    <meta property="fb:admins" content="10708811" /><!-- Ethan Welty -->
+    <meta property="fb:admins" content="42001954" /><!-- Caleb Phillips -->
+    <meta property="fb:admins" content="5246945" /><!-- Jeff Wanner -->
+    <!-- Open Graph: Locale settings -->
+    <% if (I18n.locale == :en) %>
+      <meta property="og:locale" content="en_US" />
+    <% elsif (I18n.locale == :"es") %>
+      <meta property="og:locale" content="es_LA" />
+    <% elsif (I18n.locale == :es) %>
+      <meta property="og:locale" content="de_DE" />
+    <% elsif (I18n.locale == :fr) %>
+      <meta property="og:locale" content="fr_FR" />
+    <% elsif (I18n.locale == :"pt-br") %>
+      <meta property="og:locale" content="pt_BR" />
+    <% elsif (I18n.locale == :"it") %>
+      <meta property="og:locale" content="it_IT" />
+    <% elsif (I18n.locale == :"el") %>
+      <meta property="og:locale" content="el_GR" />
+    <% elsif (I18n.locale == :"pl") %>
+      <meta property="og:locale" content="pl_PL" />
+    <% end %>
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="es_LA" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="pt_BR" />
+    <meta property="og:locale:alternate" content="it_IT" />
+    <meta property="og:locale:alternate" content="el_GR" />
+    <meta property="og:locale:alternate" content="pl_PL" />
+    <!-- Open Graph: Page-specific settings -->
+    <% if @freegan %>
+      <meta property="og:title" content="<%= translate("meta.freegan_title") %>" />
+      <meta property="og:url" content="http://fallingfruit.org/dumpsters?locale=<%= I18n.locale %>" />
+      <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker.png" />
+      <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker-01.jpg" />
+      <meta property="og:image" content="http://fallingfruit.org/og/dumpster-haul.jpg" />
+      <meta property="og:description" content="<%= translate("meta.freegan_description") %>" />
+      <meta name="description" content="<%= translate("meta.freegan_description") %>" />
+    <% else %>
+      <meta property="og:title" content="Falling Fruit" />
+      <meta property="og:url" content="http://fallingfruit.org/?locale=<%= I18n.locale %>" />
+      <meta property="og:image" content="http://fallingfruit.org/og/amittai.jpg" />
+      <meta property="og:image" content="http://fallingfruit.org/og/apple-haul.jpg" />
+      <meta property="og:description" content="<%= translate("meta.forager_description") %>" />
+      <meta name="description" content="<%= translate("meta.forager_description") %>" />
+    <% end %>
 
-  <!-- Metadata -->
-  <title>Falling Fruit</title>
-  <meta name="keywords" content="map, urban, harvest, edible, forage, glean, tree, inventory, plant, fruit, nut, berry, food, freegan, dumpster, community, Falling Fruit, Ethan Welty, Caleb Phillips, Jeff Wanner" />
-  <meta property="og:site_name" content="Falling Fruit" />
-  <meta property="og:type" content="website" />
-  <meta property="fb:admins" content="10708811" /><!-- Ethan Welty -->
-  <meta property="fb:admins" content="42001954" /><!-- Caleb Phillips -->
-  <meta property="fb:admins" content="5246945" /><!-- Jeff Wanner -->
+    <!-- Stylesheets -->
+    <%= stylesheet_link_tag "application" %>
+    <% if @freegan %>
+      <%= stylesheet_link_tag "freegan" %>
+    <% end %>
 
-  <% if (I18n.locale == :en) %>
-    <meta property="og:locale" content="en_US" />
-  <% elsif (I18n.locale == :"es") %>
-    <meta property="og:locale" content="es_LA" />
-  <% elsif (I18n.locale == :es) %>
-    <meta property="og:locale" content="de_DE" />
-  <% elsif (I18n.locale == :fr) %>
-    <meta property="og:locale" content="fr_FR" />
-  <% elsif (I18n.locale == :"pt-br") %>
-    <meta property="og:locale" content="pt_BR" />
-  <% elsif (I18n.locale == :"it") %>
-    <meta property="og:locale" content="it_IT" />
-  <% elsif (I18n.locale == :"el") %>
-    <meta property="og:locale" content="el_GR" />
-  <% elsif (I18n.locale == :"pl") %>
-    <meta property="og:locale" content="pl_PL" />
-  <% end %>
-	<meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:locale:alternate" content="es_LA" />
-  <meta property="og:locale:alternate" content="de_DE" />
-	<meta property="og:locale:alternate" content="fr_FR" />
-	<meta property="og:locale:alternate" content="pt_BR" />
-	<meta property="og:locale:alternate" content="it_IT" />
-  <meta property="og:locale:alternate" content="el_GR" />
-  <meta property="og:locale:alternate" content="pl_PL" />
+    <!-- Javascript -->
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
 
-  <% if @freegan %>
-    <meta property="og:title" content="<%= translate("meta.freegan_title") %>" />
-    <meta property="og:url" content="http://fallingfruit.org/dumpsters?locale=<%= I18n.locale %>" />
-    <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker.png" />
-    <meta property="og:image" content="http://fallingfruit.org/og/dumpster-sticker-01.jpg" />
-    <meta property="og:image" content="http://fallingfruit.org/og/dumpster-haul.jpg" />
-    <meta property="og:description" content="<%= translate("meta.freegan_description") %>" />
-    <meta name="description" content="<%= translate("meta.freegan_description") %>" />
-  <% else %>
-    <meta property="og:title" content="Falling Fruit" />
-    <meta property="og:url" content="http://fallingfruit.org/?locale=<%= I18n.locale %>" />
-    <meta property="og:image" content="http://fallingfruit.org/og/amittai.jpg" />
-    <meta property="og:image" content="http://fallingfruit.org/og/apple-haul.jpg" />
-    <meta property="og:description" content="<%= translate("meta.forager_description") %>" />
-    <meta name="description" content="<%= translate("meta.forager_description") %>" />
-  <% end %>
+    <!-- Globals -->
+    <% host = request.local? ? "localhost" : "fallingfruit.org" %>
+    <% if host == "localhost" %>
+      <meta name="google" value="notranslate">
+    <% end %>
+    <script type="text/javascript">
+      host = "<%= host %>";
+      cats = <%= raw @categories %>;
+      // load I18n
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+      I18n.fallbacks = true;
+      // resize content on header resize
+      $(window).resize(function() {
+        resize_content();
+      });
+      // set I18nViz external urls (initializer didn't work)
+      if (I18nViz) {
+        I18nViz.external_tool_url = "https://www.localeapp.com/projects/7532/translations?utf8=✓&search=";
+      }
+    </script>
 
-  <!-- Stylesheets -->
-  <%= stylesheet_link_tag "application" %>
-  <% if @freegan %>
-    <%= stylesheet_link_tag "freegan" %>
-  <% end %>
+    <!-- Load infowindow only after locale is set -->
+    <%= javascript_include_tag "shadowbox-i18n" %>
+    <%= javascript_include_tag "shadowbox-infowindow" %>
 
-  <!-- Javascript -->
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+    <!-- Recaptcha -->
+    <script type="text/javascript" src="<%= request.protocol%>www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 
-  <!-- app globals -->
-  <% host = request.local? ? "localhost" : "fallingfruit.org" %>
-  <% if host == "localhost" %>
-    <meta name="google" value="notranslate">
-  <% end %>
-  <script type="text/javascript">
-		host = "<%= host %>";
-		cats = <%= raw @categories %>;
-		// load I18n
-    I18n.defaultLocale = "<%= I18n.default_locale %>";
-    I18n.locale = "<%= I18n.locale %>";
-    I18n.fallbacks = true;
-    // resize content on header resize
-    $(window).resize(function() {
-      resize_content();
-    });
-    // set I18nViz external urls (initializer didn't work)
-    if (I18nViz) {
-      I18nViz.external_tool_url = "https://www.localeapp.com/projects/7532/translations?utf8=✓&search=";
-    }
-  </script>
-
-  <!-- Load infowindow only after locale is set -->
-  <%= javascript_include_tag "shadowbox-i18n" %>
-  <%= javascript_include_tag "shadowbox-infowindow" %>
-
-  <!-- Recaptcha -->
-  <script type="text/javascript" src="<%= request.protocol%>www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
-
-  <!-- Helper JS functions -->
-  <script type="text/javascript">
-    // Show recaptcha
-    function show_recaptcha(element) {
-      Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
-    }
-    // Resize below-header content on window resize
-    function resize_content() {
-      var siteHeaderHeight = document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
-      if (document.getElementById('content_container') != undefined) {
-        document.getElementById('content_container').style.top = siteHeaderHeight + 'px';
-      } else {
-        if(document.getElementById('searchbar') != undefined){
-          var mapHeaderHeight = siteHeaderHeight + document.getElementById('searchbar').offsetHeight;
-          if (document.getElementById('mainmap_container') != undefined) {
-            document.getElementById('mainmap_container').style.top = mapHeaderHeight + 'px';
-            google.maps.event.trigger(map,'resize');
-          }
-          if (document.getElementById('sidebar_container') != undefined) {
-            document.getElementById('sidebar_container').style.top = mapHeaderHeight + 'px';
+    <!-- Helper JS functions -->
+    <script type="text/javascript">
+      // Show recaptcha
+      function show_recaptcha(element) {
+        Recaptcha.create("6LcqFtwSAAAAAJ5DbZf652BwgOjHra7aRuMDC3lq", element, {theme: "white"});
+      }
+      // Resize below-header content on window resize
+      function resize_content() {
+        var siteHeaderHeight = document.getElementById('menubar').offsetHeight + document.getElementById('logobar').offsetHeight;
+        if (document.getElementById('content_container') != undefined) {
+          document.getElementById('content_container').style.top = siteHeaderHeight + 'px';
+        } else {
+          if(document.getElementById('searchbar') != undefined){
+            var mapHeaderHeight = siteHeaderHeight + document.getElementById('searchbar').offsetHeight;
+            if (document.getElementById('mainmap_container') != undefined) {
+              document.getElementById('mainmap_container').style.top = mapHeaderHeight + 'px';
+              google.maps.event.trigger(map,'resize');
+            }
+            if (document.getElementById('sidebar_container') != undefined) {
+              document.getElementById('sidebar_container').style.top = mapHeaderHeight + 'px';
+            }
           }
         }
       }
-    }
-    // URL parameter add/edit
-    function add_url_parameter(url, name, value) {
-      var pattern = new RegExp('(' + name + '=).*?(&|$|\/|^)')
-      if (url.search(pattern) > -1) {
-        url = url.replace(pattern, '$1' + value + '$2');
-      } else {
-        url += (url.indexOf('?') > 0 ? '&' : '?') + name + '=' + value;
+      // URL parameter add/edit
+      function add_url_parameter(url, name, value) {
+        var pattern = new RegExp('(' + name + '=).*?(&|$|\/|^)')
+        if (url.search(pattern) > -1) {
+          url = url.replace(pattern, '$1' + value + '$2');
+        } else {
+          url += (url.indexOf('?') > 0 ? '&' : '?') + name + '=' + value;
+        }
+        return url
       }
-      return url
-    }
-  </script>
+    </script>
 
-</head>
-<body onload="resize_content();">
+  </head>
+  <body onload="resize_content();">
 
-<!-- Problems modal -->
- <div id="problem_modal" title="<%= translate("glossary.report_a_problem") %>"></div>
+    <!-- Problems modal -->
+    <div id="problem_modal" title="<%= translate("glossary.report_a_problem") %>"></div>
 
- <!-- Alerts -->
- <% if notice or alert %>
- <div id="warnings_dialog" style="display:none;" ></div>
-<% content_for :page_scripts do %>
-<script type="text/javascript">
-	var w1 = '<%= notice %>';
-	var w2 = '<%= alert %>';
-	$('#warnings_dialog').dialog({
-		closeText: "close",
-		minHeight: '5em',
-		resizable: false,
-		draggable: false,
-		position: "top",
-		title: w1 + "\n\n" + w2,
-		dialogClass: "dialog_yellow"
-		});
-</script>
- <% end %>
- <% end %>
-
-<!-- Logo Bar -->
-<div id="logobar">
-
-	<!-- Locale -->
-  <div id="locale">
-    <select id="locale_select">
-      <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
-      <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
-      <option value="el" <%= (I18n.locale == :el) ? "selected" : "" %>>Ελληνικά</option>
-      <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option>
-      <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
-      <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
-      <!-- <option value="he" <%= (I18n.locale == :he) ? "selected" : "" %>>עברית</option> -->
-      <option value="pl" <%= (I18n.locale == :pl) ? "selected" : "" %>>Polski</option>
-      <option value="pt-br" <%= (I18n.locale == :"pt-br") ? "selected" : "" %>>Português</option>
-    </select>
-  </div>
-
- <!-- Sharing -->
- 	<script type="text/javascript">
-		var addthis_config = {
-		  // list at http://support.addthis.com/customer/portal/articles/381240-languages
-			ui_language: I18n.locale.substring(0,2)
-		}
-	</script>
-	<div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
-		<a href="https://www.facebook.com/FallingFruit" title="Facebook" >
-			<img src="/social/facebook.svg" alt="Facebook" />
-		</a>
-		<a href="https://twitter.com/Falling_Fruit" title="Twitter">
-			<img src="/social/twitter.svg" alt="Twitter" />
-		</a>
-		<a href="http://instagram.com/fallingfruit" title="Instagram">
-			<img src="/social/instagram.svg" alt="Instagram" />
-		</a>
-		<a href="https://plus.google.com/114324461382595896953/about" title="Google+">
-			<img src="/social/gplus.svg" alt="Google+"/>
-		</a>
-		<a class="addthis_button_compact" addthis:url="https://fallingfruit.org">
-			<img src="/social/addthis.png" />
-		</a>
-	</div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
-
-	<!-- Google+ Linking -->
-	<div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></div>
-
- <!-- Title -->
- <a id="falling_fruit" href="/">falling fruit</a>
- <span id="subtitle">
- &ndash;
- <% if @freegan %>
-   <%= translate("layouts.application.feed_people_not_landfills") %>
- <% else %>
-   <%= translate("layouts.application.mapping_the_urban_harvest") %>
- <% end %>
- </span>
-</div>
-
-<!-- Menu Bar -->
-<div id="menubar">
- <div id="rightcontrols">
-   <% path = request.fullpath %>
-		<% if user_signed_in? %>
-			<span id="user_email"><%= current_user.email %></span>
-     <%= link_to(translate("glossary.account"), edit_user_registration_path, :class => (path == '/users/edit') ? 'currentpage' : 'notcurrentpage') %>
-     <%= link_to(translate("glossary.logout"), destroy_user_session_path, :method => :delete) %>
-		<% else %>
-			<%= link_to(translate("glossary.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(translate("glossary.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
-		<% end %>
- </div>
-
- <!-- Menu -->
- <% basepath = path.split('?')[0] %>
- <div id="menu">
-    <ul>
-
-    <!-- Map -->
-    <% unless user_signed_in? %>
-      <li><%= link_to(translate("glossary.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
-    <% else %>
-      <li><%= link_to(translate("glossary.home"), home_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
-      <li><%= link_to(translate("glossary.world"), root_path, :class => (['/','/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
+    <!-- Alerts -->
+    <% if notice or alert %>
+      <div id="warnings_dialog" style="display:none;" ></div>
+      <% content_for :page_scripts do %>
+        <script type="text/javascript">
+          var w1 = '<%= notice %>';
+          var w2 = '<%= alert %>';
+          $('#warnings_dialog').dialog({
+            closeText: "close",
+            minHeight: '5em',
+            resizable: false,
+            draggable: false,
+            position: "top",
+            title: w1 + "\n\n" + w2,
+            dialogClass: "dialog_yellow"
+            });
+        </script>
+      <% end %>
     <% end %>
 
-    <!-- About -->
-    <li><%= link_to(translate("glossary.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
-    <ul>
-      <li><%= link_to(translate("layouts.application.menu.the_project"), about_path, :class => (basepath == '/about') ? 'currentpage' : 'notcurrentpage') %>
-      <li><%= link_to(translate("glossary.imported_datasets"), datasets_path, :class => (basepath == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to(translate("layouts.application.menu.sharing_the_harvest"), sharing_path, :class => (basepath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
-      <li><%= link_to(translate("layouts.application.menu.in_the_press"), press_path, :class => (basepath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
-    </ul>
+    <!-- Logo Bar -->
+    <div id="logobar">
 
-    <!-- Data -->
-    <li><%= link_to(translate("glossary.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
+      <!-- Locale -->
+      <div id="locale">
+        <select id="locale_select">
+          <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
+          <option value="en" <%= (I18n.locale == :en) ? "selected" : "" %>>English</option>
+          <option value="el" <%= (I18n.locale == :el) ? "selected" : "" %>>Ελληνικά</option>
+          <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option>
+          <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
+          <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
+          <!-- <option value="he" <%= (I18n.locale == :he) ? "selected" : "" %>>עברית</option> -->
+          <option value="pl" <%= (I18n.locale == :pl) ? "selected" : "" %>>Polski</option>
+          <option value="pt-br" <%= (I18n.locale == :"pt-br") ? "selected" : "" %>>Português</option>
+        </select>
+      </div>
 
-    <!-- Activity -->
-    <li><%= link_to(translate("glossary.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
+      <!-- Sharing -->
+      <script type="text/javascript">
+        var addthis_config = {
+          // list at http://support.addthis.com/customer/portal/articles/381240-languages
+          ui_language: I18n.locale.substring(0,2)
+        }
+      </script>
+      <div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
+        <a href="https://www.facebook.com/FallingFruit" title="Facebook" >
+          <img src="/social/facebook.svg" alt="Facebook" />
+        </a>
+        <a href="https://twitter.com/Falling_Fruit" title="Twitter">
+          <img src="/social/twitter.svg" alt="Twitter" />
+        </a>
+        <a href="http://instagram.com/fallingfruit" title="Instagram">
+          <img src="/social/instagram.svg" alt="Instagram" />
+        </a>
+        <a href="https://plus.google.com/114324461382595896953/about" title="Google+">
+          <img src="/social/gplus.svg" alt="Google+"/>
+        </a>
+        <a class="addthis_button_compact" addthis:url="https://fallingfruit.org">
+          <img src="/social/addthis.png" />
+        </a>
+      </div>
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
 
-    <!-- Routes -->
-		<% if user_signed_in? %>
-			<li><%= link_to(translate("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
+      <!-- Google+ Linking -->
+      <div style="display:none;"><a href="https://plus.google.com/114324461382595896953" rel="publisher">Google+</a></div>
 
-			<% if current_user.is? :admin %>
+      <!-- Title -->
+      <a id="falling_fruit" href="/">falling fruit</a>
+      <span id="subtitle">
+        &ndash;
+        <% if @freegan %>
+         <%= translate("layouts.application.feed_people_not_landfills") %>
+        <% else %>
+         <%= translate("layouts.application.mapping_the_urban_harvest") %>
+        <% end %>
+      </span>
 
-				<!-- Problems -->
-				<li><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
+    </div>
 
-				<!-- Types -->
-				<li><%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
-				<ul>
-						<li><%= link_to(translate("layouts.application.menu.approved_types"), types_path, :class => (basepath == '/types') ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(translate("glossary.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(translate("layouts.application.menu.new_type"), new_type_path, :class => (basepath == '/types/new') ? "currentpage" : "notcurrentpage") %></li>
-				</ul>
-				</li>
+    <!-- Menu Bar -->
+    <div id="menubar">
 
-				<!-- Imports -->
-				<li><%= link_to(translate("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
-				<ul>
-						<li><%= link_to(translate("layouts.application.menu.list_imports"), imports_path, :class => (basepath == '/imports') ? "currentpage" : "notcurrentpage") %></li>
-						<li><%= link_to(translate("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
-				</ul>
-				</li>
+      <div id="rightcontrols">
+        <% path = request.fullpath %>
+        <% if user_signed_in? %>
+          <span id="user_email"><%= current_user.email %></span>
+          <%= link_to(translate("glossary.account"), edit_user_registration_path, :class => (path == '/users/edit') ? 'currentpage' : 'notcurrentpage') %>
+          <%= link_to(translate("glossary.logout"), destroy_user_session_path, :method => :delete) %>
+        <% else %>
+          <%= link_to(translate("glossary.login"), new_user_session_path, :class => (path == '/users/sign_in') ? 'currentpage' : 'notcurrentpage') %><%= link_to(translate("glossary.sign_up"), new_user_registration_path, :class => (path == '/users/sign_up') ? 'currentpage' : 'notcurrentpage') %>
+        <% end %>
+      </div>
 
-				<!-- Users -->
-				<li><%= link_to(translate("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
-			<% end %>
-		<% end %>
+      <!-- Menu -->
+      <% basepath = path.split('?')[0] %>
+      <div id="menu">
+        <ul>
+          <!-- Map -->
+          <li><%= link_to(translate("glossary.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
+          <!-- About -->
+          <li>
+            <%= link_to(translate("glossary.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
+            <ul>
+              <li><%= link_to(translate("layouts.application.menu.the_project"), about_path, :class => (basepath == '/about') ? 'currentpage' : 'notcurrentpage') %></li>
+              <li><%= link_to(translate("glossary.imported_datasets"), datasets_path, :class => (basepath == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
+              <li><%= link_to(translate("layouts.application.menu.sharing_the_harvest"), sharing_path, :class => (basepath == '/sharing') ? 'currentpage' : 'notcurrentpage') %></li>
+              <li><%= link_to(translate("layouts.application.menu.in_the_press"), press_path, :class => (basepath == '/press') ? 'currentpage' : 'notcurrentpage') %></li>
+            </ul>
+          </li>
+          <!-- Data -->
+          <li><%= link_to(translate("glossary.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
+          <!-- Activity -->
+          <li><%= link_to(translate("glossary.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
+          <!-- Routes -->
+          <% if user_signed_in? %>
+            <li><%= link_to(translate("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
+            <% if current_user.is? :admin %>
+              <!-- Problems -->
+              <li><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
+              <!-- Types -->
+              <li>
+                <%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
+                <ul>
+                  <li><%= link_to(translate("layouts.application.menu.approved_types"), types_path, :class => (basepath == '/types') ? "currentpage" : "notcurrentpage") %></li>
+                  <li><%= link_to(translate("glossary.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
+                  <li><%= link_to(translate("layouts.application.menu.new_type"), new_type_path, :class => (basepath == '/types/new') ? "currentpage" : "notcurrentpage") %></li>
+                </ul>
+              </li>
+              <!-- Imports -->
+              <li>
+                <%= link_to(translate("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
+                <ul>
+                  <li><%= link_to(translate("layouts.application.menu.list_imports"), imports_path, :class => (basepath == '/imports') ? "currentpage" : "notcurrentpage") %></li>
+                  <li><%= link_to(translate("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
+                </ul>
+              </li>
+              <!-- Users -->
+              <li><%= link_to(translate("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
+            <% end %>
+          <% end %>
+          <!-- Add Source -->
+          <li><%= link_to("+ " + translate("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
+            <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
+              <span>(<%= translate("layouts.application.or_right-click_on_map") %>)</span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
 
-		<!-- Add Source -->
-		<li><%= link_to("+ " + translate("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
-    <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
-			<span>(<%= translate("layouts.application.or_right-click_on_map") %>)</span>
-		<% end %>
-    </li>
+    </div>
 
-    </ul>
+    <!-- Unverified? -->
+    <div id="unverified_help" style="display:none;" title="<%= translate("layouts.application.unverified_help_title") %>">
+      <%= translate("layouts.application.unverified_help") %>
+    </div>
 
- </div>
-</div>
+    <!-- Pending Types -->
+    <div id="pending_types_help" style="display:none;" title="<%= translate("glossary.pending_types") %>">
+      <%= translate("layouts.application.pending_types_help") %>
+    </div>
 
-<!-- Unverified? -->
-<div id="unverified_help" style="display:none;" title="<%= translate("layouts.application.unverified_help_title") %>">
-<%= translate("layouts.application.unverified_help") %>
-</div>
+    <!-- Content -->
+    <% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show")  or (@current_controller == "observations") %>
 
-<!-- Pending Types -->
-<div id="pending_types_help" style="display:none;" title="<%= translate("glossary.pending_types") %>">
-<%= translate("layouts.application.pending_types_help") %>
-</div>
+      <div id="content_container">
+        <!-- Allow full-width content for very large tables in admin views -->
+        <div id="content" <% if (@current_controller == "types" and @current_action == "index") or (@current_controller == "users" and @current_action == "index") %>style="max-width:100%;"<% end %>>
+         <%= yield %>
 
-<!-- Content -->
-<% unless ((@current_controller == "locations") and !(@current_action == "import")) or (@current_controller == "routes" and @current_action == "show")  or (@current_controller == "observations") %>
+         <!-- Footer -->
+         <div id="footer">
+          <a href="http://www.gnu.org/copyleft/gpl.html" />Copyleft</a> © <%= Time.now.year %> Falling Fruit
+         </div>
+        </div>
+      </div>
 
-<div id="content_container">
-	<!-- Allow full-width content for very large tables in admin views -->
-	<div id="content" <% if (@current_controller == "types" and @current_action == "index") or (@current_controller == "users" and @current_action == "index") %>style="max-width:100%;"<% end %>>
-	 <%= yield %>
+    <% else %>
 
-	 <!-- Footer -->
-	 <div id="footer">
-		<a href="http://www.gnu.org/copyleft/gpl.html" />Copyleft</a> © <%= Time.now.year %> Falling Fruit
-	 </div>
-	</div>
-</div>
+      <%= yield %>
 
-<% else %>
+    <% end %>
 
-	<%= yield %>
+    <script type="text/javascript">
+      jQuery(document).ready(function(){
+        $("#locale_select").change(function(){
+          url = add_url_parameter(window.location.href, 'locale', $("#locale_select").val())
+          window.location.href = url;
+        });
+      });
+    </script>
 
-<% end %>
+    <!-- Per Page Javascripts -->
+    <%= yield :page_scripts %>
 
-<script type="text/javascript">
-	jQuery(document).ready(function(){
-		$("#locale_select").change(function(){
-			url = add_url_parameter(window.location.href, 'locale', $("#locale_select").val())
-			window.location.href = url;
-		});
-	});
-</script>
+    <!-- Form Partial Javascripts -->
+    <%= yield :form_scripts %>
 
-<!-- Per Page Javascripts -->
-<%= yield :page_scripts %>
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-39120529-1']);
+      _gaq.push(['_setDomainName', 'fallingfruit.org']);
+      _gaq.push(['_trackPageview']);
 
-<!-- Form Partial Javascripts -->
-<%= yield :form_scripts %>
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
-<!-- Google Analytics -->
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-39120529-1']);
-  _gaq.push(['_setDomainName', 'fallingfruit.org']);
-  _gaq.push(['_trackPageview']);
+    <!-- AddThis Javascript -->
+    <!-- URL tracking <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>-->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-<!-- AddThis Javascript -->
-<!-- URL tracking <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>-->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
-
-</body>
+  </body>
 </html>

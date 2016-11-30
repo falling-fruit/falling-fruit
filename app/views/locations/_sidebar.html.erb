@@ -2,155 +2,158 @@
   <div id="sidebar">
     <!-- Tab Menu -->
     <ul>
-      <% if user_signed_in? and current_user.is? :admin %>
-        <li id="filter-tab"><a href="#filter"><span><%= translate("glossary.filter") %></span></a></li>
+      <li id="filter-tab"><a href="#filter"><span><%= translate("glossary.filter") %></span></a></li>
+      <% if user_signed_in? %>
+        <li id="activity-tab"><a href="#activity"><span><%= translate("glossary.activity") %></span></a></li>
+        <li id="review-tab"><a href="#reviews"><span><%= translate("glossary.favorites") %></span></a></li>
+        <li id="routes-tab"><a href="#routes"><span><%= translate("glossary.routes") %></span></a></li>
       <% end %>
-      <li id="activity-tab"><a href="#activity"><span><%= translate("glossary.activity") %></span></a></li>
-      <li id="review-tab"><a href="#reviews"><span><%= translate("glossary.favorites") %></span></a></li>
-      <li id="routes-tab"><a href="#routes"><span><%= translate("glossary.routes") %></span></a></li>
       <li id="close-arrow"><a href="#" class="sidebar_arrow" onclick="close_sidebar();"><span>◀</span></a></li>
     </ul>
 
     <!-- Filter tab -->
-    <% if user_signed_in? and current_user.is? :admin %>
-      <div id="filter">
-        <table>
-          <tr>
-            <td>
-              <div class="button" onclick="expand_all();">expand</div>
-            </td>
-            <td>
-              <div class="button" onclick="select_all();">select all</div>
-            </td>
-            <td>
-              <div class="button" onclick="show_unselected();">show all</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="button" onclick="collapse_all();">collapse</div>
-            </td>
-            <td>
-              <div class="button" onclick="deselect_all();">select none</div>
-            </td>
-            <td>
-              <div class="button" onclick="hide_unselected();">show selected</div>
-            </td>
-          </tr>
-        </table>
-        <p>
-          Search <input type="text" onkeyup="search_tree(this);" />
-        </p>
-        <div id="type_tree"></div>
-        <div class="button" onclick="update_tree_from_map();">update tree</div>
-        <div class="button" onclick="update_map_from_tree();">update map</div>
-      </div>
-    <% end %>
-
-    <!-- Activity tab -->
-    <div id="activity">
-      <% if current_user.range.nil? %>
-        <span><%= translate("locations.sidebar.you_havent_defined_html").html_safe %></span>.
-      <% else %>
-        <span><%= translate("locations.sidebar.changed_within_html").html_safe %></span>:
-      <% end %>
-      <br/><br/>
-      <%
-         last_lab = nil
-         @changes.each do |c|
-           next if c["description"] == "grafted" and (not user_signed_in? or not current_user.is? :grafter)
-           types = c["type_title"]
-           action = translate("changes.type." + c["description"])
-           c["days_ago"] = c["days_ago"].to_i
-           lab = nil
-           mday = Time.zone.today.day
-           wday = Time.zone.today.wday
-           if c["days_ago"] <= 0
-             lab = translate("time.last_24_hours")
-           elsif c["days_ago"] <= wday
-             lab = translate("time.this_week")
-           elsif c["days_ago"] <= mday
-             lab = translate("time.this_month")
-           else
-             lab = translate("time.time_ago", :time => translate("time.months", :count => 1 + (c["days_ago"]-mday)/30))
-           end
-           if last_lab.nil? or last_lab != lab
-             if last_lab.nil?
-               header = "<span>" + lab + "</span><blockquote>"
-             else
-               header = "</blockquote><span>" + lab + "</span><blockquote>"
-             end
-             last_lab = lab
-           end
-        %>
-        <%= raw header %>
-        <% unless c["location_id"].nil? %>
-          <!-- On one line to avoid underlined trailing spaces -->
-          <a href="#" onclick="open_marker_by_id(<%= c["location_id"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();"><%= types.nil? ? translate("glossary.unknown") : types %></a>
-          <% unless c["city"].nil? %>
-            <span><%= translate("changes.change_in_city", :type => action, :city => c["city"]) %></span>
-          <% else %>
-            <span><%= action %></span>
-          <% end %>
-          <% unless c["change_author"].blank? %>
-            <span><%= translate("glossary.by_author", :author => c["change_author"]) %></span>
-          <% end %>
-          <br/>
-      <% end %>
-      <% end %>
-
-      <% if @changes.length > 0 %>
-        </blockquote>
-      <% end %>
+    <div id="filter">
+      <table>
+        <tr>
+          <td>
+            <div class="button" onclick="expand_all();">expand</div>
+          </td>
+          <td>
+            <div class="button" onclick="select_all();">select all</div>
+          </td>
+          <td>
+            <div class="button" onclick="show_unselected();">show all</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="button" onclick="collapse_all();">collapse</div>
+          </td>
+          <td>
+            <div class="button" onclick="deselect_all();">select none</div>
+          </td>
+          <td>
+            <div class="button" onclick="hide_unselected();">show selected</div>
+          </td>
+        </tr>
+      </table>
+      <p>
+        Search <input type="text" onkeyup="search_tree(this);" />
+      </p>
+      <div id="type_tree"></div>
+      <div class="button" onclick="update_tree_from_map();">update tree</div>
+      <div class="button" onclick="update_map_from_tree();">update map</div>
     </div>
 
-    <!-- Favorites tab -->
-    <div id="reviews">
-      <% if @my_changes.blank? %>
-        <span><%= translate("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in") %></span>.
-      <% else %>
-        <span><%= translate("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %></span>:
-        <br/>
-        <% @my_changes.each do |c| %>
-          <% next if c.location.nil? %>
-          <div class="favorite">
-            <a href="#" onclick="open_marker_by_id(<%= c.location.id %>);return false;" onmouseover="show_pointer(<%= c.location.lat %>,<%= c.location.lng %>);" onmouseout="hide_pointer();"><%= c.location.types().collect{ |t| t.i18n_name.nil? ? translate("glossary.unknown") : t.i18n_name }.join(", ") %></a>
-            <% unless c.location.country.nil? %>
-              <br/><i style="font-size: 85%;"><%= [c.location.city, c.location.state, c.location.country].reject{ |x| x.nil? }.join(", ") %></i>
+    <% if user_signed_in? %> <!-- START logged in -->
+
+      <!-- Activity tab -->
+      <div id="activity">
+        <% if current_user.range.nil? %>
+          <span><%= translate("locations.sidebar.you_havent_defined_html").html_safe %></span>.
+        <% else %>
+          <span><%= translate("locations.sidebar.changed_within_html").html_safe %></span>:
+        <% end %>
+        <br/><br/>
+        <%
+           last_lab = nil
+           @changes.each do |c|
+             next if c["description"] == "grafted" and (not user_signed_in? or not current_user.is? :grafter)
+             types = c["type_title"]
+             action = translate("changes.type." + c["description"])
+             c["days_ago"] = c["days_ago"].to_i
+             lab = nil
+             mday = Time.zone.today.day
+             wday = Time.zone.today.wday
+             if c["days_ago"] <= 0
+               lab = translate("time.last_24_hours")
+             elsif c["days_ago"] <= wday
+               lab = translate("time.this_week")
+             elsif c["days_ago"] <= mday
+               lab = translate("time.this_month")
+             else
+               lab = translate("time.time_ago", :time => translate("time.months", :count => 1 + (c["days_ago"]-mday)/30))
+             end
+             if last_lab.nil? or last_lab != lab
+               if last_lab.nil?
+                 header = "<span>" + lab + "</span><blockquote>"
+               else
+                 header = "</blockquote><span>" + lab + "</span><blockquote>"
+               end
+               last_lab = lab
+             end
+          %>
+          <%= raw header %>
+          <% unless c["location_id"].nil? %>
+            <!-- On one line to avoid underlined trailing spaces -->
+            <a href="#" onclick="open_marker_by_id(<%= c["location_id"] %>);return false;" onmouseover="show_pointer(<%= c["lat"] %>,<%= c["lng"] %>);" onmouseout="hide_pointer();"><%= types.nil? ? translate("glossary.unknown") : types %></a>
+            <% unless c["city"].nil? %>
+              <span><%= translate("changes.change_in_city", :type => action, :city => c["city"]) %></span>
+            <% else %>
+              <span><%= action %></span>
+            <% end %>
+            <% unless c["change_author"].blank? %>
+              <span><%= translate("glossary.by_author", :author => c["change_author"]) %></span>
             <% end %>
             <br/>
-            <span><%= translate("changes.type." + c.description).upcase_first %> <%= translate("time.time_ago", :time => time_ago_in_words(c.created_at)).downcase_first %></span>
-          </div>
         <% end %>
-      <% end %>
-    </div>
+        <% end %>
 
-    <!-- Routes tab -->
-    <div id="routes">
-      <% if @routes.length > 0 %>
-        <span>
-          <%= translate("locations.sidebar.click_here_to_manage_your_routes_html", :routes_path => routes_path).html_safe %>
-        </span>
-        <br/>
-        <%
-          lcounts = {}
-          LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where("user_id = ?",current_user.id).each{ |l|
-            lcounts[l.route_id] = l.count
-          }
-          @routes.each do |route| %>
-            <div class="route">
-              <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<span><%= route.is_public ? translate("glossary.public") : translate("locations.sidebar.in") %></span>)
+        <% if @changes.length > 0 %>
+          </blockquote>
+        <% end %>
+      </div>
+
+      <!-- Favorites tab -->
+      <div id="reviews">
+        <% if @my_changes.blank? %>
+          <span><%= translate("locations.sidebar.you_havent_added_or_reviewed_anything_while_logged_in") %></span>.
+        <% else %>
+          <span><%= translate("locations.sidebar.locations_added_or_reviewed_by_you_while_logged_in") %></span>:
+          <br/>
+          <% @my_changes.each do |c| %>
+            <% next if c.location.nil? %>
+            <div class="favorite">
+              <a href="#" onclick="open_marker_by_id(<%= c.location.id %>);return false;" onmouseover="show_pointer(<%= c.location.lat %>,<%= c.location.lng %>);" onmouseout="hide_pointer();"><%= c.location.types().collect{ |t| t.i18n_name.nil? ? translate("glossary.unknown") : t.i18n_name }.join(", ") %></a>
+              <% unless c.location.country.nil? %>
+                <br/><i style="font-size: 85%;"><%= [c.location.city, c.location.state, c.location.country].reject{ |x| x.nil? }.join(", ") %></i>
+              <% end %>
               <br/>
-              <%= lcounts[route.id] %> <span><%= translate("glossary.locations", :count => lcounts[route.id].to_i).downcase_first %></span> &middot;
-              <span><%= (route.transport_type.nil? ? "" : translate("routes.modes_of_travel")[route.transport_type] + " &middot;").html_safe %></span> <span><%= translate("glossary.updated") %></span> <span><%= translate("time.time_ago", :time => time_ago_in_words(route.updated_at)).downcase_first %></span>
+              <span><%= translate("changes.type." + c.description).upcase_first %> <%= translate("time.time_ago", :time => time_ago_in_words(c.created_at)).downcase_first %></span>
             </div>
           <% end %>
-      <% else %>
-        <span>
-          <%= translate("locations.sidebar.you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route") %>
-        </span>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+
+      <!-- Routes tab -->
+      <div id="routes">
+        <% if @routes.length > 0 %>
+          <span>
+            <%= translate("locations.sidebar.click_here_to_manage_your_routes_html", :routes_path => routes_path).html_safe %>
+          </span>
+          <br/>
+          <%
+            lcounts = {}
+            LocationsRoute.select("count(*), route_id").joins(:route).group(:route_id).where("user_id = ?",current_user.id).each{ |l|
+              lcounts[l.route_id] = l.count
+            }
+            @routes.each do |route| %>
+              <div class="route">
+                <%= route.is_public ? link_to(route.name, route) : link_to(route.name, route_path(route) + "?k=#{route.access_key}") %> (<span><%= route.is_public ? translate("glossary.public") : translate("locations.sidebar.in") %></span>)
+                <br/>
+                <%= lcounts[route.id] %> <span><%= translate("glossary.locations", :count => lcounts[route.id].to_i).downcase_first %></span> &middot;
+                <span><%= (route.transport_type.nil? ? "" : translate("routes.modes_of_travel")[route.transport_type] + " &middot;").html_safe %></span> <span><%= translate("glossary.updated") %></span> <span><%= translate("time.time_ago", :time => time_ago_in_words(route.updated_at)).downcase_first %></span>
+              </div>
+            <% end %>
+        <% else %>
+          <span>
+            <%= translate("locations.sidebar.you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route") %>
+          </span>
+        <% end %>
+      </div>
+
+    <% end %> <!-- STOP logged in -->
+
   </div>
 </div> <!-- sidebar_container -->
 
@@ -159,12 +162,12 @@
 </div>
 
 <% content_for(:page_scripts) do %>
-<script type="text/javascript">
-  jQuery(document).ready(function(){
-    $("#mainmap_container").css('left','400px');
-    $("#sidebar").tabs();
-    $("#sidebar").show();
-    load_type_tree($("#type_tree"), <%= Type.dyna_tree_all().to_json.html_safe %>);
-  });
-</script>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      $("#mainmap_container").css('left','400px');
+      $("#sidebar").tabs();
+      $("#sidebar").show();
+      load_type_tree($("#type_tree"), <%= Type.dyna_tree_all().to_json.html_safe %>);
+    });
+  </script>
 <% end %>
