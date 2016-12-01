@@ -1,11 +1,5 @@
 <h1>Approved types</h1>
 
-<details>
-  <summary>Dynatree</summary>
-    <%= render 'dynatree' %>
-</details>
-<br/>
-
 <%= link_to '[+] Add type', new_type_path %>
 
 <table id="types_table">
@@ -13,22 +7,11 @@
     <tr>
      <th>ID</th>
      <th>PID</th>
-     <th>C</th>
      <th>Rank</th>
      <th>Latin</th>
      <th>en</th>
-     <th>de</th>
-     <th>el</th>
-     <th>fr</th>
-     <th>it</th>
-     <th>pt</th>
      <th>Cats</th>
-     <th>WP</th>
-     <th>US</th>
-     <th>EW</th>
-     <th>FT</th>
-     <th>UM</th>
-     <th>FP</th>
+     <th>W</th>
      <th>Edit</th>
      <th>Delete</th>
     </tr>
@@ -38,7 +21,6 @@
     <tr>
       <td style="text-align:right"><%= type.id %></td>
       <td style="text-align:right"><%= type.parent_id %></td>
-      <td><%= type.children.length %></td>
       <td>
       <% unless type.taxonomic_rank.blank? %>
         <%= type.taxonomic_rank.to_s + " " + Type::Ranks[type.taxonomic_rank] %>
@@ -49,40 +31,10 @@
        <%= type.name %>
        <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
       </td>
-      <td><%= type.de_name %></td>
-      <td><%= type.el_name %></td>
-      <td><%= type.fr_name %></td>
-      <td><%= type.it_name %></td>
-      <td><%= type.pt_br_name %></td>
       <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
       <td style="text-align:center;">
       <% unless type.wikipedia_url.blank? %>
-        <a href="<%= raw type.wikipedia_url %>" target="_blank">x</a>
-      <% end %>
-      </td>
-      <td style="text-align:center;">
-      <% unless type.usda_symbol.blank? %>
-        <a href=\"http://plants.usda.gov/java/profile?symbol=#{type.usda_symbol}\">x</a>
-      <% end %>
-      </td>
-      <td style="text-align:center;">
-      <% unless type.eat_the_weeds_url.blank? %>
-        <a href="<%= raw type.eat_the_weeds_url %>" target="_blank">x</a>
-      <% end %>
-      </td>
-      <td style="text-align:center;">
-      <% unless type.foraging_texas_url.blank? %>
-        <a href="<%= raw type.foraging_texas_url %>" target="_blank">x</a>
-      <% end %>
-      </td>
-      <td style="text-align:center;">
-      <% unless type.urban_mushrooms_url.blank? %>
-        <a href="<%= raw type.urban_mushrooms_url %>" target="_blank">x</a>
-      <% end %>
-      </td>
-      <td style="text-align:center;">
-      <% unless type.fruitipedia_url.blank? %>
-        <a href="<%= raw type.fruitipedia_url %>" target="_blank">x</a>
+        <a href="<%= raw type.wikipedia_url %>" target="_blank">W</a>
       <% end %>
       </td>
       <td><%= link_to 'Edit', edit_type_path(type) %></td>
@@ -93,10 +45,10 @@
 </table>
 
 <script type="text/javascript" charset="utf-8">
-jQuery(document).ready(function(){
+  jQuery(document).ready(function(){
     jQuery('#types_table').dataTable({
-      "aaSorting": [[4, "asc"], [3, "asc"], [5, "asc"]],
+      "aaSorting": [[3, "asc"], [2, "asc"], [4, "asc"]],
       "bPaginate": false
     });
-});
+  });
 </script>
