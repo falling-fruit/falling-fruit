@@ -1,24 +1,11 @@
 <h1>Users</h1>
 
-<details>
-<summary>Announcements BCC List:</summary>
-<%= @announcements_list.join(", ") %>
-</details>
-
-<br/>
-
 <table id="user_list">
 <thead>
   <tr>
     <th>ID</th>
     <th>Name</th>
     <th>Email</th>
-    <th>Roles</th>
-    <th>Anonymous</th>
-    <th>Range</th>
-    <th>Updates</th>
-    <th>Announce</th>
-    <th>Created</th>
     <th>Confirmed</th>
     <th></th>
   </tr>
@@ -29,12 +16,6 @@
     <td style="text-align:right;"><%= user.id %></td>
     <td><%= user.name %></td>
     <td><a href="mailto:<%= user.email %>"><%= user.email %></a></td>
-    <td><%= user.roles.join(", ") %></td>
-    <td><%= user.add_anonymously ? "x" : "" %></td>
-    <td><%= user.range.blank? ? "" : "x" %></td>
-    <td><%= user.range_updates_email ? "x" : "" %></td>
-    <td><%= user.announcements_email ? "x" : "" %></td>
-    <td><%= user.created_at.strftime('%Y%m%d') %></td>
     <td><%= user.confirmed_at ? user.confirmed_at.strftime('%Y%m%d') : "" %></td>
     <td>
       <%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -47,9 +28,9 @@
 
 <script type="text/javascript" charset="utf-8">
 jQuery(document).ready(function(){
-    jQuery('#user_list').dataTable({
-      "aaSorting": [[0,"desc"]],
-      "bPaginate": false
-    });
+  jQuery('#user_list').dataTable({
+    "aaSorting": [[0, "desc"]],
+    "bPaginate": false
+  });
 });
 </script>

@@ -4,8 +4,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @announcements_list = User.select("email").where("announcements_email AND confirmed_at IS NOT NULL").
-      collect{ |u| u.email }
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
