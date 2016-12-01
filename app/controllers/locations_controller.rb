@@ -451,15 +451,15 @@ class LocationsController < ApplicationController
     if params[:f].present?
       @perma[:f] = params[:f]
       # @types = Type.find_all_by_id(params[:f].split(",").collect{ |e| e.to_i })
-    # else
-      # cats = params[:c].nil? ? Type::DefaultCategories : params[:c].split(/\,/, -1)
-      # cats = "" if cats.empty?
-      # cat_mask = array_to_mask(cats, Type::Categories)
-      # if cats.include?("")
-      #   @types = Type.where("(category_mask & #{cat_mask}) > 0 or category_mask = 0")
-      # else
-      #   @types = Type.where("(category_mask & #{cat_mask}) > 0")
-      # end
+    else
+      cats = params[:c].nil? ? Type::DefaultCategories : params[:c].split(/\,/, -1);
+      cats = "" if cats.empty?
+      cat_mask = array_to_mask(cats, Type::Categories)
+      sql = "(category_mask & #{cat_mask}) > 0"
+      if cats.include?("")
+        sql += " or category_mask = 0"
+      end
+      @type_filter = Type.where(sql).collect{ |t| t.id }.join(",");
     end
   end
 

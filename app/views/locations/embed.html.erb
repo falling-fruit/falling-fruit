@@ -60,13 +60,11 @@
   var center_radius = <%= (!@perma[:center_radius].nil? and @perma[:center_radius].to_i > 0) ? @perma[:center_radius].to_i : "undefined" %>;
   var skip_ids = null;
   var type_filter = undefined;
-  var type_filter = undefined;
   <% if not @perma[:f].nil? %>
     type_filter = unpack_integers('<%= @perma[:f] %>');
+  <% elsif not @type_filter.nil? %>
+    type_filter = [<%= @type_filter %>];
   <% end %>
-  // <% unless @types.nil? %>
-  //   type_filter = [<%= @types.collect{ |t| t.id }.join(",") %>];
-  // <% end %>
 
   // state variable used to leave out certain info_window features (report)
   <% $embed = (not request.fullpath.match('/locations/embed[.]*').nil?) %>
