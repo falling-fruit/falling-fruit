@@ -57,6 +57,7 @@
 	<% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
 	<% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
 	<% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
+  <% if not (@perma[:lat].nil? or @perma[:lng].nil?) and @perma[:zoom].nil? %>zoom = 12;<% end %>
   muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>;
   labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var skip_ids = null;
@@ -80,11 +81,20 @@
     <% if @zoom_to_polygon.nil? %>
       basemap(lat,lng,zoom,type);
     <% else %>
-      // Hmm, maybe check first that bounds are returned?
       var bounds = wkt_to_bounds('<%= @zoom_to_polygon %>');
-      basemap(undefined,undefined,undefined,type,bounds);
+      var center = bounds.getCenter();
+      // Hmm, maybe check first that bounds are returned?
+      <% if (@perma[:lat].nil? or @perma[:lng].nil?) %>
+        <% if @perma[:zoom].nil? %>
+          basemap(undefined, undefined, undefined, type, bounds);
+        <% else %>
+          basemap(center.lat(), center.lng(), zoom, type);
+        <% end %>
+      <% else %>
+        basemap(lat, lng, zoom, type);
+      <% end %>
+      <% if @perma[:zoom].nil? %>zoom = undefined;<% end %> // for update display call
       add_range('<%= @zoom_to_polygon %>');
-      zoom = undefined; // for update display call
     <% end %>
 
     google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
