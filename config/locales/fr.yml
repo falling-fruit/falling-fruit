@@ -100,8 +100,11 @@ fr:
     favorites: Favoris
     fiji: Fidji
     filter: Filtre
+    finland: 
     france: France
+    germany: 
     global: Mondial
+    greece: 
     home: Maison
     imported: Importé
     imported_datasets: Données importées
@@ -110,6 +113,7 @@ fr:
     invasive: ! '
 
       Envahissant'
+    ireland: 
     italy: Italie
     labels: Étiquettes
     links:
@@ -148,6 +152,7 @@ fr:
     spain: Espagne
     street_view: Street View
     submit: Soumettre
+    sweden: 
     switzerland: Suisse
     tree_inventory:
       one: Inventaire d'arbres

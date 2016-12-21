@@ -100,14 +100,18 @@ it:
     favorites: Preferiti
     fiji: ''
     filter: Filtro
+    finland: 
     france: Francia
+    germany: 
     global: Globale
+    greece: 
     home: Casa
     imported: Importati
     imported_datasets: Dataset importati
     imports: Importazioni
     info: Info
     invasive: 
+    ireland: 
     italy: Italia
     labels: Etichette
     links:
@@ -146,6 +150,7 @@ it:
     spain: 
     street_view: Street View
     submit: Inoltrare
+    sweden: 
     switzerland: Svizzera
     tree_inventory:
       one: Inventario degli alberi

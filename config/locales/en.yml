@@ -100,14 +100,18 @@ en:
     favorites: Favorites
     fiji: Fiji
     filter: Filter
+    finland: Finland
     france: France
+    germany: Germany
     global: Global
+    greece: Greece
     home: Home
     imported: Imported
     imported_datasets: Imported datasets
     imports: Imports
     info: Info
     invasive: Invasive
+    ireland: Ireland
     italy: Italy
     labels: Labels
     links:
@@ -153,6 +157,7 @@ en:
     spain: Spain
     street_view: Street View
     submit: Submit
+    sweden: Sweden
     switzerland: Switzerland
     tree_inventory:
       content_item: Tree inventory

@@ -100,14 +100,18 @@ el:
     favorites: Αγαπημένα
     fiji: Φίτζι
     filter: Φίλτρο
+    finland: 
     france: Γαλλία
+    germany: 
     global: Παγκόσμια
+    greece: 
     home: Home
     imported: Εισηγμένα
     imported_datasets: Εισηγμένες βάσεις δεδομένων
     imports: Εισαγωγές
     info: Πληροφορίες
     invasive: Επεκτατικά
+    ireland: 
     italy: Ιταλία
     labels: Ετικέτες
     links:
@@ -146,6 +150,7 @@ el:
     spain: Ισπανία
     street_view: Street View
     submit: Αποστολή
+    sweden: 
     switzerland: Ελβετία
     tree_inventory:
       one: Κατάλογος δέντρων

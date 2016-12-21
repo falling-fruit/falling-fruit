@@ -101,14 +101,18 @@ pl:
     favorites: Ulubione
     fiji: Fidżi
     filter: Filtr
+    finland: 
     france: Francja
+    germany: 
     global: Globalny
+    greece: 
     home: Strona główna
     imported: Ściągnięte
     imported_datasets: Ściągnięte zbiory danych
     imports: Zaimportowane
     info: Informacje
     invasive: Inwazyjne
+    ireland: 
     italy: Włochy
     labels: Etykiety
     links:
@@ -150,6 +154,7 @@ pl:
     spain: Hiszpania
     street_view: Street View
     submit: Zatwierdź
+    sweden: 
     switzerland: Szwajcaria
     tree_inventory:
       few: Spisy drzew
