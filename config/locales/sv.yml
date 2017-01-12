@@ -45,8 +45,8 @@ sv:
       signed_up_but_locked: Du är nu registrerad. Däremot kunde vi inte logga in dig, eftersom ditt konto är låst.
       signed_up_but_not_approved: Du har registrerat ditt konto, men en administratör behöver godkänna den först.
       signed_up_but_unconfirmed: Ett meddelande med en länk för att bekräfta din registrering har skickats till din epostadress. Följ länken för att aktivera ditt konto.
-      update_needs_confirmation: Ditt konto uppdaterades, men vi behöver verifiera din nya epostadress. Kontrollera din epost och klicka på länken för att bekräfta din nya epostadress.
       updated: Ditt konto har uppdaterats.
+      update_needs_confirmation: Ditt konto uppdaterades, men vi behöver verifiera din nya epostadress. Kontrollera din epost och klicka på länken för att bekräfta din nya epostadress.
     sessions:
       signed_in: Loggade in.
       signed_out: Loggade ut.
@@ -56,17 +56,14 @@ sv:
       unlocked: Ditt konto har låsts upp. Du är nu inloggad.
   errors:
     messages:
-      after: 
       already_confirmed: har redan bekräftats, vänligen prova logga in
       before: måste vara före %{restriction}
       expired: har gått ut, ansök om en ny
       invalid_date: är inget giltigt datum
       invalid_datetime: är inget giltigt datum/tid
       invalid_time: är ingen giltig tid
-      is_at: 
       not_found: hittades inte
       not_locked: var inte låst
-      not_saved: 
       on_or_after: måste vara fr.o.m. %{restriction}
       on_or_before: måste vara t.o.m. %{restriction}
   glossary:
@@ -74,44 +71,28 @@ sv:
     access: Tillträde
     account: Konto
     activity: Aktivitet
-    add_source: Lägg till plats
     address: Address
+    add_source: Lägg till plats
     anonymous: Anonym
     are_you_sure: Är du säker?
     australia: Australien
     belgium: Belgien
-    by_author: 
     canada: Kanada
     chile: Chile
-    common_name: 
     data: Data
     delete: Ta bort
     description: Beskrivning
     details: Detaljer
-    donate: 
-    download: 
-    edible_type: 
-    edit: 
-    email: 
-    embed: 
-    error: 
-    favorites: 
-    fiji: 
     filter: Filter
-    finland: 
     france: Frankrike
-    germany: 
     global: Globalt
-    greece: 
     home: Hem
     imported: Importerad
     imported_datasets: Importerade data
     imports: Importer
     info: Info
     invasive: Invasiva
-    ireland: 
     italy: Italien
-    labels: 
     links:
       one: Länk
       other: Länkar
@@ -124,32 +105,9 @@ sv:
     miles: mil
     name: Namn
     new_zealand: Nya Zeeland
-    options: 
     password: Lösenord
-    pending_types: 
-    photo: 
-    portugal: 
-    position: 
-    problems: 
-    public: 
-    quality: 
-    report: 
-    report_a_problem: 
-    reviews: 
-    routes: 
-    save_changes: 
-    scientific_name: 
-    season: 
-    send: 
-    show: 
-    sign_up: 
-    spain: 
     street_view: Gatuperspektiv
-    submit: 
-    sweden: 
     switzerland: Schweiz
-    tree_inventory: 
-    type_and_press_enter: 
     types: Typer
     united_kingdom: Storbrittanien
     united_states: USA
@@ -158,237 +116,23 @@ sv:
     updated: Uppdaterad
     user: Användare
     users: Användare
-    visited: 
     world: Värld
-    yield: 
     zoom: Zoom
     zoom_to_address: Zooma till adress
     zoom_to_current_location: Zooma till aktuell plats
     zoom_to_me: Zooma till mig
-    zoom_to_this_location: 
-  layouts:
-    application:
-      feed_people_not_landfills: 
-      mapping_the_urban_harvest: 
-      menu:
-        approved_types: 
-        in_the_press: 
-        list_imports: 
-        new_import: 
-        new_type: 
-        sharing_the_harvest: 
-        the_project: 
-      or_right-click_on_map: 
-      pending_types_help: 
-      unverified_help: 
-      unverified_help_title: 
-  locations:
-    form:
-      access_subtext: 
-      address_subtext: 
-      author_subtext: 
-      comments: 
-      comments_subtext: 
-      create_another: 
-      date_visited: 
-      description_subtext: 
-      form_error: 
-      form_intro_html: 
-      fruiting_status: 
-      fruiting_subtext: 
-      have_you: 
-      move_marker: 
-      move_marker_address: 
-      name_subtext: 
-      no_season: 
-      or: 
-      original_author: 
-      photo_caption: 
-      photo_subtext: 
-      position_subtext: 
-      quality_subtext: 
-      season_subtext: 
-      types_subtext: 
-      unverified_subtext: 
-      verify: 
-      verify_subtext: 
-      yield_subtext: 
-      your_name: 
-    index:
-      addmarker_html: 
-      editmarker_html: 
-      freegan_modal_html: 
-      freegan_modal_title: 
-      grafter_modal_html: 
-      grafter_modal_title: 
-      mobile_modal_html: 
-      mobile_modal_title: 
-      stamen_html: 
-      turn_off_dragzoom: 
-      turn_on_dragzoom: 
-      welcome_modal_html: 
-      welcome_modal_title: 
-    infowindow:
-      access: 
-      access_mode: 
-      access_short: 
-      add_to_remove_from: 
-      citation_to_the_original_source: 
-      delete_comment: 
-      delete_photo: 
-      delete_this_location: 
-      edit_this_location: 
-      fruiting: 
-      have_you_visited_html: 
-      january_to_december: 
-      new_route: 
-      rating: 
-      review_this_location: 
-      see_this_location_in_streetview: 
-      source: 
-      toggle_route_controls: 
-      unsure: 
-      unsure_other: 
-      url_for_this_location: 
-    messages:
-      created: 
-      geocode_failed: 
-      latitude_too_large: 
-      not_created: 
-      not_updated: 
-      updated: 
-    searchbar:
-      embed_hover: 
-      invasive_modal: 
-      invasive_modal_title: 
-      link_hover: 
-      tree_inventories_modal: 
-      tree_inventories_modal_title: 
-    sidebar:
-      changed_within_html: 
-      click_here_to_manage_your_routes_html: 
-      in: 
-      locations_added_or_reviewed_by_you_while_logged_in: 
-      you_havent_added_or_reviewed_anything_while_logged_in: 
-      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: 
-      you_havent_defined_html: 
-  meta:
-    forager_description: 
-    freegan_description: 
-    freegan_title: 
-  observations:
-    created: 
-    empty: 
   pages:
     about:
       about_the_site: Om projektet
       about_us: Styrelse
       advisory_board: Rådgivare
-      caleb_bio_html: 
-      celebration: 
       closing_remarks: Avslutande kommentarer
-      closing_remarks_para1_html: 
-      closing_remarks_para2_html: 
-      closing_remarks_para3_html: 
-      contact_us_html: 
-      craig_durkin_bio_html: 
-      cristina_rubke_bio_html: 
-      david_craft_bio_html: 
-      ethan_bio_html: 
       ff_disclaimer_html: Falling Fruit har ingenting att göra med Fallen Fruit. Fallen Fruit finns på <a href="http://fallenfruit.org">fallenfruit.org</a>
       give_gratipay: Betala via Gratipay
-      give_paypal: 
-      give_us_money: 
-      jeff_bio_html: 
-      join_us_html: 
-      more_about_html: 
-      translate: 
-      translate_for_us_html: 
-      translators: 
-      tristram_stuart_bio_html: 
-      write: 
-    data:
-      beware_html: 
-      caveat_emptor_html: 
-      data_unavailable_html: 
-      intro: 
-      license_html: 
-      summary_description: 
-      summary_of_sources: 
-    datasets:
-      community_map: 
-      date_imported: 
-      google_fusion_table: 
-      google_map: 
-      google_maps_engine: 
-      intro_html: 
-      no_license: 
-      table_info: 
-      type: 
-      types_of_data: 
-    sharing:
-      ample_harvest: 
-      food_banks: 
-      food_banks_canada: 
-      food_banks_intro: 
-      global_foodbanking_network: 
-      grow_pick_and_distribute: 
-      intro_html: 
-  problems:
-    created: 
-    description_subtext: 
-    problem_type: 
-    your_contact_info: 
-  routes:
-    denied: 
-    mode_of_travel: 
-    modes_of_travel: 
-    order_not_updated: 
-    order_updated: 
-    updated: 
-  time:
-    days: 
-    last_24_hours: 
-    months: 
-    this_month: 
-    this_week: 
-    time_ago: 
   users:
-    address_subtext: 
     bio: Om dig
     change_password: Byt lösenord
     clear_map: Rensa kartan
     confirm_account: Bekräfta kontot
     current_password: Nuvarande lösenord
-    current_password_subtext: 
     delete_account: Avsluta mitt konto
-    edit_account: 
-    foraging_map_subtext: 
-    foraging_radius: 
-    foraging_radius_subtext: 
-    foraging_range: 
-    forgot_password: 
-    mailer:
-      confirmation_instructions_html: 
-      reset_password_instructions_html: 
-      unlock_instructions_html: 
-    new_password: 
-    options:
-      add_anonymously: 
-      announcements_email: 
-      range_updates_email: 
-    range_by_map: 
-    range_by_radius: 
-    remember_me: 
-    resend_confirmation_instructions: 
-    resend_unlock_instructions: 
-    send_password_instructions: 
-    sign_in: 
-    sign_in_with: 
-    type_it_twice: 
-    unlock_account: 
-  validates_timeliness:
-    error_value_formats:
-      date: 
-      datetime: 
-      time: 

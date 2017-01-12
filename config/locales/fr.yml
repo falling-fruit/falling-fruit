@@ -45,8 +45,8 @@ fr:
       signed_up_but_locked: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter car votre compte est bloqué.
       signed_up_but_not_approved: Vous êtes maintenant enregistré. Cependant, vous ne pouvez vous connecter avant que votre compte soi validé par un administrateur.
       signed_up_but_unconfirmed: Un lien de validation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte.
-      update_needs_confirmation: Votre compte a bien été mis à jour, mais nous devons vérifier votre nouvelle adresse email. Un lien de confirmation a été envoyé à cette nouvelle adresse email. Ouvrez ce lien pour confirmé votre nouvelle adresse email.
       updated: Votre compte a été modifié avec succès.
+      update_needs_confirmation: Votre compte a bien été mis à jour, mais nous devons vérifier votre nouvelle adresse email. Un lien de confirmation a été envoyé à cette nouvelle adresse email. Ouvrez ce lien pour confirmé votre nouvelle adresse email.
     sessions:
       signed_in: Connecté avec succès.
       signed_out: Déconnecté avec succès.
@@ -76,8 +76,8 @@ fr:
     access: Accès
     account: Compte
     activity: Activité
-    add_source: Ajouter une source
     address: Adresse
+    add_source: Ajouter une source
     anonymous: Anonyme
     are_you_sure: Êtes-vous sûr?
     australia: Australie
@@ -100,11 +100,11 @@ fr:
     favorites: Favoris
     fiji: Fidji
     filter: Filtre
-    finland: 
+    finland: Finlande
     france: France
-    germany: 
+    germany: Allemagne
     global: Mondial
-    greece: 
+    greece: Grèce
     home: Maison
     imported: Importé
     imported_datasets: Données importées
@@ -113,7 +113,7 @@ fr:
     invasive: ! '
 
       Envahissant'
-    ireland: 
+    ireland: Irlande
     italy: Italie
     labels: Étiquettes
     links:
@@ -152,13 +152,13 @@ fr:
     spain: Espagne
     street_view: Street View
     submit: Soumettre
-    sweden: 
+    sweden: Suède
     switzerland: Suisse
     tree_inventory:
       one: Inventaire d'arbres
       other: Inventaires d'arbres
-    type_and_press_enter: Tapez et appuyez sur entrée
     types: Types
+    type_and_press_enter: Tapez et appuyez sur entrée
     united_kingdom: Royaume-Uni
     united_states: États-Unis
     unknown: Inconnu
@@ -229,7 +229,7 @@ fr:
       freegan_modal_title: Bienvenue sur la carte freegan de Falling Fruit!
       grafter_modal_html: Les "guérilleros greffeurs" greffent des branches fruitières sur des variétés ornementales non fructifères (par exemple, les villes utilisent souvent des arbres fruitiers stériles pour leurs fleurs de printemps colorées). Avec le temps, des fruits délicieux et nutritifs sont mis à la disposition des quartiers grâce à ces greffes. Vous pouvez en apprendre davantage sur le projet sur le site <a href="http://guerrillagrafters.org"> guerrillagrafters.org </a> <br/> <br/> Cette carte présente certains des arbres fruitiers ornementaux les plus courants. Si vous êtes un greffeur, un jardinier ou un amateur d'arbres fruitiers, contribuez à l'information commune et identifiez les arbres de votre voisinage qui peuvent être greffés avec des branches fruitières!
       grafter_modal_title: Bienvenue sur notre carte de greffeurs !
-      mobile_modal_html: 
+      mobile_modal_html: ''
       mobile_modal_title: Mais attendez, il existe une App mobile!
       stamen_html: Tuiles de carte par <a href="http://stamen.com">Stamen Design</a>, sous <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Données par <a href="http://openstreetmap.org">OpenStreetMap</a>, sous <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>.
       turn_off_dragzoom: Désactiver le mode glisse-zoom
@@ -286,8 +286,8 @@ fr:
       geocode_failed: Votre recherche a échoué
       latitude_too_large: Nous ne soutenons pas les latitudes au-delà de ± 85 degrés.
       not_created: La localisation n'a pu être ajoutée
-      not_updated: La localisation n'a pu être mise à jour
-      updated: Endroit mis à jour avec succès
+      not_updated: Endroit n'a pu être mise à jour
+      updated: Endroit mise à jour
     searchbar:
       embed_hover: Code d'intégration
       invasive_modal: Les plantes envahissantes sont des plantes non indigènes dans une région donnée qui concurrencent les plantes indigènes. Nous mettons en évidence les plantes envahissantes sur Falling Fruit afin que vous puissiez les chercher et les manger pour lutter contre les invasions de façon savoureuse ! Les espèces envahissantes ne sont actuellement répertoriées que pour les États-Unis et sont basées sur les listes d'espèces nocives et invasives au niveau des différents États des États-Unis (USDA).
@@ -372,14 +372,14 @@ fr:
     your_contact_info: Vos coordonnées
   routes:
     denied: Vous n'avez pas la permission de voir cette route
-    mode_of_travel: Moyen de transport
     modes_of_travel:
     - À pieds
     - À vélo
     - En voiture
-    order_not_updated: 
-    order_updated: Ordre mis à jour
-    updated: La route a été mise à jour
+    mode_of_travel: Moyen de transport
+    order_not_updated: L'ordre n'a pu être mise à jour
+    order_updated: Ordre mise à jour
+    updated: Route mise à jour
   time:
     days:
       one: ! '%{count} jour'

@@ -45,8 +45,8 @@ es:
       signed_up_but_locked: Tu cuenta ha sido creada correctamente. Sin embargo, no hemos podido iniciar la sesión porque que tu cuenta está bloqueada.
       signed_up_but_not_approved: Tu cuenta ha sido creada correctamente pero tu cuenta aún no ha sido aprobada por un administrador.
       signed_up_but_unconfirmed: Se ha enviado un mensaje con un enlace de confirmación a tu correo electrónico. Abre el enlace para activar tu cuenta.
-      update_needs_confirmation: Has actualizado tu cuenta correctamente, pero es necesario confirmar tu nuevo correo electrónico. Por favor, comprueba tu correo y sigue el enlace de confirmación para finalizar la comprobación del nuevo correo eletrónico.
       updated: Tu cuenta se ha actualizada.
+      update_needs_confirmation: Has actualizado tu cuenta correctamente, pero es necesario confirmar tu nuevo correo electrónico. Por favor, comprueba tu correo y sigue el enlace de confirmación para finalizar la comprobación del nuevo correo eletrónico.
     sessions:
       signed_in: Sesión iniciada.
       signed_out: Sesión finalizada.
@@ -76,8 +76,8 @@ es:
     access: Acceso
     account: Cuenta
     activity: Actividad
-    add_source: Añadir lugar
     address: Dirección
+    add_source: Añadir lugar
     anonymous: Anónimo
     are_you_sure: ¿Estás seguro?
     australia: Australia
@@ -100,18 +100,14 @@ es:
     favorites: Favoritos
     fiji: Fiji
     filter: Filtro
-    finland: 
     france: Francia
-    germany: 
     global: Global
-    greece: 
     home: Hábitat
     imported: Importado
     imported_datasets: Datos importados
     imports: Importaciones
     info: Info
     invasive: Invasor
-    ireland: 
     italy: Italia
     labels: Etiquetas
     links:
@@ -150,13 +146,12 @@ es:
     spain: España
     street_view: Street View
     submit: Enviar
-    sweden: 
     switzerland: Suiza
     tree_inventory:
       one: Inventario de árboles
       other: Inventarios de árboles
-    type_and_press_enter: Escriba y presione enter
     types: Tipos
+    type_and_press_enter: Escriba y presione enter
     united_kingdom: Reino Unido
     united_states: Estados Unidos
     unknown: Desconocido
@@ -339,8 +334,6 @@ es:
       closing_remarks_para3_html: La información en Falling Fruit puede tener errores o estar desactualizada. Por ejemplo, muchos de los mapas de forrajear trasladados a Falling Fruit fueron alojados en Google Maps con acceso publico, en los cuales los marcardores fueron a menudo movidos accidentalmente, y  los inventarios de árboles municipales se actualizaron solo (por no decir nunca) cuando los árboles son visitados para realizar su mantenimiento. Preparate para encontrar inexactidudes en el campo, y por favor edita el mapa segun sea necesario basado en tus descubrimientos. Finalmente, es tu responsabilidad de determinar la identidad, la comestibilidad, y la ubicacion de una planta, y la responsabilidad de todos de mejorar la calidad del mapa.
       contact_us_html: Falling Fruit se construye por y para los recolectores - queremos que sea la mejor herramienta disponible para el recolector contemporáneo. Escríbanos a <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>, nos encantaría saber de usted!
       craig_durkin_bio_html: Craig es el co fundador de <a href="http://www.concrete-jungle.org/">Concrete Jungle</a> (“la selva de cemento”), una asociación en Atlanta, Georgia que cultiva alimentos y recoge frutos a lo largo de la ciudad para donar a albergues de los “sin techo” y a los bancos de alimentos. Debido a que es graduado de <a href="http://www.gatech.edu/">Georgia Tech</a> busca siempre combinar la recoleción de frutos con nuevas tecnologias, y estará pronto desplegando drones para detectar árboles frutales y un sensor que tuitea la madurez de la fruta.
-      cristina_rubke_bio_html: 
-      david_craft_bio_html: 
       ethan_bio_html: De sidras y cervezas de frutas de manzana a mermeladas y <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan se ve a su base de datos de árboles de barrio (y su desvencijada prensa de manzana) en busca de inspiración culinaria. En su casa en Boulder, que frikis hacia fuera sobre mapas, datos y time-lapse de retroceso de los glaciares para su doctorado en la <a href="http://instaar.colorado.edu/people/ethan-welty/">Universidad de Colorado</a>, pero a menudo sale de su órbita local para caminar, hablar, comer, y fotografiar a su manera a través de los continentes.
       ff_disclaimer_html: Falling Fruit no está asociado con Fallen Fruit. Fallen Fruit se puede encontrar en <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Pagar vía Gratipay
@@ -388,11 +381,11 @@ es:
     your_contact_info: Su contacto
   routes:
     denied: Tú no tiene permiso para ver esa ruta
-    mode_of_travel: Modo de viajar
     modes_of_travel:
     - Caminar
     - Bicicleta
     - Conducir
+    mode_of_travel: Modo de viajar
     order_not_updated: El orden no podría ser actualizado
     order_updated: El orden fue actualizado
     updated: Ruta se actualiza
@@ -445,7 +438,6 @@ es:
     new_password: Nueva contraseña
     options:
       add_anonymously: Editar el mapa de forma anónima (incluso mientras está conectado)
-      announcements_email: 
       range_updates_email: Recibe un correo semanal informando de actividad reciente en tu zona de alimentación (definido abajo)
     range_by_map: Dibujar en el mapa
     range_by_radius: Dirección y radio

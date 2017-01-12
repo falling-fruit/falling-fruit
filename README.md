@@ -230,4 +230,50 @@ API v0.1 will need to persist for the foreseeable future (unless/until we decide
 
 ## Translations
 
-Translations for the website interface are managed via the [falling-fruit](http://www.localeapp.com/projects/public?search=falling-fruit) project on Locale. To contribute, login with your GitHub account and edit the translations directly. We regularly pull translations from the Locale project to Github. Happy translating! Species common name translations are machine-translated and stored directly in the database.
+### For translators
+
+Translations of the website interface are managed via the PhraseApp project [Falling Fruit (web)](https://phraseapp.com/accounts/falling-fruit/projects/falling-fruit-web/).
+To contribute, contact us ([info@fallingfruit.org](mailto:info@fallingfruit.org)) and we'll add you as a translator to the project.
+Species common names are machine-translated and stored directly in the database.
+
+### For developers
+
+Install the PhraseApp CLI:
+
+```
+brew tap phrase/brewed
+brew install phraseapp
+cp .phraseapp.yml.dist .phraseapp.yml
+```
+
+Edit `.phraseapp.yml`, and replace `YOUR_ACCESS_TOKEN` with your
+[PhraseApp access token](https://phraseapp.com/settings/oauth_access_tokens).
+
+Adding a new translation is easy!
+
+*Step 1*: Add the new translation key on PhraseApp.
+
+Browse to the [Falling Fruit (web)](https://phraseapp.com/accounts/falling-fruit/projects/falling-fruit-web/)
+project, select the default locale (English/en), and add a new translation key.
+If the same word or phrase appears often, add it as `glossary.<key name>` to avoid
+making many keys with identical or derived (pluralized, capitalized, etc) values.
+
+*Step 2*: Update your translation files.
+
+Provided you've setup the PhraseApp CLI (instructions above), run:
+
+```
+phraseapp pull
+```
+
+This will update the translation files in `config/locales/*.yml`.
+
+*Step 3*: Replace the string in your template with the translation key.
+
+```html
+<!-- Instead of adding text to the markup: -->
+<span>Map</span>
+
+<!-- Evoke the translation key value with translate() -->
+<span><%= translate("glossary.map") %></span>
+```

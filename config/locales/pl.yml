@@ -45,8 +45,8 @@ pl:
       signed_up_but_locked: Konto zostało utworzone pomyślnie. Nie możesz się jednak zalogować, ponieważ jest ono zablokowane.
       signed_up_but_not_approved: Konto zostało utworzone pomyślnie, ale Twoje konto nie zostało jeszcze zatwierdzone przez administratora.
       signed_up_but_unconfirmed: Wiadomość z linkiem aktywacyjnym została wysłana na podany adres e-mail. Otwórz link w celu aktywacji konta.
-      update_needs_confirmation: Konto zostało zaktualizowane, musimy jednak potwierdzić nowy adres e-mail. Sprawdź swoją skrzynkę pocztową i otwórz link aktywacyjny, aby ukończyć zmianę adresu.
       updated: Konto zostało pomyślnie zaktualizowane.
+      update_needs_confirmation: Konto zostało zaktualizowane, musimy jednak potwierdzić nowy adres e-mail. Sprawdź swoją skrzynkę pocztową i otwórz link aktywacyjny, aby ukończyć zmianę adresu.
     sessions:
       signed_in: Zalogowano pomyślnie.
       signed_out: Wylogowano pomyślnie.
@@ -77,8 +77,8 @@ pl:
     access: Dostęp
     account: Konto
     activity: Aktywność
-    add_source: Dodaj źródło
     address: Adres
+    add_source: Dodaj źródło
     anonymous: Anonimowy
     are_you_sure: Czy na pewno?
     australia: Australia
@@ -101,18 +101,14 @@ pl:
     favorites: Ulubione
     fiji: Fidżi
     filter: Filtr
-    finland: 
     france: Francja
-    germany: 
     global: Globalny
-    greece: 
     home: Strona główna
     imported: Ściągnięte
     imported_datasets: Ściągnięte zbiory danych
     imports: Zaimportowane
     info: Informacje
     invasive: Inwazyjne
-    ireland: 
     italy: Włochy
     labels: Etykiety
     links:
@@ -154,14 +150,13 @@ pl:
     spain: Hiszpania
     street_view: Street View
     submit: Zatwierdź
-    sweden: 
     switzerland: Szwajcaria
     tree_inventory:
       few: Spisy drzew
       one: Spis drzew
       other: Spis drzew
-    type_and_press_enter: Wpisz i naciśnij enter
     types: Rodzaj
+    type_and_press_enter: Wpisz i naciśnij enter
     united_kingdom: Wielka Brytania
     united_states: Stany Zjednoczone
     unknown: Nieznany
@@ -230,13 +225,9 @@ pl:
       editmarker_html: <b>Przesuń do pozycji źródła.</b><br><br>Sprawdź widok satelitarny - źródło może być widoczne z powietrza!
       freegan_modal_html: Oprócz naszych wysiłków mapowania <a href="/?locale=pl">jadalnych roślin rosnących w miastach</a>, we've określone do mapy świata dumpsters jedzenie-łożyska. Prawie 50% całej żywności produkowanej w krajach rozwiniętych nie jest spożywane. We're nadzieję na zwiększenie świadomości tego problemu, ułatwiać wyzwolenie wyrzucić jedzenie, i zachęcać przedsiębiorców do <a href="/sharing?locale=pl">oddania jedzenie</a> zamiast. <br><br> W uzasadnieniu do życia niższe ilości odpadów, zachęcamy odwzorowanie wszystkich miejsc (od śmietników do wolnych pól) z odrzuconych ale przydatnych towarów, zarówno jadalne lub w inny sposób.
       freegan_modal_title: Witamy w naszej mapie freegańskiej!
-      grafter_modal_html: 
       grafter_modal_title: Witamy na naszej mapie roślinnych grabieżców!
-      mobile_modal_html: 
       mobile_modal_title: Hej, poczekaj, mamy dla Ciebie aplikację na telefon!
       stamen_html: Mapa według <a href="http://stamen.com">Stamen Design</a>, w ramach <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dane z <a href="http://openstreetmap.org">OpenStreetMap</a>, pod <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
-      turn_off_dragzoom: 
-      turn_on_dragzoom: 
       welcome_modal_html: Falling fruit (spadające owoce) to tworzona przez społeczność na całym świecie mapa do zbiorów w mieście. Jednocząc wysiłki miejskich zbieraczy i odkrywców roślin jadalnych w mieście, leśników i freegan, mapa ta wskazuje już ponad pół miliona źródeł żywności na całym świecie (od roślin i grzybów po studnie wody i śmietniki ze zdatną żywnością). Nasza szybko rosnąca społeczność użytkowników aktywnie eksploruje, edytuje i dodaje nowe punkty na mapie. <br/><br/> Dołącz do nas w ciesz się nieznanymi innym darami ulic naszych miast! Możesz używać tej witryny anonimowo lub <a href="/users/sign_up?locale=pl">zalogować się</a> na konto, aby uzyskać dostęp do dodatkowych funkcji.
       welcome_modal_title: Witamy w Falling Fruit!
     infowindow:
@@ -285,15 +276,10 @@ pl:
       unsure_other: Niepewne/Inne
       url_for_this_location: Adres URL dla tej lokalizacji
     messages:
-      created: 
       geocode_failed: Twoje wyszukiwanie nie powiodło się
       latitude_too_large: Nie można dodać szerokości geograficznych dalszych niż +-85 stopni.
-      not_created: 
-      not_updated: 
-      updated: 
     searchbar:
       embed_hover: Osadź kod
-      invasive_modal: 
       invasive_modal_title: Czym jest gatunek inwazyjny?
       link_hover: Adres URL aktualnej mapy
       tree_inventories_modal: Spisy drzew są sporządzane przez instytucje pragnące lepszej dokumentacji i opieki nad drzewami będącymi w ich gestii. Dane te są zazwyczaj zbierane przez wyszkolonych botaników i są zazwyczaj bardzo szczegółowe i długie. Starannie wybieramy gatunki jadalne z tych spisów i dodajemy je do mapy. Możesz pomóc nam uzupełnić mapę, pytając w Twojej okolicy (w mieście, w gminie, ale też np. na uczelni) czy istnieje taki spis roślinności i czy można go udostępnić na Falling Fruit. Niektóre z takich spisów są dostępne publicznie. Daj nam znać jeśli znasz takowy!
@@ -308,38 +294,27 @@ pl:
       you_havent_defined_html: Nie zdefiniowałeś/aś swojego obszaru zbiorów. <a href="/users/edit?locale=pl">Kliknij tutaj,</a> aby zrobić to teraz
   meta:
     forager_description: Mapa zbiorów w mieście tworzona przez miejskich zbieraczy i odkrywców roślin jadalnych, leśników i freegan na całym świecie. Odkrywaj i dziel się informacjami o źródłach darmowego jedzenia w Twojej okolicy.
-    freegan_description: 
     freegan_title: ! 'Freegańska Mapa Śmietnikowa '
-  observations:
-    created: 
-    empty: 
   pages:
     about:
       about_the_site: O stronie
       about_us: O nas (zarząd)
       advisory_board: O nas (doradcy)
-      caleb_bio_html: 
       celebration: Falling Fruit cieszy się kulinarnymi darami natury na ulicach naszych miast. Przez pokazanie tych zasobów na mapie, mamy nadzieję, że ułatwimy bezpośredni kontakt i związek między ludźmi, żywnością i naturalnymi organizmami rosnącymi w naszej okolicy. To nie tylko darmowe jedzenie! Zbieractwo w 21 wieku jest okazją do eksploracji miast, szansą na walkę z plagą betonu i na ponowne odkrycie roślin i ich natury jako źródeł naszej żywności.
       closing_remarks: Uwagi końcowe
       closing_remarks_para1_html: Falling Fruit to organizacja non-profit, zarejestrowana w Boulder, Colorado. Darowizny pochodzące ze Stanów Zjednoczonych można odpisać od podatku.
       closing_remarks_para2_html: Zbieranie żywności w mieście wiąże się z pewnymi względami praktycznymi i moralnymi. Jako wprowadzenie do etyki zbieractwa miejskiego, polecamy wspaniałe podsumowanie tych tematów na bliźniaczej nam stronie z Portland, Oregon <a href="http://urbanedibles.org/project/ethics">Urban Edibles</a>.
       closing_remarks_para3_html: Informacje na stronie Falling Fruit mogą nie być zgodne z prawdą albo być nieaktualne. Na przykład wiele z map, które zaimportowano do Falling Fruit było na publicznych stronach Google Maps, na których znaczniki mogły być niedokładne albo marker mógł zostać przypadkowo przesunięty. Podobnie, spisy drzew w mieście są aktualizowane rzadko. Proszę, bądźcie przygotowani na pojawiające się czasem niezgodności i poprawiajcie mapę zgodnie z waszymi odkryciami w terenie. Od nas wszystkich zależy czy rośliny na mapie będą dobrze zidentyfikowane i opisane. Dzięki wysiłkowi nas wszystkich mapa ta będzie coraz lepsza.
       contact_us_html: Ta strona internetowa została stworzona przez i dla zbieraczy - chcemy, aby była najlepszym dostępnym narzędziem dla współczesnych zbieraczy. Napisz do nas na <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>. Chętnie usłyszymy Twoje komentarze!
-      craig_durkin_bio_html: 
-      cristina_rubke_bio_html: 
-      david_craft_bio_html: 
-      ethan_bio_html: 
       ff_disclaimer_html: Falling Fruit nie jest zrzeszone z Fallen Fruit. Fallen Fruit można znaleźć pod <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Zapłać za pomocą Gratipay
       give_paypal: Wesprzyj nas przez Paypal
       give_us_money: Jesteśmy organizacją non-profit opartą na wolontariacie. Nasze funkcjonowanie zależy od datków. Jeśli możesz, rozważ przekazanie nam darowizny. Darowizny (przynajmniej w obrębie Stanów Zjednoczonych) można odpisać od podatku.
-      jeff_bio_html: 
       join_us_html: Dołącz do nas w świętowaniu lokalnego jedzenia! <a href="/?locale=pl">Mapa</a> jest otwarta na każdego, bazę danych można <a href="/data?locale=pl">pobrać</a> za pomocą jednego kliknięcia, a jej <a href="https://github.com/somerandomsequence/falling-fruit">kod</a> jest  dostępny dla każdego (open-source). Zachęcamy, dziel się tą mapą z innymi! Na naszej <a href="/sharing?locale=pl">stronie udostępniania</a> znajdziesz setki lokalnych organizacji które zakładają publiczne sady i ogrody, zbierają owoce i warzywa z drzew i ogrodów w mieście, odbierają od rolników produkty, które inaczej by się zmarnowały i wreszcie dzielą się tym wszystkim z sąsiadami i osobami potrzebującymi.
       more_about_html: Nasza mapa nie jest pierwszą tego rodzaju mapą, ale mamy nadzieję, że będzie ona najbardziej wyczerpującą taką mapą na świecie. Podczas gdy nasi użytkownicy dodają własne miejsca na mapie, my przeczesujemy Internet szukając już istniejących informacji i staramy się połączyć siły zbieraczy, botaników, leśników i freegan na całym świecie. Zbieramy też bazy danych o roślinności w mieście. Importowane przez nas <a href="/datasets?locale=pl"> bazy danych</a> mają zakres od lokalnych map sąsiedztwa do profesjonalnie opracowanych spisów drzew. W ten sposób zebraliśmy %{types} typów różnych rodzajów roślin jadalnych w %{locations} miejscach. Poza roślinami uprawnymi i powszechnymi są też na mapie rośliny egzotyczne, ale też dawno zapomniane rośliny rodzime. Zbieractwo w Twojej okolicy to podróż w czasie i poznawanie różnych kultur.
       translate: Przetłumacz
       translate_for_us_html: Chcesz pomóc w tłumaczeniach? Napisz do nas a zaprosimy Cię do dołączenia do <a href="http://www.localeapp.com/projects/7532">Locale</a>, gdzie zarządzamy tłumaczeniami.
       translators: Tłumaczenia
-      tristram_stuart_bio_html: 
       write: Napisz
     data:
       beware_html: Ale uwaga. Po kompresji, dane stają się ogromny plik, który powoduje większość programów arkusza kalkulacyjnego do implozji. Tylko zainteresowanych manipulacji danych w nim całości, trzeba iść tą drogą. Dla większości, lepszą alternatywą jest do selektywnego pobierania ciekawostki z wykorzystaniem zintegrowanego narzędzia do pobierania <a href="/?locale=pl">mapie</a>.
@@ -368,21 +343,12 @@ pl:
       global_foodbanking_network: Banki żywności na świecie
       grow_pick_and_distribute: Zasadź · Zbieraj · Dziel się
       intro_html: Poniżej wymienione są lokalne organizacje, które rosną żywności (żywność i sady lasy publiczne), odebrać jedzenie (miejskiego żerowania i gleaning rolniczy), lub w inny sposób rozpowszechniać żywności (swapy i darowizn). Organizacje wymienione są kraje, państwa i miasta. Te z nazwami wyblakłych out są uważane za nieaktywne. Jeśli znasz inne, które powinny być na tej liście, <a href="mailto:info@fallingfruit.org">skontaktuj się z nami</a> !
-  problems:
-    created: 
-    description_subtext: 
-    problem_type: 
-    your_contact_info: 
   routes:
-    denied: 
-    mode_of_travel: Tryb travel
     modes_of_travel:
     - Pieszo
     - Rowerem
     - Samochodem
-    order_not_updated: 
-    order_updated: 
-    updated: 
+    mode_of_travel: Tryb travel
   time:
     days:
       few: ! '%{count} dni'
@@ -408,26 +374,17 @@ pl:
     current_password_subtext: Wymagane aby wprowadzić zmiany na Twoim koncie
     delete_account: Anuluj moje konto
     edit_account: Edytuj konto
-    foraging_map_subtext: 
     foraging_radius: Promień
     foraging_radius_subtext: Promień obszaru zbieractwa z centrum w podanym adresie
     foraging_range: Obszar zbieractwa
     forgot_password: Zresetuj hasło
-    mailer:
-      confirmation_instructions_html: 
-      reset_password_instructions_html: 
-      unlock_instructions_html: 
     new_password: Nowe hasło
     options:
       add_anonymously: Edytuj punkty na mapie anonimowo (nawet kiedy jestem zalogowany/a)
-      announcements_email: 
       range_updates_email: Otrzymuj cotygodniowe emaile z aktualnościami w Twojej okolicy (określonej poniżej)
     range_by_map: Zaznacz na mapie
     range_by_radius: Adres i promień
     remember_me: Zapamiętaj mnie
-    resend_confirmation_instructions: 
-    resend_unlock_instructions: 
-    send_password_instructions: 
     sign_in: Zarejestruj się
     sign_in_with: Zarejestruj się za pomocą %{provider}
     type_it_twice: Aby potwierdzić, wpisz ponownie

@@ -45,8 +45,8 @@ de:
       signed_up_but_locked: ! 'Du hast erfolgreich ein Konto erstellt. Wir konnten dich aber noch nicht anmelden, weil dein Konto gesperrt ist. '
       signed_up_but_not_approved: ! 'Du hast erfolgreich ein Konto erstellt, dieses muss von deinem Administrator aber noch bestätigt werden. '
       signed_up_but_unconfirmed: Eine Nachricht mit einem Aktivierungs-Link wurde an deine Email Adresse geschickt. Öffne den Link, um dein Konto zu aktivieren.
-      update_needs_confirmation: Du hast dein Konto aktualisiert, wir müssen jetzt noch deine neue Email Adresse verifizieren. Eine Nachricht mit einem Aktivierungs-Link solltest du erhalten habe. Öffne den Link, um deine Änderungen zu bestätigen.
       updated: ! 'Du hast dein Konto erfolgreich aktualisiert. '
+      update_needs_confirmation: Du hast dein Konto aktualisiert, wir müssen jetzt noch deine neue Email Adresse verifizieren. Eine Nachricht mit einem Aktivierungs-Link solltest du erhalten habe. Öffne den Link, um deine Änderungen zu bestätigen.
     sessions:
       signed_in: Du bist jetzt angemeldet.
       signed_out: ! 'Du bist jetzt abgemeldet. '
@@ -76,8 +76,8 @@ de:
     access: Zugang
     account: Konto
     activity: Aktivität
-    add_source: Quelle hinzufügen
     address: Adresse
+    add_source: Quelle hinzufügen
     anonymous: Anonym
     are_you_sure: Bist du sicher?
     australia: Australien
@@ -100,18 +100,14 @@ de:
     favorites: Favoriten
     fiji: Fidschi
     filter: Filter
-    finland: 
     france: Frankreich
-    germany: 
     global: Weltweit
-    greece: 
     home: Zuhause
     imported: Importiert
     imported_datasets: Importierte Datensätze
     imports: Importe
     info: Info
     invasive: invasiv
-    ireland: 
     italy: Italien
     labels: Etiketten
     links:
@@ -150,13 +146,12 @@ de:
     spain: Spanien
     street_view: Street View
     submit: Einreichen
-    sweden: 
     switzerland: Schweiz
     tree_inventory:
       one: Bauminventar
       other: Bauminventare
-    type_and_press_enter: Eingeben und Enter drücken
     types: Arten
+    type_and_press_enter: Eingeben und Enter drücken
     united_kingdom: Vereinigtes Königreich
     united_states: Vereinigte Staaten
     unknown: Unbekannt
@@ -244,8 +239,6 @@ de:
         Wir benutzen 100% der App-Einkünfte zur Finanzierung unserer Hardware (Server und Infrastruktur, um die Site online zu halten). Wir sind eine amerikanische gemeinnützige Organisation (501(c)3), die Kosten für die App sind also in den USA steuerlich absetzbar.'
       mobile_modal_title: Aber Moment mal, es gibt ja auch eine mobile App!
       stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a> unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
-      turn_off_dragzoom: 
-      turn_on_dragzoom: 
       welcome_modal_html: Falling Fruit ist eine riesige, user-generierte Karte der urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler' zeigt unsere Karte weltweit bereits zu einer halben Million Standorten, an denen Essbares wächst oder gratis erhältlich ist (von Pflanzen und Pilzen zu Brunnen und Müllcontainern). Unsere stetig wachsende User-Community ist unermüdlich dabei, wertvolle Standorte zu erkunden oder zu bearbeiten, um sie der Karte hinzuzufügen. <br/><br/> Hilf uns, den vernachlässigten Reichtum an unseren Strassen zum Leben zu erwecken! Verwende die Website anonym oder melde dich als <a href="/users/sign_up?locale=de">Benutzer</a> an, um sämtliche Funktionen nutzen zu können.
       welcome_modal_title: Willkommen bei Falling Fruit!
     infowindow:
@@ -387,14 +380,11 @@ de:
     problem_type: Problem Art
     your_contact_info: Deine Kontaktinfo
   routes:
-    denied: 
-    mode_of_travel: Fortbewegungsmittel
     modes_of_travel:
     - Zu Fuß
     - Mit dem Fahrrad
     - Mit dem Auto
-    order_not_updated: 
-    order_updated: 
+    mode_of_travel: Fortbewegungsmittel
     updated: Die Route wurde aktualisiert
   time:
     days:

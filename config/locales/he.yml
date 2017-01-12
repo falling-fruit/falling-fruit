@@ -6,7 +6,6 @@ he:
       added: נוספו
       edited: נערכו
       grafted: מורכב
-      visited: 
   devise:
     confirmations:
       confirmed: חשבונך אושר בהצלחה. כעת הנך מחובר/ת.
@@ -45,8 +44,8 @@ he:
       signed_up_but_locked: ההרשמה בוצעה בהצלחה, אך לא יכולנו להכניס אותך למערכת מכיוון שחשבונתך נעול.
       signed_up_but_not_approved: נרשמת בהצלחה אך חשבונך טרם אושר על ידי מנהל האתר
       signed_up_but_unconfirmed: הודעה עם לינק לאישור חשבונך נשלח לאימייל שלך. אנא פתח/י את הלינק על מנת להפעיל את חשבונך.
-      update_needs_confirmation: עידכנת את חשבונך בהצלחה, אבל אנחנו צריכים לאשר את האימייל החדש שלך. אנא בדק/י את האימייל שלך ולחצ/י על הלינק על מנת לאשר את חשבון האימייל החדש.
       updated: עדכנת בהצלחה את חשבונך.
+      update_needs_confirmation: עידכנת את חשבונך בהצלחה, אבל אנחנו צריכים לאשר את האימייל החדש שלך. אנא בדק/י את האימייל שלך ולחצ/י על הלינק על מנת לאשר את חשבון האימייל החדש.
     sessions:
       signed_in: התחברת בהצלחה
       signed_out: התנתקת בהצלחה.
@@ -76,15 +75,14 @@ he:
     access: גישה
     account: חשבון
     activity: פעילות
-    add_source: הוסף מקור
     address: כתובת
+    add_source: הוסף מקור
     anonymous: אנונימי
     are_you_sure: האם אתה בטוח?
     australia: אוסטרליה
     belgium: בלגיה
     by_author: ע"י %{author}
     canada: קנדה
-    chile: 
     common_name: שם עממי
     data: נתונים
     delete: מחק
@@ -102,18 +100,14 @@ he:
     favorites: מועדפים
     fiji: פיג'י
     filter: מסנן
-    finland: 
     france: צרפת
-    germany: 
     global: גלובלי
-    greece: 
     home: בית
     imported: מיובא
     imported_datasets: מערכי נתונים מיובאים
     imports: מייבא
     info: מידע
     invasive: פולשני
-    ireland: 
     italy: איטליה
     labels: תוויות
     links:
@@ -127,7 +121,6 @@ he:
     map: מפה
     miles: מיילים
     name: שם
-    new_zealand: 
     options: אפשרויות
     password: סיסמה
     pending_types: סוגים בהמתנה
@@ -149,16 +142,14 @@ he:
     send: שלח
     show: הצג
     sign_up: הרשמה
-    spain: 
     street_view: תצוגת רחוב
     submit: שלח
-    sweden: 
     switzerland: שווייץ
     tree_inventory:
       one: רשימת מצאי עצים
       other: רשימות מצאי עצים
-    type_and_press_enter: הקלד ולחץ enter
     types: סוגים
+    type_and_press_enter: הקלד ולחץ enter
     united_kingdom: בריטניה
     united_states: ארצות הברית
     unknown: לא ידוע
@@ -170,7 +161,6 @@ he:
     world: עולם
     yield: תנובה
     zoom: זום
-    zoom_to_address: 
     zoom_to_current_location: החזר תצוגה למיקום נוכחי
     zoom_to_me: החזר תצוגה למיקומי
     zoom_to_this_location: התמקד למיקום זה
@@ -189,13 +179,10 @@ he:
       or_right-click_on_map: או לחץ בלחצן עכבר ימיני על מפה
       pending_types_help: אנחנו לאכוף טקסונומיה של סוגי מאכל כדי לשמור על המפה המאורגנת וניתן לחיפוש. סוגי רומן שהוגשו על ידי משתמשים מודגשים ברגע שתלוי ועומד עד לאישורן או כסוג חדש או התמזג עם סוג קיימים בטקסונומיה. במקרים נדירים שבם ההגשה היא אקראית או מעורפל כדי להצדיק הסוג שלה מדי, היא נמשכת על המפה במדינה שאינה מאושרת.
       unverified_help: מקורות מסומנים שכלא אומת אם הזהות, המיקום, או קיומם שנוי במחלוקת. מקורות רבים מיובאים ממלאי עץ מסומנים שכלא אומת, כי האכילות שלהם אינה ודאית (לדוגמא, "אגס" יכול להיות גם מגוון אכיל או דקורטיבי). משתמשים מוזמנים לנסוע למקומות אלה ומדווחים על ממצאיהם.
-      unverified_help_title: 
   locations:
     form:
       access_subtext: מצב גישה למקור. להשאיר ריק אם לא בטוחים.
-      address_subtext: 
       author_subtext: מוצג במפה. השאירו ריק אם אתם מעדיפים להישאר בעילום שם.
-      comments: 
       comments_subtext: עדכונים, נגישות, בריאות הצמח ...
       create_another: צור עוד
       date_visited: תאריך ביקור
@@ -210,7 +197,6 @@ he:
       name_subtext: השאר/י ריק אם את/ה מעדיף/ה להישאר בעילום שם.
       no_season: אין עונה
       or: או
-      original_author: 
       photo_caption: כותרת התמונה
       photo_subtext: הוסיפו תמונה של המקור. אם התמונה איננה שלכם, וודאו כי יש לכם אישור להשתמש בה ותנו קרדיט לצלם בכיתוב התמונה
       position_subtext: נקבע מהמיקום הנוכחי שלך (כאשר זמין) או מהסמן שמיקמת. התאימו את המיקום על ידי הזזת הסמן.
@@ -218,24 +204,16 @@ he:
       season_subtext: מתי ניתן לקטוף מהעץ? השאירו ריק אם לא יודעים
       types_subtext: בחר מהרשימה הנפתחת, הגשת שמות חדשים רק אם אפשרויות מתאימות לא קיימות כבר.
       unverified_subtext: אם אתה מטיל ספק בקיום, מיקום, או זהותו של מקור זה.
-      verify: 
       verify_subtext: מיקום זה סומן בעבר כלא מאומת
       yield_subtext: דרג את הפרודוקטיביות של מקור זה (אם רלוונטי)
       your_name: השם שלך
     index:
-      addmarker_html: 
-      editmarker_html: 
       freegan_modal_html: בנוסף למאמצינו למפות את <a href="/?locale=he">הצמחים האכילים גדלו בערים,</a> we've יצא מפת פחי אשפת מזון נושאות בעולם. כמעט 50% ממיוצר בעולם המפותח כל המזון מעולם לא אכל. We're מקווה להעלות את המודעות סביב נושא זה, להקל על שחרורו של מזון מושלך, ולעודד עסקים <a href="/sharing?locale=he">ללתרום מזון</a> במקום. <br><br> בתמיכה של אורח חיים נמוך פסולת, אנחנו מעודדים את המיפוי של כל המקומות (מפחי אשפה לתיבות חינם) עם מוצרים שהושלכו אך שימושיים, אם אכיל או אחר.
       freegan_modal_title: ברוכים הבאים למפת "אכול חינם" (freegan) שלנו!
       grafter_modal_html: מרכיבי גרילה מרכיבים ענפים נותני פרי על עצי נוי שלא נותנים פרי. כעבור זמן, פרות מזינים וטעימים גדלים על הענפים ונגישים לתושבים מענפים מורכבים אלו. ניתן ללמוד עוד על פרויקט זה ב ></a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br>br. ערים בצפון אמריקה לעתים משתמשים בעצי פרי עקרים לשם פריחת האביב הצבעונית שלהם. מפה זו מציגה חלק מעצי פרי המשמשים לנוי הנפוצים ביותר. אם אתה מרכיב, גנן, או מתלהב מעצי פרי, תרום לידע הציבורי וסמן עצים בשכונה שלך או בחצר האחורית שלך אשר יכולים להיות מורכבים עם ענפי נותני פרי!
       grafter_modal_title: ברוך הבא למפת ההרכבות שלנו!
-      mobile_modal_html: 
-      mobile_modal_title: 
       stamen_html: אריחי מפה על ידי <a href="http://stamen.com">אבקן עיצוב,</a> תחת <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0.</a> נתונים על ידי <a href="http://openstreetmap.org">OpenStreetMap,</a> תחת <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA.</a>
-      turn_off_dragzoom: 
-      turn_on_dragzoom: 
       welcome_modal_html: נפילת פירות היא מפה סיבית, שיתוף פעולה של היבול העירוני. מאחד את המאמצים של מלקטי מזון, יערנים, וfreegans בכל מקום, המפה כבר מצביעה על מעל חצי מיליון מקומות ייצור מזון בעולם (מצמחים ופטריות לבארות מים ופחי אשפה). קהילת המשתמשים גדלו במהירות שלנו באופן פעיל לחקור, עריכה, ולהוסיף למפה. <br/><br/> הצטרפו אלינו בחוגגים את השפע להתעלם מרחובות העיר שלנו! השתמש באתר בעילום שם או <a href="/users/sign_up?locale=he">להירשם</a> לחשבון כדי לגשת לתכונות נוספות.
-      welcome_modal_title: 
     infowindow:
       access:
       - מקור זה נוסף על ידי בעל הנכס.
@@ -282,19 +260,12 @@ he:
       unsure_other: לא בטוח אחרים
       url_for_this_location: URL עבור מיקום זה
     messages:
-      created: 
       geocode_failed: החיפוש נכשל
       latitude_too_large: המערכת תומכת רק בקואורדינטות רוחב הקטנות מ-85 מעלות בכיוון צפון או דרום
-      not_created: 
-      not_updated: 
-      updated: 
     searchbar:
       embed_hover: שבץ HTML
-      invasive_modal: 
-      invasive_modal_title: 
       link_hover: כתובת אתר למפה הנוכחית
       tree_inventories_modal: מלאי עץ מופקים על ידי מוסדות המבקשים מסמך טוב יותר וטיפול לעצים שלהם. נתונים אלה נאספים בדרך כלל על ידי arborists המאומן ושניהם מפורטים וממצים. אנחנו בוחרים בקפידה את מינים אכילים מהמלאי אלה ולהוסיף אותם למפה בשבילך. אתה יכול לעזור לנו מפת השכונה שלך על ידי לשאול העיר או באוניברסיטה שלך, אם מלאי עץ קיים והאם הוא יכול להיות משותף עם נפילת פירות.
-      tree_inventories_modal_title: 
     sidebar:
       changed_within_html: שינויים בתוכך <a href="/users/edit?locale=he">מגוון הליקוט</a>
       click_here_to_manage_your_routes_html: לחץ <a href="%{routes_path}">כאן</a> כדי לנהל את המסלולים שלך.
@@ -303,13 +274,6 @@ he:
       you_havent_added_or_reviewed_anything_while_logged_in: אתה haven't הוסיף או סקורים שום דבר (תוך מחובר)
       you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: אתה haven't מוגדר כל מסלולי ליקוט עדיין. לחץ על מקור ולאחר מכן לחץ על 'מסלולים' 'כדי להתחיל להרוויח מסלול.
       you_havent_defined_html: לא הגדיר טווח חיפוש אחר מזון. <a href="/users/edit?locale=he">לחץ כאן</a> כדי לעשות את זה עכשיו
-  meta:
-    forager_description: 
-    freegan_description: 
-    freegan_title: 
-  observations:
-    created: 
-    empty: 
   pages:
     about:
       about_the_site: אודות המיזם
@@ -327,12 +291,7 @@ he:
 
 
         אתר זה נבנה על ידי ועבור לקטים - אנחנו רוצים שזה יהיה הכלי הטוב ביותר העומד לרשות הבוזזת העכשווית. כתוב לנו <a href="mailto:feedback@fallingfruit.org">בfeedback@fallingfruit.org,</a> נשמח לשמוע ממך!'
-      craig_durkin_bio_html: 
-      cristina_rubke_bio_html: 
-      david_craft_bio_html: 
       ethan_bio_html: אם להכנת סיידר תפוחים, מגוון בירות פרי, ריבות או <a href="http://en.wikipedia.org/wiki/Rumtopf">רומטופף</a> איתן מחפש השראה במאגר העצים השכונתי (ובמכבש הסיידר שלו). בעוד שבביתו בעיר בולדר הוא מתחנחן על מפות, מידע וסרטוני רצף-זמן של נסיגת קרחונים לדוקטוראט ב<a href="http://instaar.colorado.edu/people/ethan-welty/">אוניברסיטת קולורדו</a>, לעיתים תכופות יוצא לו לשוטט בין יבשות תוך הליכה, שיח, אכילה ו<a href="http://www.weltyphotography.com">צילום</a>.
-      ff_disclaimer_html: 
-      give_gratipay: 
       give_paypal: Paypal תרומה מאובטחת באתר
       give_us_money: אנו עמותה התנדבותית וללא מטרות רווח, ואנו מתבססים על תרומותיכם בלבד. אם אתם מעוניינים ויכולים לתרום כסף למיזם, אנא מכם עשו זאת. התרומות מזכות בניקוי מס בארה"ב.
       jeff_bio_html: מאז ימי ליקוט אסנה ואוכמניות כילד עם משפחתו תוך התפעלות מעושר העצים הציבורי ברחבי קולורדו, ג'ף פיתח הערכה לשפע הפירות הגדלים בערים שלנו. משימתו הראשונה למיזם "פירות נופלים" הייתה לסרוק את הערים בולדר וסולט-לייק-סיטי, ולמפות על הנייר את עצי הפרי. כשאינו עומל על חסכון אנרגטי של מבנים, לרוב הוא עוזר בקהילה או מתרוצץ בהרים ברגל, בסקי או באופניים.
@@ -341,7 +300,6 @@ he:
       translate: תרגום
       translate_for_us_html: רוצה להתנדב בצוות התרגום? שלח/י לנו דוא"ל עם בקשה להצטרפות לאתר <a href="http://www.localeapp.com/projects/7532">Locale</a>, בו התרגום מתנהל.
       translators: מתרגמים
-      tristram_stuart_bio_html: 
       write: ! 'כתיבה
 
 '
@@ -365,28 +323,16 @@ he:
       type: סוג
       types_of_data: מערכי נתונים מיובאים לפירות נופלים מתחלקים לשתי קטגוריות עיקריות. "מפות קהילה" בנויות על ידי מלקטי מזון וfreegans כפי שהם לעיין סביבתם לדברים לאכול. אנו חייבים תודה לאזרח הקרטוגרפים החרוצים שיש הידור נתונים זה. "מלאי עץ" מופקים על ידי ערים, אוניברסיטאות, ומוסדות אחרים המבקשים מסמך טוב יותר ולדאוג לעצים שלהם. אנו כורים מערכי נתונים עצומים אלה למיני ייצור מזון ולהוסיף אותם למפה. כדי לעזור לנו לקבל בשכונה שלך על המפה, פנה לבית הספר או העיר שלך ועודד אותם לשתף מלאי העץ שלהם איתנו.
     sharing:
-      ample_harvest: 
       food_banks: בנקי מזון
-      food_banks_canada: 
       food_banks_intro: מלקטי מזון ובעלי העץ פרטיים מוכרעים על ידי הקציר שלהם מוזמנים לתרום עודפי התוצרת שלהם לצדקה. לשקול שיתוף פעולה עם קבוצות כמו אלה שצוינו לעיל, או תרומה ישירות לארגונים מקומיים האכלה רעבה בקהילה שלך. רשתות בנק מזון העיקריות המפורטים להלן; מקלטים לחסרי בית, בתי ספר, ומרכזים בכירים באזור שלך הם גם שווים לשקול.
-      global_foodbanking_network: 
       grow_pick_and_distribute: גדלו · לקטו · הפיצו
       intro_html: המפורטים להלן הם ארגונים מקומיים הגדלים מזון (יערות מזון ומטעי ציבור), לאסוף מזון (ליקוט עירוני ולקט החווה), או בדרך אחרת להפיץ מזון (עסקות החלף ותרומות). ארגונים רשומים לפי מדינה, מדינה, ועיר. אלה עם שמות דהויים ועזיבה הם האמינו להיות לא פעילים. אם ידוע לכם על אחרים שצריכה להיות ברשימה זו, <a href="mailto:info@fallingfruit.org">צור איתנו קשר!</a>
-  problems:
-    created: 
-    description_subtext: 
-    problem_type: 
-    your_contact_info: 
   routes:
-    denied: 
-    mode_of_travel: מצב של מסעות
     modes_of_travel:
     - הליכה
     - אופניים
     - רכב
-    order_not_updated: 
-    order_updated: 
-    updated: 
+    mode_of_travel: מצב של מסעות
   time:
     days:
       one: יום
@@ -436,7 +382,6 @@ he:
     new_password: סיסמה חדשה
     options:
       add_anonymously: עריכת מפה אנונימית (גם במצב חשבון מחובר)
-      announcements_email: 
       range_updates_email: קבלת עדכונים בדוא"ל אודות הפעילות השבועית בטווח הליקוט שלך (המוגדר מטה)
     range_by_map: שרטט/י במפה
     range_by_radius: כתובת וטווח המרחק
@@ -448,8 +393,3 @@ he:
     sign_in_with: התחברות באמצעות %{provider}
     type_it_twice: נא להקליד פעמיים לאימות
     unlock_account: בטל את נעילת החשבון האישי
-  validates_timeliness:
-    error_value_formats:
-      date: 
-      datetime: 
-      time: 
