@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160906192251) do
+ActiveRecord::Schema.define(:version => 20170113003103) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(:version => 20160906192251) do
     t.integer  "zoom"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
+    t.integer  "type_id"
     t.spatial  "cluster_point", :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "grid_point",    :limit => {:srid=>900913, :type=>"point"}
     t.spatial  "polygon",       :limit => {:srid=>900913, :type=>"polygon"}
-    t.integer  "type_id"
   end
 
   create_table "imports", :force => true do |t|
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(:version => 20160906192251) do
     t.integer  "user_id"
     t.integer  "type_ids",                                                                                                      :array => true
     t.boolean  "muni",                                                                       :default => false
-    t.string   "original_ids",   :limit => nil,                                                                                 :array => true
+    t.string   "original_ids",                                                                                                  :array => true
     t.boolean  "invasive",                                                                   :default => false
     t.integer  "inaturalist_id"
   end
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(:version => 20160906192251) do
     t.string   "it_name"
     t.string   "el_name"
     t.string   "sv_name"
+    t.string   "tr_name"
   end
 
   create_table "users", :force => true do |t|
