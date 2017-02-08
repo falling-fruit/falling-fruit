@@ -83,6 +83,14 @@ If you want to help with development, feel free to fork the project. If you have
 
   The database, username, and password should match your settings for the development database in `config/database.yml`.
 
+  * Add the PostGIS extension to the database:
+
+  ```
+  psql fallingfruit_new_db
+  CREATE EXTENSION postgis;
+  \q
+  ```
+
   * Load the database schema:
 
   If you have a dump of the production database, it can be copied to your local environment.
