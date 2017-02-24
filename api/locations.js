@@ -215,7 +215,7 @@ locations.list = function (req, res) {
         ","+coords[0]+"),4326)) as distance"
     );
 
-    sorts.unshift("distance asc");
+    sorts.push("distance asc");
   }
 
   var reviews = "";
