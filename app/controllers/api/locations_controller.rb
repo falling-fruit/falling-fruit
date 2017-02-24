@@ -1,5 +1,4 @@
 class Api::LocationsController < ApplicationController
-
   respond_to :json
   before_filter :authenticate_user!, :only => [:mine,:favorite,:update]
 
@@ -8,14 +7,22 @@ class Api::LocationsController < ApplicationController
     if !@api_key.nil? and @api_key.api_type == "muni"
       params[:c] = "forager"
     end
+
     if params[:c].blank?
       cat_mask = array_to_mask(["forager","freegan"],Type::Categories)
     else
       cat_mask = array_to_mask(params[:c].split(/,/),Type::Categories)
     end
+
     cfilter = "(category_mask & #{cat_mask})>0 AND NOT pending"
-    @types = Type.where(cfilter).collect{ |t| {:name => t.full_name, :id => t.id } }.sort{ |x,y| x[:name]<=>y[:name] }
-    log_api_request("api/locations/types",@types.length)
+
+    @types = Type
+      .where(cfilter)
+      .collect { |t| { :name => t.full_name, :id => t.id } }
+      .sort{ |x, y| x[:name] <=> y[:name] }
+
+    log_api_request("api/locations/types", @types.length)
+
     respond_to do |format|
       format.json { render json: @types }
     end
@@ -74,12 +81,12 @@ class Api::LocationsController < ApplicationController
       format.json { render json: @location.observations }
     end
   end
-  
+
   # PUT /api/locations/1.json
   def add_review
     return unless check_api_key!("api/locations/update")
     @location = Location.find(params[:id])
-    
+
     obs_params = params[:observation]
     @observation = nil
     unless obs_params.nil? or obs_params.values.all?{|x| x.blank? }
@@ -112,7 +119,7 @@ class Api::LocationsController < ApplicationController
       end
     end
   end
-  
+
   # Note: intersect on center_point so that count reflects counts shown on map
   def cluster_types
     return unless check_api_key!("api/locations/cluster_types")
@@ -181,29 +188,29 @@ class Api::LocationsController < ApplicationController
     else # map spans -180 | 180 seam, split into two polygons
       bound = "AND (ST_INTERSECTS(polygon,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(-180,#{params[:swlat]}), ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326),900913)) OR ST_INTERSECTS(cluster_point,ST_TRANSFORM(ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}), ST_POINT(180,#{params[:nelat]})),4326),900913)))"
     end
-    
+
     @clusters = Cluster.select("SUM(count*ST_X(cluster_point))/SUM(count) as center_x,
                                 SUM(count*ST_Y(cluster_point))/SUM(count) as center_y,
                                 SUM(count) as count").group("grid_point").where("zoom = #{g} #{mfilter} #{tfilter} #{bound}")
-                                
+
     earth_radius = 6378137.0
     earth_circum = 2.0*Math::PI*earth_radius
-    
+
     # Conversion SRID 4326 <-> 900913
     # x = (lng/360)*earth_circum
     # lng = x*(360/earth_circum)
     # y = Math.log(Math.tan((lat+90)*(Math::PI/360)))*earth_radius
     # lat = 90-(Math.atan2(1,Math.exp(y/earth_radius))*(360/Math::PI))
-    
+
     # FIXME: calc pixel distances between cluster positions, merge as necessary
     @clusters.collect!{ |c|
       v = {}
-      
+
       # make single cluster at z = 0 snap to middle of map (optional)
       if g == 0
         v[:lat] = 0
         v[:lng] = 0
-      else      
+      else
         v[:lat] = 90-(Math.atan2(1,Math.exp(c.center_y.to_f/earth_radius))*(360/Math::PI))
         v[:lng] = c.center_x.to_f*(360/earth_circum)
       end
@@ -372,7 +379,7 @@ class Api::LocationsController < ApplicationController
      i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
       array_agg(t.parent_id) as parent_types,
-      string_agg(coalesce(#{i18n_name_field}t.name),',') as name    
+      string_agg(coalesce(#{i18n_name_field}t.name),',') as name
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=#{id}
       GROUP BY l.id, l.lat, l.lng, l.unverified")
@@ -391,7 +398,7 @@ class Api::LocationsController < ApplicationController
           name = t[0]
         end
       end
-      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"], 
+      {:title => name, :location_id => row["id"], :lat => row["lat"], :lng => row["lng"],
        :parent_types => row["parent_types"],:n => 1, :types => row["types"]}
     } unless r.nil?
     log_api_request("api/locations/marker",1)
