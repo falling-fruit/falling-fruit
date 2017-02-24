@@ -152,84 +152,157 @@ locations.edit = function (req, res) {
 
 locations.list = function (req, res) {
   var cmask = common.default_catmask;
-  if(req.query.c) cmask = common.catmask(req.query.c.split(",")); 
+  if(req.query.c) cmask = common.catmask(req.query.c.split(","));
   var cfilter = "(bit_or(t.category_mask) & "+cmask+")>0";
+
   var name = "name";
   if(req.query.locale) name = common.i18n_name(req.query.locale); 
+
   var mfilter = "";
   if(req.query.muni == 0) mfilter = "AND NOT muni";
+
   var ifilter = "";
   if(req.query.invasive) {
     if (req.query.invasive == 1) ifilter = "AND invasive";
     else if (req.query.invasive == 0) ifilter = "AND NOT invasive";
   }
+
   var bfilter = undefined;
-  if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
-    bfilter = common.postgis_bbox("location",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
-                           parseFloat(req.query.swlat),parseFloat(req.query.swlng),4326,12);
-  }else{
-    return common.send_error(res,'bounding box not defined');    
+  if (__.every([req.query.swlat, req.query.swlng, req.query.nelat, req.query.nelng])) {
+    bfilter = common.postgis_bbox(
+      "location",
+      parseFloat(req.query.nelat),
+      parseFloat(req.query.nelng),
+      parseFloat(req.query.swlat),
+      parseFloat(req.query.swlng),
+      4326,
+      12
+    );
+  } else {
+    return common.send_error(res,'bounding box not defined');
   }
+
+  var columns = [];
   var sorted = "1 as sort";
-  if(req.query.t){
-    var tids = __.map(req.query.t.split(","),function(x){ return parseInt(x) });
-    sorted = "CASE WHEN array_agg(t.id) @> ARRAY["+tids+"] THEN 0 ELSE 1 END as sort";
+  var sorts = ["sort asc"];
+
+  if (req.query.t) {
+    var tids = __.map(req.query.t.split(","), function(x) {
+      return parseInt(x)
+    });
+
+    sorted = "CASE WHEN array_agg(t.id) @> ARRAY["
+      + tids + "] THEN 0 ELSE 1 END as sort";
   }
-  var limit = req.query.limit ? __.min([parseInt(req.query.limit),1000]) : 1000;
-  var offset = req.query.offset ?parseInt(req.query.offset) : 0;
-  var filters = __.reject([bfilter,mfilter,ifilter],__.isUndefined).join(" ");
+
+  var limit = req.query.limit ?
+    __.min([parseInt(req.query.limit),1000]) :
+    1000;
+
+  var offset = req.query.offset ?
+    parseInt(req.query.offset) :
+    0;
+
+  var filters = __.reject([bfilter,mfilter,ifilter], __.isUndefined)
+    .join(" ");
+
   var distance = "";
-  if(__.every([req.query.lat,req.query.lng])){
+  if(__.every([req.query.lat, req.query.lng])){
     var coords = common.sanitize_wgs84_coords(req.query.lat,req.query.lng);
-    distance = ",ST_Distance(l.location,ST_SETSRID(ST_POINT("+coords[1]+
-               ","+coords[0]+"),4326)) as distance";
+
+    columns.push(
+      "ST_Distance(l.location,ST_SETSRID(ST_POINT("+coords[1]+
+        ","+coords[0]+"),4326)) as distance"
+    );
+
+    sorts.push("distance asc");
   }
+
   var reviews = "";
-  if(req.query.reviews == 1){
-    reviews = ",(SELECT COUNT(*) FROM observations o1 WHERE o1.location_id=l.id) AS num_reviews,\
-               (SELECT photo_file_name || '/' || id FROM observations o2 WHERE o2.location_id=l.id AND \
-                photo_file_name IS NOT NULL \
-                ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name";
+  if (req.query.reviews == 1) {
+    columns.push(
+      ",(SELECT COUNT(*) FROM observations o1 WHERE o1.location_id=l.id) AS num_reviews,\
+        (SELECT photo_file_name || '/' || id FROM observations o2 WHERE o2.location_id=l.id AND \
+        photo_file_name IS NOT NULL \
+        ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name"
+    );
   }
+
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err) {
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
+
     async.waterfall([
-      function(callback){ common.check_api_key(req,client,callback) },
-      function(callback){
-        client.query("SELECT COUNT(*) FROM locations l, types t WHERE t.id=ANY(l.type_ids) "+
-                      filters+";",[],function(err,result){
-          if (err) callback(err,'error running query');
-          else callback(null,parseInt(result.rows[0].count));
-        });
-      },
-      function(total_count,callback){
-        client.query("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids, \
-                      l.description, l.author, \
-                      ARRAY_AGG(COALESCE("+name+",name)) AS type_names, \
-                      "+sorted+distance+reviews+" FROM locations l, types t\
-                      WHERE t.id=ANY(l.type_ids) "+filters+" GROUP BY l.id, l.lat, l.lng, l.unverified \
-                      HAVING "+cfilter+" ORDER BY sort LIMIT $1 OFFSET $2;",
-                     [limit,offset],function(err, result) {
-          if (err) return callback(err,'error running query');
-          res.send([result.rowCount,total_count].concat(__.map(result.rows,function(x){
-            if(x.num_reviews) x.num_reviews = parseInt(x.num_reviews);
-            if(x.photo_file_name){
-              var parts = x.photo_file_name.split("/");
-              x.photo = common.photo_urls(parts[1],parts[0]);
-              x.photo_file_name = parts[0];
+      function(callback) { common.check_api_key(req,client,callback) },
+      function(callback) {
+        client.query(
+          "SELECT COUNT(*) FROM locations l, types t " +
+            "WHERE t.id=ANY(l.type_ids) " +
+            filters + ";",
+          [],
+          function(err,result){
+            if (err) {
+              callback(err, 'error running query');
+            } else {
+              callback(null,parseInt(result.rows[0].count));
             }
-            return x;
-          })));
-          callback(null,result.rowCount);
+          }
+        );
+      },
+      function(total_count,callback) {
+        columns = columns.concat([
+          "l.id",
+          "l.lat",
+          "l.lng",
+          "l.unverified",
+          "l.type_ids",
+          "l.description",
+          "l.author",
+          "ARRAY_AGG(COALESCE(" + name + ", name)) AS type_names",
+          sorted
+        ]);
+
+        var sql = "SELECT " + columns.join(', ') + " \
+            FROM locations l, types t \
+            WHERE t.id = ANY(l.type_ids) " + filters + " \
+            GROUP BY l.id, l.lat, l.lng, l.unverified \
+            HAVING " + cfilter + " \
+            ORDER BY " + sorts.join(', ') + " LIMIT $1 OFFSET $2; \
+          ";
+
+        client.query(sql, [limit, offset], function (err, result) {
+          if (err) { return callback(err, 'error running query'); }
+          var responseJson = [result.rowCount, total_count];
+
+          responseJson = responseJson.concat(
+            __.map(result.rows, function(x) {
+              if (x.num_reviews) {
+                x.num_reviews = parseInt(x.num_reviews);
+              }
+
+              if (x.photo_file_name) {
+                var parts = x.photo_file_name.split("/");
+
+                x.photo = common.photo_urls(parts[1], parts[0]);
+                x.photo_file_name = parts[0];
+              }
+
+              return x;
+            })
+          );
+
+          res.send(responseJson);
+          callback(null, result.rowCount);
         });
       },
-      function(n,callback){ common.log_api_call("GET","/locations.json",n,req,client,callback); }
-    ],function(err,message){
+      function(n, callback) {
+        common.log_api_call("GET","/locations.json",n,req,client,callback);
+      }
+    ], function(err, message) {
       done();
-      if(message) common.send_error(res,message,err);
+      if(message) { common.send_error(res, message, err); }
     });
   });
 };
