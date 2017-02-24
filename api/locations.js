@@ -182,7 +182,10 @@ locations.list = function (req, res) {
     return common.send_error(res,'bounding box not defined');
   }
 
+  var columns = [];
   var sorted = "1 as sort";
+  var sorts = ["sort asc"];
+
   if (req.query.t) {
     var tids = __.map(req.query.t.split(","), function(x) {
       return parseInt(x)
@@ -204,17 +207,25 @@ locations.list = function (req, res) {
     .join(" ");
 
   var distance = "";
-  if(__.every([req.query.lat,req.query.lng])){
+  if(__.every([req.query.lat, req.query.lng])){
     var coords = common.sanitize_wgs84_coords(req.query.lat,req.query.lng);
-    distance = ",ST_Distance(l.location,ST_SETSRID(ST_POINT("+coords[1]+
-               ","+coords[0]+"),4326)) as distance";
+
+    columns.push(
+      "ST_Distance(l.location,ST_SETSRID(ST_POINT("+coords[1]+
+        ","+coords[0]+"),4326)) as distance"
+    );
+
+    sorts.unshift("distance asc");
   }
+
   var reviews = "";
-  if(req.query.reviews == 1) {
-    reviews = ",(SELECT COUNT(*) FROM observations o1 WHERE o1.location_id=l.id) AS num_reviews,\
-               (SELECT photo_file_name || '/' || id FROM observations o2 WHERE o2.location_id=l.id AND \
-                photo_file_name IS NOT NULL \
-                ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name";
+  if (req.query.reviews == 1) {
+    columns.push(
+      ",(SELECT COUNT(*) FROM observations o1 WHERE o1.location_id=l.id) AS num_reviews,\
+        (SELECT photo_file_name || '/' || id FROM observations o2 WHERE o2.location_id=l.id AND \
+        photo_file_name IS NOT NULL \
+        ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name"
+    );
   }
 
   db.pg.connect(db.conString, function(err, client, done) {
@@ -224,8 +235,8 @@ locations.list = function (req, res) {
     }
 
     async.waterfall([
-      function(callback){ common.check_api_key(req,client,callback) },
-      function(callback){
+      function(callback) { common.check_api_key(req,client,callback) },
+      function(callback) {
         client.query(
           "SELECT COUNT(*) FROM locations l, types t " +
             "WHERE t.id=ANY(l.type_ids) " +
@@ -241,15 +252,28 @@ locations.list = function (req, res) {
         );
       },
       function(total_count,callback) {
-        client.query("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids, \
-                      l.description, l.author, \
-                      ARRAY_AGG(COALESCE("+name+",name)) AS type_names, \
-                      "+sorted+distance+reviews+" FROM locations l, types t\
-                      WHERE t.id=ANY(l.type_ids) "+filters+" GROUP BY l.id, l.lat, l.lng, l.unverified \
-                      HAVING "+cfilter+" ORDER BY sort LIMIT $1 OFFSET $2;",
-                     [limit,offset],function(err, result) {
-          if (err) return callback(err,'error running query');
+        columns = columns.concat([
+          "l.id",
+          "l.lat",
+          "l.lng",
+          "l.unverified",
+          "l.type_ids",
+          "l.description",
+          "l.author",
+          "ARRAY_AGG(COALESCE(" + name + ", name)) AS type_names",
+          sorted
+        ]);
 
+        var sql = "SELECT " + columns.join(', ') + " \
+            FROM locations l, types t \
+            WHERE t.id = ANY(l.type_ids) " + filters + " \
+            GROUP BY l.id, l.lat, l.lng, l.unverified \
+            HAVING " + cfilter + " \
+            ORDER BY " + sorts.join(', ') + " LIMIT $1 OFFSET $2; \
+          ";
+
+        client.query(sql, [limit, offset], function (err, result) {
+          if (err) { return callback(err, 'error running query'); }
           var responseJson = [result.rowCount, total_count];
 
           responseJson = responseJson.concat(
@@ -258,9 +282,10 @@ locations.list = function (req, res) {
                 x.num_reviews = parseInt(x.num_reviews);
               }
 
-              if(x.photo_file_name) {
+              if (x.photo_file_name) {
                 var parts = x.photo_file_name.split("/");
-                x.photo = common.photo_urls(parts[1],parts[0]);
+
+                x.photo = common.photo_urls(parts[1], parts[0]);
                 x.photo_file_name = parts[0];
               }
 
@@ -272,10 +297,12 @@ locations.list = function (req, res) {
           callback(null, result.rowCount);
         });
       },
-      function(n,callback){ common.log_api_call("GET","/locations.json",n,req,client,callback); }
-    ],function(err,message){
+      function(n, callback) {
+        common.log_api_call("GET","/locations.json",n,req,client,callback);
+      }
+    ], function(err, message) {
       done();
-      if(message) common.send_error(res,message,err);
+      if(message) { common.send_error(res, message, err); }
     });
   });
 };
