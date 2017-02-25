@@ -310,45 +310,80 @@ locations.list = function (req, res) {
 locations.show = function (req, res) {
   var id = parseInt(req.params.id);
   var name = "name";
-  if(req.query.locale) name = common.i18n_name(req.query.locale); 
+
+  if (req.query.locale) {
+    name = common.i18n_name(req.query.locale);
+  }
+
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err) {
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
     async.waterfall([
       function(callback){ common.check_api_key(req,client,callback) },
       function(callback){
-        client.query("SELECT access, address, author, city, state, country, description, \
-                      id, lat, lng, muni, type_ids, unverified, \
-                      (SELECT ARRAY_AGG(COALESCE("+name+",name)) FROM types t \
-                       WHERE ARRAY[t.id] <@ l.type_ids) as type_names, \
-                      (SELECT COUNT(*) FROM observations o WHERE o.location_id=l.id) as num_reviews \
-                      FROM locations l WHERE id=$1;",
-                     [id],function(err, result) {
+        var columns = [
+          "id",
+          "access",
+          "address",
+          "author",
+          "city",
+          "state",
+          "country",
+          "description",
+          "lat",
+          "lng",
+          "muni",
+          "type_ids",
+          "unverified",
+          "(SELECT ARRAY_AGG(COALESCE("+name+",name)) FROM types t \
+             WHERE ARRAY[t.id] <@ l.type_ids) as type_names",
+          "(SELECT COUNT(*) FROM observations o \
+            WHERE o.location_id = l.id) as num_reviews",
+        ];
+
+        var sql = "SELECT " + columns.join(', ') + " \
+          FROM locations l WHERE id = $1";
+
+        client.query(sql, [id], function(err, result) {
           if (err) callback(err,'error running query');
           if (result.rowCount == 0) return res.send({});
+
           location = result.rows[0];
           location.num_reviews = parseInt(location.num_reviews);
-          client.query("SELECT id, photo_updated_at, photo_file_name FROM observations \
-                        WHERE photo_file_name IS NOT NULL AND location_id=$1;",
-                       [id],function(err, result) {
+
+          var photoQuery = "SELECT id, photo_updated_at, photo_file_name \
+            FROM observations \
+            WHERE photo_file_name IS NOT NULL AND location_id = $1";
+
+          client.query(photoQuery, [id] ,function(err, result) {
             if (err) return callback(err,'error running query');
-            location.photos = __.map(result.rows,function(x){
-              x.photo = common.photo_urls(x.id,x.photo_file_name);
+
+            location.photos = __.map(result.rows, function(x){
+              x.photo = common.photo_urls(x.id, x.photo_file_name);
               return x;
             });
+
             res.send(location);
           });
         });
       },
-      function(callback){ common.log_api_call("GET","/locations/:id.json",1,req,client,callback); }
+      function(callback) {
+        common.log_api_call(
+          "GET",
+          "/locations/:id.json",
+          1,
+          req,
+          client,
+          callback
+        );
+      }
     ],
-    function(err,message){
+    function (err, message) {
       done();
       if(message) common.send_error(res,message,err);
-    }); 
-
+    });
   });
 };
 
