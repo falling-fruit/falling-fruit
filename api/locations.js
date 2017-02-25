@@ -325,6 +325,8 @@ locations.show = function (req, res) {
       function(callback){
         var columns = [
           "id",
+          "season_start",
+          "season_stop",
           "access",
           "address",
           "author",
