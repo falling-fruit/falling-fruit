@@ -330,6 +330,8 @@ locations.show = function (req, res) {
           "access",
           "address",
           "author",
+          "created_at",
+          "updated_at",
           "city",
           "state",
           "country",
