@@ -187,12 +187,20 @@ locations.list = function (req, res) {
   var sorts = ["sort asc"];
 
   if (req.query.t) {
-    var tids = __.map(req.query.t.split(","), function(x) {
-      return parseInt(x)
-    });
+    var tids = req.query.t.split(",")
 
-    sorted = "CASE WHEN array_agg(t.id) @> ARRAY["
-      + tids + "] THEN 0 ELSE 1 END as sort";
+    sorted = "CASE ";
+
+    var sortIndex;
+    sorted += __.map(tids, function(tid, index) {
+      tid = parseInt(tid);
+      sortIndex = tids.length - index;
+
+      return "WHEN array_agg(t.id) @> ARRAY[" + tid + "] THEN " + sortIndex;
+    }).join(" ");
+
+    sorted += " ELSE 0 END AS sort";
+    sorts = ["sort desc"];
   }
 
   var limit = req.query.limit ?
