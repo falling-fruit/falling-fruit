@@ -191,8 +191,8 @@ locations.list = function (req, res) {
       return parseInt(x)
     });
 
-    sorted = "CASE WHEN array_agg(t.id) @> ARRAY["
-      + tids + "] THEN 0 ELSE 1 END as sort";
+    sorted = "CASE WHEN l.type_ids && ARRAY["+ tids.join(', ') + "] THEN 0 " +
+      "ELSE 1 END as sort";
   }
 
   var limit = req.query.limit ?
