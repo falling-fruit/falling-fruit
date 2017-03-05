@@ -372,6 +372,7 @@ locations.show = function (req, res) {
 
           location = result.rows[0];
           location.num_reviews = parseInt(location.num_reviews);
+          location = addTitleToLocation(location);
 
           var photoQuery = "SELECT id, photo_updated_at, photo_file_name \
             FROM observations \
@@ -384,8 +385,6 @@ locations.show = function (req, res) {
               x.photo = common.photo_urls(x.id, x.photo_file_name);
               return x;
             });
-
-            x = addTitleToLocation(x);
 
             res.send(location);
           });
