@@ -1,5 +1,19 @@
 var locations = {};
 
+function addTitleToLocation(location) {
+  if (location.type_names) {
+    var names = location.type_names.slice(0, 2);
+
+    if (location.type_names.length > 2) {
+      names.push("...");
+    }
+
+    location.title = names.join(', ');
+  }
+
+  return location;
+}
+
 locations.add = function (req, res) {
   db.pg.connect(db.conString, function(err, client, done) {
     if (err){ 
@@ -289,6 +303,8 @@ locations.list = function (req, res) {
                 x.photo_file_name = parts[0];
               }
 
+              x = addTitleToLocation(x);
+
               return x;
             })
           );
@@ -356,6 +372,7 @@ locations.show = function (req, res) {
 
           location = result.rows[0];
           location.num_reviews = parseInt(location.num_reviews);
+          location = addTitleToLocation(location);
 
           var photoQuery = "SELECT id, photo_updated_at, photo_file_name \
             FROM observations \
