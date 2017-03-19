@@ -12,6 +12,10 @@ var router = express.Router();
 //var apicache = require('apicache').options({ debug: true }).middleware;
 var multer = require('multer');
 var app = express();
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(multer({ dest: config.temp_dir }));
 

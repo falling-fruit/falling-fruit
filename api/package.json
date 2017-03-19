@@ -15,19 +15,20 @@
   ],
   "license": "GNU GPL 3.0",
   "dependencies": {
-    "express": "== 4.13.0",
-    "pg": "== 4.4.0",
-    "js-yaml": "== 3.3.1",
-    "async": "== 1.2.1",
-    "underscore": "== 1.8.3",
-    "underscore.string": "== 3.1.1",
     "apicache": "== 0.0.12",
+    "async": "== 1.2.1",
     "bcrypt-nodejs": "== 0.0.3",
+    "body-parser": "^1.17.1",
+    "express": "== 4.13.0",
     "gm": "== 1.18.1",
-    "s3": "== 4.4.0",
-    "multer": "== 0.1.8",
     "hat": "== 0.0.3",
-    "pm2": "== 0.14.3"
+    "js-yaml": "== 3.3.1",
+    "multer": "== 0.1.8",
+    "pg": "== 4.4.0",
+    "pm2": "== 0.14.3",
+    "s3": "== 4.4.0",
+    "underscore": "== 1.8.3",
+    "underscore.string": "== 3.1.1"
   },
   "bin": {
     "api": "./app.js"
