@@ -16,7 +16,7 @@ function addTitleToLocation(location) {
 
 locations.add = function (req, res) {
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err) {
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -32,32 +32,56 @@ locations.add = function (req, res) {
     // 10. respond to user
     //
     async.waterfall([
-      function(callback){ common.check_api_key(req,client,callback); },
-      function(callback){ common.authenticate_by_token(req,client,callback); },
-      function(user,callback){
-        var author = req.query.author ? req.query.author : (user.add_anonymously ? null : user.name);
-        var coords = common.sanitize_wgs84_coords(req.query.lat,req.query.lng);
-        client.query("INSERT INTO locations (author,description,type_ids,\
-                      lat,lng,season_start,season_stop,no_season,unverified,access,\
-                      location,created_at,updated_at) \
-                      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,\
-                      ST_SetSRID(ST_POINT($11,$12),4326),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
-                     [author,req.query.description,req.query.type_ids.split(","),
-                      req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
-                      req.query.no_season,req.query.unverified,
-                      req.query.access,coords[1],coords[0]],function(err,result){
-          
-          if(err) return callback(err,'error running query');
-          else return callback(null,user);
+      function(callback) { common.check_api_key(req, client, callback); },
+      function(callback) { common.authenticate_by_token(req, client, callback); },
+      function(user, callback) {
+        var author = req.body.author ?
+          req.body.author :
+          (user.add_anonymously ? null : user.name);
+
+        var coords = common.sanitize_wgs84_coords(req.body.lat, req.body.lng);
+
+        var type_ids = req.body.type_ids.split(",");
+
+        var sql = "INSERT INTO locations (author, description, type_ids, \
+          lat, lng, season_start, season_stop, no_season, unverified, access, \
+          location, created_at, updated_at) \
+          VALUES (\
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,\
+            ST_SetSRID(ST_POINT($11, $12), 4326), \
+            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP\
+          )";
+
+        var values = [
+          author,
+          req.body.description,
+          type_ids,
+          req.body.lat,
+          req.body.lng,
+          req.body.season_start,
+          req.body.season_stop,
+          req.body.no_season,
+          req.body.unverified,
+          req.body.access,
+          coords[1],
+          coords[0]
+        ];
+
+        client.query(sql, values, function(err, result) {
+          if(err) {
+            return callback(err, 'error running query');
+          } else {
+            return callback(null, user);
+          }
         });
       },
-      function(user,callback){
+      function(user, callback){
         client.query("SELECT currval('locations_id_seq') as id;",[],function(err,result){
           if(err) return callback(err,'error running query');
           else return callback(null,parseInt(result.rows[0].id),user);
         });
       },
-      function(location_id,user,callback){
+      function(location_id, user, callback){
         // change log
         client.query("INSERT INTO changes (location_id,user_id,description,created_at,updated_at) \
                       VALUES ($1,$2,$3,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
@@ -67,21 +91,31 @@ locations.add = function (req, res) {
         });
       },
       function(location_id,user,callback){
-        if(__.some([req.query.comment,req.query.fruiting,req.query.quality_rating,
-                    req.query.yield_rating,req.query.photo_data])){
+        if(__.some([req.body.comment,req.body.fruiting,req.body.quality_rating,
+                    req.body.yield_rating,req.body.photo_data])){
           // FIXME: fetch location_id from last result
           // FIXME: parse photo data and upload to amazon (recreate paperclip!?)
-          client.query("INSERT INTO observations (location_id,author,comment,yield_rating,\
-                        quality_rating,fruiting,photo_file_name,observed_on,created_at,updated_at) \
-                        VALUES (currval('locations_id_seq'),$1,$2,$3,$4,$5,$6,$7,\
-                        CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
-                       [req.query.author,req.query.comment,req.query.yield_rating,req.query.quality_rating,
-                        req.query.fruiting,req.query.photo_file_name,req.query.observed_on],
-                       function(err,result){
-            if(err) return callback(err,'error running query');
-            return callback(null,location_id,user);
+          var sql = "INSERT INTO observations (location_id,author,comment,yield_rating,\
+            quality_rating,fruiting,photo_file_name,observed_on,created_at,updated_at) \
+            VALUES (currval('locations_id_seq'),$1,$2,$3,$4,$5,$6,$7,\
+            CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+
+          var values = [
+            req.body.author,
+            req.body.comment,
+            req.body.yield_rating,
+            req.body.quality_rating,
+            req.body.fruiting,
+            req.body.photo_file_name,
+            req.body.observed_on
+          ];
+
+          client.query(sql, values, function(err,result) {
+            if(err) { return callback(err, 'error running query'); }
+
+            return callback(null, location_id, user);
           });
-        }else{
+        } else {
           res.send({"location_id": location_id });
           return callback('okay','done'); // jump to the finish line
         }
@@ -96,7 +130,7 @@ locations.add = function (req, res) {
         console.log('Photo Data:',req.files.photo_data);
         if(req.files.photo_data){
           var info = req.files.photo_data;
-          return common.resize_and_upload_photo(info.path,req.query.photo_file_name,observation_id,location_id,callback);
+          return common.resize_and_upload_photo(info.path,req.body.photo_file_name,observation_id,location_id,callback);
         }else{
           return callback(null,location_id,observation_id,null);
         }
