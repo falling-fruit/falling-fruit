@@ -199,7 +199,8 @@ class Location < ActiveRecord::Base
         end
         if matching_types.length == 0
           new_type = Type.new
-          new_type.name = name
+          # HACK: Until name (en) is not required, insert placeholder.
+          new_type.name = name.nil? ? "Unknown" : name
           new_type.scientific_name = scientific_name
           new_type.category_mask = default_category_mask
           new_type.pending = true
