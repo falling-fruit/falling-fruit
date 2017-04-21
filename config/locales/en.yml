@@ -175,6 +175,11 @@ en:
     zoom_to_current_location: Zoom to current location
     zoom_to_me: Zoom to me
     zoom_to_this_location: Zoom to this location
+    finland: Finland
+    germany: Germany
+    greece: Greece
+    ireland: Ireland
+    sweden: Sweden
   layouts:
     application:
       feed_people_not_landfills: Feed people, not landfills!

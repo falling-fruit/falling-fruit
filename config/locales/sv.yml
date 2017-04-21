@@ -161,6 +161,11 @@ sv:
     zoom_to_current_location: Zooma till aktuell plats
     zoom_to_me: Zooma till mig
     zoom_to_this_location: 
+    finland: 
+    germany: 
+    greece: 
+    ireland: 
+    sweden: 
   layouts:
     application:
       feed_people_not_landfills: 

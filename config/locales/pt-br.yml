@@ -169,6 +169,11 @@ pt-br:
     zoom_to_current_location: Zoom para a localização atual
     zoom_to_me: Zoom para mim
     zoom_to_this_location: Zoom para este local
+    finland: 
+    germany: 
+    greece: 
+    ireland: 
+    sweden: 
   layouts:
     application:
       feed_people_not_landfills: As pessoas se alimentam, não aterros!

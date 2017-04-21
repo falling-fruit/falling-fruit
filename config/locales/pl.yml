@@ -172,6 +172,11 @@ pl:
     zoom_to_current_location: Zbliż do bieżącej lokalizacji
     zoom_to_me: Zbliż do mnie
     zoom_to_this_location: Zbliż do tego miejsca
+    finland: 
+    germany: 
+    greece: 
+    ireland: 
+    sweden: 
   layouts:
     application:
       feed_people_not_landfills: Żyw ludzi, nie wysypiska!

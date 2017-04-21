@@ -863,6 +863,7 @@ function labelize_markers() {
 	 var len = markersArray.length;
 	 for(var i = 0; i < len; i++){
 		 if(!markersArray[i].marker.getVisible()) continue;
+		 if(markersArray[i].marker.getZIndex() < 100) continue; // skip filtered out locations
 		 if(markersArray[i].label != undefined) continue;
 		 var pos = markersArray[i].marker.getPosition();
 		 var mapLabel = new MapLabel({
@@ -945,15 +946,15 @@ function apply_type_filter() {
   for(var i = 0; i < len; i++){
     if(markersArray[i].types == undefined) continue;
     if(intersect(markersArray[i].types,type_filter).length > 0){
-      //markersArray[i].marker.setVisible(true);
       markersArray[i].marker.setZIndex(101);
       markersArray[i].marker.setIcon({url: "/icons/smdot_t1_red.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
-      //if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
+			// markersArray[i].marker.setVisible(true);
+      // if (markersArray[i].label != undefined) markersArray[i].label.set('map',map);
     }else{
-      //markersArray[i].marker.setVisible(false);
-      markersArray[i].marker.setZIndex(99);
-      markersArray[i].marker.setIcon({url: "/icons/smdot_t1_white_a50.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
-      //if(markersArray[i].label != undefined) markersArray[i].label.set('map',null);
+			markersArray[i].marker.setZIndex(99);
+			markersArray[i].marker.setIcon({url: "/icons/smdot_t1_white_a50.png", size: {width: 17, height: 17}, anchor: {x: 17*0.4, y: 17*0.4}});
+			// markersArray[i].marker.setVisible(false);
+      // if(markersArray[i].label != undefined) markersArray[i].label.set('map',null);
     }
   }
   // update_count_hack();

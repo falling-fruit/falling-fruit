@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   # used by devise to determine where to send users after login
   def after_sign_in_path_for(user)
-    home_locations_path
+    root_path
   end
 
   # http://railscasts.com/episodes/199-mobile-devices

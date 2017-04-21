@@ -167,6 +167,11 @@ it:
     zoom_to_current_location: Zoom su posizione corrente
     zoom_to_me: Ingrandisci
     zoom_to_this_location: Zoom a questa posizione
+    finland: 
+    germany: 
+    greece: 
+    ireland: 
+    sweden: 
   layouts:
     application:
       feed_people_not_landfills: Sfamare la gente, non discariche!

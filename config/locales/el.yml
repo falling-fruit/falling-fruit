@@ -167,6 +167,11 @@ el:
     zoom_to_current_location: Zoom στην τρέχουσα τοποθεσία
     zoom_to_me: Zoom στην τοποθεσία μου
     zoom_to_this_location: Zoom σε αυτήν την τοποθεσία
+    finland: 
+    germany: 
+    greece: 
+    ireland: 
+    sweden: 
   layouts:
     application:
       feed_people_not_landfills: Τάισε ανθρώπους, όχι χωματερές!
