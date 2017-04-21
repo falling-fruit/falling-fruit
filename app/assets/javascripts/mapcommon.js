@@ -865,6 +865,7 @@ function labelize_markers() {
    var len = markersArray.length;
    for(var i = 0; i < len; i++){
      if(!markersArray[i].marker.getVisible()) continue;
+		 if (markersArray[i].marker.getZIndex() < 100) continue; // HACK: skip filtered out locations
      if(markersArray[i].label != undefined) continue;
      var pos = markersArray[i].marker.getPosition();
      var mapLabel = new MapLabel({
