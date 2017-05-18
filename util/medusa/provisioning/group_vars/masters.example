@@ -1,0 +1,9 @@
+db_name: "fallingfruit_db"
+db_user: "fallingfruit"
+db_pass: cool 
+
+s3_id: cool 
+s3_secret: cool 
+s3cmdgpgpass: cool 
+do_id: cool 
+do_key: cool 

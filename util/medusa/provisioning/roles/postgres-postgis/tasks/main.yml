@@ -1,0 +1,94 @@
+---
+- name: Add Postgresql repository to sources
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main' state=present
+
+- name: Add Postgresql repository keys
+  apt_key: url='https://www.postgresql.org/media/keys/ACCC4CF8.asc' state=present
+
+- name: install deps
+  apt: pkg={{ item }} state=installed update-cache=yes
+  with_items:
+  - python-pycurl
+  - software-properties-common
+  - build-essential
+  - postgresql-server-dev-9.1
+  - postgresql-contrib-9.1
+  - phppgadmin
+  - libproj-dev
+  - libgdal1-dev
+  - python-psycopg2
+
+- name: get geos sources
+  get_url: url=http://download.osgeo.org/geos/{{ geos_version }}.tar.bz2 dest={{ dldir }}
+  tags: postgis
+
+- name: check if geos source was already untarred
+  shell: if [-d {{ dldir }}/{{ geos_version }}]; then echo "true"; fi
+  register: geos_untarred
+  tags: postgis
+  
+- name: Untar and uncompress (b-zip compression) the geos tarball
+  shell: tar xfj {{ geos_version }}.tar.bz2 chdir={{ dldir }}
+  when: geos_untarred.stdout != 'true'
+  tags: postgis
+
+- name: get postGIS 2.1 source
+  get_url: url=http://download.osgeo.org/postgis/source/{{ postgis_version }}.tar.gz dest={{ dldir }}
+  tags: postgis
+
+- name: check if postgis source was already untarred
+  shell: if [ -d {{ dldir }}/{{ postgis_version }} ]; then echo "true"; fi
+  register: postgis_untarred
+
+- name: Untar and uncompress (g-zip compression) the postGIS tarball
+  command: tar xfz {{ postgis_version }}.tar.gz chdir={{ dldir }}
+  when: postgis_untarred.stdout != "true"
+  tags: postgis
+
+- name: check if geos has been installed already
+  shell: if [ -f /usr/local/bin/geos-config ]; then echo "true"; fi
+  register: geos_installed
+  tags: postgis
+
+- name: Ensure geos is installed
+  command: $item chdir={{ dldir }}/{{ geos_version }}
+  with_items:
+  - ./configure
+  - make
+  - sudo make install
+  when: geos_installed.stdout != 'true'
+  tags: postgis
+
+- name: check if postgis has already been installed
+  shell: if [ -d /usr/share/postgresql/9.1/contrib/postgis-2.1/ ]; then echo "true"; fi
+  register: postgis_installed
+  tags: postgis
+
+- name: Ensure postgis is installed
+  command: $item chdir={{ dldir }}/{{ postgis_version }}
+  with_items:
+  - ./configure
+  - make
+  - sudo make install
+  - sudo ldconfig
+  - sudo make comments-install
+  when: postgis_installed.stdout != 'true'
+  tags: postgis
+
+- name: add postgres replication user
+  postgresql_user:
+    state: present
+    name: '{{ replicator_name }}'
+    encrypted: no 
+    password: '{{ replicator_pass }}'
+    role_attr_flags: REPLICATION
+  when: streaming_replication == 'on'
+
+- name: add recovery.conf file for standby node in case of failover
+  template: src=recovery.conf.j2 dest=/var/lib/postgresql/9.1/main/recovery.conf
+  when: sr_mode == 'slave'
+
+- name: update postgres config based on template
+  template: src=postgresql.conf.j2 dest=/etc/postgresql/9.1/main/postgresql.conf
+  notify:
+   - restart postgres 

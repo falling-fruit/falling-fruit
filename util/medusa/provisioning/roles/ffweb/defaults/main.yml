@@ -1,0 +1,13 @@
+ffhome: '~'
+
+web_user: 'www-data'
+web_group: 'www-data'
+
+db_user: 'fallingfruit'
+db_pass: 'password'
+db_host: 'localhost'
+db_name: 'fallingfruit_db'
+
+s3id: ''
+s3secret: ''
+s3cmdgpgpass: ''

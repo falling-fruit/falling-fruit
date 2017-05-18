@@ -1,0 +1,8 @@
+user: {{ web_user }}
+group: {{ web_group }}
+chdir: {{ ffhome }}
+log: log/thin.log
+port: 3000
+environment: production
+pid: tmp/pid/thin.pid
+servers: {{ num_servers }}
