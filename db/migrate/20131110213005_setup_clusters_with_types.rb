@@ -131,7 +131,7 @@ class SetupClustersWithTypes < ActiveRecord::Migration
     }
 
     # per-type clusters
-    Type.each{ |t| add_type_clusters(t) }
+    Type.all.each{ |t| add_type_clusters(t) }
   end
 
   def down
