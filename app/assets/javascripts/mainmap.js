@@ -144,10 +144,7 @@ function update_display_embedded(force, force_zoom, muni) {
   var bounds = map.getBounds();
   var center = map.getCenter();
   if (zoom <= 12) {
-    if (zoom > 8)
-      do_clusters(bounds,zoom,muni,type_filter);
-    else if ((zoom != prior_zoom) || force)
-      do_clusters(undefined,zoom,muni,type_filter);
+    do_clusters(bounds, zoom, muni, type_filter);
   } else if (zoom >= 13) {
     do_markers(bounds,null,muni,type_filter,cats,false);
   }

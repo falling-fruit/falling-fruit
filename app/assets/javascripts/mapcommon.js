@@ -933,13 +933,16 @@ function update_count_hack(){
   // Update count hack
   if (type_filter != undefined && type_filter.length > 0) {
     filter_display = $('#s2id_type_filter .select2-chosen');
-    var types_count = 0;
-    if (type_filter != undefined) {
-      for (var i = 0; i < type_filter.length; i++) {
-        types_count += types_hash[type_filter[i]] == undefined ? 0 : types_hash[type_filter[i]];
+    filter_html = filter_display.html();
+    if (filter_html) {
+      var types_count = 0;
+      if (type_filter != undefined) {
+        for (var i = 0; i < type_filter.length; i++) {
+          types_count += types_hash[type_filter[i]] == undefined ? 0 : types_hash[type_filter[i]];
+        }
       }
+      filter_display.html(filter_html.replace(/\(\d+\)/,'('+types_count+')'));
     }
-    filter_display.html(filter_display.html().replace(/\(\d+\)/,'('+types_count+')'));
   }
 }
 

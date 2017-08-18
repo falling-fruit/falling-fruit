@@ -85,16 +85,6 @@ class LocationsController < ApplicationController
     end
   end
 
-  def embed
-    prepare_from_permalink
-    @type = params[:f].present? ? Type.find(params[:f]) : nil
-    @width = params[:width].present? ? params[:width].to_i : 640
-    @height = params[:height].present? ? params[:height].to_i : 600
-    respond_to do |format|
-      format.html { render :layout => false } # embed.html.erb
-    end
-  end
-
   # GET /dumpsters
   # GET /freegan
   def freegan_index
@@ -133,7 +123,7 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    params[:c] = Type::DefaultCategories unless params[:c].present?
+    params[:c] = Type::DefaultCategories.join(",") unless params[:c].present?
     @cat_mask = array_to_mask(params[:c], Type::Categories)
     @cat_filter = "(category_mask & #{@cat_mask})>0"
     @category_types = Type.where(@cat_filter)
@@ -151,7 +141,7 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
-    params[:c] = Type::DefaultCategories unless params[:c].present?
+    params[:c] = Type::DefaultCategories.join(",") unless params[:c].present?
     @cat_mask = array_to_mask(params[:c], Type::Categories)
     @cat_filter = "(category_mask & #{@cat_mask})>0"
     @category_types = Type.where(@cat_filter)
@@ -162,6 +152,22 @@ class LocationsController < ApplicationController
     prepare_from_permalink
     respond_to do |format|
       format.html
+    end
+  end
+
+  # GET /locations/embed
+  def embed
+    params[:c] = Type::DefaultCategories.join(",") unless params[:c].present?
+    if !params[:f].present?
+      @cat_mask = array_to_mask(params[:c], Type::Categories)
+      @cat_filter = "(category_mask & #{@cat_mask})>0"
+      params[:f] = Type.where(@cat_filter).collect{ |t| t.id }.join(",")
+    end
+    prepare_from_permalink
+    @width = params[:width].present? ? params[:width].to_i : 640
+    @height = params[:height].present? ? params[:height].to_i : 600
+    respond_to do |format|
+      format.html { render :layout => false } # embed.html.erb
     end
   end
 
