@@ -103,7 +103,7 @@
   jQuery(document).ready(function(){
     //temp = filter_by_types_hash_wrapper(base_type_data_original);
     $('#type_filter').select2({
-      <% unless @types.nil? or @types.empty? %>
+      <% unless @types.nil? or @types.empty? or @types_from_category %>
         placeholder: "<%= @types.collect{ |t| t.name }.join(" + ") %>",
         val: type_filter,
       <% else %>
@@ -120,7 +120,7 @@
     $('#type_filter').on("change",function() {
       var zoom = map.getZoom();
       if ($("#type_filter").val() == "") {
-        type_filter = undefined;
+        type_filter = type_filter_default;
         if (zoom <= 12) {
           update_display();
         } else {

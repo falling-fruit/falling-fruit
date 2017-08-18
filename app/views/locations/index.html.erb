@@ -55,9 +55,14 @@
   muni = <%= (@perma[:muni].nil? or @perma[:muni]) ? "true" : "false" %>;
   labels = <%= (!@perma[:labels].nil? and @perma[:labels]) ? "true" : "false" %>;
   var skip_ids = null;
-  var type_filter = undefined;
+  var type_filter = [];
   <% unless @types.nil? %>
-    type_filter = [<%= @types.collect{ |t| t.id }.join(",") %>];
+    type_filter = <%= @types.collect{ |t| t.id } %>;
+  <% end %>
+  <% if @types_from_category %>
+    var type_filter_default = type_filter;
+  <% else %>
+    var type_filter_default = <%= @category_types.collect{ |t| t.id } %>;
   <% end %>
 
    // state variable used to leave out certain info_window features (report)

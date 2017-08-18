@@ -17,7 +17,7 @@ function update_permalink(){
   var permalink = '/?z=' + zoom + '&y=' + sprintf('%.05f',center.lat()) +
     '&x=' + sprintf('%.05f',center.lng()) + '&m=' + $('#muni').is(":checked") + "&t=" +
      typeid + '&l=' + $('#labels').is(":checked") + '&locale=' + I18n.locale;
-  if (type_filter && type_filter.length > 0) {
+  if (type_filter && type_filter.length > 0 && type_filter.sort().toString() != type_filter_default.sort().toString()) {
     permalink = permalink + "&f=" + type_filter.join(",");
   }
   if (cats != undefined){
@@ -48,7 +48,7 @@ function show_embed_html(object){
   var http = location.protocol;
   var slashes = http.concat("//");
   var host = slashes.concat(window.location.hostname);
-  if (type_filter && type_filter.length > 0) {
+  if (type_filter && type_filter.length > 0 && type_filter.sort().toString() != type_filter_default.sort().toString()) {
     var fstr = "&f=" + type_filter.join(",");
   } else {
     var fstr = "";

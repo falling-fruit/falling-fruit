@@ -21,11 +21,16 @@
   // set to true once we open the initial infobox
   var opened_once = false;
   var skip_ids = null;
-  var type_filter = undefined;
-  <% unless @type.nil? %>
-    type_filter = <%= @type.id %>;
+  var type_filter = [];
+  <% unless @types.nil? %>
+    type_filter = <%= @types.collect{ |t| t.id } %>;
   <% end %>
-
+  <% if @types_from_category %>
+    var type_filter_default = type_filter;
+  <% else %>
+    var type_filter_default = <%= @category_types.collect{ |t| t.id } %>;
+  <% end %>
+  
   // ================= functions =================
 
   function initialize() {

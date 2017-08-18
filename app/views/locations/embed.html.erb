@@ -54,7 +54,7 @@
   var center_radius = <%= (!@perma[:center_radius].nil? and @perma[:center_radius].to_i > 0) ? @perma[:center_radius].to_i : "undefined" %>;
 
   var skip_ids = null;
-  var type_filter = undefined;
+  var type_filter = [];
   <% unless @type.nil? %>
     type_filter = <%= @type.id %>;
   <% end %>

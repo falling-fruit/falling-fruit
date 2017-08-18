@@ -101,18 +101,12 @@ class LocationsController < ApplicationController
     @freegan = true
     params[:c] = 'freegan'
     params[:t] = 'toner-lite'
-    # hack since clusters don't support categories yet
-    @cat_mask = array_to_mask(["freegan"],Type::Categories)
-    @cat_filter = "(category_mask & #{@cat_mask})>0"
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
   def invasivore_index
     @invasivore = true
     params[:c] = 'invasivore'
-    # hack since clusters don't support categories yet
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
@@ -121,20 +115,12 @@ class LocationsController < ApplicationController
   def grafter_index
     @grafter = true
     params[:c] = 'grafter'
-    # hack since clusters don't support categories yet
-    @cat_mask = array_to_mask(["grafter"], Type::Categories)
-    @cat_filter = "(category_mask & #{@cat_mask})>0"
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
   # GET /honeybee
   def honeybee_index
     params[:c] = 'honeybee'
-    # hack since clusters don't support categories yet
-    @cat_mask = array_to_mask(["honeybee"], Type::Categories)
-    @cat_filter = "(category_mask & #{@cat_mask}) > 0"
-    params[:f] = Type.select('id').where(@cat_filter).collect{ |t| t.id }.join(",")
     index and return
   end
 
@@ -147,9 +133,17 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
+    params[:c] = Type::DefaultCategories unless params[:c].present?
+    @cat_mask = array_to_mask(params[:c], Type::Categories)
+    @cat_filter = "(category_mask & #{@cat_mask})>0"
+    @category_types = Type.where(@cat_filter)
+    @types_from_category = !params[:f].present?
+    if !params[:f].present?
+      params[:f] = @category_types.collect{ |t| t.id }.join(",")
+    end
     prepare_from_permalink
     respond_to do |format|
-      format.html { render "index" }# index.html.erb
+      format.html { render "index" } # index.html.erb
       format.json { render json: @locations }
       format.csv { render :csv => @locations }
     end
@@ -157,6 +151,14 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
+    params[:c] = Type::DefaultCategories unless params[:c].present?
+    @cat_mask = array_to_mask(params[:c], Type::Categories)
+    @cat_filter = "(category_mask & #{@cat_mask})>0"
+    @category_types = Type.where(@cat_filter)
+    @types_from_category = !params[:f].present?
+    if @types_from_category
+      params[:f] = @category_types.collect{ |t| t.id }.join(",")
+    end
     prepare_from_permalink
     respond_to do |format|
       format.html
@@ -176,7 +178,6 @@ class LocationsController < ApplicationController
       @location.lat = @lat
       @location.lng = @lng
     end
-    @cats = params[:c].split(/,/) if params[:c].present?
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -463,6 +464,9 @@ class LocationsController < ApplicationController
     @perma[:center_mark] = params[:center_mark] == "true" if params[:center_mark].present?
     @perma[:center_radius] = params[:circle].to_i if params[:circle].present?
     @types = params[:f].present? ? Type.find(params[:f].split(",").collect{ |e| e.to_i }) : []
+    # Updates categories if changed by internal redirects (e.g. freegan_index)
+    categories = params[:c].split(/,/) if params[:c].present?
+    override_categories(categories)
   end
 
 end

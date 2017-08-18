@@ -10,6 +10,14 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  def override_categories(categories = Type::DefaultCategories)
+    unless categories.nil?
+      @categories = categories
+    else
+      @categories = Type::DefaultCategories
+    end
+  end
+
   # catch all perms errors and punt to root
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -62,7 +70,7 @@ class ApplicationController < ActionController::Base
     c = Change.new
     c.location = location
     c.description = description
-    c.remote_ip = request.headers['CF-Connecting-IP'] || request.remote_ip 
+    c.remote_ip = request.headers['CF-Connecting-IP'] || request.remote_ip
     c.user = current_user if user_signed_in?
     c.observation = observation
     c.description_patch = description_patch
