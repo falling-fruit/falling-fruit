@@ -141,7 +141,7 @@ function basemap(lat,lng,zoom,type,bounds){
         x = tilesPerGlobe+x;
       }
       // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
-      return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+      return "https://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
     },
     tileSize: new google.maps.Size(256, 256),
     name: "OSM",
