@@ -35,9 +35,16 @@
 <%
 cache "pages_data_type_summary_table_#{I18n.locale}" do
   i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
-  @types = Location.joins("LEFT OUTER JOIN types ON types.id=ANY(locations.type_ids)").
-  select("COALESCE(#{i18n_name_field}types.name) as cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms, pending, category_mask, count(*)").
-  group("cname, types.id, scientific_name, scientific_synonyms, usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url, foraging_texas_url, eat_the_weeds_url, name, synonyms, pending, category_mask").order("cname")
+  @types = Location.
+    joins("LEFT OUTER JOIN types ON types.id=ANY(locations.type_ids)").
+    select(
+      "COALESCE(#{i18n_name_field}types.name) as cname, types.id,
+      scientific_name, scientific_synonyms,
+      usda_symbol, wikipedia_url, fruitipedia_url, urban_mushrooms_url,
+      foraging_texas_url, eat_the_weeds_url,
+      name, synonyms, pending, category_mask, count(*)").
+    group("types.id").
+    order("cname")
   @lt_count = Location.count
 %>
 
