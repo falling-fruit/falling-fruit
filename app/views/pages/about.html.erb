@@ -48,7 +48,7 @@
 
 <%
   cache "pages_about_stats_#{I18n.locale}" + ((params[:i18n_viz].present? and params[:i18n_viz] == 'true') ? "_i18nviz" : "")  do
-    @types_count = Location.joins("LEFT OUTER JOIN types ON types.id = ANY(locations.type_ids)").select("types.id").group("types.id").length
+    @types_count = Type.where(:id => Location.select("unnest(type_ids)")).select(:id).count
     @locations_count = Location.count
 %>
 
