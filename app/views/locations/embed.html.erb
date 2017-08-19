@@ -46,7 +46,7 @@
   <% unless @perma[:lat].nil? %>lat = <%= @perma[:lat] %>;<% end %>
   <% unless @perma[:lng].nil? %>lng = <%= @perma[:lng] %>;<% end %>
   <% unless @perma[:zoom].nil? %>zoom = <%= @perma[:zoom] %>;<% end %>
-  <% unless @perma[:type].nil? %>type = <%= @perma[:type] %>;<% end %>
+  <% unless @perma[:type].nil? %>type = '<%= @perma[:type] %>';<% end %>
   <% unless @perma[:cats].nil? %>
     cats = '<%= @perma[:cats] %>'.split(",");
   <% end %>
