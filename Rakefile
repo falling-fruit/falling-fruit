@@ -186,41 +186,68 @@ namespace :export do
   end
 
   task(:data => :environment) do
-     puts "Exporting Locations..."
-     cat_mask = array_to_mask(Type::DefaultCategories,Type::Categories)
-     r = ActiveRecord::Base.connection.execute("SELECT locations.id, array_to_string(type_ids,':') as types, access,
-       description, lat, lng, address, unverified,
-       season_start, season_stop, no_season, access, unverified, author, import_id, locations.created_at, locations.updated_at
-       FROM locations INNER JOIN types ON types.id=ANY(locations.type_ids) WHERE (types.category_mask & #{cat_mask})>0")
-     CSV.open("public/locations.csv","wb") do |csv|
-       cols = ["id","type_ids","lat","lng","unverified","description","season_start","season_stop",
-               "no_season","author","address","created_at","updated_at",
-               "access","quality_rating","yield_rating","import_link"]
-       csv << cols
-       r.each{ |row|
-         csv << [row["id"],row["types"],row["lat"],row["lng"],row["unverified"],row["description"],
-                 row["season_start"].nil? ? nil : I18n.t("date.month_names")[row["season_start"].to_i+1],
-                 row["season_stop"].nil? ? nil : I18n.t("date.month_names")[row["season_stop"].to_i+1],
-                 row["no_season"],row["author"],
-                 row["address"],row["created_at"],row["updated_at"],
-                 row["access"].nil? ? nil : I18n.t("locations.infowindow.access_short")[row["access"].to_i],
-                 row["quality_rating"],row["yield_rating"],
-                 row["import_id"].nil? ? nil : "http://fallingfruit.org/imports/#{row["import_id"]}"]
-         }
-     end
-     puts "Exporting Types..."
-     CSV.open("public/types.csv","wb") do |csv|
-       cols = ["id","name","synonyms","es_name","he_name","pt_br_name","fr_name","de_name","pl_name","scientific_name",
-             "scientific_synonyms","taxonomic_rank","parent_id","category_mask"]
-       csv << cols
-       Type.select(cols.join(",")).where("(category_mask & #{cat_mask})>0 AND NOT pending").each{ |t|
-          csv << [t.id,t.name,t.synonyms,t.es_name,t.he_name,t.pt_br_name,t.fr_name,t.de_name,
-                 t.pl_name,t.scientific_name,t.scientific_synonyms,
-                 t.taxonomic_rank.nil? ? nil : Type::Ranks[t.taxonomic_rank],
-                 t.parent_id,
-                 mask_to_array(t.category_mask,Type::Categories).join(":")]
-       }
-     end
+    puts "Exporting Locations..."
+    # r = ActiveRecord::Base.connection.execute("
+    #   SELECT id, array_to_string(type_ids,', ') as type_ids, lat, lng, unverified,
+    #   description, season_start, season_stop, no_season, author, address,
+    #   created_at, updated_at, access, import_id,
+    #   array_to_string(original_ids,', ') as original_ids
+    #   FROM locations
+    #   ORDER BY id
+    # ")
+    CSV.open("public/locations.csv", "wb") do |csv|
+      csv << [
+        "id", "type_ids", "lat", "lng", "unverified", "description",
+        "season_start","season_stop", "no_season", "author", "address",
+        "created_at", "updated_at", "access", "import_link", "original_ids"
+      ]
+      Location.find_each() do |l|
+        csv << [
+          l.id,
+          l.type_ids.nil? ? nil : l.type_ids.join(", "),
+          l.lat, l.lng, l.unverified, l.description,
+          l.season_start.nil? ? nil : I18n.t("date.month_names")[l.season_start.to_i + 1],
+          l.season_stop.nil? ? nil : I18n.t("date.month_names")[l.season_stop.to_i + 1],
+          l.no_season, l.author, l.address, l.created_at, l.updated_at,
+          l.access.nil? ? nil : I18n.t("locations.infowindow.access_short")[l.access.to_i],
+          l.import_id.nil? ? nil : "https://fallingfruit.org/imports/#{l.import_id}",
+          l.original_ids.nil? ? nil : l.original_ids.join(", ")
+        ]
+      end
+      # r.each{ |row|
+      #   csv << [
+      #     row["id"], row["type_ids"], row["lat"], row["lng"], row["unverified"],
+      #     row["description"],
+      #     row["season_start"].nil? ? nil : I18n.t("date.month_names")[row["season_start"].to_i + 1],
+      #     row["season_stop"].nil? ? nil : I18n.t("date.month_names")[row["season_stop"].to_i + 1],
+      #     row["no_season"], row["author"], row["address"], row["created_at"], row["updated_at"],
+      #     row["access"].nil? ? nil : I18n.t("locations.infowindow.access_short")[row["access"].to_i],
+      #     row["import_id"].nil? ? nil : "https://fallingfruit.org/imports/#{row["import_id"]}",
+      #     row["original_ids"]
+      #   ]
+      # }
+    end
+    puts "Exporting Types..."
+    CSV.open("public/types.csv","wb") do |csv|
+      csv << [
+        "id", "parent_id", "scientific_name", "scientific_synonyms", "taxonomic_rank",
+        "en_name", "en_synonyms", "en_wikipedia_url",
+        "de_name", "el_name", "es_name", "fr_name", "he_name", "it_name",
+        "pl_name", "pt_br_name", "sv_name",
+        "category_mask", "pending",
+      ]
+      Type.find_each() do |t|
+        csv << [
+          t.id, t.parent_id, t.scientific_name, t.scientific_synonyms,
+          t.taxonomic_rank.nil? ? nil : Type::Ranks[t.taxonomic_rank],
+          t.name, t.synonyms, t.wikipedia_url,
+          t.de_name, t.el_name, t.es_name, t.fr_name, t.he_name, t.it_name,
+          t.pl_name, t.pt_br_name, t.sv_name,
+          mask_to_array(t.category_mask, Type::Categories).join(", "),
+          t.pending
+        ]
+      end
+    end
   end
 
   task(:type_template => :environment) do
