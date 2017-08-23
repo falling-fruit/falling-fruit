@@ -40,11 +40,7 @@ class Location < ActiveRecord::Base
     # manually update postgis location object
     record.location = "POINT(#{record.lng} #{record.lat})" unless [record.lng,record.lat].any? { |e| e.nil? }
     # update invasiveness bit
-    if Invasive.where("ARRAY[?] @> ARRAY[invasives.type_id] AND ST_INTERSECTS(?,invasives.regions)",record.type_ids,record.location).count > 0
-      record.invasive = true
-    else
-      record.invasive = false
-    end
+    record.invasive = Invasive.where("ARRAY[?] @> ARRAY[invasives.type_id] AND ST_INTERSECTS(?, invasives.regions)", record.type_ids, record.location).exists?
   }
   #after_initialize :default_values
 
