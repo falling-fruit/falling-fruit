@@ -342,7 +342,7 @@ class LocationsController < ApplicationController
         lr.position = max.nil? ? 0 : max.to_i+1
         lr.save
       else
-        lr.each{ |e| e.destroy }
+        lr.destroy_all
       end
     end
     respond_to do |format|
