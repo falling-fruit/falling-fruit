@@ -1,6 +1,7 @@
+---
 sv:
   changes:
-    change_in_city: ! '%{type} i %{city}'
+    change_in_city: "%{type} i %{city}"
     recent_changes: Senaste ändringar
     type:
       added: tillagd
@@ -10,8 +11,10 @@ sv:
   devise:
     confirmations:
       confirmed: Din epost har bekräftats.
-      send_instructions: Du kommer snart att få en epost med instruktioner för hur du bekräftar din epost adress.
-      send_paranoid_instructions: Du kommer att få instruktioner för att bekräfta din adress, om adressen finns i vår databas.
+      send_instructions: Du kommer snart att få en epost med instruktioner för hur
+        du bekräftar din epost adress.
+      send_paranoid_instructions: Du kommer att få instruktioner för att bekräfta
+        din adress, om adressen finns i vår databas.
     failure:
       already_authenticated: Du är redan inloggad.
       inactive: Ditt konto är inte aktiverat än.
@@ -33,26 +36,38 @@ sv:
       failure: Kunde inte autentisera dig med %{kind} för "%{reason}".
       success: Autentiserat med %{kind}-konto.
     passwords:
-      no_token: Tillgång till den här sidan kräver att du kommer från ett mejl som sätter tillbaka ditt lösenord. Om du kom hit från ett sånt mejl, säkerställ att du har använt hela URL:en.
-      send_instructions: Du kommer få epost med instruktioner för hur du kan återställa ditt lösenord inom några minuter.
-      send_paranoid_instructions: Om din epostadress finns i vår databas kommer du att få en lösenordslänk skickad till din epost.
+      no_token: Tillgång till den här sidan kräver att du kommer från ett mejl som
+        sätter tillbaka ditt lösenord. Om du kom hit från ett sånt mejl, säkerställ
+        att du har använt hela URL:en.
+      send_instructions: Du kommer få epost med instruktioner för hur du kan återställa
+        ditt lösenord inom några minuter.
+      send_paranoid_instructions: Om din epostadress finns i vår databas kommer du
+        att få en lösenordslänk skickad till din epost.
       updated: Ditt lösenord har ändrats. Du är inloggad.
       updated_not_active: Ditt lösenord har ändrats.
     registrations:
       destroyed: Hej då! Ditt konto har tagits bort. Hoppas vi ses igen snart!
       signed_up: Välkommen! Ditt nya konto har skapats.
-      signed_up_but_inactive: Du är nu registrerad. Däremot kunde vi inte logga in dig, eftersom ditt konto ännu inte aktiverats.
-      signed_up_but_locked: Du är nu registrerad. Däremot kunde vi inte logga in dig, eftersom ditt konto är låst.
-      signed_up_but_not_approved: Du har registrerat ditt konto, men en administratör behöver godkänna den först.
-      signed_up_but_unconfirmed: Ett meddelande med en länk för att bekräfta din registrering har skickats till din epostadress. Följ länken för att aktivera ditt konto.
+      signed_up_but_inactive: Du är nu registrerad. Däremot kunde vi inte logga in
+        dig, eftersom ditt konto ännu inte aktiverats.
+      signed_up_but_locked: Du är nu registrerad. Däremot kunde vi inte logga in dig,
+        eftersom ditt konto är låst.
+      signed_up_but_not_approved: Du har registrerat ditt konto, men en administratör
+        behöver godkänna den först.
+      signed_up_but_unconfirmed: Ett meddelande med en länk för att bekräfta din registrering
+        har skickats till din epostadress. Följ länken för att aktivera ditt konto.
       updated: Ditt konto har uppdaterats.
-      update_needs_confirmation: Ditt konto uppdaterades, men vi behöver verifiera din nya epostadress. Kontrollera din epost och klicka på länken för att bekräfta din nya epostadress.
+      update_needs_confirmation: Ditt konto uppdaterades, men vi behöver verifiera
+        din nya epostadress. Kontrollera din epost och klicka på länken för att bekräfta
+        din nya epostadress.
     sessions:
       signed_in: Loggade in.
       signed_out: Loggade ut.
     unlocks:
-      send_instructions: Du kommer få epost med instruktioner om hur du kan låsa upp ditt konto inom några minuter.
-      send_paranoid_instructions: Om ditt konto finns, kommer du att få ett email med instruktioner om hur du låser upp det inom några minuter.
+      send_instructions: Du kommer få epost med instruktioner om hur du kan låsa upp
+        ditt konto inom några minuter.
+      send_paranoid_instructions: Om ditt konto finns, kommer du att få ett email
+        med instruktioner om hur du låser upp det inom några minuter.
       unlocked: Ditt konto har låsts upp. Du är nu inloggad.
   errors:
     messages:
@@ -127,7 +142,8 @@ sv:
       about_us: Styrelse
       advisory_board: Rådgivare
       closing_remarks: Avslutande kommentarer
-      ff_disclaimer_html: Falling Fruit har ingenting att göra med Fallen Fruit. Fallen Fruit finns på <a href="http://fallenfruit.org">fallenfruit.org</a>
+      ff_disclaimer_html: Falling Fruit har ingenting att göra med Fallen Fruit. Fallen
+        Fruit finns på <a href="http://fallenfruit.org">fallenfruit.org</a>
       give_gratipay: Betala via Gratipay
   users:
     bio: Om dig
