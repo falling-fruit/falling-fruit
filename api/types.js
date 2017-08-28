@@ -31,7 +31,7 @@ types.list = function (req, res) {
         if(bfilter){
           filters = __.reject([bfilter,mfilter,zfilter],__.isUndefined).join(" ");
           client.query("SELECT t.id, COALESCE("+name+",name) as name, scientific_name, \
-                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
+                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, nl_name, \
                         "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask, \
                         SUM(count) as count \
@@ -48,7 +48,7 @@ types.list = function (req, res) {
           });
         }else{
           client.query("SELECT id, COALESCE("+name+",name) as name,scientific_name, \
-                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
+                        es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, nl_name, \
                         "+urls+" \
                         synonyms, scientific_synonyms, pending, taxonomic_rank, category_mask \
                         FROM types WHERE "+pfilter+" ("+cfilter+"(category_mask & $1)>0) \
@@ -81,7 +81,7 @@ types.show = function (req, res) {
         client.query("SELECT id, created_at, updated_at, \
                       scientific_name, scientific_synonyms, taxonomic_rank, parent_id, \
                       name, synonyms, \
-                      es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, \
+                      es_name, he_name, pl_name, fr_name, pt_br_name, de_name, it_name, el_name, nl_name, \
                       usda_symbol, wikipedia_url, eat_the_weeds_url, foraging_texas_url, \
                       urban_mushrooms_url, fruitipedia_url, \
                       pending, category_mask, edability as edibility, notes \

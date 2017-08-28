@@ -1,0 +1,700 @@
+---
+nl:
+  changes:
+    change_in_city: "%{type} in %{city}"
+    recent_changes: Recente wijzigingen
+    type:
+      added: toegevoegd
+      edited: bewerkt
+      grafted: geënt
+      visited: bezocht
+  devise:
+    confirmations:
+      confirmed: Uw e-mailadres is succesvol bevestigd.
+      send_instructions: U ontvangt binnen een paar minuten een e-mail met instructies
+        om uw e-mailadres te bevestigen.
+      send_paranoid_instructions: Als uw e-mailadres bestaat in onze database, dan
+        ontvangt u binnen een paar minuten een e-mail met instructies om uw e-mailadres
+        te bevestigen.
+    failure:
+      already_authenticated: U bent al ingelogd.
+      inactive: Uw account is nog niet geactiveerd.
+      invalid: Ongeldig e-mailadres of wachtwoord.
+      invalid_token: 'Ongeldige authenticatiesleutel. '
+      locked: Uw account is vergrendeld.
+      not_approved: Uw account is nog niet goedgekeurd door een administrator.
+      timeout: Uw sessie is verlopen; log opnieuw in om door te gaan.
+      unauthenticated: U moet inloggen of registreren voordat u door kunt gaan.
+      unconfirmed: U moet uw e-mailadres bevestigen voordat u door kunt gaan.
+    mailer:
+      confirmation_instructions:
+        subject: Bevestigingsinstructies
+      reset_password_instructions:
+        subject: Wachtwoordherstelinstructies
+      unlock_instructions:
+        subject: Ontgrendelinstructies
+    omniauth_callbacks:
+      failure: Het authenticeren is mislukt vanaf %{kind}, omdat "%{reason}".
+      success: U bent succesvol geauthenticeerd vanaf het account %{kind}.
+    passwords:
+      no_token: U kunt deze pagina niet openen als u deze niet hebt geopend vanuit
+        een wachtwoordherstele-mail. Als u hem niet vanuit daar heeft geopend, zorg
+        er dan voor dat u de volledige opgegeven URL gebruikt.
+      send_instructions: U ontvangt binnen een paar minuten een e-mail met instructies
+        om uw wachtwoord te herstellen.
+      send_paranoid_instructions: Als uw e-mailadres bestaat in de database, dan ontvangt
+        u binnen een paar minuten een e-mail met instructies om uw wachtwoord te herstellen.
+      updated: Uw wachtwoord is succesvol gewijzigd; u bent nu ingelogd.
+      updated_not_active: Uw wachtwoord is succesvol gewijzigd.
+    registrations:
+      destroyed: Tot ziens! Uw account is succesvol opgezegd. We hopen u spoedig weer
+        te zien.
+      signed_up: Welkom! U heeft uzelf succesvol geregistreerd.
+      signed_up_but_inactive: U heeft uzelf succesvol geregistreerd, maar het inloggen
+        is mislukt omdat uw account nog niet geactiveerd is.
+      signed_up_but_locked: U heeft uzelf succesvol geregistreerd, maar het inloggen
+        is mislukt omdat uw account vergrendeld is.
+      signed_up_but_not_approved: U heeft uzelf succesvol geregistreerd, maar uw account
+        is nog niet goedgekeurd door een administrator.
+      signed_up_but_unconfirmed: Er is een bericht verstuurd naar uw e-mailadres met
+        een bevestigingslink. Klik op die link om uw account te activeren.
+      updated: Uw account is succesvol bijgewerkt.
+      update_needs_confirmation: Uw account is succesvol bijgewerkt, maar uw nieuwe
+        e-mailadres moet nog bevestigd worden. Controleer uw e-mail en klik op de
+        bevestigingslink om uw nieuwe e-mailadres te bevestigen.
+    sessions:
+      signed_in: Succesvol ingelogd.
+      signed_out: Succesvol uitgelogd.
+    unlocks:
+      send_instructions: U ontvangt binnen een paar minuten een e-mail met instructies
+        om uw account te ontgrendelen.
+      send_paranoid_instructions: Als uw account bestaan, dan ontvangt u binnen een
+        paar minuten een e-mail met instructies om uw account te ontgrendelen.
+      unlocked: Uw account is succesvol ontgrendeld. Log in om door te gaan.
+  errors:
+    messages:
+      after: moet na %{restriction}
+      already_confirmed: is al bevestigd; probeer om in te loggen
+      before: moet vóór %{restriction}
+      expired: is verlopen; vraag een nieuwe aan
+      invalid_date: is geen geldige datum
+      invalid_datetime: is geen geldige datum/tijd
+      invalid_time: is geen geldige tijd
+      is_at: moet op %{restriction}
+      not_found: niet gevonden
+      not_locked: is niet vergrendeld
+      not_saved:
+        one: '1 fout heeft heeft ervoor gezorgd dat deze %{resource} niet is opgeslagen:'
+        other: "%{count} fouten hebben ervoor gezorgd dat deze %{resource} niet is
+          opgeslagen:"
+      on_or_after: moet op of na %{restriction}
+      on_or_before: moet op of vóór %{restriction}
+  glossary:
+    about: Over
+    access: Toegang
+    account: Account
+    activity: Activiteit
+    address: Adres
+    add_source: Locatie toevoegen
+    anonymous: Anoniem
+    are_you_sure: Weet u het zeker?
+    australia: Australië
+    belgium: België
+    by_author: door %{author}
+    canada: Canada
+    chile: Chili
+    common_name: Gebruikelijke naam
+    data: Gegevens
+    delete: Verwijderen
+    description: Omschrijving
+    details: Details
+    donate: Doneren
+    download: Downloaden
+    edible_type: Eetbare soort
+    edit: Bewerken
+    email: E-mail
+    embed: Insluiten
+    error: Fout
+    favorites: Favorieten
+    fiji: Fiji
+    filter: Filter
+    finland: Finland
+    france: Frankrijk
+    germany: Duitsland
+    global: Wereldwijd
+    greece: Griekenland
+    home: Start
+    imported: Geïmporteerd
+    imported_datasets: Geïmporteerde gegevenssets
+    imports: Importeringen
+    info: Informatie
+    invasive: Optredend
+    ireland: Ierland
+    italy: Italië
+    labels: Labels
+    links:
+      one: Link
+      other: Links
+    locations:
+      one: Locatie
+      other: Locaties
+    login: Inloggen
+    logout: Uitloggen
+    map: Kaart
+    miles: mijlen
+    name: Naam
+    new_zealand: Nieuw-Zeeland
+    options: Opties
+    password: Wachtwoord
+    pending_types: Onbesliste soorten
+    photo: Foto
+    portugal: Portugal
+    position: Positie
+    problems: Problemen
+    public: Openbaar
+    quality: Kwaliteit
+    report: Rapporteren
+    report_a_problem: Probleem rapporteren
+    reviews:
+      one: Recensie
+      other: Recensies
+    routes: Routes
+    save_changes: Wijzigingen opslaan
+    scientific_name: Wetenschappelijke naam
+    season: Seizoen
+    send: Versturen
+    show: Weergeven
+    sign_up: Registreren
+    spain: Spanje
+    street_view: Street View
+    submit: Versturen
+    sweden: Zweden
+    switzerland: Zwitserland
+    tree_inventory:
+      one: Boominventarisatie
+      other: Boominventarisaties
+    types: Soorten
+    type_and_press_enter: Typ en druk op Enter
+    united_kingdom: Verenigd Koninkrijk
+    united_states: Verenigde Staten
+    unknown: Onbekend
+    unverified: Niet-bevestigd
+    updated: Bijgewerkt
+    user: Gebruiker
+    users: Gebruikers
+    visited: Bezocht
+    world: Wereld
+    yield: Opbrengst
+    zoom: Zoom
+    zoom_to_address: Zoomen naar adres
+    zoom_to_current_location: Zoomen naar huidige locatie
+    zoom_to_me: Zoomen naar mij
+    zoom_to_this_location: Zoomen naar deze locatie
+  layouts:
+    application:
+      feed_people_not_landfills: Geef de mensen te eten, niet de stortplaatsen!
+      mapping_the_urban_harvest: Breng de stedelijke opbrengst in kaart!
+      menu:
+        approved_types: Goedgekeurde soorten
+        in_the_press: In de pers
+        list_imports: Importeringen opsommen
+        new_import: Nieuwe importering
+        new_type: Nieuwe soort
+        sharing_the_harvest: Opbrengst delen
+        the_project: Het project
+      or_right-click_on_map: of klik met de rechtermuisknop op de kaart
+      pending_types_help: We forceren een taxonomie van eetbare soorten om de kaart
+        georganiseerd en doorzoekbaar te houden. Nieuwe soorten, ingediend door gebruikers,
+        worden gemarkeerd op de kaart totdat ze worden toegevoegd zijn aan de taxonomie
+        of samengevoegd met een bestaande soort. Sommige voorgestelde soorten zijn
+        zo uniek of dubbelzinnig dat ze altijd gemarkeerd zullen blijven.
+      unverified_help: Locaties zijn gemarkeerd als niet-bevestigd als hun positie,
+        identiteit of bestaan omstreden is. Veel locaties, geïmporteerd uit boominventarisaties,
+        zijn gemarkeerd als niet-bevestigd omdat hun eetbaarheid onzeker is ("Peer",
+        bijv., kan zowel eetbaar zijn als decoratief). Wij moedigen gebruikers aan
+        om af te reizen naar deze locaties en hun bevindingen te delen.
+      unverified_help_title: Waarom niet-bevestigd?
+  locations:
+    form:
+      access_subtext: Toegangsstatus van de bron. Laat leeg als u het niet weet.
+      address_subtext: kan worden gebruikt om de markeerder te positioneren. Pas,
+        indien nodig, de positie aan alvorens te versturen.
+      author_subtext: Wordt weergeven op de kaart. Laat leeg als u anoniem wilt blijven.
+      comments: Opmerkingen
+      comments_subtext: Updates, toegangsproblemen, plantgezondheid...
+      create_another: Nog een creëren
+      date_visited: Bezocht op
+      description_subtext: Locatiedetails, toegangsproblemen, plantgezondheid ...
+      form_error: Een fout heeft voorkomen dat deze bron opgeslagen kan worden
+      form_intro_html: Wijzig hieronder de locatie of a href="/observations/new?location_id=%{location_id}&locale=en"
+        data-ajax="false" rel="external" title="Review this location">gebruik dit
+        formulier</a> om een recensie, opmerking of foto's te plaatsen.
+      fruiting_status: Vruchtbaarheidsstatus
+      fruiting_subtext: Wat is het fruit nu aan het doen? (indien van toepassing)
+      have_you: Heeft u deze locatie bezocht?
+      move_marker: Markeerder verplaatsen naar coördinaten
+      move_marker_address: Markeerder verplaatsen naar adres
+      name_subtext: Laat leeg als u anoniem wilt blijven.
+      no_season: Geen seizoen
+      or: of
+      original_author: Originele auteur
+      photo_caption: Foto-bijschrift
+      photo_subtext: Plaats een foto van de bron. Als de foto niet van u is, zorg
+        er dan voor dat u toestemming hebt en de auteur vermeldt in het bijschrift.
+      position_subtext: Wordt vastgesteld vanaf uw huidige locatie (indien beschikbaar)
+        of vanaf de door u geplaatste markeerder. Pas aan door de markeerder te verplaatsen.
+      quality_subtext: Waarder de kwaliteit van de bron (indien van toepassing)
+      season_subtext: Wanneer kan de bron worden geoogst? Laat leeg als u het niet
+        weet.
+      types_subtext: Kies uit de uitrollijst. Verstuur alleen een nieuwe soort als
+        deze niet voorkomt in de lijst.
+      unverified_subtext: Als u twijfels hebt over het bestaan, de locatie of de identiteit
+        van deze bron.
+      verify: Bevestigen
+      verify_subtext: Deze locatie is momenteel gemarkeerd als "Niet-bevestigd"
+      yield_subtext: Waarder de vruchtbaarheid van de bron (indien van toepassing)
+      your_name: Uw naam
+    index:
+      addmarker_html: Voeg hier de bron toe</a><br><span class="subtext">U kunt mij
+        ook verplaatsen</span>
+      editmarker_html: "<b>Verplaats naar de bronlocatie.</b><br><br>Gebruik de satellietweergave
+        - er bestaat een kans dat de bron zichtbaar is vanuit de ruimte!"
+      freegan_modal_html: Naast ons initiatief om <a href="/?locale=en">eetbare planten</a>
+        in steden in kaart te brengen, hebben we ook als doel gesteld om de vuilnisbaklanden
+        van de wereld in kaart te brengen. Bijna de helft van ons geproduceerde voedsel
+        wordt nooit opgegeten. We hopen hiermee mensen bewust te maken van voedselverspilling,
+        beter omgaan met weggegooid voedsel en bedrijven te stimuleren om hun <a href="/sharing?locale=en">voedsel
+        te doneren</a> i.p.v. weg te gooien.<br/><br/>Ter ondersteuning van een levensstijl
+        met minder afval, moedigen we aan om alle freegan-bronnen (van afvalbakken
+        tot gratis voedselpakketten) met weggegooide maar bruikbare waren in kaart
+        te brengen (eetbaar of niet).
+      freegan_modal_title: Welkom op onze freegan-kaart!
+      grafter_modal_html: Guerrila Grafters ent fruithoudende takken op sierfruitbomen
+        (steden, bijv., gebruiken regelmatig steriele fruitbomen voor hun kleurrijke
+        lentebloesem). Na een tijdje wordt er heerlijk, voedzaam fruit beschikbaar
+        gesteld aan de buurten door deze entingen. U kunt meer lezen over het project
+        op <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>
+        Deze kaart toont de gebruikelijkste sierfruitbomen. Als u een enter bent,
+        een tuinier of een fruitboom-liefhebber, draag dan bij aan de informatie door
+        de te enten fruithoudende bomen op uw perceel of in uw buurt te taggen!
+      grafter_modal_title: Welkom op onze entkaart!
+      mobile_modal_html: |-
+        Hallo! Het lijkt erop dat u Falling Fruit bezoek vanaf een <strong>mobiel apparaat</strong>. Dankzij crowdfunding hebben we onlangs een mobiele app uitgebracht voor Android en iOS. U zult de app waarschijnlijker handiger in het gebruik vinden op uw mobiele apparaat:
+        <br><br>
+        <ul>
+        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit voor iOS</a>
+        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit voor Android</a>
+        </ul>
+        <br>
+        Alle opbrengsten van de app-aankopen worden geïnvesteerd in onze kernkosten (servers en infrastructuur die de site online houden). We zijn een 5051(c)3 organisatie zonder winstoogmerk dus deze kosten zijn ook nog eens aftrekbaar van de belasting in de VS.
+      mobile_modal_title: Wacht eens even, er is een mobiele app!
+      stamen_html: Kaarttegels door <a href="http://stamen.com">Stamen Design</a>,
+        onder de <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>-licentie.
+        Gegevens door <a href="http://openstreetmap.org">OpenStreetMap</a>, onder
+        de <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>-licentie.
+      turn_off_dragzoom: Verplaats-zoommodus uitschakelen
+      turn_on_dragzoom: Verplaats-zoommodus inschakelen
+      welcome_modal_html: |-
+        Falling Fruit is een enorme kaart waarop wordt samengewerkt om de stadsoogst in kaart te brengen. Door de kracht van samenwerking van voedselproducenten, freegans en boswachters wereldwijd geeft de kaart nu al meer dan 500.000 voedselbronnen wereldwijd aan (van planten en fungi tot waterputten en afvalbakken). Onze gebruikersgemeenschap groeit razendsnel en s actief bezig met verkennen en bijwerken van de kaart en bezig met het toevoegen van gegevens aan de kaart.<br/><br/>Doe met ons mee en vier de overgeslagen rijkdom van de straten in uw stad! Gebruik de site anoniem of <a href="/users/sign_up?locale=en">registreer een account</a> om extra mogelijkheden te verkrijgen.
+        <br/><br/>
+        <em>Falling Fruit is niet geassocieerd met Fallen Fruit. Fallen Fruit is te vinden op <a href="http://fallenfruit.org">fallenfruit.org</a>.</em>
+      welcome_modal_title: Welkom bij Falling Fruit!
+    infowindow:
+      access:
+      - Deze bron is toegevoegd door de eigenaar.
+      - Deze bron is toegevoegd met toestemming van de eigenaar.
+      - Deze bron bevindt zich op openbaar terrein.
+      - Deze bron is privé maar kan overlappen met openbaar terrein. Wees terughoudend
+        met plukken.
+      - Deze bron is privé. Vraag om toestemming voordat u gaat plukken.
+      access_mode:
+      - De bron bevindt zich op mijn terrein
+      - Ik heb toestemming van de eigenaar om de bron toe te mogen voegen
+      - De bron bevindt zich op openbaar terrein
+      - De bron bevindt zich op privéterrein maar kan overlappen met openbaar terrein
+      - De bron bevindt zich op privéterrein (vraag toestemming alvorens te plukken)
+      access_short:
+      - Toegevoegd door de eigenaar
+      - Toegestaan door eigenaar
+      - Openbaar
+      - Privé maar overlappend
+      - Privé
+      add_to_remove_from: Toevoegen aan / verwijderen van
+      citation_to_the_original_source: Vermelding van de originele gegevensbron
+      delete_comment: Opmerking verwijderen
+      delete_photo: Foto verwijderen
+      delete_this_location: Deze locatie verwijderen
+      edit_this_location: Deze locatie bewerken
+      fruiting:
+      - Bloemen
+      - Onrijp fruit
+      - Rijp fruit
+      have_you_visited_html: Heeft u deze bron bezocht? Voeg dan een <a href="/observations/new?location_id=%{id}&locale=en"
+        data-ajax="false" rel="external" title="Review this source" id="add_review">recensie</a>
+        toe
+      january_to_december: Januari - December
+      new_route: Nieuwe route
+      rating:
+      - Slecht
+      - Matig
+      - Goed
+      - Erg goed
+      - Uitstekend
+      review_this_location: Deze locatie recenseren
+      see_this_location_in_streetview: Deze locatie bekijken in Street View
+      source: bron
+      toggle_route_controls: Routebediening weergeven/verbergen
+      unsure: Onzeker
+      unsure_other: Onzeker/Overig
+      url_for_this_location: URL van deze locatie
+    messages:
+      created: Locatie is toegevoegd
+      geocode_failed: Uw zoekopdracht is mislukt
+      latitude_too_large: We ondersteunen geen breedtegraden boven de ±85 graden.
+      not_created: Locatie kan niet worden toegevoegd
+      not_updated: Locatie kan niet worden bijgewerkt
+      updated: Locatie is bijgewerkt
+    searchbar:
+      embed_hover: Insluitcode
+      invasive_modal: Invasieve planten zijn niet-inheemse planten in een regio die
+        vaker voorkomen dan inheemse planten. We markeren invasieve planten op Falling
+        Fruit zodat u ze kunt lokaliseren en opeten, waardoor u helpt om invasies
+        terug te dringen. Invasieve soorten worden momenteel alleen opgesomd voor
+        de Verenigde Staten. De gegevens zijn gebaseerd op lijsten van de USDA (U.S.
+        Department of Agriculture).
+      invasive_modal_title: Wat zijn invasieve soorten?
+      link_hover: URL naar de huidige kaart
+      tree_inventories_modal: Boominventarissen worden samengesteld door instituten
+        die willen dat bomen beter gedocumenteerd worden en dat er beter voor ze gezorgd
+        wordt. Deze gegevens worden meestal verzameld door boomkwekers en zijn gedetailleerd
+        en uitgebreid. We kiezen zorgvuldig eetbare soorten uit deze inventarissen
+        en voegen ze aan de kaart toe. Help mee om uw buurt in kaart te brengen door
+        te vragen aan uw stad (of universiteit, kanton, etc.) of er een boominventaris
+        bestaat en of deze mag worden gedeeld op Falling Fruit.
+      tree_inventories_modal_title: Wat is een boominventaris?
+    sidebar:
+      changed_within_html: Wijzigingen in uw <a href="/users/edit?locale=en">voedselgebied</a>
+      click_here_to_manage_your_routes_html: Klik <a href="%{routes_path}">hier</a>
+        om uw routen te beheren.
+      in: in
+      locations_added_or_reviewed_by_you_while_logged_in: Door u toegevoegde of gerecenseerde
+        locaties (tijdens uw ingelogde sessie)
+      you_havent_added_or_reviewed_anything_while_logged_in: U heeft nog geen bronnen
+        toegevoegd of gerecenseerd (tijdens uw ingelogde sessie)
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: U
+        heeft nog geen routes opgegeven. Klik op een locatie, dan op "routes" en creëer
+        er een.
+      you_havent_defined_html: U heeft nog geen voedselgebied opgegeven. <a href="/users/edit?locale=en">Klik
+        hier</a> om dat nu te doen
+  meta:
+    forager_description: Een enorme kaart waarop wordt samengewerkt om de stadsoogst
+      in kaart te brengen, door de kracht van samenwerking van voedselproducenten,
+      freegans en boswachters wereldwijd. Verken en deel informatie over de gratis
+      voedselbronnen in uw buurt.
+    freegan_description: Door de voedselafvalbakken van de wereld in kaart te brengen,
+      hopen we mensen bewust te maken van voedselverspilling, het beter omgaan met
+      weggegooid voedsel en bedrijven te stimuleren om hun voedsel te doneren i.p.v.
+      weg te gooien.
+    freegan_title: Voedselafvalbakken-kaart
+  observations:
+    created: Uw recensie is toegevoegd
+    empty: Recensies mogen niet leeg worden gelaten
+  pages:
+    about:
+      about_the_site: Over het project
+      about_us: Raad van bestuur
+      advisory_board: Adviesraad
+      caleb_bio_html: Caleb is een veerloos, tweevoetig mens met een passie voor voedeselgerechtigheid
+        en het ontdekken van <a href="http://smallwhitecube.com">creatieve manieren
+        om technologie te gebruiken</a> om sociale problemen te pakken. Als hij niet
+        rondfietst, starende naar bomen, dan probeert hij een balans te vinden tussen
+        zijn dagelijkse werk als gegevenswetenschapper in het <a href="http://nrel.gov">National
+        Renewable Energy Laboratory</a> in Golden, Colorado, een adjunct-professor
+        van computerwetenschap aan de <a href="http://cs.colorado.edu">Universiteit
+        van Colorado</a> en zijn werk voor vele organisaties zonder winstoogmerk (<a
+        href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> in Denver
+        and <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> in Boulder,
+        Colorado). Naast al dat werk houdt hij van rotsen beklimmen, routes rennen,
+        fietsen en het zoveel mogelijk buiten zijn.
+      celebration: Falling Fruit is een omarming van de overgeslagen voedselbronnen
+        in onze straten. Door deze bron uit te werken op een interactieve kaart, hopen
+        we mensen, voedsel en natuurlijke organismen in onze buurten te verbinden.
+        Dus niet zomaar een gratis lunch! Voedsel verzamelen in de 21e eeuw is dé
+        mogelijkheid voor stedelijke verkenning, het tegengaan van de plaag van vieze
+        stoepen en om terug te gaan naar de botanische voedselbasis.
+      closing_remarks: Afsluiting
+      closing_remarks_para1_html: Falling Fruit is een 501(c)(3) (vrijgesteld van
+        belasting) openbaar goed doel, gevestigd in Boulder, Colorado. Donaties binnen
+        de Verenigde Staten zijn belastingaftrekbaar. U kunt onze <a href="/501c3.pdf">brief
+        van vrijstelling</a> van de Belastingdienst lezen en onze verhouding met de
+        <a href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS Publication 78</a>
+        of <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Colorado
+        Secretary of State</a> verifiëren. Tevens beschikbaar zijn onze <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">wetten</a>-
+        en raadsvergadering<a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">notulen</a>.
+      closing_remarks_para2_html: Het oogsten van voedsel in een stedelijke omgeving
+        brengt bepaalde praktische en morele overwegingen met zich mee. Als u een
+        introductie wilt lezen over de ethiek van stedelijke voedselverzameling, dan
+        raden we onze zustersite aan - Portland, Oregon's <a href="http://urbanedibles.org/project/ethics">Urban
+        Edibles</a>.
+      closing_remarks_para3_html: De informatie op Falling Fruit kan onjuist zijn
+        of verouderd. Het is bijv. zo dat vele van de voedselverzamelkaarten die gemigreerd
+        zijn naar Falling Fruit voorheen gehost waren als Google Maps. De markeerders
+        kunnen dus per ongeluk verplaatst zijn en gemeentelijke boominventarissen
+        worden alleen bijgewerkt als bomen bezocht worden voor onderhoud. Wees voorbereid
+        op onjuistheden en bewerk de map zo nodig indien u ontdekkingen doet. Uiteindelijk
+        komt het op u aan om de identiteit, eetbaarheid en locatie van een plant te
+        bepalen en tevens de verantwoordelijkheid om de kwaliteit van de kaart te
+        verbeteren.
+      contact_us_html: Falling Fruit wordt gebouwd door en voor voedselverzamelaars.
+        Ons doel is het beste hulpmiddel te worden voor alle voedselverzamelaars.
+        Schrijf ons een mailtje, <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>,
+        we horen graag van u!
+      craig_durkin_bio_html: Craig is de medeoprichter van <a href="http://www.concrete-jungle.org/">Concrete
+        Jungle</a>, een organisatie in Atlanta, Georgia die voedsel verbouwt en fruit
+        plukt in de stad. De opbrengst wordt gedoneerd aan lokale daklozenopvangen
+        en voedselbanken. Hij is afgestudeerd aan <a href="http://www.gatech.edu/">Georgia
+        Tech</a> en altijd op zoek naar manieren om fruit plukken te combineren met
+        nieuwe technologieën en zal binnenkort een drone lanceren die opzoek gaat
+        naar fruitbomen en de sensor gebruikt om te rijpheid te controleren (en er
+        daarna over te tweeten)...
+      cristina_rubke_bio_html: Christina is een advocaat bij <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis
+        Friese LLP</a> in San Francisco, California, waar ze focust op handelsrechtvervolging
+        en begeleiding. Ze is ook lid van het bestuur van de <a href="//www.sfmta.com/">San
+        Francisco Municipal Transportation Agency</a> waar ze zich buigt over openbaar
+        vervoer, verkeer en parkeren in San Francisco. In haar vrije tijd zeilt ze
+        over de San Francisco Bay, samen met de <a href="//www.baads.org/">Bay Area
+        Association of Disabled Sailors</a> en neemt ze deel aan lokale en internationale
+        regatta's.
+      david_craft_bio_html: 'David is een onderzoeker op de Afdeling Radiologie-Oncologie
+        aan de <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvard
+        Medical School</a> in Boston, Massachusetts. Hij is een gretige voedselverzamelaar
+        en auteur van het boek a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
+        Foraging: Finding and Eating Wild Plants in the City</a> (<a href="/docs/David
+        Craft - Urban Foraging.pdf">gratis download</a>).'
+      ethan_bio_html: 'Van appelcider en fruitbier tot jam en <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>:
+        Ethan kijkt altijd in zijn database van bomen in de buurt (en zijn ciderpers)
+        voor culinaire inspiratie. Thuis in Boulder bestudeert hij kaarten, gegevens
+        en time-lapsen en van terugtrekkende ijsbergen voor zijn PhD aan de <a href="http://instaar.colorado.edu/people/ethan-welty/">Universiteit
+        van Colorado</a>, maar hij gaat ook regelmatig naar buiten om de wandelen,
+        kletsen, eten en <a href="http://www.weltyphotography.com">fotograferen</a>
+        op allerlei continenten.'
+      ff_disclaimer_html: Falling Fruit is niet geassocieerd met Fallen Fruit. Fallen
+        Fruit is te vinden op <a href="http://fallenfruit.org">fallenfruit.org</a>.
+      give_gratipay: Betalen met Gratipay
+      give_paypal: Doneren met PayPal
+      give_us_money: We zijn een organisatie zonder winstoogmerk (501(c)(3)), gerund
+        door vrijwilligers en we zijn afhankelijk van donaties om ons werk voort te
+        kunnen zetten. Als u bereidt en in staat bent, overweeg dan een donatie. Donaties
+        binnen de Verenigde Staten zijn belastingaftrekbaar.
+      jeff_bio_html: Sinds dat hij als kind met zijn familie zwarte en bosbessen verzamelde
+        en recentelijk de rijkdom aan openbare fruitbomen in Colorado opmerkte, heeft
+        Jeff een diepe passie voor het in verschillende steden groeiende fruit. Zijn
+        eerste missie voor Falling Fruit was om Boulder en Salt Lake City uit te kammen
+        met papieren kaarten in zijn hand, ondertussen alle fruitbomen noterend. Als
+        hij niet werkt om de energie-efficiëntie van gebouwen te verbeteren, dan is
+        hij meestal de gemeenschap aan het helpen of aan het snelwandelen in de bergen,
+        skiën of fietsen.
+      join_us_html: Doe met ons mee en vier het lokale voedsel! De <a href="/?locale=en">kaart</a>
+        is openbaar te bewerken door iedereen, de database kan met slechts één klik
+        worden <a href="/data?locale=en">gedownload</a> en <a href="https://github.com/somerandomsequence/falling-fruit">de
+        broncode</a> is open source. U wordt aangemoedigd om het verzamelde voedsel
+        te delen met uw medemens. Onze <a href="/sharing?locale=en">deelpagina</a>
+        bevat een lijst van honderden lokale organisaties die helpen bij het aanplanten
+        van openbare boomgaarden en voedselbossen, het plukken van groente en fruit
+        uit stadsbomen en boerenvelden dat anders weggegooid zou worden en ze delen
+        het met buren en hulpbehoevenden.
+      more_about_html: Onze eetbare kaart is niet de eerste in zijn soort, maar heeft
+        wél als doel om 's werelds meest uitgebreide te worden. Terwijl onze gebruikers
+        locaties bijdragen, kammen wij het internet uit op zoek naar reeds bestaande
+        kennis, met als doel voedselverzamelaars, boswachters en freegans overal ter
+        wereld samen te laten werken. De <a href="/datasets?locale=en">geïmporteerde
+        gegevenssets</a> variëren van kleine buurtkaarten voor voedselverzamelaars
+        tot professionele boominventarissen. Tot dusver heeft dit al geleid tot %{types}
+        eetbare soorten (de meeste, maar niet alle, zijn plantensoorten), verspreid
+        over %{locations} locaties. Naast de rijk groeiende locaties met exotische,
+        buitenlandse en vergeten inheemse planten, is voedsel verzamelen in uw buurt
+        een reis door de tijd en cultuur.
+      translate: Vertalen
+      translate_for_us_html: Bent u geïnteresseerd in het vrijwillig vertalen van
+        Falling Fruit? Stuur ons dan een e-mail en wij nodigen u uit om ons te helpen
+        op <a href="http://www.localeapp.com/projects/7532">Locale</a> waar onze vertalingen
+        worden beheerd.
+      translators: Vertalers
+      tristram_stuart_bio_html: 'Als tiener heeft Tristram flinke hoeveelheden overtollig
+        voedsel verzameld in schoolkeukens, de lokale bakker en lokale groenteboer.
+        Hij zag meteen dat een hoop voedsel nog steeds geschikt was om op te eten.
+        Hierdoor realiseerde hij zich dat goed, vers voedsel op enorme schaal verspild
+        werd. Tristram heeft sindsdien eindeloos gewerkt om mensen, de media en beleidsmakers
+        op de hoogte te brengen van dit probleem. Hij is de oprichter van de voedselverspillingscampagne-organisatie
+        <a href="//feedbackglobal.org">Feedback Global</a> en heeft het boek <a href="//tristramstuart.co.uk/">Waste:
+        Uncovering the Global Food Scandal</a> geschreven om aan te tonen hoe groot
+        dit probleem wereldwijd is. In 2011 heeft Tristram <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">The
+        Sophie Prize</a> gekregen voor zijn strijd tegen voedselverspilling.'
+      write: Schrijven
+    data:
+      beware_html: Maar let op! Eenmaal uitgepakt is onze database een enorm bestand
+        dat de meeste rekenbladsoftware zal vernietigen. Als u alleen gegevens nodig
+        hebt voor een kleine regio, probeer dan eerst om deze te downloaden via het
+        geïntegreerde downloadhulpmiddel op de <a href="/?locale=en">kaart</a>.
+      caveat_emptor_html: We nemen geen verantwoordelijkheid voor de juistheid van
+        de gegevens. Ze worden verstrekt zoals ze zijn, <i>caveat emptor</i>. Als
+        u iets cools doet met onze gegevens, <a href="mailto:feedback@fallingfruit.org">laat
+        het ons dan weten</a>!
+      data_unavailable_html: De gegevens zijn momenteel niet beschikbaar. Kom later
+        terug of <a href="mailto:info@fallingfruit.org">neem contact met ons op</a>.
+      intro: Falling Fruit is gebouwd op openbare gegevens en de vrijgevigheid van
+        onze gebruikers. We willen ervoor zorgen dat voedsel verzamelen in steden
+        bekend wordt bij zoveel mogelijk mensen en we geloven erin dat iedereen evenveel
+        toegang moet hebben tot de vruchten van onze collectieve arbeid. In de geest
+        van openheid, houdt u vast! De gehele database
+      license_html: Als u geïnteresseerd bent in het gebruiken van de gegevens in
+        uw eigen project, vooral als dit een commercieel project betreft, dan raden
+        we aan contact met ons op te nemen (<a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>).
+        Tenzij anders opgegeven zijn onze gegevens uitgebracht onder de voorwaarden
+        van de licentie <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike).
+        Dit betekent dat u vrij bent om de gegevens te gebruiken en verspreiden, zolang
+        u maar niet de auteurs/bronnen verwijdert en deze niet (zonder toestemming)
+        gebruikt voor commerciële doeleinden. De broncode van Falling Fruit is ook
+        openbaar en beschikbaar op <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
+      summary_description: De database bevat momenteel %{types} verschillende eetbare
+        soorten (de meeste, maar niet alls, zijn plantensoorten), verspreid over %{locations}
+        locaties. Voor elke soort bevat de volgende tabel hun gebruikelijke namen,
+        wetenschappelijke namen, links naar externe bronnen het totaalaantal.
+      summary_of_sources: Samenvatting van bronnen
+    datasets:
+      community_map: Gemeenschapsmap
+      date_imported: Datum geïmporteerd
+      google_fusion_table: Google Fusion-tabel
+      google_map: Google-kaart
+      google_maps_engine: Google Maps-aandrijving
+      intro_html: 'Falling Fruit heeft als doel om ''s werelds meest uitgebreide en
+        open aardrijkskunde gegevensset van stadsvoedsel te worden. Terwijl onze gebruikers
+        verkennen, bewerken en locaties bijdragen via onze <a href="/?locale=en">kaart</a>,
+        kammen wij het universum uit op zoek naar reeds bestaande kennis en importeren
+        deze direct in onze <a href="/data?locale=en">database</a>, met als doel voedselverzamelaars,
+        boswachters en freegans overal ter wereld samen te laten werken. Als u ziet
+        dat er een gegevensset ontbreekt, <a href="mailto:info@fallingfruit.org">laat
+        het ons dan weten</a>! U kunt ons helpen bij het importteringsproces door
+        de gegevens op te maken m.b.v. het <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">importsjabloon</a>.
+        Let op: importteringen moeten handmatig worden uitgevoerd; alle wijzigingen
+        aan de originele gevens na de importtering worden niet weergegeven op Falling
+        Fruit.'
+      no_license: Geen licentie opgegeven; aangenomen wordt <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons – Attribution, Non-commercial, Share-alike).
+      table_info: Elke gegevensset wordt opgesomd op naam, aantal locaties en importeringsdatum.
+        Het uitklappen van elke rij weergeeft meer informatie over de gegevens, het
+        importteringsproces en de licentie waarin staat hoe u de gegevens mag gebruiken.
+      type: Soort
+      types_of_data: Geïmporteerde gegevenssets vallen onder twee hoofdcategorieën.
+        "Gemeenschapskaarten" worden gebouwd door voedselverzamelaars en freegans
+        terwijl ze hun gemeenschap afspeuren op zoek naar eetbaar voedsel. Dit wordt
+        gedaan door hardwerkende inwoners met verstand van cartografie; onze dank
+        is dan ook zeer groot. "Boominventarissen" worden samengesteld door steden,
+        universiteiten en andere instituten die bomen beter willen documenteren en
+        beter voor ze willen zorgen. We kammen deze gegevenssets uit en selecteren
+        voedselproducerende soorten en voegen deze toe aan de kaart. Als u wilt helpen
+        bij het in kaart brengen van fruitbomen in uw buurt, neem dan contact op met
+        uw school of stad en overtuig ze ervan hun boominventaris met ons te delen.
+    sharing:
+      ample_harvest: Amerikaanse voedselbanken die geproduceerde donaties accepteren
+      food_banks: Voedselbanken
+      food_banks_canada: Voedselbanken in Canada
+      food_banks_intro: Voedselverzamelaars en eigenaars met privébomen worden aangemoedigd
+        om hun overschot te doneren aan een goed doel. Overweeg samen te werken met
+        groepen zoals hierboven vermeld of doneer direct aan organisaties die mensen
+        in armoede voeden in uw gemeenschap. De grootste voedselbanknetwerken worden
+        hieronder opgesomd; daklozenopvangen, scholen en bejaardentehuizen kunnen
+        ook worden overwogen.
+      global_foodbanking_network: Voedselbanknetwerken in de hele wereld
+      grow_pick_and_distribute: Groei · Pluk · Verspreid
+      intro_html: Hieronder is een lijst te vinden met organisaties die voedsel produceren
+        in openbare ruimten (voedselbossen, openbare boomgaarden), voedsel plukken
+        (stadsvoedselverzameling, boerderijvoedselverzameling) of voedsel verspreiden
+        (uitwisselingen, donaties). Organisaties worden gesorteerd op land, staat
+        (indien van toepassing) en stad. Organisaties met doorgehaalde naam zijn waarschijnlijk
+        inactief. Als u organisaties kent die op deze lijst thuishoren, neem dan <a
+        href="mailto:info@fallingfruit.org">contact met ons</a> op!
+  problems:
+    created: Bedankt voor het rapporteren van het probleem!
+    description_subtext: Informatie die ons kan helpen bij het onderzoeken van het
+      probleem
+    problem_type: Probleemsoort
+    your_contact_info: Uw contactinformatie
+  routes:
+    denied: U heeft geen toestemming om die route te bekijken
+    modes_of_travel:
+    - Lopen
+    - Fietsen
+    - Autorijden
+    mode_of_travel: Reismethode
+    order_not_updated: Bestelling kan niet worden bijgewerkt
+    order_updated: Bestelling is niet bijgewerkt
+    updated: Route is bijgewerkt
+  time:
+    days:
+      one: "%{count} dag"
+      other: "%{count} dagen"
+    last_24_hours: Laatste 24 uur
+    months:
+      one: "%{count} maand"
+      other: "%{count} maanden"
+    this_month: Deze maand
+    this_week: Deze week
+    time_ago: "%{time} geleden"
+  users:
+    address_subtext: Het middelpunt van uw voedselverzamelingsgebied (bijv. uw huisadres)
+    bio: Over u
+    change_password: Mijn wachtwoord wijzigen
+    clear_map: Kaart leegmaken
+    confirm_account: Mijn account bevestigen
+    current_password: Huidig wachtwoord
+    current_password_subtext: Vereist om wijzigingen te kunnen maken aan uw account
+    delete_account: Mijn account opzeggen
+    edit_account: Account bewerken
+    foraging_map_subtext: Gebruik het veelhoek- of rechthoekhulpmiddel op de kaart
+      om uw verzamelgebied te definiëren. Als u het veelhoekhulpmiddel gebruikt, zorg
+      er dan voor dat u de veelhoek sluit door het laatste punt te verbinden met het
+      eerste.
+    foraging_radius: Omtrek
+    foraging_radius_subtext: Omvang van het cirkelvormige verzamelgebied, gecentreerd
+      op het hierboven opgegeven adres
+    foraging_range: Voedselverzamelingsgebied
+    forgot_password: Wachtwoord herstellen
+    mailer:
+      confirmation_instructions_html: |-
+        <p>Welkom bij Falling Fruit!</p>
+        <p>Om uw account te activeren, dient u uw e-mailadres (%{email}) te bevestigen door op de onderstaande link te klikken:
+        <br/>%{link}</p>
+        <p>Falling Fruit wordt gerund door de gebruikers, dus als u tijd heeft om Falling Fruit te verbeteren of dingen toe te voegen, doe dit dan alstublieft. Veel plezier met voedsel verzamelen!</p>
+      reset_password_instructions_html: |-
+        <p>Hallo %{email},</p>
+        <p>iemand (waarschijnlijk u) heeft een link aangevraagd om uw wachtwoord te kunnen wijzigen:
+        <br />%{link}</p>
+        <p>Als u deze link niet heeft aangevraagd, dan kunt u deze e-mail negeren. Uw wachtwoord zal niet worden gewijzigd zolang u niet op de bovenstaande link klikt en een nieuw wachtwoord creëert.</p>
+      unlock_instructions_html: |-
+        <p>Hallo %{email},</p>
+        <p>uw account is vergrendeld omdat er teveel onsuccesvolle inlogpogingen waren:
+        <br />%{link}</p>
+    new_password: Nieuw wachtwoord
+    options:
+      add_anonymously: Kaart anoniem bewerken (zelfs als u ingelogd bent)
+      announcements_email: E-mails ontvangen met belangrijke aankondigingen en uitdagingen
+        (1-2 per jaar)
+      range_updates_email: Wekelijks een e-mail ontvangen met daarin een verslag van
+        recente activiteit in uw gebied (zoals hieronder opgegeven)
+    range_by_map: Tekenen op kaart
+    range_by_radius: Adres en omtrek
+    remember_me: Onthoudt me
+    resend_confirmation_instructions: Bevestigingsinstructies opnieuw versturen
+    resend_unlock_instructions: Ontgrendelinstructies opnieuw versturen
+    send_password_instructions: Wachtwoordherstelinstructies versturen
+    sign_in: Inloggen
+    sign_in_with: Inloggen met %{provider}
+    type_it_twice: Typ het twee keer om te bevestigen
+    unlock_account: Mijn account ontgrendelen
+  validates_timeliness:
+    error_value_formats:
+      date: "%Y-%m-%d"
+      datetime: "%Y-%m-%d %H:%M:%S"
+      time: "%H:%M:%S"
