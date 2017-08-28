@@ -1,12 +1,13 @@
 # i18n-tasks finds and manages missing and unused translations ⚙ https://github.com/glebm/i18n-tasks
 
 base_locale: en
+
 ## i18n-tasks detects locales automatically from the existing locale files
 ## uncomment to set locales explicitly
-#locales: [fr,de,pt_BR,es,he,pl,it]
+# locales: []
 
 ## i18n-tasks report locale, default: en, available: en, ru
-# internal_locale: ru
+# internal_locale: en
 
 # Read and write locale data
 data:
@@ -18,7 +19,7 @@ data:
     - config/locales/%{locale}.yml
     # - config/locales/*.%{locale}.yml
     # - config/locales/**/*.%{locale}.yml
-
+    
   # key => file routes, matched top to bottom
   write:
     ## E.g., write devise and simple form keys to their respective files
@@ -65,8 +66,8 @@ search:
 
 ## Google Translate
 translation:
-#   # Get an API key and set billing info at https://code.google.com/apis/console to use Google Translate
-  api_key: "or something"
+  ## Get an API key and set billing info at https://code.google.com/apis/console to use Google Translate
+  api_key: GOOGLE_TRANSLATE_API_KEY
 
 ## Consider these keys not missing
 # ignore_missing:
