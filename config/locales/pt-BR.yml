@@ -1,5 +1,5 @@
 ---
-pt-br:
+pt-BR:
   changes:
     change_in_city: "%{type} em %{city}"
     recent_changes: Mudanças recentes

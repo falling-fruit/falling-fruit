@@ -1,5 +1,5 @@
 ---
-zh-tw:
+zh-TW:
   changes:
     change_in_city: "％{type}在％{city}"
     recent_changes: 最近的變化
