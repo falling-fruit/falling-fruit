@@ -2,15 +2,16 @@
   <b><%= translate("changes.recent_changes") %></b>
 </p>
 
-<% 
-last_days_ago = nil 
+<%
+last_days_ago = nil
 @changes.each do |c|
   next if c["description"] == "grafted" and (not user_signed_in? or not current_user.is? :grafter)
   types = c["type_title"]
   unless c["country"].nil?
     city = [c["city"],c["state"],c["country"]].compact.join(", ")
   end
-  action = translate("changes.type." + c["description"])
+  # i18n-tasks-use t('changes.type.added') t('changes.type.edited') t('changes.type.grafted') t('changes.type.visited')
+  action = translate("changes.type.#{c['description']}")
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
     if c["days_ago"] <= 0
@@ -18,7 +19,7 @@ last_days_ago = nil
     else
       header = translate("time.time_ago", :time => (translate("time.days", :count => c["days_ago"])))
     end
-    if last_days_ago.nil? 
+    if last_days_ago.nil?
       header = "<span>" + header + "</span><blockquote>"
     else
       header = "</blockquote><span>" + header + "</span><blockquote>"

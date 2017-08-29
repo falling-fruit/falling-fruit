@@ -174,11 +174,9 @@ it:
     updated: Aggiornato
     user: Utente
     users: Utenti
-    visited: Visitato
     world: Mondo
     yield: Raccolta
     zoom: Zoom
-    zoom_to_current_location: Zoom su posizione corrente
     zoom_to_me: Ingrandisci
     zoom_to_this_location: Zoom a questa posizione
   layouts:

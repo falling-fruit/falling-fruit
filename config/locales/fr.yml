@@ -186,12 +186,10 @@ fr:
     updated: Mise à jour
     user: Utilisateur
     users: Utilisateurs
-    visited: Visité
     world: Monde
     yield: Production
     zoom: Zoom
     zoom_to_address: Zoomer sur cette adresse
-    zoom_to_current_location: Zoom sur ma position actuel
     zoom_to_me: Zoom sur moi
     zoom_to_this_location: Zoom sur ce lieu
   layouts:

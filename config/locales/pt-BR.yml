@@ -176,11 +176,9 @@ pt-BR:
     updated: Atualizado
     user: Usuário
     users: Usuários
-    visited: Visitado
     world: Mundo
     yield: Produção
     zoom: Zoom
-    zoom_to_current_location: Zoom para a localização atual
     zoom_to_me: Zoom para mim
     zoom_to_this_location: Zoom para este local
   layouts:

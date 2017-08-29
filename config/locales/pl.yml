@@ -178,12 +178,10 @@ pl:
     updated: Zaktualizowane
     user: Użytkownik
     users: Użytkownicy
-    visited: Ostatnio odwiedzane
     world: Świat
     yield: Wydajność
     zoom: Przybliżyć
     zoom_to_address: Zbliż do adresu
-    zoom_to_current_location: Zbliż do bieżącej lokalizacji
     zoom_to_me: Zbliż do mnie
     zoom_to_this_location: Zbliż do tego miejsca
   layouts:

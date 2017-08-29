@@ -160,12 +160,10 @@ zh-TW:
     updated: 更新
     user: 用戶
     users: 用戶
-    visited: 參觀
     world: 世界
     yield: 產量
     zoom: 放大
     zoom_to_address: 縮小地址
-    zoom_to_current_location: 縮放到當前位置
     zoom_to_me: 放大我的
     zoom_to_this_location: 放大到這個位置
   layouts:

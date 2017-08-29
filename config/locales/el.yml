@@ -174,12 +174,10 @@ el:
     updated: Ενημερώθηκε στις
     user: Χρήστης
     users: Χρήστες
-    visited: Επίσκεψη
     world: Κόσμος
     yield: Σοδειά
     zoom: Zoom
     zoom_to_address: Zoom στην διεύθυνση
-    zoom_to_current_location: Zoom στην τρέχουσα τοποθεσία
     zoom_to_me: Zoom στην τοποθεσία μου
     zoom_to_this_location: Zoom σε αυτήν την τοποθεσία
   layouts:

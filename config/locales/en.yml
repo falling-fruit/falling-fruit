@@ -181,12 +181,10 @@ en:
     updated: Updated
     user: User
     users: Users
-    visited: Visited
     world: World
     yield: Yield
     zoom: Zoom
     zoom_to_address: Zoom to address
-    zoom_to_current_location: Zoom to current location
     zoom_to_me: Zoom to me
     zoom_to_this_location: Zoom to this location
   layouts:

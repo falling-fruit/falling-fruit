@@ -182,12 +182,10 @@ nl:
     updated: Bijgewerkt
     user: Gebruiker
     users: Gebruikers
-    visited: Bezocht
     world: Wereld
     yield: Opbrengst
     zoom: Zoom
     zoom_to_address: Zoomen naar adres
-    zoom_to_current_location: Zoomen naar huidige locatie
     zoom_to_me: Zoomen naar mij
     zoom_to_this_location: Zoomen naar deze locatie
   layouts:

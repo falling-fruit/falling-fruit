@@ -134,7 +134,6 @@ sv:
     world: Värld
     zoom: Zoom
     zoom_to_address: Zooma till adress
-    zoom_to_current_location: Zooma till aktuell plats
     zoom_to_me: Zooma till mig
   pages:
     about:

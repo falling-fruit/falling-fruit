@@ -168,11 +168,9 @@ he:
     updated: מעודכן
     user: משתמש
     users: משתמשים
-    visited: ביקר
     world: עולם
     yield: תנובה
     zoom: זום
-    zoom_to_current_location: החזר תצוגה למיקום נוכחי
     zoom_to_me: החזר תצוגה למיקומי
     zoom_to_this_location: התמקד למיקום זה
   layouts:

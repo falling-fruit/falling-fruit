@@ -177,12 +177,10 @@ es:
     updated: Actualizado
     user: Usuario
     users: Usuarios
-    visited: Visitado
     world: Mundo
     yield: Productividad
     zoom: Zoom
     zoom_to_address: Zoom a dirección
-    zoom_to_current_location: Zoom a la ubicación actual
     zoom_to_me: Zoom a mí
     zoom_to_this_location: Zoom a esta ubicación
   layouts:

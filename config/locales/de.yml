@@ -180,12 +180,10 @@ de:
     updated: Aktualisiert
     user: Benutzer
     users: Benutzer
-    visited: Zuletzt besucht
     world: Welt
     yield: Ausbeute
     zoom: Zoom
     zoom_to_address: Zur Adresse zoomen
-    zoom_to_current_location: Zoom auf aktuellen Standort
     zoom_to_me: Zoom zu mir
     zoom_to_this_location: Zoom zu diesem Standort
   layouts:
