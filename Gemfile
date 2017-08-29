@@ -75,11 +75,11 @@ gem 'shadowbox-rails'
 gem 'diff_match_patch_native'
 
 # For internationalization
+gem 'i18n'
 gem 'i15r'
 gem 'i18n-tasks', '~> 0.7.2'
 gem 'devise-i18n'
 gem 'rails-i18n'
-gem 'localeapp'
 gem 'world-flags'
 gem 'i18n-js'
 gem 'i18n_viz'
