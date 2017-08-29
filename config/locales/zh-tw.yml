@@ -1,0 +1,472 @@
+---
+zh-tw:
+  changes:
+    change_in_city: "％{type}在％{city}"
+    recent_changes: 最近的變化
+    type:
+      added: 添加
+      edited: 編輯
+      grafted: 嫁接
+      visited: 參觀
+  devise:
+    confirmations:
+      confirmed: 您的電子郵件地址已成功確認。
+      send_instructions: 您將收到一封電子郵件，說明如何在幾分鐘內確認您的電子郵件地址。
+      send_paranoid_instructions: 如果您的電子郵件地址存在於我們的數據庫中，您將收到一封電子郵件，其中附有如何在幾分鐘內確認電子郵件地址的說明。
+    failure:
+      already_authenticated: 您已經登錄
+      inactive: 您的帳戶尚未激活
+      invalid: 無效的電子郵件或密碼。
+      invalid_token: 驗證令牌無效
+      locked: 您的帳戶已鎖定。
+      not_approved: 您的帳戶尚未獲得管理員的批准。
+      timeout: 您的會話已過期，請重新登錄以繼續。
+      unauthenticated: 您需要登錄或註冊才能繼續。
+      unconfirmed: 您必須先確認您的電子郵件地址才能繼續。
+    mailer:
+      confirmation_instructions:
+        subject: 確認說明
+      reset_password_instructions:
+        subject: 重置密碼說明
+      unlock_instructions:
+        subject: 解鎖說明
+    omniauth_callbacks:
+      failure: 由於“％{reason}”，無法從％{kind}身份驗證您。
+      success: 已從％{kind}帳戶成功驗證。
+    passwords:
+      no_token: 您不能訪問此頁面而不從密碼重設電子郵件。如果您從密碼重設電子郵件中確認，請確保您使用了提供的完整網址。
+      send_instructions: 您將收到一封電子郵件，說明如何在幾分鐘內重置密碼。
+      send_paranoid_instructions: 如果您的電子郵件地址存在於我們的數據庫中，您將在幾分鐘內收到您的電子郵件地址的密碼恢復鏈接。
+      updated: 您的密碼已成功更改。您現在已經登錄。
+      updated_not_active: 您的密碼已成功更改。
+    registrations:
+      destroyed: 再見！您的帳戶已成功取消。我們希望很快再見到你。
+      signed_up: 歡迎！您已成功註冊
+      signed_up_but_inactive: 您已成功註冊但是，我們無法登錄，因為您的帳戶尚未激活。
+      signed_up_but_locked: 您已成功註冊但是，由於您的帳戶被鎖定，我們無法登錄。
+      signed_up_but_not_approved: 您已成功註冊，但您的帳戶尚未獲得管理員的批准。
+      signed_up_but_unconfirmed: 帶有確認鏈接的郵件已發送到您的電子郵件地址。請按照鏈接激活您的帳戶。
+      updated: 您的帳戶已成功更新。
+      update_needs_confirmation: 您已成功更新帳戶，但我們需要驗證您的新電子郵件地址。請檢查您的電子郵件，並按照確認鏈接確認您的新電子郵件地址。
+    sessions:
+      signed_in: 登錄成功。
+      signed_out: 簽出成功。
+    unlocks:
+      send_instructions: 您將收到一封電子郵件，說明如何在幾分鐘內解鎖您的帳戶。
+      send_paranoid_instructions: 如果您的帳戶存在，您將收到一封電子郵件，說明如何在幾分鐘內解鎖。
+      unlocked: 您的帳戶已成功解鎖。請登錄以繼續。
+  errors:
+    messages:
+      after: 必須在％{限制}之後
+      already_confirmed: 已經確認，請嘗試登錄
+      before: 必須在％{restriction}之前
+      expired: 已經過期，請要求一個新的
+      invalid_date: 不是有效的日期
+      invalid_datetime: 不是有效的日期時間
+      invalid_time: 不是有效的時間
+      is_at: 必須在％{restriction}
+      not_found: 未找到
+      not_locked: 沒有鎖定
+      not_saved:
+        other: "％{count}個錯誤禁止此％{resource}被保存："
+      on_or_after: 必須在％{restriction}之後
+      on_or_before: 必須在％{restriction}之前或之前
+  glossary:
+    about: 關於
+    access: 訪問
+    account: 帳戶
+    activity: 活動
+    address: 地址
+    add_source: 添加位置
+    anonymous: 匿名
+    are_you_sure: 你確定？
+    australia: 澳大利亞
+    belgium: 比利時
+    by_author: 由％{author}
+    canada: 加拿大
+    chile: 智利
+    common_name: 通用名稱
+    data: 數據
+    delete: 刪除
+    description: 描述
+    details: 細節
+    donate: 捐
+    download: 下載
+    edible_type: 食用類型
+    edit: 編輯
+    email: 電子郵件
+    embed: 嵌
+    error: 錯誤
+    favorites: 最愛
+    fiji: 斐
+    filter: 過濾
+    finland: 芬蘭
+    france: 法國
+    germany: 德國
+    global: 全球
+    greece: 希臘
+    home: 家
+    imported: 進口
+    imported_datasets: 導入的數據集
+    imports: 進口
+    info: 信息
+    invasive: 侵入的
+    ireland: 愛爾蘭
+    italy: 意大利
+    labels: 標籤
+    links:
+      other: 鏈接
+    locations:
+      other: 地點
+    login: 登錄
+    logout: 登出
+    map: 地圖
+    miles: 英里
+    name: 名稱
+    new_zealand: 新西蘭
+    options: 選項
+    password: 密碼
+    pending_types: 待處理類型
+    photo: 照片
+    portugal: 葡萄牙
+    position: 位置
+    problems: 問題
+    public: 上市
+    quality: 質量
+    report: 報告
+    report_a_problem: 報告一個問題
+    reviews:
+      other: 評測
+    routes: 路線
+    save_changes: 保存更改
+    scientific_name: 科學名稱
+    season: 季節
+    send: 發送
+    show: 顯示
+    sign_up: 註冊
+    spain: 西班牙
+    street_view: 街景
+    submit: 提交
+    sweden: 瑞典
+    switzerland: 瑞士
+    tree_inventory:
+      other: 樹庫存
+    types: 類型
+    type_and_press_enter: 鍵入並按enter鍵
+    united_kingdom: 英國
+    united_states: 美國
+    unknown: 未知
+    unverified: 未驗證
+    updated: 更新
+    user: 用戶
+    users: 用戶
+    visited: 參觀
+    world: 世界
+    yield: 產量
+    zoom: 放大
+    zoom_to_address: 縮小地址
+    zoom_to_current_location: 縮放到當前位置
+    zoom_to_me: 放大我的
+    zoom_to_this_location: 放大到這個位置
+  layouts:
+    application:
+      feed_people_not_landfills: 飼養人，而不是垃圾填埋場！
+      mapping_the_urban_harvest: 映映城市收穫！
+      menu:
+        approved_types: 批准類型
+        in_the_press: 在新聞界
+        list_imports: 列表導入
+        new_import: 新進口
+        new_type: 新型
+        sharing_the_harvest: 分享收穫
+        the_project: 該項目
+      or_right-click_on_map: 或右鍵點擊地圖
+      pending_types_help: 我們執行可食用的分類法，以保持地圖的組織和可搜索。用戶提交的新類型在地圖上突出顯示為待處理，直到它們添加到分類法或與現有類型合併。一些提出的類型是如此獨特或模糊，以致他們無限期地持續不被許可。
+      unverified_help: 如果他們的位置，身份或存在有爭議，則地點被標記為未驗證。從樹庫存進口的許多地方都被標記為未驗證，因為它們的可讀性不確定（例如，“梨”可以是可食用或裝飾品種）。鼓勵用戶前往這些地點並報告調查結果。
+      unverified_help_title: 為什麼不驗證？
+  locations:
+    form:
+      access_subtext: 來源的訪問狀態。如果你不知道，留空。
+      address_subtext: 可用於定位標記。在提交之前根據需要進行調整。
+      author_subtext: 在地圖上顯示。如果您希望保持匿名，請留空。
+      comments: 註釋
+      comments_subtext: 更新，訪問問題，植物健康...
+      create_another: 創建另一個
+      date_visited: 訪問日期
+      description_subtext: 位置細節，訪問問題，植物健康...
+      form_error: 一個錯誤阻止了此源被保存
+      form_intro_html: 編輯以下位置，或<a href="/observations/new?location_id=%{location_id}&locale=en"
+        data-ajax="false" rel="external" title="查看此位置“>使用此表單< / a>來審查，評論和張貼照片。
+      fruiting_status: 果實狀態
+      fruiting_subtext: 現在做什麼水果了？ （如適用）
+      have_you: 你訪問過這個地點嗎？
+      move_marker: 將標記移動到坐標
+      move_marker_address: 移動標記到地址
+      name_subtext: 如果您希望保持匿名，請留空。
+      no_season: 沒有季節
+      or: 要么
+      original_author: 原作者
+      photo_caption: 照片說明
+      photo_subtext: 張貼源的照片。如果不是您的，請確保您有權限並授權攝影師在標題中。
+      position_subtext: 從您當前的位置（可用時）或您放置的標記確定。通過移動地圖標記進行調整。
+      quality_subtext: 評估源的質量（如適用）
+      season_subtext: 什麼時候可以收穫來源？如果你不知道，留空。
+      types_subtext: 從下拉列表中選擇，僅在適當的選擇不存在的情況下提交新類型。
+      unverified_subtext: 如果您懷疑此來源的存在，位置或身份。
+      verify: 校驗
+      verify_subtext: 該位置目前被標記為“未驗證”
+      yield_subtext: 評估源的生產率（如果適用）
+      your_name: 你的名字
+    index:
+      addmarker_html: 在這裡添加來源</a> <br> <span class =“subtext”>您也可以移動我</ span>
+      editmarker_html: "<b>移動到源的位置。</ b> <br> <br>檢查衛星視圖 - 源可能在空間可見！"
+      freegan_modal_html: 除了為在城市生長的<a href="/?locale=en">食用植物</a>的努力之外，我們還開始繪製世界上有食物的垃圾箱。在發達國家生產的食物中，近一半從未吃過。我們希望提高對食物廢物的意識，促進廢棄食品的解放，並鼓勵企業<a
+        href="/sharing?locale=en">捐贈食物</a>，而不是。 />為了支持較低廢物的生活方式，我們鼓勵將所有的自由資源（從垃圾箱到垃圾箱）映射到廢棄但有用的食品，或者以其他方式。
+      freegan_modal_title: 歡迎來到我們的freegan地圖！
+      grafter_modal_html: 遊俠嫁接者將果實果枝分支到觀賞性非果實果樹品種（例如，城市經常使用不育果樹為其五顏六色的春天開花）。隨著時間的推移，由於這些嫁接，可以向鄰里提供美味，營養的水果。您可以在<a
+        href="http://guerrillagrafters.org"> guerrillagrafters.org </a>了解有關該項目的更多信息</a>
+        <br/>該地圖顯示了一些最常見的觀賞果樹。如果你是一個嫁妝者，一個園丁，或一個果樹愛好者，貢獻信息公共和標記您的院子里或附近的可以嫁接果枝的樹木！
+      grafter_modal_title: 歡迎光臨我們的地圖！
+      mobile_modal_html: "你好！看起來您正在從<strong>移動設備訪問Falling Fruit </ strong>。我們最近為Android和iOS移動平台發布了眾多的移動應用。我想你會發現在移動設備上使用更加愉快：\n
+        <br> <br> \n <ul> \n <li> <a href =“https://itunes.apple .com / us / app /
+        falling-fruit / id380859409“> iOS下落水果</a> \n <li> <a href =”https://play.google.com/store/apps/details?id
+        = uh.fallingfruit.app“> Android的下降水果</a> \n </ ul> \n <br> \n應用程序銷售收益的100％用於支持我們的硬性成本（服務器和基礎架構保持網站在線）。我們是一家501（c）3的非營利組織，所以這筆費用也可以在美國免稅。"
+      mobile_modal_title: 但等等，有一個移動應用程序！
+      stamen_html: <a href="http://creativecommons.org/licenses/by/3.0/"> CC BY </
+        i>下<a href="http://stamen.com">雄蕊設計</a>貼圖，一>。 <a href="http://creativecommons.org/licenses/by-sa/3.0/">
+        CC BY-SA的<a href="http://openstreetmap.org"> OpenStreetMap </a>的數據</A>。
+      turn_off_dragzoom: 關閉拖動縮放模式
+      turn_on_dragzoom: 打開拖動縮放模式
+      welcome_modal_html: 落果是一個巨大的，合作的城市收穫地圖。地圖已經指出，世界各地的牧民，免費農民和林業人員的努力已經集中在世界各地的五十多萬個食物來源（從植物和真菌到水井和垃圾場）。我們迅速發展的用戶社區正在積極探索，編輯和添加到地圖。<br/>
+        <br/>加入我們，慶祝我們城市街道被忽視的賞金！使用網站匿名或<a href="/users/sign_up?locale=en">註冊</a>訪問附加功能。<換行>
+        <br/> <換行> <em>落水果與墮落水果無關。墮落的水果可以在<a href="http://fallenfruit.org"> fallenfruit.org
+        </a>找到。</ em>
+      welcome_modal_title: 歡迎來到落水果！
+    infowindow:
+      access:
+      - 這個來源是由所有者添加的。
+      - 這個來源是被所有者許可添加的。
+      - 這個來源在公共土地上。
+      - 這個來源是私人的，但可能突出公共土地。選擇酌情決定。
+      - 這個來源是私人的。在選擇之前徵求許可。
+      access_mode:
+      - 來源是在我的財產上
+      - 我有業主的許可，添加來源
+      - 來源是在公共土地上
+      - 來源是私人財產，但突出公共土地<換行 - 來源是私人財產（請問你選擇之前）
+      access_short:
+      - 由所有者添加
+      - 所有者允許
+      - 公開
+      - 私人但懸而未決的
+      - 私人
+      add_to_remove_from: 添加到/從中刪除
+      citation_to_the_original_source: 引用原始數據源
+      delete_comment: 刪除評論
+      delete_photo: 刪除照片
+      delete_this_location: 刪除此位置
+      edit_this_location: 編輯此位置
+      fruiting:
+      - 鮮花
+      - 未成熟水果<換行>  - 成熟水果<換行>
+      have_you_visited_html: 你訪問過這個來源嗎？添加<a href="/observations/new?location_id=%{id}&locale=en"
+        data-ajax="false" rel="external" title="Review this source" id="add_review">
+        review </一>
+      january_to_december: 1月至12月
+      new_route: 新路線
+      rating:
+      - 可憐的
+      - 公平的
+      - 好<換行>  - 很好
+      - 優秀
+      review_this_location: 查看此位置
+      see_this_location_in_streetview: 在街景中看到這個位置
+      source: 資源
+      toggle_route_controls: 切換路線控制
+      unsure: 不確定
+      unsure_other: 不確定/其他
+      url_for_this_location: 此位置的網址
+    messages:
+      created: 位置被添加
+      geocode_failed: 您的搜索失敗
+      latitude_too_large: 我們不支持超過±85度的緯度。
+      not_created: 無法添加位置
+      not_updated: 位置無法更新
+      updated: 位置已更新
+    searchbar:
+      embed_hover: 嵌入代碼
+      invasive_modal: 入侵植物是特定地區的非本地植物，其比較本土植物。突出落種水果的入侵植物，讓您可以找到並吃飯，一次反擊入侵一次美味的叮咬！入侵物種目前僅在美國上市，並根據美國農業部（USDA）國家級有害和入侵物種名錄。
+      invasive_modal_title: 什麼是入侵物種？
+      link_hover: 當前地圖的URL
+      tree_inventories_modal: 樹木庫存由尋求更好地記錄和照顧樹木的機構編制。這些數據通常由訓練有素的學員收集，並且詳細而詳盡。我們從這些清單中仔細挑選可食用的物種，並將它們添加到地圖上。幫助我們通過詢問您的城市（或大學，州等）來映射您的社區，如果樹木庫存存在，以及它是否可以在落果上共享。
+      tree_inventories_modal_title: 什麼是樹庫存？
+    sidebar:
+      changed_within_html: <a href="/users/edit?locale=en">覓食範圍</a>內的更改
+      click_here_to_manage_your_routes_html: 點擊<a href="%{routes_path}">此處</a>管理您的路線。
+      in: 在
+      locations_added_or_reviewed_by_you_while_logged_in: 您登錄的地點（登錄時）
+      you_havent_added_or_reviewed_anything_while_logged_in: 您尚未添加或審核任何來源（登錄時）
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: 您尚未定義任何路線。點擊一個位置，然後點擊“路線”，開始做一個。
+      you_havent_defined_html: 您尚未定義覓食範圍。 <a href="/users/edit?locale=en">請點擊此處</a>
+  meta:
+    forager_description: 一個巨大的，協調的城市收穫的地圖，結合了世界各地的牧民，免費水手和林務人員的努力。探索並分享您附近的免費食物來源的信息。
+    freegan_description: 通過映射世界的食物垃圾箱，我們希望提高對食物廢物的認識，促進廢棄食品的解放，並鼓勵企業捐贈食物。
+    freegan_title: 世界垃圾桶地圖
+  observations:
+    created: 您的評論已添加
+    empty: 評論不能為空
+  pages:
+    about:
+      about_the_site: 關於該項目
+      about_us: 董事會
+      advisory_board: 顧問委員會
+      caleb_bio_html: 迦勒是一個無翅的雙足人形生物，充滿愛食的正義，並找到<a href="http://smallwhitecube.com">使用技術的創造性方法</a>解決社會問題。當他不騎自行車在樹上玩耍時，他在科羅拉多州金山的<a
+        href="http://nrel.gov">國家可再生能源實驗室</a>的數據科學家之間平衡了他的工作，計算機科學的兼職教授在<a href="http://cs.colorado.edu">科羅拉多大學</a>，作為許多非營利組織的工蜂（<a
+        href =“http ：//www.foodrescuealliance.org/“>食物救援聯盟</a>，以及科羅拉多州博爾德市的<a href="http://boulderfoodrescue.org">巨石食物救援</a>）。除了所有的工作，他喜歡爬岩，跑步，騎自行車，一般都在戶外盡可能多。
+      celebration: 墮落的水果是對我們城市街道被忽視的美食賞賞的慶祝活動。通過在交互式地圖上量化這一資源，我們希望促進人們，食物和我們社區中生長的天然生物之間的密切聯繫。不只是免費午餐！
+        21世紀的覓食是城市探險的一個機會，打擊染色人行道的禍害，並重新與植物的食物來源重新連接。
+      closing_remarks: 結束語
+      closing_remarks_para1_html: Falling Fruit是位於科羅拉多州博爾德市的501（c）（3）（免稅）公共慈善機構。因此，美國境內的捐款可以免稅。您可以從IRS查看我們的<a
+        href="/501c3.pdf">豁免信函</a>，並通過<a href =“http://apps.irs.gov/app/eos/pub78Search
+        .do？“> IRS出版物78 </a>或<a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">科羅拉多州務大臣一>。我們還提供了<a
+        href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">附則</a>和董事會會議<a
+        href =“https ：？//drive.google.com/folderview ID = 0B3Vxw_F2RArqaVZMUHkzMUNBNnM＆USP
+        =共享“>分鐘</A>。
+      closing_remarks_para2_html: 在城市環境中收穫糧食具有一定的實踐和道德考慮。關於城市覓食倫理的介紹，我們建議我們的同胞網站 -
+        俄勒岡州的波特蘭<a href="http://urbanedibles.org/project/ethics">城市信鴿</a>的優秀摘要。
+      closing_remarks_para3_html: 關於落果的信息可能是錯誤或過時的。例如，許多遷移到Falling Fruit的覓食地圖都是作為公開的Google
+        Maps託管的，Google Maps常常在其上標記標記物被意外移動，並且市政樹清單僅在樹木被訪問進行維護時更新（如果有的話）。準備在現場遇到不准確之處，並根據您的發現，根據需要編輯地圖。最終，您有責任確定工廠的身份，易用性和位置，以及所有人的責任，以提高地圖的質量。
+      contact_us_html: 墮落的水果是由牧師建造的 - 我們希望它成為當代牧師可用的最佳工具。寄給我們<a href="mailto:feedback@fallingfruit.org">
+        feedback@fallingfruit.org </a>，我們很樂意聽到您的來信！
+      craig_durkin_bio_html: Craig是<a href="http://www.concrete-jungle.org/"> Concrete
+        Jungle </a>的聯合創始人，該組織位於佐治亞州亞特蘭大，在全市各地種植食物並選擇水果進行捐贈到當地無家可歸的收容所和食品銀行。作為<a href="http://www.gatech.edu/">佐治亞理工大學</a>畢業生，他一直在尋找將水果採摘與新技術相結合的方法，並將很快部署他的果樹發現無人機和tweeting水果成熟傳感器...
+      cristina_rubke_bio_html: Cristina是加利福尼亞州舊金山的<a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">
+        Shartsis Friese LLP </a>的律師，她專注於商標起訴和諮詢。她還是舊金山公共交通，交通和停車場的<a href="//www.sfmta.com/">舊金山市政交通局</a>的董事會成員。在業餘時間，克里斯蒂娜用<a
+        href="//www.baads.org/">灣區殘疾人水手協會</a>航行舊金山灣，並在當地和國際賽區進行比賽。
+      david_craft_bio_html: David是輻射腫瘤學系的研究員，位於<a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">哈佛醫學院</a>在馬薩諸塞州波士頓。他也是這本書的熱心和作者，<a
+        href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">城市覓食：尋找和吃野生植物在城市</a>（<a
+        href="/docs/David Craft-Urban Foraging.pdf">免費下載</a>）。
+      ethan_bio_html: 從蘋果蘋果酒和水果啤酒到果醬和<a href="http://en.wikipedia.org/wiki/Rumtopf">
+        Rumtopf </a>，Ethan看著他的附近樹木數據庫（和他的蘋果酒新聞）烹飪靈感。在博爾德的家中，他在<a href="http://instaar.colorado.edu/people/ethan-welty/">大學攻讀博士的地圖，數據和時間延遲為他的博士畢業的科羅拉多州，但他經常進入軌道，走過，談話，吃飯，並<a
+        href="http://www.weltyphotography.com">照片</a>他的方式橫跨大陸。
+      ff_disclaimer_html: 落果與落果不相關。墮落的水果可以在<a href="http://fallenfruit.org"> fallenfruit.org
+        </a>找到。
+      give_gratipay: 通過Gratipay付款
+      give_paypal: 通過Paypal捐款
+      give_us_money: 我們是一個志願運行的501（c）（3）非營利組織，並依靠捐款來運作。如果你願意和能力，請考慮作出財政捐助。美國境內的捐款可以免稅。
+      jeff_bio_html: 自從收穫黑莓和藍莓與他的家人作為一個孩子，最近，注意到科羅拉多州豐富的公共果樹，傑夫深深地感謝我們城市豐富的水果。他的第一個使命就是把巨石和鹽湖城梳理在一起，用來記錄果樹。在不提高建築節能的同時，他通常會在社區中幫助，或者通過腳踏，滑雪或騎自行車快速移動到山上。
+      join_us_html: 加入我們慶祝超地方的食物！ <a href="/?locale=en">地圖</a>可供任何人編輯，數據庫可以<a href="/data?locale=en">下載</a>，只需一個點擊，<a
+        href="https://github.com/somerandomsequence/falling-fruit">代碼</a>是開源的。同樣鼓勵你與你的同胞分享賞金。我們的<a
+        href="/sharing?locale=en">共享頁面</a>列出了數百個當地組織 - 種植公共果園和食用森林，從城市樹木和農民田間挑選其他浪費的水果和蔬菜，並分享與鄰居和有需要的人。
+      more_about_html: 我們的可食用地圖不是第一個，但它渴望成為世界上最全面的地圖。當我們的用戶貢獻自己的位置時，我們將互聯網融合到先前存在的知識之中，力求團結各地的牧民，林業人員和無償運動人員的努力。
+        <a href="/datasets?locale=en">導入的數據集</a>的範圍從小的鄰居覓食地圖到廣泛的專業編制的樹庫存。到目前為止，這種類型分佈在％{locations}個位置上的不同類型的食物（大多數但不是全部）植物物種。除了種植和常見的外來植物和長期被遺忘的本地植物的外來風味外，狩獵在你的社區是一個時間和文化的旅程。
+      translate: 翻譯
+      translate_for_us_html: 對志願者作為翻譯有興趣嗎？給我們發電子郵件，我們將邀請您加入我們的<a href="http://www.localeapp.com/projects/7532">區域設置</a>，我們的翻譯管理。
+      translators: 譯者
+      tristram_stuart_bio_html: 作為一名青少年，Tristram向他的學校廚房，當地麵包師和村莊蔬菜水果師收集的剩餘食物養豬。注意到很多這種食物仍然適合人類消費，導致他意識到好的，新鮮的食物被大量浪費了。
+        Tristram已經不知疲倦地將這個問題提請公眾，媒體和決策者註意。他創建了食物垃圾運動組織<a href="//feedbackglobal.org">反饋全球</a>，並撰寫了<a
+        href="//tristramstuart.co.uk/">廢物：揭露全球食品醜聞< / a>在全球範圍內證明問題的程度。 2011年，特里斯特拉姆獲得了<a
+        href="//www.sofieprisen.no/Prize_Winners/2011/index.html">蘇菲獎</a>，用於打擊食物浪費。
+      write: 寫
+    data:
+      beware_html: 但要小心！一旦解壓縮，數據庫是一個巨大的文件，將粉碎大多數電子表格軟件。如果您只需要一個小區域的數據，請首先使用集成到<a href="/?locale=en">地圖</a>中的下載工具來檢索它們。
+      caveat_emptor_html: 我們對數據的準確性不承擔任何責任 - 它是按照原樣提供的，<i>注意事項</ i>。如果您使用數據做得很好，請<a
+        href="mailto:feedback@fallingfruit.org">讓我們知道</a>！
+      data_unavailable_html: 數據當前不可用。稍後再回來或<a href="mailto:info@fallingfruit.org">與我們聯繫</a>。
+      intro: 落果是建立在公共數據和我們的用戶的慷慨。我們希望城市覓食盡可能多的人，我們相信每個人都應該平等地獲得我們集體勞動的成果。本著開放的精神，看哪！整個數據庫
+      license_html: 如果您有興趣在項目中使用數據，特別是商業項目，我們建議您與我們聯繫（<a href="mailto:info@fallingfruit.org">
+        info@fallingfruit.org </a>）。除非另有說明，否則數據將被許可為<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        CC BY-NC-SA </a>（Creative共同體 - 歸因，非商業性，股份類）。這意味著您可以自由使用和分發數據，只要您保留原始作者/源代碼，並且不得將其（未經許可）用於商業應用程序。
+        Falling Fruit的源代碼也是開放的，可在<a href="https://github.com/somerandomsequence/falling-fruit">
+        GitHub </a>上使用。
+      summary_description: 數據庫目前包含％{types}不同類型的食品（大多數但不是全部是植物物種）分佈在％{locations}位置。對於每種類型，下表列出了通用名稱，科學名稱，外部引用的鏈接和總計數。
+      summary_of_sources: 資料匯總
+    datasets:
+      community_map: 社區地圖
+      date_imported: 導入日期
+      google_fusion_table: Google Fusion Table
+      google_map: 谷歌地圖
+      google_maps_engine: Google Maps Engine
+      intro_html: 墮落的水果渴望成為城市食品最全面和最開放的地理數據集。當我們的用戶使用我們的<a href="/?locale=en">地圖</a>探索，修改和添加位置時，我們將已知Universe與先前存在的數據集進行梳理，並將它們直接導入到<a
+        href = “/ data？locale = en”>數據庫</a>，結合了所有地方的牧師，林務人員和行政人員的努力。如果您知道我們遺漏的數據集，請<a
+        href="mailto:info@fallingfruit.org">讓我們知道</a>！您還可以使用<a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">導入模板</a>格式化數據來幫助我們進入導入過程。請注意，由於導入必須手動執行，導入後所做的原始數據的所有更改都不會反映在“落水果”中。
+      no_license: 沒有指定許可，假設<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        CC BY-NC-SA </a>（知識共享 - 署名，非商業性，原樣共享）。
+      table_info: 每個數據集按名稱，位置數和導入的日期列出。擴展每一行會顯示有關數據，導入過程以及如何使用數據的許可的進一步詳細信息。
+      type: 類型
+      types_of_data: 引入落果的數據集分為兩大類。 “社區地圖”是由牧民和行政人員建立的，因為他們將社區用於吃東西。我們感謝編譯這些數據的勤奮的公民製圖師。
+        “樹庫存”是由希望更好地記錄和照顧樹木的城市，大學和其他機構編制而成。我們挖掘這些巨大的食品生產數據集，並將其添加到地圖中。為了幫助我們映射您附近的果樹，請聯繫您的學校或城市，敦促他們與我們分享他們的樹木庫存。
+    sharing:
+      ample_harvest: 接受生產捐款的美國食品銀行
+      food_banks: 食品銀行
+      food_banks_canada: 食品銀行在加拿大
+      food_banks_intro: 鼓勵牧民和私人樹木主人將剩餘產品捐贈給慈善機構。考慮與上面列出的群體合作，或直接捐贈給您的社區餵養飢餓者的組織。主要糧食銀行網絡如下：無家可歸的收容所，學校和高級中心也值得考慮。
+      global_foodbanking_network: 食品銀行網絡遍布全球
+      grow_pick_and_distribute: 成長·挑選·分配
+      intro_html: 下面列出的是在公共場所（食用森林，公共果園）種植食物，挑選食物（城市覓食，農場清洗）或分發食物（交流，捐贈）的組織。組織按國家，州（如適用）和城市列出。那些具有划痕名字的人被認為是無效的。如果您知道應該在此列表中的其他人，請<a
+        href="mailto:info@fallingfruit.org">與我們聯繫</a>！
+  problems:
+    created: 感謝您報告問題！
+    description_subtext: 任何可能有助於我們評估問題的信息
+    problem_type: 問題類型
+    your_contact_info: 您的聯繫方式
+  routes:
+    denied: 您沒有權限查看該路由
+    modes_of_travel:
+    - 步行<換行>  - 騎自行車<換行>  - 駕駛<換行
+    mode_of_travel: 旅行方式
+    order_not_updated: 訂單無法更新
+    order_updated: 訂單已更新
+    updated: 路線已更新
+  time:
+    days:
+      other: "％{count}天"
+    last_24_hours: 過去24小時
+    months:
+      other: "％{count}個月"
+    this_month: 這個月
+    this_week: 本星期
+    time_ago: "％{過去"
+  users:
+    address_subtext: 您的覓食範圍的中心（例如您的住家地址）
+    bio: 關於你
+    change_password: 更改我的密碼
+    clear_map: 清除地圖
+    confirm_account: 確認我的帳戶
+    current_password: 當前密碼
+    current_password_subtext: 需要更改您的帳戶
+    delete_account: 取消我的帳戶
+    edit_account: 編輯帳號
+    foraging_map_subtext: 使用下面地圖中的多邊形或矩形工具定義您的覓食範圍。如果使用多邊形工具，請確保通過將最後一個點加入到第一個方面來關閉多邊形。
+    foraging_radius: 半徑
+    foraging_radius_subtext: 圓形覓食範圍的半徑以上述地址為中心
+    foraging_range: 覓食範圍
+    forgot_password: 重置你的密碼
+    mailer:
+      confirmation_instructions_html: "<p>歡迎來到Falling Fruit，</ p> \n <p>要激活您的帳戶，您必須通過訪問以下鏈接確認您的電子郵件（％{email}）：\n
+        <br/>％{link Falling Fruit由用戶提供支持，因此如果您有機會添加或改進它，請執行此操作。快樂覓食！</ p>"
+      reset_password_instructions_html: "<p> Hello％{email}，</ p> \n <p>有人（很可能您）要求鏈接更改密碼：\n
+        <br />％{link} </ p> <newline > <p>如果您沒有請求，可以忽略此電子郵件。您的密碼將不會更改，除非您訪問上面的鏈接並創建新的鏈接。</
+        p>"
+      unlock_instructions_html: "<p> Hello％{email} </ p> \n <p>由於登錄嘗試次數過多，您的帳戶已被鎖定：\n
+        <br />％{link} </ p>"
+    new_password: 新密碼
+    options:
+      add_anonymously: 匿名編輯地圖（即使登錄時）
+      announcements_email: 收到重要公告和機會的電子郵件（每年1-2次）
+      range_updates_email: 收到每週電子郵件報告您的覓食範圍內的最新活動（定義如下）
+    range_by_map: 繪製在地圖上
+    range_by_radius: 地址和半徑
+    remember_me: 記住我
+    resend_confirmation_instructions: 重新發送確認說明
+    resend_unlock_instructions: 重新發送解鎖指令
+    send_password_instructions: 發送密碼重置說明
+    sign_in: 簽到
+    sign_in_with: 使用％{provider}登錄
+    type_it_twice: 輸入兩次確認
+    unlock_account: 解鎖我的帳戶
+  validates_timeliness:
+    error_value_formats:
+      date: "％Y-％間 - ％d個"
+      datetime: "％Y-％m-％d％H：％M：％S"
+      time: "％H：％M：％S"
