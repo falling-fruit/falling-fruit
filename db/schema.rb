@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170904112847) do
+ActiveRecord::Schema.define(:version => 20170904113628) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -174,10 +174,6 @@ ActiveRecord::Schema.define(:version => 20170904112847) do
     t.string   "name"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
-    t.string   "marker_file_name"
-    t.string   "marker_content_type"
-    t.integer  "marker_file_size"
-    t.datetime "marker_updated_at"
     t.string   "scientific_name"
     t.string   "usda_symbol"
     t.string   "wikipedia_url"
