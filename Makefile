@@ -34,8 +34,3 @@ syncfrombackup:
 	bash util/load_backup.sh fallingfruit.latest.sql
 	#sudo su postgres -c "dropdb fallingfruit_test_db"
 	#sudo su postgres -c "createdb fallingfruit_test_db -T fallingfruit_db -O fallingfruit_user"
-
-shapes:
-	pgsql2shp -u fallingfruit_user -h localhost -f $(DATETIME)_cluster_polygon.shp fallingfruit_db 'SELECT zoom, muni, count, created_at, updated_at, ST_TRANSFORM(ST_SETSRID(polygon,900913),4326) FROM clusters ORDER BY zoom ASC, muni ASC'
-	pgsql2shp -u fallingfruit_user -h localhost -f $(DATETIME)_cluster_point.shp fallingfruit_db 'SELECT zoom, muni, count, created_at, updated_at, ST_TRANSFORM(ST_SETSRID(cluster_point,900913),4326) FROM clusters ORDER BY zoom ASC, muni ASC'
-	pgsql2shp -u fallingfruit_user -h localhost -f $(DATETIME)_grid_point.shp fallingfruit_db 'SELECT zoom, muni, count, created_at, updated_at, ST_TRANSFORM(ST_SETSRID(grid_point,900913),4326) FROM clusters ORDER BY zoom ASC, muni ASC'

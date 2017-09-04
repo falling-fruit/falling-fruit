@@ -8,6 +8,9 @@
 
 # ---- Constants ----
 
+args <- commandArgs(TRUE)
+Table_owner <- args[1]
+Table_owner
 Max_grid_zoom <- 13L
 DB_driver <- RPostgres::Postgres()
 DB_name <- "fallingfruit_new_db"
@@ -87,4 +90,7 @@ field_types <- c(
 DBI::dbWriteTable(db, Table_name, clusters, row.names = FALSE, overwrite = TRUE, field.types = field_types)
 DBI::dbExecute(db, paste0("ALTER SEQUENCE ", Table_name, "_id_seq RESTART WITH ", nrow(clusters) + 1))
 DBI::dbExecute(db, paste0("CREATE INDEX index_", Table_name, "_on_type_id ON ", Table_name, "(type_id)"))
+if (!is.na(Table_owner)) {
+  DBI::dbExecute(db, paste("ALTER TABLE", Table_name, "OWNER TO", Table_owner))
+}
 DBI::dbDisconnect(db)

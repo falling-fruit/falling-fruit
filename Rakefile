@@ -399,6 +399,6 @@ task(:make_clusters => :environment) do
   if postgres_exists == "false\n"
     `Rscript --vanilla #{file}`
   else
-    `sudo su postgres -c "Rscript --vanilla #{file}"`
+    `sudo su postgres -c "Rscript --vanilla #{file} fallingfruit_user"`
   end
 end
