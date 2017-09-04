@@ -38,7 +38,7 @@ class ImportsController < ApplicationController
   def destroy
     @import = Import.find(params[:id])
     # FIXME: way slow if there's lots of points
-    @import.locations.each{ |l| new_cluster_decrement(l) }
+    @import.locations.each{ |l| cluster_decrement(l) }
     # FIXME: Observations and changes not deleted also
     Location.where(import_id: @import.id).delete_all
     @import.destroy

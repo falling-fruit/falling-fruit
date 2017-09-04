@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170904062642) do
+ActiveRecord::Schema.define(:version => 20170904072257) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -53,17 +53,15 @@ ActiveRecord::Schema.define(:version => 20170904062642) do
   end
 
   create_table "clusters", :force => true do |t|
-    t.string   "method"
-    t.boolean  "muni"
-    t.float    "grid_size"
-    t.integer  "count"
-    t.integer  "zoom"
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
-    t.spatial  "cluster_point", :limit => {:srid=>900913, :type=>"point"}
-    t.spatial  "grid_point",    :limit => {:srid=>900913, :type=>"point"}
-    t.spatial  "polygon",       :limit => {:srid=>900913, :type=>"polygon"}
-    t.integer  "type_id"
+    t.text     "geohash",    :null => false
+    t.boolean  "muni",       :null => false
+    t.float    "x",          :null => false
+    t.float    "y",          :null => false
+    t.integer  "count",      :null => false
+    t.integer  "zoom",       :null => false
+    t.integer  "type_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "imports", :force => true do |t|
@@ -119,18 +117,6 @@ ActiveRecord::Schema.define(:version => 20170904062642) do
     t.integer  "position"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "new_clusters", :force => true do |t|
-    t.text     "geohash",    :null => false
-    t.boolean  "muni",       :null => false
-    t.float    "x",          :null => false
-    t.float    "y",          :null => false
-    t.integer  "count",      :null => false
-    t.integer  "zoom",       :null => false
-    t.integer  "type_id",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "observations", :force => true do |t|

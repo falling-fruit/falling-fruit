@@ -26,8 +26,8 @@ class TypesController < ApplicationController
       from = Type.find(params[:id].to_i)
       from_pending = from.pending
       to = Type.find(params[:into_id].to_i)
-      NewCluster.where({type_id: from.id}).each{ |from_c|
-        to_c = NewCluster.where({type_id: to.id, geohash: from_c.geohash, muni: from_c.muni}).first
+      Cluster.where({type_id: from.id}).each{ |from_c|
+        to_c = Cluster.where({type_id: to.id, geohash: from_c.geohash, muni: from_c.muni}).first
         # To type doesn't have a cluster here, so just change the type
         if to_c.nil?
           from_c.type_id = to.id
@@ -142,7 +142,7 @@ class TypesController < ApplicationController
   def destroy
     @type = Type.find(params[:id])
     @type.destroy
-    NewCluster.where(type_id: params[:id]).destroy_all
+    Cluster.where(type_id: params[:id]).destroy_all
     respond_to do |format|
       format.html { redirect_to :back }
       format.json { head :no_content }

@@ -416,7 +416,7 @@ function do_clusters(bounds,zoom,muni,type_filter) {
     //console.log(api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr);
     var request = $.ajax({
       type: 'GET',
-      url: api_base + 'new_clusters.json?api_key=' + api_key + mstr + gstr + bstr + tstr,
+      url: api_base + 'clusters.json?api_key=' + api_key + mstr + gstr + bstr + tstr,
       dataType: 'json'
     });
     request.done(function(json){

@@ -1,6 +1,9 @@
 class CreateNewClusters < ActiveRecord::Migration
   def up
-    create_table :new_clusters do |t|
+    if ActiveRecord::Base.connection.table_exists? :clusters
+      drop_table :clusters
+    end
+    create_table :clusters do |t|
       t.text :geohash, :null => false
       t.boolean :muni, :null => false
       t.column :x, 'real', :null => false
@@ -10,7 +13,7 @@ class CreateNewClusters < ActiveRecord::Migration
       t.references :type, :null => false
       t.timestamps
     end
-    add_index :new_clusters, :type_id
+    add_index :clusters, :type_id
   end
   def down
     if ActiveRecord::Base.connection.table_exists? :new_clusters

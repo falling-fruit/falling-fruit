@@ -32,7 +32,6 @@ var auth = require('./auth');
 var types = require('./types');
 var locations = require('./locations');
 var clusters = require('./clusters');
-var new_clusters = require('./new_clusters');
 var reviews = require('./reviews');
 
 // Note: takes email/password, returns authentication_token (in hash) -- protocol may have changed
@@ -65,7 +64,6 @@ router.post('/locations/:id(\\d+).json',locations.edit);
 // Note: does not implicitly include children, we leave that to the client
 // Note: does not return title, client is responsible for formatting (i.e., calling number_to_human)
 router.get('/clusters.json', clusters.list);
-router.get('/new_clusters.json', new_clusters.list);
 
 router.get('/locations/:id(\\d+)/reviews.json', reviews.list);
 // Note: only logs change as addition (not review too, when both are done)

@@ -1,55 +1,94 @@
 var clusters = {};
 
-clusters.list = function (req, res) {
-  var cmask = common.default_catmask;
-  if(req.query.c) cmask = common.catmask(req.query.c.split(",")); 
-  var cfilter = "(bit_or(t.category_mask) & "+cmask+")>0";
-  var mfilter = "";
-  if(req.query.muni == 0) mfilter = "AND NOT muni";
-  var bfilter = undefined;
-  var zfilter = "zoom=2"; // zfilter is first so doesn't have an AND
-  if(__.every([req.query.swlat,req.query.swlng,req.query.nelat,req.query.nelng])){
-    bfilter = common.postgis_bbox("cluster_point",parseFloat(req.query.nelat),parseFloat(req.query.nelng),
-                           parseFloat(req.query.swlat),parseFloat(req.query.swlng),900913,req.query.zoom);
-    if(req.query.zoom) zfilter = "zoom="+parseInt(req.query.zoom);
-  }else{
-    return common.send_error(res,'bounding box not defined');    
+clusters.list = function(req, res) {
+  // Type_ids
+  var type_ids = [];
+  if (req.query.t) {
+    type_ids = req.query.t.split(",").map(function(x) { return parseInt(x) });
   }
-  var tfilter = "AND type_id IS NULL";
-  if(req.query.t){
-    var tids = __.map(req.query.t.split(","),function(x){ return parseInt(x) });
-    tfilter = "AND type_id IN ("+tids.join(",")+")";
+  // Bounds
+  var bounds = [req.query.swlng, req.query.nelng, req.query.swlat, req.query.nelat];
+  if (__.every(bounds)) {
+    bounds = bounds.map(function(x) { return parseFloat(x) });
+    sw_xy = common.wgs84_to_web_mercator(bounds[0], bounds[2]);
+    ne_xy = common.wgs84_to_web_mercator(bounds[1], bounds[3]);
+    bounds = [sw_xy[0], ne_xy[0], sw_xy[1], ne_xy[1]];
+  } else {
+    return common.send_error(res, 'Bounding box not defined');
   }
-  var filters = __.reject([zfilter,tfilter,bfilter,mfilter],__.isUndefined).join(" ");
+  // Zoom
+  var zoom = req.query.zoom ? parseInt(req.query.zoom) : 0;
+  if (zoom > 12 || zoom < 0) {
+    return common.send_error(res, 'Zoom must be in the interval [0, 12]');
+  }
+  if (zoom > 3) {
+    zoom += 1;
+  }
+  // Filters
+  var filters = {
+    muni: req.query.muni == "1" ?
+      null :
+      "NOT muni",
+    type_ids: type_ids.length > 0 ?
+      "type_id IN (" + type_ids.join(",") + ")" :
+      null, // "type_id IS NULL"
+    zoom: "zoom = " + zoom,
+    bounds: [
+      "(x > " + bounds[0] +
+      (bounds[1] > bounds[0] ? " AND " : " OR ") +
+      "x < " + bounds[1] + ")",
+      "y > " + bounds[2], "y < " + bounds[3]
+    ].join(" AND ")
+  };
+  var filter_str = __.reject(filters, __.isNull).join(" AND ");
+  // Query
+  var query_str = " \
+    SELECT ST_X(center) as lng, ST_Y(center) as lat, count \
+    FROM ( \
+      SELECT \
+        SUM(count) as count, \
+        ST_Transform(ST_SetSRID(ST_POINT( \
+          SUM(count * x) / SUM(count), SUM(count * y) / SUM(count) \
+        ), 900913), 4326) as center \
+      FROM clusters \
+      WHERE " + filter_str + " \
+      GROUP BY geohash \
+    ) subq; \
+  ";
+  console.log(filter_str);
+  console.log(query_str);
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
-      common.send_error(res,'error fetching client from pool',err);
+    if (err) {
+      common.send_error(res, 'Error fetching client from pool', err);
       return done();
     }
     async.waterfall([
-      function(callback){ common.check_api_key(req,client,callback) },
-      function(callback){
-        console.log("Doing query")
-        client.query("SELECT ST_X(center_point) AS center_x, ST_Y(center_point) AS center_y, count FROM \
-                      (SELECT ST_Transform(ST_SetSRID(ST_POINT(SUM(count*ST_X(cluster_point))/SUM(count), \
-                      SUM(count*ST_Y(cluster_point))/SUM(count)),900913),4326) as center_point, \
-                      SUM(count) as count FROM clusters WHERE "+filters+" GROUP BY grid_point) subq;",
-                     [],function(err, result) {
-          if (err) return callback(err,'error running query');
+      function(callback) {
+        common.check_api_key(req, client, callback)
+      },
+      function(callback) {
+        console.log("Running query");
+        client.query(query_str, [], function(err, result) {
+          if (err) {
+            console.log(err.stack);
+            return callback(err, 'Error running query');
+          }
           console.log("Sending result")
-          res.send(__.map(result.rows,function(x){
+          res.send(__.map(result.rows, function(x) {
             x.count = parseInt(x.count);
             return x;
           }));
-          console.log("Leaving waterfall and cleaning up")
+          console.log("Leaving waterfall and cleaning up");
           return callback(null);
         });
       }
     ],
-    function(err,message){
+    function(err, message) {
       done();
-      if(message) common.send_error(res,message,err);
-    }); 
+      if (message) {
+        common.send_error(res,message,err);
+      }
+    });
   });
 };
 

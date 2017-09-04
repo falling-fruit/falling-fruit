@@ -1,4 +1,4 @@
 class Cluster < ActiveRecord::Base
-  attr_accessible :center_lat, :center_lng, :count, :grid_point, :grid_size, :method, :muni, :polygon
+  attr_accessible :x, :y, :count, :muni, :zoom, :geohash
   belongs_to :type
 end
