@@ -1,7 +1,7 @@
 class Type < ActiveRecord::Base
 
   attr_accessible :en_name, :en_synonyms,
-                  :fr_name, :de_name, :es_name, :pt_br_name, :it_name, :pl_name, :he_name, :el_name,
+                  :fr_name, :de_name, :es_name, :pt_br_name, :it_name, :pl_name, :he_name, :el_name, :sv_name, :zh_tw_name, :nl_name,
                   :scientific_name, :scientific_synonyms, :taxonomic_rank,
                   :usda_symbol, :wikipedia_url,
                   :urban_mushrooms_url, :fruitipedia_url, :foraging_texas_url, :eat_the_weeds_url,
@@ -14,10 +14,14 @@ class Type < ActiveRecord::Base
   has_many :invasives
 
   normalize_attributes *character_column_symbols
-  normalize_attribute :en_name, :before => [ :squish ] do |value|
-    value.is_a?(String) ? value.gsub(/[^[:word:]\s\(\)\-\']/,'') : value
+
+  validate :en_or_scientific_present?
+
+  def en_or_scientific_present?
+    if %w(en_name, scientific_name).all?{|attr| self[attr].blank?}
+      errors.add :base, "en_name and scientific name cannot both be missing"
+    end
   end
-  validates :en_name, :presence => true
 
   Ranks={0 => "Polyphyletic", 1 => "Kingdom", 2 => "Phylum", 3 => "Class", 4 => "Order", 5 => "Family",
          6 => "Genus", 7 => "Multispecies", 8 => "Species", 9 => "Subspecies"}
@@ -43,13 +47,32 @@ class Type < ActiveRecord::Base
   end
 
   def full_name
-    n = self.i18n_name
-    self.scientific_name.blank? ? n : (n + " [" + self.scientific_name + "]")
+    common_name = self.i18n_name
+    if self.scientific_name.blank?
+      common_name
+    elsif common_name.blank?
+      "[" + self.scientific_name + "]"
+    else
+      common_name + " [" + self.scientific_name + "]"
+    end
+  end
+
+  def Type.parse_full_name(name, locale = I18n.locale.to_s)
+    matches = /([^ \[|\[]+)*\s*\[*([^\]]+)*\]*/.match(name)
+    names = {
+      common_name: matches[1],
+      scientific_name: matches[2],
+      common_fields: [Type.i18n_name_field(locale), Type.i18n_name_field("en")].uniq
+    }
   end
 
   # Default to english name if requested is nil or empty
-  def i18n_name(locale = I18n.locale.to_s)
-    ([self[Type.i18n_name_field(locale)], self.en_name].reject(&:blank?).first)
+  def i18n_name(scientific = false, locale = I18n.locale.to_s)
+    names = [self[Type.i18n_name_field(locale)], self.en_name]
+    if scientific
+      names = names.push(self.scientific_name)
+    end
+    names.reject(&:blank?).first
   end
 
   def Type.ids
@@ -61,7 +84,7 @@ class Type < ActiveRecord::Base
   def Type.i18n_name_field(locale = I18n.locale.to_s)
     lang = locale.tr("-","_").downcase
     lang = "scientific" if lang == "la"
-    "#{lang}_name"
+    lang + "_name"
   end
 
   # Type filter 1.0

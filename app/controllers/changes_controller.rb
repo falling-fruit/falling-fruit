@@ -3,9 +3,10 @@ class ChangesController < ApplicationController
   # GET /types
   # GET /types.json
   def index
-    i18n_name_field = "t.#{I18n.locale.to_s.tr("-","_")}_name"
     @changes = ActiveRecord::Base.connection.execute(
-      "SELECT string_agg(COALESCE(#{i18n_name_field}, t.en_name),', ') as type_title,
+      "SELECT string_agg(COALESCE(
+        t.#{Type.i18n_name_field}, t.#{Type.i18n_name_field('en')}, t.scientific_name
+      ), ', ') as type_title,
       extract(days from (NOW()-c.created_at)) as days_ago,
       c.location_id, c.user_id, c.description, c.remote_ip,
       l.city, l.state, l.country

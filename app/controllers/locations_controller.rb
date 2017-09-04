@@ -402,22 +402,27 @@ class LocationsController < ApplicationController
     type_ids = []
 
     params[:types].split(/\s*,\s*/).uniq.each{ |type_name|
-      nf = Type.i18n_name_field
-      tn = ActiveRecord::Base.connection.quote(ActionController::Base.helpers.sanitize(type_name))
-      t = Type.where("(COALESCE(#{nf}, en_name) || CASE WHEN scientific_name IS NULL THEN '' ELSE ' ['||scientific_name||']' END)=#{tn}")
-
-      # if it's not found, make it a pending type
-      if t.nil? or t.empty?
-        t = Type.new
-        t.en_name = type_name
-        t.pending = true # this is database default, but setting here just in case
-        t.category_mask = params[:c].blank? ? array_to_mask(["forager"],Type::Categories) :
-                                              array_to_mask(params[:c].split(/,/),Type::Categories)
-        t.save
+      full_name = ActionController::Base.helpers.sanitize(type_name)
+      names = Type.parse_full_name(full_name)
+      types = Type.where(
+        "COALESCE(#{names[:common_fields].join(", ")})" + (names[:common_name].nil? ? " IS NULL" : " = '#{names[:common_name]}'"),
+        scientific_name: names[:scientific_name]
+      )
+      # If no matches found, add as pending type
+      if types.nil? or types.empty?
+        type = Type.new
+        type.en_name = names[:common_name]
+        type.scientific_name = names[:scientific_name]
+        type.pending = true
+        type.category_mask = params[:c].blank? ?
+          array_to_mask(["forager"], Type::Categories) :
+          array_to_mask(params[:c].split(/,/), Type::Categories)
+        type.save
       else
-        t = t.first
+        # FIXME: What to do if multiple matches?
+        type = types.first
       end
-      type_ids.push t.id
+      type_ids.push type.id
     } if params[:types].present?
 
     logger.debug params[:location][:type_ids]
@@ -445,7 +450,10 @@ class LocationsController < ApplicationController
   def prepare_for_sidebar
     i18n_name_field = "t.#{I18n.locale.to_s.tr("-","_")}_name"
     rangeq = current_user.range.nil? ? "" : "AND ST_INTERSECTS(l.location,(SELECT range FROM users u2 WHERE u2.id=#{current_user.id}))"
-    changes_query = ActiveRecord::Base.connection.execute("SELECT string_agg(COALESCE(#{i18n_name_field}, t.en_name),', ') as type_title,
+    changes_query = ActiveRecord::Base.connection.execute(
+      "SELECT string_agg(COALESCE(
+        t.#{Type.i18n_name_field}, t.#{Type.i18n_name_field('en')}, t.scientific_name
+      ), ', ') as type_title,
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state,
       l.country, l.lat, l.lng, l.description as location_description, c.author as change_author, l.id
       FROM changes c, locations l, types t

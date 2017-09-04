@@ -75,7 +75,7 @@
       <% @my_changes.each do |c| %>
         <% next if c.location.nil? %>
         <div class="favorite">
-          <a href="#" onclick="open_marker_by_id(<%= c.location.id %>);return false;" onmouseover="show_pointer(<%= c.location.lat %>,<%= c.location.lng %>);" onmouseout="hide_pointer();"><%= c.location.types(@cat_filter).collect{ |t| t.i18n_name.nil? ? translate("glossary.unknown") : t.i18n_name }.join(", ") %></a>
+          <a href="#" onclick="open_marker_by_id(<%= c.location.id %>);return false;" onmouseover="show_pointer(<%= c.location.lat %>,<%= c.location.lng %>);" onmouseout="hide_pointer();"><%= c.location.types.collect{ |t| t.i18n_name(scientific = true).nil? ? translate("glossary.unknown") : t.i18n_name(scientific = true) }.join(", ") %></a>
           <% unless c.location.country.nil? %>
             <br/><i style="font-size: 85%;"><%= [c.location.city, c.location.state, c.location.country].reject{ |x| x.nil? }.join(", ") %></i>
           <% end %>

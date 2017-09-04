@@ -15,7 +15,7 @@
       <li>
           <%= hidden_field_tag('route_location_id',lr.id) %>
           <a href="#" onclick="open_marker_by_id(<%= lr.location.id %>);return false;" onmouseover="show_pointer(<%= lr.location.lat %>,<%= lr.location.lng %>);" onmouseout="hide_pointer();">
-            <%= lr.location.title %>
+            <%= lr.location.types.collect{ |t| t.i18n_name(scientific = true)}.join(", ") %>
           </a>
     <% } %>
     </ol>
@@ -49,9 +49,9 @@
     bounds.extend(new google.maps.LatLng(<%= lr.location.lat %>,<%= lr.location.lng %>));
   <% } %>
   type_filter = undefined;
-  
+
   // ================= functions =================
-  
+
   // Enable the visual refresh
   google.maps.visualRefresh = true;
 
@@ -67,7 +67,7 @@
   });
 
   function initialize() {
-    
+
     basemap(undefined,undefined,undefined,type,bounds);
     var zoom = map.getZoom();
 
@@ -78,10 +78,10 @@
       place_add_marker(event.latLng, '<%= translate("locations.index.addmarker_html") %>');
     });
 
-    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) { 
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(event) {
       calculate_route(all_waypoints.slice(0));
     });
-    
+
     google.maps.event.addListener(map, 'idle', function(){
         update_display(false);
         //var len = markersArray.length;
@@ -178,7 +178,7 @@
   navigator.geolocation.getCurrentPosition(function(position){},function(error){
     $('#recenter_button').hide();
   });
-  
+
 </script>
 <%= javascript_include_tag "maplabel" %>
 <%= javascript_include_tag "progressBar" %>
