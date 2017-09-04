@@ -226,7 +226,7 @@ class LocationsController < ApplicationController
       # FIXME: recaptcha check should go right at the beginning (before doing anything else)
       test = user_signed_in? ? true : verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")
       if test and @location.save and (@observation.nil? or @observation.save)
-        cluster_increment(@location)
+        new_cluster_increment(@location)
         log_changes(@location, "added")
         expire_things
         if params[:create_another].present? and params[:create_another].to_i == 1
@@ -282,7 +282,7 @@ class LocationsController < ApplicationController
 
     # FIXME: Only decrement cluster if save is successful
     # decrement cluster (since location may have moved into a different cluster)
-    cluster_decrement(@location)
+    new_cluster_decrement(@location)
 
     log_api_request("api/locations/update",1)
     respond_to do |format|
@@ -291,12 +291,12 @@ class LocationsController < ApplicationController
                                                        :message => "ReCAPCHA error!")
       if test and @location.update_attributes(params[:location]) and (@observation.nil? or @observation.save)
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_location)
-        cluster_increment(@location)
+        new_cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: I18n.translate('locations.messages.updated') }
         format.json { render json: {"status" => 0} }
       else
-        cluster_increment(@location) # do increment even if we fail so that clusters don't slowly deplete :/
+        new_cluster_increment(@location) # do increment even if we fail so that clusters don't slowly deplete :/
         format.html { render action: "edit", notice: I18n.translate('locations.messages.not_updated') }
         format.json { render json: {"status" => 2, "error" => I18n.translate('locations.messages.not_updated') + ": #{(@location.errors.full_messages + @observation.errors.full_messages).join(";")}" } }
       end
@@ -307,7 +307,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
-    cluster_decrement(@location)
+    new_cluster_decrement(@location)
     @location.destroy
     expire_things
     respond_to do |format|

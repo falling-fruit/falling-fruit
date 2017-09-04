@@ -26,23 +26,21 @@ class TypesController < ApplicationController
       from = Type.find(params[:id].to_i)
       from_pending = from.pending
       to = Type.find(params[:into_id].to_i)
-      Cluster.select("*, ST_X(cluster_point) AS cx, ST_Y(cluster_point) AS cy").
-        where("type_id = ?",from.id).each{ |c|
-        c2 = Cluster.select("*, ST_X(cluster_point) AS cx, ST_Y(cluster_point) AS cy").
-                     where("type_id = ? AND zoom = ? AND muni = ? AND grid_point = ?",to.id,c.zoom,c.muni,c.grid_point).first
-        # to type doesn't have a cluster here, so just change the type
-        if c2.nil?
-          c.type_id = to.id
-          c.save
-        # to type does have a cluster here so merge with from type's cluster
+      NewCluster.where({type_id: from.id}).each{ |from_c|
+        to_c = NewCluster.where({type_id: to.id, geohash: from_c.geohash, muni: from_c.muni}).first
+        # To type doesn't have a cluster here, so just change the type
+        if to_c.nil?
+          from_c.type_id = to.id
+          from_c.save
+        # To type does have a cluster here, so merge with from type's cluster
         else
-          c2.count = c2.count.to_i + c.count.to_i
-          newx = c2.cx.to_f+((c.cx.to_f-c2.cx.to_f)/c2.count.to_f)
-          newy = c.cy.to_f+((c.cx.to_f-c2.cy.to_f)/c2.count.to_f)
-          c2.cluster_point = "POINT(#{newx} #{newy})"
-          c2.save
-          c.destroy
-        end 
+          new_xy = ClusterStuff::move_xy([to_c.x, to_c.y], to_c.count, [from_c.x, from_c.y], from_c.count)
+          to_c.x = new_xy[0]
+          to_c.y = new_xy[1]
+          to_c.count += from_c.count
+          to_c.save
+          from_c.destroy
+        end
       }
       Location.where("? = ANY (type_ids)", from.id).each{ |l|
         l.type_ids = l.type_ids.collect{ |e| e == from.id ? nil : e }.compact
@@ -129,7 +127,7 @@ class TypesController < ApplicationController
         if from_pending
           format.html { redirect_to grow_types_path, notice: 'Type was successfully updated.' }
         else
-          format.html { redirect_to types_path, notice: 'Type was successfully updated.' }          
+          format.html { redirect_to types_path, notice: 'Type was successfully updated.' }
         end
         format.json { head :no_content }
       else
@@ -144,9 +142,7 @@ class TypesController < ApplicationController
   def destroy
     @type = Type.find(params[:id])
     @type.destroy
-    Cluster.where("type_id = ?",params[:id]).each{ |c|
-      c.destroy
-    }
+    NewCluster.where(type_id: params[:id]).destroy_all
     respond_to do |format|
       format.html { redirect_to :back }
       format.json { head :no_content }

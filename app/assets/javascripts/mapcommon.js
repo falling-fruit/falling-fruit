@@ -281,7 +281,7 @@ function add_clusters_from_json(mdata,type_filter){
       'px;line-height:'+h+'px;width:'+w+'px;top:-'+ho+'px;left:-'+wo+'px;'+
       'text-align: center;position:absolute;'+
       'font-family:Arial,sans-serif;font-weight:bold;font-size:9pt;">'+number_to_human(mdata[i]["count"])+'</div>',
-      position: new google.maps.LatLng(mdata[i]["center_y"],mdata[i]["center_x"]),
+      position: new google.maps.LatLng(mdata[i]["lat"],mdata[i]["lng"]),
       map: map,
       draggable: false,
       width: w,
@@ -416,7 +416,7 @@ function do_clusters(bounds,zoom,muni,type_filter) {
     //console.log(api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr);
     var request = $.ajax({
       type: 'GET',
-      url: api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr,
+      url: api_base + 'new_clusters.json?api_key=' + api_key + mstr + gstr + bstr + tstr,
       dataType: 'json'
     });
     request.done(function(json){

@@ -7,7 +7,7 @@ class ImportsController < ApplicationController
       format.html # index.html.erb
     end
   end
-  
+
   def edit
     @import = Import.find(params[:id])
     @default_categories = mask_to_array(@import.default_category_mask, Type::Categories)
@@ -37,13 +37,15 @@ class ImportsController < ApplicationController
 
   def destroy
     @import = Import.find(params[:id])
-    @import.locations.each{ |l| cluster_decrement(l) } # FIXME: way slow if there's lots of points
-    Location.delete_all(["import_id = ?",@import.id])
+    # FIXME: way slow if there's lots of points
+    @import.locations.each{ |l| new_cluster_decrement(l) }
+    # FIXME: Observations and changes not deleted also
+    Location.where(import_id: @import.id).delete_all
     @import.destroy
     respond_to do |format|
       format.html { redirect_to imports_url }
       format.json { head :no_content }
     end
   end
-  
+
 end
