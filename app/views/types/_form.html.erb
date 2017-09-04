@@ -108,7 +108,7 @@
   <h3>Categories</h3>
   <div class="field">
     <%= f.label :edibility %><br />
-    <%= f.select(:edability, Type::Edabilities.collect{ |k,v| [v,k] }, :include_blank => true) %>
+    <%= f.select(:edibility, Type::Edibilities.collect{ |k,v| [v,k] }, :include_blank => true) %>
   </div>
   <div class="field">
     <%= f.label :categories %><br />

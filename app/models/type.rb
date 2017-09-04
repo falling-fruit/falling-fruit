@@ -5,7 +5,7 @@ class Type < ActiveRecord::Base
                   :scientific_name, :scientific_synonyms, :taxonomic_rank,
                   :usda_symbol, :wikipedia_url,
                   :urban_mushrooms_url, :fruitipedia_url, :foraging_texas_url, :eat_the_weeds_url,
-                  :edability, :category_mask, :pending,
+                  :edibility, :category_mask, :pending,
                   :parent_id, :parent,
                   :marker, :notes
   has_attached_file :marker
@@ -21,7 +21,7 @@ class Type < ActiveRecord::Base
 
   Ranks={0 => "Polyphyletic", 1 => "Kingdom", 2 => "Phylum", 3 => "Class", 4 => "Order", 5 => "Family",
          6 => "Genus", 7 => "Multispecies", 8 => "Species", 9 => "Subspecies"}
-  Edabilities={-1 => "Not worth it (or toxic)", 1 => "Include", 2 => "Maybe include"}
+  Edibilities={-1 => "Not worth it (or toxic)", 1 => "Include", 2 => "Maybe include"}
   Categories=["forager","freegan","honeybee","grafter"]
   DefaultCategories=["forager","freegan"]
 
@@ -153,7 +153,7 @@ class Type < ActiveRecord::Base
     usda_symbol
     wikipedia_urls
     synonyms
-    edability
+    edibility
     notes
   end
 

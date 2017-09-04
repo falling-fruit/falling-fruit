@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170904072257) do
+ActiveRecord::Schema.define(:version => 20170904112847) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -54,12 +54,12 @@ ActiveRecord::Schema.define(:version => 20170904072257) do
 
   create_table "clusters", :force => true do |t|
     t.text     "geohash",    :null => false
+    t.integer  "type_id",    :null => false
     t.boolean  "muni",       :null => false
     t.float    "x",          :null => false
     t.float    "y",          :null => false
     t.integer  "count",      :null => false
     t.integer  "zoom",       :null => false
-    t.integer  "type_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(:version => 20170904072257) do
     t.string   "scientific_name"
     t.string   "usda_symbol"
     t.string   "wikipedia_url"
-    t.string   "edability"
+    t.string   "edibility"
     t.text     "notes"
     t.string   "synonyms"
     t.string   "scientific_synonyms"

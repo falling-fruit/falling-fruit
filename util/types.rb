@@ -20,8 +20,8 @@ CSV.open(ARGV[0],"r"){ |csv|
     next if id.nil? or id.strip == ""
     id = id.to_i
     rating = (rating.nil? or rating.strip == "") ? "NULL" : rating.to_i
-    puts "UPDATE types SET name='#{e(common)}', synonyms='#{e(synonyms)}', scientific_name='#{e(scientific)}', scientific_synonyms='#{e(scientific_syn)}', wikipedia_url='#{e(wp)}',usda_symbol='#{e(usda)}',edability=#{rating},notes='#{e(notes)}' WHERE id=#{id};"
-    
+    puts "UPDATE types SET name='#{e(common)}', synonyms='#{e(synonyms)}', scientific_name='#{e(scientific)}', scientific_synonyms='#{e(scientific_syn)}', wikipedia_url='#{e(wp)}',usda_symbol='#{e(usda)}',edibility=#{rating},notes='#{e(notes)}' WHERE id=#{id};"
+
   }
 }
 puts "COMMIT;"
