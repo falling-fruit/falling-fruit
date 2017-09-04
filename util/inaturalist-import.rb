@@ -43,16 +43,16 @@ while todo.nil? or ((page-1)*PerPage < todo)
     o = Observation.new
     o.observed_on = result["observed_on_details"]["date"] unless result["observed_on_details"].nil?
 
-    tids = [] 
+    tids = []
     species_guess = result["species_guess"]
     unless result["taxon"].nil?
       species_scientific = result["taxon"]["name"]
       species_common = result["taxon"]["preferred_common_name"]
       tids += Type.select("id").where("scientific_name ILIKE ?","%#{species_scientific}%").collect{ |r| r.id } unless species_scientific.nil?
-      tids += Type.select("id").where("name ILIKE ?","%#{species_common}%").collect{ |r| r.id } if !species_common.nil? and tids.empty?
+      tids += Type.select("id").where("en_name ILIKE ?","%#{species_common}%").collect{ |r| r.id } if !species_common.nil? and tids.empty?
     end
     species_guess = result["species_guess"]
-    tids += Type.select("id").where("name ILIKE ?","%#{species_guess}%").collect{ |r| r.id } if !species_guess.nil? and tids.empty?
+    tids += Type.select("id").where("en_name ILIKE ?","%#{species_guess}%").collect{ |r| r.id } if !species_guess.nil? and tids.empty?
     if tids.compact.empty?
       puts "...no type"
       next
