@@ -23,7 +23,7 @@ export:
 	bzip2 public/types.csv
 
 clusters:
-	bundle exec rake db:migrate:redo VERSION=20131110213005
+	bundle exec rake make_clusters
 
 devserver:
 	#pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start

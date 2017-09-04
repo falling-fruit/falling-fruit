@@ -369,6 +369,10 @@ task(:import => :environment) do
       doneCSV = CSV.open(doneFile, "ab+") do |csv|
         done.each{ |row| csv << row }
       end
+      if import.auto_cluster != true
+        print "\nRebuilding all clusters..."
+        Rake::Task["make_clusters"].execute
+      end
     end
     if errs.any?
       errs.insert(0, Location.csv_header)
@@ -383,4 +387,18 @@ task(:import => :environment) do
   }
   dh.close
   FileUtils.rm_f "public/import/lockfile"
+end
+
+task(:make_clusters => :environment) do
+  file = Rails.root.join("util", "make_clusters.R")
+  postgres_exists = `if id postgres >/dev/null 2>&1; then
+    echo "true"
+  else
+    echo "false"
+  fi`
+  if postgres_exists == "false\n"
+    `Rscript --vanilla #{file}`
+  else
+    `sudo su postgres -c "Rscript --vanilla #{file}"`
+  end
 end
