@@ -77,7 +77,7 @@ task(:delete_unused_pending_types => :environment) do
   Type.where("pending").each do |type|
     if type.locations.blank? and type.children.blank?
       type.destroy
-      puts '[' + type.id.to_s + '] ' + type.name
+      puts '[' + type.id.to_s + '] ' + type.en_name
     end
   end
 end
@@ -178,7 +178,7 @@ namespace :export do
   task(:apples => :environment) do
     of = File.open("apples.csv","w")
     of.puts "lon,lat,q,y,no"
-    t = Type.where("name='Apple'").first
+    t = Type.where("en_name='Apple'").first
     Location.where("type_ids @> ARRAY[#{t.id}]").each{ |l|
       of.puts [l.lng,l.lat,l.mean_quality_rating,l.mean_yield_rating,l.observations.length].join(",")
     }
@@ -240,7 +240,7 @@ namespace :export do
         csv << [
           t.id, t.parent_id, t.scientific_name, t.scientific_synonyms,
           t.taxonomic_rank.nil? ? nil : Type::Ranks[t.taxonomic_rank],
-          t.name, t.synonyms, t.wikipedia_url,
+          t.en_name, t.en_synonyms, t.wikipedia_url,
           t.de_name, t.el_name, t.es_name, t.fr_name, t.he_name, t.it_name,
           t.pl_name, t.pt_br_name, t.sv_name,
           mask_to_array(t.category_mask, Type::Categories).join(", "),
@@ -255,7 +255,7 @@ namespace :export do
       cols = ["ID","English Common Name","Latin Name","Wikipedia Link"]
       csv << cols
       Type.all.each do |t|
-        csv << [t.id,t.name,t.scientific_name,t.wikipedia_url]
+        csv << [t.id,t.en_name,t.scientific_name,t.wikipedia_url]
       end
     end
   end

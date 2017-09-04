@@ -15,7 +15,7 @@ common.id_partition = function(id){
 common.photo_urls = function(id,fname,path_only){
   var bucket = db.s3conf.bucket;
   var idpart = common.id_partition(id);
-  var urlbase = path_only ? "observations/photos/"+idpart+"/" : 
+  var urlbase = path_only ? "observations/photos/"+idpart+"/" :
                             "http://"+config.s3_host+"/"+bucket+"/observations/photos/"+idpart+"/";
   return {"medium": urlbase + "medium/" + fname,
           "original": urlbase + "original/" + fname,
@@ -31,7 +31,7 @@ common.default_catmask = common.catmask(["forager","freegan"]);
 
 common.i18n_name = function(locale){
   if(__.contains(config.i18n_languages,locale)) return locale + "_name";
-  else return "name";
+  else return "en_name";
 }
 
 common.sanitize_wgs84_coords = function(lat,lng){
@@ -191,7 +191,7 @@ common.log_api_call = function(method,endpoint,n,req,client,callback){
                 ip_address,api_key,created_at,updated_at) \
                 VALUES ($1,$2,$3,$4,$5,$6,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);",
                [n,endpoint,params,method,ip,req.query.api_key],function(err, result) {
-    if (err){ 
+    if (err){
       // if there's an error here, don't tell the user
       console.error('error in log_api_call',err);
       return callback(err,null);
@@ -225,8 +225,8 @@ common.upload_photo = function(src_path,dst_path,callback){
     s3Params: {
       Bucket: db.s3conf["bucket"],
       Key: dst_path,
-      // other options supported by putObject, except Body and ContentLength. 
-      // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property 
+      // other options supported by putObject, except Body and ContentLength.
+      // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
     },
   };
   var uploader = db.s3client.uploadFile(params);
@@ -257,7 +257,7 @@ common.resize_and_upload_photo = function(image_path,photo_file_name,observation
     function(err,message){
       if(message) outer_callback(message,err);
       else outer_callback(null,location_id,observation_id,common.photo_urls(observation_id,photo_file_name));
-    }); 
+    });
 }
 
 module.exports = common;

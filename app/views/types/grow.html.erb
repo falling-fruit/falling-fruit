@@ -17,11 +17,11 @@
 <td style="text-align:right"><%= type.id %></td>
 <td>
  <% unless type.wikipedia_url.blank? %>
-  <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= h type.name %></a>
+  <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= h type.en_name %></a>
  <% else %>
-  <%= type.name %>
+  <%= type.en_name %>
  <% end %>
- <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
+ <%= "(#{type.en_synonyms})" unless type.en_synonyms.blank? %>
 </td>
 <td>
   <%= type.scientific_name %>
@@ -30,7 +30,7 @@
 <td><%= link_to 'Edit', edit_type_path(type) %></td>
 <td><%= link_to 'Delete', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
-<% end %>   
+<% end %>
 </tbody>
 </table>
 

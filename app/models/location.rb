@@ -122,15 +122,15 @@ class Location < ActiveRecord::Base
   end
 
   def type_names
-    self.types.collect{ |t| t.name }.compact
+    self.types.collect{ |t| t.en_name }.compact
   end
 
   def pending_type_names
-    self.pending_types.collect{ |t| t.name }.compact
+    self.pending_types.collect{ |t| t.en_name }.compact
   end
 
   def accepted_type_names
-    self.accepted_types.collect{ |t| t.name }.compact
+    self.accepted_types.collect{ |t| t.en_name }.compact
   end
 
   def title
@@ -147,7 +147,7 @@ class Location < ActiveRecord::Base
   end
 
   def scsv_types
-    self.types.collect{ |t| t.name }.compact.join(";")
+    self.types.collect{ |t| t.en_name }.compact.join(";")
   end
 
   #### CLASS METHODS ####
@@ -196,7 +196,7 @@ class Location < ActiveRecord::Base
         if matching_types.length == 0
           new_type = Type.new
           # HACK: Until name (en) is not required, insert placeholder.
-          new_type.name = name.nil? ? "Unknown" : name
+          new_type.en_name = name.nil? ? "Unknown" : name
           new_type.scientific_name = scientific_name
           new_type.category_mask = default_category_mask
           new_type.pending = true

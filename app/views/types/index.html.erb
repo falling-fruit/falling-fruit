@@ -28,8 +28,8 @@
       </td>
       <td><%= type.scientific_name %> <%= "(#{type.scientific_synonyms})" unless type.scientific_synonyms.blank? %></td>
       <td>
-       <%= type.name %>
-       <%= "(#{type.synonyms})" unless type.synonyms.blank? %>
+       <%= type.en_name %>
+       <%= "(#{type.en_synonyms})" unless type.en_synonyms.blank? %>
       </td>
       <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
       <td style="text-align:center;">

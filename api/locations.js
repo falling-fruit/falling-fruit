@@ -2,7 +2,7 @@ var locations = {};
 
 locations.add = function (req, res) {
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -32,7 +32,7 @@ locations.add = function (req, res) {
                       req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
                       req.query.no_season,req.query.unverified,
                       req.query.access,coords[1],coords[0]],function(err,result){
-          
+
           if(err) return callback(err,'error running query');
           else return callback(null,user);
         });
@@ -97,14 +97,14 @@ locations.add = function (req, res) {
     function(err,message){
       done();
       if(message && (err != 'okay')) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
 locations.edit = function (req, res) {
   var id = parseInt(req.params.id);
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -128,7 +128,7 @@ locations.edit = function (req, res) {
                       req.query.lat,req.query.lng,req.query.season_start,req.query.season_stop,
                       req.query.no_season,req.query.unverified,
                       req.query.access,coords[1],coords[0],id],function(err,result){
-          
+
           if(err) return callback(err,'error running query');
           else return callback(null,id,user);
         });
@@ -146,7 +146,7 @@ locations.edit = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
@@ -155,8 +155,8 @@ locations.list = function (req, res) {
   if(req.query.c) cmask = common.catmask(req.query.c.split(","));
   var cfilter = "(bit_or(t.category_mask) & "+cmask+")>0";
 
-  var name = "name";
-  if(req.query.locale) name = common.i18n_name(req.query.locale); 
+  var name = "en_name";
+  if(req.query.locale) name = common.i18n_name(req.query.locale);
 
   var mfilter = "";
   if(req.query.muni == 0) mfilter = "AND NOT muni";
@@ -243,7 +243,7 @@ locations.list = function (req, res) {
       function(total_count,callback) {
         client.query("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids, \
                       l.description, l.author, \
-                      ARRAY_AGG(COALESCE("+name+",name)) AS type_names, \
+                      ARRAY_AGG(COALESCE("+name+",en_name)) AS type_names, \
                       "+sorted+distance+reviews+" FROM locations l, types t\
                       WHERE t.id=ANY(l.type_ids) "+filters+" GROUP BY l.id, l.lat, l.lng, l.unverified \
                       HAVING "+cfilter+" ORDER BY sort LIMIT $1 OFFSET $2;",
@@ -282,10 +282,10 @@ locations.list = function (req, res) {
 
 locations.show = function (req, res) {
   var id = parseInt(req.params.id);
-  var name = "name";
-  if(req.query.locale) name = common.i18n_name(req.query.locale); 
+  var name = "en_name";
+  if(req.query.locale) name = common.i18n_name(req.query.locale);
   db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -294,7 +294,7 @@ locations.show = function (req, res) {
       function(callback){
         client.query("SELECT access, address, author, city, state, country, description, \
                       id, lat, lng, muni, type_ids, unverified, \
-                      (SELECT ARRAY_AGG(COALESCE("+name+",name)) FROM types t \
+                      (SELECT ARRAY_AGG(COALESCE("+name+",en_name)) FROM types t \
                        WHERE ARRAY[t.id] <@ l.type_ids) as type_names, \
                       (SELECT COUNT(*) FROM observations o WHERE o.location_id=l.id) as num_reviews \
                       FROM locations l WHERE id=$1;",
@@ -320,7 +320,7 @@ locations.show = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
 
   });
 };

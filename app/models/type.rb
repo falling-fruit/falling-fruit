@@ -1,23 +1,23 @@
 class Type < ActiveRecord::Base
 
-  attr_accessible :name, :synonyms,
+  attr_accessible :en_name, :en_synonyms,
                   :fr_name, :de_name, :es_name, :pt_br_name, :it_name, :pl_name, :he_name, :el_name,
                   :scientific_name, :scientific_synonyms, :taxonomic_rank,
                   :usda_symbol, :wikipedia_url,
                   :urban_mushrooms_url, :fruitipedia_url, :foraging_texas_url, :eat_the_weeds_url,
                   :edibility, :category_mask, :pending,
                   :parent_id, :parent,
-                  :marker, :notes
-  has_attached_file :marker
+                  :notes
+
   belongs_to :parent, class_name: "Type"
   has_many :children, class_name: "Type", foreign_key: "parent_id"
   has_many :invasives
 
   normalize_attributes *character_column_symbols
-  normalize_attribute :name, :before => [ :squish ] do |value|
+  normalize_attribute :en_name, :before => [ :squish ] do |value|
     value.is_a?(String) ? value.gsub(/[^[:word:]\s\(\)\-\']/,'') : value
   end
-  validates :name, :presence => true
+  validates :en_name, :presence => true
 
   Ranks={0 => "Polyphyletic", 1 => "Kingdom", 2 => "Phylum", 3 => "Class", 4 => "Order", 5 => "Family",
          6 => "Genus", 7 => "Multispecies", 8 => "Species", 9 => "Subspecies"}
@@ -49,7 +49,7 @@ class Type < ActiveRecord::Base
 
   # Default to english name if requested is nil or empty
   def i18n_name(locale = I18n.locale.to_s)
-    ([self[Type.i18n_name_field(locale)], self.name].reject(&:blank?).first)
+    ([self[Type.i18n_name_field(locale)], self.en_name].reject(&:blank?).first)
   end
 
   def Type.ids
@@ -61,7 +61,7 @@ class Type < ActiveRecord::Base
   def Type.i18n_name_field(locale = I18n.locale.to_s)
     lang = locale.tr("-","_").downcase
     lang = "scientific" if lang == "la"
-    return lang == "en" ? "name" : "#{lang}_name"
+    "#{lang}_name"
   end
 
   # Type filter 1.0
@@ -127,14 +127,14 @@ class Type < ActiveRecord::Base
 
   def Type.sorted_with_parents
     Type.joins("LEFT OUTER JOIN types parents_types ON types.parent_id = parents_types.id").
-      select("array_to_string(ARRAY[parents_types.name,types.name],'::') as sortme, parents_types.name as parent_name, types.*").
+      select("array_to_string(ARRAY[parents_types.en_name,types.en_name],'::') as sortme, parents_types.en_name as parent_name, types.*").
       order(:sortme)
   end
 
   # Default sorting scheme
   def Type.default_sort
     #Type.order('scientific_name ASC NULLS LAST, taxonomic_rank ASC').sort_by{ |t| t.scientific_name.blank? ? t.i18n_name : '' }
-    self.select("*, COALESCE(" + Type.i18n_name_field + ", name) as i18n_name_sql").order("scientific_name ASC NULLS LAST, taxonomic_rank, i18n_name_sql")
+    self.select("*, COALESCE(" + Type.i18n_name_field + ", en_name) as i18n_name_sql").order("scientific_name ASC NULLS LAST, taxonomic_rank, i18n_name_sql")
   end
 
   def locations
@@ -148,11 +148,11 @@ class Type < ActiveRecord::Base
   # csv support
   comma do
     id
-    name
+    en_name
+    en_synonyms
     scientific_name
     usda_symbol
     wikipedia_urls
-    synonyms
     edibility
     notes
   end

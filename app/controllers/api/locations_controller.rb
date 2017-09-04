@@ -152,11 +152,11 @@ class Api::LocationsController < ApplicationController
     end
     dist = "ST_Distance(l.location,ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326))"
     dfilter = "ST_DWithin(l.location,ST_SETSRID(ST_POINT(#{params[:lng]},#{params[:lat]}),4326),100000)" # must be within 100k!
-    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+    i18n_name_field = "t.#{I18n.locale.to_s.tr("-","_")}_name"
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types, count(o.*),
       #{dist} as distance, l.description, l.author,
       array_agg(t.parent_id) as parent_types,
-      string_agg(coalesce(#{i18n_name_field}t.name),',') AS name,
+      string_agg(coalesce(#{i18n_name_field}, t.en_name),',') AS name,
       #{sorted} FROM locations l LEFT JOIN observations o ON o.location_id=l.id, types t
       WHERE #{[bound,dfilter,mfilter].compact.join(" AND ")} AND t.id=ANY(l.type_ids)
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
@@ -236,9 +236,9 @@ class Api::LocationsController < ApplicationController
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}")
     found_n = r["count"].to_i unless r.nil?
-    i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+    i18n_name_field = "t.#{I18n.locale.to_s.tr("-","_")}_name"
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types,
-      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}t.name),',') AS name, #{sorted}
+      array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}, t.en_name),',') AS name, #{sorted}
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n} OFFSET #{offset_n}");
@@ -272,10 +272,10 @@ class Api::LocationsController < ApplicationController
   def marker
     return unless check_api_key!("api/locations/marker")
      id = params[:id].to_i
-     i18n_name_field = I18n.locale != :en ? "t.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+     i18n_name_field = "t.#{I18n.locale.to_s.tr("-","_")}_name"
      r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, array_agg(t.id) as types,
       array_agg(t.parent_id) as parent_types,
-      string_agg(coalesce(#{i18n_name_field}t.name),',') as name
+      string_agg(coalesce(#{i18n_name_field}, t.en_name),',') as name
       FROM locations l, types t
       WHERE t.id=ANY(l.type_ids) AND l.id=#{id}
       GROUP BY l.id, l.lat, l.lng, l.unverified")

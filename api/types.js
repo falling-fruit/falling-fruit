@@ -46,11 +46,11 @@ types.list = function (req, res) {
   }
   var filter_str = __.reject(filters, __.isNull).join(" AND ");
   // Fields
-  var name = req.query.locale ? common.i18n_name(req.query.locale) : "name";
+  var name = req.query.locale ? common.i18n_name(req.query.locale) : "en_name";
   var fields = [
     "id",
     "scientific_name", "scientific_synonyms",
-    "COALESCE(" + name + ") as name", "synonyms",
+    "COALESCE(" + name + ") as name", "en_name", "en_synonyms",
     "es_name", "he_name", "pl_name", "fr_name", "pt_br_name",
     "de_name", "it_name", "el_name", "nl_name", "zh_tw_name",
     "pending", "taxonomic_rank", "category_mask"

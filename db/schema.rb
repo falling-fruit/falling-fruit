@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170904113628) do
+ActiveRecord::Schema.define(:version => 20170904114744) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(:version => 20170904113628) do
   end
 
   create_table "types", :force => true do |t|
-    t.string   "name"
+    t.string   "en_name"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.string   "scientific_name"
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20170904113628) do
     t.string   "wikipedia_url"
     t.string   "edibility"
     t.text     "notes"
-    t.string   "synonyms"
+    t.string   "en_synonyms"
     t.string   "scientific_synonyms"
     t.string   "urban_mushrooms_url"
     t.string   "fruitipedia_url"
