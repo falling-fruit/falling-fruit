@@ -10,7 +10,6 @@
 
 args <- commandArgs(TRUE)
 Table_owner <- args[1]
-Table_owner
 Max_grid_zoom <- 13L
 DB_driver <- RPostgres::Postgres()
 DB_name <- "fallingfruit_new_db"

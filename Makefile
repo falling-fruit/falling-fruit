@@ -1,6 +1,7 @@
 DATETIME = $(shell date +%Y%m%d%H%M%S)
 
 bounce:
+	sudo su - -c "R -e \"devtools::install_github('falling-fruit/fruitr')\""
 	git pull
 	bundle install
 	bundle --deployment
