@@ -1,9 +1,5 @@
 ---
 tr:
-  changes:
-    type:
-      edited: ''
-      grafted: ''
   devise:
     confirmations:
       confirmed: Hesabınız başarıyla onaylandı. Şu an giriş yapmış bulunuyorsunuz.
@@ -68,7 +64,6 @@ tr:
   errors:
     messages:
       already_confirmed: zaten onaylanmış, lütfen giriş yapmayı deneyin
-      not_found: ''
   glossary:
     about: Hakkında
     australia: Avustralya
