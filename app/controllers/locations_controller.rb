@@ -224,7 +224,7 @@ class LocationsController < ApplicationController
     log_api_request("api/locations/create", 1)
     respond_to do |format|
       # FIXME: recaptcha check should go right at the beginning (before doing anything else)
-      test = user_signed_in? ? true : verify_recaptcha(:model => @location, :message => "ReCAPCHA error!")
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location)
       if test and @location.save and (@observation.nil? or @observation.save)
         cluster_increment(@location)
         log_changes(@location, "added")
@@ -287,8 +287,7 @@ class LocationsController < ApplicationController
     log_api_request("api/locations/update",1)
     respond_to do |format|
       # FIXME: recaptcha check should go right at the beginning (before doing anything else)
-      test = user_signed_in? ? true : verify_recaptcha(:model => @location,
-                                                       :message => "ReCAPCHA error!")
+      test = user_signed_in? ? true : verify_recaptcha(:model => @location)
       if test and @location.update_attributes(params[:location]) and (@observation.nil? or @observation.save)
         log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_location)
         cluster_increment(@location)

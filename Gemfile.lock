@@ -177,7 +177,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
-    recaptcha (0.3.4)
+    recaptcha (0.4.0)
     ref (2.0.0)
     rgeo (0.3.20)
     rgeo-activerecord (0.4.6)
@@ -284,12 +284,12 @@ DEPENDENCIES
   libv8 (= 3.16.14.15)
   nokogiri
   paperclip (~> 3.1)
-  pg
+  pg (~> 0.11)
   postgres_ext
   rack-test
   rails (= 3.2.8)
   rails-i18n
-  recaptcha
+  recaptcha (= 0.4.0)
   rgeo
   rgeo-shapefile
   role_model
@@ -301,7 +301,7 @@ DEPENDENCIES
   thin (~> 1.6.0)
   timeliness
   uglifier (>= 1.0.3)
-  validates_timeliness
+  validates_timeliness (~> 3.0)
   world-flags
   yaml_db
 

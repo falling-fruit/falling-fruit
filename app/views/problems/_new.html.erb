@@ -34,15 +34,15 @@
     <div class="field">
        <%= f.label :your_contact_info, translate("problems.your_contact_info") %><br />
        <%= f.text_field(:name, :placeholder => translate("glossary.name")) %><br />
-       <div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder =>  translate("users.email")) %></div>
+       <div style="margin-top:0.25em;"><%= f.text_field(:email, :placeholder =>  translate("glossary.email")) %></div>
     </div>
 
      <br />
     <!-- Captcha -->
-    <div id="captcha"></div>
-    <script type="text/javascript">
-        show_recaptcha("captcha");
-    </script>
+    <div id="captcha">
+      <%= recaptcha_tags(:hl => I18n.locale, :ssl => (request.protocol == 'https://' ? true : false)) %>
+    </div>
+
   <% end %>
 
   <br />

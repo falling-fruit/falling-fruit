@@ -23,8 +23,7 @@ class ObservationsController < ApplicationController
       @obs.location.save
     end
     respond_to do |format|
-      test = user_signed_in? ? true : verify_recaptcha(:model => @obs,
-                                                       :message => "ReCAPCHA error!")
+      test = user_signed_in? ? true : verify_recaptcha(:model => @obs)
       if test and @obs.save
         if @obs.graft
           log_changes(@obs.location,"grafted",@obs)

@@ -251,7 +251,7 @@ jQuery(document).ready(function(){
   <!-- Captcha -->
   <% unless user_signed_in? %>
     <div id="captcha">
-      <%= recaptcha_tags(:display => {:theme => 'white'}, :ssl => (request.protocol == 'https://' ? true : false)) %>
+      <%= recaptcha_tags(:hl => I18n.locale, :ssl => (request.protocol == 'https://' ? true : false)) %>
     </div>
   <br />
   <% end %>

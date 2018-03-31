@@ -41,7 +41,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery_mobile_rails'
 gem 'jquery-cookie-rails'
-gem 'validates_timeliness'
+gem 'validates_timeliness', '~> 3.0'
 gem 'timeliness'
 gem 'select2-rails', '~> 3.4.2'
 gem 'jquery-datatables-rails'
@@ -52,12 +52,12 @@ gem 'geocoder'
 gem 'devise', "~> 2.1.2"
 gem 'thin', "~> 1.6.0"
 #gem 'thin'
-gem 'pg'
+gem 'pg', '~> 0.11'
 gem 'yaml_db'
 gem 'paperclip', '~> 3.1'
 gem 'aws-sdk', '~> 1.5.7'
 gem 'gmaps4rails'
-gem 'recaptcha', :require => "recaptcha/rails"
+gem 'recaptcha', '= 0.4.0', :require => "recaptcha/rails"
 gem 'comma', '~> 3.0'
 gem 'rgeo'
 gem 'rgeo-shapefile'

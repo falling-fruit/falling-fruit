@@ -21,8 +21,7 @@ class ProblemsController < ApplicationController
     end
 
     respond_to do |format|
-      test = user_signed_in? ? true : verify_recaptcha(:model => @problem,
-                                                       :message => "ReCAPCHA error!")
+      test = user_signed_in? ? true : verify_recaptcha(:model => @problem)
       if test and @problem.save
         format.html { render :text => I18n.translate("problems.created") }
       else

@@ -28,44 +28,44 @@
   // ================= functions =================
 
   function initialize() {
-
-    // No user-provided lat/lng
-    // (location_lat and location_lng will be empty)
     if (lat == "" || lng == "") {
       type = google.maps.MapTypeId.ROADMAP;
-      navigator.geolocation.getCurrentPosition(function(position){
-        // Geolocation successful
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 5000, // milliseconds
+        maximumAge: 60000 // milliseconds
+      };
+      function success(position) {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
         zoom = 15;
-        load_map(lat,lng,zoom,type);
         $('#location_lat').val(lat.toFixed(6));
         $('#location_lng').val(lng.toFixed(6));
-      }, function(error) {
-        // Geolocation failed
+        load_map(lat, lng, zoom, type);
+      }
+      function error(error) {
         lat = 0;
         lng = 0;
         zoom = 1;
-        load_map(lat,lng,zoom,type);
         $('#location_lat').val();
         $('#location_lng').val();
-      });
-
-    // User-provided lat/lng
+        load_map(lat, lng, zoom, type);
+      }
+      navigator.geolocation.getCurrentPosition(success, error, options);
     } else {
-      load_map(lat,lng,zoom,type);
+      load_map(lat, lng, zoom, type);
     }
   }
 
   // Ensures events are added only once basemap() has been called
-  function load_map(lat,lng,zoom,type) {
-    basemap(lat,lng,zoom,type);
-    marker = load_edit_marker(lat,lng);
+  function load_map(lat, lng, zoom, type) {
+    basemap(lat, lng, zoom, type);
+    marker = load_edit_marker(lat, lng);
 
     // Update markers once done panning and zooming
     google.maps.event.addListener(map, 'idle', function() {
       if (map.getZoom() > 12) {
-        do_markers(map.getBounds(),null,true,undefined,cats);
+        do_markers(map.getBounds(), null, true, undefined, cats);
       }
     });
 

@@ -589,6 +589,10 @@ en:
     description_subtext: Any information that might help us evaluate the problem
     problem_type: Problem type
     your_contact_info: Your contact info
+  recaptcha:
+    errors:
+      recaptcha_unreachable: We are unable to verify the reCAPTCHA at the moment
+      verification_failed: reCAPTCHA verification failed
   routes:
     denied: You do not have permission to view that route
     modes_of_travel:
