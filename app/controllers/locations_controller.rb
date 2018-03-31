@@ -400,12 +400,10 @@ class LocationsController < ApplicationController
   def normalize_create_types(params)
     type_ids = []
 
-    params[:types].split(/\s*,\s*/).uniq.each{ |type_name|
-      full_name = ActionController::Base.helpers.sanitize(type_name)
+    params[:types].split(/\s*,\s*/).uniq.each{ |full_name|
       names = Type.parse_full_name(full_name)
-      types = Type.where(
-        "COALESCE(#{names[:common_fields].join(", ")})" + (names[:common_name].nil? ? " IS NULL" : " = '#{names[:common_name]}'"),
-        scientific_name: names[:scientific_name]
+      types = Type.where(scientific_name: names[:scientific_name]).where(
+        "COALESCE(#{names[:common_fields].join(", ")})" + (names[:common_name].nil? ? " IS NULL" : " = #{Type.sanitize(names[:common_name])}")
       )
       # If no matches found, add as pending type
       if types.nil? or types.empty?

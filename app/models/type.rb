@@ -58,10 +58,10 @@ class Type < ActiveRecord::Base
   end
 
   def Type.parse_full_name(name, locale = I18n.locale.to_s)
-    matches = /^([^\]]+)*(?:\[([^\]]+)\])*$/.match(name)
+    matches = /^([^\[]*)\[*([^\]]*)\]*/.match(name)
     names = {
-      common_name: matches[1].nil? ? nil : matches[1].squish(),
-      scientific_name: matches[2].nil? ? nil : matches[2].squish(),
+      common_name: matches[1].blank? ? nil : matches[1].squish(),
+      scientific_name: matches[2].blank? ? nil : matches[2].squish(),
       common_fields: [Type.i18n_name_field(locale), Type.i18n_name_field("en")].uniq
     }
   end
