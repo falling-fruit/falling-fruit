@@ -20,10 +20,10 @@ class LocationsController < ApplicationController
     bound = [params[:nelat],params[:nelng],params[:swlat],params[:swlng]].any? { |e| e.nil? } ? "" :
       "ST_INTERSECTS(location,ST_SETSRID(ST_MakeBox2D(ST_POINT(#{params[:swlng]},#{params[:swlat]}),
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
-    i18n_name_field = I18n.locale != :en ? "types.#{I18n.locale.to_s.tr("-","_")}_name," : ""
+    i18n_name_field = "#{I18n.locale.to_s.tr("-","_")}_name"
     @locations = Location.joins("INNER JOIN types ON types.id=ANY(locations.type_ids)").
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
-             select("ARRAY_AGG(COALESCE(#{i18n_name_field}types.name)) as name, locations.id as id,
+             select("ARRAY_AGG(COALESCE(#{i18n_name_field}, en_name)) as name, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified,
                      author, import_id, locations.created_at, locations.updated_at, locations.muni").
              where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).

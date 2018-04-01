@@ -7,7 +7,7 @@ function data_link(){
          '&swlat=' + bounds.getSouthWest().lat() + '&swlng=' + bounds.getSouthWest().lng();
   var mstr = 0;
   if(muni) mstr = 1;
-  return '/locations/data.csv?muni=' + mstr + '&' + bstr;
+  return '/locations/data.csv?muni=' + mstr + '&' + bstr + '&locale=' + I18n.locale;
 }
 
 function update_permalink(){
