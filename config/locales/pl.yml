@@ -152,6 +152,8 @@ pl:
     report: Raport
     report_a_problem: Zgłoś problem
     reviews:
+      few: Recenzje
+      many: Recenzji
       one: Recenzja
       other: Recenzje
     routes: Drogi
