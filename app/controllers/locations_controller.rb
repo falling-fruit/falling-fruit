@@ -217,7 +217,6 @@ class LocationsController < ApplicationController
     @location = Location.new(params[:location])
     @location.type_ids = normalize_create_types(params)
     @location.user = current_user if user_signed_in?
-    @location.author = current_user.name unless (not user_signed_in?) or (current_user.add_anonymously)
     @observation = prepare_observation(obs_params, @location)
     @observation.author = @location.author unless @observation.nil?
 
