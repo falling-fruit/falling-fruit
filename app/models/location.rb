@@ -169,7 +169,7 @@ class Location < ActiveRecord::Base
       types.split(/\s*,\s*/).each{ |t|
         safer_type = t.gsub(/[^[:word:]\s\(\)\-\'\[\]\.:]/,'')
         id = safer_type[/^([0-9]+)/, 1]
-        name = safer_type[/(^(?![0-9])|:\s*)([^\[]+)/, 2]
+        en_name = safer_type[/(^(?![0-9])|:\s*)([^\[]+)/, 2]
         scientific_name = safer_type[/\[(.+)\]/, 1]
         matching_types = []
         if not id.nil?
@@ -178,9 +178,9 @@ class Location < ActiveRecord::Base
         end
         if matching_types.length == 0
           query = ""
-          if not name.nil?
-            name = name.squish
-            query = "lower(name) = " + ActiveRecord::Base.connection.quote(name.downcase)
+          if not en_name.nil?
+            en_name = en_name.squish
+            query = "lower(en_name) = " + ActiveRecord::Base.connection.quote(en_name.downcase)
           end
           if not scientific_name.nil?
             scientific_name = scientific_name.squish
@@ -196,7 +196,7 @@ class Location < ActiveRecord::Base
         if matching_types.length == 0
           new_type = Type.new
           # HACK: Until name (en) is not required, insert placeholder.
-          new_type.en_name = name.nil? ? "Unknown" : name
+          new_type.en_name = en_name.nil? ? "Unknown" : en_name
           new_type.scientific_name = scientific_name
           new_type.category_mask = default_category_mask
           new_type.pending = true
