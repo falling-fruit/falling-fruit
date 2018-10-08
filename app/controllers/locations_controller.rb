@@ -128,10 +128,10 @@ class LocationsController < ApplicationController
 
   # GET /communityfruittrees
   def communityfruittrees
-    params[:f] = 4628
-    params[:z] = 13
-    params[:x] = -81.34661
-    params[:y] = 28.55637
+    params[:f] = '4628'
+    params[:z] = '13'
+    params[:x] = '-81.34661'
+    params[:y] = '28.55637'
     index and return
   end
 
