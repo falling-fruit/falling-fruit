@@ -1,6 +1,6 @@
 FallingfruitWebapp::Application.routes.draw do
 
-  match '*path', :controller => 'application', :action => 'handle_options_request', 
+  match '*path', :controller => 'application', :action => 'handle_options_request',
     :constraints => {:method => 'OPTIONS'}
 
   devise_for :users, :controllers => {:sessions => "sessions"}
@@ -41,19 +41,19 @@ FallingfruitWebapp::Application.routes.draw do
       get 'merge'
     end
   end
-  
+
   resources :observations do
     member do
       get 'delete_photo'
     end
   end
-  
+
   resources :regions
   resources :changes
   resources :problems
   resources :imports # Used by /imports/show. Consider redirecting to /datasets.
 
-  match 'about' => 'pages#about' 
+  match 'about' => 'pages#about'
   match 'datasets' => 'pages#datasets'
   match 'maps' => 'pages#datasets' # deprecated, redirect
   match 'inventories' => 'pages#datasets' # deprecated, redirect
@@ -61,14 +61,15 @@ FallingfruitWebapp::Application.routes.draw do
   match 'sharing' => 'pages#sharing'
   match 'press' => 'pages#press'
   match 'data' => 'pages#data'
-  
+
   match 'forager' => 'locations#forager_index'
   match 'dumpsters' => 'locations#freegan_index'
   match 'freegan' => 'locations#freegan_index'
   match 'grafter' => 'locations#grafter_index'
   match 'graftable' => 'locations#grafter_index'
   match 'honeybee' => 'locations#honeybee_index'
-  
+  match 'communityfruittrees' => 'locations#communityfruittrees'
+
   match 'home' => 'locations#home'
   match 'locations/:id/infobox' => 'locations#infobox'
 
