@@ -85,6 +85,12 @@ class LocationsController < ApplicationController
     end
   end
 
+  # GET /forager
+  def forager_index
+    params[:c] = 'forager'
+    index and return
+  end
+  
   # GET /dumpsters
   # GET /freegan
   def freegan_index
@@ -118,6 +124,15 @@ class LocationsController < ApplicationController
   def home
     prepare_for_sidebar if user_signed_in?
     index
+  end
+
+  # GET /communityfruittrees
+  def communityfruittrees
+    params[:f] = 4628
+    params[:x] = 13
+    params[:y] = 28.55637
+    params[:z] = -81.34661
+    index and return
   end
 
   # GET /locations
