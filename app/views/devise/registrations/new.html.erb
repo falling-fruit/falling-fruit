@@ -38,6 +38,10 @@
   <%= render :partial => "range_map", :locals => {:f => f} %>
   <br/>
 
+  <div id="captcha">
+    <%= recaptcha_tags(:hl => I18n.locale, :ssl => (request.protocol == 'https://' ? true : false)) %>
+  </div>
+
   <div class="field">
     <%= f.button translate("glossary.sign_up") %>
   </div>
