@@ -92,3 +92,5 @@ gem 'attribute_normalizer'
 
 # Type tree
 gem 'dynatree-rails'
+
+gem 'rb-readline'

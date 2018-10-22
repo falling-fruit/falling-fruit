@@ -175,6 +175,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
+    rb-readline (0.5.5)
     rdoc (3.12)
       json (~> 1.4)
     recaptcha (0.4.0)
@@ -289,6 +290,7 @@ DEPENDENCIES
   rack-test
   rails (= 3.2.8)
   rails-i18n
+  rb-readline
   recaptcha (= 0.4.0)
   rgeo
   rgeo-shapefile
