@@ -1,7 +1,6 @@
 # config/initializers/geocoder.rb
 Geocoder.configure(
-  # geocoding service (see below for supported options):
-  :lookup => :google_premier,
-  # to use an API key:
-  :api_key => ["7Jag6rhW644t53X4zJABzAsG07Q=","gme-fallingfruit","webapp"]
+  :lookup => :google,
+  :use_https => true,
+  :api_key => "API_KEY"
 )
