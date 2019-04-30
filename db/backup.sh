@@ -1,11 +1,11 @@
 #!/bin/bash
 
-num_backups=7
+num_backups=14
 backup_dir="backups"
 prefix="fallingfruit"
 ymd=$(date +%Y%m%d)
 
-pg_dump -h localhost -U ${prefix}_user -Fc -b -v -f $backup_dir/$prefix.$ymd.sql ${prefix}_new_db
+pg_dump --exclude-table-data api_logs* -h localhost -U ${prefix}_user -Fc -b -v -f $backup_dir/$prefix.$ymd.sql ${prefix}_new_db
 pushd $backup_dir
 rm $prefix.latest.sql
 ln $prefix.$ymd.sql $prefix.latest.sql
