@@ -109,6 +109,7 @@ class Api::LocationsController < ApplicationController
       @observation = Observation.new(obs_params)
       @observation.location = @location
       @observation.author = current_user.name unless (not user_signed_in?) or (current_user.add_anonymously)
+      @observation.observed_on = Date.today if @observation.observed_on.nil?
     end
     log_api_request("api/locations/add_review",1)
     respond_to do |format|
