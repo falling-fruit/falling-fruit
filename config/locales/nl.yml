@@ -400,13 +400,12 @@ nl:
   pages:
     about:
       about_the_site: Over het project
-      about_us: Raad van bestuur
-      advisory_board: Adviesraad
-      caleb_bio_html: Caleb is een veerloos, tweevoetig mens met een passie voor voedeselgerechtigheid
-        en het ontdekken van <a href="http://smallwhitecube.com">creatieve manieren
-        om technologie te gebruiken</a> om sociale problemen te pakken. Als hij niet
-        rondfietst, starende naar bomen, dan probeert hij een balans te vinden tussen
-        zijn dagelijkse werk als gegevenswetenschapper in het <a href="http://nrel.gov">National
+      advisors: Adviesraad
+      caleb_phillips_bio_html: Caleb is een veerloos, tweevoetig mens met een passie
+        voor voedeselgerechtigheid en het ontdekken van <a href="http://smallwhitecube.com">creatieve
+        manieren om technologie te gebruiken</a> om sociale problemen te pakken. Als
+        hij niet rondfietst, starende naar bomen, dan probeert hij een balans te vinden
+        tussen zijn dagelijkse werk als gegevenswetenschapper in het <a href="http://nrel.gov">National
         Renewable Energy Laboratory</a> in Golden, Colorado, een adjunct-professor
         van computerwetenschap aan de <a href="http://cs.colorado.edu">Universiteit
         van Colorado</a> en zijn werk voor vele organisaties zonder winstoogmerk (<a
@@ -469,13 +468,7 @@ nl:
         en auteur van het boek a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
         Foraging: Finding and Eating Wild Plants in the City</a> (<a href="/docs/David
         Craft - Urban Foraging.pdf">gratis download</a>).'
-      ethan_bio_html: 'Van appelcider en fruitbier tot jam en <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>:
-        Ethan kijkt altijd in zijn database van bomen in de buurt (en zijn ciderpers)
-        voor culinaire inspiratie. Thuis in Boulder bestudeert hij kaarten, gegevens
-        en time-lapsen en van terugtrekkende ijsbergen voor zijn PhD aan de <a href="http://instaar.colorado.edu/people/ethan-welty/">Universiteit
-        van Colorado</a>, maar hij gaat ook regelmatig naar buiten om de wandelen,
-        kletsen, eten en <a href="http://www.weltyphotography.com">fotograferen</a>
-        op allerlei continenten.'
+      directors: Raad van bestuur
       ff_disclaimer_html: Falling Fruit is niet geassocieerd met Fallen Fruit. Fallen
         Fruit is te vinden op <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Betalen met Gratipay
@@ -484,14 +477,14 @@ nl:
         door vrijwilligers en we zijn afhankelijk van donaties om ons werk voort te
         kunnen zetten. Als u bereidt en in staat bent, overweeg dan een donatie. Donaties
         binnen de Verenigde Staten zijn belastingaftrekbaar.
-      jeff_bio_html: Sinds dat hij als kind met zijn familie zwarte en bosbessen verzamelde
-        en recentelijk de rijkdom aan openbare fruitbomen in Colorado opmerkte, heeft
-        Jeff een diepe passie voor het in verschillende steden groeiende fruit. Zijn
-        eerste missie voor Falling Fruit was om Boulder en Salt Lake City uit te kammen
-        met papieren kaarten in zijn hand, ondertussen alle fruitbomen noterend. Als
-        hij niet werkt om de energie-efficiëntie van gebouwen te verbeteren, dan is
-        hij meestal de gemeenschap aan het helpen of aan het snelwandelen in de bergen,
-        skiën of fietsen.
+      jeff_wanner_bio_html: Sinds dat hij als kind met zijn familie zwarte en bosbessen
+        verzamelde en recentelijk de rijkdom aan openbare fruitbomen in Colorado opmerkte,
+        heeft Jeff een diepe passie voor het in verschillende steden groeiende fruit.
+        Zijn eerste missie voor Falling Fruit was om Boulder en Salt Lake City uit
+        te kammen met papieren kaarten in zijn hand, ondertussen alle fruitbomen noterend.
+        Als hij niet werkt om de energie-efficiëntie van gebouwen te verbeteren, dan
+        is hij meestal de gemeenschap aan het helpen of aan het snelwandelen in de
+        bergen, skiën of fietsen.
       join_us_html: Doe met ons mee en vier het lokale voedsel! De <a href="/?locale=en">kaart</a>
         is openbaar te bewerken door iedereen, de database kan met slechts één klik
         worden <a href="/data?locale=en">gedownload</a> en <a href="https://github.com/somerandomsequence/falling-fruit">de

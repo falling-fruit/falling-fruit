@@ -400,10 +400,9 @@ es:
   pages:
     about:
       about_the_site: Acerca del proyecto
-      about_us: Junta directiva
-      advisory_board: Junta de asesores
-      caleb_bio_html: 'Caleb es un humanoide bípedo “sin plumas” apasionado por la
-        justicia alimentaria y por encontrar formas creativas de usar la tecnología
+      advisors: Junta de asesores
+      caleb_phillips_bio_html: 'Caleb es un humanoide bípedo “sin plumas” apasionado
+        por la justicia alimentaria y por encontrar formas creativas de usar la tecnología
         para dirigirla a la solución de problemas sociales. Cuando no está por ahí
         con su bicicleta mirando embobado a los árboles, divide sus esfuerzos entre
         su trabajo habitual como científico de datos en el <a href="http://nrel.gov">Laboratorio
@@ -457,14 +456,7 @@ es:
         <a href="http://www.gatech.edu/">Georgia Tech</a> busca siempre combinar la
         recoleción de frutos con nuevas tecnologias, y estará pronto desplegando drones
         para detectar árboles frutales y un sensor que tuitea la madurez de la fruta.
-      ethan_bio_html: De sidras y cervezas de frutas de manzana a mermeladas y <a
-        href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, Ethan se ve a su
-        base de datos de árboles de barrio (y su desvencijada prensa de manzana) en
-        busca de inspiración culinaria. En su casa en Boulder, que frikis hacia fuera
-        sobre mapas, datos y time-lapse de retroceso de los glaciares para su doctorado
-        en la <a href="http://instaar.colorado.edu/people/ethan-welty/">Universidad
-        de Colorado</a>, pero a menudo sale de su órbita local para caminar, hablar,
-        comer, y fotografiar a su manera a través de los continentes.
+      directors: Junta directiva
       ff_disclaimer_html: Falling Fruit no está asociado con Fallen Fruit. Fallen
         Fruit se puede encontrar en <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Pagar vía Gratipay
@@ -473,14 +465,15 @@ es:
         y se basan en donaciones de nuestros usuarios para operar. Si usted está dispuesto
         y capaz, por favor considere hacer una contribución financiera. Donaciones
         dentro de los Estados Unidos son deducibles de impuestos.
-      jeff_bio_html: Desde la cosecha de negro y arándanos con la familia cuando era
-        niño y, más recientemente, al notar la gran cantidad de árboles frutales públicos
-        en todo Colorado, Jeff ha desarrollado un profundo aprecio por la abundancia
-        de la fruticultura en nuestras ciudades. Su primera misión para Falling Fruit
-        era de peinar mapas de papel en Boulder y Salt Lake City, en mano, para registrar
-        los árboles frutales. Cuando no está trabajando para mejorar la eficiencia
-        energética de los edificios, que se suele ayudando en la comunidad o en movimiento
-        con rapidez sobre las montañas a pie, esquí, o en bicicleta.
+      jeff_wanner_bio_html: Desde la cosecha de negro y arándanos con la familia cuando
+        era niño y, más recientemente, al notar la gran cantidad de árboles frutales
+        públicos en todo Colorado, Jeff ha desarrollado un profundo aprecio por la
+        abundancia de la fruticultura en nuestras ciudades. Su primera misión para
+        Falling Fruit era de peinar mapas de papel en Boulder y Salt Lake City, en
+        mano, para registrar los árboles frutales. Cuando no está trabajando para
+        mejorar la eficiencia energética de los edificios, que se suele ayudando en
+        la comunidad o en movimiento con rapidez sobre las montañas a pie, esquí,
+        o en bicicleta.
       join_us_html: Únete a nosotros en la celebración de lo comestible híper local!
         El <a href="/?locale=es">mapa</a> está abierto para que cualquiera pueda editarlo.
         La base de datos se puede <a href="/data?locale=es">descargar</a> con un solo

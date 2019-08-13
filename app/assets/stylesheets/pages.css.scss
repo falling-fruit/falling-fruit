@@ -60,7 +60,7 @@ div#menubar {
   position: absolute;
   top: $logobarHeight;
   height: $menubarHeight;
-  width: 100%; 
+  width: 100%;
   a, span {
     color: #666;
     line-height: $menubarHeight;
@@ -303,7 +303,7 @@ div#sidebar{
       }
     }
   }
-  
+
 div#sidebar_button{
   position: absolute;
   top: $headerHeight + 1px;
@@ -355,8 +355,8 @@ form#editsource > div > a {
   font-size: 0.85em;
 }
 
-form#editsource #location_description, 
-form#editsource #location_author, 
+form#editsource #location_description,
+form#editsource #location_author,
 form#editsource #location_address {
   width: 98%;
 }
@@ -366,7 +366,7 @@ form#editsource #s2id_location_access {
   width: 99%;
 }
 
-form#editsource #location_lat, 
+form#editsource #location_lat,
 form#editsource #location_lng {
   width: 10.25em;
 }
@@ -459,6 +459,7 @@ div.profile {
 
 div.big-bios {
   div.profile {
+    margin-bottom: 1em;
     img.avatar {
       width: 200px;
     }
@@ -470,11 +471,12 @@ div.big-bios {
 
 div.small-bios {
   div.profile {
+    margin-bottom: 1em;
     img.avatar {
-      width: 100px;
+      width: 125px;
     }
     div.bio {
-      margin-left: 116px;
+      margin-left: 141px;
     }
   }
 }
@@ -486,7 +488,7 @@ div.small-bios {
 div#countries {
   font-size: inherit;
   color: #666;
-  
+
   > ul li {
     font-size: 120%;
     font-variant: small-caps;
@@ -494,39 +496,39 @@ div#countries {
 }
 
 div#countries > div {
-  
+
   /* f'ing jquery! */
   @import "base.css.scss";
   @extend body;
-  color: #666; 
+  color: #666;
   margin: 1em .75em .5em .75em;
 
   > ul {
     margin-left: 5px;
     margin-bottom: 1em;
   }
-  
+
   b {
     display: inline-block;
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
-  
+
   li {
     margin-left: 3px;
   }
-  
+
   ul {
     font-weight: bold;
     ul,li {
       font-weight: normal;
     }
   }
-  
+
   ul li {
     margin-left: 9px;
   }
-  
+
   ul ul {
     margin-left: 9px;
     /*font-style: italic;*/
@@ -540,14 +542,14 @@ div#countries > div {
     /*opacity: 0.5;*/
     text-decoration: line-through;
   }
-  
+
   img.social {
     height: 1em;
     opacity: 0.75;
     vertical-align: top;
     border-top: 2px solid transparent;
   }
-  
+
   a:hover img.social {
     border-top: 2px solid #E35809;
   }
@@ -639,7 +641,7 @@ table#type_summary img.link_icon {
 div#range_tabs {
   padding-bottom: 1.5em;
   border-bottom: 1px solid #ddd ! important;
-  
+
   div#map {
     width: 100%;
     height: 400px;

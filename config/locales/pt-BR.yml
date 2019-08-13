@@ -362,10 +362,9 @@ pt-BR:
   pages:
     about:
       about_the_site: Sobre o projeto
-      about_us: Conselho administrativo
-      advisory_board: Conselho de assessores
-      caleb_bio_html: Caleb é um humanóide bípede apaixonado por promover justiça
-        alimentar e encontrar <a href="http://smallwhitecube.com">formas criativas
+      advisors: Conselho de assessores
+      caleb_phillips_bio_html: Caleb é um humanóide bípede apaixonado por promover
+        justiça alimentar e encontrar <a href="http://smallwhitecube.com">formas criativas
         de usar a tecnologia</a> para resolver problemas sociais. Quando ele não está
         andando de bicibleta, boquiaberto frente às árvores, ele equilibra seus esforços
         entre o seu trabalho do dia-a-dia como cientista da computação no <a href://nrel.gov">Laboratório
@@ -430,28 +429,21 @@ pt-BR:
         coletor e autor do livro <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
         Foraging: Finding and Eatng Wild Plants in the City</a> (<a href="/docs/david
         Craft - Urban Foraging.pdf">free download</a>).'
-      ethan_bio_html: De sidras de maçã e cervejas de frutas a geléias e <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>,
-        Ethan olha para seu banco de dados de árvores da vizinhança (e sua prensa
-        de maçã ) em busca de inspiração culinária. Enquanto em casa, em Boulder,
-        ele procura por mapas, dados e imagens time-lapse de geleiras retraindo para
-        o seu doutorado na <a href="http://instaar.colorado.edu/people/ethan-welty/">Universidade
-        do Colorado</a>, mas muitas vezes ele entra em órbita para andar, falar, comer
-        e <a href="http?//www.wltyphotography.com">fotografar</a> o seu caminho através
-        de continentes.
+      directors: Conselho administrativo
       give_gratipay: Pagar via Gratipay
       give_paypal: Doe através do Paypal
       give_us_money: Somos mantidos de forma voluntária, sem fins lucrativos e dependemos
         de doações para operar. Se você está disposto e capaz, por favor considere
         fazer uma contribuição financeira. Doações dentro dos Estados Unidos são dedutíveis
         de impostos.
-      jeff_bio_html: Desde que colhia framboesas e blueberries com a família quando
-        criança e, mais recentemente, percebendo a riqueza de árvores frutíferas públicas
-        em todo Colorado, Jeff desenvolveu um profundo apreço pela abundância de fruticultura
-        em nossas cidades. Sua primeira missão para a Falling Fruit foi de fazer um
-        pente-fino em Boulder e Salt Lake City, com mapas em papel em mãos, para registrar
-        árvores frutíferas. Quando não está trabalhando para melhorar a eficiência
-        energética, ele geralmente esta ajudando a comunidade ou movendo-se rapidamente
-        sobre as montanhas a pé, ski, ou de bicicleta.
+      jeff_wanner_bio_html: Desde que colhia framboesas e blueberries com a família
+        quando criança e, mais recentemente, percebendo a riqueza de árvores frutíferas
+        públicas em todo Colorado, Jeff desenvolveu um profundo apreço pela abundância
+        de fruticultura em nossas cidades. Sua primeira missão para a Falling Fruit
+        foi de fazer um pente-fino em Boulder e Salt Lake City, com mapas em papel
+        em mãos, para registrar árvores frutíferas. Quando não está trabalhando para
+        melhorar a eficiência energética, ele geralmente esta ajudando a comunidade
+        ou movendo-se rapidamente sobre as montanhas a pé, ski, ou de bicicleta.
       join_us_html: Junte-se a nós na celebração do alimento hiper-local! O <a href="/?locale=pt">mapa</a>
         é aberto para qualquer um editar, o banco de dados pode ser <a href="/data?locale=pt">baixado</a>
         com apenas um clique, e <a href="https://github.com/somerandomsequence/falling-fruit">o

@@ -361,20 +361,20 @@ it:
   pages:
     about:
       about_the_site: Informazioni sul progetto
-      about_us: Consiglio di Amministrazione
-      advisory_board: Consiglio di consulenti
-      caleb_bio_html: Caleb è un bipede umanoide e implume appassionato alla giustizia
-        alimentare e alla ricerca <a href="http://smallwhitecube.com"> di modi creativi
-        per utilizzare la tecnologia</a> al fine di risolvere i problemi sociali.
-        Quando non è in bicicletta a guardare gli alberi, egli concentra i suoi sforzi
-        tra il suo lavoro di giorno come scienziato di dati presso il <a href="http://nrel.gov">National
-        Renewable Energy Laboratory</a> a Golden, in Colorado, come professore a contratto
-        di informatica presso l' <a href="http://cs.colorado.edu">University of Colorado</a>
-        , e come volontario per un certo numero di organizzazioni no-profit ( <a href="http://www.foodrescuealliance.org/">Food
-        Rescue Alliance</a> a Denver e <a href="http://boulderfoodrescue.org">Boulder
-        Food Rescue</a> a Boulder, Colorado). Oltre a tutto questa mole di lavoro,
-        ama scalare le rocce, correre per sentieri, andare in bicicletta e, generalmente,
-        stare all'aperto il più possibile.
+      advisors: Consiglio di consulenti
+      caleb_phillips_bio_html: Caleb è un bipede umanoide e implume appassionato alla
+        giustizia alimentare e alla ricerca <a href="http://smallwhitecube.com"> di
+        modi creativi per utilizzare la tecnologia</a> al fine di risolvere i problemi
+        sociali. Quando non è in bicicletta a guardare gli alberi, egli concentra
+        i suoi sforzi tra il suo lavoro di giorno come scienziato di dati presso il
+        <a href="http://nrel.gov">National Renewable Energy Laboratory</a> a Golden,
+        in Colorado, come professore a contratto di informatica presso l' <a href="http://cs.colorado.edu">University
+        of Colorado</a> , e come volontario per un certo numero di organizzazioni
+        no-profit ( <a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a>
+        a Denver e <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a>
+        a Boulder, Colorado). Oltre a tutto questa mole di lavoro, ama scalare le
+        rocce, correre per sentieri, andare in bicicletta e, generalmente, stare all'aperto
+        il più possibile.
       celebration: Falling Fruit è la celebrazione della bontà culinaria negletta
         delle nostre strade urbane. Quantificando questa risorsa su una mappa interattiva,
         speriamo di facilitare le connessioni profonde tra le persone, il cibo e i
@@ -428,25 +428,17 @@ it:
         e autore di <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
         Foraging: Finding and Eating Wild Plants in the City</a> ( <a href="/docs/David
         Craft - Urban Foraging.pdf">free download</a> )'
-      ethan_bio_html: Dal sidro di mele e dalla birra alla frutta alle marmellate
-        e <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a> , Ethan guarda
-        alla sua banca dati degli alberi del suo quartiere (e alla sua pressa per
-        il sidro) per nuove ispirazioni culinarie. Quando è a casa a Boulder, si diverte
-        a lavorare a mappe e dati, e a vedere in time-lapse il ritiro dei ghiacciai
-        per il suo dottorato di ricerca presso l'<a href="http://instaar.colorado.edu/people/ethan-welty/">University
-        of Colorado</a> , ma va spesso in orbita a camminare, parlare, mangiare e
-        <a href="http://www.weltyphotography.com">fotografare</a> a viaggiare attraverso
-        i continenti.
+      directors: Consiglio di Amministrazione
       give_gratipay: Paga via Gratipay
       give_paypal: Contribuisci via Paypal
       give_us_money: Siamo un'associazione di volontari, senza scopo di lucro e contiamo
         sulle donazioni per lavorare. Se fosse possibile, vi preghiamo di offrire
         un vostro contributo finanziario. Le donazioni negli Stati Uniti sono deducibili
         dalle tasse.
-      jeff_bio_html: Da quando, da bambino, comincia a raccogliere mirtilli con la
-        sua famiglia e, più recentemente, osservando l'abbondanza degli alberi da
-        frutto pubblici in tutto Colorado, Jeff ha sviluppato un profondo amore per
-        la profusione della frutticoltura nelle nostre città. La sua prima missione
+      jeff_wanner_bio_html: Da quando, da bambino, comincia a raccogliere mirtilli
+        con la sua famiglia e, più recentemente, osservando l'abbondanza degli alberi
+        da frutto pubblici in tutto Colorado, Jeff ha sviluppato un profondo amore
+        per la profusione della frutticoltura nelle nostre città. La sua prima missione
         per Falling Fruit è stata la creazione di mappe cartacee di Boulder e Salt
         Lake City per registrare tutti gli alberi da frutto. Quando non lavora per
         migliorare l'efficienza energetica degli edifici, di solito aiuta la comunità

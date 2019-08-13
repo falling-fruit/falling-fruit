@@ -409,14 +409,13 @@ de:
   pages:
     about:
       about_the_site: Über diese Seite
-      about_us: Vorstand
-      advisory_board: Beirat
-      caleb_bio_html: Caleb ist ein federloser Wandervogel der sich seit jeher für
-        eine fairere Verteilung von Lebensmitteln engagiert und immer darauf bedacht
-        ist, mit <a href="http://smallwhitecube.com">moderner Technologie und kreativen
-        Methoden</a> auf soziale Themen aufmerksam zu machen. Wenn er nicht gerade
-        mit seinem Rad durch die Geographie kurvt und Bäume beäugt, teilt er seine
-        Zeit zwischen seiner Informatik Professur an der <a href="http://cs.colorado.edu">Universität
+      advisors: Beirat
+      caleb_phillips_bio_html: Caleb ist ein federloser Wandervogel der sich seit
+        jeher für eine fairere Verteilung von Lebensmitteln engagiert und immer darauf
+        bedacht ist, mit <a href="http://smallwhitecube.com">moderner Technologie
+        und kreativen Methoden</a> auf soziale Themen aufmerksam zu machen. Wenn er
+        nicht gerade mit seinem Rad durch die Geographie kurvt und Bäume beäugt, teilt
+        er seine Zeit zwischen seiner Informatik Professur an der <a href="http://cs.colorado.edu">Universität
         von Colorado</a>, seiner Tätigkeit als Berater in Sachen Kartierung von Mobilfunk-Abdeckung
         und verschiedenen gemeinnützigen Organisationen auf. ( in der San Francisco
         Bay Area, <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a> in
@@ -474,15 +473,7 @@ de:
         Friese LLP</a>, San Francisco. '
       david_craft_bio_html: Autor von <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
         Foraging</a> (gratis download <a href="/docs/David Craft - Urban Foraging.pdf">hier</a>)
-      ethan_bio_html: Vom Apfelwein zum Fruchtbier, von der Marmelade zum <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>,
-        Ethan findet in der Datenbank aller Bäume und Büsche in seiner Nachbarschaft
-        (und seiner klapprigen Apfelpresse) stets neue kulinarische Inspirationen.
-        Er lebt in Boulder,Co, wo er seine Zeit im Rahmen seiner Doktorarbeit an der
-        <a href="http://instaar.colorado.edu/people/ethan-welty/">Universität von
-        Colorado</a> unmengen von Daten, Karten und Zeitraffersequenzen schmelzender
-        Gletscher widmet. Man trifft ihn aber häufig weit weg von zu Hause an, wenn
-        er sich auf einer neuen Reise irgendwo quer durch die Landschaft plaudert,
-        wandert, isst und <a href="http://www.weltyphotography.com">fotografiert</a>.
+      directors: Vorstand
       ff_disclaimer_html: Falling Fruit hat nichts mit Fallen Fruit zu tun. Fallen
         Fruit finden sie unter <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Bezahlen via Gratipay
@@ -491,9 +482,9 @@ de:
         Organisation und sind auf Spenden angewiesen, um diese Seite aufrecht zu halten.
         Falls du die Möglichkeit hast, einen finanziellen Beitrag zu leisten, sind
         wir dir herzlich dankbar!
-      jeff_bio_html: Auf der Suche nach Heidelbeeren, Himbeeren und Brombeeren durfte
-        Jeff schon als Kind stundenlang durch die Wälder streuen. Seit geraumer Zeit
-        hat er sich nun den urbaneren Standorten zugewandt und für Falling Fruit,
+      jeff_wanner_bio_html: Auf der Suche nach Heidelbeeren, Himbeeren und Brombeeren
+        durfte Jeff schon als Kind stundenlang durch die Wälder streuen. Seit geraumer
+        Zeit hat er sich nun den urbaneren Standorten zugewandt und für Falling Fruit,
         auf der Suche nach Obstbäumen und Beerensträuchern, tagelang die Strassen
         von Boulder und Salt Lake City  abgeklappert. Am Schreibtisch widmet er sich
         der Verbesserung der Energieeffizienz von Gebäuden, nebenher investiert er

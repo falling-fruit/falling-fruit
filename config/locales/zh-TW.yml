@@ -314,9 +314,8 @@ zh-TW:
   pages:
     about:
       about_the_site: 關於該項目
-      about_us: 董事會
-      advisory_board: 顧問委員會
-      caleb_bio_html: 迦勒是一個無翅的雙足人形生物，充滿愛食的正義，並找到<a href="http://smallwhitecube.com">使用技術的創造性方法</a>解決社會問題。當他不騎自行車在樹上玩耍時，他在科羅拉多州金山的<a
+      advisors: 顧問委員會
+      caleb_phillips_bio_html: 迦勒是一個無翅的雙足人形生物，充滿愛食的正義，並找到<a href="http://smallwhitecube.com">使用技術的創造性方法</a>解決社會問題。當他不騎自行車在樹上玩耍時，他在科羅拉多州金山的<a
         href="http://nrel.gov">國家可再生能源實驗室</a>的數據科學家之間平衡了他的工作，計算機科學的兼職教授在<a href="http://cs.colorado.edu">科羅拉多大學</a>，作為許多非營利組織的工蜂（<a
         href ="http://www.foodrescuealliance.org/">食物救援聯盟</a>，以及科羅拉多州博爾德市的<a href="http://boulderfoodrescue.org">巨石食物救援</a>）。除了所有的工作，他喜歡爬岩，跑步，騎自行車，一般都在戶外盡可能多。
       celebration: 墮落的水果是對我們城市街道被忽視的美食賞賞的慶祝活動。通過在交互式地圖上量化這一資源，我們希望促進人們，食物和我們社區中生長的天然生物之間的密切聯繫。不只是免費午餐！
@@ -340,15 +339,13 @@ zh-TW:
       david_craft_bio_html: David是輻射腫瘤學系的研究員，位於<a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">哈佛醫學院</a>在馬薩諸塞州波士頓。他也是這本書的熱心和作者，<a
         href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">城市覓食：尋找和吃野生植物在城市</a>（<a
         href="/docs/David Craft-Urban Foraging.pdf">免費下載</a>）。
-      ethan_bio_html: 從蘋果蘋果酒和水果啤酒到果醬和<a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>，Ethan看著他的附近樹木數據庫（和他的蘋果酒新聞）烹飪靈感。在博爾德的家中，他在<a
-        href="http://instaar.colorado.edu/people/ethan-welty/">大學攻讀博士的地圖，數據和時間延遲為他的博士畢業的科羅拉多州，但他經常進入軌道，走過，談話，吃飯，並<a
-        href="http://www.weltyphotography.com">照片</a>他的方式橫跨大陸。
+      directors: 董事會
       ff_disclaimer_html: 落果與落果不相關。墮落的水果可以在<a href="http://fallenfruit.org"> fallenfruit.org
         </a>找到。
       give_gratipay: 通過Gratipay付款
       give_paypal: 通過Paypal捐款
       give_us_money: 我們是一個志願運行的501（c）（3）非營利組織，並依靠捐款來運作。如果你願意和能力，請考慮作出財政捐助。美國境內的捐款可以免稅。
-      jeff_bio_html: 自從收穫黑莓和藍莓與他的家人作為一個孩子，最近，注意到科羅拉多州豐富的公共果樹，傑夫深深地感謝我們城市豐富的水果。他的第一個使命就是把巨石和鹽湖城梳理在一起，用來記錄果樹。在不提高建築節能的同時，他通常會在社區中幫助，或者通過腳踏，滑雪或騎自行車快速移動到山上。
+      jeff_wanner_bio_html: 自從收穫黑莓和藍莓與他的家人作為一個孩子，最近，注意到科羅拉多州豐富的公共果樹，傑夫深深地感謝我們城市豐富的水果。他的第一個使命就是把巨石和鹽湖城梳理在一起，用來記錄果樹。在不提高建築節能的同時，他通常會在社區中幫助，或者通過腳踏，滑雪或騎自行車快速移動到山上。
       join_us_html: 加入我們慶祝超地方的食物！<a href="/?locale=zh-TW">地圖</a>可供任何人編輯，數據庫可以<a href="/data?locale=zh-TW">下載</a>，只需一個點擊，<a
         href="https://github.com/falling-fruit/">代碼</a>是開源的。同樣鼓勵你與你的同胞分享賞金。我們的<a href="/sharing?locale=zh-TW">共享頁面</a>列出了數百個當地組織
         - 種植公共果園和食用森林，從城市樹木和農民田間挑選其他浪費的水果和蔬菜，並分享與鄰居和有需要的人。

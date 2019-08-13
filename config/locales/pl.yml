@@ -373,8 +373,7 @@ pl:
   pages:
     about:
       about_the_site: O stronie
-      about_us: O nas (zarząd)
-      advisory_board: O nas (doradcy)
+      advisors: O nas (doradcy)
       celebration: Falling Fruit cieszy się kulinarnymi darami natury na ulicach naszych
         miast. Przez pokazanie tych zasobów na mapie, mamy nadzieję, że ułatwimy bezpośredni
         kontakt i związek między ludźmi, żywnością i naturalnymi organizmami rosnącymi
@@ -403,6 +402,7 @@ pl:
         - chcemy, aby była najlepszym dostępnym narzędziem dla współczesnych zbieraczy.
         Napisz do nas na <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>.
         Chętnie usłyszymy Twoje komentarze!
+      directors: O nas (zarząd)
       ff_disclaimer_html: Falling Fruit nie jest zrzeszone z Fallen Fruit. Fallen
         Fruit można znaleźć pod <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Zapłać za pomocą Gratipay

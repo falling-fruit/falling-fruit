@@ -394,19 +394,33 @@ en:
   pages:
     about:
       about_the_site: About the project
-      about_us: Board of directors
-      advisory_board: Board of advisors
-      caleb_bio_html: Caleb is a featherless bipedal humanoid passionate about food
-        justice and finding <a href="http://smallwhitecube.com">creative ways to use
-        technology</a> to address social issues. When he's not biking around gawking
-        at trees, he balances his efforts between his day job as a data scientist
-        at the <a href="http://nrel.gov">National Renewable Energy Laboratory</a>
-        in Golden, Colorado, an adjunct professor of computer science at the <a href="http://cs.colorado.edu">University
-        of Colorado</a>, and as a worker bee for a number of nonprofit organizations
-        (<a href="http://www.foodrescuealliance.org/">Food Rescue Alliance</a> in
-        Denver and <a href="http://boulderfoodrescue.org">Boulder Food Rescue</a>
-        in Boulder, Colorado). Besides all that work stuff, he likes to climb rocks,
-        run trails, ride bikes, and generally be outdoors as much as possible.
+      advisors: Board of advisors
+      alan_gibson_bio_html: 'Alan has always enjoyed adventures and exploring. He
+        began foraging as a way to introduce his young children to the outdoors lifestyle.
+        He writes the <a href="http://theurbaneforager.blogspot.com">Urbane Forager</a>
+        blog and published the <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit and Nuts For Free</a> book. He has legitimised foraging in
+        public parks and established a community orchard in his home town, Southampton
+        UK.'
+      ana_carolina_bio_html: Ana is a postdoctoral researcher at the Federal University
+        of Pará in Brazil. She is an anthropologist interested in understanding social
+        and cultural diet habits. Ana worked mostly in the Brazilian Amazon. In Acre
+        (western Amazon) she studied regional fruit consumption. Then, she worked
+        in the Middle Solimões region, investigating diet change in remote communities.
+        Between 2017 and 2018, Ana lived in small and medium towns of the Amazon Delta,
+        looking at the effects of climate change on the food security of people living
+        in informal settlements. She recently moved to southern New Mexico in the
+        United States, where she works as a consultant.
+      caleb_phillips_bio_html: Caleb is a featherless bipedal humanoid passionate
+        about food justice and finding creative ways to use technology to address
+        social issues. When he's not biking around gawking at trees, he balances his
+        efforts between his day job as a data scientist at the <a href="https://www.nrel.gov/research/caleb-phillips.html">National
+        Renewable Energy Laboratory</a> in Golden, Colorado and as an adjunct professor
+        of computer science at the <a href="https://www.colorado.edu/cs/caleb-phillips">University
+        of Colorado</a>. Besides all that work stuff, he likes to climb rocks, run
+        trails, ride bikes, and generally be outdoors as much as possible. Caleb created
+        Falling Fruit with Ethan Welty in 2013 and served on the Board of Directors
+        for 6 years before taking a position on the Advisory Board.
       celebration: Falling Fruit is a celebration of the overlooked culinary bounty
         of our city streets. By quantifying this resource on an interactive map, we
         hope to facilitate intimate connections between people, food, and the natural
@@ -456,12 +470,24 @@ en:
         author of the book <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
         Foraging: Finding and Eating Wild Plants in the City</a> (<a href="/docs/David
         Craft - Urban Foraging.pdf">free download</a>).'
-      ethan_bio_html: From apple ciders and fruit beers to jams and <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>,
-        Ethan looks to his database of neighborhood trees (and his cider press) for
-        culinary inspiration. While at home in Boulder, he geeks out over maps, data,
-        and time-lapse of retreating glaciers for his PhD at the <a href="http://instaar.colorado.edu/people/ethan-welty/">University
-        of Colorado</a>, but he often goes into orbit to walk, talk, eat, and <a href="http://www.weltyphotography.com">photograph</a>
-        his way across continents.
+      directors: Board of directors
+      emily_sigman_bio_html: Emily is a diehard agroforestry evangelist, incorrigible
+        forager, and proud mother to two cats, four quails, and the world's most magnificent
+        canine. Her roots stretch deep into the Rocky Mountains, but these days her
+        aboveground biomass is proud to call New Haven, Connecticut her home. She
+        can often be found tending public food forests, reading enraptured in some
+        cozy library corner, or waxing poetic about the magic of mycelium (and, supposedly,
+        completing joint graduate degrees at the Yale <a href="https://environment.yale.edu/">School
+        of Forestry</a> and <a href="https://jackson.yale.edu/person/emily-sigman/">School
+        of Global Affairs</a>). Emily harbors a devastating addiction to travel, and
+        could be just about anywhere right now.
+      ethan_welty_bio_html: With technology and data, Ethan champions cities as sources
+        of fresh and free food. He created Falling Fruit with Caleb Phillips in 2013
+        to promote urban foraging worldwide, and co-founded <a href="https://fruitrescue.org">Community
+        Fruit Rescue</a> in 2014 to harvest and distribute surplus fruit growing around
+        him in Boulder, Colorado. Beyond fruit, he juggles a <a href="https://www.weltyphotography.com">photography
+        career</a>, <a href="https://instaar.colorado.edu/people/ethan-welty/">research
+        on glaciers</a>, and an appetite for mountainous and riverine pursuits.
       ff_disclaimer_html: Falling Fruit is not associated with Fallen Fruit. Fallen
         Fruit can be found at <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Pay via Gratipay
@@ -469,13 +495,13 @@ en:
       give_us_money: We are a volunteer-run 501(c)(3) nonprofit and rely on donations
         to operate. If you are willing and able, please consider making a financial
         contribution. Donations within the United States are tax deductible.
-      jeff_bio_html: Since harvesting black and blueberries with his family as a child
-        and, more recently, noticing the wealth of public fruit trees throughout Colorado,
-        Jeff has developed a deep appreciation for the abundance of fruit growing
-        in our cities. His first mission for Falling Fruit was to comb Boulder and
-        Salt Lake City, paper maps in-hand, to record fruiting trees. When not working
-        to improve building energy efficiency, he is usually helping out in the community
-        or moving quickly over mountains by foot, ski, or bicycle.
+      jeff_wanner_bio_html: Since harvesting black and blueberries with his family
+        as a child and, more recently, noticing the wealth of public fruit trees throughout
+        Colorado, Jeff has developed a deep appreciation for the abundance of fruit
+        growing in our cities. His first mission for Falling Fruit was to comb Boulder
+        and Salt Lake City, paper maps in-hand, to record fruiting trees. When not
+        working to improve building energy efficiency, he is usually helping out in
+        the community or moving quickly over mountains by foot, ski, or bicycle.
       join_us_html: Join us in celebrating hyper-local food! The <a href="/?locale=en">map</a>
         is open for anyone to edit, the database can be <a href="/data?locale=en">downloaded</a>
         with just one click, and <a href="https://github.com/falling-fruit/">the code</a>
@@ -494,6 +520,7 @@ en:
         distributed over %{locations} locations. Beyond the cultivated and commonplace
         to the exotic flavors of foreign plants and long-forgotten native plants,
         foraging in your neighborhood is a journey through time and across cultures.
+      staff: Staff
       translate: Translate
       translate_for_us_html: Interested in volunteering as a translator? Email us
         and we'll invite you to join us on <a href="http://www.localeapp.com/projects/7532">Locale</a>,

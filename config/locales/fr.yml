@@ -404,16 +404,15 @@ fr:
   pages:
     about:
       about_the_site: À propos du projet
-      about_us: Comité d'administration
-      advisory_board: Comité consultatif
-      caleb_bio_html: 'Caleb est un humanoïde bipède déplumé, passionné de justice
-        alimentaire. Il adore aussi utiliser la technologie de manière créative pour
-        résoudre les problèmes sociaux. Quand il ne fait pas des tours à vélo pour
-        admirer les arbres fruitiers, Caleb travaille comme scientifique des données
-        au <a href="http://nrel.gov">National Renewable Energy Laboratory</a> à Golden,
-        dans le Colorado(États-Unis), comme professeur adjoint en informatique à <a
-        href="http://cs.colorado.edu">l''Université du Colorado</a>, et comme abeille
-        ouvrière pour plusieurs association à but non lucratif (<a href="http://www.foodrescuealliance.org/">Food
+      advisors: Comité consultatif
+      caleb_phillips_bio_html: 'Caleb est un humanoïde bipède déplumé, passionné de
+        justice alimentaire. Il adore aussi utiliser la technologie de manière créative
+        pour résoudre les problèmes sociaux. Quand il ne fait pas des tours à vélo
+        pour admirer les arbres fruitiers, Caleb travaille comme scientifique des
+        données au <a href="http://nrel.gov">National Renewable Energy Laboratory</a>
+        à Golden, dans le Colorado(États-Unis), comme professeur adjoint en informatique
+        à <a href="http://cs.colorado.edu">l''Université du Colorado</a>, et comme
+        abeille ouvrière pour plusieurs association à but non lucratif (<a href="http://www.foodrescuealliance.org/">Food
         Rescue Alliance</a> à Denver et <a href="http://boulderfoodrescue.org">Boulder
         Food Rescue</a> à Boulder, Colorado). Son temps libre, il le passe aussi à
         faire de l''escalade, de la course à pied, du vélo : il essaye de passer le
@@ -472,14 +471,7 @@ fr:
         adepte du glanage et auteur du livre <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
         Foraging:Finding and Eating Wild Plants in the City</a> (<a href=”/docs/David
         Craft - Urban Foraging.pdf”>free download</a>).  '
-      ethan_bio_html: Cidre, bières fruitées, confitures ou <a href="http://en.wikipedia.org/wiki/Rumtopf">Rumtopf</a>, la
-        cuisine d’Ethan s’inspire de sa base de données d’arbres du voisinage (et
-        de son pressoir à fruits). Quand il est chez lui, à Boulder, il geeke devant
-        des cartes, des données et des vidéos montrant en accéléré la fonte de glaciers,
-        pour son doctorat à l’<a href="http://instaar.colorado.edu/people/ethan-welty/">Université
-        du Colorado</a>, mais il redescend souvent sur Terre pour marcher, parler,
-        manger et <a href="http://www.weltyphotography.com">photographier</a> ses
-        voyages autour du monde.
+      directors: Comité d'administration
       ff_disclaimer_html: Falling Fruit n'est pas lié à Fallen Fruit. Fallen Fruit
         peut être consulté à <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Payer avec Gratipay
@@ -487,7 +479,7 @@ fr:
       give_us_money: Nous sommes un organisme caritatif à but non lucratif 501(c)(3)
         basé à Boulder (Colorado, États-Unis). Les dons réalisés depuis les États-Unis
         sont donc déductibles des impôts.
-      jeff_bio_html: |-
+      jeff_wanner_bio_html: |-
         C’est avec les premières récoltes de mûres et de myrtilles lorsqu’il était enfant et, plus récemment, après avoir remarqué la richesse des arbres fruitiers du Colorado, que Jeff a commencé à apprécier l’abondance des fruits qui poussent dans nos villes. Sa première mission pour Falling Fruit fut de passer Boulder et Salt Lake City au peigne fin, cartes en main, pour en noter tous les arbres fruitiers. 
         Lorsqu’il ne travaille pas à l’amélioration de l’efficacité énergétique d’un bâtiment, on peut le voir apporter son aide à la communauté, ou parcourir les montagnes à pieds, en ski, ou à vélo.
       join_us_html: Fan de nourriture hyperlocale ? Rejoignez-nous ! La <a href="/?locale=fr">carte</a>
