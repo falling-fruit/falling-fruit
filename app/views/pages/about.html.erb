@@ -10,20 +10,12 @@
   <span><%= translate("pages.about.give_us_money") %></span>
 </p>
 
-  <blockquote>
-
+<blockquote class="buttons">
   <!-- Paypal -->
-  <form action="https://www.paypal.com/cgi-bin/webscr" method="POST" style="display:inline;">
-    <input type="hidden" name="cmd" value="_donations">
-    <input type="hidden" name="business" value="info@fallingfruit.org">
-    <input type="hidden" name="return" value="http://fallingfruit.org/about">
-    <input type="hidden" name="item_name" value="Falling Fruit Donation">
-    <input type="hidden" name="no_shipping" value="1">
-    $ <input name="amount" type="text" size="4" style="text-align:right;padding:0.25em 0.4em;font-size:inherit;" placeholder="0.00">
-    <button type="submit" style="padding:0.25em 0.4em;"><%= translate("pages.about.give_paypal") %></button>
-  </form>
-
-  </blockquote>
+  <a href="https://www.paypal.com/us/fundraiser/charity/1387793">
+    <%= translate("pages.about.give_paypal") %>
+  </a>
+</blockquote>
 
 <p class="announcement"><b><%= translate("pages.about.write") %></b>
   <span><%= translate("pages.about.contact_us_html").html_safe %></span>

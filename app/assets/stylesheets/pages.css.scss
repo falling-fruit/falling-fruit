@@ -428,6 +428,20 @@ div#editmarker {
 /******************* /pages/about *************************/
 /**********************************************************/
 
+blockquote.buttons {
+  a {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: #F3F3F3;
+  }
+  a:hover {
+    background-color: #C6E1F7;
+  }
+}
+
 div.rightphoto {
   float: right;
   position: relative;
