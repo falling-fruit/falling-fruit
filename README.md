@@ -31,7 +31,7 @@ If you want to help with development, feel free to fork the project. If you have
   * PostgreSQL (9.5.4): [installation instructions](https://www.postgresql.org/download/)
 
   ```
-  brew install postgresql
+  brew install postgresql@9.5
   ```
 
   * PostGIS (2.2.2): [installation instructions](http://postgis.net/install/)
@@ -40,15 +40,16 @@ If you want to help with development, feel free to fork the project. If you have
   brew install postgis
   ```
 
-  * Bundler: [installation instructions](http://bundler.io/)
+  * Bundler (1.17.3): [installation instructions](http://bundler.io/)
 
   ```
-  gem install bundler
+  gem install bundler -v 1.17.3
   ```
 
   * Install project gems:
 
   ```
+  gem install therubyracer -v 0.12.2
   bundle install
   ```
 
@@ -57,10 +58,12 @@ If you want to help with development, feel free to fork the project. If you have
   ```
   cp config/database.yml.dist config/database.yml
   cp config/s3.yml.dist config/s3.yml
+  cp config/initializers/recaptcha.rb.dist config/initializers/recaptcha.rb
   cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   ```
 
-  Edit `config/database.yml` with your desired development database name, username, and password. Since all files (photos) are stored on Amazon S3 servers, you'll need to add Amazon S3 credentials to your `config/s3.yml` file. Contact us ([info@fallingfruit.org](mailto:info@fallingfruit.org)) for a key.
+  Edit `config/database.yml` with your desired development database name, username, and password.
+  You will need to add Google reCAPTCHA and Amazon S3 credentials to `config/s3.yml` and `config/initializers/recaptcha.rb`.
 
 ### Prepare database
 
@@ -279,7 +282,7 @@ This will update the translation files in `config/locales/*.yml`.
 ```
 
 This script, run in the console, can be used to mass-translate keys using Google Translate.
-For usage, follow the instructions on [this page](http://strajk.me/blog/2014/google-translate-in-phraseapp/).
+For usage, follow the instructions on [this page](https://strajk.me/writings/2014/google-translate-in-phraseapp/).
 NOTE: Requires the old PhraseApp translation editor.
 
 ```js
