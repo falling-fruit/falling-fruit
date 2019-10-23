@@ -1,9 +1,9 @@
 class PresenceConstraintProblemsEmail < ActiveRecord::Migration
   def up
-    change_column :problems, :email, :string, null: false
+    change_column_null :problems, :email, false, ''
   end
 
   def down
-    change_column :problems, :email, :string, null: true
+    change_column_null :problems, :email, true, ''
   end
 end
