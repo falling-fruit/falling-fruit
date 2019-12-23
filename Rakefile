@@ -119,6 +119,7 @@ task(:fix_ratings => :environment) do
 end
 
 task(:geocode => :environment) do
+  Geocoder.configure(:api_key => GOOGLE_GEOCODING_KEY)
   n = Location.where("lat is null and lng is null").count
   Location.where("lat is null and lng is null").limit(100000).each{ |l|
     begin
@@ -138,6 +139,7 @@ task(:geocode => :environment) do
 end
 
 task(:reverse_geocode => :environment) do
+  Geocoder.configure(:api_key => GOOGLE_GEOCODING_KEY)
   n = Location.where("lat is not null and lng is not null and country is null").count
   Location.where("lat is not null and lng is not null and country is null").limit(100000).each{ |l|
     begin
@@ -303,6 +305,7 @@ task(:import_type_translations => :environment) do
 end
 
 task(:import => :environment) do
+  Geocoder.configure(:api_key => GOOGLE_GEOCODING_KEY)
   # Check for lockfile
   if File.exists? "public/import/lockfile"
     puts "Lockfile exists, not running!"

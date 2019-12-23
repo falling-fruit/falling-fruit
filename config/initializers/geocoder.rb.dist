@@ -1,6 +1,0 @@
-# config/initializers/geocoder.rb
-Geocoder.configure(
-  :lookup => :google,
-  :use_https => true,
-  :api_key => "API_KEY"
-)

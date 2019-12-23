@@ -20,7 +20,8 @@
 /config/initializers/secret_token.rb
 /config/i18n-tasks.yml
 /config/create.log
-/config/initializers/recaptcha.rb
+/config/initializers/credentials.rb
+
 # NodeJS
 node_modules/
 

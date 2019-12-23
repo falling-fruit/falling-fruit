@@ -1,5 +1,0 @@
-Recaptcha.configure do |config|
-  config.api_version = 'v2'
-  config.public_key  = ''
-  config.private_key = ''
-end

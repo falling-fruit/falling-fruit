@@ -58,12 +58,12 @@ If you want to help with development, feel free to fork the project. If you have
   ```
   cp config/database.yml.dist config/database.yml
   cp config/s3.yml.dist config/s3.yml
-  cp config/initializers/recaptcha.rb.dist config/initializers/recaptcha.rb
-  cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+  cp config/initializers/credentials.rb.dist config/initializers/credentials.rb
+  cp config/initializers/secret_token.rb.dist config/initializers/secret_token.rb
   ```
 
   Edit `config/database.yml` with your desired development database name, username, and password.
-  You will need to add Google reCAPTCHA and Amazon S3 credentials to `config/s3.yml` and `config/initializers/recaptcha.rb`.
+  You will need to add Amazon S3 and Google API credentials to `config/s3.yml` and `config/initializers/credentials.rb`.
 
 ### Prepare database
 
