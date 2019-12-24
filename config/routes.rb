@@ -74,6 +74,8 @@ FallingfruitWebapp::Application.routes.draw do
 
   match 'home' => 'locations#home'
   match 'locations/:id/infobox' => 'locations#infobox'
+  match 'locations/:id/hide' => 'locations#hide', :as => 'hide_location'
+  match 'locations/:id/unhide' => 'locations#unhide', :as => 'unhide_location'
 
   # these two methods are part of the API but actually live in the normal API controller to keep things DRY
   match 'api/locations/:id' => 'locations#update', via: [:put]

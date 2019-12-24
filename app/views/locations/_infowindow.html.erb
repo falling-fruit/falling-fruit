@@ -177,6 +177,14 @@
      <% if user_signed_in? and current_user.is? :admin %>
         <%= link_to(translate("glossary.delete").downcase, location, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, :title => translate("locations.infowindow.delete_this_location")) %>
      <% end %>
+     <!-- Hide -->
+     <% if user_signed_in? and current_user.is? :admin %>
+        <% if location.hidden %>
+          <%= link_to("unhide", unhide_location_path(location)) %>
+        <% else %>
+          <%= link_to("hide", hide_location_path(location)) %>
+        <% end %>
+     <% end %>
      </td>
      <!-- Author (source) -->
     <td id="added_by"><i style="padding-right:0.5em;"><%= translate("glossary.by_author", :author => (location.author.nil? or (location.author.strip.length == 0)) ? translate("glossary.anonymous") : location.author) %></i>

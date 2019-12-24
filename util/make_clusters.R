@@ -19,7 +19,7 @@ Created_at <- structure(Sys.time(), tzone = "UTC")
 # ---- Get locations ----
 
 db <- DBI::dbConnect(DB_driver, DB_name)
-sql <- "SELECT lng, lat, muni, type_ids FROM locations;"
+sql <- "SELECT lng, lat, muni, type_ids FROM locations WHERE NOT hidden;"
 locations <- data.table::as.data.table(DBI::dbGetQuery(db, sql))
 DBI::dbDisconnect(db)
 
