@@ -201,7 +201,8 @@ namespace :export do
       csv << [
         "id", "type_ids", "lat", "lng", "unverified", "description",
         "season_start","season_stop", "no_season", "author", "address",
-        "created_at", "updated_at", "access", "import_link", "original_ids"
+        "created_at", "updated_at", "access", "import_link", "original_ids",
+        "hidden"
       ]
       Location.find_each() do |l|
         csv << [
@@ -213,7 +214,8 @@ namespace :export do
           l.no_season, l.author, l.address, l.created_at, l.updated_at,
           l.access.nil? ? nil : I18n.t("locations.infowindow.access_short")[l.access.to_i],
           l.import_id.nil? ? nil : "https://fallingfruit.org/imports/#{l.import_id}",
-          l.original_ids.nil? ? nil : l.original_ids.join(", ")
+          l.original_ids.nil? ? nil : l.original_ids.join(", "),
+          l.hidden
         ]
       end
       # r.each{ |row|

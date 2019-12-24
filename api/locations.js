@@ -167,6 +167,8 @@ locations.list = function (req, res) {
     else if (req.query.invasive == 0) ifilter = "AND NOT invasive";
   }
 
+  var hfilter = "AND NOT hidden";
+
   var bfilter = undefined;
   if (__.every([req.query.swlat, req.query.swlng, req.query.nelat, req.query.nelng])) {
     bfilter = common.postgis_bbox(
@@ -200,7 +202,7 @@ locations.list = function (req, res) {
     parseInt(req.query.offset) :
     0;
 
-  var filters = __.reject([bfilter,mfilter,ifilter], __.isUndefined)
+  var filters = __.reject([bfilter,mfilter,ifilter,hfilter], __.isUndefined)
     .join(" ");
 
   var distance = "";

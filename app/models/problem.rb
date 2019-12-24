@@ -16,5 +16,5 @@ class Problem < ActiveRecord::Base
            "Inappropriate review comment",
            "Other (explain below)"]
   ShortCodes = ["Spam","Nonexistent","Duplicate","Photo","Comment","Other"]
-  Resolutions = ["Made no changes", "Edited the location", "Deleted the location", "Deleted the photo", "Deleted the review"]
+  Resolutions = ["Made no changes", "Edited the location", "Deleted the location", "Deleted the photo", "Deleted the review", "Hid the location"]
 end

@@ -140,6 +140,7 @@ class Api::LocationsController < ApplicationController
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     cfilter = "(bit_or(t.category_mask) & #{cat_mask})>0"
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? nil : "NOT muni"
+    hfilter = "NOT hidden"
     sorted = "1 as sort"
     # FIXME: would be easy to allow t to be an array of typesq
     if params[:t].present?
@@ -159,7 +160,7 @@ class Api::LocationsController < ApplicationController
       array_agg(t.parent_id) as parent_types,
       string_agg(coalesce(#{i18n_name_field}, t.en_name),',') AS name,
       #{sorted} FROM locations l LEFT JOIN observations o ON o.location_id=l.id, types t
-      WHERE #{[bound,dfilter,mfilter].compact.join(" AND ")} AND t.id=ANY(l.type_ids)
+      WHERE #{[bound,dfilter,mfilter,hfilter].compact.join(" AND ")} AND t.id=ANY(l.type_ids)
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY distance ASC, sort
       LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
@@ -223,6 +224,7 @@ class Api::LocationsController < ApplicationController
     end
     cfilter = "(bit_or(t.category_mask) & #{cat_mask})>0"
     mfilter = (params[:muni].present? and params[:muni].to_i == 1) ? "" : "AND NOT muni"
+    hfilter = "AND NOT hidden"
     sorted = "1 as sort"
     # FIXME: would be easy to allow t to be an array of types
     if params[:t].present?
@@ -235,13 +237,13 @@ class Api::LocationsController < ApplicationController
                                                      ST_POINT(#{params[:nelng]},#{params[:nelat]})),4326))"
     r = ActiveRecord::Base.connection.select_one("SELECT COUNT(*)
       FROM locations l, types t
-      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}")
+      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter} #{hfilter}")
     found_n = r["count"].to_i unless r.nil?
     i18n_name_field = "t.#{I18n.locale.to_s.tr("-","_")}_name"
     r = ActiveRecord::Base.connection.execute("SELECT l.id, l.lat, l.lng, l.unverified, l.type_ids as types,
       array_agg(t.parent_id) as parent_types, string_agg(coalesce(#{i18n_name_field}, t.en_name),',') AS name, #{sorted}
       FROM locations l, types t
-      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter}
+      WHERE t.id=ANY(l.type_ids) AND #{bound} #{mfilter} #{hfilter}
       GROUP BY l.id, l.lat, l.lng, l.unverified HAVING #{[cfilter].compact.join(" AND ")} ORDER BY sort LIMIT #{max_n} OFFSET #{offset_n}");
     @markers = r.collect{ |row|
       row["parent_types"] = row["parent_types"].tr('{}','').split(/,/).reject{ |x| x == "NULL" }.collect{ |e| e.to_i }

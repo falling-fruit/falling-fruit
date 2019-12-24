@@ -26,7 +26,7 @@ class LocationsController < ApplicationController
              select("ARRAY_AGG(COALESCE(#{i18n_name_field}, en_name)) as name, locations.id as id,
                      description, lat, lng, address, season_start, season_stop, no_season, access, unverified,
                      author, import_id, locations.created_at, locations.updated_at, locations.muni").
-             where([bound,mfilter,"(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
+             where([bound,mfilter,"NOT hidden","(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
     respond_to do |format|
       format.json { render json: @locations }
@@ -331,6 +331,26 @@ class LocationsController < ApplicationController
     end
   end
 
+  def hide
+    @location = Location.find(params[:id])
+    @location.hidden = true
+    @location.save
+    cluster_decrement(@location)
+    respond_to do |format|
+      format.html { redirect_to @location }
+    end
+  end
+
+  def unhide
+    @location = Location.find(params[:id])
+    @location.hidden = false
+    @location.save
+    cluster_increment(@location)
+    respond_to do |format|
+      format.html { redirect_to @location }
+    end
+  end
+
   def enroute
     @location = Location.find(params[:id])
     @route = nil
@@ -471,7 +491,7 @@ class LocationsController < ApplicationController
       extract(days from (NOW()-c.created_at)) as days_ago, c.location_id, c.user_id, c.description, c.remote_ip, l.city, l.state,
       l.country, l.lat, l.lng, l.description as location_description, c.author as change_author, l.id
       FROM changes c, locations l, types t
-      WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id #{rangeq}
+      WHERE t.id=ANY(l.type_ids) AND NOT l.hidden AND l.id=c.location_id #{rangeq}
       GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at, c.author ORDER BY c.created_at DESC LIMIT 100");
     @changes = changes_query.collect{ |row| row }
     @my_changes = Change.select('max(created_at) as created_at, user_id, location_id, description').where("user_id = ? and location_id is not null", current_user.id).group("location_id, user_id, description").order('created_at desc').uniq!{ |c| c.location_id }

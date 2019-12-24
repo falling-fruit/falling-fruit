@@ -11,7 +11,7 @@ class ChangesController < ApplicationController
       c.location_id, c.user_id, c.description, c.remote_ip,
       l.city, l.state, l.country
       FROM changes c, locations l, types t
-      WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id AND NOT c.spam
+      WHERE t.id=ANY(l.type_ids) AND l.id=c.location_id AND NOT l.hidden AND NOT c.spam
       GROUP BY l.id, c.location_id, c.user_id, c.description, c.remote_ip, c.created_at
       ORDER BY c.created_at DESC LIMIT 100").
       collect{ |row| row }

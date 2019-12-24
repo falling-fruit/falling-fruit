@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20190816053525) do
+ActiveRecord::Schema.define(:version => 20191224111156) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -106,9 +106,10 @@ ActiveRecord::Schema.define(:version => 20190816053525) do
     t.integer  "user_id"
     t.integer  "type_ids",                                                                                                      :array => true
     t.boolean  "muni",                                                                       :default => false
-    t.string   "original_ids",   :limit => nil,                                                                                 :array => true
+    t.string   "original_ids",                                                                                                  :array => true
     t.boolean  "invasive",                                                                   :default => false
     t.integer  "inaturalist_id"
+    t.boolean  "hidden",                                                                     :default => false
   end
 
   create_table "locations_routes", :force => true do |t|
