@@ -54,7 +54,7 @@ gem 'thin', "~> 1.6.0"
 #gem 'thin'
 gem 'pg', '~> 0.11'
 gem 'yaml_db'
-gem 'paperclip', '~> 3.1'
+gem 'paperclip', '~> 4.3'
 gem 'aws-sdk', '~> 1.5.7'
 gem 'gmaps4rails'
 gem 'recaptcha', '= 0.4.0', :require => "recaptcha/rails"
