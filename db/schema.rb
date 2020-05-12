@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20191224111156) do
+ActiveRecord::Schema.define(:version => 20200512162439) do
 
   add_extension "postgis"
   add_extension "postgis_topology"
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(:version => 20191224111156) do
     t.string   "tr_name"
     t.string   "nl_name"
     t.string   "zh_tw_name"
+    t.string   "ar_name"
   end
 
   create_table "users", :force => true do |t|
