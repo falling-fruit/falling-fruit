@@ -201,7 +201,7 @@
   <%= translate("locations.infowindow.add_to_remove_from") %>:
 <form style="display: inline;" action="/locations/<%= location.id %>/enroute" method="get">
   <select id="route_id" name="route_id" style="font-size:85%;">
-    <% Route.where("user_id = ?",current_user.id).each do |r| %>
+    <% Route.where("user_id = ?", current_user.id).select([:id, :name]).each do |r| %>
        <option value="<%= r.id %>"><%= r.name %> <%= LocationsRoute.where({route_id: r.id, location_id: location.id}).exists? ? "(+)" : "" %></option>
     <% end %>
      <option value="-1">-- <%= translate("locations.infowindow.new_route") %> --</option>
