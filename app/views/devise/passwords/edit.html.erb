@@ -9,11 +9,9 @@
     <span class="subtext"><%= translate("users.type_it_twice") %></span>
     <%= f.password_field :password %></div>
     <%= f.password_field :password_confirmation %>
-  </div>
-  
-  <div class="field">
-    <%= f.button translate("users.change_password") %>
+    <div class="field">
+      <%= f.button translate("users.change_password") %>
+    </div>
+    <%= render "devise/shared/links" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
