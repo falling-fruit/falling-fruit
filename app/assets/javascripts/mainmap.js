@@ -102,6 +102,7 @@ function update_display(force,force_zoom,force_bounds){
     if (prior_zoom > 12) hide_map_controls();
     do_clusters(bounds,zoom,$('#muni').is(':checked'),type_filter);
   } else if (zoom >= 13) {
+    $('#get_data_link').attr('href', data_link());
     if (prior_zoom < 13) {
       types_hash = {};
       show_map_controls();
@@ -120,7 +121,6 @@ function hide_map_controls() {
 }
 
 function show_map_controls() {
-  $('#get_data_link').attr('href',data_link());
   $('#hidden_controls').show();
   $('#export_data').show();
   $('#invasive_span').show();
