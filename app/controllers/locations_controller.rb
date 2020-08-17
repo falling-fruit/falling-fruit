@@ -24,7 +24,7 @@ class LocationsController < ApplicationController
     @locations = Location.joins("INNER JOIN types ON types.id=ANY(locations.type_ids)").
              joins("LEFT OUTER JOIN imports ON locations.import_id=imports.id").
              select("ARRAY_AGG(COALESCE(#{i18n_name_field}, en_name)) as name, locations.id as id,
-                     description, lat, lng, address, season_start, season_stop, no_season, access, unverified,
+                     description, lat, lng, address, city, state, country, season_start, season_stop, no_season, access, unverified,
                      author, import_id, locations.created_at, locations.updated_at, locations.muni").
              where([bound,mfilter,"NOT hidden","(types.category_mask & #{cat_mask})>0"].compact.join(" AND ")).
              group("locations.id, imports.muni").limit(max_n)
@@ -33,7 +33,7 @@ class LocationsController < ApplicationController
       format.csv {
         csv_data = CSV.generate do |csv|
           cols = ["id","lat","lng","unverified","description","season_start","season_stop",
-                  "no_season","quality_rating","yield_rating","author","address","created_at","updated_at",
+                  "no_season","quality_rating","yield_rating","author","address","city","state","country","created_at","updated_at",
                   "access","import_link","muni","types"]
           csv << cols
           @locations.each{ |l|
@@ -47,7 +47,7 @@ class LocationsController < ApplicationController
                     l.no_season,
                     quality_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[quality_rating],
                     yield_rating.nil? ? nil : I18n.t("locations.infowindow.rating")[yield_rating],
-                    l.author,l.address,l.created_at,l.updated_at,
+                    l.author,l.address,l.city,l.state,l.country,l.created_at,l.updated_at,
                     l.access.nil? ? nil : I18n.t("locations.infowindow.access_short")[l.access],
                     l.import_id.nil? ? nil : "http://fallingfruit.org/imports/#{l.import_id}",
                     l.import_id.nil? ? false : (l.muni ? true : false),
