@@ -14,7 +14,7 @@
 //= require i18n/translations
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui
 //= require jquery.cookie
 //= require jquery-outside-events
 //= require select2
