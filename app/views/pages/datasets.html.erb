@@ -98,7 +98,7 @@ jQuery(document).ready(function(){
         ]
     });
 
-    $('#import_list tbody td img').live('click', function () {
+    $('#import_list tbody td').on('click', 'img', function () {
         var nTr = $(this).parents('tr')[0];
         if ( oTable.fnIsOpen(nTr) )
         {
