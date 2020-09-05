@@ -14,7 +14,11 @@
 //= require i18n/translations
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/widgets/dialog
+//= require jquery-ui/widgets/slider
+//= require jquery-ui/widgets/tabs
+//= require jquery-ui/widgets/sortable
 //= require jquery.cookie
 //= require jquery-outside-events
 //= require select2

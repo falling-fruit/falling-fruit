@@ -8,7 +8,11 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require jquery-ui
+ *= require jquery-ui/datepicker
+ *= require jquery-ui/dialog
+ *= require jquery-ui/slider
+ *= require jquery-ui/tabs
+ *= require jquery-ui/sortable
  *= require select2
  *= require dataTables/jquery.dataTables
  *= require base
