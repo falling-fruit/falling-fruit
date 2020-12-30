@@ -132,9 +132,11 @@ sk:
     italy: Taliansko
     labels: Etikety
     links:
+      few: Odkazy
       one: Link
       other: Odkazy
     locations:
+      few: miesta
       one: umiestnenie
       other: miesta
     login: Prihlasovacie Údaje
@@ -155,8 +157,9 @@ sk:
     report: Report
     report_a_problem: Nahlásiť problém
     reviews:
+      few: Recenzia
       one: Preskúmanie
-      other: recenzia
+      other: Recenzia
     routes: Trasy
     save_changes: Uložiť zmeny
     scientific_name: Vedecké meno
@@ -170,6 +173,7 @@ sk:
     sweden: Švédsko
     switzerland: Švajčiarsko
     tree_inventory:
+      few: Súpisy stromov
       one: Inventár stromov
       other: Súpisy stromov
     types: druhy
