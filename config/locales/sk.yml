@@ -1,0 +1,715 @@
+---
+sk:
+  changes:
+    change_in_city: "%{type} v %{city}"
+    recent_changes: Posledné zmeny
+    type:
+      added: pridaný
+      edited: upravené
+      grafted: zaštepený
+      visited: navštívil
+  devise:
+    confirmations:
+      confirmed: Vaša emailová adresa bola úspešne potvrdená.
+      send_instructions: O niekoľko minút dostanete e-mail s pokynmi na potvrdenie
+        e-mailovej adresy.
+      send_paranoid_instructions: Ak vaša e-mailová adresa existuje v našej databáze,
+        do niekoľkých minút dostanete e-mail s pokynmi na potvrdenie vašej e-mailovej
+        adresy.
+    failure:
+      already_authenticated: Už ste prihlásený.
+      inactive: Váš účet ešte nie je aktivovaný.
+      invalid: Nesprávny e-mail alebo heslo.
+      invalid_token: Neplatný overovací token.
+      locked: Váš účet je uzamknutý.
+      not_approved: Váš účet ešte nebol schválený správcom.
+      timeout: Platnosť vašej relácie vypršala. Ak chcete pokračovať, znova sa prihláste.
+      unauthenticated: Skôr ako budete pokračovať, musíte sa prihlásiť alebo prihlásiť.
+      unconfirmed: Pred pokračovaním musíte potvrdiť svoju e-mailovú adresu.
+    mailer:
+      confirmation_instructions:
+        subject: Potvrdzovacie pokyny
+      reset_password_instructions:
+        subject: Obnovte pokyny pre heslo
+      unlock_instructions:
+        subject: Pokyny na odomknutie
+    omniauth_callbacks:
+      failure: Nepodarilo sa mi overiť vás z %{kind} pretože „ %{reason} “.
+      success: Úspešne overené z účtu %{kind} .
+    passwords:
+      no_token: Na túto stránku ' prístup bez toho, aby ste prišli z e-mailu na obnovenie
+        hesla. Ak pochádzate z e-mailu na obnovenie hesla, nezabudnite použiť celú
+        uvedenú adresu URL.
+      send_instructions: O niekoľko minút dostanete e-mail s pokynmi na obnovenie
+        hesla.
+      send_paranoid_instructions: Ak vaša e-mailová adresa existuje v našej databáze,
+        za pár minút dostanete na svoju e-mailovú adresu odkaz na obnovenie hesla.
+      updated: Vaše heslo bolo úspešne zmenené. Teraz ste prihlásený.
+      updated_not_active: Vaše heslo bolo úspešne zmenené.
+    registrations:
+      destroyed: Zbohom! Váš účet bol úspešne zrušený. Dúfame, že sa čoskoro opäť
+        uvidíme.
+      signed_up: Vitajte! Úspešne ste sa zaregistrovali.
+      signed_up_but_inactive: Úspešne ste sa zaregistrovali. Nemohli sme vás však
+        prihlásiť, pretože váš účet ešte nie je aktivovaný.
+      signed_up_but_locked: Úspešne ste sa zaregistrovali. Nemôžeme vás však prihlásiť,
+        pretože váš účet je uzamknutý.
+      signed_up_but_not_approved: Úspešne ste sa zaregistrovali, ale váš účet ešte
+        nebol schválený správcom.
+      signed_up_but_unconfirmed: Na vašu e-mailovú adresu bola odoslaná správa s odkazom
+        na potvrdenie. Kliknutím na odkaz aktivujete svoj účet.
+      updated: Váš účet bol úspešne aktualizovaný.
+      update_needs_confirmation: Úspešne ste aktualizovali svoj účet, musíme však
+        overiť vašu novú e-mailovú adresu. Skontrolujte svoj e-mail a kliknutím na
+        odkaz na potvrdenie potvrďte svoju novú e-mailovú adresu.
+    sessions:
+      signed_in: Úspešne ste sa prihlásili.
+      signed_out: Úspešne ste sa odhlásili.
+    unlocks:
+      send_instructions: O niekoľko minút dostanete e-mail s pokynmi na odblokovanie
+        účtu.
+      send_paranoid_instructions: Ak váš účet existuje, do niekoľkých minút dostanete
+        e-mail s pokynmi na jeho odblokovanie.
+      unlocked: Váš účet bol úspešne odomknutý. Ak chcete pokračovať, prihláste sa.
+  errors:
+    messages:
+      after: musí byť po %{restriction}
+      already_confirmed: už bolo potvrdené, skúste sa prihlásiť
+      before: musí byť pred %{restriction}
+      expired: platnosť uplynula, požiadajte o novú
+      invalid_date: nie je platný dátum
+      invalid_datetime: nie je platný dátum a čas
+      invalid_time: nie je platný čas
+      is_at: musí byť na %{restriction}
+      not_found: nenájdené
+      not_locked: nebol zamknutý
+      not_saved:
+        one: '1 chyba zakázala uloženie tohto %{resource} :'
+        other: "%{count} chýb zakazovalo ukladanie tohto %{resource} :"
+      on_or_after: musí byť na alebo po %{restriction}
+      on_or_before: musí byť na alebo pred %{restriction}
+  glossary:
+    about: O
+    access: Prístup K
+    account: Účet
+    activity: aktivita
+    address: Adresa
+    add_source: Pridajte umiestnenie
+    anonymous: Anonymný
+    are_you_sure: Si si istý?
+    australia: Austrália
+    belgium: Belgicko
+    by_author: 'autor: %{author}'
+    canada: Kanada
+    chile: Čile
+    common_name: Spoločný názov
+    data: údaje
+    delete: Zmazať
+    description: Popis
+    details: podrobnosti
+    donate: Darovať
+    download: Ku Stiahnutie
+    edible_type: Jedlý typ
+    edit: Edit
+    email: Email
+    embed: vložiť
+    error: Error
+    favorites: Obľúbené
+    fiji: Fiji
+    filter: filter
+    finland: Fínsko
+    france: Francúzsko
+    germany: Nemecko
+    global: Globálne
+    greece: Grécko
+    home: Domov
+    imported: Importované
+    imported_datasets: Importované súbory údajov
+    imports: Dovoz
+    info: Info
+    invasive: Invázne
+    ireland: Írsko
+    italy: Taliansko
+    labels: Etikety
+    links:
+      one: Link
+      other: Odkazy
+    locations:
+      one: umiestnenie
+      other: miesta
+    login: Prihlasovacie Údaje
+    logout: Odhlásiť sa
+    map: mapa
+    miles: míľ
+    name: Názov
+    new_zealand: Nový Zéland
+    options: Možnosti
+    password: Heslo
+    pending_types: Nespracované typy
+    photo: Fotografie
+    portugal: Portugalsko
+    position: pozície
+    problems: Problémy
+    public: Verejné
+    quality: Kvalita
+    report: Report
+    report_a_problem: Nahlásiť problém
+    reviews:
+      one: Preskúmanie
+      other: recenzia
+    routes: Trasy
+    save_changes: Uložiť zmeny
+    scientific_name: Vedecké meno
+    season: Sezóna
+    send: Odoslať
+    show: Show
+    sign_up: Prihlásiť Se
+    spain: španielsko
+    street_view: pohľad z ulice
+    submit: Predložiť
+    sweden: Švédsko
+    switzerland: Švajčiarsko
+    tree_inventory:
+      one: Inventár stromov
+      other: Súpisy stromov
+    types: druhy
+    type_and_press_enter: Zadajte text a stlačte kláves Enter
+    united_kingdom: Spojené kráľovstvo
+    united_states: Spojené štáty
+    unknown: Nevedno
+    unverified: Neoverené
+    updated: aktualizované
+    user: Užívateľ
+    users: Užívatelia
+    world: Svet
+    yield: Výťažok
+    zoom: Zväčšiť
+    zoom_to_address: Priblížiť na adresu
+    zoom_to_me: Priblížiť ma
+    zoom_to_this_location: Priblížiť na toto miesto
+  layouts:
+    application:
+      feed_people_not_landfills: Nakŕmte ľudí, nie skládky!
+      mapping_the_urban_harvest: Zmapujte mestskú úrodu!
+      menu:
+        approved_types: Schválené typy
+        in_the_press: V tlači
+        list_imports: Zoznam dovozov
+        new_import: Nový import
+        new_type: Nový typ
+        sharing_the_harvest: Zdieľanie úrody
+        the_project: Projekt
+      or_right-click_on_map: alebo kliknite pravým tlačidlom myši na mapu
+      pending_types_help: Presadzujeme taxonómiu jedlých typov, aby bola mapa prehľadná
+        a prehľadná. Nové typy odoslané používateľmi sú na mape zvýraznené ako nespracované,
+        kým nebudú pridané do taxonómie alebo zlúčené s existujúcim typom. Niektoré
+        navrhované typy sú také jedinečné alebo nejednoznačné, že pretrvávajú ako
+        neschválené neurčito.
+      unverified_help: Miesta sú označené ako neoverené, ak je spochybnená ich poloha,
+        identita alebo existencia. Mnoho lokalít importovaných zo zásob stromov je
+        označených ako neoverené, pretože ich jedlosť je neistá (napríklad „Hruška“
+        môže byť jedlá alebo dekoratívna odroda). Používateľom sa odporúča, aby do
+        týchto miest vycestovali a informovali o svojich zisteniach.
+      unverified_help_title: Prečo neoverené?
+  locations:
+    form:
+      access_subtext: Stav prístupu k zdroju. Ak ' neviete, nechajte ' prázdne.
+      address_subtext: možno použiť na umiestnenie značky. Pred odoslaním ho upravte
+        podľa potreby.
+      author_subtext: Zobrazené na mape. Ak chcete zostať v anonymite, nechajte pole
+        prázdne.
+      comments: Komentáre
+      comments_subtext: Aktualizácie, problémy s prístupom, zdravie rastlín ...
+      create_another: Vytvorte ďalší
+      date_visited: Dátum návštevy
+      description_subtext: Podrobnosti o mieste, problémy s prístupom, zdravie rastlín
+        ...
+      form_error: Uloženie tohto zdroja zabránila chyba
+      form_intro_html: Upravte umiestnenie nižšie alebo <a href="/observations/new?location_id=%{location_id}&locale=en"
+        data-ajax="false" rel="external" title="Skontrolujte toto miesto">použite
+        tento formulár</a> na kontrolu, komentovanie a uverejňovanie fotografií.
+      fruiting_status: Stav plodenia
+      fruiting_subtext: Čo robí ovocie teraz? (ak existuje)
+      have_you: Navštívili ste toto miesto?
+      move_marker: Presuňte značku na súradnice
+      move_marker_address: Presunúť značku na adresu
+      name_subtext: Ak chcete zostať v anonymite, nechajte pole prázdne.
+      no_season: Bez sezóny
+      or: alebo
+      original_author: Pôvodný autor
+      photo_caption: Foto titulok
+      photo_subtext: Uverejnite fotografiu zdroja. Ak to nie je Tvoje, uistite sa,
+        že máte povolenie a ' v titulku fotografa.
+      position_subtext: Určené na základe vašej aktuálnej polohy (ak je k dispozícii)
+        alebo značky, ktorú ste umiestnili. Upravte posunutím značky na mape.
+      quality_subtext: Ohodnoťte kvalitu zdroja (ak existuje)
+      season_subtext: Kedy je možné zdroj vyťažiť? Ak ' neviete, nechajte ' prázdne.
+      types_subtext: Vyberte si z rozbaľovacieho zoznamu a nové typy odošlite iba
+        v prípade, že príslušné možnosti ešte neexistujú.
+      unverified_subtext: Ak pochybujete o existencii, umiestnení alebo identite tohto
+        zdroja.
+      verify: overiť
+      verify_subtext: Toto miesto je momentálne označené ako „Neoverené“
+      yield_subtext: Ohodnoťte produktivitu zdroja (ak existuje)
+      your_name: Tvoje meno
+    index:
+      addmarker_html: |-
+        Sem pridajte zdroj
+        <span class="subtext">Môžeš pohnúť aj mnou</span>
+      editmarker_html: |-
+        <b>Presuňte sa do polohy zdroja.</b>
+
+        Skontrolujte satelitné zobrazenie - zdroj môže byť viditeľný z vesmíru!
+      freegan_modal_html: Okrem nášho úsilia o mapovanie <a href="/?locale=en">jedlých
+        rastlín</a> rastúcich v mestách, ' sme sa ' do mapovania ' potravín. Takmer
+        polovica všetkých potravín vyrobených v rozvinutom svete sa nikdy nekonzumuje.
+        ' dúfame, že zvýšime povedomie o plytvaní potravinami, uľahčíme oslobodenie
+        vyhodených potravín a podporíme podniky, aby <a href="/sharing?locale=en">darovali
+        svoje potraviny</a> namiesto toho.<br/><br/> Na podporu životného štýlu s
+        nízkym obsahom odpadu podporujeme mapovanie všetkých freeganských zdrojov
+        (od kontajnerov po bezplatné krabice) s vyradeným, ale užitočným tovarom,
+        jedlým alebo iným spôsobom.
+      freegan_modal_title: Vitajte na našej freeganskej mape!
+      grafter_modal_html: Guerrilla Grafters naštepujú ovocné konáre na okrasné odrody
+        ovocných stromov, ktoré neplodia (napríklad mestá často používajú pre svoje
+        farebné jarné kvety sterilné ovocné stromy). Vďaka týmto štepom sa časom do
+        susedov dostane lahodné a výživné ovocie. Viac informácií o projekte sa dozviete
+        na stránke <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>
+        Táto mapa zobrazuje niektoré z najbežnejších okrasných ovocných stromov. Ak
+        ste vrtuľník, záhradník alebo nadšenec ovocných stromov, prispejte do informačnej
+        spoločnosti a označte stromy vo vašom dvore alebo susedstve, ktoré môžu byť
+        zaštepené ovocnými konármi!
+      grafter_modal_title: Vitajte na našej mape vrtuľníkov!
+      mobile_modal_html: |-
+        Ahoj! Zdá sa, že ' znova pristupujete k Falling Fruit z <strong>mobilného zariadenia</strong> . Nedávno sme vydali skupinovú mobilnú aplikáciu pre mobilné platformy Android aj iOS. Myslím si, že ' ll nájsť ' s oveľa príjemnejšie na použitie v mobilnom zariadení:
+
+
+
+        <ul>
+        <li> <a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit pre iOS</a>
+        <li> <a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit pre Android</a>
+        </ul>
+
+
+        100% výnosov z predaja aplikácií smeruje na podporu našich vysokých nákladov (servery a infraštruktúra, aby bol web online). ' sme nezisková organizácia podľa 501 (c) 3, takže tieto náklady sú odpočítateľné z daní aj v USA.
+      mobile_modal_title: Počkajte však, existuje ' mobilná aplikácia!
+      stamen_html: Dlaždice mapy od <a href="http://stamen.com">Stamen Design</a>
+        , pod <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> . Údaje
+        podľa <a href="http://openstreetmap.org">OpenStreetMap</a> pod <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+        BY-SA</a> .
+      turn_off_dragzoom: Vypnite režim priblíženia a oddialenia
+      turn_on_dragzoom: Zapnite režim priblíženia a oddialenia
+      welcome_modal_html: |-
+        Falling Fruit je rozsiahla spoločná mapa mestskej úrody. Spojením úsilia poľnohospodárov, lesných robotníkov a lesníkov všade na mape už mapa ukazuje na viac ako pol milióna zdrojov potravy po celom svete (od rastlín a húb po vodné studne a skládky). Naša rýchlo rastúca komunita používateľov aktívne skúma, upravuje a pridáva na mapu.<br/><br/> Pripojte sa k nám pri oslave prehliadanej hojnosti ulíc našich miest! Web používajte anonymne alebo sa <a href="/users/sign_up?locale=en">prihláste</a> a získate prístup k ďalším funkciám.
+        <br/><br/>
+        <em>Falling Fruit nie je spájaný s Fallen Fruit. Fallen Fruit nájdete na <a href="http://fallenfruit.org">fallenfruit.org</a> .</em>
+      welcome_modal_title: Vitajte v hre Falling Fruit!
+    infowindow:
+      access:
+      - Tento zdroj pridal vlastník.
+      - Tento zdroj bol pridaný so súhlasom vlastníka.
+      - Tento zdroj je na verejnom pozemku.
+      - Tento zdroj je súkromný, ale môže presahovať verejné pozemky. Vyberajte s
+        rozvahou.
+      - Tento zdroj je súkromný. Pred výberom si vyžiadajte povolenie.
+      access_mode:
+      - Zdroj je na mojom pozemku
+      - Mám povolenie od vlastníka pridať zdroj
+      - Zdroj je na verejnom pozemku
+      - Zdroj je na súkromnom majetku, ale prevyšuje verejné pozemky
+      - Zdroj je na súkromnom majetku (opýtajte sa predtým, ako vyberiete)
+      access_short:
+      - Pridané vlastníkom
+      - Povolené vlastníkom
+      - Verejné
+      - Súkromné, ale previsnuté
+      - Súkromné
+      add_to_remove_from: Pridať do / odstrániť z
+      citation_to_the_original_source: Citácia pôvodného zdroja údajov
+      delete_comment: Odstrániť komentár
+      delete_photo: Odstrániť fotografie
+      delete_this_location: Odstrániť toto miesto
+      edit_this_location: Upravte toto umiestnenie
+      fruiting:
+      - Kvetiny
+      - Nezrelé ovocie
+      - Zrelé ovocie
+      have_you_visited_html: Navštívili ste tento zdroj? Pridajte <a href="/observations/new?location_id=%{id}&locale=en"
+        data-ajax="false" rel="external" title="Skontrolujte tento zdroj" id="add_review">recenziu</a>
+      january_to_december: Január - december
+      new_route: Nová trasa
+      rating:
+      - Chudobný
+      - Fér
+      - Dobre
+      - Veľmi dobre
+      - Výborne
+      review_this_location: Skontrolujte toto miesto
+      see_this_location_in_streetview: Toto miesto nájdete v zobrazení ulíc
+      source: zdroj
+      toggle_route_controls: Prepnúť ovládacie prvky trasy
+      unsure: Neviem
+      unsure_other: Neviem / iné
+      url_for_this_location: URL tohto umiestnenia
+    messages:
+      created: Miesto bolo pridané
+      geocode_failed: Vaše hľadanie zlyhalo
+      latitude_too_large: Nepodporujeme zemepisné šírky väčšie ako ± 85 stupňov.
+      not_created: Polohu sa nepodarilo pridať
+      not_updated: Polohu sa nepodarilo aktualizovať
+      updated: Poloha bola aktualizovaná
+    searchbar:
+      embed_hover: Vložte kód
+      invasive_modal: Invázne rastliny sú nepôvodné rastliny v danom regióne, ktoré
+        prekonávajú pôvodné rastliny. Zvýrazňujeme invázne rastliny na Padajúcom ovocí,
+        aby ste ich mohli vyhľadať a zjesť ich, pričom invázii bránite jedným chutným
+        sústom! Invázne druhy sú v súčasnosti uvedené iba pre USA a na základe zoznamov
+        škodlivých a invazívnych druhov na úrovni ministerstva poľnohospodárstva USA.
+      invasive_modal_title: Čo je to invázny druh?
+      link_hover: URL aktuálnej mapy
+      tree_inventories_modal: Inventáre stromov zostavujú inštitúcie, ktoré sa snažia
+        lepšie dokumentovať a starať sa o svoje stromy. Tieto údaje zvyčajne zhromažďujú
+        vyškolení arboristi a sú podrobné a vyčerpávajúce. Z týchto inventárov starostlivo
+        vyberáme jedlé druhy a pridávame ich pre vás na mapu. Pomôžte nám zmapovať
+        vaše okolie tým, že sa opýtate svojho mesta (alebo univerzity, kantónu atď.),
+        Či existuje inventár stromov a či je možné ho zdieľať v službe Falling Fruit.
+      tree_inventories_modal_title: Čo je to inventár stromov?
+    sidebar:
+      changed_within_html: Zmeny vo vašom <a href="/users/edit?locale=en">rozsahu
+        hľadania potravy</a>
+      click_here_to_manage_your_routes_html: Kliknutím <a href="%{routes_path}">sem</a>
+        môžete spravovať svoje trasy.
+      in: v
+      locations_added_or_reviewed_by_you_while_logged_in: Miesta, ktoré ste pridali
+        alebo skontrolovali (keď ste prihlásení)
+      you_havent_added_or_reviewed_anything_while_logged_in: "' ste ' nepridali ani
+        neskontrolovali žiadne zdroje (keď ste prihlásení)"
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: "'
+        ste ' nedefinovali žiadne trasy. Kliknite na miesto a potom na „trasy“, aby
+        ste ho začali vytvárať."
+      you_havent_defined_html: ''' nedefinovali rozsah hľadania potravy. <a href="/users/edit?locale=en">Kliknite
+        sem</a> a urobte to teraz'
+  meta:
+    forager_description: Obrovská mapa mestskej úrody, ktorá spája úsilie sekačov,
+      lesných hospodárov a lesníkov po celom svete. Preskúmajte a zdieľajte informácie
+      o zdrojoch bezplatného jedla vo vašom okolí.
+    freegan_description: Mapovaním sveta ' potravín ' dúfame, že zvýšime povedomie
+      o plytvaní potravinami, uľahčíme oslobodenie vyradených potravín a podporíme
+      podniky, aby dané potraviny darovali.
+    freegan_title: Mapa skládky sveta
+  observations:
+    created: Vaša recenzia bola pridaná
+    empty: Recenzie nemôžu byť prázdne
+  pages:
+    about:
+      about_the_site: O projekte
+      advisors: Rada poradcov
+      alan_gibson_bio_html: 'Alana vždy bavili dobrodružstvá a spoznávanie. Začal
+        sa zháňať ako spôsob, ako predstaviť svojim malým deťom životný štýl v prírode.
+        Píše blog <a href="http://theurbaneforager.blogspot.com">Urbane Forager</a>
+        a vydal knihu <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit and Nuts For Free</a> . Legitimizoval hľadanie potravy vo verejných
+        parkoch a vo svojom domovskom meste Southampton UK založil komunitný sad.'
+      ana_carolina_bio_html: Ana je postdoktorandkou na Federálnej univerzite v Pará
+        v Brazílii. Je antropologičkou, ktorá sa zaujíma o pochopenie sociálnych a
+        kultúrnych stravovacích návykov. Ana pracovala väčšinou v brazílskom Amazone.
+        V Acre (západná časť Amazónie) študovala regionálnu spotrebu ovocia. Potom
+        pracovala v regióne Middle Solimões a skúmala zmenu stravovania v odľahlých
+        komunitách. Medzi rokmi 2017 a 2018 žila Ana v malých a stredných mestách
+        delty Amazonky, kde sledovala dopady zmeny podnebia na potravinovú bezpečnosť
+        ľudí žijúcich v neformálnych osadách. Nedávno sa presťahovala do južného Nového
+        Mexika v USA, kde pracuje ako konzultantka.
+      caleb_phillips_bio_html: Caleb je bezohľadný bipedálny humanoid vášnivý pre
+        potravinovú spravodlivosť a hľadanie kreatívnych spôsobov, ako využiť technológiu
+        na riešenie sociálnych problémov. Keď ' nechodí na bicykli a nečúva sa na
+        stromy, vyváži svoje úsilie medzi dennou prácou dátového vedca v <a href="https://www.nrel.gov/research/caleb-phillips.html">Národnom
+        laboratóriu pre obnoviteľnú energiu</a> v Golden v Colorade a ako mimoriadny
+        profesor počítačovej vedy na <a href="https://www.colorado.edu/cs/caleb-phillips">Coloradskej
+        univerzite</a> . Popri tom všetkom, čo má rád, rád lezie po skalách, behá
+        po chodníkoch, bicykluje a celkovo je čo najviac vonku. Caleb vytvoril spoločnosť
+        Falling Fruit s Ethanom Weltym v roku 2013 a predtým, ako sa stal členom poradnej
+        rady, pôsobil 6 rokov v predstavenstve.
+      celebration: Padajúce ovocie je oslavou prehliadnutej kulinárskej štedrosti
+        ulíc našich miest. Vyčíslením tohto zdroja na interaktívnej mape dúfame, že
+        uľahčíme dôverné spojenie medzi ľuďmi, jedlom a prírodnými organizmami rastúcimi
+        v našich štvrtiach. Nielen obed zadarmo! Hľadanie potravy v 21. storočí je
+        príležitosťou pre mestský prieskum, na boj proti metle zafarbených chodníkov
+        a na opätovné spojenie s botanickým pôvodom potravy.
+      closing_remarks: Záverečné poznámky
+      closing_remarks_para1_html: Falling Fruit je 501 (c) (3) (bez dane) verejná
+        charitatívna organizácia so sídlom v Boulderi v štáte Colorado. Vďaka tomu
+        sú dary v USA odpočítateľné z daní. Môžete si prečítať náš <a href="/501c3.pdf">list
+        o výnimke</a> z IRS a overiť naše postavenie v <a href="http://apps.irs.gov/app/eos/pub78Search.do?">publikácii
+        IRS 78</a> alebo v <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">štáte
+        Colorado</a> . K dispozícii sú aj naše <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">stanovy</a>
+        a <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">zápisnice
+        zo</a> zasadnutí predstavenstva.
+      closing_remarks_para2_html: Zber potravy v mestskom prostredí prichádza s určitými
+        praktickými a morálnymi úvahami. Na úvod do etiky mestského zháňania potravy
+        odporúčame nasledujúce <a href="https://docs.google.com/document/d/1SupIGQKC5Vgi3VYkdIQc05y_S7jSoZ4RTS-CzwlEAMY">zhrnutie</a>
+        .
+      closing_remarks_para3_html: Informácie o padajúcom ovocí môžu byť nesprávne
+        alebo neaktuálne. Napríklad mnoho máp určených na hľadanie potravy migrovaných
+        do programu Falling Fruit bolo hostených ako verejné Mapy Google, na ktoré
+        sa často náhodne presunuli značky, a inventáre mestských stromov sa aktualizujú
+        iba (ak vôbec), pretože stromy sa navštevujú kvôli údržbe. Buďte pripravení
+        na to, že v teréne narazíte na nepresnosti, a podľa svojich nálezov upravte
+        mapu podľa potreby. Nakoniec je vašou zodpovednosťou určiť identitu, poživateľnosť
+        a umiestnenie závodu a zodpovednosťou všetkých za zlepšenie kvality mapy.
+      contact_us_html: Falling Fruit je zostavený pre sekačky - chceme, aby bol najlepším
+        dostupným nástrojom pre súčasného sekačku. Napíšte nám na <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>
+        , radi by sme vás počuli!
+      craig_durkin_bio_html: Craig je spoluzakladateľom organizácie <a href="http://www.concrete-jungle.org/">Concrete
+        Jungle</a> , organizácie v Atlante v štáte Georgia, ktorá v celom meste pestuje
+        potraviny a zbiera ovocie na darovanie miestnym útulkom pre bezdomovcov a
+        potravinovým bankám. Ako absolvent spoločnosti <a href="http://www.gatech.edu/">Georgia
+        Tech</a> ' hľadá spôsoby, ako skombinovať zber ovocia s novými technológiami,
+        a čoskoro použije svoj dron na pozorovanie ovocných stromov a tweeting senzora
+        zrelosti ovocia ...
+      cristina_rubke_bio_html: Cristina je advokátkou v spoločnosti <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis
+        Friese LLP</a> v San Franciscu v Kalifornii, kde sa zameriava na trestné stíhanie
+        ochranných známok a poradenstvo. Je tiež členkou predstavenstva <a href="//www.sfmta.com/">Mestskej
+        dopravnej agentúry</a> v <a href="//www.sfmta.com/">San Franciscu</a> , ktorá
+        dohliada na verejnú dopravu, dopravu a parkovanie v San Franciscu. Vo svojom
+        voľnom čase sa Cristina plaví po zálive San Francisco Bay s <a href="//www.baads.org/">Asociáciou
+        zdravotných postihnutých námorníkov</a> v <a href="//www.baads.org/">Bay Area</a>
+        a súťaží v miestnych a medzinárodných regatách.
+      david_craft_bio_html: 'David je výskumný pracovník na oddelení radiačnej onkológie
+        na <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvardskej
+        lekárskej fakulte</a> v Bostone v štáte Massachusetts. Je tiež vášnivým hľadačom
+        a autorom knihy <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
+        Foraging: Finding and Eating Wild Plants in the City</a> ( <a href="/docs/David
+        Craft - Urban Foraging.pdf">bezplatné stiahnutie</a> ).'
+      directors: Predstavenstvo
+      emily_sigman_bio_html: Emily je tvrdá evanjelistka v agrolesníctve, nenapraviteľná
+        zháňačka a hrdá matka dvoch mačiek, štyroch prepelíc a ' psa na svete ' .
+        Jej korene siahajú hlboko do Skalistých hôr, ale v súčasnosti sa jej nadzemná
+        biomasa hrdo nazýva New Haven v štáte Connecticut. Často ju možno nájsť v
+        starostlivosti o verejné potravinové lesy, čítaní zachytených v útulnom knižničnom
+        kúte alebo v poetickom rozprávaní o mágii mycélia (a údajne aj o absolvovaní
+        spoločných diplomov na Yale <a href="https://environment.yale.edu/">School
+        of Forestry</a> and <a href="https://jackson.yale.edu/person/emily-sigman/">School
+        of Global Affairs</a> ). Emily má zničujúcu závislosť na cestovaní a momentálne
+        môže byť takmer kdekoľvek.
+      ethan_welty_bio_html: Vďaka technológiám a údajom Ethan podporuje mestá ako
+        zdroje čerstvého a bezplatného jedla. V roku 2013 vytvoril Falling Fruit s
+        Calebom Phillipsom na podporu mestského zháňania potravy. V roku 2014 spoluzaložil
+        <a href="https://fruitrescue.org">Community Fruit Rescue</a> na zber a distribúciu
+        prebytočného ovocia, ktoré okolo neho rastie, v Boulderi v štáte Colorado.
+        Okrem ovocia žongluje s <a href="https://www.weltyphotography.com">fotografickou
+        kariérou</a> , <a href="https://instaar.colorado.edu/people/ethan-welty/">výskumom
+        ľadovcov</a> a chuťou po horských a riečnych aktivitách.
+      ff_disclaimer_html: Falling Fruit nie je spájaný s Fallen Fruit. Fallen Fruit
+        nájdete na <a href="http://fallenfruit.org">fallenfruit.org</a> .
+      give_gratipay: Plaťte cez Gratipay
+      give_paypal: Prispejte prostredníctvom Paypal Giving Fund
+      give_us_money: Sme nezisková organizácia vo výške 501 (c) (3) a pri jej fungovaní
+        sa spoliehame na dary. Ak ste ochotní a schopní, zvážte poskytnutie finančného
+        príspevku. Dary v rámci USA sú odpočítateľné od dane.
+      jeff_wanner_bio_html: Od zberu čiernej a čučoriedok, ktorý mal so svojou rodinou
+        v detstve, a v poslednej dobe si všimol bohatstvo verejných ovocných stromov
+        v celom Colorade, si Jeff hlboko vážil množstvo ovocinárstva v našich mestách.
+        Jeho prvou misiou pre Falling Fruit bolo česať Boulder a Salt Lake City, v
+        ruke papierové mapy, zaznamenávať plodiace stromy. Ak nepracuje na zlepšení
+        energetickej efektívnosti budovy, zvyčajne pomáha v komunite alebo sa rýchlo
+        pohybuje po horách pešo, na lyžiach alebo na bicykli.
+      join_us_html: Pripojte sa k nám pri oslavovaní hyper-lokálneho jedla! <a href="/?locale=en">Mapa</a>
+        je otvorená na úpravy pre každého, databázu je možné <a href="/data?locale=en">stiahnuť</a>
+        jediným kliknutím a <a href="https://github.com/falling-fruit/">kód</a> je
+        otvorený. Rovnako sa vám odporúča, aby ste sa o odmenu delili so svojimi blížnymi.
+        Na našej <a href="/sharing?locale=en">stránke zdieľania sú</a> uvedené stovky
+        miestnych organizácií - výsadba verejných ovocných sadov a potravinových lesov,
+        zbieranie inak vyhodeného ovocia a zeleniny z mestských stromov a polí ' poľnohospodárov
+        a zdieľanie so susedmi a chudobnými.
+      more_about_html: Naša jedlá mapa nie je prvá svojho druhu, ale snaží sa byť
+        ' na svete ' . Zatiaľ čo naši používatelia prispievajú svojimi vlastnými miestami,
+        my česáme internet pre už existujúce znalosti a snažíme sa zjednotiť úsilie
+        poľnohospodárov, lesníkov a poľnohospodárov na celom svete. <a href="/datasets?locale=en">Importované
+        datové sady</a> siahajú od malých susedských zháňacích máp až po rozsiahle
+        profesionálne zostavené inventáre stromov. To zatiaľ predstavuje %{types}
+        rôznych druhov poživatín (väčšina, ale nie všetky druhy rastlín) distribuovaných
+        na %{locations} umiestnení. Okrem kultivovaného a bežného spôsobu exotických
+        chutí cudzích rastlín a dávno zabudnutých pôvodných rastlín je hľadanie potravy
+        vo vašom okolí cestou v čase a naprieč kultúrami.
+      staff: Zamestnanci
+      translate: Preložiť
+      translate_for_us_html: Máte záujem o dobrovoľníctvo ako prekladateľ? Napíšte
+        nám a my ' ll pozývajú k nám pripojili na <a href="https://phrase.com">frázy</a>
+        , kde sú riadené naše preklady.
+      translators: Prekladatelia
+      tristram_stuart_bio_html: 'Ako tínedžer choval Tristram ošípané na prebytočnom
+        jedle, ktoré zbieral od svojich školských kuchýň, miestneho pekára a dedinského
+        zelinára. Keď si všimol, že veľa z týchto potravín je stále vhodných na ľudskú
+        konzumáciu, priviedlo ho to k poznaniu, že sa v kolosálnom meradle plytvá
+        dobrým, čerstvým jedlom. Spoločnosť Tristram odvtedy neúnavne pracovala na
+        tom, aby na túto otázku upozornila verejnosť, médiá a tvorcov politík. Založil
+        organizáciu kampane zameranú na potravinový odpad <a href="//feedbackglobal.org">Feedback
+        Global</a> a napísal <a href="//tristramstuart.co.uk/">Waste: Uncovering the
+        Global Food Scandal,</a> aby demonštroval rozsah problému v globálnom meradle.
+        V roku 2011 získal Tristram cenu <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">Sophie
+        za</a> boj proti plytvaniu potravinami.'
+      write: Napíš
+    data:
+      beware_html: Ale pozor! Po nekomprimovaní je databáza obrovským súborom, ktorý
+        rozdrví väčšinu tabuľkového softvéru. Ak potrebujete údaje iba pre malý región,
+        najskôr ich skúste načítať pomocou nástroja na stiahnutie integrovaného do
+        <a href="/?locale=en">mapy</a> .
+      caveat_emptor_html: Nenesieme žiadnu zodpovednosť za presnosť údajov - poskytujú
+        sa tak, ako sú, <i>výhrada emptor</i> . Ak s údajmi urobíte niečo super, <a
+        href="mailto:feedback@fallingfruit.org">dajte nám vedieť</a> !
+      data_unavailable_html: Údaje momentálne nie sú k dispozícii. Vráťte sa neskôr
+        alebo <a href="mailto:info@fallingfruit.org">nás kontaktujte</a> .
+      intro: Falling Fruit je postavený na verejných dátach a štedrosti našich používateľov.
+        Chceme, aby sa zháňanie potravy v mestách dostalo k čo najväčšiemu počtu ľudí
+        a sme presvedčení, že každý by mal mať rovnaký prístup k plodom našej kolektívnej
+        práce. V duchu otvorenosti, hľa! Celá databáza
+      license_html: Ak máte záujem o použitie údajov vo svojom projekte, najmä komerčnom
+        projekte, odporúčame vám kontaktovať nás ( <a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>
+        ). Pokiaľ nie je uvedené inak, dáta sú licencované ako <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons - uvedenie zdroja, nekomerčné, zdieľané). To
+        znamená, že môžete slobodne používať a distribuovať údaje, pokiaľ si zachováte
+        pôvodné zdroje autora / zdroja a nepoužívate ich (bez povolenia) na komerčné
+        aplikácie. Zdrojový kód pre Falling Fruit je tiež otvorený a je k dispozícii
+        na <a href="https://github.com/falling-fruit/">GitHub</a> .
+      summary_description: Databáza v súčasnosti obsahuje %{types} rôznych druhov
+        poživatín (väčšina, ale nie všetky, sú druhy rastlín) distribuovaných na %{locations}
+        umiestnení. V nasledujúcej tabuľke pre každý typ uvádzame bežné názvy, vedecké
+        názvy, odkazy na externé referencie a celkový počet.
+      summary_of_sources: Zhrnutie zdrojov
+    datasets:
+      community_map: Mapa komunity
+      date_imported: Dátum importu
+      google_fusion_table: Fúzna tabuľka Google
+      google_map: Google Map
+      google_maps_engine: Google Maps Engine
+      intro_html: Falling Fruit sa usiluje byť najkomplexnejším a najotvorenejším
+        geografickým súborom údajov o mestských poživatinách. Zatiaľ čo naši používatelia
+        skúmajú, upravujú a pridávajú polohy pomocou nášho servera <a href="/?locale=en">Mapa</a>
+        , prečesávame známy vesmír pre už existujúce súbory údajov a importujeme ich
+        priamo do <a href="/data?locale=en">databázy</a> , čím sa zjednocuje úsilie
+        poľnohospodárov, lesníkov a pracovníkov v slobodnom povolaní všade. Ak viete
+        o množine údajov, ktorá nám ' chýbala, <a href="mailto:info@fallingfruit.org">dajte
+        nám vedieť</a> ! Môžete nám tiež pomôcť s procesom importu formátovaním údajov
+        pomocou <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">šablóny
+        importu</a> . Pretože importy sa musia vykonať manuálne, všetky zmeny pôvodných
+        údajov vykonané po importe sa na Falling Fruit neprejavia.
+      no_license: Nie je zadaná žiadna licencia, predpokladajme <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons - uvedenie autora, nekomerčný, podobný).
+      table_info: Každá množina údajov je uvedená podľa názvu, počtu umiestnení a
+        dátumu importu. Rozbalením každého riadku sa zobrazia ďalšie podrobnosti o
+        údajoch, procese importu a licencii upravujúcej spôsob použitia údajov.
+      type: Typ
+      types_of_data: Datové sady importované do programu Falling Fruit spadajú do
+        dvoch hlavných kategórií. „Komunitné mapy“ stavajú zberatelia a freegani,
+        keď obzerajú svoje komunity po jedle. Vďačíme pracovitým občanom-kartografom,
+        ktorí tieto údaje zhromaždili. „Súpisy stromov“ zostavujú mestá, univerzity
+        a ďalšie inštitúcie, ktoré chcú lepšie dokumentovať svoje stromy a starať
+        sa o ne. Ťažíme tieto obrovské súbory údajov o druhoch určených na výrobu
+        potravín a pridávame ich na mapu. Ak nám chcete pomôcť zmapovať ovocné stromy
+        vo vašom okolí, obráťte sa na svoju školu alebo mesto a požiadajte ich, aby
+        sa s nami podelili o svoj inventár stromov.
+    sharing:
+      ample_harvest: Americké potravinové banky, ktoré prijímajú dary z produkcie
+      food_banks: Potravinové banky
+      food_banks_canada: Potravinové banky v Kanade
+      food_banks_intro: Prípravcovia a súkromní vlastníci stromov sa vyzývajú, aby
+        venovali svoje nadbytočné produkty na charitu. Zvážte partnerstvo so skupinami,
+        ako sú tie, ktoré sú uvedené vyššie, alebo darovanie priamo organizáciám,
+        ktoré kŕmia hladných vo vašej komunite. Hlavné siete potravinových bánk sú
+        uvedené nižšie; za zváženie stoja aj útulky pre bezdomovcov, školy a centrá
+        pre seniorov.
+      global_foodbanking_network: Siete potravinových bánk po celom svete
+      grow_pick_and_distribute: Rast · Vyberte · Distribuujte
+      intro_html: Nižšie sú uvedené organizácie, ktoré pestujú jedlo na verejných
+        priestranstvách (potravinové lesy, verejné sady), zbierajú jedlo (hľadanie
+        potravy v mestách, zber fariem) alebo distribuujú potraviny (výmeny, dary).
+        Organizácie sú uvedené podľa krajín, štátov (ak sú relevantné) a miest. Ľudia
+        s preškrtnutými menami sú považovaní za neaktívnych. Ak viete o ďalších, ktorí
+        by mali byť na tomto zozname, <a href="mailto:info@fallingfruit.org">kontaktujte
+        nás</a> !
+  problems:
+    created: Ďakujeme za nahlásenie problému!
+    description_subtext: Akékoľvek informácie, ktoré by nám mohli pomôcť vyhodnotiť
+      problém
+    problem_type: Typ problému
+    your_contact_info: Vaše kontaktné údaje
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Momentálne nemôžeme overiť reCAPTCHA
+      verification_failed: Overenie reCAPTCHA zlyhalo
+  routes:
+    denied: Na prezeranie tejto trasy nemáte povolenie
+    modes_of_travel:
+    - Chôdza
+    - Bicyklovanie
+    - Vedenie vozidla
+    mode_of_travel: Spôsob cestovania
+    order_not_updated: Objednávku sa nepodarilo aktualizovať
+    order_updated: Objednávka bola aktualizovaná
+    updated: Trasa bola aktualizovaná
+  time:
+    days:
+      one: "%{count} deň"
+      other: "%{count} dní"
+    last_24_hours: Posledných 24 hodín
+    months:
+      one: "%{count} mesiac"
+      other: "%{count} mesiacov"
+    this_month: Tento mesiac
+    this_week: Tento týždeň
+    time_ago: "%{time}"
+  users:
+    address_subtext: Stred vášho rozsahu hľadania potravy (napríklad vaša domáca adresa)
+    bio: O tebe
+    change_password: Zmeniť moje heslo
+    clear_map: Vymazať mapu
+    confirm_account: Potvrdiť môj účet
+    current_password: Aktuálne heslo
+    current_password_subtext: Je potrebné vykonať zmeny vo vašom účte
+    delete_account: Zrušiť môj účet
+    edit_account: Upraviť účet
+    foraging_map_subtext: Pomocou nástroja mnohouholník alebo obdĺžnik na mape nižšie
+      definujte svoj rozsah hľadania potravy. Ak používate nástroj mnohouholník, nezabudnite
+      zatvoriť mnohouholník spojením posledného bodu s prvým.
+    foraging_radius: Polomer
+    foraging_radius_subtext: Polomer kruhového rozsahu hľadania potravy sústredený
+      na vyššie uvedenú adresu
+    foraging_range: Rozsah hľadania potravy
+    forgot_password: Obnoviť heslo
+    mailer:
+      confirmation_instructions_html: |-
+        <p>Vitajte v Falling Fruit,</p>
+        <p> Ak chcete aktivovať svoj účet, musíte potvrdiť svoj e-mail ( %{email} ) kliknutím na nasledujúci odkaz:
+        <br/> %{link}</p>
+        <p> Falling Fruit je založený na jeho používateľoch, takže ak máte možnosť ho pridať alebo vylepšiť, urobte tak. Šťastné hľadanie potravy!</p>
+      reset_password_instructions_html: |-
+        <p>Dobrý deň, %{email} ,</p>
+        <p> Niekto (s najväčšou pravdepodobnosťou vy) požiadal o odkaz na zmenu hesla:
+        <br /> %{link}</p><span class="notranslate">
+        </span><p> Ak ste o to ' nepožiadali, môžete tento e-mail ignorovať. Vaše heslo sa ' t nezmení, pokiaľ nenavštívite odkaz vyššie a nevytvoríte nové.</p>
+      unlock_instructions_html: |-
+        <p>Dobrý deň, %{email} ,</p>
+        <p> Váš účet bol uzamknutý z dôvodu nadmerného množstva neúspešných pokusov o prihlásenie:
+        <br /> %{link}</p>
+    new_password: Nové heslo
+    options:
+      add_anonymously: Upravujte mapu anonymne (aj keď ste prihlásený)
+      announcements_email: Dostávať e-maily s dôležitými oznámeniami a príležitosťami
+        (1–2 ročne)
+      range_updates_email: Dostávajte týždenne e-mailom správy o nedávnej aktivite
+        vo vašom rozsahu hľadania potravy (definované nižšie)
+    range_by_map: Nakreslite na mapu
+    range_by_radius: Adresa a okruh
+    remember_me: Pamätáš si ma
+    resend_confirmation_instructions: Znova odošlite pokyny s potvrdením
+    resend_unlock_instructions: Znova odošlite pokyny na odomknutie
+    send_password_instructions: Pošlite pokyny na obnovenie hesla
+    sign_in: Prihlásiť sa
+    sign_in_with: Prihláste sa pomocou %{provider}
+    type_it_twice: Potvrďte to dvakrát
+    unlock_account: Odomkni môj účet
+  validates_timeliness:
+    error_value_formats:
+      date: "% Y-% m-% d"
+      datetime: "% Y-% m-% d% H:% M:% S"
+      time: "% H:% M:% S"
