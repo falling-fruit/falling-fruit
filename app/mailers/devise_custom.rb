@@ -4,7 +4,7 @@ class DeviseCustom < Devise::Mailer
   # default template_path: 'devise_cusom'
 
   def confirmation_instructions(record)
-    headers['X-SMTPAPI'] = '{"category": "FF-Rails-DeviseConfirmation"}'
+    headers['X-PM-Tag'] = 'email-confirmation'
     super
   end
 end
