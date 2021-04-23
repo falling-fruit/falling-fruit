@@ -21,6 +21,7 @@ class Location < ActiveRecord::Base
   geocoded_by :address, :latitude => :lat, :longitude => :lng   # can also be an IP address
   reverse_geocoded_by :lat, :lng do |obj,results|
     if geo = results.first
+      obj.address = geo.formatted_address
       obj.city = geo.city
       obj.state = geo.state
       obj.country = geo.country
