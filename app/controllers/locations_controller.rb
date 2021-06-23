@@ -135,6 +135,24 @@ class LocationsController < ApplicationController
     index and return
   end
 
+  # GET /seedlibrary
+  def seedlibrary
+    params[:f] = '3082'
+    params[:z] = '13'
+    params[:x] = '-81.34661'
+    params[:y] = '28.55637'
+    index and return
+  end
+
+  # GET /seedlibraries
+  def seedlibraries
+    params[:f] = '3082'
+    params[:z] = '13'
+    params[:x] = '-81.34661'
+    params[:y] = '28.55637'
+    index and return
+  end
+
   # GET /locations
   # GET /locations.json
   def index

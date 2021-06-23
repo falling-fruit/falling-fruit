@@ -72,6 +72,8 @@ FallingfruitWebapp::Application.routes.draw do
   match 'graftable' => 'locations#grafter_index'
   match 'honeybee' => 'locations#honeybee_index'
   match 'communityfruittrees' => 'locations#communityfruittrees'
+  match 'seedlibrary' => 'locations#seedlibrary'
+  match 'seedlibraries' => 'locations#seedlibraries'
 
   match 'home' => 'locations#home'
   match 'locations/:id/infobox' => 'locations#infobox'
