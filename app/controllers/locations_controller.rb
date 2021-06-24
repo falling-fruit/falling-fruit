@@ -129,27 +129,27 @@ class LocationsController < ApplicationController
   # GET /communityfruittrees
   def communityfruittrees
     params[:f] = '4628'
-    params[:z] = '13'
-    params[:x] = '-81.34661'
-    params[:y] = '28.55637'
+    params[:z] = '5'
+    params[:x] = '-99.09492'
+    params[:y] = '38.48128'
     index and return
   end
 
   # GET /seedlibrary
   def seedlibrary
     params[:f] = '3082'
-    params[:z] = '13'
-    params[:x] = '-81.34661'
-    params[:y] = '28.55637'
+    params[:z] = '5'
+    params[:x] = '-99.09492'
+    params[:y] = '38.48128'
     index and return
   end
 
   # GET /seedlibraries
   def seedlibraries
     params[:f] = '3082'
-    params[:z] = '13'
-    params[:x] = '-81.34661'
-    params[:y] = '28.55637'
+    params[:z] = '5'
+    params[:x] = '-99.09492'
+    params[:y] = '38.48128'
     index and return
   end
 
