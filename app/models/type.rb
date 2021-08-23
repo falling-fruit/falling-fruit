@@ -84,7 +84,8 @@ class Type < ActiveRecord::Base
   def Type.i18n_name_field(locale = I18n.locale.to_s)
     lang = locale.tr("-","_").downcase
     lang = "scientific" if lang == "la"
-    lang + "_name"
+    field = lang + "_name"
+    (Type.column_names.include? field) ? field : "en_name"
   end
 
   # Type filter 1.0
