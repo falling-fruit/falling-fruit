@@ -230,6 +230,9 @@ zh-TW:
         iOS下落水果</a> \n <li> <a href =\"https://play.google.com/store/apps/details?id
         = uh.fallingfruit.app\"> Android的下降水果</a> \n </ul> \n <br> \n應用程序銷售收益的100％用於支持我們的硬性成本（服務器和基礎架構保持網站在線）。我們是一家501（c）3的非營利組織，所以這筆費用也可以在美國免稅。"
       mobile_modal_title: 但等等，有一個移動應用程序！
+      stamen_html: <a href="http://creativecommons.org/licenses/by/3.0/"> CC BY </
+        i>下<a href="http://stamen.com">雄蕊設計</a>貼圖，一>。 <a href="http://creativecommons.org/licenses/by-sa/3.0/">
+        CC BY-SA的<a href="http://openstreetmap.org"> OpenStreetMap </a>的數據</A>。
       turn_off_dragzoom: 關閉拖動縮放模式
       turn_on_dragzoom: 打開拖動縮放模式
       welcome_modal_html: 落果是一個巨大的，合作的城市收穫地圖。地圖已經指出，世界各地的牧民，免費農民和林業人員的努力已經集中在世界各地的五十多萬個食物來源（從植物和真菌到水井和垃圾場）。我們迅速發展的用戶社區正在積極探索，編輯和添加到地圖。<br/>
@@ -315,6 +318,10 @@ zh-TW:
     about:
       about_the_site: 關於該項目
       advisors: 顧問委員會
+      alan_gibson_bio_html: 艾倫一直喜歡冒險和探索。他開始覓食，以將年幼的孩子介紹給戶外生活方式。他撰寫了<a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a>博客，並出版了<a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager：免費水果和堅果</a>書。他在公園內覓食合法化，並在他的家鄉英國南安普敦建立了社區果園。
+      ana_carolina_bio_html: 安娜是巴西帕拉聯邦大學的博士後研究員。她是一位人類學家，對了解社會和文化飲食習慣很感興趣。安娜主要在巴西亞馬遜工作。在阿克雷（亞馬遜西部），她研究了當地的水果消費。然後，她在中蘇里木斯地區工作，調查偏遠社區的飲食變化。在2017年至2018年之間，安娜住在亞馬遜三角洲的中小城鎮，研究氣候變化對居住在非正規住區的人們的糧食安全的影響。她最近移居美國的新墨西哥州南部，擔任顧問。
       caleb_phillips_bio_html: 迦勒是一個無翅的雙足人形生物，充滿愛食的正義，並找到<a href="http://smallwhitecube.com">使用技術的創造性方法</a>解決社會問題。當他不騎自行車在樹上玩耍時，他在科羅拉多州金山的<a
         href="http://nrel.gov">國家可再生能源實驗室</a>的數據科學家之間平衡了他的工作，計算機科學的兼職教授在<a href="http://cs.colorado.edu">科羅拉多大學</a>，作為許多非營利組織的工蜂（<a
         href ="http://www.foodrescuealliance.org/">食物救援聯盟</a>，以及科羅拉多州博爾德市的<a href="http://boulderfoodrescue.org">巨石食物救援</a>）。除了所有的工作，他喜歡爬岩，跑步，騎自行車，一般都在戶外盡可能多。
@@ -340,6 +347,13 @@ zh-TW:
         href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">城市覓食：尋找和吃野生植物在城市</a>（<a
         href="/docs/David Craft-Urban Foraging.pdf">免費下載</a>）。
       directors: 董事會
+      emily_sigman_bio_html: 艾米麗（Emily）是一位頑固的農林業傳道人， '者，並且是擁有兩隻貓，四個鵪鶉和'世界上最宏偉的犬科動物的驕傲的母親。她的根深處一直延伸到落基山脈，但如今，她的地上生物量引以為傲，堪稱康涅狄格州的紐黑文。通常可以發現她在公共食林裡讀書，在舒適的圖書館角落讀書，或者對菌絲體的神奇性充滿詩意（據推測，他在耶魯<a
+        href="https://environment.yale.edu/">大學林業</a><a href="https://jackson.yale.edu/person/emily-sigman/">學院和全球事務</a><a
+        href="https://environment.yale.edu/">學院獲得了</a>聯合研究生學位）。艾米麗（Emily）懷有毀滅性的旅行癖，現在可能幾乎在任何地方。
+      ethan_welty_bio_html: 憑藉技術和數據，伊桑（Ethan）擁護城市成為新鮮和免費食品的來源。他於2013年與Caleb Phillips共同創立了Falling
+        Fruit，以在全球範圍內促進城市覓食，並於2014年與他人共同創立了<a href="https://fruitrescue.org">Community
+        Fruit Rescue</a> ，以在科羅拉多州的博爾德收穫和分配周圍生長的多餘水果。除水果外，他還<a href="https://www.weltyphotography.com">從事攝影事業</a>，<a
+        href="https://instaar.colorado.edu/people/ethan-welty/">冰川研究</a>以及對山區和河流河流的追求。
       ff_disclaimer_html: 落果與落果不相關。墮落的水果可以在<a href="http://fallenfruit.org"> fallenfruit.org
         </a>找到。
       give_gratipay: 通過Gratipay付款
@@ -351,6 +365,7 @@ zh-TW:
         - 種植公共果園和食用森林，從城市樹木和農民田間挑選其他浪費的水果和蔬菜，並分享與鄰居和有需要的人。
       more_about_html: 我們的可食用地圖不是第一個，但它渴望成為世界上最全面的地圖。當我們的用戶貢獻自己的位置時，我們將互聯網融合到先前存在的知識之中，力求團結各地的牧民，林業人員和無償運動人員的努力。
         <a href="/datasets?locale=zh-TW">導入的數據集</a>的範圍從小的鄰居覓食地圖到廣泛的專業編制的樹庫存。到目前為止，這種類型分佈在％{locations}個位置上的不同類型的食物（大多數但不是全部）植物物種。除了種植和常見的外來植物和長期被遺忘的本地植物的外來風味外，狩獵在你的社區是一個時間和文化的旅程。
+      staff: 員工
       translate: 翻譯
       translate_for_us_html: 對志願者作為翻譯有興趣嗎？給我們發電子郵件，我們將邀請您加入我們的<a href="https://phrase.com">Phrase</a>，我們的翻譯管理。
       translators: 譯者
@@ -401,6 +416,10 @@ zh-TW:
     description_subtext: 任何可能有助於我們評估問題的信息
     problem_type: 問題類型
     your_contact_info: 您的聯繫方式
+  recaptcha:
+    errors:
+      recaptcha_unreachable: 我們目前無法驗證reCAPTCHA
+      verification_failed: reCAPTCHA驗證失敗
   routes:
     denied: 您沒有權限查看該路由
     modes_of_travel:
