@@ -703,13 +703,15 @@ function open_marker(marker) {
 function add_marker_infowindow(i) {
   var marker = markersArray[i].marker;
   marker.id = markersArray[i].id;
-  google.maps.event.addListener(marker,'click',function() {
-    pano_tab = null;
-    if (marker == infowindow.marker) {
-      return true;
-    }
-    open_marker(marker);
-  });
+  if (!google.maps.event.hasListeners(marker, 'click')) {
+    google.maps.event.addListener(marker,'click',function() {
+      pano_tab = null;
+      if (marker == infowindow.marker) {
+        return true;
+      }
+      open_marker(marker);
+    });
+  }
 }
 
 function open_marker_by_id(id) {
