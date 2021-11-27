@@ -7,7 +7,7 @@ class Observation < ActiveRecord::Base
     :photo_caption, :destroyed?, :graft
 
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :s3_credentials => File.join(Rails.root, 'config', 's3.yml'),
-                    :storage => :s3, :s3_permissions => 'private',:s3_protocol => 'https',
+                    :storage => :s3, :s3_permissions => 'public-read',:s3_protocol => 'https',
                     :s3_host_name => 's3-us-west-2.amazonaws.com'
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
 

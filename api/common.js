@@ -225,6 +225,7 @@ common.upload_photo = function(src_path,dst_path,callback){
     s3Params: {
       Bucket: db.s3conf["bucket"],
       Key: dst_path,
+      ACL: 'public-read'
       // other options supported by putObject, except Body and ContentLength.
       // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
     },
