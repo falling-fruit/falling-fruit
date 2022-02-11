@@ -98,3 +98,4 @@ gem 'rb-readline'
 # https://stackoverflow.com/a/66921259
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
 
+gem 'bcrypt', '~> 3.1.13'
