@@ -140,8 +140,14 @@ end
 
 task(:reverse_geocode => :environment) do
   Geocoder.configure(:api_key => GOOGLE_GEOCODING_KEY)
-  n = Location.where("lat is not null and lng is not null and country is null").count
-  Location.where("lat is not null and lng is not null and country is null").limit(100000).each{ |l|
+  filters = (
+    "lat is not null and lng is not null" +
+    " and city is null and state is null and country is null and address is null" +
+    " and array_length(type_ids, 1) > 0"
+  )
+  n = Location.where(filters).count
+  puts n
+  Location.where(filters).limit(100000).each{ |l|
     begin
       puts n
       l.reverse_geocode
