@@ -26,12 +26,16 @@
 node_modules/
 
 # Other stuff
+/db/backups
 /db/backups/*.sql
 /db/backups/*.dump
 /public/*.csv*
 /db/data.yml.bz2
 /public/data.yml.bz2
 /public/system
+/public/assets
+/vendor/bundle
+.sass-cache
 *~
 
 # Mac OS
