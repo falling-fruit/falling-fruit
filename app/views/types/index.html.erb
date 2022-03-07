@@ -34,7 +34,7 @@
       <td><%= mask_to_array(type.category_mask,Type::Categories).join(", ") %></td>
       <td style="text-align:center;">
       <% unless type.wikipedia_url.blank? %>
-        <a href="<%= raw type.wikipedia_url %>" target="_blank">W</a>
+        <a href="<%= type.wikipedia_url %>" target="_blank">W</a>
       <% end %>
       </td>
       <td><%= link_to 'Edit', edit_type_path(type) %></td>

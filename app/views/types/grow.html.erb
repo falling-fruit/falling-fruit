@@ -17,7 +17,7 @@
 <td style="text-align:right"><%= type.id %></td>
 <td>
  <% unless type.wikipedia_url.blank? %>
-  <a href="<%= raw type.wikipedia_url %>" target="_blank"><%= h type.en_name %></a>
+  <a href="<%= type.wikipedia_url %>" target="_blank"><%= h type.en_name %></a>
  <% else %>
   <%= type.en_name %>
  <% end %>
