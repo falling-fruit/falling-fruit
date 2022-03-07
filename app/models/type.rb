@@ -43,7 +43,7 @@ class Type < ActiveRecord::Base
   end
 
   def usda_profile_url
-    self.usda_symbol.nil? ? nil : "http://plants.usda.gov/java/profile?symbol=#{usda_symbol}"
+    self.usda_symbol.nil? ? nil : "https://plants.usda.gov/home/plantProfile?symbol=#{usda_symbol}"
   end
 
   def full_name
