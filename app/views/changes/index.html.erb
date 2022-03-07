@@ -27,7 +27,7 @@ last_days_ago = nil
     last_days_ago = c["days_ago"]
   end
   %>
-  <%= raw header %>
+  <%= header.html_safe %>
   <% unless c["location_id"].nil? %>
     <%= link_to location_path(c["location_id"]) do %>
       <span><%= types.nil? ? translate("glossary.unknown") : types %></span>
