@@ -74,7 +74,7 @@
   <% end %>
   <script type="text/javascript">
     host = "<%= host %>";
-    cats = <%= raw @categories %>;
+    cats = <%= @categories.map{|c| ERB::Util.html_escape(c)}.to_json.html_safe %>;
     // load I18n
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
