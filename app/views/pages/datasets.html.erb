@@ -42,11 +42,11 @@ Import.order("id").reverse.each do |import|
     <td style="display:none;">
       <!-- Comments -->
       <% unless import.comments.blank? %>
-        <%= raw import.comments.gsub("\n","<br/>") %><br /><br />
+        <%= ERB::Util.html_escape(import.comments).gsub("\n", "<br/>").html_safe %><br /><br />
       <% end %>
       <!-- License -->
       <% unless import.license.blank? %>
-        <%= raw import.license.gsub("\n","<br/>") %>
+        <%= ERB::Util.html_escape(import.license).gsub("\n", "<br/>").html_safe %>
       <% else %>
         <i><%= translate("pages.datasets.no_license").html_safe %></i>
       <% end %>
