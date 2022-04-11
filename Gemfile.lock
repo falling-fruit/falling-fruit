@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/mimemagicrb/mimemagic.git
+  remote: https://github.com/mimemagicrb/mimemagic.git
   revision: a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66
   ref: a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66
   specs:
@@ -142,11 +142,12 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.8.0)
     multi_json (1.15.0)
     multi_xml (0.5.5)
-    nokogiri (1.6.8.1)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.13.4)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     orm_adapter (0.3.0)
     paperclip (4.3.7)
       activemodel (>= 3.2.0)
@@ -160,6 +161,7 @@ GEM
     postgres_ext (1.0.0)
       activerecord (~> 3.2.0)
       pg_array_parser (~> 0.0.9)
+    racc (1.6.0)
     rack (1.4.7)
     rack-cache (1.7.1)
       rack (>= 0.4)
