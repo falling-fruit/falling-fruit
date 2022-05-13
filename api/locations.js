@@ -301,7 +301,7 @@ locations.show = function (req, res) {
                       (SELECT COUNT(*) FROM observations o WHERE o.location_id=l.id) as num_reviews \
                       FROM locations l WHERE id=$1;",
                      [id],function(err, result) {
-          if (err) callback(err,'error running query');
+          if (err) return callback(err,'error running query');
           if (result.rowCount == 0) return res.send({});
           location = result.rows[0];
           location.num_reviews = parseInt(location.num_reviews);
