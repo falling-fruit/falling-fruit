@@ -405,6 +405,24 @@ fr:
     about:
       about_the_site: À propos du projet
       advisors: Comité consultatif
+      alan_gibson_bio_html: 'Alan a toujours aimé les aventures et l''exploration.
+        Il a commencé à fouiller pour initier ses jeunes enfants au mode de vie en
+        plein air. Il écrit le blog <a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a> et a publié le <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager : Fruit and Nuts For Free</a> livre. Il a légitimé la recherche de
+        nourriture dans les parcs publics et a créé un verger communautaire dans sa
+        ville natale, Southampton, au Royaume-Uni.'
+      ana_carolina_bio_html: Ana est chercheuse postdoctorale à l'Université fédérale
+        du Pará au Brésil. Elle est anthropologue et s'intéresse à la compréhension
+        des habitudes alimentaires sociales et culturelles. Ana a travaillé principalement
+        en Amazonie brésilienne. À Acre (Amazonie occidentale), elle a étudié la consommation
+        régionale de fruits. Puis, elle a travaillé dans la région du Moyen Solimões,
+        étudiant les changements de régime alimentaire dans les communautés isolées.
+        Entre 2017 et 2018, Ana a vécu dans des petites et moyennes villes du delta
+        de l'Amazone, étudiant les effets du changement climatique sur la sécurité
+        alimentaire des personnes vivant dans des établissements informels. Elle s'est
+        récemment installée dans le sud du Nouveau-Mexique aux États-Unis, où elle
+        travaille comme consultante.
       caleb_phillips_bio_html: 'Caleb est un humanoïde bipède déplumé, passionné de
         justice alimentaire. Il adore aussi utiliser la technologie de manière créative
         pour résoudre les problèmes sociaux. Quand il ne fait pas des tours à vélo
@@ -472,6 +490,27 @@ fr:
         Foraging:Finding and Eating Wild Plants in the City</a> (<a href=”/docs/David
         Craft - Urban Foraging.pdf”>free download</a>).  '
       directors: Comité d'administration
+      emily_sigman_bio_html: Emily est une ardente évangéliste de l'agroforesterie,
+        une incorrigible butineuse et une fière mère de deux chats, quatre cailles
+        et le plus magnifique des chiens du monde. Ses racines s'étendent profondément
+        dans les montagnes Rocheuses, mais de nos jours, sa biomasse aérienne est
+        fière d'appeler New Haven, Connecticut, sa maison. On peut souvent la trouver
+        en train de s'occuper de forêts alimentaires publiques, de lire avec ravissement
+        dans un coin de bibliothèque confortable, ou de faire de la poésie sur la
+        magie du mycélium (et, soi-disant, de faire des études supérieures communes
+        à la Yale <a href="https://environment.yale.edu/">School of Forestry</a> et
+        <a href="https://jackson.yale.edu/person/emily-sigman/">School of Global Affairs</a>).
+        Emily souffre d'une terrible dépendance aux voyages et pourrait être n'importe
+        où en ce moment.
+      ethan_welty_bio_html: Grâce à la technologie et aux données, Ethan défend les
+        villes comme sources de nourriture fraîche et gratuite. Il a créé Falling
+        Fruit avec Caleb Phillips en 2013 pour promouvoir la recherche de nourriture
+        en milieu urbain dans le monde entier, et a cofondé <a href="https://fruitrescue.org">Community
+        Fruit Rescue</a> en 2014 pour récolter et distribuer les fruits excédentaires
+        qui poussent autour de lui à Boulder, au Colorado. Au-delà des fruits, il
+        jongle avec une <a href="https://www.weltyphotography.com">carrière de photographe</a>,
+        <a href="https://instaar.colorado.edu/people/ethan-welty/">recherche sur les
+        glaciers</a>, et un appétit pour les activités en montagne et sur les rivières.
       ff_disclaimer_html: Falling Fruit n'est pas lié à Fallen Fruit. Fallen Fruit
         peut être consulté à <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Payer avec Gratipay
@@ -502,6 +541,7 @@ fr:
         sur  %{locations} sites. Les plantes les plus communes côtoient les plantes
         étrangères ou endémiques depuis longtemps oubliées. Le glanage, c’est un voyage
         dans le temps, une découverte de nouvelles cultures aux saveurs exotiques.
+      staff: Personnel
       translate: Traduire
       translate_for_us_html: Traduire bénévolement vous intéresse ? Envoyez-nous un
         e-mail et nous vous inviterons à nous rejoindre sur <a href="https://phrase.com">Phrase</a>,
@@ -611,6 +651,11 @@ fr:
     description_subtext: Toute information pouvant nous aider à évaluer le problème
     problem_type: Type de problème
     your_contact_info: Vos coordonnées
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Nous ne sommes pas en mesure de vérifier le reCAPTCHA
+        pour le moment
+      verification_failed: échec de la vérification de reCAPTCHA
   routes:
     denied: Vous n'avez pas la permission de voir cette route
     modes_of_travel:

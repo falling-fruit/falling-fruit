@@ -71,14 +71,19 @@ sv:
       unlocked: Ditt konto har låsts upp. Du är nu inloggad.
   errors:
     messages:
+      after: måste vara efter %{restriction}
       already_confirmed: har redan bekräftats, vänligen prova logga in
       before: måste vara före %{restriction}
       expired: har gått ut, ansök om en ny
       invalid_date: är inget giltigt datum
       invalid_datetime: är inget giltigt datum/tid
       invalid_time: är ingen giltig tid
+      is_at: måste vara på %{restriction}
       not_found: hittades inte
       not_locked: var inte låst
+      not_saved:
+        one: '1 fel förhindrade att denna %{resource} sparades:'
+        other: "%{count} fel förhindrade att denna %{resource} sparades:"
       on_or_after: måste vara fr.o.m. %{restriction}
       on_or_before: måste vara t.o.m. %{restriction}
   glossary:
@@ -92,22 +97,38 @@ sv:
     are_you_sure: Är du säker?
     australia: Australien
     belgium: Belgien
+    by_author: av %{author}
     canada: Kanada
     chile: Chile
+    common_name: Vanligt namn
     data: Data
     delete: Ta bort
     description: Beskrivning
     details: Detaljer
+    donate: Donera
+    download: Hämta
+    edible_type: Ätbar typ
+    edit: Redigera
+    email: E
+    embed: Bädda in
+    error: Fel
+    favorites: favoriter
+    fiji: Fiji
     filter: Filter
+    finland: Finland
     france: Frankrike
+    germany: Tyskland
     global: Globalt
+    greece: grekland
     home: Hem
     imported: Importerad
     imported_datasets: Importerade data
     imports: Importer
     info: Info
     invasive: Invasiva
+    ireland: irland
     italy: Italien
+    labels: Etiketter
     links:
       one: Länk
       other: Länkar
@@ -120,10 +141,37 @@ sv:
     miles: mil
     name: Namn
     new_zealand: Nya Zeeland
+    options: Val
     password: Lösenord
+    pending_types: Väntande typer
+    photo: Foto
+    portugal: portugal
+    position: Placera
+    problems: Problem
+    public: Offentlig
+    quality: Kvalitet
+    report: Rapportera
+    report_a_problem: Rapportera ett problem
+    reviews:
+      one: Omdöme
+      other: recensioner
+    routes: Rutter
+    save_changes: Spara ändringar
+    scientific_name: Vetenskapligt namn
+    season: Säsong
+    send: Sänd
+    show: Visa
+    sign_up: Anmäl dig
+    spain: spanien
     street_view: Gatuperspektiv
+    submit: Överlämna
+    sweden: Sverige
     switzerland: Schweiz
+    tree_inventory:
+      one: Träd inventering
+      other: Trädlager
     types: Typer
+    type_and_press_enter: Skriv och tryck på Enter
     united_kingdom: Storbrittanien
     united_states: USA
     unknown: Okänd
@@ -132,22 +180,531 @@ sv:
     user: Användare
     users: Användare
     world: Värld
+    yield: Avkastning
     zoom: Zoom
     zoom_to_address: Zooma till adress
     zoom_to_me: Zooma till mig
+    zoom_to_this_location: Zooma till den här platsen
+  layouts:
+    application:
+      feed_people_not_landfills: Mata människor, inte deponier!
+      mapping_the_urban_harvest: Kartlägg den urbana skörden!
+      menu:
+        approved_types: Godkända typer
+        in_the_press: I pressen
+        list_imports: Lista import
+        new_import: Ny import
+        new_type: Ny typ
+        sharing_the_harvest: Dela skörden
+        the_project: Projektet
+      or_right-click_on_map: eller högerklicka på kartan
+      pending_types_help: Vi tillämpar en taxonomi av ätbara typer för att hålla kartan
+        organiserad och sökbar. Nya typer som skickas av användare markeras på kartan
+        som väntande tills de läggs till i taxonomin eller slås samman med en befintlig
+        typ. Vissa föreslagna typer är så unika eller tvetydiga att de kvarstår som
+        obestämda på obestämd tid.
+      unverified_help: Platser markeras som obekräftade om deras position, identitet
+        eller existens ifrågasätts. Många platser som importeras från trädinventeringar
+        är markerade som overifierade eftersom deras ätbarhet är osäker (till exempel
+        "Päron" kan vara antingen en ätbar eller dekorativ sort). Användare uppmuntras
+        att resa till dessa platser och rapportera sina resultat.
+      unverified_help_title: Varför inte verifierad?
+  locations:
+    form:
+      access_subtext: Källans status. Lämna tomt om du inte ' .
+      address_subtext: kan användas för att placera markören. Justera det efter behov
+        innan du skickar in det.
+      author_subtext: Visas på kartan. Lämna tomt om du föredrar att vara anonym.
+      comments: kommentarer
+      comments_subtext: Uppdateringar, åtkomstfrågor, växthälsa ...
+      create_another: Skapa en annan
+      date_visited: Datum besökt
+      description_subtext: Platsinformation, åtkomstproblem, växthälsa ...
+      form_error: Ett fel hindrade den här källan från att sparas
+      form_intro_html: Redigera platsen nedan eller <a href="/observations/new?location_id=%{location_id}&locale=en"
+        data-ajax="false" rel="external" title="Granska denna plats">använd det här
+        formuläret för</a> att granska, kommentera och lägga upp foton.
+      fruiting_status: Fruktstatus
+      fruiting_subtext: Vad gör frukten nu? (om tillämpligt)
+      have_you: Har du besökt den här platsen?
+      move_marker: Flytta markören till koordinaterna
+      move_marker_address: Flytta markören till adressen
+      name_subtext: Lämna tomt om du föredrar att vara anonym.
+      no_season: Ingen säsong
+      or: eller
+      original_author: Originalförfattare
+      photo_caption: Bildtext
+      photo_subtext: Lägg upp ett foto av källan. Om den inte är ' din, se till att
+        du har tillstånd och kreditera fotografen i bildtexten.
+      position_subtext: Bestämd från din nuvarande position (om tillgänglig) eller
+        en markör du placerade. Justera genom att flytta kartmarkören.
+      quality_subtext: Betygsätt källans kvalitet (om tillämpligt)
+      season_subtext: När kan källan skördas? Lämna tomt om du inte ' .
+      types_subtext: Välj från rullgardinsmenyn och skicka bara in nya typer om lämpliga
+        val inte redan finns.
+      unverified_subtext: Om du tvivlar på källans existens, plats eller identitet.
+      verify: Kontrollera
+      verify_subtext: Denna plats är för närvarande flaggad som "Overifierad"
+      yield_subtext: Betygsätt källans produktivitet (om tillämpligt)
+      your_name: Ditt namn
+    index:
+      addmarker_html: |-
+        Lägg till en källa här
+        <span class="subtext">Du kan också röra mig</span>
+      editmarker_html: |-
+        <b>Gå till källans position.</b>
+
+        Kontrollera satellitvyn - källan kan vara synlig från rymden!
+      freegan_modal_html: Förutom våra ansträngningar att kartlägga <a href="/?locale=en">ätbara
+        växter som</a> växer i städer, vi ' att kartlägga världens ' . Nästan hälften
+        av all mat som produceras i den utvecklade världen äts aldrig. Vi ' hoppas
+        öka medvetenheten kring matsvinn, underlätta frigörelsen av kasserad mat och
+        uppmuntra företag att <a href="/sharing?locale=en">donera maten</a> istället.<br/><br/>
+        Till stöd för en livsstil med mindre avfall uppmuntrar vi kartläggning av
+        alla friluftskällor (från soptippar till fria lådor) med kasserade men användbara
+        varor, ätbara eller på annat sätt.
+      freegan_modal_title: Välkommen till vår freegan-karta!
+      grafter_modal_html: Guerrilla Grafters ympar fruktbärande grenar på prydnadsväxter
+        av fruktfria träd (till exempel använder städer ofta sterila fruktträd för
+        sina färgglada vårblomningar). Med tiden görs läcker, näringsrik frukt tillgänglig
+        för stadsdelar tack vare dessa transplantat. Du kan lära dig mer om projektet
+        på <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>
+        Den här kartan visar några av de vanligaste prydnadsträdet. Om du är en grafter,
+        en trädgårdsmästare eller en fruktträdentusiast, bidra till informationen
+        och märka träden i din trädgård eller i ditt område som kan ympas med fruktbärande
+        grenar!
+      grafter_modal_title: Välkommen till vår grafter karta!
+      mobile_modal_html: |-
+        Hallå! Det ser ut som att du ' till Falling Fruit från en <strong>mobil enhet</strong> . Vi släppte nyligen en crowdfunded mobilapp för både Android- och iOS-mobilplattformar. Jag tror att du ' hitta det ' är mycket trevligare att använda på din mobila enhet:
+
+
+
+        <ul>
+        <li> <a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit för iOS</a>
+        <li> <a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit för Android</a>
+        </ul>
+
+
+        100% av intäkterna från appförsäljning går till våra hårda kostnader (servrar och infrastruktur för att hålla webbplatsen online). Vi ' en ideell organisation 501 (c) 3, så denna kostnad är också avdragsgill i USA.
+      mobile_modal_title: Men vänta, det finns ' mobilapp!
+      stamen_html: Kartplattor av <a href="http://stamen.com">Stamen Design</a> ,
+        under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> . Data
+        från <a href="http://openstreetmap.org">OpenStreetMap</a> , under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+        BY-SA</a> .
+      turn_off_dragzoom: Stäng av dragzoomläget
+      turn_on_dragzoom: Aktivera dragzoomläget
+      welcome_modal_html: |-
+        Falling Fruit är en massiv, samverkande karta över den urbana skörden. Genom att förena födosökarnas, friluftslivets och skogsmännens ansträngningar överallt pekar kartan redan på över en halv miljon livsmedelskällor runt om i världen (från växter och svampar till vattenbrunnar och sopor). Vår snabbt växande användargrupp utforskar aktivt, redigerar och lägger till på kartan.<br/><br/> Följ med oss för att fira den förbises överflödet av våra stadsgator! Använd webbplatsen anonymt eller <a href="/users/sign_up?locale=en">registrera dig för</a> att få tillgång till ytterligare funktioner.
+        <br/><br/>
+        <em>Falling Fruit är inte förknippat med Fallen Fruit. Fallen Fruit finns på <a href="http://fallenfruit.org">fallenfruit.org</a> .</em>
+      welcome_modal_title: Välkommen till Falling Fruit!
+    infowindow:
+      access:
+      - Den här källan har lagts till av ägaren.
+      - Den här källan lades till med tillstånd från ägaren.
+      - Den här källan finns på allmän mark.
+      - Den här källan är privat men kan överhänga allmän mark. Välj med diskretion.
+      - Den här källan är privat. Be om tillstånd innan du väljer.
+      access_mode:
+      - Källan finns på min egendom
+      - Jag har tillstånd från ägaren att lägga till källan
+      - Källan är på allmän mark
+      - Källan är på privat egendom men överhänger allmän mark
+      - Källan finns på privat egendom (fråga innan du väljer)
+      access_short:
+      - Tillagt av ägaren
+      - Tillåtet av ägaren
+      - Offentlig
+      - Privat men överhängande
+      - Privat
+      add_to_remove_from: Lägg till / ta bort från
+      citation_to_the_original_source: Citat till den ursprungliga datakällan
+      delete_comment: Radera kommentar
+      delete_photo: Radera foto
+      delete_this_location: Ta bort den här platsen
+      edit_this_location: Redigera denna plats
+      fruiting:
+      - Blommor
+      - Omogen frukt
+      - Mogen frukt
+      have_you_visited_html: Har du besökt den här källan? Lägg till en <a href="/observations/new?location_id=%{id}&locale=en"
+        data-ajax="false" rel="external" title="Granska den här källan" id="add_review">recension</a>
+      january_to_december: Januari - december
+      new_route: Ny väg
+      rating:
+      - Fattig
+      - Rättvist
+      - Bra
+      - Mycket bra
+      - Utmärkt
+      review_this_location: Granska denna plats
+      see_this_location_in_streetview: Se den här platsen i gatuvy
+      source: källa
+      toggle_route_controls: Växla ruttkontroller
+      unsure: Osäker
+      unsure_other: Osäker / Annat
+      url_for_this_location: URL för den här platsen
+    messages:
+      created: Plats har lagts till
+      geocode_failed: Din sökning misslyckades
+      latitude_too_large: Vi stöder inte breddgrader över ± 85 grader.
+      not_created: Platsen kunde inte läggas till
+      not_updated: Platsen kunde inte uppdateras
+      updated: Platsen uppdaterades
+    searchbar:
+      embed_hover: Inbäddade koden
+      invasive_modal: Invasiva växter är icke-inhemska växter i en viss region som
+        överträffar inhemska växter. Vi markerar invasiva växter på Falling Fruit
+        så att du kan söka efter dem och äta dem och slå tillbaka invasionerna en
+        god bit åt gången! Invasiva arter är för närvarande endast listade för USA
+        och baserade på USA of Department of Agriculture (USDA) listor över skadliga
+        och invasiva arter på statsnivå.
+      invasive_modal_title: Vad är en invasiv art?
+      link_hover: URL till aktuell karta
+      tree_inventories_modal: Trädlager sammanställs av institutioner som försöker
+        bättre dokumentera och ta hand om sina träd. Dessa uppgifter samlas vanligtvis
+        in av utbildade arborister och är både detaljerade och uttömmande. Vi plockar
+        noga ut ätbara arter från dessa inventeringar och lägger till dem på kartan
+        åt dig. Hjälp oss att kartlägga ditt område genom att fråga din stad (eller
+        universitet, kanton etc.) om det finns ett trädinventering och om det kan
+        delas med Falling Fruit.
+      tree_inventories_modal_title: Vad är ett trädinventering?
+    sidebar:
+      changed_within_html: Ändringar inom ditt <a href="/users/edit?locale=en">foderområde</a>
+      click_here_to_manage_your_routes_html: Klicka <a href="%{routes_path}">här för</a>
+        att hantera dina rutter.
+      in: i
+      locations_added_or_reviewed_by_you_while_logged_in: Platser som har lagts till
+        eller granskats av dig (medan du är inloggad)
+      you_havent_added_or_reviewed_anything_while_logged_in: Du har ' t lagt till
+        eller granskat några källor ännu (medan du är inloggad)
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Du
+        har ' inte definierat några rutter ännu. Klicka på en plats och sedan på "rutter"
+        för att börja skapa en.
+      you_havent_defined_html: Du har ' t definierat ett foderintervall. <a href="/users/edit?locale=en">Klicka
+        här för</a> att göra det nu
+  meta:
+    forager_description: En massiv, samverkande karta över den urbana skörden som
+      förenar insatserna för födosökare, frilansare och skogsmän runt om i världen.
+      Utforska och dela information om källorna till gratis mat i ditt område.
+    freegan_description: Genom att kartlägga världens ' livsmedelsbärande ' hoppas
+      vi kunna öka medvetenheten om matsvinn, underlätta befrielsen av kasserad mat
+      och uppmuntra företag att donera maten istället.
+    freegan_title: World Dumpster karta
+  observations:
+    created: Din recension har lagts till
+    empty: Recensioner får inte vara tomma
   pages:
     about:
       about_the_site: Om projektet
       advisors: Rådgivare
+      alan_gibson_bio_html: 'Alan har alltid haft äventyr och utforska. Han började
+        föda som ett sätt att introducera sina små barn till livsstilen utomhus. Han
+        skriver <a href="http://theurbaneforager.blogspot.com">Urbane Forager-</a>
+        bloggen och publicerade <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit and Nuts For Free-</a> boken. Han har legitimerat födosök i
+        offentliga parker och etablerat en samhällsodling i sin hemstad, Southampton
+        UK.'
+      ana_carolina_bio_html: Ana är postdoktor vid Federal University of Pará i Brasilien.
+        Hon är en antropolog som är intresserad av att förstå sociala och kulturella
+        dietvanor. Ana arbetade mestadels i det brasilianska Amazonas. I Acre (västra
+        Amazon) studerade hon regional fruktkonsumtion. Sedan arbetade hon i Middle
+        Solimões-regionen och undersökte dietförändringar i avlägsna samhällen. Mellan
+        2017 och 2018 bodde Ana i små och medelstora städer i Amazonadelta och tittade
+        på effekterna av klimatförändringar på livsmedelssäkerheten för människor
+        som bor i informella bosättningar. Hon flyttade nyligen till södra New Mexico
+        i USA, där hon arbetar som konsult.
+      caleb_phillips_bio_html: Caleb är en fjäderfri bipedal humanoid som brinner
+        för maträtt och att hitta kreativa sätt att använda teknik för att ta itu
+        med sociala frågor. När han ' inte cyklar runt i träden balanserar han sina
+        ansträngningar mellan sitt dagliga jobb som datavetare vid <a href="https://www.nrel.gov/research/caleb-phillips.html">National
+        Renewable Energy Laboratory</a> i Golden, Colorado och som adjungerad professor
+        i datavetenskap vid <a href="https://www.colorado.edu/cs/caleb-phillips">University
+        of Colorado</a> . Förutom allt det där arbetet gillar han att klättra på stenar,
+        springa spår, cykla och i allmänhet vara utomhus så mycket som möjligt. Caleb
+        skapade Falling Fruit med Ethan Welty 2013 och satt i styrelsen i 6 år innan
+        han tog en position i Advisory Board.
+      celebration: 'Falling Fruit är en hyllning till den förbises kulinariska belöningen
+        på våra stadsgator. Genom att kvantifiera denna resurs på en interaktiv karta
+        hoppas vi kunna underlätta intima förbindelser mellan människor, mat och de
+        naturliga organismer som växer i våra stadsdelar. Inte bara en gratis lunch!
+        Fodring i det 21: a århundradet är ett tillfälle för stadsutforskning, att
+        bekämpa gissel med färgade trottoarer och att återansluta med matens botaniska
+        ursprung.'
       closing_remarks: Avslutande kommentarer
+      closing_remarks_para1_html: Falling Fruit är en 501 (c) (3) (skattebefriad)
+        offentlig välgörenhetsorganisation baserad i Boulder, Colorado. Som ett resultat
+        är donationer inom USA avdragsgilla. Du kan granska vårt <a href="/501c3.pdf">undantagsbrev</a>
+        från IRS och verifiera vår ställning med <a href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS-publikation
+        78</a> eller <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Colorado
+        Secretary of State</a> . Våra <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">stadgar</a>
+        och <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">protokoll
+        från</a> styrelsemöten finns också tillgängliga.
+      closing_remarks_para2_html: Att skörda mat i en stadsmiljö kommer med vissa
+        praktiska och moraliska överväganden. För en introduktion till etiken i stadsfoder
+        rekommenderar vi följande <a href="https://docs.google.com/document/d/1SupIGQKC5Vgi3VYkdIQc05y_S7jSoZ4RTS-CzwlEAMY">sammanfattning</a>
+        .
+      closing_remarks_para3_html: Information om fallande frukt kan vara felaktig
+        eller inaktuell. Till exempel var många av de födokartor som migrerade till
+        Falling Fruit värd som offentliga Google Maps där markörer ofta flyttades
+        av misstag och kommunala trädinventarier uppdateras endast (om någonsin) när
+        träd besöks för underhåll. Var beredd att stöta på felaktigheter i fältet
+        och redigera kartan efter behov baserat på dina upptäckter. I slutändan är
+        det ditt ansvar att bestämma identiteten, ätbarheten och placeringen av en
+        växt och allas ansvar för att förbättra kvaliteten på kartan.
+      contact_us_html: Falling Fruit är byggt av och för födosökare - vi vill att
+        det ska vara det bästa verktyget som finns tillgängligt för samtida foder.
+        Skriv oss på <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>
+        , vi skulle gärna höra från dig!
+      craig_durkin_bio_html: Craig är medgrundare av <a href="http://www.concrete-jungle.org/">Concrete
+        Jungle</a> , en organisation i Atlanta, Georgia som odlar mat och plockar
+        frukt i hela staden för donation till lokala hemlösa skydd och matbanker.
+        Som examen från <a href="http://www.gatech.edu/">Georgia Tech</a> ' han '
+        alltid efter sätt att kombinera fruktplockning med ny teknik och kommer snart
+        att distribuera sin fruktträdspottdron och tweeting av fruktmognadssensor
+        ...
+      cristina_rubke_bio_html: Cristina är advokat vid <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis
+        Friese LLP</a> i San Francisco, Kalifornien, där hon fokuserar på åtal och
+        rådgivning om varumärken. Hon är också styrelseledamot i <a href="//www.sfmta.com/">San
+        Francisco Municipal Transportation Agency</a> , som övervakar kollektivtrafik,
+        trafik och parkering i San Francisco. På sin fritid seglar Cristina San Francisco
+        Bay med <a href="//www.baads.org/">Bay Area Association of Disabled Sailors</a>
+        och tävlar i lokala och internationella regattor.
+      david_craft_bio_html: 'David är forskare vid Institutionen för strålningsonkologi
+        vid <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvard
+        Medical School</a> i Boston, Massachusetts. Han är också en ivrig födare och
+        författare till boken <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
+        Foraging: Finding and Eating Wild Plants in the City</a> ( <a href="/docs/David
+        Craft - Urban Foraging.pdf">gratis nedladdning</a> ).'
       directors: Styrelse
+      emily_sigman_bio_html: Emily är en diehard jordbruksskogsevangelist, oförbättrad
+        födare och stolt mor till två katter, fyra vaktlar och världens ' mest magnifika
+        hund. Hennes rötter sträcker sig djupt in i Rocky Mountains, men idag är hennes
+        ovanjordiska biomassa stolt över att kalla New Haven, Connecticut sitt hem.
+        Hon kan ofta hittas som sköter offentliga matskogar, läser inritad i något
+        mysigt bibliotekshörn eller vaxer poetiskt om mycelets magi (och förmodligen
+        fullföljer gemensamma examen vid Yale <a href="https://environment.yale.edu/">School
+        of Forestry</a> och <a href="https://jackson.yale.edu/person/emily-sigman/">School
+        of Global Affairs</a> ). Emily har ett förödande missbruk av resor och kan
+        vara nästan var som helst just nu.
+      ethan_welty_bio_html: Med teknik och data mäter Ethan städer som källor till
+        färsk och gratis mat. Han skapade Falling Fruit med Caleb Phillips 2013 för
+        att främja stadsfoder i hela världen och grundade <a href="https://fruitrescue.org">Community
+        Fruit Rescue</a> 2014 för att skörda och distribuera överskott av frukt som
+        växer runt honom i Boulder, Colorado. Utöver frukt jonglerar han en <a href="https://www.weltyphotography.com">fotokarriär</a>
+        , <a href="https://instaar.colorado.edu/people/ethan-welty/">forskning om
+        glaciärer</a> och en aptit för bergiga och flodmässiga aktiviteter.
       ff_disclaimer_html: Falling Fruit har ingenting att göra med Fallen Fruit. Fallen
         Fruit finns på <a href="http://fallenfruit.org">fallenfruit.org</a>
       give_gratipay: Betala via Gratipay
+      give_paypal: Donera via Paypal Giving Fund
+      give_us_money: Vi är en ideell 501 (c) (3) och förlitar oss på donationer för
+        att driva. Om du är villig och kan du överväga att ge ett ekonomiskt bidrag.
+        Donationer inom USA är avdragsgilla.
+      jeff_wanner_bio_html: Sedan han skördade svarta och blåbär med sin familj som
+        barn och, mer nyligen, märkte han rikedom av offentliga fruktträd i hela Colorado,
+        har Jeff utvecklat en djup uppskattning för det överflöd av frukt som växer
+        i våra städer. Hans första uppdrag för Falling Fruit var att kamma Boulder
+        och Salt Lake City, papperskartor i handen, att registrera fruktträd. När
+        han inte arbetar för att förbättra energieffektiviteten i byggnaden hjälper
+        han vanligtvis till i samhället eller rör sig snabbt över bergen till fots,
+        på skidor eller på cykel.
+      join_us_html: Följ med oss för att fira hyper-lokal mat! <a href="/?locale=en">Kartan</a>
+        är öppen för alla att redigera, databasen kan laddas <a href="/data?locale=en">ner</a>
+        med bara ett klick och <a href="https://github.com/falling-fruit/">koden</a>
+        är öppen källkod. Du uppmuntras också att dela belöningen med dina medmänniskor.
+        Vår <a href="/sharing?locale=en">delningssida</a> listar hundratals lokala
+        organisationer - plantering av offentliga fruktträdgårdar och matskogar, plockning
+        av bortkastad frukt och grönsaker från ' och jordbrukare ' fält och delning
+        med grannar och behövande.
+      more_about_html: Vår ätbara karta är inte den första i sitt slag, men den strävar
+        efter att vara världens ' mest omfattande. Medan våra användare bidrar med
+        sina egna platser, kammar vi internet för befintlig kunskap och försöker förena
+        insatserna för födosökare, skogsmän och frilansare överallt. De <a href="/datasets?locale=en">importerade
+        datauppsättningarna</a> sträcker sig från små grannskapskartor till stora
+        professionellt sammanställda trädinventeringar. Hittills uppgår det till %{types}
+        olika typer av ätbara ämnen (de flesta, men inte alla, växtarter) fördelade
+        på %{locations} platser. Utöver det odlade och vanliga med de exotiska smakerna
+        av främmande växter och länge glömda inhemska växter är födosök i ditt område
+        en resa genom tiden och över kulturer.
+      staff: Personal
+      translate: Översätt
+      translate_for_us_html: Intresserad av att vara volontär som översättare? ' oss
+        och vi ' bjuder in dig till <a href="https://phrase.com">Phrase</a> , där
+        våra översättningar hanteras.
+      translators: Översättare
+      tristram_stuart_bio_html: 'Som tonåring uppfostrade Tristram grisar på överskottsmat
+        som han samlade från sina skolkök, den lokala bagaren och byens grönsakshandlare.
+        Att märka att mycket av denna mat fortfarande var lämplig som livsmedel ledde
+        honom till insikten att god, färsk mat slösades bort i en kolossal skala.
+        Tristram har sedan dess arbetat outtröttligt för att föra denna fråga till
+        allmänheten, media och beslutsfattare. Han grundade kampanjorganisationen
+        <a href="//feedbackglobal.org">Feedback Global för</a> matavfall och skrev
+        <a href="//tristramstuart.co.uk/">Waste: Uncovering the Global Food Scandal
+        för</a> att visa omfattningen av problemet i global skala. 2011 tilldelades
+        Tristram <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">Sophie-priset</a>
+        för sin kamp mot matsvinn.'
+      write: Skriva
+    data:
+      beware_html: Men se upp! En gång okomprimerad är databasen en enorm fil som
+        kommer att krossa de flesta kalkylprogram. Om du bara behöver data för en
+        liten region, försök först att hämta dem med det nedladdningsverktyg som är
+        integrerat i <a href="/?locale=en">kartan</a> .
+      caveat_emptor_html: Vi tar inget ansvar för noggrannheten i uppgifterna - de
+        tillhandahålls som de är, <i>varningstömare</i> . Om du gör något häftigt
+        med data, vänligen <a href="mailto:feedback@fallingfruit.org">meddela oss</a>
+        !
+      data_unavailable_html: Data för närvarande inte tillgänglig. Kom tillbaka senare
+        eller <a href="mailto:info@fallingfruit.org">kontakta oss</a> .
+      intro: Falling Fruit bygger på offentliga uppgifter och våra användares generositet.
+        Vi vill att stadsfodring ska nå så många människor som möjligt, och vi anser
+        att alla ska ha lika tillgång till frukterna av vårt kollektiva arbete. I
+        en anda av öppenhet, se! Hela databasen
+      license_html: Om du är intresserad av att använda informationen i ditt projekt,
+        särskilt ett kommersiellt projekt, föreslår vi att du kontaktar oss ( <a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>
+        ). Om inget annat anges licensieras data som <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons - Attribution, Icke-kommersiellt, Dela lika).
+        Det betyder att du är fri att använda och distribuera data så länge du bevarar
+        de ursprungliga författar- / källattributionerna och inte använder den (utan
+        tillstånd) för kommersiella applikationer. Källkoden för Falling Fruit är
+        också öppen och tillgänglig på <a href="https://github.com/falling-fruit/">GitHub</a>
+        .
+      summary_description: Databasen innehåller för närvarande %{types} olika typer
+        av ätbara ämnen (de flesta, men inte alla, är växtarter) fördelade på %{locations}
+        platser. För varje typ listar följande tabell vanliga namn, vetenskapliga
+        namn, länkar till externa referenser och totalt antal.
+      summary_of_sources: Sammanfattning av källor
+    datasets:
+      community_map: Gemenskapskarta
+      date_imported: Datum importerat
+      google_fusion_table: Google Fusion Table
+      google_map: Google karta
+      google_maps_engine: Google Maps Engine
+      intro_html: Falling Fruit strävar efter att vara den mest omfattande och öppna
+        geografiska datasetet för urbana matvaror. Medan våra användare utforskar,
+        redigerar och lägger till platser med hjälp av vår <a href="/?locale=en">karta</a>
+        , kammar vi det kända universumet för befintliga datamängder och importerar
+        dem direkt till <a href="/data?locale=en">databasen</a> , vilket förenar födosökarnas,
+        skogsmästarnas och freegans överallt. Om du känner till en dataset som vi
+        ' har missat, berätta för <a href="mailto:info@fallingfruit.org">oss</a> !
+        Du kan också hjälpa oss med importprocessen genom att formatera data med hjälp
+        av <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">importmallen</a>
+        . Observera att eftersom import måste utföras manuellt, återspeglas inte alla
+        ändringar i originaldata som gjorts efter importen på Falling Fruit.
+      no_license: Ingen licens specificerad, antag <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons - Attribution, Icke-kommersiell, Dela lika).
+      table_info: Varje dataset anges med namn, antal platser och importerat datum.
+        Expandera varje rad avslöjar ytterligare detaljer om data, importprocessen
+        och licensen som styr hur data kan användas.
+      type: Typ
+      types_of_data: Datamängder som importeras till Falling Fruit delas in i två
+        huvudkategorier. "Gemenskapskartor" är byggda av födosökare och friluftsliv
+        när de granskar sina samhällen för att äta. Vi är skyldiga de hårt arbetande
+        medborgarkartograferna som har sammanställt dessa uppgifter. "Träinventeringar"
+        sammanställs av städer, universitet och andra institutioner som vill dokumentera
+        och ta hand om sina träd bättre. Vi bryter ut dessa stora datamängder för
+        livsmedelsproducerande arter och lägger till dem på kartan. För att hjälpa
+        oss att kartlägga fruktträd i ditt område, kontakta din skola eller stad och
+        uppmana dem att dela deras trädinventering med oss.
+    sharing:
+      ample_harvest: Amerikanska livsmedelsbanker som accepterar producerar donationer
+      food_banks: Livsmedelsbanker
+      food_banks_canada: Livsmedelsbanker i Kanada
+      food_banks_intro: Jordbrukare och privata trädägare uppmuntras att donera sina
+        överskottsprodukter till välgörenhet. Överväg att samarbeta med grupper som
+        de som anges ovan, eller donera direkt till organisationer som matar de hungriga
+        i ditt samhälle. De viktigaste livsmedelsbanknäten listas nedan; hemlösa skydd,
+        skolor och seniorcentra är också värda att överväga.
+      global_foodbanking_network: Livsmedelsbankernas nätverk över hela världen
+      grow_pick_and_distribute: Växa · Plocka · Distribuera
+      intro_html: Nedan listas organisationer som odlar mat i offentliga utrymmen
+        (matskogar, offentliga fruktträdgårdar), plockar mat (stadsfoder, gårdskörning)
+        eller distribuerar mat (utbyte, donationer). Organisationer listas efter land,
+        delstat (om tillämpligt) och stad. De med streckade namn tros vara inaktiva.
+        Om du känner till andra som borde finnas på den här listan, <a href="mailto:info@fallingfruit.org">kontakta
+        oss</a> !
+  problems:
+    created: Tack för att du rapporterar problemet!
+    description_subtext: All information som kan hjälpa oss att utvärdera problemet
+    problem_type: Problem typ
+    your_contact_info: Din kontaktinformation
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Vi kan inte verifiera reCAPTCHA för tillfället
+      verification_failed: reCAPTCHA-verifiering misslyckades
+  routes:
+    denied: Du har inte behörighet att visa den rutten
+    modes_of_travel:
+    - Gå
+    - Cykling
+    - Körning
+    mode_of_travel: Resesätt
+    order_not_updated: Order kunde inte uppdateras
+    order_updated: Beställningen uppdaterades
+    updated: Rutten uppdaterades
+  time:
+    days:
+      one: "%{count} dag"
+      other: "%{count} dagar"
+    last_24_hours: Senaste 24 timmarna
+    months:
+      one: "%{count} månad"
+      other: "%{count} månader"
+    this_month: Den här månaden
+    this_week: Denna vecka
+    time_ago: "%{time} sedan"
   users:
+    address_subtext: Mitt i ditt födosökningsområde (till exempel din hemadress)
     bio: Om dig
     change_password: Byt lösenord
     clear_map: Rensa kartan
     confirm_account: Bekräfta kontot
     current_password: Nuvarande lösenord
+    current_password_subtext: Krävs för att göra ändringar i ditt konto
     delete_account: Avsluta mitt konto
+    edit_account: Redigera konto
+    foraging_map_subtext: Använd polygon- eller rektangelverktyget på kartan nedan
+      för att definiera ditt foderområde. Om du använder polygonverktyget, se till
+      att stänga polygonen genom att ansluta den sista punkten till den första.
+    foraging_radius: Radie
+    foraging_radius_subtext: Radien på det cirkulära foderområdet är centrerad på
+      adressen ovan
+    foraging_range: Fodringsområde
+    forgot_password: Återställ ditt lösenord
+    mailer:
+      confirmation_instructions_html: |-
+        <p>Välkommen till Falling Fruit,</p>
+        <p> För att aktivera ditt konto måste du bekräfta ditt e-postmeddelande ( %{email} ) genom att besöka länken nedan:
+        <br/> %{link}</p>
+        <p> Falling Fruit drivs av sina användare, så om du har möjlighet att lägga till eller förbättra det, vänligen gör det. Glad födosök!</p>
+      reset_password_instructions_html: |-
+        <p>Hej %{email} ,</p>
+        <p> Någon (troligen du) begärde en länk för att ändra ditt lösenord:
+        <br /> %{link}</p><span class="notranslate">
+        </span><p> Om du inte begärde ' kan du ignorera det här e-postmeddelandet. Ditt lösenord vann ' t ändras inte om du besöker länken ovan och skapar ett nytt.</p>
+      unlock_instructions_html: |-
+        <p>Hej %{email} ,</p>
+        <p> Ditt konto har låsts på grund av alltför stora misslyckade inloggningsförsök:
+        <br /> %{link}</p>
+    new_password: Nytt lösenord
+    options:
+      add_anonymously: Redigera kartan anonymt (även när du är inloggad)
+      announcements_email: Ta emot e-postmeddelanden med viktiga meddelanden och möjligheter
+        (1-2 per år)
+      range_updates_email: Ta emot en e-post varje vecka som rapporterar senaste aktivitet
+        i ditt födosökningsområde (definieras nedan)
+    range_by_map: Rita på karta
+    range_by_radius: Adress och radie
+    remember_me: Kom ihåg mig
+    resend_confirmation_instructions: Skicka ny bekräftelse än
+    resend_unlock_instructions: Skicka upplåsningsinstruktioner igen
+    send_password_instructions: Skicka instruktioner för återställning av lösenord
+    sign_in: Logga in
+    sign_in_with: Logga in med %{provider}
+    type_it_twice: Skriv det två gånger för att bekräfta
+    unlock_account: Lås upp mitt konto
+  validates_timeliness:
+    error_value_formats:
+      date: "% Y-% m-% d"
+      datetime: "% Y-% m-% d% H:% M:% S"
+      time: "% H:% M:% S"

@@ -1,5 +1,13 @@
 ---
 tr:
+  changes:
+    change_in_city: "%{type}%{city} içinde %{type}%{city}"
+    recent_changes: Son değişiklikler
+    type:
+      added: katma
+      edited: düzenlenen
+      grafted: aşılı
+      visited: ziyaret
   devise:
     confirmations:
       confirmed: Hesabınız başarıyla onaylandı. Şu an giriş yapmış bulunuyorsunuz.
@@ -12,7 +20,9 @@ tr:
       already_authenticated: Zaten giriş yaptınız.
       inactive: Hesabınız daha aktifleştirilmemiş.
       invalid: Yanlış e-posta adresi veya şifre girdiniz.
+      invalid_token: Geçersiz kimlik doğrulama belirteci.
       locked: Hesabınız kilitlendi.
+      not_approved: Hesabınız henüz bir yönetici tarafından onaylanmamıştır.
       timeout: Oturumunuz sonlandı. Devam etmek için, lütfen yeniden giriş yapınız.
       unauthenticated: Devam etmeden önce giriş yapmanız veya kayıt olmanız gereklidir.
       unconfirmed: Devam etmeden önce hesabınızı onaylamalısınız.
@@ -44,6 +54,8 @@ tr:
         için siteye giriş yapamadınız.
       signed_up_but_locked: Kaydınız başarıyla gerçekleşti. Fakat, hesabınız kilitlendiği
         için siteye giriş yapamadınız.
+      signed_up_but_not_approved: Sen başarıyla imzaladı ancak hesabın henüz bir yönetici
+        tarafından onaylanmamıştır.
       signed_up_but_unconfirmed: E-posta adresinize hesap aktifleştirme linkini içeren
         bir e-posta gönderdik. Hesabınızı aktifleştirmek için lütfen e-posta ile gönderdiğimiz
         linki açın.
@@ -63,24 +75,627 @@ tr:
         yapın.
   errors:
     messages:
+      after: "%{restriction} sonrasında olmalıdır"
       already_confirmed: zaten onaylanmış, lütfen giriş yapmayı deneyin
+      before: "%{restriction} önce olmalıdır"
+      expired: süresi doldu, yeni bir isteyin
+      invalid_date: geçerli bir tarih değil
+      invalid_datetime: geçerli tarih saat değildir
+      invalid_time: Geçerli bir zaman değil
+      is_at: "%{restriction}"
+      not_found: bulunamadı
+      not_locked: kilitli değildi
+      not_saved:
+        one: '1 hata bu %{resource} ''un kaydedilmesini engelledi:'
+        other: "%{count} hatası, bu %{resource} kaydedilmesini yasakladı:"
+      on_or_after: "%{restriction} tarihinde veya sonrasında olmalıdır"
+      on_or_before: "%{restriction} tarihinde veya öncesinde olmalıdır"
   glossary:
     about: Hakkında
+    access: Erişim
+    account: Hesap
+    activity: etkinlik
+    address: Adres
+    add_source: Konum ekle
+    anonymous: Anonim
+    are_you_sure: Emin misiniz?
     australia: Avustralya
     belgium: Belçika
+    by_author: "%{author}"
     canada: Kanada
     chile: Şili
+    common_name: Yaygın isim
+    data: Veri
+    delete: Silmek
+    description: Tanım
+    details: Ayrıntılar
+    donate: Bağışta bulunmak
+    download: indir
+    edible_type: yenilebilir tip
+    edit: Düzenle
+    email: E-posta
+    embed: gömmek
+    error: Hata
+    favorites: Sık
     fiji: Fiji
+    filter: filtre
     finland: Finlandiya
     france: Fransa
     germany: Almanya
+    global: global
     greece: Yunanistan
+    home: Ev
+    imported: İthal
+    imported_datasets: ithal veri setlerinin
+    imports: ithalat
+    info: Bilgi
+    invasive: invaziv
     ireland: İrlanda
     italy: İtalya
+    labels: etiketler
+    links:
+      one: Bağlantı
+      other: bağlantılar
+    locations:
+      one: Konum
+      other: Mekanlar
+    login: Giriş
+    logout: Logout
+    map: Harita
+    miles: mil
+    name: Isim
     new_zealand: Yeni Zelanda
+    options: Seçenekler
+    password: Şifre
+    pending_types: türlerini Bekleyen
+    photo: Fotoğraf
     portugal: Portekiz
+    position: pozisyon
+    problems: sorunlar
+    public: halka açık
+    quality: kalite
+    report: Rapor
+    report_a_problem: Problemi şikayet et
+    reviews:
+      one: gözden geçirmek
+      other: yorumlar
+    routes: rotalar
+    save_changes: Değişiklikleri Kaydet
+    scientific_name: Bilimsel ad
+    season: Sezon
+    send: Göndermek
+    show: göstermek
+    sign_up: kaydol
     spain: ispanya
+    street_view: sokak Görünümü
+    submit: Gönder
     sweden: İsveç
     switzerland: İsviçre
+    tree_inventory:
+      one: ağaç envanteri
+      other: ağaç envanterleri
+    types: Türleri
+    type_and_press_enter: Yazın ve enter tuşuna basın
     united_kingdom: Birleşik Krallık
     united_states: Amerika Birleşik Devletleri
+    unknown: Bilinmeyen
+    unverified: Doğrulanmamış
+    updated: Güncellenmiş
+    user: Kullanıcı
+    users: Kullanıcılar
+    world: Dünya
+    yield: Yol ver
+    zoom: yakınlaştırma
+    zoom_to_address: ele büyüt
+    zoom_to_me: Bana büyüt
+    zoom_to_this_location: Bu konuma büyüt
+  layouts:
+    application:
+      feed_people_not_landfills: Yem insanlar değil, düzenli depolama!
+      mapping_the_urban_harvest: Kentsel hasat Harita!
+      menu:
+        approved_types: onaylı türleri
+        in_the_press: Basında
+        list_imports: Liste ithalatı
+        new_import: yeni ithalat
+        new_type: Yeni tip
+        sharing_the_harvest: hasat paylaşımı
+        the_project: Proje
+      or_right-click_on_map: ya da harita üzerinde sağ tıklayın
+      pending_types_help: Biz organize ve aranabilir haritayı tutmak için yenilebilir
+        türleri sınıflandırmasını zorlar. Kullanıcılar tarafından gönderilen Roman
+        türleri, varolan türü ile taksonomi eklenir veya birleştirilir kadar beklemede
+        olarak harita üzerinde vurgulanır. Bazı önerilen türleri süresiz olarak onaylanmamış
+        devam böylece benzersiz veya belirsizdir.
+      unverified_help: konumları, kimlik, ya da varlığı tartışmalı olup olmadığını
+        yerler doğrulanmamış olarak işaretlenir. onların yenilebilirlik belirsiz olduğundan
+        ağaç stoklar ithal birçok yerleri (örneğin, "Armut" yenilebilir veya dekoratif
+        çeşitli ya olabilir) doğrulanmamış olarak işaretlenmiş. Kullanıcılar bu yerlere
+        seyahat ve bulgularını rapor teşvik edilmektedir.
+      unverified_help_title: Neden onaylanmamış?
+  locations:
+    form:
+      access_subtext: kaynağın erişim durumu. Eğer bilmiyorsanız boş bırakın.
+      address_subtext: işaretçi yerleştirmek için kullanılabilir. göndermeden önce
+        gerektiği gibi ayarlayın.
+      author_subtext: Harita üzerinde gösterilen. anonim kalmayı tercih boş bırakın.
+      comments: Yorumlar
+      comments_subtext: Güncelleştirmeler, erişim sorunları, bitki sağlığı ...
+      create_another: başka oluşturun
+      date_visited: tarihi ziyaret
+      description_subtext: Konum bilgilerini erişim sorunları, bitki sağlığı ...
+      form_error: Bir hata kaydedilmesini bu kaynak engelledi
+      form_intro_html: veya <a href="/observations/new?location_id=%{location_id}&locale=en"
+        data-ajax="false" rel="external" title="Review bu formu kullanabilirsiniz
+        location">, aşağıda konumu düzenleyin < / a> yorumlayan, yorum ve post fotoğraflar.
+      fruiting_status: meyve durumu
+      fruiting_subtext: adlı meyve nedir? (uygunsa)
+      have_you: Bu yeri ziyaret ettiniz mi?
+      move_marker: koordinatları işaretleyici taşı
+      move_marker_address: İşaretçiyi adrese taşı
+      name_subtext: anonim kalmayı tercih boş bırakın.
+      no_season: hiçbir mevsim
+      or: veya
+      original_author: orijinal yazar
+      photo_caption: Fotoğraf başlığı
+      photo_subtext: kaynak bir fotoğraf göndermek. o senin değilse, izin ve kredi
+        başlık fotoğrafçı olduğundan emin olun.
+      position_subtext: bulunduğunuz konumdan belirlenen (varsa) ya da bir işaretçi
+        yerleştirilir. harita işaretleyici hareket ettirerek ayarlayın.
+      quality_subtext: kaynağın kalitesini (varsa) Oranı
+      season_subtext: Ne zaman kaynak hasat edilebilir? Eğer bilmiyorsanız boş bırakın.
+      types_subtext: Uygun seçimler zaten mevcut olmadığı takdirde yeni tip göndererek,
+        açılan listeden seçin.
+      unverified_subtext: Bu kaynağın varlığı, konumu veya kimlik şüphe varsa.
+      verify: doğrulamak
+      verify_subtext: Bu bölge şu anda "Dođrulanmadý" olarak işaretlenmesi
+      yield_subtext: kaynak verimliliğini (varsa) Oranı
+      your_name: Adınız
+    index:
+      addmarker_html: burada bir kaynak </a> <br> <span class = "altmetin"> Ekle Sen
+        de beni </ span> taşıyabilirsiniz
+      editmarker_html: Taşı kaynağının konumuna <b> </ b> <br> uydu görünümü kontrol
+        <br> -. Kaynak uzaydan görülebilir!
+      freegan_modal_html: çabalarımız haritalama ek olarak href="/?locale=en"> yenilebilir
+        bitkiler şehirlerde büyüyen <a, dünyanın en besin taşıyan dumpsters harita
+        için yola ettik. Gelişmiş dünyada üretilen tüm gıda neredeyse yarısı yenen
+        asla. Biz, gıda atıkları etrafında bilinçlendirmek atılan gıda kurtuluşu kolaylaştırmak
+        ve href="/sharing?locale=en"> yerine onların yiyecek </a> bağış <a işletmelerin
+        teşvik umuyoruz. <br/> <Br /> alt-atık yaşam desteği, biz yenilebilir veya
+        başka atılır ama yararlı mallar ile (ücretsiz kutularına dumpsters itibaren)
+        tüm freegan kaynakların haritalama teşvik ediyoruz.
+      freegan_modal_title: Bizim freegan haritası hoş geldiniz!
+      grafter_modal_html: Gerilla Grafters (örneğin, şehirler genellikle renkli bahar
+        çiçekleri için steril meyve ağaçları kullanın) süs olmayan meyve meyve ağacı
+        çeşitleri üzerine meyve veren dalları greft. Zamanla, lezzetli, besleyici
+        meyve bu greft mahalleleri sayesinde uygun hale getirilir. Bu harita en yaygın
+        süs meyve ağaçları bazı gösterir <br/> <a href="http://guerrillagrafters.org">
+        guerrillagrafters.org </a> <br/> de proje hakkında daha fazla bilgi edinebilirsiniz.
+        Bir aşılayan, bir bahçıvan, ya da bir meyve ağacı meraklısı iseniz, bilgi
+        commons katkıda bulunmak ve meyve taşıyan dalları ile aşılanmış olabilir bahçesinde
+        ya da mahallede ağaçları yakala!
+      grafter_modal_title: Bizim aşılayan haritası hoş geldiniz!
+      mobile_modal_html: 'Merhaba! Eğer </ strong> <strong> mobil cihazdan Meyve Falling
+        erişmekte gibi görünüyor. Biz son zamanlarda hem Android hem de iOS mobil
+        platformlar için bir crowdfunded mobil uygulaması yayınladı. Ben bunu mobil
+        cihazınızda kullanmak çok daha keyifli bulacaksınız düşünüyorum: <satır> <br>
+        <satır> <ul> <satır> <li> <a href = "https://itunes.apple .com / tr / app
+        / düşme-meyve / id380859409 "> iOS </a> için meyve Falling <satır> <li> <a
+        href =" https://play.google.com/store/apps/details?id = uh.fallingfruit.app
+        "> için Meyve Falling Android </a> <satır> </ ul> <satır> <br> <satır uygulama
+        satışlarından elde edilen gelirin% 100 bizim sabit maliyetleri (sunucuları
+        ve altyapıyı desteklemek gitmek> siteyi çevrimiçi) tutmak. Biz bir 501 (c)
+        3 kar amacı gütmeyen kuruluş olduğunu, bu nedenle bu maliyeti de vergiden
+        düşülebilir ABD''de olduğunu.'
+      mobile_modal_title: Ama bekleyin, bir mobil uygulama var!
+      stamen_html: </ BY <a href="http://creativecommons.org/licenses/by/3.0/"> CC
+        altında <a href="http://stamen.com"> Stamen Tasarım </a> tarafından Haritası
+        fayans a>. -SA TARAFINDAN <a href="http://creativecommons.org/licenses/by-sa/3.0/">
+        CC altında <a href="http://openstreetmap.org"> OpenStreetMap </a> Veriler,
+        </a>.
+      turn_off_dragzoom: sürükleme Yakınlaştırma modunu kapatmak
+      turn_on_dragzoom: sürükleme yakınlaştırma modunu açın
+      welcome_modal_html: Meyve Falling kentsel hasat masif, işbirlikçi haritasıdır.
+        Her yerde toplayıcılar, Freegans ve ormancılar çabaları birleştirerek, harita
+        zaten (bitki ve mantar su kuyuları ve dumpsters kadar) dünya çapında yarım
+        milyon besin kaynaklarına işaret ediyor. Bizim hızla büyüyen kullanıcı topluluğu
+        aktif düzenleme keşfetmek ve haritaya ekliyor. <br/> Ilimiz sokakların gözden
+        lütuf kutlayan bize katılın! anonim siteyi kullanın veya <a ek özelliklere
+        erişmek için </a> kayıt href="/users/sign_up?locale=en">. <satır> <br/> <satır>
+        <em> Düşen Meyve Fallen Fruit ile ilişkili değildir. Meyve <a href="http://fallenfruit.org">
+        fallenfruit.org </a> bulunabilir Fallen. </ Em>
+      welcome_modal_title: Meyve Falling hoş geldiniz!
+    infowindow:
+      access: "<Satır> - Bu kaynak sahibi tarafından eklenmiştir. <Satır> - Bu kaynak
+        sahibinin izni ile ilave edildi. <Satır> - Bu kaynak, kamu arazisi üzerindedir.
+        <Satır> - Bu kaynak özel ama kamu arazisi sarkabilir. takdiri ile seçin. <Satır>
+        - Bu kaynak özeldir. Eğer elinize almadan önce izin isteyin. <Satır>"
+      access_mode: "<Satır> - Kaynak benim özelliği olan <satır> - I <satır> kaynağı
+        eklemek için sahibinden izin var - Kaynak kamu arazisi <satır> üzerinde -
+        Kaynak özel mülkiyete ama çıkıntıları kamu arazisi <satır üzerinde > - Kaynak
+        özel mülkiyete (seçtiğiniz önce sormak) <satır> üzerinde"
+      access_short: "<Satır> - sahibinden eklendi <satır> - sahibinden izin <satır>
+        - Kamu <satır> - Özel ama sarkan <satır> - Özel <satır>"
+      add_to_remove_from: kaldırmak Ekle /
+      citation_to_the_original_source: Orijinal veri kaynağına atıf
+      delete_comment: yorumu sil
+      delete_photo: fotoğrafı silmek
+      delete_this_location: Bu konumu sil
+      edit_this_location: Bu konumu düzenle
+      fruiting: "<Satır> - Çiçek <satır> - Olgunlaşmamış meyve <satır> - Olgun meyve
+        <satır>"
+      have_you_visited_html: Bu kaynak ziyaret ettiniz mi? Bir <a ekle href="/observations/new?location_id=%{id}&locale=en"
+        data-ajax="false" rel="external" title="Review bu source" id="add_review">
+        yorumu </ a>
+      january_to_december: Ocak-Aralık
+      new_route: Yeni rota
+      rating: "<Satır> - Kötü <satır> - Fuar <satır> - İyi <satır> - Çok iyi <satır>
+        - Mükemmel <satır>"
+      review_this_location: Bu konumu gözden
+      see_this_location_in_streetview: streetview Bu konumunu görmek
+      source: kaynak
+      toggle_route_controls: Geçiş rota kontrolleri
+      unsure: emin olmayan
+      unsure_other: Diğer / Emin değilim
+      url_for_this_location: Bu konum için URL
+    messages:
+      created: Yer ilave edildi
+      geocode_failed: Arama başarısız
+      latitude_too_large: Biz ± 85 derece ötesinde enlemleri desteklemez.
+      not_created: Yer eklenemedi
+      not_updated: Yer güncellenen olamazdı
+      updated: Konum güncellendi
+    searchbar:
+      embed_hover: Yerleştirme kodu
+      invasive_modal: Invaziv bitkiler doğal bitkiler outcompete belirli bir bölgedeki
+        yerli olmayan bitkilerdir. Bir seferde bir lezzetli lokma istilaları mücadele,
+        onları ararlar ve bunları yiyebilir böylece Meyve Falling üzerinde invaziv
+        bitkiler vurgulamak! İstilacı türler şu anda sadece ABD için listelenmiş ve
+        Tarım Bakanlığı'nı (USDA) devlet düzeyindeki zararlı ve istilacı türler listelerine
+        dayanmaktadır.
+      invasive_modal_title: Bir istilacı türler nedir?
+      link_hover: Geçerli haritaya URL
+      tree_inventories_modal: Ağaç stokları kendi ağaçlar için daha iyi belge ve bakım
+        isteyen kurumlar tarafından derlenmektedir. Bu veriler genellikle eğitimli
+        Ağaç Uzmanları tarafından toplanan ve ayrıntılı ve kapsamlı hem de vardır.
+        Biz dikkatle bu stoklardan yenilebilir türler ortaya çıkarmak ve sizin için
+        haritaya ekleyebilirsiniz. Bize bir ağaç envanteri varsa Şehrinizi (ya da
+        üniversite, kanton, vs) sorarak mahalleyi harita ve Meyve Falling paylaşılan
+        edilip edilemeyeceğini Yardım.
+      tree_inventories_modal_title: Bir ağaç envanteri nedir?
+    sidebar:
+      changed_within_html: <a href="/users/edit?locale=en"> toplayıcı aralığı </a>
+        içinde değişiklikler
+      click_here_to_manage_your_routes_html: Click <a href="%{routes_path}"> burada
+        güzergahları yönetebilir </a>.
+      in: içinde
+      locations_added_or_reviewed_by_you_while_logged_in: Mekanlar eklenen veya sizin
+        tarafınızdan gözden (süre kaydedilir)
+      you_havent_added_or_reviewed_anything_while_logged_in: Sen eklenebilir veya
+        henüz kaynakları gözden değil (oturum açtığınızda)
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Henüz
+        herhangi bir güzergah belirlenmiş değil. birini yapmaya başlamak, sonra "yolları"
+        konulu bir yere tıklayın.
+      you_havent_defined_html: Bir toplayıcı aralığı tanımlı değil. <a tıklayınız
+        href="/users/edit?locale=en"> şimdi bunu yapmak için <a
+  meta:
+    forager_description: dünyada toplayıcılar, Freegans ve ormancılar ve çabalarını
+      birleştirerek kentsel hasat devasa, işbirlikçi haritası. Keşfedin ve mahallede
+      ücretsiz yiyecek kaynakları hakkında bilgi paylaşmak.
+    freegan_description: dünyanın gıda taşıyan dumpsters haritalama, biz, gıda atıkları
+      konusunda bilinçlendirmek atılan gıda kurtuluşu kolaylaştırmak ve bunun yerine
+      gıda bağış işletmelerin teşvik etmeyi umuyoruz.
+    freegan_title: Dünya Çöplüğü Haritası
+  observations:
+    created: Yorumunuz eklendi
+    empty: Yorumlar boş olamaz
+  pages:
+    about:
+      about_the_site: Proje hakkında
+      advisors: danışman Kurulu
+      alan_gibson_bio_html: 'Alan her zaman maceradan ve keşfetmekten zevk almıştır.
+        Küçük çocuklarını açık hava yaşam tarzıyla tanıştırmanın bir yolu olarak yiyecek
+        aramaya başladı. <a href="http://theurbaneforager.blogspot.com">Urbane Forager</a>
+        blogunu yazdı ve <a href="http://theurbaneforager.blogspot.com">Urbane Forager</a>
+        <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">:
+        Fruit and Nuts For Free</a> kitabını yayınladı. Halka açık parklarda yiyecek
+        aramayı yasallaştırdı ve memleketi Southampton İngiltere''de bir topluluk
+        bahçesi kurdu.'
+      ana_carolina_bio_html: Ana, Brezilya'daki Pará Federal Üniversitesi'nde doktora
+        sonrası araştırmacıdır. Sosyal ve kültürel beslenme alışkanlıklarını anlamakla
+        ilgilenen bir antropologdur. Ana çoğunlukla Brezilya Amazon'unda çalışıyordu.
+        Acre'de (batı Amazon) bölgesel meyve tüketimini inceledi. Daha sonra Orta
+        Solimões bölgesinde çalıştı ve uzak topluluklardaki diyet değişikliğini araştırdı.
+        Ana, 2017 ile 2018 yılları arasında Amazon Deltası'nın küçük ve orta ölçekli
+        kasabalarında yaşadı ve iklim değişikliğinin kayıt dışı yerleşimlerde yaşayan
+        insanların gıda güvenliği üzerindeki etkilerini inceledi. Yakın zamanda, danışman
+        olarak çalıştığı Amerika Birleşik Devletleri'nin güneyindeki New Mexico'ya
+        taşındı.
+      caleb_phillips_bio_html: Caleb, gıda adaleti konusunda tutkulu tüysüz, iki ayaklı
+        bir insansıdır ve sosyal sorunları ele almak için teknolojiyi kullanmanın
+        yaratıcı yollarını bulur. ' , ağaçlara ' etrafta bisiklet ' zamanlarda, Golden,
+        Colorado'daki <a href="https://www.nrel.gov/research/caleb-phillips.html">Ulusal
+        Yenilenebilir Enerji Laboratuvarı'nda</a> veri bilimcisi olarak günlük işi
+        <a href="https://www.colorado.edu/cs/caleb-phillips">ve Colorado Üniversitesi'nde</a>
+        bilgisayar bilimi yardımcı profesörü olarak çabalarını dengeliyor. Tüm bu
+        işin yanı sıra, kayalara tırmanmayı, parkurları koşmayı, bisiklet sürmeyi
+        ve genellikle mümkün olduğunca dışarıda olmayı seviyor. Caleb, 2013 yılında
+        Ethan Welty ile Falling Fruit'i yarattı ve Danışma Kurulu'nda görev almadan
+        önce 6 yıl boyunca Yönetim Kurulu'nda görev yaptı.
+      celebration: Düşen Meyve şehrimizin sokakların ardı mutfak lütuf bir kutlama.
+        interaktif bir harita üzerinde bu kaynağı miktarının, biz insanlar, gıda ve
+        bizim mahallelerde büyüyen doğal organizmalar arasında yakın bağlantıları
+        kolaylaştırmak istiyoruz. Sadece bir ücretsiz öğle yemeği! 21. yüzyılda kazarak
+        kentsel keşif için bir fırsat, lekeli kaldırımlar belası mücadele ve gıda
+        botanik kökeni ile yeniden etmektir.
+      closing_remarks: kapanış
+      closing_remarks_para1_html: Falling Fruit, Boulder, Colorado merkezli bir 501
+        (c) (3) (vergiden muaf) kamu yardım kuruluşudur. Sonuç olarak, Amerika Birleşik
+        Devletleri içindeki bağışlar vergiden düşülebilir. IRS'den <a href="/501c3.pdf">muafiyet
+        mektubumuzu</a> gözden geçirebilir ve <a href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS
+        Yayını 78</a> veya <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Colorado
+        Dışişleri Bakanı</a> <a href="http://apps.irs.gov/app/eos/pub78Search.do?">nezdindeki</a>
+        durumumuzu doğrulayabilirsiniz. Ayrıca <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">tüzüklerimiz</a>
+        ve yönetim kurulu toplantı <a href="https://drive.google.com/folderview?id=0B3Vxw_F2RArqaVZMUHkzMUNBNnM&usp=sharing">tutanaklarımız</a>
+        da mevcuttur.
+      closing_remarks_para2_html: Kentsel bir ortamda yiyecek hasadı yapmak bazı pratik
+        ve ahlaki hususları beraberinde getirir. Kentsel yiyecek arama etiğine giriş
+        için, aşağıdaki <a href="https://docs.google.com/document/d/1SupIGQKC5Vgi3VYkdIQc05y_S7jSoZ4RTS-CzwlEAMY">özeti</a>
+        öneriyoruz.
+      closing_remarks_para3_html: Düşen Meyve ile ilgili bilgiler yanlış veya güncel
+        olabilir. Örneğin, toplayıcı haritaların birçok hangi belirteçleri sık sık
+        yanlışlıkla taşınan genel Google Maps gibi Meyve Falling barındırılan göç
+        ve ağaçlar bakım için ziyaret edilir belediye ağaç envanterler (hiç değilse)
+        sadece güncellenir. alandaki yanlışlıklar karşılaşmak ve keşiflere dayalı
+        olarak haritayı gerektiği gibi düzenleyin lütfen hazırlıklı olun. Sonuçta,
+        haritanın kalitesini artırmak için bir bitkinin kimliği, Yenilebilirlik ve
+        konumu ve tüm sorumluluğu belirlemek sizin sorumluluğunuzdadır.
+      contact_us_html: Düşen Meyve tarafından ve toplayıcılar için inşa edilmiştir
+        - biz çağdaş forager için mevcut en iyi araç olmak istiyorum. <a href="mailto:feedback@fallingfruit.org">
+        feedback@fallingfruit.org </a> bize yaz, biz sizden duymak isteriz!
+      craig_durkin_bio_html: Craig gıda büyür ve bağış için şehir boyunca meyve seçer
+        <a href="http://www.concrete-jungle.org/"> Concrete Jungle </a> kurucularından,
+        Atlanta bir örgüt, Gürcistan ise yerel evsiz barınakları ve gıda bankalarına.
+        <a href="http://www.gatech.edu/"> Georgia Tech </a> mezunu olarak, o her zaman
+        yeni teknolojilerle toplama meyve birleştirmek için yollar arıyor, ve yakında
+        onun meyve ağacı lekelenme dağıtma olacak drone ve tweeting meyve-kemâl sensörü
+        ...
+      cristina_rubke_bio_html: Cristina o marka savcılık ve danışmanlık odaklanır
+        San Francisco, California'da, <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">
+        Shartsis Friese LLP </a> bir avukat. O da San Francisco toplu taşıma, trafik
+        ve otopark denetleyen <a href="//www.sfmta.com/"> San Francisco Belediye Ulaşım
+        Ajansı </a>, bir yönetim kurulu üyesidir. Boş zamanlarında, Cristina Engelli
+        Denizciler </a> <a href="//www.baads.org/"> Bay Area Derneği ile San Francisco
+        Bay yelken ve yerel ve uluslararası yarışlara yarışıyor.
+      david_craft_bio_html: 'David <a Radyasyon Onkolojisi Bölümü''nde araştırmacı
+        href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">
+        Boston, Massachusetts, Harvard Tıp Okulu </a>. Bulma ve Beslenme Yabani Bitkiler:
+        O da kitap <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">
+        Kentsel Toplayıcılık hevesli bir toplayıcı ve yazar Şehir </a> (<a href="/docs/David
+        Craft-Kentsel Foraging.pdf"> ücretsiz indirme </a>) içinde.'
+      directors: Yönetim Kurulu
+      emily_sigman_bio_html: Emily, ' evangelisti, uslanmaz bir toplayıcı ve iki kediye,
+        dört bıldırcına ve dünyanın ' un en muhteşem ' . Kökleri Rocky Dağları'nın
+        derinliklerine kadar uzanıyor, ancak bugünlerde yer üstü biyokütlesi New Haven,
+        Connecticut'ı evi olarak adlandırmaktan gurur duyuyor. Sıklıkla halka açık
+        yiyecek ormanlarına bakarken, rahat bir kütüphane köşesinde büyülenmiş bir
+        kitap okurken veya miselyumun büyüsü hakkında şiirsel bir şiir yazarken (ve
+        sözde Yale <a href="https://environment.yale.edu/">Ormancılık</a> <a href="https://jackson.yale.edu/person/emily-sigman/">Okulu
+        ve Küresel İlişkiler Okulu'nda</a> ortak yüksek lisans derecelerini tamamlarken)
+        bulunabilir. Emily, seyahat için yıkıcı bir bağımlılık barındırıyor ve şu
+        anda hemen her yerde olabilir.
+      ethan_welty_bio_html: Ethan, teknoloji ve verilerle şehirleri taze ve ücretsiz
+        gıda kaynakları olarak savunuyor. 2013 yılında dünya çapında kentsel toplayıcılığı
+        teşvik etmek için Caleb Phillips ile Falling Fruit'i yarattı ve Boulder, Colorado'da
+        çevresinde büyüyen fazla meyveyi toplamak ve dağıtmak için 2014'te <a href="https://fruitrescue.org">Community
+        Fruit Rescue'yu</a> kurdu. Meyvenin ötesinde, bir <a href="https://www.weltyphotography.com">fotoğrafçılık
+        kariyeri</a> , <a href="https://instaar.colorado.edu/people/ethan-welty/">buzullar
+        üzerine araştırma</a> ve dağlık ve nehir kıyısı arayışları için hokkabazlık
+        yapıyor.
+      ff_disclaimer_html: Meyve Falling Fallen Fruit ile ilişkili değildir. Fallen
+        Fruit <a href="http://fallenfruit.org"> fallenfruit.org </a> bulunabilir.
+      give_gratipay: Gratipay ile ödeme
+      give_paypal: Paypal Bağış Fonu ile Bağış Yapın
+      give_us_money: Bir 501 (c) (3) sivil toplum kuruluşuyuz ve faaliyet göstermek
+        için bağışlara güveniyoruz. İstekli ve kabiliyetli iseniz, lütfen mali bir
+        katkıda bulunmayı düşünün. Amerika Birleşik Devletleri içindeki bağışlar vergiden
+        düşülebilir.
+      jeff_wanner_bio_html: Bir çocuk olarak ailesi ile birlikte siyah ve yaban mersini
+        hasat ve daha yakın, Colorado genelinde kamu meyve ağaçlarının zenginliği
+        fark beri, Jeff bizim şehirlerde büyüyen meyve bolluğu için derin bir takdir
+        geliştirdi. Meyve Falling için ilk görev meyve ağaçları kaydetmek için, in-hand
+        Boulder ve Salt Lake City, kağıt haritalar tarak oldu. Bina enerji verimliliğini
+        artırmak için çalışmıyor zaman, o genellikle toplum içinde yardım veya ayak,
+        kayak ya da bisikletle dağların üzerinden hızla ilerliyor.
+      join_us_html: Hiper-yerel yemekleri kutlamak için bize katılın! <a href="/?locale=en">Harita</a>
+        herkesin düzenlemesi için açıktır, veritabanı tek bir tıklama ile <a href="/data?locale=en">indirilebilir</a>
+        ve <a href="https://github.com/falling-fruit/">kod</a> açık kaynaklıdır. Aynı
+        şekilde ödülü insan arkadaşlarınızla paylaşmanız için teşvik ediliyorsunuz.
+        <a href="/sharing?locale=en">Paylaşım sayfamızda</a> yüzlerce yerel organizasyonu
+        listeliyor - halka açık meyve bahçeleri ve yiyecek ormanları dikmek, şehir
+        ağaçlarından ve çiftçilerden ' tarlalardan başka türlü boşa harcanan meyve
+        ve sebzeleri toplamak ve komşularla ve muhtaçlarla paylaşmak.
+      more_about_html: Yenilebilir haritamız türünün ilk örneği değil, ancak ' un
+        en kapsamlı dünyası olmayı ' . Kullanıcılarımız kendi konumlarına katkıda
+        bulunurken, her yerde toplayıcıların, ormancıların ve özgürlerin çabalarını
+        birleştirmek için interneti önceden var olan bilgiler için tarıyoruz. <a href="/datasets?locale=en">İçe
+        aktarılan veri kümeleri</a> , küçük mahalle yiyecek arama haritalarından profesyonelce
+        derlenmiş geniş ağaç envanterlerine kadar çeşitlilik göstermektedir. Bu, şimdiye
+        kadar %{locations} konuma dağıtılan %{types} farklı türde yenilebilir (hepsi
+        olmasa da çoğu bitki türü) anlamına geliyor. Yabancı bitkilerin ve uzun zamandır
+        unutulmuş yerli bitkilerin egzotik tatlarına ekili ve sıradan olmanın ötesinde,
+        mahallenizde yiyecek aramak, zaman ve kültürler arasında bir yolculuktur.
+      staff: Personel
+      translate: Çevirmek
+      translate_for_us_html: Çevirmen olarak gönüllü olmakla ilgileniyor musunuz?
+        Bize e-posta ve biz ' bize katılmaya davet edeceğiz <a href="https://phrase.com">Sıralı</a>
+        Çevirilerimiz yönetilir.
+      translators: çevirmenler
+      tristram_stuart_bio_html: 'Bir genç olarak, Tristram onun okul mutfaklar, yerel
+        fırıncı ve köy manav toplanan artı gıda domuz kaldırdı. İnsan tüketimi iyi,
+        taze gıda muazzam ölçekte israf edildiğini gerçekleşmesine götürdü için bu
+        gıda hala çok uygun olduğunu fark. Tristram beri halka, medya ve politika
+        yapıcıların dikkatine bu konuyu getirmek için yorulmadan çalıştı. <Global
+        Gıda Skandalı ortaya çıkararak: O yemek atıkları kampanya organizasyonu <a
+        href="//feedbackglobal.org"> Görüşleri Küresel </a> kurdu ve <a href="//tristramstuart.co.uk/">
+        Atık yazdı / a> küresel ölçekte sorunun boyutunu göstermek için. 2011 yılında,
+        Tristram gıda atıkları karşı mücadele için <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">
+        Sophie Ödülü </a> verildi.'
+      write: Yazmak
+    data:
+      beware_html: Ama dikkat! sıkıştırılmamış sonra, veritabanı çoğu elektronik tablo
+        yazılımı ezecek büyük bir dosyadır. Eğer sadece küçük bir bölge için veri
+        gerekiyorsa, öncelikle <a href="/?locale=en"> haritası </a> entegre indir
+        aracını kullanarak bunları almak deneyin.
+      caveat_emptor_html: Biz verilerin doğruluğu konusunda hiçbir sorumluluk almak
+        - o olarak verilmiştir <i> ihtar emptor </ i>. Eğer verilerle serin bir şey
+        yaparsanız, href="mailto:feedback@fallingfruit.org"> bize bildirin </a> lütfen
+        <a!
+      data_unavailable_html: Veriler şu anda kullanılamıyor. Sonra gel veya <a bize
+        ulaşın </a> href="mailto:info@fallingfruit.org">.
+      intro: Düşen Meyve kamu veri ve kullanıcılarımızın cömertlik üzerine inşa edilmiştir.
+        Biz kentsel yem arama mümkün olduğunca çok kişiye ulaşmak istiyoruz ve biz
+        herkes bizim kolektif emek meyve eşit erişime sahip gerektiğine inanıyoruz.
+        açıklık ruhu içinde, işte! tüm veritabanı
+      license_html: Projenizde, özellikle ticari bir projede verileri kullanmakla
+        ilgileniyorsanız, bizimle iletişime geçmenizi öneririz ( <a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a>
+        ). Aksi belirtilmedikçe, veriler <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons - Atıf, Ticari Olmayan, Benzer Paylaşım) olarak
+        lisanslanmıştır. Bu, orijinal yazar / kaynak niteliklerini koruduğunuz ve
+        ticari uygulamalar için (izinsiz olarak) kullanmadığınız sürece verileri kullanmakta
+        ve dağıtmakta özgür olduğunuz anlamına gelir. Falling Fruit'in kaynak kodu
+        da açıktır ve <a href="https://github.com/falling-fruit/">GitHub'da</a> mevcuttur.
+      summary_description: Veri tabanı şu anda %{locations} lokasyonuna dağıtılmış
+        %{types} farklı türde yenilebilir (hepsi olmasa da çoğu bitki türüdür) içermektedir.
+        Her tür için, aşağıdaki tabloda ortak isimler, bilimsel isimler, dış referanslara
+        bağlantılar ve toplam sayı listelenmektedir.
+      summary_of_sources: kaynağa Özeti
+    datasets:
+      community_map: Topluluk haritası
+      date_imported: tarihi ithal
+      google_fusion_table: Google Füzyon Tablosu
+      google_map: Google Harita
+      google_maps_engine: Google Maps Engine
+      intro_html: Meyve arzuladığı düşen kentsel edibles en kapsamlı ve açık coğrafi
+        veri kümesi olmak. Bizim kullanıcılar, keşfetmek, düzenleyebilir ve <a href="/?locale=en">
+        haritası </a> kullanarak yerleri eklemek, biz önceden varolan veri kümeleri
+        için bilinen evrenin tarak ve <a href doğrudan bunları ithal = Her yerde toplayıcılar,
+        ormancılar ve Freegans çabalarını birleştirerek "/ veri? locale = tr"> veritabanı
+        </a>. biz kaçırdığınızı bir veri setinin biliyorsanız, href="mailto:info@fallingfruit.org">
+        bize bildirin </a> lütfen <a! Ayrıca, <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">
+        ithalat şablon </a> kullanarak veri biçimlendirme ile alma işlemi ile bize
+        yardımcı olabilir. ithalat elle yapılmalıdır, çünkü ithalat sonra yapılan
+        orijinal verilere tüm değişiklikler Meyve Falling yansıyan unutmayın.
+      no_license: Belirtilen hiçbir lisans, <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        CC varsayalım BY-NC-SA </a> (Creative Commons - Atıf, Ticari Olmayan, paylaşılabilir).
+      table_info: Her veri kümesi adı, yerlerin sayısına göre listelenmiş ve tarih
+        ithal edilmektedir. Her satır genişleyen veri alma işlemi ve veri nasıl kullanılabileceğini
+        yöneten lisansı hakkında ayrıntılı bilgi ortaya koymaktadır.
+      type: Tip
+      types_of_data: Düşen Meyve ithal veri setleri iki ana kategoriye ayrılır. yedikleri
+        şeyleri toplumlarını peruse olarak "Topluluk haritaları" toplayıcılar ve Freegans
+        tarafından inşa edilmiştir. Biz bu verileri derledik çalışkan vatandaş cartographers
+        borçluyuz. "Ağaç envanterleri" kendi ağaçlar için daha iyi belge isteyen şehirler,
+        üniversiteler ve diğer kurumlar tarafından derlenen ve bakım vardır. Biz gıda
+        üreten türler için bu büyük veri setleri mayın ve haritaya ekleyebilirsiniz.
+        Bize, mahalle meyve ağaçları harita bizimle ağaç envanterini paylaşmak için
+        onları çağıran okulunuza veya şehir temasa yardımcı olmak.
+    sharing:
+      ample_harvest: kabul Amerikan Gıda bankaları bağış üretmek
+      food_banks: gıda bankaları
+      food_banks_canada: Kanada'da Gıda bankaları
+      food_banks_intro: Silaj ve özel ağaç sahipleri hayır onların artı üretmek bağış
+        için teşvik edilir. Yukarıda belirtilenler gibi gruplarla ortaklık ya da toplum
+        içinde aç besleyen kuruluşlara doğrudan bağış düşünün. büyük gıda bankası
+        ağları aşağıda listelenmiştir; evsiz barınakları, okullar, ve üst düzey merkezleri
+        de dikkate değerdir.
+      global_foodbanking_network: dünya çapında Gıda bankaları ağları
+      grow_pick_and_distribute: "· Dağıtın Pick büyümek"
+      intro_html: Aşağıda listelenen kamusal alanlarda (gıda ormanları, kamu bahçeler)
+        gıda büyümek kuruluşlardır, (gleaning çiftlik kentsel yağmalama) yiyecek almak
+        veya gıda (değişim, bağış) dağıtın. Organizasyonlar ülke, devlet (varsa),
+        ve şehir listelenmiştir. çarpı işaretli adlara sahip olanlar inaktif olduğuna
+        inanılmaktadır. başkalarının biliyorsanız bu listede olmalı, <a bize ulaşın
+        </a> href="mailto:info@fallingfruit.org">!
+  problems:
+    created: sorunu bildirdiğiniz için teşekkür ederiz!
+    description_subtext: Sorunu değerlendirmek yardımcı olabilecek herhangi bir bilgi
+    problem_type: sorun türü
+    your_contact_info: Sizin iletişim bilgileri
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Şu anda reCAPTCHA'yı doğrulayamıyoruz
+      verification_failed: reCAPTCHA doğrulaması başarısız oldu
+  routes:
+    denied: O rotayı görüntülemek için izniniz yok
+    modes_of_travel: "<Satır> - Yürüyüş <satır> - Bisiklet <satır> - Sürüş <satır>"
+    mode_of_travel: seyahat Modu
+    order_not_updated: Sipariş güncellenemedi
+    order_updated: Sipariş güncellendi
+    updated: Rota güncellendi
+  time:
+    days:
+      one: "%{count} gün"
+      other: "%{count} gün"
+    last_24_hours: Son 24 saat
+    months:
+      one: "%{count} ay"
+      other: "%{count} ay"
+    this_month: Bu ay
+    this_week: Bu hafta
+    time_ago: "%{time} önce"
+  users:
+    address_subtext: senin yiyecek arama aralığının merkezi (ev adresi, örneğin)
+    bio: Senin hakkında
+    change_password: Şifremi Değiştir
+    clear_map: net haritası
+    confirm_account: Hesabımı onaylamak
+    current_password: Şimdiki Şifre
+    current_password_subtext: Hesabınızda değişiklik yapmak için gerekli
+    delete_account: hesabımı iptal
+    edit_account: Hesabı düzenlemek
+    foraging_map_subtext: senin yiyecek arama aralığını tanımlamak için aşağıdaki
+      haritada çokgen veya dikdörtgen aracını kullanın. çokgen aracını kullanarak,
+      önce son noktayı katılarak çokgeni kapatmak için emin olun.
+    foraging_radius: yarıçap
+    foraging_radius_subtext: Dairesel toplayıcı aralığının yarıçapı yukarıda belirtilen
+      adrese merkezli
+    foraging_range: toplayıcı aralığı
+    forgot_password: Parolanızı sıfırlayın
+    mailer:
+      confirmation_instructions_html: |-
+        <p>Falling Fruit'e hoş geldiniz,</p>
+        <p> Hesabınızı etkinleştirmek için, aşağıdaki bağlantıyı ziyaret ederek %{email} postanızı ( %{email} ) doğrulamalısınız:
+        <br/> %{link}</p>
+        <p> Falling Fruit, kullanıcıları tarafından desteklenmektedir, bu nedenle onu ekleme veya geliştirme fırsatınız varsa, lütfen bunu yapın. Mutlu yiyecek arama!</p>
+      reset_password_instructions_html: |-
+        <p>Merhaba %{email} ,</p>
+        <p> Birisi (büyük olasılıkla siz) şifrenizi değiştirmek için bir bağlantı istedi:
+        <br /> %{link}</p><span class="notranslate">
+        </span><p> Bunu ' istemediyseniz, bu e-postayı göz ardı edebilirsiniz. Yukarıdaki bağlantıyı ziyaret edip yeni bir tane oluşturmadıkça şifreniz ' t değişmeyecek.</p>
+      unlock_instructions_html: |-
+        <p>Merhaba %{email} ,</p>
+        <p> Aşırı sayıda başarısız giriş denemesi nedeniyle hesabınız kilitlendi:
+        <br /> %{link}</p>
+    new_password: Yeni şifre
+    options:
+      add_anonymously: anonim haritayı düzenleyin (bile kaydedilir)
+      announcements_email: önemli duyurular ve fırsatlar (1-2 başına yıllık) e-postalar
+        alın
+      range_updates_email: senin toplayıcı aralığında son etkinliği raporlama haftalık
+        e-posta almak (aşağıda tanımlanmıştır)
+    range_by_map: Harita üzerinde çizin
+    range_by_radius: Adres ve yarıçapı
+    remember_me: Beni Hatırla
+    resend_confirmation_instructions: Onay talimatları tekrar gönder
+    resend_unlock_instructions: talimatları kilidini tekrar gönder
+    send_password_instructions: parola sıfırlama yönergeleri gönder
+    sign_in: Oturum aç
+    sign_in_with: "%{provider} ile oturum açın"
+    type_it_twice: onaylamak için iki kez yazın
+    unlock_account: Hesabımı kilidini
+  validates_timeliness:
+    error_value_formats:
+      date: "% Y-% m-% d"
+      datetime: "% Y-% m-% d% H:% M:% S"
+      time: "% H:% M:% S"

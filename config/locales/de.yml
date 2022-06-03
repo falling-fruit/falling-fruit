@@ -121,14 +121,18 @@ de:
     favorites: Favoriten
     fiji: Fidschi
     filter: Filter
+    finland: Finnland
     france: Frankreich
+    germany: Deutschland
     global: Weltweit
+    greece: Griechenland
     home: Zuhause
     imported: Importiert
     imported_datasets: Importierte Datensätze
     imports: Importe
     info: Info
     invasive: invasiv
+    ireland: Irland
     italy: Italien
     labels: Etiketten
     links:
@@ -167,6 +171,7 @@ de:
     spain: Spanien
     street_view: Street View
     submit: Einreichen
+    sweden: Schweden
     switzerland: Schweiz
     tree_inventory:
       one: Bauminventar
@@ -294,6 +299,8 @@ de:
         unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>.
         Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC
         BY SA</a>.
+      turn_off_dragzoom: Drag-Zoom-Modus ausschalten
+      turn_on_dragzoom: Drag-Zoom-Modus einschalten
       welcome_modal_html: Falling Fruit ist eine riesige, user-generierte Karte der
         urbanen Ernte. Dank den gemeinschaftlichen Anstrengung vieler 'Jäger und Sammler'
         zeigt unsere Karte weltweit bereits zu einer halben Million Standorten, an
@@ -410,6 +417,24 @@ de:
     about:
       about_the_site: Über diese Seite
       advisors: Beirat
+      alan_gibson_bio_html: 'Alan hatte schon immer Spaß an Abenteuern und Erkundungen.
+        Er begann mit der Futtersuche, um seine kleinen Kinder an den Lebensstil in
+        der Natur heranzuführen. Er schreibt den <a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a> Blog und veröffentlichte das <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit and Nuts For Free</a> Buch. Er hat die Futtersuche in öffentlichen
+        Parks legitimiert und eine Gemeinschaftsplantage in seiner Heimatstadt Southampton
+        (Großbritannien) gegründet.'
+      ana_carolina_bio_html: Ana ist Postdoc-Forscherin an der Bundesuniversität von
+        Pará in Brasilien. Sie ist eine Anthropologin, die sich für das Verständnis
+        sozialer und kultureller Ernährungsgewohnheiten interessiert. Ana arbeitete
+        hauptsächlich im brasilianischen Amazonasgebiet. In Acre (westliches Amazonasgebiet)
+        untersuchte sie den regionalen Obstkonsum. Danach arbeitete sie in der Region
+        Middle Solimões und untersuchte den Wandel der Ernährung in abgelegenen Gemeinden.
+        Zwischen 2017 und 2018 lebte Ana in kleinen und mittleren Städten des Amazonasdeltas
+        und untersuchte die Auswirkungen des Klimawandels auf die Ernährungssicherheit
+        von Menschen, die in informellen Siedlungen leben. Vor Kurzem ist sie in den
+        Süden von New Mexico in den Vereinigten Staaten gezogen, wo sie als Beraterin
+        arbeitet.
       caleb_phillips_bio_html: Caleb ist ein federloser Wandervogel der sich seit
         jeher für eine fairere Verteilung von Lebensmitteln engagiert und immer darauf
         bedacht ist, mit <a href="http://smallwhitecube.com">moderner Technologie
@@ -431,7 +456,7 @@ de:
         erforschen, den grauen Betonwüsten den Kampf anzusagen und sich mit der botanischen
         Herkunft unserer Lebensmittel auseinander zu setzen.
 
-'
+        '
       closing_remarks: Abschliessende Bemerkungen
       closing_remarks_para1_html: 'Falling Fruit ist als steuerfreie, gemeinnützige
         Organisation in Boulder, Colorado registriert (nach Amerikanischem Recht:
@@ -461,7 +486,7 @@ de:
         Schreib uns an <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>
         - wir freuen uns, von dir zu hören!
 
-'
+        '
       craig_durkin_bio_html: Craig ist der Gründer der <a href="//www.concrete-jungle.org/">Concrete
         Jungle</a>, einer Organisation in Atlanta, Georgia, die in der Stadt Nahrung
         anbaut und Früchte sammelt, um sie an Obdachlosenunterkünfte und Essensausgaben
@@ -474,6 +499,26 @@ de:
       david_craft_bio_html: Autor von <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
         Foraging</a> (gratis download <a href="/docs/David Craft - Urban Foraging.pdf">hier</a>)
       directors: Vorstand
+      emily_sigman_bio_html: Emily ist eine eingefleischte Verfechterin der Agroforstwirtschaft,
+        unverbesserliche Sammlerin und stolze Mutter von zwei Katzen, vier Wachteln
+        und dem prächtigsten Hund der Welt. Ihre Wurzeln reichen tief in die Rocky
+        Mountains, aber heutzutage ist ihre oberirdische Biomasse stolz darauf, New
+        Haven, Connecticut ihr Zuhause zu nennen. Man findet sie oft bei der Pflege
+        öffentlicher Lebensmittelwälder, beim entrückten Lesen in einer gemütlichen
+        Bibliotheksecke oder beim poetischen Schwärmen über die Magie des Myzels (und,
+        angeblich, beim Abschluss eines gemeinsamen Studiums an der Yale <a href="https://environment.yale.edu/">School
+        of Forestry</a> und der <a href="https://jackson.yale.edu/person/emily-sigman/">School
+        of Global Affairs</a>). Emily leidet unter einer verheerenden Reisesucht und
+        könnte im Moment so ziemlich überall sein.
+      ethan_welty_bio_html: Mit Technologie und Daten setzt sich Ethan für Städte
+        als Quellen für frische und kostenlose Lebensmittel ein. Zusammen mit Caleb
+        Phillips gründete er 2013 Falling Fruit, um die urbane Nahrungssuche weltweit
+        zu fördern. 2014 war er Mitbegründer von <a href="https://fruitrescue.org">Community
+        Fruit Rescue</a>, um überschüssiges Obst zu ernten und zu verteilen, das in
+        seiner Umgebung in Boulder, Colorado, wächst. Neben dem Obst jongliert er
+        mit einer <a href="https://www.weltyphotography.com">Karriere als Fotograf</a>,
+        <a href="https://instaar.colorado.edu/people/ethan-welty/">Forschung über
+        Gletscher</a> und einer Vorliebe für Berg- und Flusslandschaften.
       ff_disclaimer_html: Falling Fruit hat nichts mit Fallen Fruit zu tun. Fallen
         Fruit finden sie unter <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Bezahlen via Gratipay
@@ -512,6 +557,7 @@ de:
         Fremdem oder längst vergessenem Einheimischen - die Suche nach Nahrungsmitteln
         in unseren urbanen Lebensräumen ist nicht selten auch einfach eine ganz spannende
         Reise durch verschiedene Kulturen und Zeiten.
+      staff: Mitarbeiter
       translate: Übersetzen
       translate_for_us_html: Günstiger als Übersetzer in freiwilliges Engagement?
         Mailen Sie uns und wir laden Sie zu uns auf <a href="https://phrase.com">Phrase</a>,
@@ -618,12 +664,19 @@ de:
     description_subtext: Jeglicher Hinweis kann uns helfen, das Problem zu lösen.
     problem_type: Problem Art
     your_contact_info: Deine Kontaktinfo
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Wir können das reCAPTCHA im Moment nicht verifizieren
+      verification_failed: reCAPTCHA-Verifizierung fehlgeschlagen
   routes:
+    denied: Sie haben nicht die Berechtigung, diese Route zu sehen
     modes_of_travel:
     - Zu Fuß
     - Mit dem Fahrrad
     - Mit dem Auto
     mode_of_travel: Fortbewegungsmittel
+    order_not_updated: Auftrag konnte nicht aktualisiert werden
+    order_updated: Auftrag wurde aktualisiert
     updated: Die Route wurde aktualisiert
   time:
     days:

@@ -401,6 +401,23 @@ nl:
     about:
       about_the_site: Over het project
       advisors: Adviesraad
+      alan_gibson_bio_html: 'Alan heeft altijd al van avonturen en ontdekkingen genoten.
+        Hij begon te foerageren als een manier om zijn jonge kinderen kennis te laten
+        maken met het buitenleven. Hij schrijft de <a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a> blog en publiceerde de <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit en noten gratis</a> boek. Hij heeft het foerageren in openbare
+        parken gelegitimeerd en een gemeenschapsboomgaard opgericht in zijn geboortestad,
+        Southampton UK.'
+      ana_carolina_bio_html: Ana is postdoctoraal onderzoeker aan de Federale Universiteit
+        van Pará in Brazilië. Ze is een antropologe die geïnteresseerd is in het begrijpen
+        van sociale en culturele voedingsgewoonten. Ana werkte vooral in het Braziliaanse
+        Amazonegebied. In Acre (westelijk Amazonegebied) bestudeerde ze de regionale
+        fruitconsumptie. Daarna werkte ze in het Midden-Solimõesgebied, waar ze onderzoek
+        deed naar de verandering van het dieet in afgelegen gemeenschappen. Tussen
+        2017 en 2018 woonde Ana in kleine en middelgrote steden in de Amazonedelta,
+        waarbij ze keek naar de effecten van de klimaatverandering op de voedselzekerheid
+        van mensen die in informele nederzettingen wonen. Onlangs is ze verhuisd naar
+        het zuiden van New Mexico in de Verenigde Staten, waar ze werkt als consultant.
       caleb_phillips_bio_html: Caleb is een veerloos, tweevoetig mens met een passie
         voor voedeselgerechtigheid en het ontdekken van <a href="http://smallwhitecube.com">creatieve
         manieren om technologie te gebruiken</a> om sociale problemen te pakken. Als
@@ -469,6 +486,25 @@ nl:
         Foraging: Finding and Eating Wild Plants in the City</a> (<a href="/docs/David
         Craft - Urban Foraging.pdf">gratis download</a>).'
       directors: Raad van bestuur
+      emily_sigman_bio_html: Emily is een diehard agroforestry evangelist, onverbeterlijke
+        vraatzuchtige en trotse moeder van twee katten, vier kwartels en 's werelds
+        mooiste hoektanden. Haar wortels strekken zich uit tot diep in de Rocky Mountains,
+        maar tegenwoordig is haar bovengrondse biomassa trots om New Haven, Connecticut
+        haar thuis te noemen. Ze is vaak te vinden in de openbare voedselbossen, leest
+        verrukt in een of andere gezellige bibliotheekhoek of is poëtisch over de
+        magie van het mycelium (en, zogezegd, voltooit ze gezamenlijke diploma's aan
+        de Yale <a href="https://environment.yale.edu/">School voor Bosbouw</a> en
+        <a href="https://jackson.yale.edu/person/emily-sigman/">School voor Globale
+        Zaken</a>). Emily herbergt een verwoestende reisverslaving, en kan nu zowat
+        overal zijn.
+      ethan_welty_bio_html: Met technologie en data, Ethan kampioensteden als bron
+        van vers en gratis voedsel. Hij creëerde Falling Fruit met Caleb Phillips
+        in 2013 om het stedelijk foerageren wereldwijd te promoten, en was mede-oprichter
+        van <a href="https://fruitrescue.org">Community Fruit Rescue</a> in 2014 om
+        het overtollige fruit dat om hem heen groeit in Boulder, Colorado, te oogsten
+        en te distribueren. Naast fruit jongleert hij met een <a href="https://www.weltyphotography.com">fotografiecarrière</a>,
+        <a href="https://instaar.colorado.edu/people/ethan-welty/">onderzoek naar
+        gletsjers</a>, en een honger naar bergachtige en rivierachtige bezigheden.
       ff_disclaimer_html: Falling Fruit is niet geassocieerd met Fallen Fruit. Fallen
         Fruit is te vinden op <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Betalen met Gratipay
@@ -505,6 +541,7 @@ nl:
         over %{locations} locaties. Naast de rijk groeiende locaties met exotische,
         buitenlandse en vergeten inheemse planten, is voedsel verzamelen in uw buurt
         een reis door de tijd en cultuur.
+      staff: Personeel
       translate: Vertalen
       translate_for_us_html: Bent u geïnteresseerd in het vrijwillig vertalen van
         Falling Fruit? Stuur ons dan een e-mail en wij nodigen u uit om ons te helpen
@@ -611,6 +648,11 @@ nl:
       probleem
     problem_type: Probleemsoort
     your_contact_info: Uw contactinformatie
+  recaptcha:
+    errors:
+      recaptcha_unreachable: We zijn niet in staat om de reCAPTCHA te verifiëren op
+        dit moment
+      verification_failed: reCAPTCHA verificatie mislukt
   routes:
     denied: U heeft geen toestemming om die route te bekijken
     modes_of_travel:

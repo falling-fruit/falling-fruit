@@ -105,6 +105,7 @@ pt-BR:
     belgium: Bélgica
     by_author: por %{author}
     canada: Canadá
+    chile: Chile
     common_name: Nome comum
     data: Dados
     delete: Excluir
@@ -120,13 +121,18 @@ pt-BR:
     favorites: Favoritos
     fiji: Fiji
     filter: Filtrar
+    finland: Finlândia
     france: França
+    germany: Alemanha
     global: Global
+    greece: Grécia
     home: Início
     imported: Importado
     imported_datasets: Banco de dados importados
     imports: Importações
     info: Informações
+    invasive: Invasivo
+    ireland: Irlanda
     italy: Itália
     labels: Etiquetas
     links:
@@ -140,6 +146,7 @@ pt-BR:
     map: Mapa
     miles: milhas
     name: Nome
+    new_zealand: Nova Zelândia
     options: Opções
     password: Senha
     pending_types: Tipos pendentes
@@ -161,8 +168,10 @@ pt-BR:
     send: Enviar
     show: Mostrar
     sign_up: Inscreva-se
+    spain: Espanha
     street_view: Street View
     submit: Enviar
+    sweden: Suécia
     switzerland: Suíça
     tree_inventory:
       one: Inventário de árvores
@@ -179,6 +188,7 @@ pt-BR:
     world: Mundo
     yield: Produção
     zoom: Zoom
+    zoom_to_address: Zoom para endereçar
     zoom_to_me: Zoom para mim
     zoom_to_this_location: Zoom para este local
   layouts:
@@ -206,12 +216,14 @@ pt-BR:
         é incerta (por exemplo, "pera" poderia ser tanto uma variedade comestível
         ou ornamental). Os usuários são encorajados a viajar para esses locais e relatar
         suas descobertas.
+      unverified_help_title: Porquê não verificado?
   locations:
     form:
       access_subtext: Indique a condição dessa fonte. Deixe em branco caso não saiba.
       address_subtext: pode ser usado para posicionar  o marcador. Ajuste conforme
         necessário antes de enviar.
       author_subtext: Mostrados no mapa. Deixe em branco se preferir permanecer anônimo.
+      comments: Comentários
       comments_subtext: Atualizações, problemas de acesso, fitossanidade ...
       create_another: Crie outra
       date_visited: Data em que visitou
@@ -229,6 +241,7 @@ pt-BR:
       name_subtext: Deixe em branco se preferir permanecer anônimo.
       no_season: Sem estação
       or: ou
+      original_author: Autor original
       photo_caption: Legenda da foto
       photo_subtext: Poste uma foto da fonte. Se a foto não for sua, verificque as
         permissões necessárias e insira o nome do fotógrafo na legenda.
@@ -242,6 +255,7 @@ pt-BR:
         somente se já não existem escolhas adequadas.
       unverified_subtext: Se você duvidar da existência, localização ou identidade
         dessa fonte.
+      verify: Verifique
       verify_subtext: Esta fonte foi previamente marcada como não confirmada
       yield_subtext: Classifique a produtividade dessa fonte (se aplicável)
       your_name: Seu nome
@@ -260,10 +274,32 @@ pt-BR:
         de todos os locais (desde lixeiras ate caixas livres) com bens úteis, comestíveis
         ou não.
       freegan_modal_title: Bem vindo ao mapa fregan do Falling Fruit!
+      grafter_modal_html: Os enxertos de Guerrilha enxertam ramos frutíferos em variedades
+        ornamentais, não fruteiras (por exemplo, as cidades usam frequentemente árvores
+        fruteiras estéreis para as suas flores coloridas de primavera). Com o tempo,
+        frutos deliciosos e nutritivos são colocados à disposição dos bairros graças
+        a estes enxertos. Pode saber mais sobre o projecto em <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/>>br/>
+        Este mapa mostra algumas das árvores de fruto ornamentais mais comuns. Se
+        é um enxertador, um jardineiro ou um apreciador de árvores de fruto, contribua
+        para as informações comuns e marque as árvores do seu quintal ou bairro que
+        podem ser enxertadas com ramos frutíferos!
+      grafter_modal_title: Bem-vindo ao nosso mapa de enxertadores!
+      mobile_modal_html: |-
+        Olá! Parece que estás a aceder ao Falling Fruit a partir de um <strong>dispositivo móvel</strong>. Lançamos recentemente um aplicativo móvel financiado pela multidão para as plataformas móveis Android e iOS. Eu acho que você vai achar muito mais agradável de usar no seu dispositivo móvel:
+        <br><br>
+        <ul>
+        <li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Falling Fruit for iOS</a>
+        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit for Android</a>
+        </li></li></ul>
+        <br>
+        100% das receitas da venda de aplicativos vão para suportar os nossos custos difíceis (servidores e infra-estrutura para manter o site online). Somos uma organização sem fins lucrativos 501(c)3, portanto este custo também é dedutível de impostos nos EUA.</br></br></br>
+      mobile_modal_title: Mas espera, há uma aplicação móvel!
       stamen_html: Bloco do mapa por <a href="http://stamen.com">estame projeto</a>,
         sob <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dados
         de <a href="http://openstreetmap.org">OpenStreetMap</a>, sob <a href="http://creativecommons.org/licenses/by-sa/3.0">CC
         BY SA</a>.
+      turn_off_dragzoom: Desligar o modo de zoom de arrastamento
+      turn_on_dragzoom: Ligar o modo de zoom de arrastamento
       welcome_modal_html: Falling Fruit é um enorme mapa colaborativo sobre colheita
         urbana. Unindo os esforços de coletores, florestais e freegans em todos os
         lugares, o mapa já identifica mais de meio milhão de fontes de alimentos em
@@ -322,10 +358,21 @@ pt-BR:
       unsure_other: Incerto/Outro
       url_for_this_location: URL para este local
     messages:
+      created: A localização foi acrescentada
       geocode_failed: Sua busca não foi bem sucedida
       latitude_too_large: Nós não comportamos latitudes além de +/- 85 graus.
+      not_created: Localização não poderia ser adicionada
+      not_updated: O local não pôde ser atualizado
+      updated: A localização foi actualizada
     searchbar:
       embed_hover: Código embutido
+      invasive_modal: As plantas invasoras são plantas não nativas em uma determinada
+        região que superam as plantas nativas. Destacamos as plantas invasoras em
+        Falling Fruit para que você possa procurá-las e comê-las, combatendo as invasões
+        uma mordida saborosa de cada vez! As espécies invasivas atualmente só estão
+        listadas para os Estados Unidos e baseadas nas listas de espécies nocivas
+        e invasivas do Departamento de Agricultura dos Estados Unidos (USDA).
+      invasive_modal_title: O que é uma espécie invasiva?
       link_hover: URL para o mapa atual
       tree_inventories_modal: Inventários de árvores são compilados por instituições
         que procuram a melhor documentação e cuidados para suas árvores. Esses dados
@@ -359,10 +406,30 @@ pt-BR:
       do uso de alimentos que são descartados, e, ao contrário de disperdiçar, incentivar
       empresas a doar esses alimentos. '
     freegan_title: Mapa das Lixeiras Mundiais
+  observations:
+    created: O seu comentário foi adicionado
+    empty: As revisões não podem estar vazias
   pages:
     about:
       about_the_site: Sobre o projeto
       advisors: Conselho de assessores
+      alan_gibson_bio_html: 'Alan sempre gostou de aventuras e explorações. Ele começou
+        a forragear como uma forma de introduzir os seus filhos pequenos ao estilo
+        de vida ao ar livre. Ele escreve o blog <a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a> e publica o blog <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruta e Nozes de Graça</a> livro. Ele legitimou a forragem em parques
+        públicos e estabeleceu um pomar comunitário na sua cidade natal, Southampton
+        UK.'
+      ana_carolina_bio_html: Ana é pesquisadora de pós-doutorado na Universidade Federal
+        do Pará, no Brasil. Ela é antropóloga interessada em entender os hábitos alimentares
+        sociais e culturais. Ana trabalhou principalmente na Amazônia brasileira.
+        No Acre (Amazônia ocidental) ela estudou o consumo regional de frutas. Depois,
+        ela trabalhou na região do Solimões Médio, investigando mudanças na dieta
+        em comunidades remotas. Entre 2017 e 2018, Ana viveu em pequenas e médias
+        cidades do Delta do Amazonas, observando os efeitos das mudanças climáticas
+        sobre a segurança alimentar das pessoas que vivem em assentamentos informais.
+        Ela se mudou recentemente para o sul do Novo México, nos Estados Unidos, onde
+        trabalha como consultora.
       caleb_phillips_bio_html: Caleb é um humanóide bípede apaixonado por promover
         justiça alimentar e encontrar <a href="http://smallwhitecube.com">formas criativas
         de usar a tecnologia</a> para resolver problemas sociais. Quando ele não está
@@ -430,6 +497,27 @@ pt-BR:
         Foraging: Finding and Eatng Wild Plants in the City</a> (<a href="/docs/david
         Craft - Urban Foraging.pdf">free download</a>).'
       directors: Conselho administrativo
+      emily_sigman_bio_html: Emily é uma evangelista da agroflorestação, incorrigível
+        e mãe orgulhosa de dois gatos, quatro codornizes e a mais magnífica canina
+        do mundo. Suas raízes se estendem profundamente nas Montanhas Rochosas, mas
+        hoje em dia sua biomassa acima do solo tem orgulho de chamar New Haven, Connecticut
+        de sua casa. Ela pode muitas vezes ser encontrada cuidando de florestas públicas
+        de alimentos, lendo maravilhada em algum canto aconchegante da biblioteca,
+        ou encerando poéticas sobre a magia do micélio (e, supostamente, completando
+        diplomas conjuntos de pós-graduação na Yale <a href="https://environment.yale.edu/">School
+        of Forestry</a> e <a href="https://jackson.yale.edu/person/emily-sigman/">School
+        of Global Affairs</a>). Emily abriga um vício devastador de viajar, e pode
+        estar em qualquer lugar neste momento.
+      ethan_welty_bio_html: Com tecnologia e dados, Ethan defende as cidades como
+        fontes de alimentos frescos e gratuitos. Ele criou Falling Fruit com Caleb
+        Phillips em 2013 para promover a forragem urbana em todo o mundo, e co-fundou
+        <a href="https://fruitrescue.org">Community Fruit Rescue</a> em 2014 para
+        colher e distribuir os excedentes de frutas que crescem ao seu redor em Boulder,
+        Colorado. Além da fruta, ele faz malabarismos com <a href="https://www.weltyphotography.com">carreira
+        fotográfica</a>, <a href="https://instaar.colorado.edu/people/ethan-welty/">pesquisa
+        sobre glaciares</a>, e um apetite por atividades montanhosas e ribeirinhas.
+      ff_disclaimer_html: A Falling Fruit não está associada à Fallen Fruit. Fallen
+        Fruit pode ser encontrado em <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Pagar via Gratipay
       give_paypal: Doe através do Paypal Giving Fund
       give_us_money: Somos mantidos de forma voluntária, sem fins lucrativos e dependemos
@@ -465,6 +553,7 @@ pt-BR:
         e comum para os sabores exóticos de plantas estrangeiras e os usos culinários
         há muito esquecidas de plantas nativas, caçando no seu bairro é uma viagem
         através do tempo e entre culturas.
+      staff: Funcionários
       translate: Traduzir
       translate_for_us_html: Interessado em se voluntariar como tradutor? Nos envie
         um email e o convidaremos a juntar-se a nos em <a href="https://phrase.com">Phrase</a>,
@@ -549,13 +638,16 @@ pt-BR:
         nos ajudar a mapear sua comunidade, entre em contato com sua escola ou cidade
         instando-os a partilhar o seu inventário de árvores com a gente.
     sharing:
+      ample_harvest: Bancos de alimentos americanos que aceitam doações de produtos
       food_banks: Bancos de alimentos
+      food_banks_canada: Bancos de Alimentos no Canadá
       food_banks_intro: Coletores e proprietários privados de árvore proprietários
         privados são incentivados a doar seus excedentes para a caridade. Considere
         parceria com grupos como os listados acima, ou doar diretamente para organizações
         locais que alimentam os famintos em sua comunidade. As grandes redes de bancos
         de alimentos estão listados abaixo; abrigos, escolas e centros de idosos em
         sua área são também valem a pena serem considerados.
+      global_foodbanking_network: Redes de bancos alimentares em todo o mundo
       grow_pick_and_distribute: Crescer · Colher · Distribuir
       intro_html: Abaixo estão listadas as organizações locais que cultivam alimentos
         em locais públicos (florestas e pomares), colhem alimentos (coleta urbana
@@ -564,15 +656,24 @@ pt-BR:
         riscados são inativos. Se você souber de outros que deveriam estar nesta lista,
         <a href="mailto:info@fallingfruit.org">entre em contato conosco</a>!
   problems:
+    created: Obrigado por relatar o problema!
     description_subtext: Informações que poderiam nos ajudar a avaliar o problema
     problem_type: Tipo de problema
     your_contact_info: Suas informações de contato
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Neste momento não podemos verificar o reCAPTCHA
+      verification_failed: verificação reCAPTCHA falhou
   routes:
+    denied: Você não tem permissão para ver essa rota
     modes_of_travel:
     - Andando
     - Pedalando
     - Dirigindo
     mode_of_travel: Modo de viagem
+    order_not_updated: O pedido não pôde ser atualizado
+    order_updated: O pedido foi atualizado
+    updated: Rota foi atualizada
   time:
     days:
       one: "%{count} dia"
@@ -621,6 +722,8 @@ pt-BR:
     new_password: Senha nova
     options:
       add_anonymously: Editar o mapa anonimamente (mesmo quando estiver conectado)
+      announcements_email: Receber e-mails com anúncios e oportunidades importantes
+        (1-2 por ano)
       range_updates_email: 'Receber um email semanal que reporta atividade recente
         no seu alcance de forrageamento '
     range_by_map: Desenhar no mapa

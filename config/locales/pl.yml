@@ -115,14 +115,18 @@ pl:
     favorites: Ulubione
     fiji: Fidżi
     filter: Filtr
+    finland: Finlandia
     france: Francja
+    germany: Niemcy
     global: Globalny
+    greece: Grecja
     home: Strona główna
     imported: Ściągnięte
     imported_datasets: Ściągnięte zbiory danych
     imports: Zaimportowane
     info: Informacje
     invasive: Inwazyjne
+    ireland: Irlandia
     italy: Włochy
     labels: Etykiety
     links:
@@ -166,6 +170,7 @@ pl:
     spain: Hiszpania
     street_view: Street View
     submit: Zatwierdź
+    sweden: Szwecja
     switzerland: Szwajcaria
     tree_inventory:
       few: Spisy drzew
@@ -269,12 +274,33 @@ pl:
         zachęcamy odwzorowanie wszystkich miejsc (od śmietników do wolnych pól) z
         odrzuconych ale przydatnych towarów, zarówno jadalne lub w inny sposób.
       freegan_modal_title: Witamy w naszej mapie freegańskiej!
+      grafter_modal_html: Guerrilla Grafters szczepią gałęzie owocujące na ozdobnych,
+        nieowocujących odmianach drzew owocowych (na przykład, miasta często używają
+        sterylnych drzew owocowych do swoich kolorowych, wiosennych kwiatów). Z czasem
+        pyszne, pożywne owoce stają się dostępne dla okolicznych mieszkańców dzięki
+        tym szczepom. Więcej informacji na temat projektu można znaleźć na stronie
+        <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>Mapa
+        ta pokazuje niektóre z najczęściej spotykanych ozdobnych drzew owocowych.
+        Jeśli jesteś grafficiarzem, ogrodnikiem lub entuzjastą drzew owocowych, wnieś
+        swój wkład w kampanię informacyjną i oznacz drzewa na swoim podwórku lub w
+        okolicy, które mogą być szczepione gałęziami owocowymi!
       grafter_modal_title: Witamy na naszej mapie roślinnych grabieżców!
+      mobile_modal_html: |-
+        Witam! Wygląda na to, że masz dostęp do Falling Fruit z telefonu <strong>komórkowego</strong>. Niedawno opublikowaliśmy aplikację mobilną na platformy mobilne Android i iOS. Myślę, że jest o wiele przyjemniejszy w użyciu na urządzeniu mobilnym:
+        <br><br>
+        <ul>
+        F</ul></br></br>alling Fruit<br><br><ul><li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">na iOS</a>
+        <li><a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Falling Fruit na platformę Android</a>
+        </li></li></ul>
+        <br>
+        100% wpływów ze sprzedaży aplikacji idzie na wsparcie naszych twardych kosztów (serwery i infrastruktura do utrzymania witryny online). Jesteśmy organizacją non-profit 501(c)3, więc koszt ten jest również odliczany od podatku w USA.</br></br></br>
       mobile_modal_title: Hej, poczekaj, mamy dla Ciebie aplikację na telefon!
       stamen_html: Mapa według <a href="http://stamen.com">Stamen Design</a>, w ramach
         <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dane z
         <a href="http://openstreetmap.org">OpenStreetMap</a>, pod <a href="http://creativecommons.org/licenses/by-sa/3.0">CC
         BY SA</a>.
+      turn_off_dragzoom: Wyłączyć tryb powiększenia metodą "przeciągnij i upuść
+      turn_on_dragzoom: Włączyć tryb powiększenia metodą "przeciągnij i upuść
       welcome_modal_html: Falling fruit (spadające owoce) to tworzona przez społeczność
         na całym świecie mapa do zbiorów w mieście. Jednocząc wysiłki miejskich zbieraczy
         i odkrywców roślin jadalnych w mieście, leśników i freegan, mapa ta wskazuje
@@ -334,11 +360,21 @@ pl:
       unsure_other: Niepewne/Inne
       url_for_this_location: Adres URL dla tej lokalizacji
     messages:
+      created: Lokalizacja została dodana
       geocode_failed: Twoje wyszukiwanie nie powiodło się
       latitude_too_large: Nie można dodać szerokości geograficznych dalszych niż +-85
         stopni.
+      not_created: Lokalizacja nie mogła zostać dodana
+      not_updated: Lokalizacja nie mogła być aktualizowana
+      updated: Lokalizacja została zaktualizowana
     searchbar:
       embed_hover: Osadź kod
+      invasive_modal: Rośliny inwazyjne to nierodzime rośliny w danym regionie, które
+        przewyższają rośliny rodzime. Podkreślamy inwazyjne rośliny na Falling Fruit,
+        abyście mogli ich szukać i je zjeść, walcząc z inwazją po jednym smacznym
+        kęsie na raz! Gatunki inwazyjne są obecnie wymienione tylko dla Stanów Zjednoczonych
+        i w oparciu o listy gatunków inwazyjnych i szkodliwych na poziomie stanowym
+        Departamentu Rolnictwa USA (USDA).
       invasive_modal_title: Czym jest gatunek inwazyjny?
       link_hover: Adres URL aktualnej mapy
       tree_inventories_modal: Spisy drzew są sporządzane przez instytucje pragnące
@@ -369,11 +405,46 @@ pl:
     forager_description: Mapa zbiorów w mieście tworzona przez miejskich zbieraczy
       i odkrywców roślin jadalnych, leśników i freegan na całym świecie. Odkrywaj
       i dziel się informacjami o źródłach darmowego jedzenia w Twojej okolicy.
+    freegan_description: Poprzez sporządzenie mapy światowych pojemników na żywność
+      mamy nadzieję zwiększyć świadomość na temat marnotrawienia żywności, ułatwić
+      uwolnienie wyrzucanej żywności i zachęcić przedsiębiorstwa do przekazywania
+      jej w zamian.
     freegan_title: 'Freegańska Mapa Śmietnikowa '
+  observations:
+    created: Twoja recenzja została dodana
+    empty: Recenzje nie mogą być puste
   pages:
     about:
       about_the_site: O stronie
       advisors: O nas (doradcy)
+      alan_gibson_bio_html: 'Alan zawsze lubił przygody i odkrywanie. Zaczął żerować
+        jako sposób na wprowadzenie swoich małych dzieci w styl życia na świeżym powietrzu.
+        Pisze <a href="http://theurbaneforager.blogspot.com">Urbane Forager</a> blog
+        i publikuje <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit and Nuts For Free</a> book. Uprawnił żerowanie w parkach publicznych
+        i założył gminny sad w swoim rodzinnym mieście, Southampton UK.'
+      ana_carolina_bio_html: Ana jest podoktorantką na Federalnym Uniwersytecie Para
+        w Brazylii. Jest antropologiem zainteresowanym zrozumieniem społecznych i
+        kulturowych nawyków żywieniowych. Ana pracowała głównie w brazylijskiej Amazonii.
+        W Acre (zachodnia Amazonia) studiowała regionalną konsumpcję owoców. Następnie
+        pracowała w środkowym regionie Solimões, badając zmiany w diecie w odległych
+        społecznościach. Między 2017 i 2018, Ana mieszkała w małych i średnich miastach
+        w Delcie Amazonki, patrząc na wpływ zmian klimatu na bezpieczeństwo żywnościowe
+        ludzi mieszkających w nieformalnych osiedlach. Niedawno przeprowadziła się
+        do południowego Nowego Meksyku w Stanach Zjednoczonych, gdzie pracuje jako
+        konsultant.
+      caleb_phillips_bio_html: Caleb jest bezpiórkowym, dwunożnym humanoidalnym pasjonatem
+        sprawiedliwości żywieniowej i znajdowania kreatywnych sposobów na wykorzystanie
+        technologii do rozwiązywania problemów społecznych. Kiedy nie jeździ na rowerze
+        po drzewach, balansuje pomiędzy swoją codzienną pracą jako naukowiec zajmujący
+        się danymi w <a href="https://www.nrel.gov/research/caleb-phillips.html">National
+        Renewable Energy Laboratory</a> w Golden, Colorado oraz jako adiunkt w dziedzinie
+        informatyki w <a href="https://www.colorado.edu/cs/caleb-phillips">University
+        of Colorado</a>. Poza tym wszystkim, co robi, lubi wspinać się po skałach,
+        biegać po szlakach, jeździć na rowerach i ogólnie rzecz biorąc być na zewnątrz,
+        jak to tylko możliwe. Caleb stworzył Falling Fruit z Ethanem Welty'm w 2013
+        roku i służył w Radzie Dyrektorów przez 6 lat, zanim objął stanowisko w Radzie
+        Doradczej.
       celebration: Falling Fruit cieszy się kulinarnymi darami natury na ulicach naszych
         miast. Przez pokazanie tych zasobów na mapie, mamy nadzieję, że ułatwimy bezpośredni
         kontakt i związek między ludźmi, żywnością i naturalnymi organizmami rosnącymi
@@ -402,7 +473,45 @@ pl:
         - chcemy, aby była najlepszym dostępnym narzędziem dla współczesnych zbieraczy.
         Napisz do nas na <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>.
         Chętnie usłyszymy Twoje komentarze!
+      craig_durkin_bio_html: Craig jest współzałożycielem <a href="http://www.concrete-jungle.org/">Concrete
+        Jungle</a>, organizacji w Atlancie w Gruzji, która zajmuje się uprawą żywności
+        i zbieraniem owoców w całym mieście w celu przekazania ich lokalnym schroniskom
+        dla bezdomnych i bankom żywności. Jako <a href="http://www.gatech.edu/">Georgia
+        Tech</a> absolwent, zawsze szuka sposobów, aby połączyć zbieranie owoców z
+        nowymi technologiami, a wkrótce będzie rozmieszczenie jego drona plamistego
+        drzewa owocowego i tweetting owoców czujnik dojrzałości...
+      cristina_rubke_bio_html: Cristina jest prawnikiem z <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis
+        Friese LLP</a> w San Francisco w Kalifornii, gdzie koncentruje się na ściganiu
+        znaków towarowych i doradztwie. Jest również członkiem zarządu <a href="//www.sfmta.com/">San
+        Francisco Municipal Transportation Agency</a>, która nadzoruje transport publiczny,
+        ruch i parkowanie w San Francisco. W wolnym czasie Cristina pływa w Zatoce
+        San Francisco z <a href="//www.baads.org/">Zrzeszenie Niepełnosprawnych Żeglarzy
+        Zatoki</a> i bierze udział w lokalnych i międzynarodowych regatach.
+      david_craft_bio_html: 'David jest pracownikiem naukowym w Zakładzie Onkologii
+        Radiacyjnej w <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Harvard
+        Medical School</a> w Bostonie, Massachusetts. Jest on również zapalonym poszukiwaczem
+        i autorem książki <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
+        Foraging: Finding and eating Wild Plants in the City</a> (<a href="/docs/David
+        Craft - Urban Foraging.pdf">free download</a>).'
       directors: O nas (zarząd)
+      emily_sigman_bio_html: Emily jest zagorzałą ewangelistką agroleśnictwa, niepoprawną
+        żarliwą i dumną matką dwóch kotów, czterech przepiórek i najwspanialszego
+        psa świata. Jej korzenie sięgają głęboko w Góry Skaliste, ale obecnie jej
+        naziemna biomasa z dumą nazywa New Haven, Connecticut jej dom. Często można
+        ją znaleźć opiekując się publicznymi lasami żywieniowymi, czytając zachwycone
+        w jakimś przytulnym kąciku bibliotecznym lub woskując poezję o magii grzybni
+        (i rzekomo kończąc wspólne studia magisterskie na Yale <a href="https://environment.yale.edu/">Szkoła
+        Leśnictwa</a> i <a href="https://jackson.yale.edu/person/emily-sigman/">Szkoła
+        Spraw Globalnych</a>). Emily jest niszczycielskim uzależnieniem od podróżowania
+        i może być teraz wszędzie.
+      ethan_welty_bio_html: Dzięki technologii i danym, Ethan jest mistrzem miast
+        jako źródła świeżej i darmowej żywności. W 2013 roku wraz z Calebem Phillipsem
+        stworzył Falling Fruit, aby promować miejskie żerowanie na całym świecie,
+        a w 2014 roku założył <a href="https://fruitrescue.org"> Community Fruit Rescue</a>,
+        aby zbierać i rozprowadzać nadwyżki owoców rosnących wokół niego w Boulder
+        w Kolorado. Poza owocami, żongluje <a href="https://www.weltyphotography.com">karierą
+        fotograficzną</a>, <a href="https://instaar.colorado.edu/people/ethan-welty/">badaniem
+        na lodowcach</a> i apetytem na górskie i rzeczne wyprawy.
       ff_disclaimer_html: Falling Fruit nie jest zrzeszone z Fallen Fruit. Fallen
         Fruit można znaleźć pod <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Zapłać za pomocą Gratipay
@@ -410,6 +519,13 @@ pl:
       give_us_money: Jesteśmy organizacją non-profit opartą na wolontariacie. Nasze
         funkcjonowanie zależy od datków. Jeśli możesz, rozważ przekazanie nam darowizny.
         Darowizny (przynajmniej w obrębie Stanów Zjednoczonych) można odpisać od podatku.
+      jeff_wanner_bio_html: Od czasu zbioru czarnych i borówek z rodziną w dzieciństwie,
+        a ostatnio, zauważając bogactwo publicznych drzew owocowych w całym Kolorado,
+        Jeff rozwinął głębokie uznanie dla obfitości upraw owoców w naszych miastach.
+        Jego pierwszą misją dla Falling Fruit było przeczesywanie Boulder i Salt Lake
+        City, papierowe mapy w ręku, aby nagrywać owocujące drzewa. Kiedy nie pracuje
+        nad poprawą efektywności energetycznej budynków, zazwyczaj pomaga w społeczności
+        lub szybko przemieszcza się po górach pieszo, na nartach lub na rowerze.
       join_us_html: Dołącz do nas w świętowaniu lokalnego jedzenia! <a href="/?locale=pl">Mapa</a>
         jest otwarta na każdego, bazę danych można <a href="/data?locale=pl">pobrać</a>
         za pomocą jednego kliknięcia, a jej <a href="https://github.com/somerandomsequence/falling-fruit">kod</a>
@@ -430,11 +546,23 @@ pl:
         w %{locations} miejscach. Poza roślinami uprawnymi i powszechnymi są też na
         mapie rośliny egzotyczne, ale też dawno zapomniane rośliny rodzime. Zbieractwo
         w Twojej okolicy to podróż w czasie i poznawanie różnych kultur.
+      staff: Personel
       translate: Przetłumacz
       translate_for_us_html: Chcesz pomóc w tłumaczeniach? Napisz do nas a zaprosimy
         Cię do dołączenia do <a href="https://phrase.com">Phrase</a>, gdzie zarządzamy
         tłumaczeniami.
       translators: Tłumaczenia
+      tristram_stuart_bio_html: 'Jako nastolatek, Tristram hodował świnie na nadmiarze
+        jedzenia, które zbierał w swoich szkolnych kuchniach, u lokalnego piekarza
+        i wiejskiego greengrocera. Zauważenie, że wiele z tej żywności nadal nadaje
+        się do spożycia przez ludzi, doprowadziło go do uświadomienia sobie, że dobre,
+        świeże jedzenie marnuje się na kolosalną skalę. Od tego czasu Tristram niestrudzenie
+        pracował, aby zwrócić uwagę społeczeństwa, mediów i decydentów politycznych
+        na tę kwestię. Założył organizację kampanii na rzecz marnowania żywności <a
+        href="//feedbackglobal.org">Feedback Global</a> i napisał <a href="//tristramstuart.co.uk/">Śmieci:
+        Odkrycie Globalnego Skandalu Żywieniowego</a> w celu pokazania skali problemu
+        na skalę globalną. W 2011 roku Tristram otrzymał <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">Sophie
+        Prize</a> za walkę z odpadami żywnościowymi.'
       write: Napisz
     data:
       beware_html: Ale uwaga. Po kompresji, dane stają się ogromny plik, który powoduje
@@ -519,12 +647,25 @@ pl:
         Organizacje wymienione są kraje, państwa i miasta. Te z nazwami wyblakłych
         out są uważane za nieaktywne. Jeśli znasz inne, które powinny być na tej liście,
         <a href="mailto:info@fallingfruit.org">skontaktuj się z nami</a> !
+  problems:
+    created: Dziękuję za zgłoszenie problemu!
+    description_subtext: Wszelkie informacje, które mogą pomóc nam w ocenie problemu
+    problem_type: Typ problemu
+    your_contact_info: Twoje dane kontaktowe
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Nie jesteśmy w stanie zweryfikować reCAPTCHA w tej chwili
+      verification_failed: weryfikacja reCAPTCHA nie powiodła się
   routes:
+    denied: Nie masz pozwolenia na przeglądanie tej trasy
     modes_of_travel:
     - Pieszo
     - Rowerem
     - Samochodem
     mode_of_travel: Tryb travel
+    order_not_updated: Zamówienie nie mogło być aktualizowane
+    order_updated: Zamówienie zostało zaktualizowane
+    updated: Trasa została zaktualizowana
   time:
     days:
       few: "%{count} dni"
@@ -550,18 +691,41 @@ pl:
     current_password_subtext: Wymagane aby wprowadzić zmiany na Twoim koncie
     delete_account: Anuluj moje konto
     edit_account: Edytuj konto
+    foraging_map_subtext: Użyj narzędzia wielokąta lub prostokąta na mapie poniżej,
+      aby określić swój zasięg żerowania. Jeśli używasz narzędzia wielokąt, upewnij
+      się, że zamknąłeś swój wielokąt łącząc ostatni punkt z pierwszym.
     foraging_radius: Promień
     foraging_radius_subtext: Promień obszaru zbieractwa z centrum w podanym adresie
     foraging_range: Obszar zbieractwa
     forgot_password: Zresetuj hasło
+    mailer:
+      confirmation_instructions_html: |-
+        <p>Witamy w Falling Fruit,</p>
+        .<p>Aby aktywować swoje konto, należy potwierdzić swój e-mail (%{email}), odwiedzając poniższy link</p>:<p>
+         <br/>%{link}</p>
+        <p>Falling Fruit jest zasilany przez użytkowników, więc jeśli masz możliwość dodać lub poprawić go, proszę to zrobić. Wszystkiego najlepszego w żerowaniu!</p>
+      reset_password_instructions_html: |-
+        <p>Witaj %{email},</p>
+        <p>Ktoś (najprawdopodobniej Ty) poprosił o link do zmiany hasła:
+        <br /> .%{link}</p>
+        <p>Jeśli o to nie poprosiłeś, możesz zignorować ten e-mail. Twoje hasło nie zmieni się, jeśli nie odwiedzisz powyższego linku i nie utworzysz nowego.</p>
+      unlock_instructions_html: |-
+        <p>Witaj %{email},</p>
+        <p>Twoje konto zostało zablokowane z powodu nadmiernej ilości nieudanych prób logowania:
+        <br /> .%{link}</p>
     new_password: Nowe hasło
     options:
       add_anonymously: Edytuj punkty na mapie anonimowo (nawet kiedy jestem zalogowany/a)
+      announcements_email: Otrzymywanie e-maili z ważnymi ogłoszeniami i możliwościami
+        (1-2 razy w roku)
       range_updates_email: Otrzymuj cotygodniowe emaile z aktualnościami w Twojej
         okolicy (określonej poniżej)
     range_by_map: Zaznacz na mapie
     range_by_radius: Adres i promień
     remember_me: Zapamiętaj mnie
+    resend_confirmation_instructions: Ponowne wysłanie instrukcji potwierdzających
+    resend_unlock_instructions: Wyślij ponownie instrukcje odblokowania
+    send_password_instructions: Wysyłanie instrukcji resetowania hasła
     sign_in: Zarejestruj się
     sign_in_with: Zarejestruj się za pomocą %{provider}
     type_it_twice: Aby potwierdzić, wpisz ponownie

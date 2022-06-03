@@ -118,14 +118,18 @@ es:
     favorites: Favoritos
     fiji: Fiji
     filter: Filtro
+    finland: Finlandia
     france: Francia
+    germany: Alemania
     global: Global
+    greece: Grecia
     home: Hábitat
     imported: Importado
     imported_datasets: Datos importados
     imports: Importaciones
     info: Info
     invasive: Invasor
+    ireland: Irlanda
     italy: Italia
     labels: Etiquetas
     links:
@@ -164,6 +168,7 @@ es:
     spain: España
     street_view: Street View
     submit: Enviar
+    sweden: Suecia
     switzerland: Suiza
     tree_inventory:
       one: Inventario de árboles
@@ -401,6 +406,23 @@ es:
     about:
       about_the_site: Acerca del proyecto
       advisors: Junta de asesores
+      alan_gibson_bio_html: 'Alan siempre ha disfrutado de las aventuras y la exploración.
+        Empezó a buscar comida como una forma de introducir a sus hijos pequeños en
+        el estilo de vida al aire libre. Escribe el blog <a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a> y publicó el <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit and Nuts For Free</a> libro. Ha legitimado la búsqueda de alimentos
+        en parques públicos y ha establecido un huerto comunitario en su ciudad natal,
+        Southampton, Reino Unido.'
+      ana_carolina_bio_html: Ana es investigadora postdoctoral en la Universidad Federal
+        de Pará en Brasil. Es una antropóloga interesada en comprender los hábitos
+        dietéticos sociales y culturales. Ana trabajó principalmente en la Amazonia
+        brasileña. En Acre (Amazonas occidental) estudió el consumo regional de frutas.
+        Luego, trabajó en la región de Solimões Medio, investigando el cambio de dieta
+        en comunidades remotas. Entre 2017 y 2018, Ana vivió en pequeñas y medianas
+        ciudades del Delta del Amazonas, estudiando los efectos del cambio climático
+        en la seguridad alimentaria de las personas que viven en asentamientos informales.
+        Recientemente se trasladó al sur de Nuevo México, en los Estados Unidos, donde
+        trabaja como consultora.
       caleb_phillips_bio_html: 'Caleb es un humanoide bípedo “sin plumas” apasionado
         por la justicia alimentaria y por encontrar formas creativas de usar la tecnología
         para dirigirla a la solución de problemas sociales. Cuando no está por ahí
@@ -456,7 +478,41 @@ es:
         <a href="http://www.gatech.edu/">Georgia Tech</a> busca siempre combinar la
         recoleción de frutos con nuevas tecnologias, y estará pronto desplegando drones
         para detectar árboles frutales y un sensor que tuitea la madurez de la fruta.
+      cristina_rubke_bio_html: Cristina es una abogada con <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis
+        Friese LLP</a> en San Francisco, California, donde se centra en la persecución
+        y asesoramiento de marcas. También es miembro de la junta de la <a href="//www.sfmta.com/">Agencia
+        Municipal de Transporte de San Francisco</a>, que supervisa el transporte
+        público, el tráfico y el aparcamiento en San Francisco. En su tiempo libre,
+        Cristina navega por la bahía de San Francisco con la <a href="//www.baads.org/">Asociación
+        del Área de la Bahía de Marineros Discapacitados</a> y compite en regatas
+        locales e internacionales.
+      david_craft_bio_html: 'David es investigador en el Departamento de Oncología
+        de Radiación en la <a href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Escuela
+        de Medicina de Harvard</a> en Boston, Massachusetts. También es un ávido buscador
+        y autor del libro <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Urban
+        Foraging: Encontrando y comiendo plantas silvestres en la ciudad</a> (<a href="/docs/David
+        Craft - Urban Foraging.pdf">descarga gratuita</a>).'
       directors: Junta directiva
+      emily_sigman_bio_html: Emily es una ferviente evangelista agroforestal, una
+        incorregible buscadora, y una orgullosa madre de dos gatos, cuatro codornices
+        y el más magnífico canino del mundo. Sus raíces se extienden profundamente
+        en las Montañas Rocosas, pero en estos días su biomasa en la superficie se
+        enorgullece de llamar a New Haven, Connecticut su hogar. A menudo se la puede
+        encontrar cuidando los bosques públicos de alimentos, leyendo embelesada en
+        algún rincón acogedor de la biblioteca, o haciendo poesía sobre la magia del
+        micelio (y, supuestamente, completando títulos de postgrado conjuntos en la
+        <a href="https://environment.yale.edu/">Escuela de Silvicultura </a> y <a
+        href="https://jackson.yale.edu/person/emily-sigman/">Escuela de Asuntos Mundiales</a>).
+        Emily alberga una devastadora adicción a los viajes, y podría estar en cualquier
+        lugar ahora mismo.
+      ethan_welty_bio_html: Con tecnología y datos, Ethan defiende las ciudades como
+        fuentes de alimentos frescos y gratuitos. Creó Falling Fruit con Caleb Phillips
+        en 2013 para promover el forrajeo urbano en todo el mundo, y co-fundó <a href="https://fruitrescue.org">Community
+        Fruit Rescue</a> en 2014 para cosechar y distribuir los excedentes de fruta
+        que crecen a su alrededor en Boulder, Colorado. Más allá de la fruta, hace
+        malabares con una carrera fotográfica <a href="https://www.weltyphotography.com">,
+        <a href="https://instaar.colorado.edu/people/ethan-welty/">investigación sobre
+        los glaciares</a>, y un apetito por las actividades montañosas y ribereñas.
       ff_disclaimer_html: Falling Fruit no está asociado con Fallen Fruit. Fallen
         Fruit se puede encontrar en <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Pagar vía Gratipay
@@ -496,6 +552,7 @@ es:
         distintas lugares. Desde plantas cultivadas y comunes hasta los sabores exóticos
         de plantas no autóctonas y plantas nativas hace tiempo olvidadas, la recolección
         en los barrios puede ser un viaje a través del tiempo y de distintas culturas.
+      staff: Personal
       translate: Traducir
       translate_for_us_html: Interesado en ser voluntario como traductor? Envíenos
         un correo electrónico y le invitamos a unirse a nosotros en <a href="https://phrase.com">Phrase</a>,
@@ -606,6 +663,10 @@ es:
     description_subtext: Cualquier información que pueda ayudarnos a evaluar el problema
     problem_type: Tipo de problema
     your_contact_info: Su contacto
+  recaptcha:
+    errors:
+      recaptcha_unreachable: No podemos verificar el reCAPTCHA en este momento
+      verification_failed: La verificación de reCAPTCHA falló
   routes:
     denied: Tú no tiene permiso para ver esa ruta
     modes_of_travel:
@@ -663,6 +724,8 @@ es:
     new_password: Nueva contraseña
     options:
       add_anonymously: Editar el mapa de forma anónima (incluso mientras está conectado)
+      announcements_email: Recibir correos electrónicos con anuncios y oportunidades
+        importantes (1-2 por año)
       range_updates_email: Recibe un correo semanal informando de actividad reciente
         en tu zona de alimentación (definido abajo)
     range_by_map: Dibujar en el mapa
