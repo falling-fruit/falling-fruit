@@ -28,7 +28,7 @@
     &middot;
     <span class="nowrap">
       <input type="checkbox" id="muni" value="1" onclick="clear_markers();update_display(true);" <%= "checked" unless (!@perma.nil? and !@perma[:muni].nil? and !@perma[:muni]) or (!@location.nil? and !@location.import.nil? and !@location.import.muni)%> >
-      <b><%= translate("glossary.tree_inventory", :count => "") %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
+      <b><%= translate("glossary.tree_inventory.other") %></b><span class="subtext" style="cursor:help;position:relative;top:-0.5em;" onclick="open_inventories_help_modal();">[?]</span>
     </span>
     <div id="tree_inventories_help" style="display:none;" title="<%= translate("locations.searchbar.tree_inventories_modal_title") %>">
       <img src="/paloalto.jpg" style="float:right;margin:0.4em 0 0.5em 1em;" width="200">
