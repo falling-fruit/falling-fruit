@@ -32,7 +32,7 @@ last_days_ago = nil
   <% end %>
   <% unless c["location_id"].nil? %>
     <%= link_to location_path(c["location_id"]) do %>
-      <span><%= types.nil? ? translate("glossary.unknown") : types %></span>
+      <span dir="auto"><%= types.nil? ? translate("glossary.unknown") : types %></span>
     <% end %>
     (#<%= c["location_id"] %>)
     <% unless city.nil? %>

@@ -4,10 +4,10 @@
 
 <% if File.exists?(Rails.root.join("public","locations.csv.bz2")) and File.exists?(Rails.root.join("public","types.csv.bz2")) %>
     <blockquote>
-      <a href="/locations.csv.bz2">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br/>
-      <i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br/>
-      <br/>
-      <a href="/types.csv.bz2">types.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024) %> KB)<br/>
+      <a href="/locations.csv.bz2" dir="ltr">locations.csv.bz2</a> (<%= File.size(Rails.root.join("public","locations.csv.bz2"))/(1024**2) %> MB)<br>
+      <i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","locations.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i><br>
+      <br>
+      <a href="/types.csv.bz2" dir="ltr">types.csv.bz2</a> (<%= File.size(Rails.root.join("public","types.csv.bz2"))/(1024) %> KB)<br>
       <i><%= translate("glossary.updated") %> <%= File.mtime(Rails.root.join("public","types.csv.bz2")).utc.strftime "%Y-%m-%d %H:%M:%S %Z" %></i>
     </blockquote>
 <% else %>
@@ -51,7 +51,7 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
 <p>
   <%= translate("pages.data.summary_description", :types => number_with_delimiter(@types.length), :locations => number_with_delimiter(@lt_count)).html_safe %>
 </p>
-<br/>
+<br>
 
 <table id="type_summary">
   <thead>
@@ -67,13 +67,15 @@ cache "pages_data_type_summary_table_#{I18n.locale}" do
     <tr>
       <td>
         <%= t.cname unless t.cname.blank? %>
-        <%= "(#{t["en_synonyms"]})" unless t["en_synonyms"].blank? %>
+        <%= "(#{t["en_synonyms"]})" unless (t["en_synonyms"].blank? or not I18n.locale.to_s.start_with?("en")) %>
       </td>
       <td>
-        <i>
-          <%= t["scientific_name"] unless t["scientific_name"].blank? %>
-          <%= "(#{t["scientific_synonyms"]})" unless t["scientific_synonyms"].blank? %>
-        </i>
+        <% unless t["scientific_name"].blank? %>
+          <i dir="ltr"><%= t["scientific_name"] %></i>
+          <% unless t["scientific_synonyms"].blank? %>
+            (<i dir="ltr"><%= "#{t["scientific_synonyms"]}" %></i>)
+          <% end %>
+        <% end %>
       </td>
       <td>
       <% unless t["wikipedia_url"].blank? %>

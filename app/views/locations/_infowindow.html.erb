@@ -33,9 +33,9 @@
  <% else %>
    <li>
  <% end %>
- <%= t.i18n_name %>
+ <span dir="auto"><%= t.i18n_name %></span>
  <% unless t.scientific_name.blank? %>
-   <i style="font-size: 90%;"><%= t.scientific_name %></i>
+   <i style="font-size: 90%;" dir="ltr"><%= t.scientific_name %></i>
  <% end %>
  <% if t.pending %>
    <span class="subtext" style="cursor:help;position:relative;top:-0.5em;font-family:verdana;font-size:10px;" onclick="open_pending_types_help_modal();">[?]</span>
@@ -125,7 +125,9 @@
 <!-- (keep <p> markup even if empty) -->
 <p>
 <% unless location.description.blank? %>
- <%= sanitize(location.description.strip.gsub(/\n/,"<br>"),tags:["br"]) %>
+  <span dir='auto'>
+    <%= sanitize(location.description.strip.gsub(/\n/,"<br>"),tags:["br"]) %>
+  </span>
 <% end %>
 </p>
 <!-- Access Statement -->
@@ -273,12 +275,14 @@
         </span>
       <% end %>
       <!-- Author -->
-      <span style="color: #999; font-size: 85%;">by <%= o.author.blank? ? translate("glossary.anonymous") : o.author %>
+
+
+      <span style="color: #999; font-size: 85%;"><%= translate("glossary.by_author", :author => o.author.blank? ? translate("glossary.anonymous") : o.author) %>
         <% unless o.observed_on.nil? %>
           <% if o.observed_on.year == DateTime.now.year %>
-            | <%= o.observed_on.strftime('%B %-d') %>
+            | <%= I18n.localize(o.observed_on, :format=> '%B %-d') %>
           <% else %>
-            | <%= o.observed_on.strftime('%B %-d, %Y') %>
+            | <%= I18n.localize(o.observed_on, :format=> '%B %-d, %Y') %>
           <% end %>
         <% end %>
       </span>

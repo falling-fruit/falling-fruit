@@ -1,5 +1,6 @@
+<% direction = ([:he, :ar].include? I18n.locale) ? 'rtl' : 'ltr' %>
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#">
+<html xmlns:fb="http://ogp.me/ns/fb#" dir="<%= direction %>">
 <head>
 
   <!-- Metadata -->
@@ -204,11 +205,13 @@
  <%= link_to("falling fruit", root_path, id: "falling_fruit") %>
  <span id="subtitle">
  &ndash;
- <% if @freegan %>
-   <%= translate("layouts.application.feed_people_not_landfills") %>
- <% else %>
-   <%= translate("layouts.application.mapping_the_urban_harvest") %>
- <% end %>
+  <span dir='auto'>
+  <% if @freegan %>
+    <%= translate("layouts.application.feed_people_not_landfills") %>
+  <% else %>
+    <%= translate("layouts.application.mapping_the_urban_harvest") %>
+  <% end %>
+  </span>
  </span>
  <!--
  <% ['forager', 'freegan', 'grafter'].each do |c| %>

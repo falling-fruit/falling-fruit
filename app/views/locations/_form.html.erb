@@ -119,16 +119,16 @@ jQuery(document).ready(function(){
 
   <!-- Type -->
   <div class="field first" id="types">
-    <label for="location_types"><span><%= translate("glossary.types") %></span> <span class="subtext">*</span></label><br />
-    <span class="subtext"><%= translate("locations.form.types_subtext") %></span><br />
+    <label for="location_types"><span><%= translate("glossary.types") %></span> <span class="subtext">*</span></label><br>
+    <span class="subtext"><%= translate("locations.form.types_subtext") %></span><br>
     <%= hidden_field_tag('types', @location.types.collect{ |t| t.full_name }.join(","), :id=>"typeselect2") %>
   </div>
 
   <!-- Position -->
   <div class="field">
     <label for="location_address"><span><%= translate("glossary.position") %></span> <span class="subtext">*</span></label><br>
-    <span class="subtext"><%= translate("locations.form.position_subtext") %></span><br />
-    Lat, Lng <%= f.text_field :lat, :value => @lat.nil? ? "" : @lat.round(6) %>, <%= f.text_field :lng, :value => @lng.nil? ? "" : @lng.round(6) %><br />
+    <span class="subtext"><%= translate("locations.form.position_subtext") %></span><br>
+    <span dir='ltr'>Lat</span>, <span dir='ltr'>Lng<span> <%= f.text_field :lat, :value => @lat.nil? ? "" : @lat.round(6) %>, <%= f.text_field :lng, :value => @lng.nil? ? "" : @lng.round(6) %><br>
     <a href="#" onclick="update_marker_latlng();">>> <%= translate("locations.form.move_marker") %></a>
 
     <!-- Address (if new) -->
@@ -137,15 +137,15 @@ jQuery(document).ready(function(){
         <span><%= translate("glossary.address") %></span>
         <span class="subtext-inline"><%= translate("locations.form.address_subtext") %></span>
       </div>
-      <%= f.text_area :address %><br />
+      <%= f.text_area :address %><br>
       <a href="#" onclick="update_marker_address();">>> <%= translate("locations.form.move_marker_address") %></a>
     <% end %>
   </div>
 
   <!-- Author (new) -->
   <div class="field">
-    <label for="location_author"><%= translate("locations.form.your_name") %></label><br />
-    <span class="subtext"><%= translate("locations.form.name_subtext") %></span><br />
+    <label for="location_author"><%= translate("locations.form.your_name") %></label><br>
+    <span class="subtext"><%= translate("locations.form.name_subtext") %></span><br>
     <% if @current_action == "new" or @current_action == "create" %>
       <%= f.text_field :author, :value => ((user_signed_in? and not current_user.add_anonymously?) ? current_user.name : "") %>
     <% else %>
@@ -156,24 +156,24 @@ jQuery(document).ready(function(){
   <!-- Author (edit: admin only) -->
   <% if @current_action == "edit" and (user_signed_in? and current_user.is? :admin) %>
     <div class="field">
-      <label for="location_author"><%= translate("locations.form.original_author") %></label><br />
-      <span class="subtext"><%= translate("locations.form.author_subtext") %></span><br />
+      <label for="location_author"><%= translate("locations.form.original_author") %></label><br>
+      <span class="subtext"><%= translate("locations.form.author_subtext") %></span><br>
       <%= f.text_field :author %>
     </div>
   <% end %>
 
   <!-- Description -->
   <div class="field">
-    <label for="location_description"><%= translate("glossary.description") %></label><br />
-    <span class="subtext"><%= translate("locations.form.description_subtext") %></span><br />
+    <label for="location_description"><%= translate("glossary.description") %></label><br>
+    <span class="subtext"><%= translate("locations.form.description_subtext") %></span><br>
     <%= f.text_area :description %>
   </div>
 
   <!-- Season -->
   <!-- FIXME: Multiple inputs for one label -->
   <div class="field">
-    <label for="location_season"><%= translate("glossary.season") %></label><br />
-    <span class="subtext"><%= translate("locations.form.season_subtext") %></span><br />
+    <label for="location_season"><%= translate("glossary.season") %></label><br>
+    <span class="subtext"><%= translate("locations.form.season_subtext") %></span><br>
     <%= f.select(:season_start, I18n.translate("date.month_names").collect{ |m| [m, I18n.translate("date.month_names").index(m)-1] },:include_blank => true) %> –
     <%= f.select(:season_stop, I18n.translate("date.month_names").collect{ |m| [m, I18n.translate("date.month_names").index(m)-1] },:include_blank => true) %>, <span><%= translate("locations.form.or") %></span>
     <%= f.check_box(:no_season) %> <span><%= translate("locations.form.no_season") %></span>
@@ -181,18 +181,18 @@ jQuery(document).ready(function(){
 
     <!-- Access -->
   <div class="field">
-    <label for="location_access"><%= translate("glossary.access") %></label><br />
-    <span class="subtext"><%= translate("locations.form.access_subtext") %></span><br />
+    <label for="location_access"><%= translate("glossary.access") %></label><br>
+    <span class="subtext"><%= translate("locations.form.access_subtext") %></span><br>
     <%= f.select(:access, I18n.translate("locations.infowindow.access_mode").collect{ |r| [r, I18n.translate("locations.infowindow.access_mode").index(r)] }, :include_blank => true) %>
   </div>
 
   <!-- Unverified -->
   <div class="field">
-    <label for="location_unverified"><%= translate("glossary.unverified") %></label> <%= f.check_box(:unverified) %><br />
+    <label for="location_unverified"><%= translate("glossary.unverified") %></label> <%= f.check_box(:unverified) %><br>
     <span class="subtext"><%= translate("locations.form.unverified_subtext") %></span>
   </div>
 
-  <br />
+  <br>
   <!-- Observations -->
   <details>
     <summary><%= translate("locations.form.have_you") %></summary>
@@ -201,44 +201,44 @@ jQuery(document).ready(function(){
 
     <!-- Date -->
     <div class="field">
-      <label for="location_observation_observed_on"><%= translate("locations.form.date_visited") %></label><br />
+      <label for="location_observation_observed_on"><%= translate("locations.form.date_visited") %></label><br>
       <%= fo.text_field(:observed_on, :placeholder => 'yyyy-mm-dd') %>
     </div>
 
     <!-- Fruiting -->
     <div class="field">
-      <label for="location_observation_fruiting"><%= translate("locations.form.fruiting_status") %></label><br />
-      <span class="subtext"><%= translate("locations.form.fruiting_subtext") %></span><br />
+      <label for="location_observation_fruiting"><%= translate("locations.form.fruiting_status") %></label><br>
+      <span class="subtext"><%= translate("locations.form.fruiting_subtext") %></span><br>
       <%= fo.select(:fruiting, I18n.translate("locations.infowindow.fruiting").collect{ |r| [r, I18n.translate("locations.infowindow.fruiting").index(r)] },:include_blank => true) %>
-      <div class="slider-legend"><div><%= translate("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.fruiting")[2] %></div></div>
+      <div class="slider-legend" dir="ltr"><div><%= translate("locations.infowindow.unsure_other") %></div><div>&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[0] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.fruiting")[1] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.fruiting")[2] %></div></div>
     </div>
 
     <!-- Quality Rating -->
     <div class="field">
-      <label for="location_observation_quality"><%= translate("glossary.quality") %></label><br />
-      <span class="subtext"><%= translate("locations.form.quality_subtext") %></span><br />
+      <label for="location_observation_quality"><%= translate("glossary.quality") %></label><br>
+      <span class="subtext"><%= translate("locations.form.quality_subtext") %></span><br>
       <%= fo.select(:quality_rating, I18n.translate("locations.infowindow.rating").collect{ |r| [r, I18n.translate("locations.infowindow.rating").index(r)] },:include_blank => true) %>
-      <div class="slider-legend"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
+      <div class="slider-legend" dir="ltr"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
     </div>
 
     <!-- Yield Rating -->
     <div class="field">
-      <label for="location_observation_yield"><%= translate("glossary.yield") %></label><br />
-      <span class="subtext"><%= translate("locations.form.yield_subtext") %></span><br />
+      <label for="location_observation_yield"><%= translate("glossary.yield") %></label><br>
+      <span class="subtext"><%= translate("locations.form.yield_subtext") %></span><br>
       <%= fo.select(:yield_rating, I18n.translate("locations.infowindow.rating").collect{ |r| [r, I18n.translate("locations.infowindow.rating").index(r)] },:include_blank => true) %>
-      <div class="slider-legend"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
+      <div class="slider-legend" dir="ltr"><div><%= translate("locations.infowindow.unsure") %></div><div><%= I18n.translate("locations.infowindow.rating")[0] %></div><div>&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[1] %></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<%= I18n.translate("locations.infowindow.rating")[2] %></div><div><%= I18n.translate("locations.infowindow.rating")[3] %></div><div style="text-align:right;"><%= I18n.translate("locations.infowindow.rating")[4] %></div></div>
     </div>
 
     <!-- Photo -->
     <div class="field">
-      <label for="location_observation_photo"><%= translate("glossary.photo") %></label><br />
-      <span class="subtext"><%= translate("locations.form.photo_subtext") %></span><br />
+      <label for="location_observation_photo"><%= translate("glossary.photo") %></label><br>
+      <span class="subtext"><%= translate("locations.form.photo_subtext") %></span><br>
       <%= fo.file_field :photo %>
     </div>
 
     <!-- Caption -->
     <div class="field">
-      <label for="location_observation_photo_caption"><%= translate("locations.form.photo_caption") %></label><br />
+      <label for="location_observation_photo_caption"><%= translate("locations.form.photo_caption") %></label><br>
       <%= fo.text_field :photo_caption, :size => "40" %>
     </div>
 
@@ -253,7 +253,7 @@ jQuery(document).ready(function(){
     <div id="captcha">
       <%= recaptcha_tags(:hl => I18n.locale, :ssl => (request.protocol == 'https://' ? true : false)) %>
     </div>
-  <br />
+  <br>
   <% end %>
 
   <!-- Submit -->

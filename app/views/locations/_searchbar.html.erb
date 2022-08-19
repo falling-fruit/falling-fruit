@@ -4,7 +4,7 @@
     <span class="nowrap" id="rightcontrols">
       <a href="#" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= translate("locations.searchbar.link_hover") %>"><%= translate("glossary.links", :count => 1) %></a> |
       <a href="#" id="embedlink" onclick="show_embed_html('#embed_modal'); return false;" title="<%= translate("locations.searchbar.embed_hover") %>"><%= translate("glossary.embed") %></a>
-      <div id="embed_modal" style="display:none;" title="<%= translate("locations.searchbar.embed_hover") %> (iFrame HTML)"></div>
+      <div id="embed_modal" style="display:none;" dir="ltr" title="<%= translate("locations.searchbar.embed_hover") %>"></div>
     </span>
 
     <span class="nowrap">
@@ -113,7 +113,8 @@
             return { text: 'text', results: filter_by_types_hash_wrapper(base_type_data_original) };
         },
         allowClear: true,
-        allowedMethods: ['updateResults']
+        allowedMethods: ['updateResults'],
+        dir: 'ltr'
     });
     // Needed so that default placeholder (not type name) is shown when select is cleared
     $('#type_filter').attr("placeholder", "<%= translate("glossary.edible_type") %>");
