@@ -251,7 +251,7 @@ en:
       yield_subtext: Rate the productivity of the source (if applicable)
       your_name: Your name
     index:
-      addmarker_html: Add a source here</a><br><span class="subtext">You can move
+      addmarker_html: Add a location here</a><br><span class="subtext">You can move
         me too</span>
       editmarker_html: "<b>Move to the position of the source.</b><br><br>Check the
         satellite view - the source may be visible from space!"
@@ -324,8 +324,8 @@ en:
       - Flowers
       - Unripe fruit
       - Ripe fruit
-      have_you_visited_html: Have you visited this source? Add a <a href="/observations/new?location_id=%{id}&locale=en"
-        data-ajax="false" rel="external" title="Review this source" id="add_review">review</a>
+      have_you_visited_html: Have you visited this location? Add a <a href="/observations/new?location_id=%{id}&locale=en"
+        data-ajax="false" rel="external" title="Review this location" id="add_review">review</a>
       january_to_december: January - December
       new_route: New route
       rating:
