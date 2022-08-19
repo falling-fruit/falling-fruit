@@ -272,7 +272,7 @@
       <% if current_user.is? :admin %>
 
         <!-- Problems -->
-        <li><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
+        <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
 
         <!-- Types -->
         <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
