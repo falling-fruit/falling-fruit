@@ -22,7 +22,7 @@ div#logobar a#falling_fruit {
   font-family: 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
   font-weight: bold;
   color: #FFF;
-  margin-left: 9px;
+  margin: 0 9px;
   letter-spacing: 1px;
 }
 
@@ -33,7 +33,6 @@ div#logobar span#subtitle {
 }
 
 div#share_controls {
-  float: right;
   margin-top: $logobarHeight * 0.1;
   img {
     height: $logobarHeight * 0.8;
@@ -41,7 +40,6 @@ div#share_controls {
 }
 
 div#locale {
-  float: right;
   display: inline;
   margin: ($logobarHeight * 0.1) 5px;
   height: $logobarHeight * 0.8;
@@ -77,7 +75,6 @@ div#menu {
 }
 
 div#menu ul li {
-  float: left;
   a {
    cursor: pointer;
   }
@@ -192,11 +189,6 @@ div#searchbar {
   input {
     padding: 2px 3px;
     font-size: 90%;
-    /* FIXME: Find platform-independent vertical alignment fix */
-    &[type=checkbox] {
-      position: relative;
-      top: -.1em;
-    }
   }
 }
 

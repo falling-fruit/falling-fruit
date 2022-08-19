@@ -1,6 +1,6 @@
-<% direction = ([:he, :ar].include? I18n.locale) ? 'rtl' : 'ltr' %>
+<% rtl = [:he, :ar].include? I18n.locale %>
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#" dir="<%= direction %>">
+<html xmlns:fb="http://ogp.me/ns/fb#" dir="<%= rtl ? 'rtl' : 'ltr' %>">
 <head>
 
   <!-- Metadata -->
@@ -68,6 +68,9 @@
   <%= stylesheet_link_tag "application" %>
   <% if @freegan %>
     <%= stylesheet_link_tag "freegan" %>
+  <% end %>
+  <% if rtl %>
+    <%= stylesheet_link_tag "rtl" %>
   <% end %>
 
   <!-- Javascript -->
@@ -162,7 +165,7 @@
 <div id="logobar">
 
   <!-- Locale -->
-  <div id="locale">
+  <div id="locale" style="float:<%= rtl ? 'left' : 'right' %>;">
     <select id="locale_select">
       <option value="ar" <%= (I18n.locale == :ar) ? "selected" : "" %>>العربية</option>
       <option value="de" <%= (I18n.locale == :de) ? "selected" : "" %>>Deutsch</option>
@@ -185,7 +188,7 @@
       ui_language: I18n.locale.substring(0,2)
     }
   </script>
-  <div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap">
+  <div id="share_controls" class="addthis_32x32_style addthis_default_style nowrap" style="float:<%= rtl ? 'left' : 'right' %>;">
     <a href="https://www.facebook.com/FallingFruit" title="Facebook" >
       <img src="/social/facebook.svg" alt="Facebook" />
     </a>
@@ -202,16 +205,13 @@
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51390d312330c4fe"></script>
 
  <!-- Title -->
- <%= link_to("falling fruit", root_path, id: "falling_fruit") %>
- <span id="subtitle">
- &ndash;
-  <span dir='auto'>
+ <%= link_to("falling fruit", root_path, id: "falling_fruit", dir: 'ltr') %>
+ <span id="subtitle" dir='auto'>
   <% if @freegan %>
     <%= translate("layouts.application.feed_people_not_landfills") %>
   <% else %>
     <%= translate("layouts.application.mapping_the_urban_harvest") %>
   <% end %>
-  </span>
  </span>
  <!--
  <% ['forager', 'freegan', 'grafter'].each do |c| %>
@@ -226,7 +226,7 @@
 
 <!-- Menu Bar -->
 <div id="menubar">
- <div id="rightcontrols">
+ <div id="rightcontrols" style="float:<%= rtl ? 'left' : 'right' %>;">
    <% path = request.fullpath %>
     <% if user_signed_in? %>
       <span id="user_email"><%= current_user.email %></span>
@@ -239,19 +239,19 @@
 
  <!-- Menu -->
  <% basepath = path.split('?')[0] %>
- <div id="menu">
+ <div id="menu" style="float:<%= rtl ? 'right' : 'left' %>;">
     <ul>
 
     <!-- Map -->
     <% unless user_signed_in? %>
-      <li><%= link_to(translate("glossary.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
+      <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.map"), root_path, :id => "maplink", :class => (['/','/observations/new','/dumpsters','/freegan'].include?(basepath) or (path.include? '/locations' and not path.include? '/locations/new')) ? "currentpage" : "notcurrentpage") %></li>
     <% else %>
-      <li><%= link_to(translate("glossary.home"), home_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
-      <li><%= link_to(translate("glossary.world"), root_path, :class => (['/','/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
+      <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.home"), home_path, :id => "maplink", :class => (['/locations/home','/home'].include?(path.split('?')[0])) ? "currentpage" : "notcurrentpage") %></li>
+      <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.world"), root_path, :class => (['/','/observations/new'].include?(path.split('?')[0]) or (path.include? '/locations' and path != new_location_path and path != home_locations_path) or path.include? '/dumpsters' or path.include? '/freegan') ? "currentpage" : "notcurrentpage") %></li>
     <% end %>
 
     <!-- About -->
-    <li><%= link_to(translate("glossary.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
+    <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.about"), about_path, :class => (['/about','/datasets','/sharing','/press'].include?(basepath)) ? "currentpage" : "notcurrentpage") %>
     <ul>
       <li><%= link_to(translate("layouts.application.menu.the_project"), about_path, :class => (basepath == '/about') ? 'currentpage' : 'notcurrentpage') %>
       <li><%= link_to(translate("glossary.imported_datasets"), datasets_path, :class => (basepath == '/datasets') ? 'currentpage' : 'notcurrentpage') %></li>
@@ -260,14 +260,14 @@
     </ul>
 
     <!-- Data -->
-    <li><%= link_to(translate("glossary.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
+    <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.data"), data_path, :class => (basepath == '/data') ? "currentpage" : "notcurrentpage") %></li>
 
     <!-- Activity -->
-    <li><%= link_to(translate("glossary.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
+    <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.activity"), changes_path, :class => (basepath == '/changes') ? "currentpage" : "notcurrentpage") %></li>
 
     <!-- Routes -->
     <% if user_signed_in? %>
-      <li><%= link_to(translate("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
+      <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.routes"), routes_path, :class => ((basepath == '/routes' or not path.match('/routes/[0-9]+').nil?) ? "currentpage" : "notcurrentpage")) %></li>
 
       <% if current_user.is? :admin %>
 
@@ -275,7 +275,7 @@
         <li><%= link_to(translate("glossary.problems"), problems_path, :class => (path.include? '/problems') ? "currentpage" : "notcurrentpage") %></li>
 
         <!-- Types -->
-        <li><%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
+        <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.types"), types_path, :class => (path.include? '/types') ? "currentpage" : "notcurrentpage") %>
         <ul>
             <li><%= link_to(translate("layouts.application.menu.approved_types"), types_path, :class => (basepath == '/types') ? "currentpage" : "notcurrentpage") %></li>
             <li><%= link_to(translate("glossary.pending_types"), grow_types_path, :class => (basepath == '/types/grow') ? "currentpage" : "notcurrentpage") %></li>
@@ -284,7 +284,7 @@
         </li>
 
         <!-- Imports -->
-        <li><%= link_to(translate("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
+        <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.imports"), imports_path, :class => (basepath == '/imports' or basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %>
         <ul>
             <li><%= link_to(translate("layouts.application.menu.list_imports"), imports_path, :class => (basepath == '/imports') ? "currentpage" : "notcurrentpage") %></li>
             <li><%= link_to(translate("layouts.application.menu.new_import"), import_locations_path, :class => (basepath == '/locations/import') ? "currentpage" : "notcurrentpage") %></li>
@@ -292,12 +292,12 @@
         </li>
 
         <!-- Users -->
-        <li><%= link_to(translate("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
+        <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to(translate("glossary.users"), users_path, :class => (basepath == '/users') ? "currentpage" : "notcurrentpage") %></li>
       <% end %>
     <% end %>
 
     <!-- Add Source -->
-    <li><%= link_to("+ " + translate("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
+    <li style="float:<%= rtl ? 'right' : 'left' %>;"><%= link_to("+ " + translate("glossary.add_source"), new_location_path, :class => (basepath == '/locations/new') ? "currentpage" : "notcurrentpage") %>
     <% if (request.fullpath.split('?')[0] == root_path or not request.fullpath.match('/locations/[0-9]+').nil?) and !user_signed_in? %>
       <span>(<%= translate("layouts.application.or_right-click_on_map") %>)</span>
     <% end %>

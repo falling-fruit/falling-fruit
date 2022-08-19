@@ -1,0 +1,13 @@
+// https://zoomicon.wordpress.com/2009/10/15/how-to-use-jqueryui-tabs-in-right-to-left-layout/
+.ui-tabs {
+  direction: rtl;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected,
+.ui-tabs .ui-tabs-nav li.ui-state-default {
+  float: right;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+  float: right;
+}

@@ -1,7 +1,7 @@
 <div id="searchbar">
   <div id="searchcontrols">
   <!-- Permalink | Embed -->
-    <span class="nowrap" id="rightcontrols">
+    <span class="nowrap" style="float:<%= rtl ? 'left' : 'right' %>;">
       <a href="#" id="permalink" onclick="update_url('#permalink'); return false;" title="<%= translate("locations.searchbar.link_hover") %>"><%= translate("glossary.links", :count => 1) %></a> |
       <a href="#" id="embedlink" onclick="show_embed_html('#embed_modal'); return false;" title="<%= translate("locations.searchbar.embed_hover") %>"><%= translate("glossary.embed") %></a>
       <div id="embed_modal" style="display:none;" dir="ltr" title="<%= translate("locations.searchbar.embed_hover") %>"></div>
