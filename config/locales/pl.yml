@@ -528,7 +528,7 @@ pl:
         lub szybko przemieszcza się po górach pieszo, na nartach lub na rowerze.
       join_us_html: Dołącz do nas w świętowaniu lokalnego jedzenia! <a href="/?locale=pl">Mapa</a>
         jest otwarta na każdego, bazę danych można <a href="/data?locale=pl">pobrać</a>
-        za pomocą jednego kliknięcia, a jej <a href="https://github.com/somerandomsequence/falling-fruit">kod</a>
+        za pomocą jednego kliknięcia, a jej <a href="https://github.com/falling-fruit/falling-fruit">kod</a>
         jest  dostępny dla każdego (open-source). Zachęcamy, dziel się tą mapą z innymi!
         Na naszej <a href="/sharing?locale=pl">stronie udostępniania</a> znajdziesz
         setki lokalnych organizacji które zakładają publiczne sady i ogrody, zbierają
@@ -589,7 +589,7 @@ pl:
         to, że można w nich używać i rozpowszechniać dane tak długo, jak zachować
         oryginalny autor / źródło wpisu i go nie używać (bez zezwolenia) do zastosowań
         komercyjnych. Kod źródłowy Falling Fruit jest również otwarty. Więcej informacji
-        na ten temat można znaleźć w <a href="https://github.com/somerandomsequence/falling-fruit">naszym
+        na ten temat można znaleźć w <a href="https://github.com/falling-fruit/falling-fruit">naszym
         repozytorium github</a>.
       summary_description: Baza danych zawiera obecnie %{types} różnych rodzajów spożywczymi
         (większość, ale nie wszystkie, to gatunki roślin) rozmieszczone na %{locations}

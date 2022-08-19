@@ -523,7 +523,7 @@ nl:
         bergen, skiën of fietsen.
       join_us_html: Doe met ons mee en vier het lokale voedsel! De <a href="/?locale=en">kaart</a>
         is openbaar te bewerken door iedereen, de database kan met slechts één klik
-        worden <a href="/data?locale=en">gedownload</a> en <a href="https://github.com/somerandomsequence/falling-fruit">de
+        worden <a href="/data?locale=en">gedownload</a> en <a href="https://github.com/falling-fruit/falling-fruit">de
         broncode</a> is open source. U wordt aangemoedigd om het verzamelde voedsel
         te delen met uw medemens. Onze <a href="/sharing?locale=en">deelpagina</a>
         bevat een lijst van honderden lokale organisaties die helpen bij het aanplanten
@@ -583,7 +583,7 @@ nl:
         Dit betekent dat u vrij bent om de gegevens te gebruiken en verspreiden, zolang
         u maar niet de auteurs/bronnen verwijdert en deze niet (zonder toestemming)
         gebruikt voor commerciële doeleinden. De broncode van Falling Fruit is ook
-        openbaar en beschikbaar op <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
+        openbaar en beschikbaar op <a href="https://github.com/falling-fruit/falling-fruit">GitHub</a>.
       summary_description: De database bevat momenteel %{types} verschillende eetbare
         soorten (de meeste, maar niet alls, zijn plantensoorten), verspreid over %{locations}
         locaties. Voor elke soort bevat de volgende tabel hun gebruikelijke namen,

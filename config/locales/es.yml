@@ -533,7 +533,7 @@ es:
       join_us_html: Únete a nosotros en la celebración de lo comestible híper local!
         El <a href="/?locale=es">mapa</a> está abierto para que cualquiera pueda editarlo.
         La base de datos se puede <a href="/data?locale=es">descargar</a> con un solo
-        clic, y <a href="https://github.com/somerandomsequence/falling-fruit">el código</a>
+        clic, y <a href="https://github.com/falling-fruit/falling-fruit">el código</a>
         es de código abierto. Se le anima igualmente a compartir el botín con los
         demás seres humanos. Nuestras <a href="/sharing?locale=es">páginas de compartir</a>
         enumeran cientos de organizaciones locales que plantan bosques de alimentos
@@ -597,7 +597,7 @@ es:
         de licencia. Esto significa que usted es libre de usar y distribuir los datos,
         siempre y cuando se preserve la atribución autor / fuente original y no lo
         usa (sin permiso) para aplicaciones comerciales. El código fuente para Falling
-        Fruit también está abierto, y disponible en <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a>.
+        Fruit también está abierto, y disponible en <a href="https://github.com/falling-fruit/falling-fruit">GitHub</a>.
       summary_description: La base de datos contiene actualmente %{types} diferentes
         tipos de comestibles (la mayoría, pero no todos, son especies de plantas)
         distribuidas en %{locations} lugares. Para cada tipo, la siguiente tabla se

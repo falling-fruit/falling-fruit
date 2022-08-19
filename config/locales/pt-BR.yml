@@ -534,7 +534,7 @@ pt-BR:
         ou movendo-se rapidamente sobre as montanhas a pé, ski, ou de bicicleta.
       join_us_html: Junte-se a nós na celebração do alimento hiper-local! O <a href="/?locale=pt">mapa</a>
         é aberto para qualquer um editar, o banco de dados pode ser <a href="/data?locale=pt">baixado</a>
-        com apenas um clique, e <a href="https://github.com/somerandomsequence/falling-fruit">o
+        com apenas um clique, e <a href="https://github.com/falling-fruit/falling-fruit">o
         código</a> é aberto. Você igualmente é incentivado a compartilhar a abundancia
         com seus companheiros seres humanos. Nossa <a href="/sharing?locale=pt">página
         de compartilhamento</a> lista centenas de organizações locais - que plantam
@@ -596,7 +596,7 @@ pt-BR:
         você é livre para usar e distribuir os dados, desde que você preserve a atribuição
         do autor / fonte original e não usá-lo (sem permissão) para aplicações comerciais.
         O código fonte para Falling Fruit também está aberto, e pode ser encontrado
-        em <a href="https://github.com/somerandomsequence/falling-fruit">nosso repositório
+        em <a href="https://github.com/falling-fruit/falling-fruit">nosso repositório
         github</a>.
       summary_description: O banco de dados atualmente contém  %{types} diferentes
         tipos de alimentos (a maioria, não todos, espécies de plantas) distribuídos

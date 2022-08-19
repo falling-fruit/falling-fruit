@@ -536,7 +536,7 @@ it:
         o si muove rapidamente sulle montagne, a piedi, con gli sci o in bicicletta.
       join_us_html: Unitevi a noi per celebrare il cibo locale! La <a href="/?locale=it">map</a>
         è aperta a chiunque voglia modificarla. Il database può essere <a href="/data?locale=it">downloaded</a>
-        con un solo click, e <a href="https://github.com/somerandomsequence/falling-fruit">il
+        con un solo click, e <a href="https://github.com/falling-fruit/falling-fruit">il
         codice</a> è open-source. Inoltre siete invitati a condividere il raccolto
         con gli altri esseri umani. La nostra <a href="/sharing?locale=it">pagina
         di condivisione</a> elenca centinaia di organizzazioni locali per contribuire
@@ -591,7 +591,7 @@ it:
         liberi di utilizzare e distribuire i dati, mantenendo le corrette attribuzioni
         dell'autore/fonte originale e non ne fate uso (senza permesso) per applicazioni
         commerciali. Il source code di Falling Fruit è aperto e disponibile su <a
-        href="https://github.com/somerandomsequence/falling-fruit">GitHub</a> .
+        href="https://github.com/falling-fruit/falling-fruit">GitHub</a> .
       summary_description: 'Il database contiene attualmente%{types} diversi tipi
         di alimenti commestibili (la maggior parte, ma non tutti, sono specie vegetali)
         distribuite su%{locations} luoghi. Per ogni varietà, la tabella seguente elenca

@@ -537,7 +537,7 @@ de:
         Fuss, zu Rad oder zu Ski die Berge in seiner Umgebung.
       join_us_html: 'Wir setzen auf lokal und essbar - mach mit! Die <a href="/?locale=de">Karte</a>
         kann von jederman und jederfrau bearbeitet werden, die <a href="/data?locale=de">Datenbank</a>
-        kannst du mit nur einem Klick herunterladen und <a href="https://github.com/somerandomsequence/falling-fruit">unser
+        kannst du mit nur einem Klick herunterladen und <a href="https://github.com/falling-fruit/falling-fruit">unser
         Code</a> ist Open-Source. Wir wollen dich auch dazu ermutigen, deine Ernte
         mit Anderen zu teilen. Unsere <a href="/sharing?locale=de">Ernte teilen</a>-Seite
         listet hunderte von lokalen Organisationen, die sich eine Bessere Verteilung
@@ -597,7 +597,7 @@ de:
         können, solange der ursprüngliche Autor/die ursprüngliche Quelle dafür entschadigt
         wird und die Daten nicht (ohne Genehmigung) für kommerzielle Zwecke eingesetzt
         werden. Der Quelltext für Falling Fruit ist ebenfalls öffentlich, und auf
-        <a href="https://github.com/somerandomsequence/falling-fruit">GitHub</a> verfügbar.
+        <a href="https://github.com/falling-fruit/falling-fruit">GitHub</a> verfügbar.
       summary_description: Die Datenbank enthält derzeit %{types} verschiedene essbare
         Arten (die meisten, aber nicht alle, sind pflanzlich) über %{locations} Standorte
         verteilt. In der Folgenden Tabelle sind die umgangssprachlichen und wissenschaftlichen
