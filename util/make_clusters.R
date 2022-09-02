@@ -83,12 +83,16 @@ field_types <- c(
   # lat = "real not null",
   count = "integer not null",
   zoom = "integer not null",
-  created_at = "timestamp not null",
-  updated_at = "timestamp not null"
+  created_at = "timestamp not null default now()",
+  updated_at = "timestamp not null default now()"
 )
 DBI::dbWriteTable(db, Table_name, clusters, row.names = FALSE, overwrite = TRUE, field.types = field_types)
 DBI::dbExecute(db, paste0("ALTER SEQUENCE ", Table_name, "_id_seq RESTART WITH ", nrow(clusters) + 1))
-DBI::dbExecute(db, paste0("CREATE INDEX index_", Table_name, "_on_type_id ON ", Table_name, "(type_id)"))
+DBI::dbExecute(db, paste0("CREATE INDEX index_", Table_name, "_on_geohash ON ", Table_name, "(geohash)"))
+DBI::dbExecute(db, paste0("CREATE INDEX index_", Table_name, "_on_muni_zoom_type_id ON ", Table_name, "(muni, zoom, type_id)"))
+DBI::dbExecute(db, paste0("CREATE INDEX index_", Table_name, "_on_x ON ", Table_name, "(x)"))
+DBI::dbExecute(db, paste0("CREATE INDEX index_", Table_name, "_on_y ON ", Table_name, "(y)"))
+DBI::dbExecute(db, paste0("ALTER TABLE ", Table_name, " ADD CONSTRAINT unique_clusters_on_geohash_muni_type_id UNIQUE (geohash, muni, type_id)"))
 if (!is.na(Table_owner)) {
   DBI::dbExecute(db, paste("ALTER TABLE", Table_name, "OWNER TO", Table_owner))
 }
