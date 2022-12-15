@@ -4,7 +4,7 @@ module ClusterStuff
 
   Earth_radius = 6378137 # meters
   Earth_circumference = 2 * Math::PI * Earth_radius
-  Max_grid_zoom = 13 # 12 (map) + 1 (denser clusters)
+  Max_grid_zoom = 14 # 13 (map) + 1 (denser clusters)
 
   # ---- Helper functions ----
 
