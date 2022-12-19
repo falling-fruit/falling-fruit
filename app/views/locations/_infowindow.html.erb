@@ -232,14 +232,14 @@
       <% if user_signed_in? and current_user.is? :admin %>
         <div style="float: right;">
           <%= link_to('x', o, method: :delete, data: { confirm: translate("glossary.are_you_sure") }, title: translate("locations.infowindow.delete_comment")) %>
-          <% unless o.photo_file_size.nil? %>
+          <% unless o.photo_file_name.nil? %>
             | <a href="/observations/<%= o.id %>/delete_photo" data-ajax="false" rel="external" title="<%= translate("locations.infowindow.delete_photo") %>"><%= translate("glossary.photo") %></a>
           <% end %>
         </div>
       <% end %>
 
       <!-- Photo -->
-      <% unless o.photo_file_size.nil? %>
+      <% unless o.photo_file_name.nil? %>
         <a href="<%= o.photo.url(:original) %>" rel="shadowbox" <% unless o.photo_caption.to_s.empty? %>title="<%= o.photo_caption %>"<% end %> style="text-decoration:none;color:inherit;">
           <div class="obsphoto_frame">
           <div class="obsphoto">

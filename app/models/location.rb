@@ -72,7 +72,7 @@ class Location < ActiveRecord::Base
   end
 
   def has_photos?
-    self.observations.any?{ |o| !o.photo_file_size.nil? }
+    self.observations.any?{ |o| !o.photo_file_name.nil? }
   end
 
   # NOTE: hack to always round up (1.5 => 2)
