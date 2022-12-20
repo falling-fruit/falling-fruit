@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
                   :name, :bio, :roles, :roles_mask, :remember_me, :add_anonymously,
                   :range_updates_email, :announcements_email, :address, :lat, :lng, :range_radius,
                   :location, :range_radius_unit
-  
+
   # Don't normalize passwords, etc:
   normalize_attributes :name, :email, :email_confirmation, :bio, :address
   validates :email, confirmation: true
@@ -51,6 +51,11 @@ class User < ActiveRecord::Base
 
   roles_attribute :roles_mask
   roles :admin, :forager, :partner, :guest, :grafter
+
+  def self.columns
+    # Ignore database columns: users.roles
+    super.reject {|column| column.name == 'roles'}
+  end
 
   # https://github.com/ryanb/cancan/wiki/Role-Based-Authorization
   def roles=(roles)
