@@ -9,11 +9,6 @@ This is a Rails 3 web application ([`/app`](/app)) and v0.2 NodeJS API ([`/api`]
 
 Falling Fruit co-founders Caleb Phillips and Ethan Welty. More info at [fallingfruit.org/about](http://fallingfruit.org/about).
 
-This code is licensed under the [GNU General Public License version 3](http://www.gnu.org/copyleft/gpl.html).
-All of Falling Fruit's data, if not otherwise noted, is licensed under a [Creative Commons Attribution Non-Commercial Share-Alike License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
-
-Both licenses require attribution and that derivative works retain the same license. We reserve the right to prohibit use on a project-by-project basis. Please contact us ([info@fallingfruit.org](mailto:info@fallingfruit.org)) if you have any questions.
-
 ### How can I help?
 
 If you want to help with development, feel free to fork the project. If you have something to submit upstream, send a pull request from your fork. Cool? Cool!
