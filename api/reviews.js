@@ -3,8 +3,8 @@ var reviews = {};
 reviews.add = function (req, res) {
   // FIXME: verify this is a real location id
   var location_id = parseInt(req.params.id);
-  db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+  db.pg.connect(function(err, client, done) {
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -72,14 +72,14 @@ reviews.add = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
 reviews.list = function (req, res) {
   var id = req.params.id;
-  db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+  db.pg.connect(function(err, client, done) {
+    if (err){
       send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -102,7 +102,7 @@ reviews.list = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    });    
+    });
   });
 };
 

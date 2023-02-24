@@ -66,7 +66,7 @@ types.list = function (req, res) {
   // Order
   var order_str = ["scientific_name", "taxonomic_rank", "name"].join(", ");
   // Query
-  db.pg.connect(db.conString, function(err, client, done) {
+  db.pg.connect(function(err, client, done) {
     if (err) {
       common.send_error(res, 'error fetching client from pool', err);
       return done();
@@ -125,7 +125,7 @@ types.list = function (req, res) {
 
 types.show = function (req, res) {
   var id = parseInt(req.params.id);
-  db.pg.connect(db.conString, function(err, client, done) {
+  db.pg.connect(function(err, client, done) {
     if (err) {
       common.send_error(res, 'Error fetching client from pool', err);
       return done();

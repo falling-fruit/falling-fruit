@@ -1,3 +1,5 @@
+db = require('./db');
+
 var clusters = {};
 
 clusters.list = function(req, res) {
@@ -55,7 +57,7 @@ clusters.list = function(req, res) {
       GROUP BY geohash \
     ) subq; \
   ";
-  db.pg.connect(db.conString, function(err, client, done) {
+  db.pg.connect(function(err, client, done) {
     if (err) {
       common.send_error(res, 'Error fetching client from pool', err);
       return done();

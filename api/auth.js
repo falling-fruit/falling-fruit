@@ -1,11 +1,11 @@
 var auth = {};
-auth.bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 
 auth.login = function (req, res) {
   var email = req.query.email;
   var password = req.query.password;
-  db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+  db.pg.connect(function(err, client, done) {
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -18,7 +18,7 @@ auth.login = function (req, res) {
           if (result.rowCount == 0) return callback(true,'bad email or password');
           var encrypted_password = result.rows[0].encrypted_password;
           var token = result.rows[0].authentication_token;
-          auth.bcrypt.compare(password, encrypted_password, function(err, success) {
+          bcrypt.compare(password, encrypted_password, function(err, success) {
             if(err || !success) return callback(true,'bad email or password');
             else {
               res.send({"auth_token": token});
@@ -31,14 +31,14 @@ auth.login = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 
 auth.logout = function (req, res) {
   var auth_token = req.query.auth_token;
-  db.pg.connect(db.conString, function(err, client, done) {
-    if (err){ 
+  db.pg.connect(function(err, client, done) {
+    if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
     }
@@ -59,7 +59,7 @@ auth.logout = function (req, res) {
     function(err,message){
       done();
       if(message) common.send_error(res,message,err);
-    }); 
+    });
   });
 };
 

@@ -1,7 +1,7 @@
 var locations = {};
 
 locations.add = function (req, res) {
-  db.pg.connect(db.conString, function(err, client, done) {
+  db.pg.connect(function(err, client, done) {
     if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
@@ -103,7 +103,7 @@ locations.add = function (req, res) {
 
 locations.edit = function (req, res) {
   var id = parseInt(req.params.id);
-  db.pg.connect(db.conString, function(err, client, done) {
+  db.pg.connect(function(err, client, done) {
     if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
@@ -219,7 +219,7 @@ locations.list = function (req, res) {
                 ORDER BY photo_file_name DESC LIMIT 1) as photo_file_name";
   }
 
-  db.pg.connect(db.conString, function(err, client, done) {
+  db.pg.connect(function(err, client, done) {
     if (err) {
       common.send_error(res,'error fetching client from pool',err);
       return done();
@@ -286,7 +286,7 @@ locations.show = function (req, res) {
   var id = parseInt(req.params.id);
   var name = "en_name";
   if(req.query.locale) name = common.i18n_name(req.query.locale);
-  db.pg.connect(db.conString, function(err, client, done) {
+  db.pg.connect(function(err, client, done) {
     if (err){
       common.send_error(res,'error fetching client from pool',err);
       return done();
