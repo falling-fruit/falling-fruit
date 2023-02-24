@@ -1,5 +1,5 @@
 {
-  "name": "FallingFruitAPI",
+  "name": "falling-fruit-api",
   "description": "Like it Says.",
   "version": "0.0.2",
   "author": {
@@ -10,9 +10,9 @@
     "type": "git",
     "url": "https://github.com/somerandomsequence/falling-fruit.git"
   },
-  "engines": [
-    "node >= 0.12"
-  ],
+  "engines": {
+    "node": ">= 16"
+  },
   "license": "GNU GPL 3.0",
   "dependencies": {
     "apicache": "== 0.0.12",
