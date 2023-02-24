@@ -1,413 +1,995 @@
 {
-	"id": "260d03ef-152a-9521-2000-e90713cf5d0e",
-	"name": "Falling Fruit API 0.2",
-	"description": "",
-	"order": [
-		"54834349-f69e-3e66-f7ad-cb80b5239f06",
-		"1816642f-ecd2-49cb-7861-53fbd8f821aa",
-		"2ebdcc79-fed9-0f7e-6241-023172160a0e",
-		"2e19ce5d-26a4-ab3e-9345-54c29fe00991",
-		"d5775cbb-3514-601b-bc34-30c8d9b7a40d",
-		"1c3f78f3-722f-0b78-dcfa-5293e9f59bfd",
-		"32487e2b-064f-72a8-35ec-d2f3253f751b",
-		"bdd90975-4281-dc08-cdbb-c4e29db577f0",
-		"03152d76-cd8d-ed17-626e-a07e8538ba37",
-		"d91250bc-5480-6536-5873-8f42b2b15577",
-		"744b91bd-6d34-4c70-962b-5d819cbe675d",
-		"79c54528-c8b0-6ea6-268a-69bd27d01877",
-		"477b85fc-8df2-4ed8-17dd-c4a730526556",
-		"4567ff06-4bab-8ba3-a6db-ba846a9f7da2",
-		"ea263294-7403-b934-ec42-c34fc6f19749",
-		"88b12520-d95b-5150-0c2c-5947c9dbb6a9",
-		"ee4aa26d-da64-5ba7-47d7-c199198170b1",
-		"422b3dad-e08a-4843-9c90-b9c1c2008f1a",
-		"7513ab14-1acd-c127-b021-e95197424a8c",
-		"64f1681e-0ca9-c343-3c45-f95eeaf80b2a"
-	],
-	"folders": [],
-	"timestamp": 1435527651792,
-	"owner": 0,
-	"remoteLink": "",
-	"public": false,
-	"requests": [
-		{
-			"id": "03152d76-cd8d-ed17-626e-a07e8538ba37",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/types.json?api_key=FAKE",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055135586,
-			"name": "Error: Bad API Key",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "1816642f-ecd2-49cb-7861-53fbd8f821aa",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437054549329,
-			"name": "Add Location",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "1c3f78f3-722f-0b78-dcfa-5293e9f59bfd",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=CHANGEME&password=CHANGEME",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437054478929,
-			"name": "Login",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		},
-		{
-			"id": "2e19ce5d-26a4-ab3e-9345-54c29fe00991",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1&photo_file_name=foo.jpg",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [
-				{
-					"key": "photo_data",
-					"value": "rhubarb.jpg",
-					"type": "file",
-					"enabled": true
-				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437054603524,
-			"name": "Add Review (w/Photo)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "2ebdcc79-fed9-0f7e-6241-023172160a0e",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437054566145,
-			"name": "Add Review",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "32487e2b-064f-72a8-35ec-d2f3253f751b",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=AKDJGHSD",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437054627136,
-			"name": "Clusters (Bounded)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		},
-		{
-			"id": "422b3dad-e08a-4843-9c90-b9c1c2008f1a",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD&pending=1&uncategorized=1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1451418108524,
-			"name": "Types (With Pending & Uncategorized)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		},
-		{
-			"id": "4567ff06-4bab-8ba3-a6db-ba846a9f7da2",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055192144,
-			"name": "Locations (Bounded)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "477b85fc-8df2-4ed8-17dd-c4a730526556",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/3420.json?api_key=AKDJGHSD",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055184242,
-			"name": "Location 3420 (w/Photo)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "54834349-f69e-3e66-f7ad-cb80b5239f06",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437054490298,
-			"name": "Add Location (w/Review)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "64f1681e-0ca9-c343-3c45-f95eeaf80b2a",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/logout.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055255271,
-			"name": "Logout",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		},
-		{
-			"id": "744b91bd-6d34-4c70-962b-5d819cbe675d",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023/reviews.json?api_key=AKDJGHSD",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055156958,
-			"name": "Location 1023 Reviews",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "7513ab14-1acd-c127-b021-e95197424a8c",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD&nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055234410,
-			"name": "Types (Bounded)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "79c54528-c8b0-6ea6-268a-69bd27d01877",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations/1023.json?api_key=AKDJGHSD",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055172437,
-			"name": "Location 1023",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		},
-		{
-			"id": "88b12520-d95b-5150-0c2c-5947c9dbb6a9",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30&reviews=1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055212153,
-			"name": "Locations (Bounded, w/Reviews)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "bdd90975-4281-dc08-cdbb-c4e29db577f0",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=AKDJGHSD&t=253,254",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055124031,
-			"name": "Clusters (Bounded, Type Filtered)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		},
-		{
-			"id": "d5775cbb-3514-601b-bc34-30c8d9b7a40d",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437054613344,
-			"name": "Edit Location 1023",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "d91250bc-5480-6536-5873-8f42b2b15577",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=FAKE@FAKE.COM&password=FAKE",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055143538,
-			"name": "Error: Bad Login",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e",
-			"responses": []
-		},
-		{
-			"id": "ea263294-7403-b934-ec42-c34fc6f19749",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30&t=253",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055202085,
-			"name": "Locations (Bounded, Type Filtered)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		},
-		{
-			"id": "ee4aa26d-da64-5ba7-47d7-c199198170b1",
-			"headers": "",
-			"url": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1437055221879,
-			"name": "Types (All)",
-			"description": "",
-			"collectionId": "260d03ef-152a-9521-2000-e90713cf5d0e"
-		}
-	]
+    "info": {
+        "_postman_id": "260d03ef-152a-9521-2000-e90713cf5d0e",
+        "name": "Falling Fruit API 0.2",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Add Location (w/Review)",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "auth_token",
+                            "value": "Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA="
+                        },
+                        {
+                            "key": "lat",
+                            "value": "40"
+                        },
+                        {
+                            "key": "lng",
+                            "value": "-105"
+                        },
+                        {
+                            "key": "description",
+                            "value": "Testing 123"
+                        },
+                        {
+                            "key": "type_ids",
+                            "value": "42"
+                        },
+                        {
+                            "key": "access",
+                            "value": "1"
+                        },
+                        {
+                            "key": "unverified",
+                            "value": "false"
+                        },
+                        {
+                            "key": "quality_rating",
+                            "value": "3"
+                        },
+                        {
+                            "key": "yield_rating",
+                            "value": "2"
+                        },
+                        {
+                            "key": "fruiting",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Add Location",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false&quality_rating=3&yield_rating=2&fruiting=1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "auth_token",
+                            "value": "Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA="
+                        },
+                        {
+                            "key": "lat",
+                            "value": "40"
+                        },
+                        {
+                            "key": "lng",
+                            "value": "-105"
+                        },
+                        {
+                            "key": "description",
+                            "value": "Testing 123"
+                        },
+                        {
+                            "key": "type_ids",
+                            "value": "42"
+                        },
+                        {
+                            "key": "access",
+                            "value": "1"
+                        },
+                        {
+                            "key": "unverified",
+                            "value": "false"
+                        },
+                        {
+                            "key": "quality_rating",
+                            "value": "3"
+                        },
+                        {
+                            "key": "yield_rating",
+                            "value": "2"
+                        },
+                        {
+                            "key": "fruiting",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Add Review",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations",
+                        "1023",
+                        "review.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "auth_token",
+                            "value": "Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA="
+                        },
+                        {
+                            "key": "quality_rating",
+                            "value": "3"
+                        },
+                        {
+                            "key": "yield_rating",
+                            "value": "2"
+                        },
+                        {
+                            "key": "fruiting",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Add Review (w/Photo)",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "photo_data",
+                            "type": "file",
+                            "src": "rhubarb.jpg"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations/1023/review.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&quality_rating=3&yield_rating=2&fruiting=1&photo_file_name=foo.jpg",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations",
+                        "1023",
+                        "review.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "auth_token",
+                            "value": "Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA="
+                        },
+                        {
+                            "key": "quality_rating",
+                            "value": "3"
+                        },
+                        {
+                            "key": "yield_rating",
+                            "value": "2"
+                        },
+                        {
+                            "key": "fruiting",
+                            "value": "1"
+                        },
+                        {
+                            "key": "photo_file_name",
+                            "value": "foo.jpg"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Edit Location 1023",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=&lat=40&lng=-105&description=Testing 123&type_ids=42&access=1&unverified=false",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "auth_token",
+                            "value": "Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA="
+                        },
+                        {
+                            "key": "lat",
+                            "value": "40"
+                        },
+                        {
+                            "key": "lng",
+                            "value": "-105"
+                        },
+                        {
+                            "key": "description",
+                            "value": "Testing 123"
+                        },
+                        {
+                            "key": "type_ids",
+                            "value": "42"
+                        },
+                        {
+                            "key": "access",
+                            "value": "1"
+                        },
+                        {
+                            "key": "unverified",
+                            "value": "false"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Login",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=CHANGEME&password=CHANGEME",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "login.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "email",
+                            "value": "CHANGEME"
+                        },
+                        {
+                            "key": "password",
+                            "value": "CHANGEME"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Clusters (Bounded)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=AKDJGHSD",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "clusters.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "nelat",
+                            "value": "40.02615519416435"
+                        },
+                        {
+                            "key": "nelng",
+                            "value": "-105.21696435891113"
+                        },
+                        {
+                            "key": "swlat",
+                            "value": "40.00229287288179"
+                        },
+                        {
+                            "key": "swlng",
+                            "value": "-105.30948984108886"
+                        },
+                        {
+                            "key": "muni",
+                            "value": "0"
+                        },
+                        {
+                            "key": "zoom",
+                            "value": "12"
+                        },
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Clusters (Bounded, Type Filtered)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/clusters.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=0&zoom=12&api_key=AKDJGHSD&t=253,254",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "clusters.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "nelat",
+                            "value": "40.02615519416435"
+                        },
+                        {
+                            "key": "nelng",
+                            "value": "-105.21696435891113"
+                        },
+                        {
+                            "key": "swlat",
+                            "value": "40.00229287288179"
+                        },
+                        {
+                            "key": "swlng",
+                            "value": "-105.30948984108886"
+                        },
+                        {
+                            "key": "muni",
+                            "value": "0"
+                        },
+                        {
+                            "key": "zoom",
+                            "value": "12"
+                        },
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "t",
+                            "value": "253,254"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Error: Bad API Key",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/types.json?api_key=FAKE",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "types.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "FAKE"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Error: Bad Login",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/login.json?api_key=AKDJGHSD&email=FAKE@FAKE.COM&password=FAKE",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "login.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "email",
+                            "value": "FAKE@FAKE.COM"
+                        },
+                        {
+                            "key": "password",
+                            "value": "FAKE"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Location 1023 Reviews",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations/1023/reviews.json?api_key=AKDJGHSD",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations",
+                        "1023",
+                        "reviews.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Location 1023",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations/1023.json?api_key=AKDJGHSD",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations",
+                        "1023.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Location 3420 (w/Photo)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations/3420.json?api_key=AKDJGHSD",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations",
+                        "3420.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Locations (Bounded)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "nelat",
+                            "value": "40.02615519416435"
+                        },
+                        {
+                            "key": "nelng",
+                            "value": "-105.21696435891113"
+                        },
+                        {
+                            "key": "swlat",
+                            "value": "40.00229287288179"
+                        },
+                        {
+                            "key": "swlng",
+                            "value": "-105.30948984108886"
+                        },
+                        {
+                            "key": "muni",
+                            "value": "1"
+                        },
+                        {
+                            "key": "zoom",
+                            "value": "12"
+                        },
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "100"
+                        },
+                        {
+                            "key": "offset",
+                            "value": "30"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Locations (Bounded, Type Filtered)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30&t=253",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "nelat",
+                            "value": "40.02615519416435"
+                        },
+                        {
+                            "key": "nelng",
+                            "value": "-105.21696435891113"
+                        },
+                        {
+                            "key": "swlat",
+                            "value": "40.00229287288179"
+                        },
+                        {
+                            "key": "swlng",
+                            "value": "-105.30948984108886"
+                        },
+                        {
+                            "key": "muni",
+                            "value": "1"
+                        },
+                        {
+                            "key": "zoom",
+                            "value": "12"
+                        },
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "100"
+                        },
+                        {
+                            "key": "offset",
+                            "value": "30"
+                        },
+                        {
+                            "key": "t",
+                            "value": "253"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Locations (Bounded, w/Reviews)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/locations.json?nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12&api_key=AKDJGHSD&limit=100&offset=30&reviews=1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "locations.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "nelat",
+                            "value": "40.02615519416435"
+                        },
+                        {
+                            "key": "nelng",
+                            "value": "-105.21696435891113"
+                        },
+                        {
+                            "key": "swlat",
+                            "value": "40.00229287288179"
+                        },
+                        {
+                            "key": "swlng",
+                            "value": "-105.30948984108886"
+                        },
+                        {
+                            "key": "muni",
+                            "value": "1"
+                        },
+                        {
+                            "key": "zoom",
+                            "value": "12"
+                        },
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "100"
+                        },
+                        {
+                            "key": "offset",
+                            "value": "30"
+                        },
+                        {
+                            "key": "reviews",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Types (All)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "types.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Types (With Pending & Uncategorized)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD&pending=1&uncategorized=1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "types.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "pending",
+                            "value": "1"
+                        },
+                        {
+                            "key": "uncategorized",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Types (Bounded)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD&nelat=40.02615519416435&nelng=-105.21696435891113&swlat=40.00229287288179&swlng=-105.30948984108886&muni=1&zoom=12",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "types.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "nelat",
+                            "value": "40.02615519416435"
+                        },
+                        {
+                            "key": "nelng",
+                            "value": "-105.21696435891113"
+                        },
+                        {
+                            "key": "swlat",
+                            "value": "40.00229287288179"
+                        },
+                        {
+                            "key": "swlng",
+                            "value": "-105.30948984108886"
+                        },
+                        {
+                            "key": "muni",
+                            "value": "1"
+                        },
+                        {
+                            "key": "zoom",
+                            "value": "12"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Logout",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "http://localhost:3100/api/0.2/logout.json?api_key=AKDJGHSD&auth_token=Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA=",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3100",
+                    "path": [
+                        "api",
+                        "0.2",
+                        "logout.json"
+                    ],
+                    "query": [
+                        {
+                            "key": "api_key",
+                            "value": "AKDJGHSD"
+                        },
+                        {
+                            "key": "auth_token",
+                            "value": "Nzg2N2IyYjk3MTZmZmRhODE2ZDdiNDBlNGM3MzlmYTA="
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
 }
