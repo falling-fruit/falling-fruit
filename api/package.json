@@ -32,7 +32,7 @@
     "api": "./app.js"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^2.0.20"
   },
   "overrides": {
     "graceful-fs": "^4.2.10"
