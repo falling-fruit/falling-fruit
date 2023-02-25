@@ -29,9 +29,11 @@ var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
 if (host == "localhost") {
   var api_base = "http://localhost:3100/api/0.2/";
+  var api_base_new = "http://localhost:3300/api/0.3/";
   var api_key = "AKDJGHSD";
 } else {
   var api_base = "https://fallingfruit.org/api/0.2/";
+  var api_base_new = "https://fallingfruit.org/api/0.3/";
   var api_key = "EEQRBBUB";
 }
 
@@ -395,28 +397,36 @@ function clear_offscreen_markers(){
 }
 
 function bounds_to_query_string(bounds){
+  if(bounds == undefined) return '';
+  var ne = bounds.getNorthEast();
+  var sw = bounds.getSouthWest();
+  bstr = '&nelat=' + ne.lat() + '&nelng=' + ne.lng() +
+         '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
+  return bstr;
+}
+
+function bounds_to_query_string_new(bounds){
     if(bounds == undefined) return '';
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
-    bstr = '&nelat=' + ne.lat() + '&nelng=' + ne.lng() +
-           '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
-    return bstr;
+    return (
+      'bounds=' + sw.lat() + ',' + sw.lng() + '|' + ne.lat() + ',' + ne.lng()
+    );
 }
 
 function do_clusters(bounds,zoom,muni,type_filter) {
-    var bstr = bounds_to_query_string(bounds);
+    var bstr = bounds_to_query_string_new(bounds);
     var gstr = '&zoom=' + zoom;
-    if (muni) mstr = '&muni=1';
-      else mstr = '&muni=0';
+    if (muni) mstr = '&muni=true';
+      else mstr = '&muni=false';
     var tstr = '';
     if(type_filter != undefined){
-      tstr = '&t=' + type_filter.join(",");
+      tstr = '&types=' + type_filter.join(",");
     }
     if(pb != null) pb.start(200);
-    //console.log(api_base + 'clusters.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr + tstr);
     var request = $.ajax({
       type: 'GET',
-      url: api_base + 'clusters.json?api_key=' + api_key + mstr + gstr + bstr + tstr,
+      url: api_base_new + 'clusters?api_key=' + api_key + mstr + gstr + bstr + tstr,
       dataType: 'json'
     });
     request.done(function(json){
