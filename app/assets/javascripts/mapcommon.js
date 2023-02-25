@@ -410,7 +410,7 @@ function bounds_to_query_string_new(bounds){
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
     return (
-      'bounds=' + sw.lat() + ',' + sw.lng() + '|' + ne.lat() + ',' + ne.lng()
+      '&bounds=' + sw.lat() + ',' + sw.lng() + '|' + ne.lat() + ',' + ne.lng()
     );
 }
 
