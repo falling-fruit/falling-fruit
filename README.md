@@ -1,20 +1,21 @@
-Falling Fruit Web
-=================
+![Status](https://img.shields.io/badge/Status-Inactively%20maintained-yellowgreen.svg?style=flat-square)
 
-This is a Rails 3 web application for Falling Fruit, live at [fallingfruit.org](https://fallingfruit.org). The PostgreSQL + PostGIS database is accessed over a RESTful JSON API served up at [fallingfruit.org/api](https://fallingfruit.org/api/).
+Falling Fruit Legacy
+====================
+
+This is a Rails 3 web application ([`/app`](/app)) and v0.2 NodeJS API ([`/api`](/api)) for Falling Fruit, built for use with a PostgreSQL + PostGIS database.
 
 ### Who is responsible?
 
 Falling Fruit co-founders Caleb Phillips and Ethan Welty. More info at [fallingfruit.org/about](http://fallingfruit.org/about).
 
-This code is licensed under the [GNU General Public License version 3](http://www.gnu.org/copyleft/gpl.html).
-All of Falling Fruit's data, if not otherwise noted, is licensed under a [Creative Commons Attribution Non-Commercial Share-Alike License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
-
-Both licenses require attribution and that derivative works retain the same license. We reserve the right to prohibit use on a project-by-project basis. Please contact us ([info@fallingfruit.org](mailto:info@fallingfruit.org)) if you have any questions.
-
 ### How can I help?
 
 If you want to help with development, feel free to fork the project. If you have something to submit upstream, send a pull request from your fork. Cool? Cool!
+
+## Status
+
+The website is live at [fallingfruit.org](https://fallingfruit.org) and the NodeJS API at [fallingfruit.org/api/0.2](https://fallingfruit.org/api/0.2). However, maintaining both a website and a mobile app that do not share any code proved too time consuming, and we are slowly phasing out this project in favor of a standalone NodeJS API ([falling-fruit-api](https://github.com/falling-fruit/falling-fruit-api)) and a mobile-friendly web app ([falling-fruit-web](https://github.com/falling-fruit/falling-fruit-web)).
 
 ## Build instructions (website)
 
