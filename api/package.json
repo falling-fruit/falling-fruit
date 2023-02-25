@@ -15,7 +15,7 @@
   },
   "license": "GNU GPL 3.0",
   "dependencies": {
-    "apicache": "== 0.0.12",
+    "apicache": "== 1.6.3",
     "async": "== 1.2.1",
     "bcrypt": "== 5.0.1",
     "express": "== 4.13.0",
