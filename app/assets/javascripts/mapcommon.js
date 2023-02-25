@@ -446,11 +446,11 @@ function do_clusters(bounds,zoom,muni,type_filter) {
 }
 
 function do_cluster_types(bounds,zoom,muni) {
-  var bstr = bounds_to_query_string(bounds);
+  var bstr = bounds_to_query_string_new(bounds);
   var gstr = '&zoom=' + zoom;
-  if (muni) mstr = '&muni=1';
-  else mstr = '&muni=0';
-  var url = api_base + 'types.json?api_key=' + api_key + '&locale=' + I18n.locale + mstr + gstr + bstr;
+  if (muni) mstr = '&muni=true';
+  else mstr = '&muni=false';
+  var url = api_base_new + 'types/counts?api_key=' + api_key + mstr + gstr + bstr;
   //console.log(url);
   var request = $.ajax({
     type: 'GET',
