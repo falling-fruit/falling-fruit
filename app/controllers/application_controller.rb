@@ -151,7 +151,7 @@ class ApplicationController < ActionController::Base
   #
 
   def set_locale
-    new_locale = find_matching_locale(extract_locale_from_subdomain || extract_locale_from_url)
+    new_locale = find_matching_locale(extract_locale_from_url || extract_locale_from_subdomain)
     unless new_locale.nil?
       I18n.locale = new_locale
     else
