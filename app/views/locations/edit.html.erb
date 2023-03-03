@@ -26,7 +26,7 @@
     // Update markers once done panning and zooming
     google.maps.event.addListener(map, 'idle', function() {
       if (map.getZoom() > 12) {
-        do_markers(map.getBounds(),$("#location_id").val(),true,undefined,cats);
+        do_markers(map.getBounds(),$("#location_id").val(),true,undefined);
       }
     });
   }

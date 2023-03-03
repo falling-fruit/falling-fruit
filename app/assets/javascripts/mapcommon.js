@@ -28,12 +28,10 @@ markersLoadedEvent.initEvent("markersloaded",true,true);
 var markersMax = 5000; // maximum markers that will display at one time...
 var markersPartial = false;
 if (host == "localhost") {
-  var api_base = "http://localhost:3100/api/0.2/";
-  var api_base_new = "http://localhost:3300/api/0.3/";
+  var api_base = "http://localhost:3300/api/0.3";
   var api_key = "AKDJGHSD";
 } else {
-  var api_base = "https://fallingfruit.org/api/0.2/";
-  var api_base_new = "https://fallingfruit.org/api/0.3/";
+  var api_base = "https://fallingfruit.org/api/0.3";
   var api_key = "EEQRBBUB";
 }
 
@@ -397,15 +395,6 @@ function clear_offscreen_markers(){
 }
 
 function bounds_to_query_string(bounds){
-  if(bounds == undefined) return '';
-  var ne = bounds.getNorthEast();
-  var sw = bounds.getSouthWest();
-  bstr = '&nelat=' + ne.lat() + '&nelng=' + ne.lng() +
-         '&swlat=' + sw.lat() + '&swlng=' + sw.lng();
-  return bstr;
-}
-
-function bounds_to_query_string_new(bounds){
     if(bounds == undefined) return '';
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
@@ -415,7 +404,7 @@ function bounds_to_query_string_new(bounds){
 }
 
 function do_clusters(bounds,zoom,muni,type_filter) {
-    var bstr = bounds_to_query_string_new(bounds);
+    var bstr = bounds_to_query_string(bounds);
     var gstr = '&zoom=' + zoom;
     if (muni) mstr = '&muni=true';
       else mstr = '&muni=false';
@@ -426,7 +415,7 @@ function do_clusters(bounds,zoom,muni,type_filter) {
     if(pb != null) pb.start(200);
     var request = $.ajax({
       type: 'GET',
-      url: api_base_new + 'clusters?api_key=' + api_key + mstr + gstr + bstr + tstr,
+      url: api_base + '/clusters?api_key=' + api_key + mstr + gstr + bstr + tstr,
       dataType: 'json'
     });
     request.done(function(json){
@@ -446,11 +435,11 @@ function do_clusters(bounds,zoom,muni,type_filter) {
 }
 
 function do_cluster_types(bounds,zoom,muni) {
-  var bstr = bounds_to_query_string_new(bounds);
+  var bstr = bounds_to_query_string(bounds);
   var gstr = '&zoom=' + zoom;
   if (muni) mstr = '&muni=true';
   else mstr = '&muni=false';
-  var url = api_base_new + 'types/counts?api_key=' + api_key + mstr + gstr + bstr;
+  var url = api_base + '/types/counts?api_key=' + api_key + mstr + gstr + bstr;
   //console.log(url);
   var request = $.ajax({
     type: 'GET',
@@ -736,13 +725,13 @@ function open_marker_by_id(id) {
   // didn't find it, manually fetch & add it
   var requestJson = $.ajax({
     type: 'GET',
-    url: api_base + 'locations/'+id+'.json?api_key='+api_key,
+    url: api_base + '/locations/ids=' + id + '?api_key=' + api_key + '&locale=' + I18n.locale,
     dataType: 'json'
   });
   requestJson.done(function(json){
     // Add marker to map
     // Put into array for add_markers_from_json()
-    add_markers_from_json([json]);
+    add_markers_from_json(json);
     // make marker clickable
     add_marker_infowindow(markersArray.length-1);
     // filter and labels
@@ -766,27 +755,22 @@ function add_clicky_cluster(marker){
   });
 }
 
-function do_markers(bounds,skip_ids,muni,type_filter,cats,invasive) {
+function do_markers(bounds,skip_ids,muni,type_filter,invasive) {
   if(markersArray.length >= markersMax) return;
   var bstr = bounds_to_query_string(bounds);
-  if (muni) mstr = '&muni=1';
-    else mstr = '&muni=0';
-  if (invasive) istr = '&invasive=1';
+  if (muni) mstr = '&muni=true';
+    else mstr = '&muni=false';
+  if (invasive) istr = '&invasive=true';
   else istr = '';
 
   var tstr = '';
   if (type_filter != undefined) {
-    var tstr = '&t=' + type_filter.join(",");
-  }
-  var cstr = '';
-  if (cats != undefined) {
-    cstr = '&c=' + cats;
+    var tstr = '&types=' + type_filter.join(",");
   }
   if(pb != null) pb.start(200);
-  //console.log(api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + bstr + tstr + cstr);
   var request = $.ajax({
     type: 'GET',
-    url: api_base + 'locations.json?api_key='+api_key+'&locale=' + I18n.locale + mstr + istr + bstr + tstr + cstr,
+    url: api_base + '/locations?api_key='+api_key+'&locale=' + I18n.locale + mstr + istr + bstr + tstr,
     dataType: 'json'
   });
   request.done(function(json){

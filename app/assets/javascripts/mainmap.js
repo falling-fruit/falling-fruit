@@ -107,7 +107,7 @@ function update_display(force,force_zoom,force_bounds){
       types_hash = {};
       show_map_controls();
     }
-    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter,cats,$('#invasive').is(':checked'));
+    do_markers(bounds,skip_ids,$('#muni').is(':checked'),type_filter,$('#invasive').is(':checked'));
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
@@ -146,7 +146,7 @@ function update_display_embedded(force, force_zoom, muni) {
   if (zoom <= 12) {
     do_clusters(bounds, zoom, muni, type_filter);
   } else if (zoom >= 13) {
-    do_markers(bounds,null,muni,type_filter,cats,false);
+    do_markers(bounds,null,muni,type_filter,false);
   }
   prior_zoom = zoom;
   prior_bounds = bounds;
