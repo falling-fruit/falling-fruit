@@ -725,7 +725,7 @@ function open_marker_by_id(id) {
   // didn't find it, manually fetch & add it
   var requestJson = $.ajax({
     type: 'GET',
-    url: api_base + '/locations/ids=' + id + '?api_key=' + api_key + '&locale=' + I18n.locale,
+    url: api_base + '/locations?api_key=' + api_key + '&ids=' + id + '&locale=' + I18n.locale,
     dataType: 'json'
   });
   requestJson.done(function(json){
