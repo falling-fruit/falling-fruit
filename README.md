@@ -3,7 +3,7 @@
 Falling Fruit Legacy
 ====================
 
-This is a Rails 3 web application ([`/app`](/app)) and v0.2 NodeJS API ([`/api`](/api)) for Falling Fruit, built for use with a PostgreSQL + PostGIS database.
+This is a Rails 3 web application ([`/app`](/app)) and v0.1 of the API for Falling Fruit, built for use with a PostgreSQL + PostGIS database.
 
 ### Who is responsible?
 
@@ -15,7 +15,7 @@ If you want to help with development, feel free to fork the project. If you have
 
 ## Status
 
-The website is live at [fallingfruit.org](https://fallingfruit.org) and the NodeJS API at [fallingfruit.org/api/0.2](https://fallingfruit.org/api/0.2). However, maintaining both a website and a mobile app that do not share any code proved too time consuming, and we are slowly phasing out this project in favor of a standalone NodeJS API ([falling-fruit-api](https://github.com/falling-fruit/falling-fruit-api)) and a mobile-friendly web app ([falling-fruit-web](https://github.com/falling-fruit/falling-fruit-web)).
+The website is live at [fallingfruit.org](https://fallingfruit.org). However, maintaining both a website and a mobile app that do not share any code proved too time consuming, and we are very slowly phasing out this project in favor of a mobile-friendly web app ([falling-fruit-web](https://github.com/falling-fruit/falling-fruit-web)). All versions of the mobile app still rely on API v0.1.
 
 ## Build instructions (website)
 
@@ -177,29 +177,6 @@ The website is live at [fallingfruit.org](https://fallingfruit.org) and the Node
   \q
   ```
 
-  Don't go too far, you'll now need to get the API working!
-
-## Build instructions (API)
-
-### Install Node and dependencies
-
-  * Node Version Manager (nvm): [installation instructions](https://github.com/creationix/nvm)
-  * Node (0.12):
-
-  ```
-  nvm install 0.12
-  nvm use 0.12
-  ```
-
-  * Node packages:
-
-  ```
-  cd api
-  npm install
-  ```
-
-### Prepare API
-
   * Create an API key:
 
   Calls to the API will require an api_key parameter that matches an entry in the api_keys database table. You can create one from the rails console.
@@ -210,27 +187,9 @@ The website is live at [fallingfruit.org](https://fallingfruit.org) and the Node
   exit
   ```
 
-  Then set the `api_key` variable in `/app/assets/javascripts/mapcommon.js`. The key 'AKDJGHSD' is set by default on `localhost` since it is also the testing key for the live version of the API.
+  Finally, install and start the NodeJS API: see ([falling-fruit-api](https://github.com/falling-fruit/falling-fruit-api)).
 
-  * Start the API:
-
-  ```
-  make start
-  ```
-
-  You can test the API by visiting [localhost:3100/api/0.2/types.json?api_key=AKDJGHSD](http://localhost:3100/api/0.2/types.json?api_key=AKDJGHSD). The page should return `[]` until you create a new type at [localhost:3000/types/new](http://localhost:3000/types/new).
-
-  The API is currently (poorly) documented [here](https://docs.google.com/document/d/1YMA_d6dT0IZjrJuN5ndz7jzrpSiuwFEsnGcqp9gKgo8/).
-
-### API Versioning
-
-Since we have multiple versions of the mobile app in the wild, using different versions of the API, more care is needed with respect to branching and versioning the API than with other Falling Fruit code. As of 23 September 2016, we are running two versions of the API in parallel:
-
-  - v0.1 ([api-release-0.1](https://github.com/falling-fruit/falling-fruit/tree/api-release-0.1) branch) - A Rails-based API existing entirely within `app/controller/api`. All versions of the mobile app (v0.1 & 0.2) use this version of the API.
-  - v0.2 ([api-release-0.2](https://github.com/falling-fruit/falling-fruit/tree/api-release-0.2) branch) - The first version of the NodeJS-based API. The current website uses this version of the API.
-  - v0.3 (under construction in master branch) - The next release of the API, which will be NodeJS-based and both the mobile app and website should use it.
-
-API v0.1 will need to persist for the foreseeable future (unless/until we decide to force upgrade all v0.1 and v0.2 installs of the mobile app). API v0.2 can presumably be removed once v0.3 is released since only the website uses it. Starting with API v0.3, we will need to run parallel versions of the API to allow backwards compatibility.
+  You can test the API by visiting [localhost:3300/api/0.3/types?api_key=AKDJGHSD](http://localhost:3300/api/0.3/types?api_key=AKDJGHSD). The page should return `[]` until you create a new type at [localhost:3000/types/new](http://localhost:3000/types/new).
 
 ## Translations
 
