@@ -278,7 +278,7 @@ DEPENDENCIES
   thin
   timeliness
   uglifier (>= 1.0.3)
-  validates_timeliness (~> 3.0)
+  validates_timeliness
   yaml_db
 
 BUNDLED WITH
