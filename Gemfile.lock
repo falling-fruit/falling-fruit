@@ -103,7 +103,6 @@ GEM
     fastercsv (1.5.5)
     geocoder (1.1.6)
     gmaps4rails (1.5.5)
-    hashie (3.3.2)
     highline (1.6.21)
     hike (1.2.3)
     httparty (0.11.0)
@@ -258,9 +257,6 @@ GEM
       timeliness (~> 0.3.6)
     warden (1.2.1)
       rack (>= 1.0)
-    world-flags (0.6.5)
-      hashie (>= 1.2)
-      i18n (>= 0.6)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yaml_db (0.2.3)
@@ -320,7 +316,6 @@ DEPENDENCIES
   timeliness
   uglifier (>= 1.0.3)
   validates_timeliness (~> 3.0)
-  world-flags
   yaml_db
 
 BUNDLED WITH
