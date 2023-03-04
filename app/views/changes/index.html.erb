@@ -10,7 +10,6 @@ last_days_ago = nil
   unless c["country"].nil?
     city = [c["city"],c["state"],c["country"]].compact.join(", ")
   end
-  # i18n-tasks-use t('changes.type.added') t('changes.type.edited') t('changes.type.grafted') t('changes.type.visited')
   action = translate("changes.type.#{c['description']}")
   c["days_ago"] = c["days_ago"].to_i
   if last_days_ago.nil? or c["days_ago"] > last_days_ago
