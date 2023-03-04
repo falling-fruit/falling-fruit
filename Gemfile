@@ -35,6 +35,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'rack-test'
+  gem 'test-unit', '~> 3.0'
 end
 
 gem 'jquery-rails'
