@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.22.5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,7 +14,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8', '3.16.14.15'
+  gem 'libv8'
   gem 'therubyracer', :platforms => :ruby
   #gem 'therubyrhino'
 
@@ -50,9 +50,8 @@ gem 'geocoder'
 # we use token_authenticable and some other things that
 # got changed in devise 3 so it's important to stick to devise 2 for now
 gem 'devise', "~> 2.1.2"
-gem 'thin', "~> 1.6.0"
-#gem 'thin'
-gem 'pg', '~> 0.11'
+gem 'thin'
+gem 'pg', '~> 0.18'
 gem 'yaml_db'
 gem 'paperclip', '~> 4.3'
 gem 'aws-sdk', '~> 1.5.7'
@@ -72,7 +71,8 @@ gem 'role_model'
 gem 'shadowbox-rails'
 
 # For diffing/patching descriptions
-gem 'diff_match_patch_native'
+# Dependency rice 4.0.4 failing to install
+# gem 'diff_match_patch_native'
 
 # For internationalization
 gem 'i18n'
@@ -95,7 +95,7 @@ gem 'dynatree-rails'
 
 gem 'rb-readline'
 
-# https://stackoverflow.com/a/66921259
-gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
+# https://stackoverflow.com/a/67037930
+gem 'mimemagic', git: 'https://github.com/mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
 
 gem 'bcrypt', '~> 3.1.13'
