@@ -16,7 +16,6 @@ end
 
 # Development
 group :development do
-  gem 'faker'
   gem 'better_errors'
 end
 

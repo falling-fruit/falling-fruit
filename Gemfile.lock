@@ -88,8 +88,6 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    faker (1.1.2)
-      i18n (~> 0.5)
     geocoder (1.1.6)
     gmaps4rails (1.5.5)
     hike (1.2.3)
@@ -237,7 +235,6 @@ DEPENDENCIES
   devise (~> 2.1.2)
   devise-i18n
   factory_girl_rails
-  faker
   geocoder
   gmaps4rails
   i18n

@@ -21,14 +21,13 @@ require 'spec_helper'
 describe Location do
   before(:each) do
     @attr = {
-      :lat => 180.0*rand,
-      :lng => 180.0*rand,
-      :author => Faker.name,
-      :address => [Faker::Address.street_address,Faker::Address.city,Faker::Address.state,Faker::Address.zip_code].join(", ")
+      :lat => 180.0 * rand,
+      :lng => 180.0 * rand,
+      :author => 'Anonymous'
     }
   end
   it "should geocode an address" do
-    l = Location.new(@attr.merge({:lat => nil,:lng => nil,:address => "2995 Aurora Ave., Boulder, CO, 80303"}))
+    l = Location.new(@attr.merge({:lat => nil, :lng => nil, :address => "2995 Aurora Ave., Boulder, CO, 80303"}))
     l.should be_valid
   end
   it "shouldn't require an address if lat/lng are provided" do
