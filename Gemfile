@@ -5,13 +5,13 @@ gem 'rails', '3.2.22.5'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'libv8'
   gem 'therubyracer', :platforms => :ruby
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
 end
 
 # Testing
@@ -20,7 +20,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'rack-test'
-  gem 'test-unit', '~> 3.0'
+  gem 'test-unit'
 end
 
 gem 'jquery-rails'
@@ -34,14 +34,14 @@ gem 'jquery-datatables-rails'
 gem 'geocoder'
 # we use token_authenticable and some other things that
 # got changed in devise 3 so it's important to stick to devise 2 for now
-gem 'devise', "~> 2.1.2"
+gem 'devise'
 gem 'thin'
-gem 'pg', '~> 0.18'
-gem 'paperclip', '~> 4.3'
-gem 'aws-sdk', '~> 1.5.7'
+gem 'pg'
+gem 'paperclip'
+gem 'aws-sdk'
 gem 'gmaps4rails'
-gem 'recaptcha', '= 0.4.0', :require => "recaptcha/rails"
-gem 'comma', '~> 3.0'
+gem 'recaptcha', :require => "recaptcha/rails"
+gem 'comma'
 gem 'activerecord-postgis-adapter'
 
 # Authentication stuff
@@ -69,4 +69,4 @@ gem 'attribute_normalizer'
 # https://stackoverflow.com/a/67037930
 gem 'mimemagic', git: 'https://github.com/mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
 
-gem 'bcrypt', '~> 3.1.13'
+gem 'bcrypt'

@@ -221,13 +221,13 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter
   attribute_normalizer
-  aws-sdk (~> 1.5.7)
-  bcrypt (~> 3.1.13)
+  aws-sdk
+  bcrypt
   cancan
   capybara
-  coffee-rails (~> 3.2.1)
-  comma (~> 3.0)
-  devise (~> 2.1.2)
+  coffee-rails
+  comma
+  devise
   devise-i18n
   factory_girl_rails
   geocoder
@@ -241,22 +241,22 @@ DEPENDENCIES
   jquery-ui-rails
   libv8
   mimemagic!
-  paperclip (~> 4.3)
-  pg (~> 0.18)
+  paperclip
+  pg
   rack-test
   rails (= 3.2.22.5)
   rails-i18n
-  recaptcha (= 0.4.0)
+  recaptcha
   role_model
   rspec-rails
-  sass-rails (~> 3.2.3)
+  sass-rails
   select2-rails
   shadowbox-rails
-  test-unit (~> 3.0)
+  test-unit
   therubyracer
   thin
   timeliness
-  uglifier (>= 1.0.3)
+  uglifier
   validates_timeliness
 
 BUNDLED WITH
