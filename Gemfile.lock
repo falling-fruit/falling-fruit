@@ -84,7 +84,6 @@ GEM
       warden (~> 1.2.1)
     devise-i18n (0.10.4)
     diff-lcs (1.2.1)
-    dynatree-rails (1.2.6)
     easy_translate (0.5.0)
       json
       thread
@@ -277,7 +276,6 @@ DEPENDENCIES
   comma (~> 3.0)
   devise (~> 2.1.2)
   devise-i18n
-  dynatree-rails
   factory_girl_rails
   faker
   geocoder

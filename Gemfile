@@ -90,9 +90,6 @@ gem 'postgres_ext'
 # Field sanitation
 gem 'attribute_normalizer'
 
-# Type tree
-gem 'dynatree-rails'
-
 gem 'rb-readline'
 
 # https://stackoverflow.com/a/67037930
