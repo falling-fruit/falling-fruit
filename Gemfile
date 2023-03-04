@@ -33,7 +33,6 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery_mobile_rails'
 gem 'jquery-cookie-rails'
 gem 'validates_timeliness', '~> 3.0'
 gem 'timeliness'
