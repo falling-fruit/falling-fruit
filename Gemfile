@@ -44,7 +44,6 @@ gem 'geocoder'
 gem 'devise', "~> 2.1.2"
 gem 'thin'
 gem 'pg', '~> 0.18'
-gem 'yaml_db'
 gem 'paperclip', '~> 4.3'
 gem 'aws-sdk', '~> 1.5.7'
 gem 'gmaps4rails'
