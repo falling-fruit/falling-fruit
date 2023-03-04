@@ -160,6 +160,7 @@ GEM
     postgres_ext (1.0.0)
       activerecord (~> 3.2.0)
       pg_array_parser (~> 0.0.9)
+    power_assert (2.0.3)
     rack (1.4.7)
     rack-cache (1.13.0)
       rack (>= 0.4)
@@ -230,6 +231,8 @@ GEM
     term-ansicolor (1.3.0)
       tins (~> 1.0)
     terminal-table (1.4.5)
+    test-unit (3.5.7)
+      power_assert
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -311,6 +314,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   select2-rails (~> 3.4.2)
   shadowbox-rails
+  test-unit (~> 3.0)
   therubyracer
   thin
   timeliness
