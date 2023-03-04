@@ -14,11 +14,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# Development
-group :development do
-  gem 'better_errors'
-end
-
 # Testing
 group :test do
   gem 'rspec-rails'
