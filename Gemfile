@@ -34,7 +34,7 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-cookie-rails'
-gem 'validates_timeliness', '~> 3.0'
+gem 'validates_timeliness'
 gem 'timeliness'
 gem 'select2-rails', '~> 3.4.2'
 gem 'jquery-datatables-rails'
