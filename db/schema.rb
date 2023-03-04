@@ -11,10 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20200512162439) do
+ActiveRecord::Schema.define(:version => 20201230162701) do
 
   add_extension "postgis"
-  add_extension "postgis_topology"
 
   create_table "api_keys", :force => true do |t|
     t.string   "api_key"
@@ -54,12 +53,12 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
 
   create_table "clusters", :force => true do |t|
     t.text     "geohash",    :null => false
-    t.integer  "type_id",    :null => false
     t.boolean  "muni",       :null => false
     t.float    "x",          :null => false
     t.float    "y",          :null => false
     t.integer  "count",      :null => false
     t.integer  "zoom",       :null => false
+    t.integer  "type_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -106,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.integer  "user_id"
     t.integer  "type_ids",                                                                                                      :array => true
     t.boolean  "muni",                                                                       :default => false
-    t.string   "original_ids",                                                                                                  :array => true
+    t.string   "original_ids",   :limit => nil,                                                                                 :array => true
     t.boolean  "invasive",                                                                   :default => false
     t.integer  "inaturalist_id"
     t.boolean  "hidden",                                                                     :default => false
@@ -203,6 +202,7 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.string   "nl_name"
     t.string   "zh_tw_name"
     t.string   "ar_name"
+    t.string   "sk_name"
   end
 
   create_table "users", :force => true do |t|

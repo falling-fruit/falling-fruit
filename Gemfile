@@ -14,6 +14,10 @@ group :assets do
   gem 'uglifier'
 end
 
+group :development do
+  gem 'better_errors'
+end
+
 # Testing
 group :test do
   gem 'rspec-rails'
@@ -37,6 +41,7 @@ gem 'geocoder'
 gem 'devise'
 gem 'thin'
 gem 'pg'
+gem 'postgres_ext'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'gmaps4rails'
