@@ -260,7 +260,6 @@ DEPENDENCIES
   jquery-ui-rails
   libv8
   mimemagic!
-  nokogiri
   paperclip (~> 4.3)
   pg (~> 0.18)
   postgres_ext
