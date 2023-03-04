@@ -301,14 +301,6 @@ class LocationsController < ApplicationController
     @observation.author = current_user.name unless @observation.nil? or (not user_signed_in?) or (current_user.add_anonymously)
     # overwrite with field setting if given
     @observation.author = params[:author] if not @observation.nil? and params[:author].present? and not params[:author].blank?
-
-    # compute diff/patch so we can undo later
-    unless params[:location][:description].nil?
-      dmp = DiffMatchPatch.new
-      patch = dmp.patch_to_text(dmp.patch_make(params[:location][:description],@location.description.nil? ? '' : @location.description))
-    else
-      patch = ""
-    end
     former_type_ids = @location.type_ids
     former_location = @location.location
 
@@ -324,7 +316,7 @@ class LocationsController < ApplicationController
       # FIXME: recaptcha check should go right at the beginning (before doing anything else)
       test = user_signed_in? ? true : verify_recaptcha(:model => @location)
       if test and @location.update_attributes(params[:location]) and (@observation.nil? or @observation.save)
-        log_changes(@location,"edited",nil,params[:author],patch,former_type_ids,former_location)
+        log_changes(@location,"edited",nil,params[:author],params[:location][:description],former_type_ids,former_location)
         cluster_increment(@location)
         expire_things
         format.html { redirect_to @location, notice: I18n.translate('locations.messages.updated') }

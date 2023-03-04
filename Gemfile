@@ -57,10 +57,6 @@ gem 'role_model'
 # pretty picture previewing
 gem 'shadowbox-rails'
 
-# For diffing/patching descriptions
-# Dependency rice 4.0.4 failing to install
-# gem 'diff_match_patch_native'
-
 # For internationalization
 gem 'i18n'
 gem 'devise-i18n'
