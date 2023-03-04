@@ -36,7 +36,7 @@ gem 'jquery-ui-rails'
 gem 'jquery-cookie-rails'
 gem 'validates_timeliness'
 gem 'timeliness'
-gem 'select2-rails', '~> 3.4.2'
+gem 'select2-rails'
 gem 'jquery-datatables-rails'
 
 gem 'geocoder'
