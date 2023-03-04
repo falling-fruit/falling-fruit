@@ -65,7 +65,6 @@ gem 'shadowbox-rails'
 
 # For internationalization
 gem 'i18n'
-gem 'i15r'
 gem 'devise-i18n'
 gem 'rails-i18n'
 gem 'i18n-js'

@@ -99,7 +99,6 @@ GEM
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
-    i15r (0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     i18n-js (2.1.2)
@@ -245,7 +244,6 @@ DEPENDENCIES
   faker
   geocoder
   gmaps4rails
-  i15r
   i18n
   i18n-js
   i18n_viz
