@@ -2,11 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.22.5'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'sqlite3'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -16,8 +11,6 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'libv8'
   gem 'therubyracer', :platforms => :ruby
-  #gem 'therubyrhino'
-
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -88,8 +81,6 @@ gem 'postgres_ext'
 
 # Field sanitation
 gem 'attribute_normalizer'
-
-gem 'rb-readline'
 
 # https://stackoverflow.com/a/67037930
 gem 'mimemagic', git: 'https://github.com/mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
