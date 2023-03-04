@@ -271,7 +271,7 @@ DEPENDENCIES
   role_model
   rspec-rails
   sass-rails (~> 3.2.3)
-  select2-rails (~> 3.4.2)
+  select2-rails
   shadowbox-rails
   test-unit (~> 3.0)
   therubyracer
