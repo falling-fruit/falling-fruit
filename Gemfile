@@ -71,9 +71,6 @@ gem 'rails-i18n'
 gem 'i18n-js'
 gem 'i18n_viz'
 
-# Allows us to use postgres native types like arrays
-gem 'postgres_ext'
-
 # Field sanitation
 gem 'attribute_normalizer'
 
