@@ -1,7 +1,10 @@
 class AddOrderToLocationsTypes < ActiveRecord::Migration
+  class LocationsType < ActiveRecord::Base
+    self.table_name = 'locations_types'
+  end
   def change
-    change_table "locations_types" do |t|
-      t.integer "position"
+    change_table :locations_types do |t|
+      t.integer :position
     end
     puts "Adding Order"
     n = 0
@@ -9,7 +12,7 @@ class AddOrderToLocationsTypes < ActiveRecord::Migration
     c = LocationsType.count
     lid = nil
     LocationsType.order("location_id, id ASC").each{ |lt|
-      if lid.nil? or lt.location_id != lid      
+      if lid.nil? or lt.location_id != lid
         p = 0
         lid = lt.location_id
       end
