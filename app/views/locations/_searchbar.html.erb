@@ -80,14 +80,13 @@
     return filter_by_types_hash(base_type_data);
   }
   function filter_by_types_hash(children) {
-    var mp = markersPartial ? "+" : "";
     var ret = children.filter(function (obj) {
       return (obj["children"] != undefined && obj["children"].length > 0) || types_hash[obj["id"]] != undefined;
     });
     for (var i = ret.length-1; i >= 0; i--) {
       var count = types_hash[ret[i]["id"]] ? types_hash[ret[i]["id"]] : 0;
       //ret[i]["count"] = count;
-      ret[i]["text"] = ret[i]["name"] + " (" + count + mp + ")";
+      ret[i]["text"] = ret[i]["name"] + " (" + count + ")";
       if (ret[i]["children_ids"].length > 0) {
         ret[i]["id"] = [ret[i]["id"], ret[i]["children_ids"]].join(",");
       }
