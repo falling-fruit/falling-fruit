@@ -413,3 +413,24 @@ task(:make_clusters => :environment) do
     `sudo su postgres -c "Rscript --vanilla #{file} fallingfruit_user"`
   end
 end
+
+namespace :db do
+  task :patch_adapter do
+    require './config/initializers/postgresql_adapter'
+  end
+  task :create => :patch_adapter
+  task :drop => :patch_adapter
+end
+
+task :pg_dump do
+  env = ENV['RAILS_ENV'] || 'development'
+  db = YAML::load(File.open('config/database.yml'))[env]
+  `pg_dump --dbname=#{db['database']} --host=#{db['host']} --port=#{db['port']} --username=#{db['username']} --no-owner --schema-only > db/schema.sql`
+  `pg_dump --dbname=#{db['database']} --host=#{db['host']} --port=#{db['port']} --username=#{db['username']} --no-owner --data-only --table=schema_migrations >> db/schema.sql`
+end
+
+task :pg_load do
+  env = ENV['RAILS_ENV'] || 'development'
+  db = YAML::load(File.open('config/database.yml'))[env]
+  `psql #{db['database']} --host=#{db['host']} --port=#{db['port']} --username=#{db['username']} < db/schema.sql`
+end

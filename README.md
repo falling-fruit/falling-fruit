@@ -3,7 +3,7 @@
 Falling Fruit Legacy
 ====================
 
-This is a Rails 3 web application ([`/app`](/app)) and v0.1 of the API for Falling Fruit, built for use with a PostgreSQL + PostGIS database.
+This is a Rails 3 web application and API for Falling Fruit, built for use with a PostgreSQL + PostGIS database.
 
 ### Who is responsible?
 
@@ -15,7 +15,7 @@ If you want to help with development, feel free to fork the project. If you have
 
 ## Status
 
-The website is live at [fallingfruit.org](https://fallingfruit.org). However, maintaining both a website and a mobile app that do not share any code proved too time consuming, and we are very slowly phasing out this project in favor of a mobile-friendly web app ([falling-fruit-web](https://github.com/falling-fruit/falling-fruit-web)). All versions of the mobile app still rely on API v0.1.
+The website is live at [fallingfruit.org](https://fallingfruit.org). However, maintaining both a website and a mobile app that do not share any code proved too time consuming, so we are slowly phasing out this project in favor of a mobile-friendly web app ([falling-fruit-web](https://github.com/falling-fruit/falling-fruit-web)). However, all versions of the mobile app still rely on the Rails API.
 
 # Development
 
@@ -61,66 +61,26 @@ cp config/initializers/credentials.rb.dist config/initializers/credentials.rb
 cp config/initializers/secret_token.rb.dist config/initializers/secret_token.rb
 ```
 
-Add your development database name, username, and password to `config/database.yml`.
+Add a desired development database name and your database username, password, and port to `config/database.yml`.
 Add Amazon S3 and Google API credentials to `config/s3.yml` and `config/initializers/credentials.rb`.
-
-## Create a database (if needed)
-
-Initialize PostgreSQL. For example:
-
-```sh
-initdb -D /usr/local/var/postgres/
-pg_ctl -D /usr/local/var/postgres/ -l logfile start
-```
-
-Create a Falling Fruit database and superuser:
-
-```sh
-psql postgres
-CREATE ROLE fallingfruit_user WITH PASSWORD 'PASSWORD' LOGIN SUPERUSER CREATEDB;
-CREATE DATABASE fallingfruit_db;
-GRANT ALL ON DATABASE fallingfruit_db TO fallingfruit_user;
-\q
-```
-
-_The database name, username, and password should match your settings for the development database in `config/database.yml`._
 
 ## Start the app
 
-Migrate the database to the current schema:
+Create, load, and seed the database:
 
 ```sh
-bundle exec rake db:migrate
+rake db:create
+rake pg_load
+rake db:seed
 ```
 
-_Using `rake db:schema:load` is not sufficient, as it does not include custom SQL functions._
+Install and start the [Falling Fruit API](https://github.com/falling-fruit/falling-fruit-api).
 
-Start the web server:
+Finally, start the web server:
 
 ```sh
-bundle exec thin start
+thin start
 ```
-
-Visit [localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) and register an account.
-
-Force-confirm your account (so that you can sign in) and make yourself an admin (so that you have access to all site features):
-
-```sh
-bundle exec rails console
-user = User.order('created_at').last
-user.confirmed_at = '2013-01-01'
-user.roles_mask = '3'
-user.save
-```
-
-Create an API key:
-
-```sh
-bundle exec rails console
-ApiKey.create(api_key: 'AKDJGHSD')
-```
-
-Finally, install and start the [Falling Fruit API](https://github.com/falling-fruit/falling-fruit-api).
 
 # Translation
 
