@@ -126,43 +126,33 @@ Finally, install and start the [Falling Fruit API](https://github.com/falling-fr
 
 ## For translators
 
-Translations of the website interface are managed via the PhraseApp project [Falling Fruit (web)](https://phraseapp.com/accounts/falling-fruit/projects/falling-fruit-web/).
-To contribute, contact us ([info@fallingfruit.org](mailto:info@fallingfruit.org)) and we'll add you as a translator to the project.
-Species common names are machine-translated and stored directly in the database.
+Website translations are managed on the Phrase project [Falling Fruit (web)](https://app.phrase.com/accounts/falling-fruit/projects/falling-fruit-web).
+To contribute, email us ([info@fallingfruit.org](mailto:info@fallingfruit.org)) and we'll add you as a translator.
 
 ## For developers
 
-Install the PhraseApp CLI:
+Install the [Phrase CLI](https://support.phrase.com/hc/en-us/articles/5784093863964-CLI-Installation-Strings-):
 
-```
-brew tap phrase/brewed
-brew install phraseapp
+```sh
+brew install phrase-cli
 cp .phraseapp.yml.dist .phraseapp.yml
 ```
 
-Edit `.phraseapp.yml`, and replace `YOUR_ACCESS_TOKEN` with your
-[PhraseApp access token](https://phraseapp.com/settings/oauth_access_tokens).
+Add your [Phrase access token](https://app.phrase.com/settings/oauth_access_tokens) to `.phraseapp.yml`.
 
-Adding a new translation is easy!
+### Add a new translation
 
-*Step 1*: Add the new translation key on PhraseApp.
-
-Browse to the [Falling Fruit (web)](https://phraseapp.com/accounts/falling-fruit/projects/falling-fruit-web/)
+In the [Falling Fruit (web)](https://app.phrase.com/accounts/falling-fruit/projects/falling-fruit-web)
 project, select the default locale (English/en), and add a new translation key.
-If the same word or phrase appears often, add it as `glossary.<key name>` to avoid
-making many keys with identical or derived (pluralized, capitalized, etc) values.
+If the same word or phrase appears often, add it as `glossary.<key name>`.
 
-*Step 2*: Update your translation files.
+Then, update your translation files (in `config/locales/*.yml`):
 
-Provided you've setup the PhraseApp CLI (instructions above), run:
-
-```
-phraseapp pull
+```sh
+phrase pull
 ```
 
-This will update the translation files in `config/locales/*.yml`.
-
-*Step 3*: Replace the string in your template with the translation key.
+Use the translation key in your template.
 
 ```html
 <!-- Instead of adding text to the markup: -->
