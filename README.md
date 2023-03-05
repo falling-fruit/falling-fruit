@@ -72,7 +72,7 @@ Create and structure the database, then seed it with [`db/seeds.rb`](db/seeds.rb
 
 ```sh
 rake db:create
-rake pg_load
+rake db:migrate
 rake db:seed
 ```
 
