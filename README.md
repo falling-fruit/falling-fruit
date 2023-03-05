@@ -76,7 +76,7 @@ rake db:seed
 
 Install and start the [Falling Fruit API](https://github.com/falling-fruit/falling-fruit-api).
 
-Finally, start the web server and navigate to [localhost:3000](localhost:3000):
+Finally, start the web server and navigate to [localhost:3000](http://localhost:3000):
 
 ```sh
 thin start
