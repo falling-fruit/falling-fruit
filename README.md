@@ -21,10 +21,10 @@ The website is live at [fallingfruit.org](https://fallingfruit.org). However, ma
 
 ## Install PostgreSQL, Ruby, and dependencies
 
-[PostgreSQL](https://www.postgresql.org/download) (14) & [PostGIS](https://postgis.net/install) (3.3), for example with [Homebrew](https://brew.sh):
+[PostgreSQL](https://www.postgresql.org/download) (15) & [PostGIS](https://postgis.net/install) (3.3), for example with [Homebrew](https://brew.sh):
 
 ```sh
-brew install postgresql@14 postgis
+brew install postgresql@15 postgis
 ```
 
 [ImageMagick](https://imagemagick.org/script/download.php):
