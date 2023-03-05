@@ -66,7 +66,7 @@ Add Amazon S3 and Google API credentials to `config/s3.yml` and `config/initiali
 
 ## Start the app
 
-Create, load, and seed the database:
+Create and structure the database, then seed it with [`db/seeds.rb`](db/seeds.rb):
 
 ```sh
 rake db:create
@@ -76,7 +76,7 @@ rake db:seed
 
 Install and start the [Falling Fruit API](https://github.com/falling-fruit/falling-fruit-api).
 
-Finally, start the web server:
+Finally, start the web server and navigate to [localhost:3000](localhost:3000):
 
 ```sh
 thin start
