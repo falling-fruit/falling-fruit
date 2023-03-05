@@ -26,7 +26,6 @@ var toner = 'toner-lite';
 var markersLoadedEvent = document.createEvent("Event");
 markersLoadedEvent.initEvent("markersloaded",true,true);
 var markersMax = 5000; // maximum markers that will display at one time...
-var markersPartial = false;
 if (host == "localhost") {
   var api_base = "http://localhost:3300/api/0.3";
   var api_key = "AKDJGHSD";
@@ -424,7 +423,6 @@ function do_clusters(bounds,zoom,muni,type_filter) {
       if(json.length > 0){
         add_clusters_from_json(json);
       }
-      markersPartial = false;
       if(pb != null) pb.hide();
       // Call from here to ensure the data is available
       do_cluster_types(bounds,zoom,muni);
@@ -800,17 +798,7 @@ function do_markers(bounds,skip_ids,muni,type_filter,invasive) {
       add_marker_infowindow(i);
     }
     if(labelsOn) labelize_markers();
-    if(n > 0){
-      if(n == limit){
-        $("#pg_text").html(markersArray.length + " of ? visible");
-        markersPartial = true;
-      }else{
-        pb.hide();
-        markersPartial = false;
-      }
-    }else{
-      pb.hide();
-    }
+    pb.hide();
     search_filter(last_search);
   });
   request.fail(function(){
