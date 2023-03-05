@@ -45,6 +45,35 @@ COMMENT ON EXTENSION postgis IS 'PostGIS geometry and geography spatial types an
 
 
 --
+-- Name: add_observation_photo(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.add_observation_photo() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+      BEGIN
+        INSERT INTO photos (
+          observation_id,
+          user_id,
+          observation_order,
+          thumb,
+          medium,
+          original
+        )
+        VALUES (
+          NEW.id,
+          NEW.user_id,
+          1,
+          'https://s3.us-west-2.amazonaws.com/ff-production/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/thumb/' || NEW.photo_file_name,
+          'https://s3.us-west-2.amazonaws.com/ff-production/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/medium/' || NEW.photo_file_name,
+          'https://s3.us-west-2.amazonaws.com/ff-production/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/original/' || NEW.photo_file_name
+        );
+        RETURN NEW;
+      END;
+      $$;
+
+
+--
 -- Name: st_buffer_meters(public.geometry, double precision); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -105,8 +134,8 @@ CREATE TABLE public.api_keys (
     version integer DEFAULT 0 NOT NULL,
     api_type character varying(255),
     name character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -142,8 +171,8 @@ CREATE TABLE public.api_logs (
     params text,
     ip_address character varying(255),
     api_key character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -176,8 +205,8 @@ CREATE TABLE public.changes (
     location_id integer,
     remote_ip character varying(255),
     description text NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
     user_id integer,
     observation_id integer,
     author character varying(255),
@@ -185,7 +214,9 @@ CREATE TABLE public.changes (
     former_type_ids integer[] DEFAULT '{}'::integer[],
     former_type_others character varying(255)[] DEFAULT '{}'::character varying[],
     former_location public.geography(Point,4326),
-    spam boolean DEFAULT false
+    spam boolean DEFAULT false,
+    location json,
+    review json
 );
 
 
@@ -222,8 +253,8 @@ CREATE TABLE public.clusters (
     count integer NOT NULL,
     zoom integer NOT NULL,
     type_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -382,8 +413,8 @@ CREATE TABLE public.locations_routes (
     location_id integer,
     route_id integer,
     "position" integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -426,8 +457,8 @@ CREATE TABLE public.observations (
     user_id integer,
     remote_ip character varying(255),
     author character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
     photo_caption text,
     graft boolean DEFAULT false
 );
@@ -454,6 +485,43 @@ ALTER SEQUENCE public.observations_id_seq OWNED BY public.observations.id;
 
 
 --
+-- Name: photos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.photos (
+    id integer NOT NULL,
+    observation_id integer,
+    user_id integer,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    thumb text NOT NULL,
+    medium text NOT NULL,
+    original text NOT NULL,
+    observation_order integer
+);
+
+
+--
+-- Name: photos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.photos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: photos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.photos_id_seq OWNED BY public.photos.id;
+
+
+--
 -- Name: problems; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -468,8 +536,8 @@ CREATE TABLE public.problems (
     email character varying(255) NOT NULL,
     name character varying(255),
     location_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -494,6 +562,38 @@ ALTER SEQUENCE public.problems_id_seq OWNED BY public.problems.id;
 
 
 --
+-- Name: refresh_tokens; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.refresh_tokens (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    jti text NOT NULL,
+    exp integer NOT NULL
+);
+
+
+--
+-- Name: refresh_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.refresh_tokens_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: refresh_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.refresh_tokens_id_seq OWNED BY public.refresh_tokens.id;
+
+
+--
 -- Name: routes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -501,8 +601,8 @@ CREATE TABLE public.routes (
     id integer NOT NULL,
     name character varying(255),
     user_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
     is_public boolean DEFAULT true NOT NULL,
     access_key character varying(255),
     transport_type integer DEFAULT 0
@@ -653,8 +753,8 @@ CREATE TABLE public.users (
     confirmation_sent_at timestamp without time zone,
     unconfirmed_email character varying(255),
     authentication_token character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
     range public.geography(Polygon,4326),
     name character varying(255),
     bio text,
@@ -667,7 +767,12 @@ CREATE TABLE public.users (
     lng numeric,
     range_radius numeric,
     range_radius_unit character varying(255),
-    location public.geography(Point,4326)
+    location public.geography(Point,4326),
+    roles text[] GENERATED ALWAYS AS (
+CASE
+    WHEN ((roles_mask & ('0001'::"bit")::integer) > 0) THEN ARRAY['admin'::text]
+    ELSE ARRAY['user'::text]
+END) STORED NOT NULL
 );
 
 
@@ -755,10 +860,24 @@ ALTER TABLE ONLY public.observations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: photos id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.photos ALTER COLUMN id SET DEFAULT nextval('public.photos_id_seq'::regclass);
+
+
+--
 -- Name: problems id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.problems ALTER COLUMN id SET DEFAULT nextval('public.problems_id_seq'::regclass);
+
+
+--
+-- Name: refresh_tokens id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.refresh_tokens ALTER COLUMN id SET DEFAULT nextval('public.refresh_tokens_id_seq'::regclass);
 
 
 --
@@ -862,11 +981,27 @@ ALTER TABLE ONLY public.observations
 
 
 --
+-- Name: photos photos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.photos
+    ADD CONSTRAINT photos_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: problems problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.problems
     ADD CONSTRAINT problems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: refresh_tokens refresh_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.refresh_tokens
+    ADD CONSTRAINT refresh_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -899,6 +1034,20 @@ ALTER TABLE ONLY public.types
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: changes_created_at_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX changes_created_at_idx ON public.changes USING btree (created_at DESC);
+
+
+--
+-- Name: changes_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX changes_user_id_idx ON public.changes USING btree (user_id);
 
 
 --
@@ -941,6 +1090,13 @@ CREATE INDEX index_locations_on_hidden ON public.locations USING btree (hidden);
 --
 
 CREATE INDEX index_locations_on_location ON public.locations USING gist (location);
+
+
+--
+-- Name: index_locations_on_muni_updated_lng_lat; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_locations_on_muni_updated_lng_lat ON public.locations USING btree (muni, updated_at DESC, lng, lat) WHERE (NOT hidden);
 
 
 --
@@ -1063,10 +1219,164 @@ CREATE INDEX locations_type_idx ON public.locations USING btree (type_ids);
 
 
 --
+-- Name: locations_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX locations_user_id_idx ON public.locations USING btree (user_id);
+
+
+--
+-- Name: observations_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX observations_user_id_idx ON public.observations USING btree (user_id);
+
+
+--
+-- Name: photos_observation_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX photos_observation_id_idx ON public.photos USING btree (observation_id);
+
+
+--
+-- Name: photos_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX photos_user_id_idx ON public.photos USING btree (user_id);
+
+
+--
+-- Name: refresh_tokens_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX refresh_tokens_user_id_idx ON public.refresh_tokens USING btree (user_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
+-- Name: observations add_observation_photo_trigger; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER add_observation_photo_trigger AFTER INSERT ON public.observations FOR EACH ROW WHEN ((new.photo_file_name IS NOT NULL)) EXECUTE FUNCTION public.add_observation_photo();
+
+
+--
+-- Name: changes changes_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.changes
+    ADD CONSTRAINT changes_location_id_fkey FOREIGN KEY (location_id) REFERENCES public.locations(id) ON DELETE CASCADE;
+
+
+--
+-- Name: changes changes_observation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.changes
+    ADD CONSTRAINT changes_observation_id_fkey FOREIGN KEY (observation_id) REFERENCES public.observations(id) ON DELETE CASCADE;
+
+
+--
+-- Name: changes changes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.changes
+    ADD CONSTRAINT changes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: locations locations_import_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.locations
+    ADD CONSTRAINT locations_import_id_fkey FOREIGN KEY (import_id) REFERENCES public.imports(id) ON DELETE SET NULL;
+
+
+--
+-- Name: locations locations_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.locations
+    ADD CONSTRAINT locations_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: observations observations_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.observations
+    ADD CONSTRAINT observations_location_id_fkey FOREIGN KEY (location_id) REFERENCES public.locations(id) ON DELETE CASCADE;
+
+
+--
+-- Name: observations observations_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.observations
+    ADD CONSTRAINT observations_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: photos photos_observation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.photos
+    ADD CONSTRAINT photos_observation_id_fkey FOREIGN KEY (observation_id) REFERENCES public.observations(id) ON DELETE CASCADE;
+
+
+--
+-- Name: photos photos_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.photos
+    ADD CONSTRAINT photos_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: problems problems_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.problems
+    ADD CONSTRAINT problems_location_id_fkey FOREIGN KEY (location_id) REFERENCES public.locations(id) ON DELETE SET NULL;
+
+
+--
+-- Name: problems problems_reporter_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.problems
+    ADD CONSTRAINT problems_reporter_id_fkey FOREIGN KEY (reporter_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: problems problems_responder_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.problems
+    ADD CONSTRAINT problems_responder_id_fkey FOREIGN KEY (responder_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: refresh_tokens refresh_tokens_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.refresh_tokens
+    ADD CONSTRAINT refresh_tokens_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: types types_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.types
+    ADD CONSTRAINT types_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES public.types(id) ON DELETE SET NULL;
 
 
 --
@@ -1182,6 +1492,19 @@ COPY public.schema_migrations (version) FROM stdin;
 20200512162439
 20201230162701
 20230305115612
+20230305201225
+20230305201521
+20230305202357
+20230305203436
+20230305203802
+20230305204429
+20230305204742
+20230305205110
+20230305205220
+20230305205334
+20230305210534
+20230305210917
+20230305202032
 \.
 
 
