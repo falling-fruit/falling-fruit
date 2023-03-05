@@ -24,7 +24,13 @@ The website is live at [fallingfruit.org](https://fallingfruit.org). However, ma
 [PostgreSQL](https://www.postgresql.org/download) (14) & [PostGIS](https://postgis.net/install) (3.3), for example with [Homebrew](https://brew.sh):
 
 ```sh
-HOMEBREW_NO_AUTO_UPDATE=1 brew install postgresql@14 postgis
+brew install postgresql@14 postgis
+```
+
+[ImageMagick](https://imagemagick.org/script/download.php):
+
+```sh
+brew install imagemagick
 ```
 
 [Ruby](https://www.ruby-lang.org/en/documentation/installation) (2.3.4), for example with [`rbenv`](https://github.com/rbenv/rbenv#installation):
@@ -115,8 +121,6 @@ ApiKey.create(api_key: 'AKDJGHSD')
 ```
 
 Finally, install and start the [Falling Fruit API](https://github.com/falling-fruit/falling-fruit-api).
-
-You can test the API by visiting [localhost:3300/api/0.3/types?api_key=AKDJGHSD](http://localhost:3300/api/0.3/types?api_key=AKDJGHSD).
 
 # Translation
 

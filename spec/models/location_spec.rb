@@ -21,7 +21,8 @@ require 'spec_helper'
 describe Location do
   before(:each) do
     @attr = {
-      :lat => 180.0 * rand,
+      :type_ids => [1],
+      :lat => 85.0 * rand,
       :lng => 180.0 * rand,
       :author => 'Anonymous'
     }

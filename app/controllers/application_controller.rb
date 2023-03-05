@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
     @api_key = ApiKey.find_it(params["api_key"])
     unless !@api_key.nil? and @api_key.can?(endpoint)
       respond_to do |format|
-        format.json { render json: {"error" => "Not authorized :/"} }
+        format.json { render json: {"error" => "Not authorized"} }
       end
       return false
     end
