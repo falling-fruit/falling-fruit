@@ -767,15 +767,16 @@ function do_markers(bounds,skip_ids,muni,type_filter,invasive) {
   if (type_filter != undefined) {
     var tstr = '&types=' + type_filter.join(",");
   }
+  var limit = 1000
   if(pb != null) pb.start(200);
   var request = $.ajax({
     type: 'GET',
-    url: api_base + '/locations?api_key='+api_key+'&locale=' + I18n.locale + mstr + istr + bstr + tstr,
+    url: api_base + '/locations?api_key='+api_key+'&locale=' + I18n.locale + mstr + istr + bstr + tstr + '&limit=' + limit.toString(),
     dataType: 'json'
   });
   request.done(function(json){
-    //console.log(json);
-    if(pb != null) pb.setTotal(json.length);
+    n = json.length;
+    if(pb != null) pb.setTotal(n);
     // remove any cluster-type markers
     var i = find_marker(null);
     while((i != undefined) && (i >= 0)){
@@ -790,8 +791,6 @@ function do_markers(bounds,skip_ids,muni,type_filter,invasive) {
       markersArray.splice(i,1);
       i = find_marker(null);
     }
-    n_found = json.shift();
-    n_limit = json.shift();
     clear_offscreen_markers();
     add_markers_from_json(json,skip_ids);
     if(type_filter != undefined && type_filter.length > 0) apply_type_filter();
@@ -801,10 +800,9 @@ function do_markers(bounds,skip_ids,muni,type_filter,invasive) {
       add_marker_infowindow(i);
     }
     if(labelsOn) labelize_markers();
-    n = json.length;
     if(n > 0){
-      if((n < n_found) && (n_found >= n_limit)){
-        $("#pg_text").html(markersArray.length + " of " + n_found + " visible");
+      if(n == limit){
+        $("#pg_text").html(markersArray.length + " of ? visible");
         markersPartial = true;
       }else{
         pb.hide();
