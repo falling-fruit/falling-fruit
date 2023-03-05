@@ -59,10 +59,12 @@ cp config/database.yml.dist config/database.yml
 cp config/s3.yml.dist config/s3.yml
 cp config/initializers/credentials.rb.dist config/initializers/credentials.rb
 cp config/initializers/secret_token.rb.dist config/initializers/secret_token.rb
+cp .phraseapp.yml.dist .phraseapp.yml
 ```
 
 Add a desired development database name and your database username, password, and port to `config/database.yml`.
 Add Amazon S3 and Google API credentials to `config/s3.yml` and `config/initializers/credentials.rb`.
+If working with translations, add Phrase credentials to `.phraseapp.yml`.
 
 ## Start the app
 
