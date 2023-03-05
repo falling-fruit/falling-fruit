@@ -11,9 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20201230162701) do
+ActiveRecord::Schema.define(:version => 20230305115612) do
 
   add_extension "postgis"
+  add_extension "intarray"
 
   create_table "api_keys", :force => true do |t|
     t.string   "api_key"
