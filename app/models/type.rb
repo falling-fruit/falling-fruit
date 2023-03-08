@@ -145,8 +145,8 @@ class Type < ActiveRecord::Base
   def Type.full_list_with_ids(cats = DefaultCategories, uncategorized = false, pending = false)
     cat_mask_str = array_to_mask(cats, Categories).to_s
     uncategorized_str = uncategorized ? "OR category_mask = 0" : ""
-    pending_str = pending ? "" : "NOT pending AND "
-    Type.where(pending_str + "((category_mask & " + cat_mask_str + ") > 0" + uncategorized_str + ")").default_sort.collect{ |t| {:id => t.id, :text => t.full_name} }
+    pending_str = pending ? "" : "NOT pending AND"
+    Type.where(pending_str + " ((category_mask & " + cat_mask_str + ") > 0 " + uncategorized_str + ")").default_sort.collect{ |t| {:id => t.id, :text => t.full_name} }
   end
 
   def Type.sorted_with_parents
