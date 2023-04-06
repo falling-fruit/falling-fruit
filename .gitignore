@@ -18,7 +18,6 @@
 /config/s3.yml
 /config/database.yml
 /config/initializers/secret_token.rb
-/config/i18n-tasks.yml
 /config/create.log
 /config/initializers/credentials.rb
 

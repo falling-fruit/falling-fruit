@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20200512162439) do
+ActiveRecord::Schema.define(:version => 20230305210917) do
 
   add_extension "postgis"
-  add_extension "postgis_topology"
+  add_extension "intarray"
 
   create_table "api_keys", :force => true do |t|
     t.string   "api_key"
@@ -36,30 +36,17 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "changes", :force => true do |t|
-    t.integer  "location_id"
-    t.string   "remote_ip"
-    t.text     "description",                                                                                       :null => false
-    t.datetime "created_at",                                                                                        :null => false
-    t.datetime "updated_at",                                                                                        :null => false
-    t.integer  "user_id"
-    t.integer  "observation_id"
-    t.string   "author"
-    t.text     "description_patch"
-    t.integer  "former_type_ids",                                                                :default => [],                    :array => true
-    t.string   "former_type_others",                                                             :default => [],                    :array => true
-    t.spatial  "former_location",    :limit => {:srid=>4326, :type=>"point", :geographic=>true}
-    t.boolean  "spam",                                                                           :default => false
-  end
+# Could not dump table "changes" because of following StandardError
+#   Unknown type 'json' for column 'location'
 
   create_table "clusters", :force => true do |t|
     t.text     "geohash",    :null => false
-    t.integer  "type_id",    :null => false
     t.boolean  "muni",       :null => false
     t.float    "x",          :null => false
     t.float    "y",          :null => false
     t.integer  "count",      :null => false
     t.integer  "zoom",       :null => false
+    t.integer  "type_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -106,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.integer  "user_id"
     t.integer  "type_ids",                                                                                                      :array => true
     t.boolean  "muni",                                                                       :default => false
-    t.string   "original_ids",                                                                                                  :array => true
+    t.string   "original_ids",   :limit => nil,                                                                                 :array => true
     t.boolean  "invasive",                                                                   :default => false
     t.integer  "inaturalist_id"
     t.boolean  "hidden",                                                                     :default => false
@@ -134,10 +121,21 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.integer  "user_id"
     t.string   "remote_ip"
     t.string   "author"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.text     "photo_caption"
     t.boolean  "graft",              :default => false
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "observation_id"
+    t.integer  "user_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.text     "thumb",             :null => false
+    t.text     "medium",            :null => false
+    t.text     "original",          :null => false
+    t.integer  "observation_order"
   end
 
   create_table "problems", :force => true do |t|
@@ -152,6 +150,12 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.integer  "location_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "refresh_tokens", :force => true do |t|
+    t.integer "user_id", :null => false
+    t.text    "jti",     :null => false
+    t.integer "exp",     :null => false
   end
 
   create_table "routes", :force => true do |t|
@@ -203,6 +207,7 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.string   "nl_name"
     t.string   "zh_tw_name"
     t.string   "ar_name"
+    t.string   "sk_name"
   end
 
   create_table "users", :force => true do |t|
@@ -236,6 +241,7 @@ ActiveRecord::Schema.define(:version => 20200512162439) do
     t.decimal  "range_radius"
     t.string   "range_radius_unit"
     t.spatial  "location",               :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.text     "roles",                                                                                                   :null => false, :array => true
   end
 
 end

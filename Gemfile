@@ -1,32 +1,21 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.17'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'sqlite3'
+gem 'rails', '3.2.22.5'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8', '3.16.14.15'
+  gem 'libv8'
   gem 'therubyracer', :platforms => :ruby
-  #gem 'therubyrhino'
-
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
 end
 
-# Development
 group :development do
-  gem 'faker'
   gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'nokogiri'
 end
 
 # Testing
@@ -35,32 +24,29 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'rack-test'
+  gem 'test-unit'
 end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery_mobile_rails'
 gem 'jquery-cookie-rails'
-gem 'validates_timeliness', '~> 3.0'
+gem 'validates_timeliness'
 gem 'timeliness'
-gem 'select2-rails', '~> 3.4.2'
+gem 'select2-rails'
 gem 'jquery-datatables-rails'
 
 gem 'geocoder'
 # we use token_authenticable and some other things that
 # got changed in devise 3 so it's important to stick to devise 2 for now
-gem 'devise', "~> 2.1.2"
-gem 'thin', "~> 1.6.0"
-#gem 'thin'
-gem 'pg', '~> 0.11'
-gem 'yaml_db'
-gem 'paperclip', '~> 4.3'
-gem 'aws-sdk', '~> 1.5.7'
+gem 'devise'
+gem 'thin'
+gem 'pg'
+gem 'postgres_ext'
+gem 'paperclip'
+gem 'aws-sdk'
 gem 'gmaps4rails'
-gem 'recaptcha', '= 0.4.0', :require => "recaptcha/rails"
-gem 'comma', '~> 3.0'
-gem 'rgeo'
-gem 'rgeo-shapefile'
+gem 'recaptcha', :require => "recaptcha/rails"
+gem 'comma'
 gem 'activerecord-postgis-adapter'
 
 # Authentication stuff
@@ -71,31 +57,17 @@ gem 'role_model'
 # pretty picture previewing
 gem 'shadowbox-rails'
 
-# For diffing/patching descriptions
-gem 'diff_match_patch_native'
-
 # For internationalization
 gem 'i18n'
-gem 'i15r'
-gem 'i18n-tasks', '~> 0.7.2'
 gem 'devise-i18n'
 gem 'rails-i18n'
-gem 'world-flags'
 gem 'i18n-js'
 gem 'i18n_viz'
-
-# Allows us to use postgres native types like arrays
-gem 'postgres_ext'
 
 # Field sanitation
 gem 'attribute_normalizer'
 
-# Type tree
-gem 'dynatree-rails'
+# https://stackoverflow.com/a/67037930
+gem 'mimemagic', git: 'https://github.com/mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
 
-gem 'rb-readline'
-
-# https://stackoverflow.com/a/66921259
-gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
-
-gem 'bcrypt', '~> 3.1.13'
+gem 'bcrypt'
