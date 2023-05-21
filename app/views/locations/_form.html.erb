@@ -178,8 +178,8 @@ jQuery(document).ready(function(){
   <div class="field">
     <label for="location_season"><%= translate("glossary.season") %></label><br>
     <span class="subtext"><%= translate("locations.form.season_subtext") %></span><br>
-    <%= f.select(:season_start, I18n.translate("date.month_names").collect{ |m| [m, I18n.translate("date.month_names").index(m)-1] },:include_blank => true) %> –
-    <%= f.select(:season_stop, I18n.translate("date.month_names").collect{ |m| [m, I18n.translate("date.month_names").index(m)-1] },:include_blank => true) %>, <span><%= translate("locations.form.or") %></span>
+    <%= f.select(:season_start, I18n.translate("date.month_names").map.with_index{ |m, i| [m, i > 0 ? i - 1 : nil] }, :include_blank => true) %> –
+    <%= f.select(:season_stop, I18n.translate("date.month_names").map.with_index{ |m, i| [m, i > 0 ? i - 1 : nil] }, :include_blank => true) %>, <span><%= translate("locations.form.or") %></span>
     <%= f.check_box(:no_season) %> <span><%= translate("locations.form.no_season") %></span>
   </div>
 
