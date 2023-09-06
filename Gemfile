@@ -12,6 +12,7 @@ group :assets do
   gem 'libv8'
   gem 'therubyracer', :platforms => :ruby
   gem 'uglifier'
+  gem 'mini_racer'
 end
 
 group :development do
