@@ -242,9 +242,6 @@ zh-CN:
 
         应用程序销售收入的 100% 用于支持我们的硬成本（服务器和基础设施以保持网站在线）。我们是 501(c)3 非营利组织，因此这笔费用在美国也可以免税。
       mobile_modal_title: 但是等等，有一个移动应用程序！
-      stamen_html: <a href="http://stamen.com">由 Stamen Design</a>绘制的地图图块，在<a href="http://creativecommons.org/licenses/by/3.0/">CC
-        BY 下</a>。数据来自<a href="http://openstreetmap.org">OpenStreetMap</a> ，在<a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
-        BY-SA 下</a>。
       turn_off_dragzoom: 关闭拖动缩放模式
       turn_on_dragzoom: 开启拖动缩放模式
       welcome_modal_html: |-

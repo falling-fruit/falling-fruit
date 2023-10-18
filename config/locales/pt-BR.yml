@@ -294,10 +294,6 @@ pt-BR:
         <br>
         100% das receitas da venda de aplicativos vão para suportar os nossos custos difíceis (servidores e infra-estrutura para manter o site online). Somos uma organização sem fins lucrativos 501(c)3, portanto este custo também é dedutível de impostos nos EUA.</br></br></br>
       mobile_modal_title: Mas espera, há uma aplicação móvel!
-      stamen_html: Bloco do mapa por <a href="http://stamen.com">estame projeto</a>,
-        sob <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Dados
-        de <a href="http://openstreetmap.org">OpenStreetMap</a>, sob <a href="http://creativecommons.org/licenses/by-sa/3.0">CC
-        BY SA</a>.
       turn_off_dragzoom: Desligar o modo de zoom de arrastamento
       turn_on_dragzoom: Ligar o modo de zoom de arrastamento
       welcome_modal_html: Falling Fruit é um enorme mapa colaborativo sobre colheita

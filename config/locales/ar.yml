@@ -289,11 +289,6 @@ ar:
 
         يذهب 100٪ من عائدات مبيعات التطبيقات لدعم تكاليفنا الصعبة (الخوادم والبنية التحتية لإبقاء الموقع على الإنترنت). نحن ' re مؤسسة غير ربحية من الفئة 501 (c) 3 ، لذا فإن هذه التكلفة معفاة من الضرائب في الولايات المتحدة.
       mobile_modal_title: لكن انتظر ، هناك ' تطبيق جوال!
-      stamen_html: <a href="http://stamen.com">رسم</a> الخرائط بواسطة <a href="http://stamen.com">Stamen
-        Design</a> ، تحت <a href="http://creativecommons.org/licenses/by/3.0/">CC
-        BY</a> . البيانات بواسطة <a href="http://openstreetmap.org">OpenStreetMap</a>
-        ، تحت <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>
-        .
       turn_off_dragzoom: قم بإيقاف تشغيل وضع التكبير / التصغير
       turn_on_dragzoom: قم بتشغيل وضع التكبير / التصغير
       welcome_modal_html: |-

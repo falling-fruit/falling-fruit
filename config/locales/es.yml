@@ -293,10 +293,6 @@ es:
         <br/>
         100% de ingresos de ventas de aplicaciones van a apoyar nuestros costes directos (servidores y la infraestructura para mantener el sitio en línea). Somos una organización sin ánimos de lucro 501(c)3, por lo que este costo también es deducible de impuestos en los Estados Unidos.
       mobile_modal_title: Pero espere, hay una aplicación móvil!
-      stamen_html: Mapa por <a href="http://stamen.com">Stamen Design</a>, bajo <a
-        href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Datos por
-        <a href="http://openstreetmap.org">OpenStreetMap</a>, bajo <a href="http://creativecommons.org/licenses/by-sa/3.0">CC
-        BY SA</a>.
       turn_off_dragzoom: Desactivar el modo de zoom de arrastre
       turn_on_dragzoom: Activar el modo de zoom de arrastre
       welcome_modal_html: |-

@@ -295,10 +295,6 @@ de:
         <br>
         Wir benutzen 100% der App-Einkünfte zur Finanzierung unserer Hardware (Server und Infrastruktur, um die Site online zu halten). Wir sind eine amerikanische gemeinnützige Organisation (501(c)3), die Kosten für die App sind also in den USA steuerlich absetzbar.
       mobile_modal_title: Aber Moment mal, es gibt ja auch eine mobile App!
-      stamen_html: Kartenkacheln von <a href="http://stamen.com">Stamen Design-</a>
-        unter <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>.
-        Daten von <a href="http://openstreetmap.org">OpenStreetMap</a> unter <a href="http://creativecommons.org/licenses/by-sa/3.0">CC
-        BY SA</a>.
       turn_off_dragzoom: Drag-Zoom-Modus ausschalten
       turn_on_dragzoom: Drag-Zoom-Modus einschalten
       welcome_modal_html: Falling Fruit ist eine riesige, user-generierte Karte der

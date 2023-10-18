@@ -287,10 +287,6 @@ sv:
 
         100% av intäkterna från appförsäljning går till våra hårda kostnader (servrar och infrastruktur för att hålla webbplatsen online). Vi ' en ideell organisation 501 (c) 3, så denna kostnad är också avdragsgill i USA.
       mobile_modal_title: Men vänta, det finns ' mobilapp!
-      stamen_html: Kartplattor av <a href="http://stamen.com">Stamen Design</a> ,
-        under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> . Data
-        från <a href="http://openstreetmap.org">OpenStreetMap</a> , under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
-        BY-SA</a> .
       turn_off_dragzoom: Stäng av dragzoomläget
       turn_on_dragzoom: Aktivera dragzoomläget
       welcome_modal_html: |-

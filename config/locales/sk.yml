@@ -297,10 +297,6 @@ sk:
 
         100% výnosov z predaja aplikácií smeruje na podporu našich vysokých nákladov (servery a infraštruktúra, aby bol web online). ' sme nezisková organizácia podľa 501 (c) 3, takže tieto náklady sú odpočítateľné z daní aj v USA.
       mobile_modal_title: Počkajte však, existuje ' mobilná aplikácia!
-      stamen_html: Dlaždice mapy od <a href="http://stamen.com">Stamen Design</a>
-        , pod <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> . Údaje
-        podľa <a href="http://openstreetmap.org">OpenStreetMap</a> pod <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
-        BY-SA</a> .
       turn_off_dragzoom: Vypnite režim priblíženia a oddialenia
       turn_on_dragzoom: Zapnite režim priblíženia a oddialenia
       welcome_modal_html: |-

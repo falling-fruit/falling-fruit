@@ -288,10 +288,6 @@ el:
         <br>
         100% των εσόδων από τις πωλήσεις της εφαρμογής υποστηρίζει τα λειτουργικά μας έξοδα (servers και υποδομές). Είμαστε μια μη κερδοσκοπική οργάνωση 501(c)3, έτσι ώστε το κόστος αυτό εκπίπτει επίσης από την φορολογία στις ΗΠΑ.
       mobile_modal_title: Όμως περίμενε, υπάρχει εφαρμογή για κινητά!
-      stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under
-        <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Data by <a
-        href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
-        BY-SA</a>.
       turn_off_dragzoom: Απενεργοποιήστε τη λειτουργία drag zoom
       turn_on_dragzoom: Ενεργοποιήστε τη λειτουργία drag zoom
       welcome_modal_html: |-

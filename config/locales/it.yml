@@ -294,10 +294,6 @@ it:
         <br>
         Il 100% del ricavato della vendita delle app è destinato a sostenere i nostri costi (server e infrastrutture per mantenere il sito online). Siamo un'organizzazione no-profit 501(c)3, quindi questo costo è deducibile dalle tasse anche negli Stati Uniti.</br></br></br>
       mobile_modal_title: Ma aspetta, c'è un'applicazione mobile!
-      stamen_html: Mappa piastrelle di <a href="http://stamen.com">Stamen design</a>
-        , sotto <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a> .
-        I dati di <a href="http://openstreetmap.org">OpenStreetMap</a> , sotto <a
-        href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a> .
       turn_off_dragzoom: Disattivare la modalità di zoom con trascinamento
       turn_on_dragzoom: Attivare la modalità di zoom con trascinamento
       welcome_modal_html: Falling Fruit è una grande mappa condivisa sulla raccolta

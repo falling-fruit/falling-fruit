@@ -286,10 +286,11 @@ en:
         <br>
         100% of proceeds from app sales go to support our hard costs (servers and infrastructure to keep the site online). We're a 501(c)3 nonprofit organization, so this cost is also tax-deductible in the US.
       mobile_modal_title: But wait, there's a mobile app!
-      stamen_html: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under
-        <a href="http://creativecommons.org/licenses/by/3.0/">CC BY</a>. Data by <a
-        href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
-        BY-SA</a>.
+      stamen_html: |-
+        &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a>
+        &copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a>
+        &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>
+        &copy; <a href="https://www.openstreetmap.org/about/" target="_blank">OpenStreetMap contributors</a>
       turn_off_dragzoom: Turn off drag zoom mode
       turn_on_dragzoom: Turn on drag zoom mode
       welcome_modal_html: |-
