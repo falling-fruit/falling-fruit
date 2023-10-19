@@ -24,14 +24,14 @@ var SUBDOMAINS = "a. b. c. d.".split(" "),
         "toner":        MAKE_PROVIDER("toner", "png", 0, 20),
         "terrain":      MAKE_PROVIDER("terrain", "png", 0, 18),
         "terrain-classic": MAKE_PROVIDER("terrain-classic", "png", 0, 18),
-        "watercolor": {
-            ...MAKE_PROVIDER("watercolor", "jpg", 1, 18),
-            attribution: [
-                '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a>',
-                '&copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a>',
-                '&copy; <a href="https://www.openstreetmap.org/about/" target="_blank">OpenStreetMap contributors</a>',
-            ].join(""),
-        },
+        // "watercolor": {
+        //     ...MAKE_PROVIDER("watercolor", "jpg", 1, 18),
+        //     attribution: [
+        //         '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a>',
+        //         '&copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a>',
+        //         '&copy; <a href="https://www.openstreetmap.org/about/" target="_blank">OpenStreetMap contributors</a>',
+        //     ].join(""),
+        // },
         "trees-cabs-crime": {
             "url": "http://{S}.tiles.mapbox.com/v3/stamen.trees-cabs-crime/{Z}/{X}/{Y}.png",
             "type": "png",
