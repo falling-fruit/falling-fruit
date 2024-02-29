@@ -80,7 +80,7 @@ class AddPhotos < ActiveRecord::Migration
         RETURN NEW;
       END;
       $$;
-      CREATE TRIGGER add_observation_photo_trigger
+      CREATE OR REPLACE TRIGGER add_observation_photo_trigger
       AFTER INSERT ON observations
       FOR EACH ROW
       WHEN (NEW.photo_file_name IS NOT NULL)
