@@ -2,7 +2,7 @@ class AddUserRolesArray < ActiveRecord::Migration
   def up
     execute <<-SQL
       ALTER TABLE users
-      ADD COLUMN roles text[] NOT NULL
+      ADD COLUMN IF NOT EXISTS roles text[] NOT NULL
       GENERATED ALWAYS AS (
         CASE
           WHEN roles_mask & x'1'::int > 0 THEN ARRAY['user', 'admin']

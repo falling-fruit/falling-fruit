@@ -2,8 +2,8 @@ class StoreLocationChangesAsJson < ActiveRecord::Migration
   def up
     execute <<-SQL
       ALTER TABLE changes
-      ADD COLUMN location json,
-      ADD COLUMN review json;
+      ADD COLUMN IF NOT EXISTS location json,
+      ADD COLUMN IF NOT EXISTS review json;
     SQL
   end
 

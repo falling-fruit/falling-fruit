@@ -1,7 +1,7 @@
 class AddPhotos < ActiveRecord::Migration
   def up
     execute <<-SQL
-      create table photos (
+      create table if not exists photos (
         id serial primary key,
         observation_id integer,
         user_id integer,
@@ -14,8 +14,8 @@ class AddPhotos < ActiveRecord::Migration
         foreign key (observation_id) references observations (id) on delete cascade,
         foreign key (user_id) references users (id) on delete set null
       );
-      create index photos_observation_id_idx on photos (observation_id);
-      create index photos_user_id_idx on photos (user_id);
+      create index if not exists photos_observation_id_idx on photos (observation_id);
+      create index if not exists photos_user_id_idx on photos (user_id);
     SQL
     # Populate `photos` table with existing photo URLs
     execute <<-SQL

@@ -1,7 +1,7 @@
 class IndexLocationsOnUser < ActiveRecord::Migration
   def up
     execute <<-SQL
-      create index locations_user_id_idx on locations (user_id);
+      create index if not exists locations_user_id_idx on locations (user_id);
     SQL
   end
 

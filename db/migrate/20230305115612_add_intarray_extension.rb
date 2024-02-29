@@ -1,7 +1,7 @@
 class AddIntarrayExtension < ActiveRecord::Migration
   def up
     execute <<-SQL
-      CREATE EXTENSION intarray;
+      CREATE EXTENSION IF NOT EXISTS intarray;
     SQL
   end
 
