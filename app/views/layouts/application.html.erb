@@ -34,6 +34,8 @@
     <meta property="og:locale" content="he_IL" />
   <% elsif (I18n.locale == :"ar") %>
     <meta property="og:locale" content="ar_JO" />
+  <% elsif (I18n.locale == :"vi") %>
+    <meta property="og:locale" content="vi_VN" />
   <% end %>
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:locale:alternate" content="es_LA" />
@@ -46,6 +48,7 @@
   <meta property="og:locale:alternate" content="nl_NL" />
   <meta property="og:locale:alternate" content="he_IL" />
   <meta property="og:locale:alternate" content="ar_JO" />
+  <meta property="og:locale:alternate" content="vi_VN" />
 
   <% if @freegan %>
     <meta property="og:title" content="<%= translate("meta.freegan_title") %>" />
@@ -183,11 +186,12 @@
       <option value="el" <%= (I18n.locale == :el) ? "selected" : "" %>>Ελληνικά</option>
       <option value="es" <%= (I18n.locale == :es) ? "selected" : "" %>>Español</option>
       <option value="fr" <%= (I18n.locale == :fr) ? "selected" : "" %>>Français</option>
-      <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
       <option value="he" <%= (I18n.locale == :he) ? "selected" : "" %>>עברית</option>
+      <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
       <option value="nl" <%= (I18n.locale == :nl) ? "selected" : "" %>>Nederlands</option>
       <option value="pl" <%= (I18n.locale == :pl) ? "selected" : "" %>>Polski</option>
       <option value="pt-br" <%= (I18n.locale == :"pt-BR") ? "selected" : "" %>>Português</option>
+      <option value="vi" <%= (I18n.locale == :"vi") ? "selected" : "" %>>tiếng Việt</option>
     </select>
   </div>
 

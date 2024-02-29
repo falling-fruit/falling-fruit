@@ -243,7 +243,7 @@ namespace :export do
         "id", "parent_id", "scientific_name", "scientific_synonyms", "taxonomic_rank",
         "en_name", "en_synonyms", "en_wikipedia_url",
         "de_name", "el_name", "es_name", "fr_name", "he_name", "it_name",
-        "pl_name", "pt_br_name", "sv_name",
+        "pl_name", "pt_br_name", "sv_name", "vi_name",
         "category_mask", "pending",
       ]
       Type.find_each() do |t|
@@ -252,7 +252,7 @@ namespace :export do
           t.taxonomic_rank.nil? ? nil : Type::Ranks[t.taxonomic_rank],
           t.en_name, t.en_synonyms, t.wikipedia_url,
           t.de_name, t.el_name, t.es_name, t.fr_name, t.he_name, t.it_name,
-          t.pl_name, t.pt_br_name, t.sv_name,
+          t.pl_name, t.pt_br_name, t.sv_name, t.vi_name,
           mask_to_array(t.category_mask, Type::Categories).join(", "),
           t.pending
         ]
