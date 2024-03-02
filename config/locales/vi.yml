@@ -1,2 +1,741 @@
 ---
 vi:
+  changes:
+    change_in_city: "%{type} ở %{city}"
+    recent_changes: Những thay đổi gần đây
+    type:
+      added: thêm
+      edited: đã chỉnh sửa
+      grafted: ghép
+      visited: đã thăm quan
+  devise:
+    confirmations:
+      confirmed: Địa chỉ email của bạn đã được xác nhận thành công.
+      send_instructions: Bạn sẽ nhận được email có hướng dẫn cách xác nhận địa chỉ
+        email của mình sau vài phút.
+      send_paranoid_instructions: Nếu địa chỉ email của bạn tồn tại trong cơ sở dữ
+        liệu của chúng tôi, bạn sẽ nhận được email có hướng dẫn về cách xác nhận địa
+        chỉ email của bạn sau vài phút.
+    failure:
+      already_authenticated: Bạn đã đăng nhập.
+      inactive: Tài khoản của bạn chưa được kich hoạt.
+      invalid: Email hoặc mật khẩu không hợp lệ.
+      invalid_token: Mã thông báo xác thực không hợp lệ.
+      locked: Tài khoản của bạn đang bị khóa.
+      not_approved: Tài khoản của bạn chưa được quản trị viên phê duyệt.
+      timeout: Phiên của bạn đã hết hạn, vui lòng đăng nhập lại để tiếp tục.
+      unauthenticated: Xin vui lòng đăng nhập hoặc đăng ký trước khi tiếp tục.
+      unconfirmed: Bạn phải xác nhận địa chỉ email của mình trước khi tiếp tục.
+    mailer:
+      confirmation_instructions:
+        subject: Hướng dẫn xác nhận
+      reset_password_instructions:
+        subject: Thiết lập lại mật khẩu Hướng dẫn
+      unlock_instructions:
+        subject: Hướng dẫn mở khóa
+    omniauth_callbacks:
+      failure: Không thể xác thực bạn từ %{kind} vì " %{reason} ".
+      success: Đã xác thực thành công từ tài khoản %{kind} .
+    passwords:
+      no_token: Bạn không thể truy cập trang này nếu không nhận được email đặt lại
+        mật khẩu. Nếu bạn nhận được email đặt lại mật khẩu, vui lòng đảm bảo rằng
+        bạn đã sử dụng URL đầy đủ được cung cấp.
+      send_instructions: Bạn sẽ nhận được email có hướng dẫn về cách đặt lại mật khẩu
+        sau vài phút.
+      send_paranoid_instructions: Nếu địa chỉ email của bạn tồn tại trong cơ sở dữ
+        liệu của chúng tôi, bạn sẽ nhận được liên kết khôi phục mật khẩu tại địa chỉ
+        email của mình sau vài phút.
+      updated: Mật khẩu của bạn đã được thay đổi thành công. Bây giờ bạn đã đăng nhập.
+      updated_not_active: Mật khẩu của bạn đã hoàn thành chỉnh sửa.
+    registrations:
+      destroyed: Tạm biệt! Tài khoản của bạn đã được hủy thành công. Mong rằng chúng
+        tôi sẽ sớm gặp lại bạn.
+      signed_up: Chào mừng bạn! Bạn đã đăng ký thành công.
+      signed_up_but_inactive: Bạn đã đăng ký thành công. Tuy nhiên, chúng mình không
+        thể đăng nhập cho bạn vì tài khoản của bạn chưa được kích hoạt.
+      signed_up_but_locked: Bạn đã đăng ký thành công. Tuy nhiên, chúng mình không
+        thể đăng nhập cho bạn vì tài khoản của bạn bị khóa.
+      signed_up_but_not_approved: Bạn đã đăng ký thành công nhưng tài khoản của bạn
+        vẫn chưa được quản trị viên phê duyệt.
+      signed_up_but_unconfirmed: Một tin nhắn với một đường link xác nhận đã được
+        gửi đến địa chỉ email của bạn. Xin vui lòng theo đường link để kích hoạt tài
+        khoản của bạn.
+      updated: Tài khoản của bạn đã được cập nhật thành công.
+      update_needs_confirmation: Bạn đã cập nhật tài khoản của bạn thành công, nhưng
+        chúng mình cần chứng minh địa chỉ email mới của bạn. Xin vui lòng kiểm tra
+        email của bạn và theo đường link để chứng minh địa chỉ email mới của bạn.
+    sessions:
+      signed_in: Đã đăng nhập thành công.
+      signed_out: Đã đăng xuất thành công.
+    unlocks:
+      send_instructions: Bạn sẽ nhận được email có hướng dẫn cách mở khóa tài khoản
+        của mình sau vài phút.
+      send_paranoid_instructions: Nếu tài khoản tồn tại, bạn sẽ nhận được một email
+        với hướng dẫn cách mở khóa nó trong vài phút.
+      unlocked: Tài khoản của bạn đã được mở khóa thành công. Vui lòng đăng nhập để
+        tiếp tục.
+  errors:
+    messages:
+      after: phải sau %{restriction}
+      already_confirmed: đã được xác định, vui lòng thử đăng nhập
+      before: phải trước %{restriction}
+      expired: đã hết hạn, hãy yêu cầu một cái mới
+      invalid_date: không phải là ngày hợp lệ
+      invalid_datetime: không phải là ngày giờ hợp lệ
+      invalid_time: không phải là thời gian hợp lệ
+      is_at: phải ở mức %{restriction}
+      not_found: không tìm thấy
+      not_locked: không bị khóa
+      not_saved:
+        other: "%{count} lỗi đã cấm lưu %{resource} này:"
+      on_or_after: phải vào hoặc sau %{restriction}
+      on_or_before: phải vào hoặc trước %{restriction}
+  glossary:
+    about: Về
+    access: Truy cập
+    account: Tài khoản
+    activity: Hoạt động
+    address: Địa chỉ
+    add_source: Thêm địa chỉ
+    anonymous: Vô danh
+    are_you_sure: Bạn có chắc không?
+    australia: Châu Úc
+    belgium: Bỉ
+    brazil: Brazil
+    by_author: bởi %{author}
+    canada: Canada
+    chile: Chile
+    common_name: Tên thông thường
+    czechia: Séc
+    data: Dữ liệu
+    delete: Xóa
+    description: Miêu tả
+    details: Chi tiết
+    donate: Quyên góp
+    download: Tải về
+    edible_type: Loại ăn được
+    edit: Chỉnh sửa
+    email: Email
+    embed: Nhúng
+    error: Lỗi
+    favorites: Yêu thích
+    fiji: Phi-gi
+    filter: Bộ lọc
+    finland: Phần Lan
+    france: Pháp
+    germany: Đức
+    global: Toàn cầu
+    greece: Hy Lạp
+    home: Trang chủ
+    imported: Đã nhập khẩu
+    imported_datasets: Bộ dữ liệu đã nhập
+    imports: Nhập khẩu
+    info: Thông tin
+    invasive: Xâm lấn
+    ireland: Ai-len
+    italy: Nước Ý
+    labels: Nhãn
+    links:
+      other: Đường link
+    locations:
+      other: Địa chỉ
+    login: Đăng nhập
+    logout: Đăng xuất
+    map: Bản đồ
+    miles: dặm
+    name: Tên
+    new_zealand: New Zealand
+    options: Tùy chọn
+    password: Mật khẩu
+    pending_types: Các loại đang chờ xử lý
+    photo: Hình ảnh
+    portugal: Bồ Dào Nha
+    position: Chức vụ
+    problems: Vấn đề
+    public: Công cộng
+    quality: Chất lượng
+    report: Báo vi phạm
+    report_a_problem: Báo cáo sự cố
+    reviews:
+      other: Đánh giá
+    routes: Tuyến đường
+    save_changes: Lưu thay đổi
+    scientific_name: Tên khoa học
+    season: Mùa
+    send: Gửi
+    show: Chỉ
+    sign_up: Đăng ký
+    spain: Tây Ban Nha
+    street_view: Chế độ xem đường phố
+    submit: Nộp
+    sweden: Thụy Điển
+    switzerland: Thụy Sĩ
+    tree_inventory:
+      other: Kiểm kê cây
+    types: Các loại
+    type_and_press_enter: Nhập và bấm phím enter
+    united_kingdom: Vương quốc Anh
+    united_states: Hoa Kỳ
+    unknown: Không xác định
+    unverified: Chưa được xác minh
+    updated: Đã cập nhật
+    user: Người sử dụng
+    users: Người dùng
+    world: Thế giới
+    yield: Lợi nhuận
+    zoom: Thu phóng
+    zoom_to_address: Phóng vào địa chỉ
+    zoom_to_me: Thu phóng vào tôi
+    zoom_to_this_location: Thu phóng vào địa chỉ này
+  layouts:
+    application:
+      feed_people_not_landfills: Cho người ăn, không phải bãi rác!
+      mapping_the_urban_harvest: Lập bản đồ thu hoạch đô thị!
+      menu:
+        approved_types: Các loại được chấp nhận
+        in_the_press: Trên báo chí
+        list_imports: Danh sách nhập khẩu
+        new_import: Nhập khẩu mới
+        new_type: Loại mới
+        sharing_the_harvest: Chia sẻ thu hoạch
+        the_project: Dự án
+      or_right-click_on_map: hoặc nhấp chuột phải vào bản đồ
+      pending_types_help: Chúng tôi thực thi phân loại các loại thực phẩm có thể ăn
+        được để giữ cho bản đồ luôn ngăn nắp và dễ tìm kiếm. Các loại tiểu thuyết
+        do người dùng gửi được đánh dấu trên bản đồ ở trạng thái đang chờ xử lý cho
+        đến khi chúng được thêm vào phân loại hoặc được hợp nhất với loại hiện có.
+        Một số loại được đề xuất quá độc đáo hoặc mơ hồ đến mức chúng vẫn tồn tại
+        dưới dạng không được phê duyệt vô thời hạn.
+      unverified_help: 'Các vị trí được đánh dấu là chưa được xác minh nếu vị trí,
+        danh tính hoặc sự tồn tại của chúng bị tranh chấp. Nhiều địa điểm được nhập
+        từ kho cây được đánh dấu là chưa được xác minh vì khả năng ăn được của chúng
+        không chắc chắn (ví dụ: "Pear" có thể là giống ăn được hoặc giống trang trí).
+        Người dùng được khuyến khích đi đến những địa điểm này và báo cáo những phát
+        hiện của họ.'
+      unverified_help_title: Tại sao chưa được xác minh?
+  locations:
+    form:
+      access_subtext: Trạng thái truy cập của nguồn. Để trống nếu bạn không biết.
+      address_subtext: có thể được sử dụng để định vị điểm đánh dấu. Điều chỉnh nó
+        khi cần thiết trước khi gửi.
+      author_subtext: Hiển thị trên bản đồ. Để trống nếu bạn muốn ẩn danh.
+      comments: Bình luận
+      comments_subtext: Cập nhật, vấn đề hái lượm, sức khỏe thực vật...
+      create_another: Tạo ra thêm một cái
+      date_visited: Ngày giờ thăm quan
+      description_subtext: Chi tiết địa chỉ, vấn đề thu hoạch, sức khỏe thực vật...
+      form_error: Đã xảy ra lỗi khiến nguồn này không thể lưu được
+      form_intro_html: Chỉnh sửa vị trí bên dưới hoặc <a href="/observations/new?location_id=%{location_id}&locale=en"
+        data-ajax="false" rel="external" title="Đánh giá vị trí này">sử dụng biểu
+        mẫu này</a> để đánh giá, bình luận và đăng ảnh.
+      fruiting_status: Tình trạng đậu quả
+      fruiting_subtext: Hiện tại trái cây đang làm gì? (nếu có)
+      have_you: Bạn đã thăm quan địa điểm này chưa?
+      move_marker: Di chuyển điểm đánh dấu đến tọa độ
+      move_marker_address: Di chuyển điểm đánh dấu đến địa chỉ
+      name_subtext: Để trống nếu bạn muốn ẩn danh.
+      no_season: Không có mùa
+      or: hoặc
+      original_author: Tác giả gốc
+      photo_caption: Chú thích ảnh
+      photo_subtext: Đăng một bức ảnh của nguồn. Nếu nó không phải của bạn, hãy đảm
+        bảo bạn có sự cho phép và ghi công của nhiếp ảnh gia trong chú thích.
+      position_subtext: Được xác định từ vị trí hiện tại của bạn (nếu có) hoặc điểm
+        đánh dấu bạn đã đặt. Điều chỉnh bằng cách di chuyển điểm đánh dấu trên bản
+        đồ.
+      quality_subtext: Đánh giá chất lượng của nguồn (nếu có)
+      season_subtext: Khi nào nguồn có thể được thu hoạch? Để trống nếu bạn không
+        biết.
+      types_subtext: Chọn từ danh sách thả xuống, chỉ gửi loại mới nếu chưa có lựa
+        chọn phù hợp.
+      unverified_subtext: Nếu bạn không chắc chắn về sự tồn tại, vị trí hoặc danh
+        tính của nguồn này.
+      verify: Chứng minh
+      verify_subtext: Vị trí này hiện được gắn cờ là "Chưa được chứng minh"
+      yield_subtext: Đánh giá năng suất của nguồn (nếu có)
+      your_name: Tên của bạn
+    index:
+      addmarker_html: |-
+        Thêm địa chỉ ở đây
+        <span class="subtext">Bạn cũng có thể di chuyển mình</span>
+      editmarker_html: "<b>Di chuyển đến vị trí của nguồn.</b><br><br>Kiểm tra chế
+        độ xem vệ tinh - nguồn có thể được nhìn thấy từ không gian!"
+      freegan_modal_html: Ngoài nỗ lực lập bản đồ <a href="/?locale=en">các loại cây
+        ăn được</a> mọc ở các thành phố, chúng tôi còn bắt đầu lập bản đồ các thùng
+        rác chứa thực phẩm trên thế giới. Gần một nửa tổng số thực phẩm được sản xuất
+        ở các nước phát triển không bao giờ được ăn. Chúng tôi hy vọng sẽ nâng cao
+        nhận thức về vấn đề lãng phí thực phẩm, tạo điều kiện thuận lợi cho việc giải
+        phóng thực phẩm bỏ đi và thay vào đó khuyến khích các doanh nghiệp <a href="/sharing?locale=en">quyên
+        góp thực phẩm của họ</a> .<br/><br/> Để ủng hộ lối sống ít rác thải hơn, chúng
+        tôi đang khuyến khích lập bản đồ tất cả các nguồn tự do (từ thùng rác đến
+        hộp miễn phí) với hàng hóa bỏ đi nhưng hữu ích, có thể ăn được hoặc loại khác.
+      freegan_modal_title: Chào mừng bạn đến với bản đồ miễn phí của chúng mình!
+      grafter_modal_html: Những người ghép du kích ghép những cành có quả vào những
+        giống cây ăn quả trang trí, không có quả (ví dụ, các thành phố thường sử dụng
+        những cây ăn quả cằn cỗi để có những bông hoa mùa xuân đầy màu sắc). Theo
+        thời gian, những trái cây thơm ngon, bổ dưỡng được cung cấp cho các khu dân
+        cư nhờ những cành ghép này. Bạn có thể tìm hiểu thêm về dự án tại <a href="http://guerrillagrafters.org">guerillagrafters.org</a><br/><br/>
+        Bản đồ này cho thấy một số cây ăn quả trang trí phổ biến nhất. Nếu bạn là
+        người ghép, người làm vườn hoặc người đam mê cây ăn quả, hãy đóng góp thông
+        tin cho cộng đồng và gắn thẻ những cây trong sân hoặc khu phố của bạn có thể
+        được ghép bằng cành mang trái!
+      grafter_modal_title: Chào mừng bạn đến với bản đồ ghép của chúng mình!
+      mobile_modal_html: |-
+        Xin chào! Có vẻ như bạn đang truy cập Falling Fruit từ <strong>thiết bị di động</strong> . Gần đây chúng tôi đã phát hành một ứng dụng di động gây quỹ cộng đồng cho cả nền tảng di động Android và iOS. Tôi nghĩ bạn sẽ thấy thú vị hơn nhiều khi sử dụng trên thiết bị di động của mình:
+
+
+
+        <ul>
+        <li> <a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">Trái cây rơi cho iOS</a>
+        <li> <a href="https://play.google.com/store/apps/details?id=uh.fallingfruit.app">Trái cây rơi cho Android</a>
+        </ul>
+
+
+        100% số tiền thu được từ việc bán ứng dụng sẽ được dùng để hỗ trợ các chi phí cố định của chúng tôi (máy chủ và cơ sở hạ tầng để duy trì trang web trực tuyến). Chúng tôi là tổ chức phi lợi nhuận theo mục 501(c)3 nên chi phí này cũng được khấu trừ thuế ở Hoa Kỳ.
+      mobile_modal_title: Nhưng chờ đã, có một ứng dụng di động!
+      stamen_html: |-
+        © <a href="https://www.stadiamaps.com/" target="_blank">Bản đồ Stadia</a>
+        © <a href="https://stamen.com/" target="_blank">Thiết kế nhị hoa</a>
+        © <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>
+        © <a href="https://www.openstreetmap.org/about/" target="_blank">những người đóng góp cho OpenStreetMap</a>
+      turn_off_dragzoom: Tắt chế độ kéo phóng
+      turn_on_dragzoom: Bật chế độ kéo phóng
+      welcome_modal_html: |-
+        Falling Fruit là một bản đồ hợp tác đồ sộ về thu hoạch đô thị. Bằng cách hợp nhất nỗ lực của những người kiếm ăn, người chăn thả và người đi rừng ở khắp mọi nơi, bản đồ đã chỉ ra hơn nửa triệu nguồn thực phẩm trên khắp thế giới (từ thực vật và nấm đến giếng nước và thùng rác). Cộng đồng người dùng đang phát triển nhanh chóng của chúng tôi đang tích cực khám phá, chỉnh sửa và thêm vào bản đồ.<br/><br/> Hãy tham gia cùng chúng tôi để tôn vinh vẻ đẹp bị bỏ qua của các đường phố trong thành phố của chúng ta! Sử dụng trang web ẩn danh hoặc <a href="/users/sign_up?locale=en">đăng ký</a> để truy cập các tính năng bổ sung.
+        <br/><br/>
+        <em>Quả Rơi không liên quan đến Quả Rơi. Fallen Fruit có thể được tìm thấy tại <a href="http://fallenfruit.org">Fallenfruit.org</a> .</em>
+      welcome_modal_title: Chào mừng bạn đến Falling Fruit!
+    infowindow:
+      access:
+      - Nguồn này được chính chủ thêm vào.
+      - Nguồn này đã được thêm vào với sự cho phép của chủ sở hữu.
+      - Nguồn này nằm trên đất công cộng.
+      - Nguồn này là của tư nhân nhưng có thể nhô ra đất công cộng. Hãy hái nó một
+        cách tùy ý.
+      - Nguồn này là trong tài sản riêng tư. Hãy hỏi chủ của cây trước khi hái.
+      access_mode:
+      - Nguồn là tài sản của tôi
+      - Mình đã được sự cho phép của chủ sở hữu để thêm nguồn
+      - Nguồn nằm trên đất công cộng
+      - Nguồn nằm trên đất tư nhân nhưng nhô ra đất công cộng
+      - Nguồn là tài sản riêng (hãy hỏi chủ trước khi hái)
+      access_short:
+      - Được thêm bởi chủ sở hữu
+      - Được sự cho phép của chủ sở hữu
+      - Công cộng
+      - Riêng tư nhưng nhô ra
+      - Riêng tư
+      add_to_remove_from: Thêm vào/xóa khỏi
+      citation_to_the_original_source: Trích dẫn nguồn dữ liệu gốc
+      delete_comment: Xóa bình luận
+      delete_photo: Xóa hình ảnh
+      delete_this_location: Xóa địa chỉ này
+      edit_this_location: Chỉnh sửa địa chỉ này
+      fruiting:
+      - Nở hoa
+      - Quả chưa chín
+      - Quả chín
+      have_you_visited_html: Bạn đã thăm quan địa chỉ này chưa? Thêm một <a href="/observations/new?location_id=%{id}&locale=en"
+        data-ajax="false" rel="external" title="Đánh giá vị trí này" id="add_review">bài
+        đánh giá</a>
+      january_to_december: Tháng 1 - Tháng 12
+      new_route: Tuyến đường mới
+      rating:
+      - Dỡ
+      - Bình thường
+      - Tốt
+      - Rất tốt
+      - Xuất sắc
+      review_this_location: Đánh giá vị trí này
+      see_this_location_in_streetview: Xem vị trí này trong chế độ xem phố
+      source: nguồn
+      toggle_route_controls: Chuyển đổi điều khiển tuyến đường
+      unsure: Không chắc chắn
+      unsure_other: Không chắc chắn/Khác
+      url_for_this_location: URL cho vị trí này
+    messages:
+      created: Vị trí đã được thêm
+      geocode_failed: Tìm kiếm của bạn không thành công
+      latitude_too_large: Chúng tôi không hỗ trợ vĩ độ vượt quá ±85 độ.
+      not_created: Không thể thêm địa chỉ
+      not_updated: Không thể cập nhật địa chỉ
+      updated: Địa chỉ đã được cập nhật
+    searchbar:
+      embed_hover: Mã nhúng
+      invasive_modal: Thực vật xâm lấn là thực vật không bản địa ở một khu vực nhất
+        định vượt trội hơn thực vật bản địa. Chúng tôi đánh dấu các loài thực vật
+        xâm lấn trên Falling Fruit để bạn có thể tìm kiếm và ăn chúng, chống lại các
+        cuộc xâm lược bằng từng miếng ngon lành! Các loài xâm lấn hiện chỉ được liệt
+        kê ở Hoa Kỳ và dựa trên danh sách các loài xâm lấn và độc hại cấp tiểu bang
+        của Bộ Nông nghiệp Hoa Kỳ (USDA).
+      invasive_modal_title: Một loại xâm hại là gì?
+      link_hover: URL tới bản đồ hiện tại
+      tree_inventories_modal: Kiểm kê cây được biên soạn bởi các tổ chức đang tìm
+        cách ghi chép và chăm sóc cây của họ tốt hơn. Những dữ liệu này thường được
+        thu thập bởi những người trồng cây đã được đào tạo và đều chi tiết và đầy
+        đủ. Chúng tôi cẩn thận chọn ra những loài có thể ăn được từ kho này và thêm
+        chúng vào bản đồ cho bạn. Hãy giúp chúng tôi lập bản đồ khu vực lân cận của
+        bạn bằng cách hỏi thành phố của bạn (hoặc trường đại học, bang, v.v.) xem
+        có kho cây nào tồn tại không và liệu nó có thể được chia sẻ trên Falling Fruit
+        hay không.
+      tree_inventories_modal_title: Kiểm kê cây là gì?
+    sidebar:
+      changed_within_html: Những thay đổi trong <a href="/users/edit?locale=en">phạm
+        vi tìm kiếm thức ăn</a> của bạn
+      click_here_to_manage_your_routes_html: Nhấn vào <a href="%{routes_path}">đây</a>
+        để quản lý các tuyến đường của bạn.
+      in: trong
+      locations_added_or_reviewed_by_you_while_logged_in: Các địa điểm được bạn thêm
+        hoặc đánh giá (khi đăng nhập)
+      you_havent_added_or_reviewed_anything_while_logged_in: Bạn chưa thêm hoặc xem
+        xét bất kỳ nguồn nào (trong khi đăng nhập)
+      you_havent_defined_any_foraging_routes_yet_click_on_a_source_and_then_click_routes_to_get_started_making_a_route: Bạn
+        chưa xác định bất kỳ tuyến đường nào. Nhấp vào một vị trí, sau đó nhấp vào
+        "tuyến đường" để bắt đầu tạo một vị trí.
+      you_havent_defined_html: Bạn chưa xác định phạm vi tìm kiếm hoa quả. <a href="/users/edit?locale=en">Bấm
+        vào đây</a> để làm điều đó ngay bây giờ
+  meta:
+    forager_description: Một bản đồ cộng tác khổng lồ về thu hoạch đô thị, hợp nhất
+      nỗ lực của những người hái lượm, những người sống tự do và những người đi rừng
+      trên khắp thế giới. Khám phá và chia sẻ thông tin về nguồn thực phẩm miễn phí
+      trong khu phố của bạn.
+    freegan_description: Bằng cách lập bản đồ các thùng rác chứa thực phẩm trên thế
+      giới, chúng tôi hy vọng nâng cao nhận thức về lãng phí thực phẩm, tạo điều kiện
+      giải phóng thực phẩm bỏ đi và khuyến khích các doanh nghiệp quyên góp thực phẩm
+      thay thế.
+    freegan_title: Bản đồ thùng rác thế giới
+  observations:
+    created: Đánh giá của bạn đã được thêm
+    empty: Đánh giá không được để trống
+  pages:
+    about:
+      about_the_site: Về dự án
+      advisors: Hội đồng cố vấn
+      alan_gibson_bio_html: 'Alan luôn thích phiêu lưu và khám phá. Anh bắt đầu tìm
+        kiếm thức ăn như một cách để giới thiệu cho các con nhỏ của mình về lối sống
+        ngoài trời. Ông viết blog <a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a> và xuất bản cuốn sách <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+        Forager: Fruit and Nuts For Free</a> . Anh ấy đã hợp pháp hóa việc tìm kiếm
+        thức ăn trong các công viên công cộng và thành lập một vườn cây ăn quả cộng
+        đồng ở quê nhà, Southampton Vương quốc Anh.'
+      ana_carolina_bio_html: Ana là nhà nghiên cứu sau tiến sĩ tại Đại học Liên bang
+        Pará ở Brazil. Cô là một nhà nhân chủng học quan tâm đến việc tìm hiểu thói
+        quen ăn uống văn hóa và xã hội. Ana làm việc chủ yếu ở Amazon của Brazil.
+        Ở Acre (tây Amazon), cô đã nghiên cứu việc tiêu thụ trái cây trong vùng. Sau
+        đó, cô làm việc ở vùng Middle Solimões, điều tra sự thay đổi chế độ ăn uống
+        ở các cộng đồng vùng sâu vùng xa. Từ năm 2017 đến năm 2018, Ana sống ở các
+        thị trấn vừa và nhỏ ở Đồng bằng sông Amazon, xem xét tác động của biến đổi
+        khí hậu đối với an ninh lương thực của những người sống ở các khu định cư
+        không chính thức. Gần đây cô đã chuyển đến miền nam New Mexico ở Hoa Kỳ, nơi
+        cô làm việc với tư cách là nhà tư vấn.
+      caleb_phillips_bio_html: Caleb là một người máy hai chân không có lông đam mê
+        công bằng thực phẩm và tìm ra những cách sáng tạo để sử dụng công nghệ để
+        giải quyết các vấn đề xã hội. Khi không đạp xe quanh ngắm cây, anh ấy cân
+        bằng nỗ lực giữa công việc hàng ngày với tư cách là nhà khoa học dữ liệu tại
+        <a href="https://www.nrel.gov/research/caleb-phillips.html">Phòng thí nghiệm
+        năng lượng tái tạo quốc gia</a> ở Golden, Colorado và là giáo sư phụ trợ về
+        khoa học máy tính tại <a href="https://www.colorado.edu/cs/caleb-phillips">Đại
+        học Colorado</a> . Ngoài tất cả những công việc đó, anh ấy thích leo núi,
+        chạy đường mòn, đi xe đạp và nói chung là ở ngoài trời nhiều nhất có thể.
+        Caleb đã thành lập Falling Fruit cùng với Ethan Welty vào năm 2013 và phục
+        vụ trong Hội đồng quản trị trong 6 năm trước khi đảm nhận vị trí trong Ban
+        cố vấn.
+      celebration: Falling Fruit là một lễ kỷ niệm về nguồn tài nguyên ẩm thực bị
+        bỏ qua trên các đường phố trong thành phố của chúng ta. Bằng cách định lượng
+        tài nguyên này trên bản đồ tương tác, chúng tôi hy vọng sẽ tạo điều kiện kết
+        nối mật thiết giữa con người, thực phẩm và các sinh vật tự nhiên phát triển
+        trong khu vực lân cận của chúng ta. Không chỉ là một bữa trưa miễn phí! Tìm
+        kiếm thức ăn trong thế kỷ 21 là cơ hội để khám phá đô thị, chống lại tai họa
+        vỉa hè bị ố vàng và kết nối lại với nguồn gốc thực vật của thực phẩm.
+      closing_remarks: Đóng nhận xét
+      closing_remarks_para1_html: Falling Fruit là một tổ chức từ thiện công cộng
+        501(c)(3) (miễn thuế) có trụ sở tại Boulder, Colorado. Do đó, các khoản quyên
+        góp ở Hoa Kỳ được khấu trừ thuế. Bạn có thể xem lại <a href="/501c3.pdf">thư
+        miễn trừ</a> của chúng tôi với IRS và xác minh vị thế của chúng tôi với <a
+        href="http://apps.irs.gov/app/eos/pub78Search.do?">IRS Publication 78</a>
+        hoặc <a href="http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y">Bộ
+        trưởng Ngoại giao Colorado</a> . Ngoài ra còn có <a href="https://docs.google.com/document/d/18E7PiiYbReq2c3BKYzxjHphiXsdtvkW-14UcN5y_5P4/edit?usp=sharing">các
+        quy định</a> và <a href="https://docs.google.com/document/d/1fzqYZ7rxYfeVqDuvI_uAyWhKm50RilqdTz6oxx3Ohw4">biên
+        bản</a> họp hội đồng quản trị của chúng tôi.
+      closing_remarks_para2_html: Thu hoạch thực phẩm trong môi trường đô thị đi kèm
+        với những cân nhắc thực tế và đạo đức nhất định. Để giới thiệu về đạo đức
+        của việc kiếm ăn ở đô thị, chúng tôi khuyên bạn nên <a href="https://docs.google.com/document/d/1SupIGQKC5Vgi3VYkdIQc05y_S7jSoZ4RTS-CzwlEAMY">tóm
+        tắt</a> sau.
+      closing_remarks_para3_html: 'Thông tin về Trái Cây Rơi có thể sai hoặc đã lỗi
+        thời. Ví dụ: nhiều bản đồ tìm kiếm thức ăn được di chuyển đến Falling Fruit
+        được lưu trữ dưới dạng Google Maps công cộng, trên đó các điểm đánh dấu thường
+        bị vô tình di chuyển và việc kiểm kê cây của thành phố chỉ được cập nhật (nếu
+        có) khi cây được đến thăm để bảo trì. Hãy sẵn sàng đối mặt với những thông
+        tin không chính xác trên thực địa và vui lòng chỉnh sửa bản đồ nếu cần dựa
+        trên những khám phá của bạn. Cuối cùng, trách nhiệm của bạn là xác định danh
+        tính, khả năng ăn được và vị trí của thực vật cũng như trách nhiệm của tất
+        cả mọi người trong việc cải thiện chất lượng của bản đồ.'
+      contact_us_html: Falling Fruit được xây dựng bởi và dành cho những người hái
+        lượm - chúng tôi muốn nó trở thành công cụ tốt nhất dành cho những người hái
+        lượm hiện đại. Hãy viết thư cho chúng tôi theo <a href="mailto:feedback@fallingfruit.org">địa
+        chỉfeedback@fallingfruit.org</a> , chúng tôi rất mong nhận được phản hồi từ
+        bạn!
+      craig_durkin_bio_html: Craig là người đồng sáng lập của <a href="http://www.concrete-jungle.org/">Concrete
+        Jungle</a> , một tổ chức ở Atlanta, Georgia chuyên trồng thực phẩm và hái
+        trái cây khắp thành phố để quyên góp cho các nhà tạm trú cho người vô gia
+        cư ở địa phương và ngân hàng thực phẩm. Là một sinh viên tốt nghiệp <a href="http://www.gatech.edu/">Georgia
+        Tech</a> , anh ấy luôn tìm cách kết hợp việc hái trái cây với các công nghệ
+        mới và sẽ sớm triển khai máy bay không người lái phát hiện cây ăn quả và cảm
+        biến độ chín của trái cây trên Twitter...
+      cristina_rubke_bio_html: Cristina là luật sư của <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis
+        Friese LLP</a> ở San Francisco, California, nơi cô tập trung vào việc truy
+        tố và tư vấn nhãn hiệu. Cô cũng là thành viên hội đồng quản trị của <a href="//www.sfmta.com/">Cơ
+        quan Giao thông Thành phố San Francisco</a> , cơ quan giám sát giao thông
+        công cộng, giao thông và bãi đậu xe ở San Francisco. Trong thời gian rảnh
+        rỗi, Cristina chèo thuyền đến Vịnh San Francisco cùng với <a href="//www.baads.org/">Hiệp
+        hội Thủy thủ Khuyết tật Vùng Vịnh</a> và thi đấu trong các cuộc đua thuyền
+        địa phương và quốc tế.
+      david_craft_bio_html: 'David là nhà nghiên cứu tại Khoa Ung thư Bức xạ tại <a
+        href="//gray.mgh.harvard.edu/index.php?option=com_content&view=article&id=4:david-craft-phd&catid=1:f">Trường
+        Y Harvard</a> ở Boston, Massachusetts. Ông cũng là một người ham mê hái lượm
+        và là tác giả của cuốn sách <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Tìm
+        kiếm thức ăn trong đô thị: Tìm và ăn thực vật hoang dã trong thành phố</a>
+        ( <a href="/docs/David Craft - Urban Foraging.pdf">tải xuống miễn phí</a>
+        ).'
+      directors: Ban giám đốc
+      emily_sigman_bio_html: Emily là một nhà truyền giáo nhiệt huyết về nông lâm
+        kết hợp, người kiếm ăn không thể sửa chữa và là người mẹ kiêu hãnh của hai
+        con mèo, bốn con chim cút và chú chó đẹp nhất thế giới. Rễ của cô trải dài
+        sâu vào dãy núi Rocky, nhưng ngày nay sinh khối trên mặt đất của cô tự hào
+        gọi New Haven, Connecticut là quê hương của mình. Người ta thường thấy cô
+        ấy đang chăm sóc các khu rừng thực phẩm công cộng, đọc sách say mê trong một
+        góc thư viện ấm cúng nào đó hoặc viết thơ về sự kỳ diệu của sợi nấm (và được
+        cho là đang hoàn thành bằng tốt nghiệp chung tại <a href="https://environment.yale.edu/">Trường
+        Lâm nghiệp</a> Yale và <a href="https://jackson.yale.edu/person/emily-sigman/">Trường
+        Quan hệ Toàn cầu</a> ). Emily có một niềm đam mê du lịch khủng khiếp và có
+        thể ở bất cứ đâu vào lúc này.
+      ethan_welty_bio_html: Với công nghệ và dữ liệu, Ethan coi các thành phố là nguồn
+        cung cấp thực phẩm tươi sống và miễn phí. Anh ấy đã tạo ra Falling Fruit cùng
+        với Caleb Phillips vào năm 2013 để thúc đẩy hoạt động tìm kiếm thức ăn ở đô
+        thị trên toàn thế giới và đồng sáng lập <a href="https://fruitrescue.org">Community
+        Fruit Rescue</a> vào năm 2014 để thu hoạch và phân phối trái cây dư thừa trồng
+        xung quanh anh ấy ở Boulder, Colorado. Ngoài trái cây, anh còn theo đuổi <a
+        href="https://www.weltyphotography.com">sự nghiệp nhiếp ảnh</a> , <a href="https://instaar.colorado.edu/people/ethan-welty/">nghiên
+        cứu về sông băng</a> và đam mê theo đuổi các hoạt động miền núi và sông nước.
+      ff_disclaimer_html: Quả Rơi không liên quan đến Quả Rơi. Fallen Fruit có thể
+        được tìm thấy tại <a href="http://fallenfruit.org">Fallenfruit.org</a> .
+      give_gratipay: Thanh toán qua Gratipay
+      give_paypal: Quyên góp qua Quỹ từ thiện Paypal
+      give_us_money: Chúng mình là tổ chức phi lợi nhuận theo mục 501(c)(3) và hoạt
+        động dựa vào sự quyên góp. Nếu bạn sẵn sàng và có khả năng, vui lòng cân nhắc
+        đóng góp tài chính. Các khoản quyên góp ở Hoa Kỳ được khấu trừ thuế.
+      jeff_wanner_bio_html: Kể từ khi cùng gia đình thu hoạch quả mâm xôi đen và quả
+        việt quất khi còn nhỏ và gần đây hơn là nhận thấy sự phong phú của các loại
+        cây ăn quả công cộng trên khắp Colorado, Jeff đã đánh giá cao sự phong phú
+        của các loại trái cây mọc ở các thành phố của chúng ta. Nhiệm vụ đầu tiên
+        của anh trong Falling Fruit là rà soát Boulder và Thành phố Salt Lake, cầm
+        trên tay bản đồ giấy để ghi lại những cây ăn quả. Khi không làm việc để cải
+        thiện hiệu quả sử dụng năng lượng của tòa nhà, anh ấy thường giúp đỡ cộng
+        đồng hoặc di chuyển nhanh qua núi bằng cách đi bộ, trượt tuyết hoặc xe đạp.
+      join_us_html: Hãy cùng chúng tôi tôn vinh những món ăn siêu địa phương! <a href="/?locale=en">Bản
+        đồ</a> mở cho mọi người chỉnh sửa, cơ sở dữ liệu có thể được <a href="/data?locale=en">tải
+        xuống</a> chỉ bằng một cú nhấp chuột và <a href="https://github.com/falling-fruit/">mã</a>
+        là nguồn mở. Bạn cũng được khuyến khích chia sẻ tiền thưởng với đồng loại
+        của mình. <a href="/sharing?locale=en">Trang chia sẻ</a> của chúng tôi liệt
+        kê hàng trăm tổ chức địa phương - trồng vườn cây ăn quả công cộng và rừng
+        thực phẩm, hái trái cây và rau quả bị lãng phí từ cây thành phố và cánh đồng
+        của nông dân, đồng thời chia sẻ với hàng xóm và người nghèo.
+      more_about_html: Bản đồ hái lượm của chúng mình không phải là bản đồ đầu tiên
+        thuộc loại này, nhưng nó mong muốn trở thành bản đồ toàn diện nhất thế giới.
+        Trong khi người dùng của chúng tôi đóng góp các địa điểm của riêng họ, chúng
+        tôi tìm kiếm trên Internet những kiến thức có sẵn, tìm cách hợp nhất nỗ lực
+        của những người kiếm ăn, người đi rừng và những người sống tự do ở khắp mọi
+        nơi. <a href="/datasets?locale=en">Các bộ dữ liệu được nhập</a> bao gồm từ
+        các bản đồ tìm kiếm khu dân cư nhỏ cho đến kho cây khổng lồ được biên soạn
+        chuyên nghiệp. Cho đến nay, con số này lên tới %{types} loại thực phẩm khác
+        nhau (hầu hết, nhưng không phải tất cả, các loài thực vật) được phân bổ trên
+        %{locations} vị trí. Ngoài việc trồng trọt và phổ biến đối với hương vị kỳ
+        lạ của các loài thực vật ngoại lai và thực vật bản địa đã bị lãng quên từ
+        lâu, việc tìm kiếm thức ăn trong khu phố của bạn là một cuộc hành trình xuyên
+        thời gian và xuyên suốt các nền văn hóa.
+      staff: Nhân viên
+      translate: Dịch
+      translate_for_us_html: Bạn có muốn làm việc tình nguyện làm phiên dịch viên
+        không? Gửi email cho chúng tôi và chúng tôi sẽ mời bạn tham gia cùng chúng
+        tôi trên <a href="https://phrase.com">Phrase</a> , nơi các bản dịch của chúng
+        tôi được quản lý.
+      translators: Người dịch
+      tristram_stuart_bio_html: 'Khi còn là một thiếu niên, Tristram nuôi lợn bằng
+        thức ăn dư thừa mà anh thu thập được từ bếp ăn của trường, thợ làm bánh địa
+        phương và người bán rau trong làng. Nhận thấy rằng phần lớn thực phẩm này
+        vẫn phù hợp cho con người tiêu dùng, ông nhận ra rằng thực phẩm tươi, ngon
+        đang bị lãng phí trên quy mô khổng lồ. Tristram kể từ đó đã làm việc không
+        mệt mỏi để thu hút sự chú ý của công chúng, giới truyền thông và các nhà hoạch
+        định chính sách về vấn đề này. Ông thành lập tổ chức chiến dịch lãng phí thực
+        phẩm <a href="//feedbackglobal.org">Phản hồi toàn cầu</a> và viết <a href="//tristramstuart.co.uk/">Lãng
+        phí: Khám phá vụ bê bối thực phẩm toàn cầu</a> để chứng minh mức độ của vấn
+        đề trên quy mô toàn cầu. Năm 2011, Tristram được trao <a href="//www.sofieprisen.no/Prize_Winners/2011/index.html">Giải
+        thưởng Sophie</a> vì nỗ lực chống lãng phí thực phẩm.'
+      write: Viết
+    data:
+      beware_html: Nhưng hãy cẩn thận! Sau khi được giải nén, cơ sở dữ liệu là một
+        tệp lớn có thể nghiền nát hầu hết các phần mềm bảng tính. Nếu bạn chỉ cần
+        dữ liệu cho một khu vực nhỏ, trước tiên hãy thử truy xuất chúng bằng công
+        cụ tải xuống được tích hợp vào <a href="/?locale=en">bản đồ</a> .
+      caveat_emptor_html: Chúng tôi không chịu trách nhiệm về tính chính xác của dữ
+        liệu - dữ liệu được cung cấp nguyên trạng, <i>báo trước</i> . Nếu bạn làm
+        điều gì đó thú vị với dữ liệu, vui lòng <a href="mailto:feedback@fallingfruit.org">cho
+        chúng tôi biết</a> !
+      data_unavailable_html: Dữ liệu hiện không có sẵn. Hãy quay lại sau hoặc <a href="mailto:info@fallingfruit.org">liên
+        hệ với chúng tôi</a> .
+      intro: Falling Fruit được xây dựng trên dữ liệu công khai và sự hào phóng của
+        người dùng. Chúng tôi muốn việc tìm kiếm thức ăn trong đô thị tiếp cận được
+        càng nhiều người càng tốt và chúng tôi tin rằng mọi người đều phải có quyền
+        tiếp cận như nhau đối với thành quả lao động tập thể của chúng tôi. Trên tinh
+        thần cởi mở, kìa! Toàn bộ cơ sở dữ liệu
+      license_html: Nếu bạn quan tâm đến việc sử dụng dữ liệu trong dự án của mình,
+        đặc biệt là dự án thương mại, chúng tôi khuyên bạn nên liên hệ với chúng tôi
+        ( <a href="mailto:info@fallingfruit.org">info@fallingfruit.org</a> ). Trừ
+        khi có quy định khác, dữ liệu được cấp phép dưới dạng <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons – Ghi công, Phi thương mại, Chia sẻ tương tự).
+        Điều này có nghĩa là bạn được tự do sử dụng và phân phối dữ liệu miễn là bạn
+        giữ nguyên quyền tác giả/nguồn ban đầu và không sử dụng dữ liệu đó (khi chưa
+        được phép) cho các ứng dụng thương mại. Mã nguồn của Falling Fruit cũng mở
+        và có sẵn trên <a href="https://github.com/falling-fruit/">GitHub</a> .
+      summary_description: Cơ sở dữ liệu hiện chứa %{types} loại thực phẩm khác nhau
+        (hầu hết, nhưng không phải tất cả, đều là các loài thực vật) được phân bổ
+        trên %{locations} vị trí. Đối với mỗi loại, bảng sau liệt kê tên thông thường,
+        tên khoa học, liên kết đến tài liệu tham khảo bên ngoài và tổng số.
+      summary_of_sources: Tóm tắt các nguồn
+    datasets:
+      community_map: Bản đồ cộng đồng
+      date_imported: Ngày nhập
+      google_fusion_table: Bảng kết hợp của Google
+      google_map: Bản đồ Google
+      google_maps_engine: Công cụ Google Maps
+      intro_html: Falling Fruit mong muốn trở thành bộ dữ liệu địa lý mở và toàn diện
+        nhất về thực phẩm đô thị. Trong khi người dùng khám phá, chỉnh sửa và thêm
+        vị trí bằng <a href="/?locale=en">bản đồ</a> của chúng tôi, chúng tôi tìm
+        kiếm khắp vũ trụ đã biết để tìm các bộ dữ liệu có sẵn và nhập chúng trực tiếp
+        vào <a href="/data?locale=en">cơ sở dữ liệu</a> , hợp nhất nỗ lực của những
+        người kiếm ăn, người đi rừng và những người tự do ở khắp mọi nơi. Nếu bạn
+        biết về tập dữ liệu mà chúng tôi đã bỏ lỡ, vui lòng <a href="mailto:info@fallingfruit.org">cho
+        chúng tôi biết</a> ! Bạn cũng có thể giúp chúng tôi trong quá trình nhập bằng
+        cách định dạng dữ liệu bằng <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">mẫu
+        nhập</a> . Lưu ý rằng vì quá trình nhập phải được thực hiện thủ công nên tất
+        cả các thay đổi đối với dữ liệu gốc được thực hiện sau khi nhập sẽ không được
+        phản ánh trên Falling Fruit.
+      no_license: Không có giấy phép nào được chỉ định, giả sử <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+        BY-NC-SA</a> (Creative Commons – Ghi công, Phi thương mại, Chia sẻ tương tự).
+      table_info: Mỗi tập dữ liệu được liệt kê theo tên, số lượng vị trí và ngày được
+        nhập. Việc mở rộng từng hàng sẽ hiển thị thêm thông tin chi tiết về dữ liệu,
+        quy trình nhập và giấy phép quản lý cách sử dụng dữ liệu.
+      type: Loại
+      types_of_data: Các bộ dữ liệu được nhập vào Falling Fruit thuộc hai loại chính.
+        "Bản đồ cộng đồng" được xây dựng bởi những người kiếm ăn và những người sống
+        tự do khi họ nghiên cứu cộng đồng của mình để tìm đồ ăn. Chúng tôi mang ơn
+        những người vẽ bản đồ công dân chăm chỉ đã biên soạn dữ liệu này. "Kiểm kê
+        cây" được biên soạn bởi các thành phố, trường đại học và các tổ chức khác
+        mong muốn ghi chép và chăm sóc cây của họ tốt hơn. Chúng tôi khai thác những
+        bộ dữ liệu khổng lồ này về các loài sản xuất thực phẩm và thêm chúng vào bản
+        đồ. Để giúp chúng tôi lập bản đồ cây ăn quả ở khu vực lân cận của bạn, hãy
+        liên hệ với trường học hoặc thành phố của bạn để thúc giục họ chia sẻ kho
+        cây của họ với chúng tôi.
+    sharing:
+      ample_harvest: Các ngân hàng thực phẩm Mỹ chấp nhận quyên góp sản phẩm
+      food_banks: Ngân hàng thực phẩm
+      food_banks_canada: Ngân hàng thực phẩm ở Canada
+      food_banks_intro: Những người hái lượm và chủ sở hữu cây tư nhân được khuyến
+        khích quyên góp sản phẩm dư thừa của họ cho tổ chức từ thiện. Hãy cân nhắc
+        hợp tác với các nhóm như những nhóm được liệt kê ở trên hoặc quyên góp trực
+        tiếp cho các tổ chức nuôi sống những người đói trong cộng đồng của bạn. Mạng
+        lưới ngân hàng thực phẩm lớn được liệt kê dưới đây; nơi tạm trú cho người
+        vô gia cư, trường học và trung tâm người cao tuổi cũng đáng được xem xét.
+      global_foodbanking_network: Mạng lưới ngân hàng thực phẩm trên toàn thế giới
+      grow_pick_and_distribute: Trồng · Hái · Phát
+      intro_html: Dưới đây là các tổ chức trồng lương thực trong không gian công cộng
+        (rừng lương thực, vườn cây ăn quả công cộng), hái lượm (tìm kiếm thức ăn ở
+        đô thị, lượm lặt trong trang trại) hoặc phân phối thực phẩm (trao đổi, quyên
+        góp). Các tổ chức được liệt kê theo quốc gia, tiểu bang (nếu có) và thành
+        phố. Những người có tên bị gạch bỏ được cho là không hoạt động. Nếu bạn biết
+        những người khác nên có trong danh sách này, <a href="mailto:info@fallingfruit.org">hãy
+        liên hệ với chúng tôi</a> !
+  problems:
+    created: Cảm ơn bạn đã báo cáo vấn đề!
+    description_subtext: Bất kỳ thông tin nào có thể giúp chúng tôi đánh giá vấn đề
+    problem_type: Loại sự cố
+    your_contact_info: Thông tin liên lạc của bạn
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Hiện tại chúng mình không thể xác minh reCAPTCHA
+      verification_failed: Xác minh reCAPTCHA không thành công
+  routes:
+    denied: Bạn không có quyền xem tuyến đường đó
+    modes_of_travel:
+    - Đi bộ
+    - Đi xe đạp
+    - Lái xe
+    mode_of_travel: Phương thức di chuyển
+    order_not_updated: Đơn hàng không thể cập nhật
+    order_updated: Đơn hàng đã được cập nhật
+    updated: Tuyến đường đã được cập nhật
+  time:
+    days:
+      other: "%{count} ngày"
+    last_24_hours: 24 giờ qua
+    months:
+      other: "%{count} tháng"
+    this_month: Tháng này
+    this_week: Tuần này
+    time_ago: "%{time} trước"
+  users:
+    address_subtext: 'Trung tâm phạm vi hái lượm của bạn (ví dụ: địa chỉ nhà của bạn)'
+    bio: Thông tin về bạn
+    change_password: Thay đổi mật khẩu của tôi
+    clear_map: Làm trống bản đồ
+    confirm_account: Xác nhận tài khoản của tôi
+    current_password: Mật khẩu hiện tại
+    current_password_subtext: Bắt buộc phải thực hiện thay đổi đối với tài khoản của
+      bạn
+    delete_account: Hủy tài khoản của tôi
+    edit_account: Chỉnh sửa tài khoản
+    foraging_map_subtext: Sử dụng công cụ đa giác hoặc hình chữ nhật trong bản đồ
+      bên dưới để xác định phạm vi hái lượm của bạn. Nếu sử dụng công cụ đa giác,
+      hãy đảm bảo đóng đa giác của bạn bằng cách nối điểm cuối cùng với điểm đầu tiên.
+    foraging_radius: Bán kính
+    foraging_radius_subtext: Bán kính của phạm vi tìm kiếm hình tròn có tâm ở địa
+      chỉ nêu trên
+    foraging_range: Phạm vi hái lượm
+    forgot_password: Đặt lại mật khẩu của bạn
+    mailer:
+      confirmation_instructions_html: |-
+        <p>Chào mừng đến Falling Fruit,</p>
+        <p> Để kích hoạt tài khoản của bạn, bạn phải xác nhận email của mình ( %{email} ) bằng cách truy cập vào liên kết bên dưới:
+        <br/> %{link}</p>
+        <p> Falling Fruit được cung cấp bởi người dùng, vì vậy nếu bạn có cơ hội bổ sung hoặc cải thiện nó, vui lòng làm như vậy. Hái lượm vui vẻ nhé!</p>
+      reset_password_instructions_html: |-
+        <p>Xin chào %{email} ,</p>
+        <p> Ai đó (rất có thể là bạn) đã yêu cầu liên kết để thay đổi mật khẩu của bạn:
+        <br /> %{link}</p>
+        <p> Nếu bạn không yêu cầu điều này, bạn có thể bỏ qua email này. Mật khẩu của bạn sẽ không thay đổi trừ khi bạn truy cập liên kết ở trên và tạo mật khẩu mới.</p>
+      unlock_instructions_html: |-
+        <p>Xin chào %{email} ,</p>
+        <p> Tài khoản của bạn đã bị khóa do đăng nhập không thành công quá nhiều lần:
+        <br /> %{link}</p>
+    new_password: Mật khẩu mới
+    options:
+      add_anonymously: Chỉnh sửa bản đồ ẩn danh (ngay cả khi đã đăng nhập)
+      announcements_email: Nhận email với các thông báo và cơ hội quan trọng (1-2
+        mỗi năm)
+      range_updates_email: Nhận email hàng tuần báo cáo hoạt động gần đây trong phạm
+        vi hái lượm của bạn (được xác định bên dưới)
+    range_by_map: Vẽ trên bản đồ
+    range_by_radius: Địa chỉ và bán kính
+    remember_me: Nhớ tôi
+    resend_confirmation_instructions: Gửi lại hướng dẫn xác nhận
+    resend_unlock_instructions: Gửi lại hướng dẫn mở khóa
+    send_password_instructions: Gửi hướng dẫn đặt lại mật khẩu
+    sign_in: Đăng nhập
+    sign_in_with: Đăng nhập bằng %{provider}
+    type_it_twice: Nhập hai lần để xác nhận
+    unlock_account: Mở khóa tài khoản của tôi
+  validates_timeliness:
+    error_value_formats:
+      date: "%Y-%m-%d"
+      datetime: "%Y-%m-%d %H:%M:%S"
+      time: "%H:%M:%S"
