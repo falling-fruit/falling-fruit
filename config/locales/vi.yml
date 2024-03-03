@@ -266,7 +266,7 @@ vi:
         ở các nước phát triển không bao giờ được ăn. Chúng tôi hy vọng sẽ nâng cao
         nhận thức về vấn đề lãng phí thực phẩm, tạo điều kiện thuận lợi cho việc giải
         phóng thực phẩm bỏ đi và thay vào đó khuyến khích các doanh nghiệp <a href="/sharing?locale=en">quyên
-        góp thực phẩm của họ</a> .<br/><br/> Để ủng hộ lối sống ít rác thải hơn, chúng
+        góp thực phẩm của họ</a>.<br/><br/>Để ủng hộ lối sống ít rác thải hơn, chúng
         tôi đang khuyến khích lập bản đồ tất cả các nguồn tự do (từ thùng rác đến
         hộp miễn phí) với hàng hóa bỏ đi nhưng hữu ích, có thể ăn được hoặc loại khác.
       freegan_modal_title: Chào mừng bạn đến với bản đồ miễn phí của chúng mình!
@@ -274,14 +274,14 @@ vi:
         giống cây ăn quả trang trí, không có quả (ví dụ, các thành phố thường sử dụng
         những cây ăn quả cằn cỗi để có những bông hoa mùa xuân đầy màu sắc). Theo
         thời gian, những trái cây thơm ngon, bổ dưỡng được cung cấp cho các khu dân
-        cư nhờ những cành ghép này. Bạn có thể tìm hiểu thêm về dự án tại <a href="http://guerrillagrafters.org">guerillagrafters.org</a><br/><br/>
-        Bản đồ này cho thấy một số cây ăn quả trang trí phổ biến nhất. Nếu bạn là
-        người ghép, người làm vườn hoặc người đam mê cây ăn quả, hãy đóng góp thông
-        tin cho cộng đồng và gắn thẻ những cây trong sân hoặc khu phố của bạn có thể
-        được ghép bằng cành mang trái!
+        cư nhờ những cành ghép này. Bạn có thể tìm hiểu thêm về dự án tại <a href="http://guerrillagrafters.org">guerillagrafters.org</a><br/><br/>Bản
+        đồ này cho thấy một số cây ăn quả trang trí phổ biến nhất. Nếu bạn là người
+        ghép, người làm vườn hoặc người đam mê cây ăn quả, hãy đóng góp thông tin
+        cho cộng đồng và gắn thẻ những cây trong sân hoặc khu phố của bạn có thể được
+        ghép bằng cành mang trái!
       grafter_modal_title: Chào mừng bạn đến với bản đồ ghép của chúng mình!
       mobile_modal_html: |-
-        Xin chào! Có vẻ như bạn đang truy cập Falling Fruit từ <strong>thiết bị di động</strong> . Gần đây chúng tôi đã phát hành một ứng dụng di động gây quỹ cộng đồng cho cả nền tảng di động Android và iOS. Tôi nghĩ bạn sẽ thấy thú vị hơn nhiều khi sử dụng trên thiết bị di động của mình:
+        Xin chào! Có vẻ như bạn đang truy cập Falling Fruit từ <strong>thiết bị di động</strong>. Gần đây chúng tôi đã phát hành một ứng dụng di động gây quỹ cộng đồng cho cả nền tảng di động Android và iOS. Tôi nghĩ bạn sẽ thấy thú vị hơn nhiều khi sử dụng trên thiết bị di động của mình:
 
 
 
@@ -301,9 +301,9 @@ vi:
       turn_off_dragzoom: Tắt chế độ kéo phóng
       turn_on_dragzoom: Bật chế độ kéo phóng
       welcome_modal_html: |-
-        Falling Fruit là một bản đồ hợp tác đồ sộ về thu hoạch đô thị. Bằng cách hợp nhất nỗ lực của những người kiếm ăn, người chăn thả và người đi rừng ở khắp mọi nơi, bản đồ đã chỉ ra hơn nửa triệu nguồn thực phẩm trên khắp thế giới (từ thực vật và nấm đến giếng nước và thùng rác). Cộng đồng người dùng đang phát triển nhanh chóng của chúng tôi đang tích cực khám phá, chỉnh sửa và thêm vào bản đồ.<br/><br/> Hãy tham gia cùng chúng tôi để tôn vinh vẻ đẹp bị bỏ qua của các đường phố trong thành phố của chúng ta! Sử dụng trang web ẩn danh hoặc <a href="/users/sign_up?locale=en">đăng ký</a> để truy cập các tính năng bổ sung.
+        Falling Fruit là một bản đồ hợp tác đồ sộ về thu hoạch đô thị. Bằng cách hợp nhất nỗ lực của những người kiếm ăn, người chăn thả và người đi rừng ở khắp mọi nơi, bản đồ đã chỉ ra hơn nửa triệu nguồn thực phẩm trên khắp thế giới (từ thực vật và nấm đến giếng nước và thùng rác). Cộng đồng người dùng đang phát triển nhanh chóng của chúng tôi đang tích cực khám phá, chỉnh sửa và thêm vào bản đồ.<br/><br/>Hãy tham gia cùng chúng tôi để tôn vinh vẻ đẹp bị bỏ qua của các đường phố trong thành phố của chúng ta! Sử dụng trang web ẩn danh hoặc <a href="/users/sign_up?locale=en">đăng ký</a> để truy cập các tính năng bổ sung.
         <br/><br/>
-        <em>Quả Rơi không liên quan đến Quả Rơi. Fallen Fruit có thể được tìm thấy tại <a href="http://fallenfruit.org">Fallenfruit.org</a> .</em>
+        <em>Quả Rơi không liên quan đến Quả Rơi. Fallen Fruit có thể được tìm thấy tại <a href="http://fallenfruit.org">Fallenfruit.org</a>.</em>
       welcome_modal_title: Chào mừng bạn đến Falling Fruit!
     infowindow:
       access:
@@ -415,7 +415,7 @@ vi:
         kiếm thức ăn như một cách để giới thiệu cho các con nhỏ của mình về lối sống
         ngoài trời. Ông viết blog <a href="http://theurbaneforager.blogspot.com">Urbane
         Forager</a> và xuất bản cuốn sách <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
-        Forager: Fruit and Nuts For Free</a> . Anh ấy đã hợp pháp hóa việc tìm kiếm
+        Forager: Fruit and Nuts For Free</a>. Anh ấy đã hợp pháp hóa việc tìm kiếm
         thức ăn trong các công viên công cộng và thành lập một vườn cây ăn quả cộng
         đồng ở quê nhà, Southampton Vương quốc Anh.'
       ana_carolina_bio_html: Ana là nhà nghiên cứu sau tiến sĩ tại Đại học Liên bang
@@ -435,11 +435,10 @@ vi:
         <a href="https://www.nrel.gov/research/caleb-phillips.html">Phòng thí nghiệm
         năng lượng tái tạo quốc gia</a> ở Golden, Colorado và là giáo sư phụ trợ về
         khoa học máy tính tại <a href="https://www.colorado.edu/cs/caleb-phillips">Đại
-        học Colorado</a> . Ngoài tất cả những công việc đó, anh ấy thích leo núi,
-        chạy đường mòn, đi xe đạp và nói chung là ở ngoài trời nhiều nhất có thể.
-        Caleb đã thành lập Falling Fruit cùng với Ethan Welty vào năm 2013 và phục
-        vụ trong Hội đồng quản trị trong 6 năm trước khi đảm nhận vị trí trong Ban
-        cố vấn.
+        học Colorado</a>. Ngoài tất cả những công việc đó, anh ấy thích leo núi, chạy
+        đường mòn, đi xe đạp và nói chung là ở ngoài trời nhiều nhất có thể. Caleb
+        đã thành lập Falling Fruit cùng với Ethan Welty vào năm 2013 và phục vụ trong
+        Hội đồng quản trị trong 6 năm trước khi đảm nhận vị trí trong Ban cố vấn.
       celebration: Falling Fruit là một lễ kỷ niệm về nguồn tài nguyên ẩm thực bị
         bỏ qua trên các đường phố trong thành phố của chúng ta. Bằng cách định lượng
         tài nguyên này trên bản đồ tương tác, chúng tôi hy vọng sẽ tạo điều kiện kết
@@ -472,14 +471,13 @@ vi:
         cả mọi người trong việc cải thiện chất lượng của bản đồ.'
       contact_us_html: Falling Fruit được xây dựng bởi và dành cho những người hái
         lượm - chúng tôi muốn nó trở thành công cụ tốt nhất dành cho những người hái
-        lượm hiện đại. Hãy viết thư cho chúng tôi theo <a href="mailto:feedback@fallingfruit.org">địa
-        chỉfeedback@fallingfruit.org</a> , chúng tôi rất mong nhận được phản hồi từ
-        bạn!
+        lượm hiện đại. Hãy viết thư cho chúng tôi theo địa chỉ <a href="mailto:feedback@fallingfruit.org">feedback@fallingfruit.org</a>,
+        chúng tôi rất mong nhận được phản hồi từ bạn!
       craig_durkin_bio_html: Craig là người đồng sáng lập của <a href="http://www.concrete-jungle.org/">Concrete
-        Jungle</a> , một tổ chức ở Atlanta, Georgia chuyên trồng thực phẩm và hái
-        trái cây khắp thành phố để quyên góp cho các nhà tạm trú cho người vô gia
-        cư ở địa phương và ngân hàng thực phẩm. Là một sinh viên tốt nghiệp <a href="http://www.gatech.edu/">Georgia
-        Tech</a> , anh ấy luôn tìm cách kết hợp việc hái trái cây với các công nghệ
+        Jungle</a>, một tổ chức ở Atlanta, Georgia chuyên trồng thực phẩm và hái trái
+        cây khắp thành phố để quyên góp cho các nhà tạm trú cho người vô gia cư ở
+        địa phương và ngân hàng thực phẩm. Là một sinh viên tốt nghiệp <a href="http://www.gatech.edu/">Georgia
+        Tech</a>, anh ấy luôn tìm cách kết hợp việc hái trái cây với các công nghệ
         mới và sẽ sớm triển khai máy bay không người lái phát hiện cây ăn quả và cảm
         biến độ chín của trái cây trên Twitter...
       cristina_rubke_bio_html: Cristina là luật sư của <a href="//sflaw.com/Bios/Rubke-Cristina-N.htm">Shartsis
@@ -495,8 +493,7 @@ vi:
         Y Harvard</a> ở Boston, Massachusetts. Ông cũng là một người ham mê hái lượm
         và là tác giả của cuốn sách <a href="//www.amazon.com/Urban-Foraging-finding-eating-plants-ebook/dp/B003LSTEGO/">Tìm
         kiếm thức ăn trong đô thị: Tìm và ăn thực vật hoang dã trong thành phố</a>
-        ( <a href="/docs/David Craft - Urban Foraging.pdf">tải xuống miễn phí</a>
-        ).'
+        (<a href="/docs/David Craft - Urban Foraging.pdf">tải xuống miễn phí</a>).'
       directors: Ban giám đốc
       emily_sigman_bio_html: Emily là một nhà truyền giáo nhiệt huyết về nông lâm
         kết hợp, người kiếm ăn không thể sửa chữa và là người mẹ kiêu hãnh của hai
@@ -507,7 +504,7 @@ vi:
         góc thư viện ấm cúng nào đó hoặc viết thơ về sự kỳ diệu của sợi nấm (và được
         cho là đang hoàn thành bằng tốt nghiệp chung tại <a href="https://environment.yale.edu/">Trường
         Lâm nghiệp</a> Yale và <a href="https://jackson.yale.edu/person/emily-sigman/">Trường
-        Quan hệ Toàn cầu</a> ). Emily có một niềm đam mê du lịch khủng khiếp và có
+        Quan hệ Toàn cầu</a>). Emily có một niềm đam mê du lịch khủng khiếp và có
         thể ở bất cứ đâu vào lúc này.
       ethan_welty_bio_html: Với công nghệ và dữ liệu, Ethan coi các thành phố là nguồn
         cung cấp thực phẩm tươi sống và miễn phí. Anh ấy đã tạo ra Falling Fruit cùng
@@ -576,13 +573,13 @@ vi:
       beware_html: Nhưng hãy cẩn thận! Sau khi được giải nén, cơ sở dữ liệu là một
         tệp lớn có thể nghiền nát hầu hết các phần mềm bảng tính. Nếu bạn chỉ cần
         dữ liệu cho một khu vực nhỏ, trước tiên hãy thử truy xuất chúng bằng công
-        cụ tải xuống được tích hợp vào <a href="/?locale=en">bản đồ</a> .
+        cụ tải xuống được tích hợp vào <a href="/?locale=en">bản đồ</a>.
       caveat_emptor_html: Chúng tôi không chịu trách nhiệm về tính chính xác của dữ
-        liệu - dữ liệu được cung cấp nguyên trạng, <i>báo trước</i> . Nếu bạn làm
-        điều gì đó thú vị với dữ liệu, vui lòng <a href="mailto:feedback@fallingfruit.org">cho
-        chúng tôi biết</a> !
+        liệu - dữ liệu được cung cấp nguyên trạng, <i>báo trước</i>. Nếu bạn làm điều
+        gì đó thú vị với dữ liệu, vui lòng <a href="mailto:feedback@fallingfruit.org">cho
+        chúng tôi biết</a>!
       data_unavailable_html: Dữ liệu hiện không có sẵn. Hãy quay lại sau hoặc <a href="mailto:info@fallingfruit.org">liên
-        hệ với chúng tôi</a> .
+        hệ với chúng tôi</a>.
       intro: Falling Fruit được xây dựng trên dữ liệu công khai và sự hào phóng của
         người dùng. Chúng tôi muốn việc tìm kiếm thức ăn trong đô thị tiếp cận được
         càng nhiều người càng tốt và chúng tôi tin rằng mọi người đều phải có quyền
@@ -617,7 +614,7 @@ vi:
         biết về tập dữ liệu mà chúng tôi đã bỏ lỡ, vui lòng <a href="mailto:info@fallingfruit.org">cho
         chúng tôi biết</a> ! Bạn cũng có thể giúp chúng tôi trong quá trình nhập bằng
         cách định dạng dữ liệu bằng <a href="https://docs.google.com/spreadsheet/ccc?key=0AiHNFwLuWHvtdGVPamU2M0FZNFhpVTVSNXUtN3ZjRmc&usp=sharing">mẫu
-        nhập</a> . Lưu ý rằng vì quá trình nhập phải được thực hiện thủ công nên tất
+        nhập</a>. Lưu ý rằng vì quá trình nhập phải được thực hiện thủ công nên tất
         cả các thay đổi đối với dữ liệu gốc được thực hiện sau khi nhập sẽ không được
         phản ánh trên Falling Fruit.
       no_license: Không có giấy phép nào được chỉ định, giả sử <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
@@ -654,7 +651,7 @@ vi:
         góp). Các tổ chức được liệt kê theo quốc gia, tiểu bang (nếu có) và thành
         phố. Những người có tên bị gạch bỏ được cho là không hoạt động. Nếu bạn biết
         những người khác nên có trong danh sách này, <a href="mailto:info@fallingfruit.org">hãy
-        liên hệ với chúng tôi</a> !
+        liên hệ với chúng tôi</a>!
   problems:
     created: Cảm ơn bạn đã báo cáo vấn đề!
     description_subtext: Bất kỳ thông tin nào có thể giúp chúng tôi đánh giá vấn đề
@@ -705,7 +702,7 @@ vi:
     mailer:
       confirmation_instructions_html: |-
         <p>Chào mừng đến Falling Fruit,</p>
-        <p> Để kích hoạt tài khoản của bạn, bạn phải xác nhận email của mình ( %{email} ) bằng cách truy cập vào liên kết bên dưới:
+        <p> Để kích hoạt tài khoản của bạn, bạn phải xác nhận email của mình (%{email}) bằng cách truy cập vào liên kết bên dưới:
         <br/> %{link}</p>
         <p> Falling Fruit được cung cấp bởi người dùng, vì vậy nếu bạn có cơ hội bổ sung hoặc cải thiện nó, vui lòng làm như vậy. Hái lượm vui vẻ nhé!</p>
       reset_password_instructions_html: |-
