@@ -42,9 +42,8 @@ var geocoder = new google.maps.Geocoder();
 
 // ================= infowindow =================
 
-var infowindow = new google.maps.InfoWindow();
+var infowindow = new google.maps.InfoWindow({headerDisabled: true});
 infowindow.marker = false;
-var infowindowHeaderHeight = null;
 
 function close_infowindow() {
   infowindow.close();
@@ -642,7 +641,7 @@ function open_tab_3() {
     var starting_height = $('#tab-1').height();
   }
   var previous_height = $('#tab-3').height()
-  var new_height = Math.max(starting_height, Math.min(400, 0.75 * $('#map').height() - infowindowHeaderHeight));
+  var new_height = Math.max(starting_height, Math.min(400, 0.75 * $('#map').height()));
   $('#tab-3').height(new_height);
   open_infowindow();
   if (pano_tab == null || !pano_tab.visible) {
@@ -656,20 +655,16 @@ function open_tab_3() {
 // Tab 2 (reviews) tries to get as close as possible to its content height.
 // Tab 3 (street view) requires a minimum height to be useful.
 function setup_tabs(callback) {
-  p = $('#location_infowindow');
-  infowindowHeaderHeight = p.children('.ui-tabs-nav').outerHeight(true);
-  var max_height = 0.75 * $('#map').height() - infowindowHeaderHeight;
+  const p = $('#location_infowindow');
+  var max_height = 0.75 * $('#map').height();
   if (max_height < $('#tab-1').height()) {
     $('#tab-1').height(max_height);
   }
   $('#tab-2').height(Math.min(max_height, Math.max($('#tab-1').height(), $('#tab-2').height())));
-  var current_width = p.parent().width();
+  const current_width = p.parent().width();
   $('#tab-1').width(current_width);
   $('#tab-2').width(current_width);
   $('#tab-3').width(current_width);
-  // HACK: Force Google to recalculate infowindow size.
-  $('#tab-1').height($('#tab-1').height() + 1);
-  $('.gm-style-iw').height($('#location_infowindow').height());
   infowindow.setContent(infowindow.content);
 }
 
@@ -704,9 +699,10 @@ function add_marker_infowindow(i) {
     google.maps.event.addListener(marker,'click',function() {
       pano_tab = null;
       if (marker == infowindow.marker) {
-        return true;
+        close_infowindow();
+      } else {
+        open_marker(marker);
       }
-      open_marker(marker);
     });
   }
 }
