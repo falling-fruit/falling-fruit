@@ -655,13 +655,13 @@ function open_tab_3() {
 // Tab 2 (reviews) tries to get as close as possible to its content height.
 // Tab 3 (street view) requires a minimum height to be useful.
 function setup_tabs(callback) {
-  const p = $('#location_infowindow');
+  var p = $('#location_infowindow');
   var max_height = 0.75 * $('#map').height();
   if (max_height < $('#tab-1').height()) {
     $('#tab-1').height(max_height);
   }
   $('#tab-2').height(Math.min(max_height, Math.max($('#tab-1').height(), $('#tab-2').height())));
-  const current_width = p.parent().width();
+  var current_width = p.parent().width();
   $('#tab-1').width(current_width);
   $('#tab-2').width(current_width);
   $('#tab-3').width(current_width);
