@@ -206,11 +206,11 @@ es:
         se destacan como pendiente hasta que sean agregados a la taxonomía o fusionados
         con un tipo existente. Algunos tipos propuestos son tan únicos o ambiguos
         que persisten como no aprobado de forma indefinida.
-      unverified_help: Las fuentes se marcan como no verificadas si su identidad, ubicación
-        o existencia está disputada. Muchas fuentes importadas de inventarios de árboles
-        se marcan como no verificadas porque no hay certeza de si son comestibles (por ejemplo,
-        "pera" podría ser una variedad comestible o decorativa). Los usuarios están
-        invitados a visitar estos lugares y reportar sus hallazgos.
+      unverified_help: Las fuentes se marcan como no verificadas si su identidad,
+        ubicación o existencia está disputada. Muchas fuentes importadas de inventarios
+        de árboles se marcan como no verificadas porque no hay certeza de si son comestibles
+        (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los
+        usuarios están invitados a visitar estos lugares y reportar sus hallazgos.
       unverified_help_title: "¿Por qué no verificada?"
   locations:
     form:
@@ -513,7 +513,11 @@ es:
         Fruit se puede encontrar en <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Pagar vía Gratipay
       give_paypal: Donar vía Paypal Giving Fund
-      give_us_money:  Somos una organización de voluntarios, sin fines de lucro y exenta de impuestos, y nos basamos en donaciones de nuestros usuarios para operar. Si usted está dispuesto y capaz, por favor considere hacer una contribución financiera. Las donaciones dentro de los Estados Unidos son deducibles de impuestos.
+      give_us_money: Somos una organización de voluntarios, sin fines de lucro y exenta
+        de impuestos, y nos basamos en donaciones de nuestros usuarios para operar.
+        Si usted está dispuesto y capaz, por favor considere hacer una contribución
+        financiera. Las donaciones dentro de los Estados Unidos son deducibles de
+        impuestos.
       jeff_wanner_bio_html: Desde la cosecha de negro y arándanos con la familia cuando
         era niño y, más recientemente, al notar la gran cantidad de árboles frutales
         públicos en todo Colorado, Jeff ha desarrollado un profundo aprecio por la
@@ -547,7 +551,9 @@ es:
         en los barrios puede ser un viaje a través del tiempo y de distintas culturas.
       staff: Personal
       translate: Traducir
-        translate_for_us_html: ¿Está interesado en ser voluntario como traductor? Envíenos un correo electrónico y le invitaremos a unirse a nosotros en <a href="https://phrase.com">Phrase</a>, donde se gestionan nuestras traducciones.
+      translate_for_us_html: ¿Está interesado en ser voluntario como traductor? Envíenos
+        un correo electrónico y le invitaremos a unirse a nosotros en <a href="https://phrase.com">Phrase</a>,
+        donde se gestionan nuestras traducciones.
       translators: Traductores
       tristram_stuart_bio_html: 'De adolescente, Tristram criaba cerdos con las sobras
         de comida que recogía de los comedores escolares, del panadero local y de
