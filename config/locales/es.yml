@@ -20,9 +20,9 @@ es:
       already_authenticated: Ya has iniciado sesión.
       inactive: Tu cuenta aún no ha sido activada.
       invalid: Email o contraseña no válidos.
-      invalid_token: Cadena de autenticación invalida.
+      invalid_token: Cadena de autenticación inválida.
       locked: Tu cuenta está bloqueada.
-      not_approved: Su cuenta aún no ha sido aprobado por un administrador.
+      not_approved: Tu cuenta aún no ha sido aprobada por un administrador.
       timeout: Tu sesión expiró. Por favor, inicia sesión nuevamente para continuar.
       unauthenticated: Tienes que iniciar sesión o registrarte para poder continuar.
       unconfirmed: Tienes que confirmar tu cuenta para poder continuar.
@@ -62,7 +62,7 @@ es:
       update_needs_confirmation: Has actualizado tu cuenta correctamente, pero es
         necesario confirmar tu nuevo correo electrónico. Por favor, comprueba tu correo
         y sigue el enlace de confirmación para finalizar la comprobación del nuevo
-        correo eletrónico.
+        correo electrónico.
     sessions:
       signed_in: Sesión iniciada.
       signed_out: Sesión finalizada.
@@ -137,7 +137,7 @@ es:
       other: Enlaces
     locations:
       one: Ubicación
-      other: Ubicaciónes
+      other: Ubicaciones
     login: Iniciar sesión
     logout: Salir
     map: Mapa
@@ -146,7 +146,7 @@ es:
     new_zealand: Nueva Zelanda
     options: Opciones
     password: Contraseña
-    pending_types: Tipos pendiente
+    pending_types: Tipos pendientes
     photo: Foto
     portugal: Portugal
     position: Posición
@@ -206,11 +206,11 @@ es:
         se destacan como pendiente hasta que sean agregados a la taxonomía o fusionados
         con un tipo existente. Algunos tipos propuestos son tan únicos o ambiguos
         que persisten como no aprobado de forma indefinida.
-      unverified_help: Las fuentes se marcan como no verificada si su identidad, ubicación
-        o existencia es disputado. Muchas fuentes importadas de inventarios de árboles
-        se marcan como no verificada porque su comestibilidad es incierta (por ejemplo,
-        "pera" podría ser una variedad comestible o decorativa). Los usuarios están
-        invitados a viajar a estos lugares y reportar sus hallazgos.
+      unverified_help: Las fuentes se marcan como no verificadas si su identidad,
+        ubicación o existencia está disputada. Muchas fuentes importadas de inventarios
+        de árboles se marcan como no verificadas porque no hay certeza de si son comestibles
+        (por ejemplo, "pera" podría ser una variedad comestible o decorativa). Los
+        usuarios están invitados a visitar estos lugares y reportar sus hallazgos.
       unverified_help_title: "¿Por qué no verificada?"
   locations:
     form:
@@ -246,7 +246,7 @@ es:
         o un marcador que ha colocado. Ajuste la ubicación moviendo el marcador del
         mapa.
       quality_subtext: Valorar la sabrosura de esta fuente (si es aplicable)
-      season_subtext: "¿Cuando se puede cosechar la fuente? Dejar en blanco si no
+      season_subtext: "¿Cuándo se puede cosechar la fuente? Dejar en blanco si no
         sabe."
       types_subtext: Elija de la lista desplegable, la presentación de nuevos nombres
         sólo si no existen ya las decisiones adecuadas.
@@ -351,8 +351,8 @@ es:
       created: Se añadió lugar
       geocode_failed: Su búsqueda ha fallado
       latitude_too_large: No apoyamos las latitudes más allá de ± 85 grados.
-      not_created: El lugar no podía ser añadido
-      not_updated: El lugar no podría ser actualizado
+      not_created: El lugar no pudo ser añadido
+      not_updated: El lugar no pudo ser actualizado
       updated: El lugar se actualiza
     searchbar:
       embed_hover: Código de inserción
@@ -431,7 +431,7 @@ es:
         Food Rescue</a> en Boulder, Colorado. Aparte de su aspecto laboral, a Caleb
         le gusta escalar rocas, correr por senderos de montaña, montar en bici y en
         general disfrutar al máximo de la naturaleza. '
-      celebration: Falling Fruit es una celebración del ignorado botin culinario de
+      celebration: Falling Fruit es una celebración del ignorado botín culinario de
         las calles de nuestra ciudad. Cuantificando este recurso en un mapa interactivo,
         esperamos facilitar la conección entre la gente, comida, y los organismos
         naturales comiendo en nuestros barrios.  No solo un almuerzo gratis! Forrajear
@@ -513,10 +513,11 @@ es:
         Fruit se puede encontrar en <a href="http://fallenfruit.org">fallenfruit.org</a>.
       give_gratipay: Pagar vía Gratipay
       give_paypal: Donar vía Paypal Giving Fund
-      give_us_money: Somos una de voluntarios, sin fines de lucro y exenta de impuestos,
-        y se basan en donaciones de nuestros usuarios para operar. Si usted está dispuesto
-        y capaz, por favor considere hacer una contribución financiera. Donaciones
-        dentro de los Estados Unidos son deducibles de impuestos.
+      give_us_money: Somos una organización de voluntarios, sin fines de lucro y exenta
+        de impuestos, y nos basamos en donaciones de nuestros usuarios para operar.
+        Si usted está dispuesto y capaz, por favor considere hacer una contribución
+        financiera. Las donaciones dentro de los Estados Unidos son deducibles de
+        impuestos.
       jeff_wanner_bio_html: Desde la cosecha de negro y arándanos con la familia cuando
         era niño y, más recientemente, al notar la gran cantidad de árboles frutales
         públicos en todo Colorado, Jeff ha desarrollado un profundo aprecio por la
@@ -550,8 +551,8 @@ es:
         en los barrios puede ser un viaje a través del tiempo y de distintas culturas.
       staff: Personal
       translate: Traducir
-      translate_for_us_html: Interesado en ser voluntario como traductor? Envíenos
-        un correo electrónico y le invitamos a unirse a nosotros en <a href="https://phrase.com">Phrase</a>,
+      translate_for_us_html: ¿Está interesado en ser voluntario como traductor? Envíenos
+        un correo electrónico y le invitaremos a unirse a nosotros en <a href="https://phrase.com">Phrase</a>,
         donde se gestionan nuestras traducciones.
       translators: Traductores
       tristram_stuart_bio_html: 'De adolescente, Tristram criaba cerdos con las sobras
@@ -664,13 +665,13 @@ es:
       recaptcha_unreachable: No podemos verificar el reCAPTCHA en este momento
       verification_failed: La verificación de reCAPTCHA falló
   routes:
-    denied: Tú no tiene permiso para ver esa ruta
+    denied: Tú no tienes permiso para ver esa ruta
     modes_of_travel:
     - Caminar
     - Bicicleta
     - Conducir
     mode_of_travel: Modo de viajar
-    order_not_updated: El orden no podría ser actualizado
+    order_not_updated: El orden no pudo ser actualizado
     order_updated: El orden fue actualizado
     updated: Ruta se actualiza
   time:
@@ -691,7 +692,7 @@ es:
     clear_map: Borrar el mapa
     confirm_account: Confirmar mi cuenta
     current_password: Contraseña actual
-    current_password_subtext: Necessario para actualizar su cuenta
+    current_password_subtext: Necesario para actualizar su cuenta
     delete_account: Cancelar mi cuenta
     edit_account: Editar cuenta
     foraging_map_subtext: Usar la herramienta del polígono o rectángulo en el mapa
