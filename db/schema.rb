@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20240229142208) do
+ActiveRecord::Schema.define(:version => 20241211202028) do
 
   add_extension "postgis"
   add_extension "intarray"
@@ -153,9 +153,11 @@ ActiveRecord::Schema.define(:version => 20240229142208) do
   end
 
   create_table "refresh_tokens", :force => true do |t|
-    t.integer "user_id", :null => false
-    t.text    "jti",     :null => false
-    t.integer "exp",     :null => false
+    t.integer  "user_id",    :null => false
+    t.text     "jti",        :null => false
+    t.integer  "exp",        :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "routes", :force => true do |t|
