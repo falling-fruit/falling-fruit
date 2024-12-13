@@ -1,7 +1,7 @@
 ---
 tr:
   changes:
-    change_in_city: "%{type}%{city} içinde %{type}%{city}"
+    change_in_city: "%{type} içinde %{city}"
     recent_changes: Son değişiklikler
     type:
       added: katma
