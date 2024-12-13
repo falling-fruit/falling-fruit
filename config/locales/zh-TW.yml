@@ -1,7 +1,7 @@
 ---
 zh-TW:
   changes:
-    change_in_city: "％{type}在％{city}"
+    change_in_city: "%{type}在%{city}"
     recent_changes: 最近的變化
     type:
       added: 添加
@@ -31,8 +31,8 @@ zh-TW:
       unlock_instructions:
         subject: 解鎖說明
     omniauth_callbacks:
-      failure: 由於“％{reason}”，無法從％{kind}身份驗證您。
-      success: 已從％{kind}帳戶成功驗證。
+      failure: 由於“%{reason}”，無法從%{kind}身份驗證您。
+      success: 已從%{kind}帳戶成功驗證。
     passwords:
       no_token: 您不能訪問此頁面而不從密碼重設電子郵件。如果您從密碼重設電子郵件中確認，請確保您使用了提供的完整網址。
       send_instructions: 您將收到一封電子郵件，說明如何在幾分鐘內重置密碼。
@@ -57,20 +57,20 @@ zh-TW:
       unlocked: 您的帳戶已成功解鎖。請登錄以繼續。
   errors:
     messages:
-      after: 必須在％{限制}之後
+      after: 必須在%{限制}之後
       already_confirmed: 已經確認，請嘗試登錄
-      before: 必須在％{restriction}之前
+      before: 必須在%{restriction}之前
       expired: 已經過期，請要求一個新的
       invalid_date: 不是有效的日期
       invalid_datetime: 不是有效的日期時間
       invalid_time: 不是有效的時間
-      is_at: 必須在％{restriction}
+      is_at: 必須在%{restriction}
       not_found: 未找到
       not_locked: 沒有鎖定
       not_saved:
-        other: "％{count}個錯誤禁止此％{resource}被保存："
-      on_or_after: 必須在％{restriction}之後
-      on_or_before: 必須在％{restriction}之前或之前
+        other: "%{count}個錯誤禁止此%{resource}被保存："
+      on_or_after: 必須在%{restriction}之後
+      on_or_before: 必須在%{restriction}之前或之前
   glossary:
     about: 關於
     access: 訪問
@@ -82,7 +82,7 @@ zh-TW:
     are_you_sure: 你確定？
     australia: 澳大利亞
     belgium: 比利時
-    by_author: 由％{author}
+    by_author: 由%{author}
     canada: 加拿大
     chile: 智利
     common_name: 通用名稱
@@ -225,10 +225,10 @@ zh-TW:
         href="http://guerrillagrafters.org">guerrillagrafters.org</a>了解有關該項目的更多信息</a>
         <br/>該地圖顯示了一些最常見的觀賞果樹。如果你是一個嫁妝者，一個園丁，或一個果樹愛好者，貢獻信息公共和標記您的院子里或附近的可以嫁接果枝的樹木！
       grafter_modal_title: 歡迎光臨我們的地圖！
-      mobile_modal_html: "你好！看起來您正在從<strong>移動設備訪問Falling Fruit </strong>。我們最近為Android和iOS移動平台發布了眾多的移動應用。我想你會發現在移動設備上使用更加愉快：\n
-        <br> <br> \n <ul> \n <li> <a href =\"https://itunes.apple .com/us/app/falling-fruit/id380859409\">
-        iOS下落水果</a> \n <li> <a href =\"https://play.google.com/store/apps/details?id
-        = uh.fallingfruit.app\"> Android的下降水果</a> \n </ul> \n <br> \n應用程序銷售收益的100％用於支持我們的硬性成本（服務器和基礎架構保持網站在線）。我們是一家501（c）3的非營利組織，所以這筆費用也可以在美國免稅。"
+      mobile_modal_html: "你好！看起來您正在從<strong>移動設備訪問Falling Fruit</strong>。我們最近為Android和iOS移動平台發布了眾多的移動應用。我想你會發現在移動設備上使用更加愉快：\n<br><br>\n<ul>\n<li>
+        <a href=\"https://itunes.apple .com/us/app/falling-fruit/id380859409\">iOS下落水果</a>\n<li>
+        <a href=\"https://play.google.com/store/apps/details?id=uh.fallingfruit.app\">
+        Android的下降水果</a> \n</ul> \n<br> \n應用程序銷售收益的100%用於支持我們的硬性成本（服務器和基礎架構保持網站在線）。我們是一家501（c）3的非營利組織，所以這筆費用也可以在美國免稅。"
       mobile_modal_title: 但等等，有一個移動應用程序！
       turn_off_dragzoom: 關閉拖動縮放模式
       turn_on_dragzoom: 打開拖動縮放模式
@@ -361,7 +361,7 @@ zh-TW:
         href="https://github.com/falling-fruit/">代碼</a>是開源的。同樣鼓勵你與你的同胞分享賞金。我們的<a href="/sharing?locale=zh-TW">共享頁面</a>列出了數百個當地組織
         - 種植公共果園和食用森林，從城市樹木和農民田間挑選其他浪費的水果和蔬菜，並分享與鄰居和有需要的人。
       more_about_html: 我們的可食用地圖不是第一個，但它渴望成為世界上最全面的地圖。當我們的用戶貢獻自己的位置時，我們將互聯網融合到先前存在的知識之中，力求團結各地的牧民，林業人員和無償運動人員的努力。
-        <a href="/datasets?locale=zh-TW">導入的數據集</a>的範圍從小的鄰居覓食地圖到廣泛的專業編制的樹庫存。到目前為止，這種類型分佈在％{locations}個位置上的不同類型的食物（大多數但不是全部）植物物種。除了種植和常見的外來植物和長期被遺忘的本地植物的外來風味外，狩獵在你的社區是一個時間和文化的旅程。
+        <a href="/datasets?locale=zh-TW">導入的數據集</a>的範圍從小的鄰居覓食地圖到廣泛的專業編制的樹庫存。到目前為止，這種類型分佈在%{locations}個位置上的不同類型的食物（大多數但不是全部）植物物種。除了種植和常見的外來植物和長期被遺忘的本地植物的外來風味外，狩獵在你的社區是一個時間和文化的旅程。
       staff: 員工
       translate: 翻譯
       translate_for_us_html: 對志願者作為翻譯有興趣嗎？給我們發電子郵件，我們將邀請您加入我們的<a href="https://phrase.com">Phrase</a>，我們的翻譯管理。
@@ -382,7 +382,7 @@ zh-TW:
         CC BY-NC-SA </a>（Creative共同體 - 歸因，非商業性，股份類）。這意味著您可以自由使用和分發數據，只要您保留原始作者/源代碼，並且不得將其（未經許可）用於商業應用程序。
         Falling Fruit的源代碼也是開放的，可在<a href="https://github.com/falling-fruit/"> GitHub
         </a>上使用。
-      summary_description: 數據庫目前包含％{types}不同類型的食品（大多數但不是全部是植物物種）分佈在％{locations}位置。對於每種類型，下表列出了通用名稱，科學名稱，外部引用的鏈接和總計數。
+      summary_description: 數據庫目前包含%{types}不同類型的食品（大多數但不是全部是植物物種）分佈在%{locations}位置。對於每種類型，下表列出了通用名稱，科學名稱，外部引用的鏈接和總計數。
       summary_of_sources: 資料匯總
     datasets:
       community_map: 社區地圖
@@ -429,13 +429,13 @@ zh-TW:
     updated: 路線已更新
   time:
     days:
-      other: "％{count}天"
+      other: "%{count}天"
     last_24_hours: 過去24小時
     months:
-      other: "％{count}個月"
+      other: "%{count}個月"
     this_month: 這個月
     this_week: 本星期
-    time_ago: "％{過去"
+    time_ago: "%{time}前"
   users:
     address_subtext: 您的覓食範圍的中心（例如您的住家地址）
     bio: 關於你
@@ -452,12 +452,12 @@ zh-TW:
     foraging_range: 覓食範圍
     forgot_password: 重置你的密碼
     mailer:
-      confirmation_instructions_html: "<p>歡迎來到Falling Fruit,</p> \n <p>要激活您的帳戶，您必須通過訪問以下鏈接確認您的電子郵件（％{email}）：\n
-        <br/>％{link}</p>\n<p>Falling Fruit由用戶提供支持，因此如果您有機會添加或改進它，請執行此操作。快樂覓食！</ p>"
-      reset_password_instructions_html: "<p> Hello％{email}，</ p> \n <p>有人（很可能您）要求鏈接更改密碼：\n
-        <br/>％{link} </p>\n<p>如果您沒有請求，可以忽略此電子郵件。您的密碼將不會更改，除非您訪問上面的鏈接並創建新的鏈接。</p>"
-      unlock_instructions_html: "<p> Hello％{email} </p> \n <p>由於登錄嘗試次數過多，您的帳戶已被鎖定：\n
-        <br/>％{link} </p>"
+      confirmation_instructions_html: "<p>歡迎來到Falling Fruit,</p> \n <p>要激活您的帳戶，您必須通過訪問以下鏈接確認您的電子郵件（%{email}）：\n
+        <br/>%{link}</p>\n<p>Falling Fruit由用戶提供支持，因此如果您有機會添加或改進它，請執行此操作。快樂覓食！</ p>"
+      reset_password_instructions_html: "<p> Hello%{email}，</ p> \n <p>有人（很可能您）要求鏈接更改密碼：\n
+        <br/>%{link} </p>\n<p>如果您沒有請求，可以忽略此電子郵件。您的密碼將不會更改，除非您訪問上面的鏈接並創建新的鏈接。</p>"
+      unlock_instructions_html: "<p> Hello%{email} </p> \n <p>由於登錄嘗試次數過多，您的帳戶已被鎖定：\n
+        <br/>%{link} </p>"
     new_password: 新密碼
     options:
       add_anonymously: 匿名編輯地圖（即使登錄時）
@@ -470,11 +470,11 @@ zh-TW:
     resend_unlock_instructions: 重新發送解鎖指令
     send_password_instructions: 發送密碼重置說明
     sign_in: 簽到
-    sign_in_with: 使用％{provider}登錄
+    sign_in_with: 使用%{provider}登錄
     type_it_twice: 輸入兩次確認
     unlock_account: 解鎖我的帳戶
   validates_timeliness:
     error_value_formats:
-      date: "％Y-％間 - ％d個"
-      datetime: "％Y-％m-％d％H：％M：％S"
-      time: "％H：％M：％S"
+      date: "%Y-%間 - %d個"
+      datetime: "%Y-%m-%d%H：%M：%S"
+      time: "%H：%M：%S"
