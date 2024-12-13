@@ -97,10 +97,12 @@ pl:
     are_you_sure: Czy na pewno?
     australia: Australia
     belgium: Belgia
+    brazil: Brazylia
     by_author: według %{author}
     canada: Kanada
     chile: Chile
     common_name: Nazwa zwyczajowa
+    czechia: Czechy
     data: Dane
     delete: Usuń
     description: Opis
@@ -281,12 +283,12 @@ pl:
         tym szczepom. Więcej informacji na temat projektu można znaleźć na stronie
         <a href="http://guerrillagrafters.org">guerrillagrafters.org</a><br/><br/>Mapa
         ta pokazuje niektóre z najczęściej spotykanych ozdobnych drzew owocowych.
-        Jeśli jesteś grafficiarzem, ogrodnikiem lub entuzjastą drzew owocowych, wnieś
-        swój wkład w kampanię informacyjną i oznacz drzewa na swoim podwórku lub w
-        okolicy, które mogą być szczepione gałęziami owocowymi!
+        Jeśli umiesz szczepić, jesteś ogrodnikiem, lub entuzjastą drzew owocowych,
+        wnieś swój wkład w kampanię informacyjną i oznacz drzewa na swoim podwórku
+        lub w okolicy, które mogą być szczepione gałęziami owocowymi!
       grafter_modal_title: Witamy na naszej mapie roślinnych grabieżców!
       mobile_modal_html: |-
-        Witam! Wygląda na to, że masz dostęp do Falling Fruit z telefonu <strong>komórkowego</strong>. Niedawno opublikowaliśmy aplikację mobilną na platformy mobilne Android i iOS. Myślę, że jest o wiele przyjemniejszy w użyciu na urządzeniu mobilnym:
+        Witam! Wygląda na to, że masz dostęp do Falling Fruit z telefonu <strong>komórkowego</strong>. Niedawno opublikowaliśmy aplikację mobilną na platformy mobilne Android i iOS. Myślę, że jest o wiele przyjemniejsza w użyciu na urządzeniu mobilnym:
         <br><br>
         <ul>
         F</ul></br></br>alling Fruit<br><br><ul><li><a href="https://itunes.apple.com/us/app/falling-fruit/id380859409">na iOS</a>
@@ -295,8 +297,8 @@ pl:
         <br>
         100% wpływów ze sprzedaży aplikacji idzie na wsparcie naszych twardych kosztów (serwery i infrastruktura do utrzymania witryny online). Jesteśmy organizacją non-profit 501(c)3, więc koszt ten jest również odliczany od podatku w USA.</br></br></br>
       mobile_modal_title: Hej, poczekaj, mamy dla Ciebie aplikację na telefon!
-      turn_off_dragzoom: Wyłączyć tryb powiększenia metodą "przeciągnij i upuść
-      turn_on_dragzoom: Włączyć tryb powiększenia metodą "przeciągnij i upuść
+      turn_off_dragzoom: Wyłączyć tryb powiększenia metodą "przeciągnij i upuść"
+      turn_on_dragzoom: Włączyć tryb powiększenia metodą "przeciągnij i upuść"
       welcome_modal_html: Falling fruit (spadające owoce) to tworzona przez społeczność
         na całym świecie mapa do zbiorów w mieście. Jednocząc wysiłki miejskich zbieraczy
         i odkrywców roślin jadalnych w mieście, leśników i freegan, mapa ta wskazuje
@@ -413,22 +415,22 @@ pl:
     about:
       about_the_site: O stronie
       advisors: O nas (doradcy)
-      alan_gibson_bio_html: 'Alan zawsze lubił przygody i odkrywanie. Zaczął żerować
-        jako sposób na wprowadzenie swoich małych dzieci w styl życia na świeżym powietrzu.
-        Pisze <a href="http://theurbaneforager.blogspot.com">Urbane Forager</a> blog
-        i publikuje <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
+      alan_gibson_bio_html: 'Alan zawsze lubił przygody i odkrywanie. Zaczął zajmować
+        się zbieractwem jako sposób na wprowadzenie swoich małych dzieci w styl życia
+        na świeżym powietrzu. Pisze <a href="http://theurbaneforager.blogspot.com">Urbane
+        Forager</a> blog i publikuje <a href="https://www.amazon.co.uk/Urbane-Forager-Fruit-Nuts-Free/dp/1785073001">Urbane
         Forager: Fruit and Nuts For Free</a> book. Uprawnił żerowanie w parkach publicznych
         i założył gminny sad w swoim rodzinnym mieście, Southampton UK.'
-      ana_carolina_bio_html: Ana jest podoktorantką na Federalnym Uniwersytecie Para
-        w Brazylii. Jest antropologiem zainteresowanym zrozumieniem społecznych i
-        kulturowych nawyków żywieniowych. Ana pracowała głównie w brazylijskiej Amazonii.
-        W Acre (zachodnia Amazonia) studiowała regionalną konsumpcję owoców. Następnie
-        pracowała w środkowym regionie Solimões, badając zmiany w diecie w odległych
-        społecznościach. Między 2017 i 2018, Ana mieszkała w małych i średnich miastach
-        w Delcie Amazonki, patrząc na wpływ zmian klimatu na bezpieczeństwo żywnościowe
-        ludzi mieszkających w nieformalnych osiedlach. Niedawno przeprowadziła się
-        do południowego Nowego Meksyku w Stanach Zjednoczonych, gdzie pracuje jako
-        konsultant.
+      ana_carolina_bio_html: Ana jest pracowniczką naukową na Federalnym Uniwersytecie
+        Para w Brazylii. Jest antropolożką zainteresowaną zrozumieniem społecznych
+        i kulturowych nawyków żywieniowych. Ana pracowała głównie w brazylijskiej
+        Amazonii. W Acre (zachodnia Amazonia) studiowała regionalną konsumpcję owoców.
+        Następnie pracowała w środkowym regionie Solimões, badając zmiany w diecie
+        w odległych społecznościach. Między 2017 i 2018, Ana mieszkała w małych i
+        średnich miastach w Delcie Amazonki, patrząc na wpływ zmian klimatu na bezpieczeństwo
+        żywnościowe ludzi mieszkających w nieformalnych osiedlach. Niedawno przeprowadziła
+        się do południowego Nowego Meksyku w Stanach Zjednoczonych, gdzie pracuje
+        jako konsultantka.
       caleb_phillips_bio_html: Caleb jest bezpiórkowym, dwunożnym humanoidalnym pasjonatem
         sprawiedliwości żywieniowej i znajdowania kreatywnych sposobów na wykorzystanie
         technologii do rozwiązywania problemów społecznych. Kiedy nie jeździ na rowerze
@@ -644,7 +646,7 @@ pl:
         out są uważane za nieaktywne. Jeśli znasz inne, które powinny być na tej liście,
         <a href="mailto:info@fallingfruit.org">skontaktuj się z nami</a> !
   problems:
-    created: Dziękuję za zgłoszenie problemu!
+    created: Dziękujemy za zgłoszenie problemu!
     description_subtext: Wszelkie informacje, które mogą pomóc nam w ocenie problemu
     problem_type: Typ problemu
     your_contact_info: Twoje dane kontaktowe
