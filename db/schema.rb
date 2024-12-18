@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(:version => 20241211202028) do
     t.string   "zh_tw_name"
     t.string   "ar_name"
     t.string   "sk_name"
-    t.string   "vi_name"
+    t.text     "vi_name"
   end
 
   create_table "users", :force => true do |t|

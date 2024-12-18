@@ -64,9 +64,9 @@ CREATE FUNCTION public.add_observation_photo() RETURNS trigger
           NEW.id,
           NEW.user_id,
           1,
-          'https://s3.us-west-2.amazonaws.com/ff-production/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/thumb/' || NEW.photo_file_name,
-          'https://s3.us-west-2.amazonaws.com/ff-production/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/medium/' || NEW.photo_file_name,
-          'https://s3.us-west-2.amazonaws.com/ff-production/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/original/' || NEW.photo_file_name
+          'https://ff-production.s3.us-west-2.amazonaws.com/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/thumb/' || NEW.photo_file_name,
+          'https://ff-production.s3.us-west-2.amazonaws.com/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/medium/' || NEW.photo_file_name,
+          'https://ff-production.s3.us-west-2.amazonaws.com/observations/photos/' || substring(lpad(NEW.id::text, 9, '0') from 1 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 4 for 3) || '/' || substring(lpad(NEW.id::text, 9, '0') from 7 for 3) || '/original/' || NEW.photo_file_name
         );
         RETURN NEW;
       END;
@@ -569,7 +569,9 @@ CREATE TABLE public.refresh_tokens (
     id integer NOT NULL,
     user_id integer NOT NULL,
     jti text NOT NULL,
-    exp integer NOT NULL
+    exp integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -708,7 +710,8 @@ CREATE TABLE public.types (
     nl_name character varying(255) DEFAULT NULL::character varying,
     zh_tw_name character varying(255) DEFAULT NULL::character varying,
     ar_name character varying(255) DEFAULT NULL::character varying,
-    sk_name character varying(255) DEFAULT NULL::character varying
+    sk_name character varying(255) DEFAULT NULL::character varying,
+    vi_name text
 );
 
 
@@ -770,7 +773,7 @@ CREATE TABLE public.users (
     location public.geography(Point,4326),
     roles text[] GENERATED ALWAYS AS (
 CASE
-    WHEN ((roles_mask & ('0001'::"bit")::integer) > 0) THEN ARRAY['admin'::text]
+    WHEN ((roles_mask & ('0001'::"bit")::integer) > 0) THEN ARRAY['user'::text, 'admin'::text]
     ELSE ARRAY['user'::text]
 END) STORED NOT NULL
 );
@@ -1494,6 +1497,7 @@ COPY public.schema_migrations (version) FROM stdin;
 20230305115612
 20230305201225
 20230305201521
+20230305202032
 20230305202357
 20230305203436
 20230305203802
@@ -1504,7 +1508,9 @@ COPY public.schema_migrations (version) FROM stdin;
 20230305205334
 20230305210534
 20230305210917
-20230305202032
+20240229142208
+20240703090432
+20241211202028
 \.
 
 
