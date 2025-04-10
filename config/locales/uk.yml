@@ -1,5 +1,5 @@
 ---
-uk-UA:
+uk:
   changes:
     change_in_city: "%{type} у %{city}"
     recent_changes: Останні зміни

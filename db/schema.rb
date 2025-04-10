@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20241211202028) do
+ActiveRecord::Schema.define(:version => 20250410073503) do
 
   add_extension "postgis"
   add_extension "intarray"
@@ -199,7 +199,6 @@ ActiveRecord::Schema.define(:version => 20241211202028) do
     t.string   "pl_name"
     t.integer  "category_mask",       :default => 1
     t.string   "fr_name"
-    t.string   "pt_br_name"
     t.string   "de_name"
     t.boolean  "pending",             :default => true
     t.string   "it_name"
@@ -207,10 +206,13 @@ ActiveRecord::Schema.define(:version => 20241211202028) do
     t.string   "sv_name"
     t.string   "tr_name"
     t.string   "nl_name"
-    t.string   "zh_tw_name"
     t.string   "ar_name"
     t.string   "sk_name"
     t.text     "vi_name"
+    t.text     "pt_name"
+    t.text     "zh_hant_name"
+    t.text     "zh_hans_name"
+    t.text     "uk_name"
   end
 
   create_table "users", :force => true do |t|

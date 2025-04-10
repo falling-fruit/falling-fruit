@@ -1,5 +1,5 @@
 ---
-pt-BR:
+pt:
   changes:
     change_in_city: "%{type} em %{city}"
     recent_changes: Mudanças recentes
@@ -541,7 +541,7 @@ pt-BR:
         mas aspira ser o mais abrangente. Enquanto nossos usuários contribuem com
         locais próprios, nós vasculhamos internet em busca do conhecimento que já
         está registrado, buscando unir os esforços de forrageiras, florestais e freegans
-        em todos os lugares. Os <a href="/datasets?locale=pt-br">conjuntos de dados
+        em todos os lugares. Os <a href="/datasets?locale=pt">conjuntos de dados
         importados</a> variam de pequenos mapas bairro de forrageamento para vastos
         estoques de árvores profissionalmente compilados. Isso equivale até agora
         para %{types} diferentes tipos de comestíveis (a maioria, mas não todas, as

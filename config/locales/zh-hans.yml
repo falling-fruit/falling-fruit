@@ -1,5 +1,5 @@
 ---
-zh-CN:
+zh-hans:
   changes:
     change_in_city: "%{type}在%{city}"
     recent_changes: 近期变动

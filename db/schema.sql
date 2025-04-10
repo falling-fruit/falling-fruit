@@ -700,7 +700,6 @@ CREATE TABLE public.types (
     pl_name character varying(255),
     category_mask integer DEFAULT 1,
     fr_name character varying(255),
-    pt_br_name character varying(255),
     de_name character varying(255),
     pending boolean DEFAULT true,
     it_name character varying(255) DEFAULT NULL::character varying,
@@ -708,10 +707,13 @@ CREATE TABLE public.types (
     sv_name character varying(255) DEFAULT NULL::character varying,
     tr_name character varying(255) DEFAULT NULL::character varying,
     nl_name character varying(255) DEFAULT NULL::character varying,
-    zh_tw_name character varying(255) DEFAULT NULL::character varying,
     ar_name character varying(255) DEFAULT NULL::character varying,
     sk_name character varying(255) DEFAULT NULL::character varying,
-    vi_name text
+    vi_name text,
+    pt_name text,
+    zh_hant_name text,
+    zh_hans_name text,
+    uk_name text
 );
 
 
@@ -1511,6 +1513,10 @@ COPY public.schema_migrations (version) FROM stdin;
 20240229142208
 20240703090432
 20241211202028
+20250410072058
+20250410072400
+20250410073355
+20250410073503
 \.
 
 

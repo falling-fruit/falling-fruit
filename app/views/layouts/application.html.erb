@@ -20,7 +20,7 @@
     <meta property="og:locale" content="de_DE" />
   <% elsif (I18n.locale == :fr) %>
     <meta property="og:locale" content="fr_FR" />
-  <% elsif (I18n.locale == :"pt-br") %>
+  <% elsif (I18n.locale == :"pt") %>
     <meta property="og:locale" content="pt_BR" />
   <% elsif (I18n.locale == :"it") %>
     <meta property="og:locale" content="it_IT" />
@@ -190,7 +190,7 @@
       <option value="it" <%= (I18n.locale == :it) ? "selected" : "" %>>Italiano</option>
       <option value="nl" <%= (I18n.locale == :nl) ? "selected" : "" %>>Nederlands</option>
       <option value="pl" <%= (I18n.locale == :pl) ? "selected" : "" %>>Polski</option>
-      <option value="pt-br" <%= (I18n.locale == :"pt-BR") ? "selected" : "" %>>Português</option>
+      <option value="pt" <%= (I18n.locale == :"pt") ? "selected" : "" %>>Português</option>
       <option value="vi" <%= (I18n.locale == :"vi") ? "selected" : "" %>>Tiếng Việt</option>
     </select>
   </div>
