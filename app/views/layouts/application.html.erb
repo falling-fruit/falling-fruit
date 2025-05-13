@@ -227,6 +227,13 @@
     <%= translate("layouts.application.mapping_the_urban_harvest") %>
   <% end %>
  </span>
+ <!-- Orange button linking to beta website -->
+ <%# Set url to current route prefixed by https://beta.fallingfruit.org %>
+ <a href="https://beta.fallingfruit.org<%= request.fullpath %>" id="betalink"
+  style="background-color: #FF8C00; display: inline-block; color: white; border-radius: 5px 5px 0 0; margin: 0 5px; padding: 5px 8px; font-size: 16px; border: none; cursor: pointer;"
+ >
+  <%= translate("layouts.application.try_the_beta") %>
+ </a>
  <!--
  <% ['forager', 'freegan', 'grafter'].each do |c| %>
      <% if @categories.include?(c) %>

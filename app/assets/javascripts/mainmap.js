@@ -24,6 +24,7 @@ function update_permalink(){
     permalink = permalink + "&c=" + cats;
   }
   $('#permalink').attr('href',permalink);
+  $('#betalink').attr('href', `https://beta.fallingfruit.org${permalink}`);
 }
 
 function update_url(object) {
