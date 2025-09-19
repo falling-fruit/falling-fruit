@@ -31,6 +31,11 @@ class Type < ActiveRecord::Base
   Categories=["forager","freegan","honeybee","grafter"]
   DefaultCategories=["forager","freegan"]
 
+  def self.columns
+    # Ignore database columns: types.label
+    super.reject {|column| column.name == 'label'}
+  end
+
   def all_children
     c = []
     seen = []
