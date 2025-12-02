@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20250916212222) do
+ActiveRecord::Schema.define(:version => 20251202220124) do
 
   add_extension "postgis"
   add_extension "intarray"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(:version => 20250916212222) do
     t.text     "zh_hans_name"
     t.text     "uk_name"
     t.integer  "user_id"
+    t.text     "ru_name"
   end
 
   create_table "users", :force => true do |t|
