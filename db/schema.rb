@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20251202220124) do
+ActiveRecord::Schema.define(:version => 20260226145747) do
 
   add_extension "postgis"
   add_extension "intarray"
@@ -249,6 +249,7 @@ ActiveRecord::Schema.define(:version => 20251202220124) do
     t.string   "range_radius_unit"
     t.spatial  "location",               :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.text     "roles",                                                                                                   :null => false, :array => true
+    t.boolean  "private",                                                                              :default => false, :null => false
   end
 
 end
