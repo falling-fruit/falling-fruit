@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20260409205659) do
+ActiveRecord::Schema.define(:version => 20260412070116) do
 
   add_extension "postgis"
   add_extension "intarray"
@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20260409205659) do
     t.boolean  "is_public",      :default => true, :null => false
     t.string   "access_key"
     t.integer  "transport_type", :default => 0
+    t.text     "description"
   end
 
   create_table "sessions", :force => true do |t|
