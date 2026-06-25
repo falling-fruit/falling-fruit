@@ -15,7 +15,7 @@ If you want to help with development, feel free to fork the project. If you have
 
 ## Status
 
-The website is live at [fallingfruit.org](https://fallingfruit.org). However, maintaining both a website and a mobile app that do not share any code proved too time consuming, so we are slowly phasing out this project in favor of a mobile-friendly web app ([falling-fruit-web](https://github.com/falling-fruit/falling-fruit-web)). However, all versions of the mobile app still rely on the Rails API.
+The website is still live at [old.fallingfruit.org](https://old.fallingfruit.org) but is being phased out by the new https://fallingfruit.org ([falling-fruit-web](https://github.com/falling-fruit/falling-fruit-web)). It is still used by older mobile app installations and for some admin tools which are not implemented in the new website. The repository is still used for database management, which has not yet been migrated to ([falling-fruit-api](https://github.com/falling-fruit/falling-fruit-api)).
 
 # Development
 
